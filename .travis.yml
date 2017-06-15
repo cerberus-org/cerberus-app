@@ -3,8 +3,12 @@ dist: trusty
 language: node_js
 node_js:
   - "node"
+  
 cache:
   yarn: true
+
+notifications:
+  slack: tlmader:TCHb5sywLfnNrFRdTvmfdYTQ
 
 addons:
 apt:
