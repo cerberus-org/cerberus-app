@@ -8,6 +8,7 @@ import 'hammerjs';
 import {MdButtonModule, MdCheckboxModule} from '@angular/material';
 import {MaterialModule, MdNativeDateModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -26,7 +27,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MdButtonModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

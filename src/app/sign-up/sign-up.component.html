@@ -1,3 +1,12 @@
-<p>
-  sign-up works!
-</p>
+<div class="center">
+  <md-list>
+    <md-list-item *ngFor="let field of form">
+      <md-input-container>
+        <input mdInput placeholder={{field}}>
+      </md-input-container>
+    </md-list-item>
+  </md-list>  
+</div>
+<div class="center">
+  <button id="submitBtn" md-button color="primary">Submit</button>
+</div>
