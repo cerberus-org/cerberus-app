@@ -22,8 +22,8 @@ db.once('open', () => {
 
   // Set routes here
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist/index.html'));
+  app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
   });
 
   app.listen(app.get('port'), () => {
