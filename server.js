@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const MONGO_URL = `mongodb://cerberus:${process.env.MLAB_PASSWORD}@ds127802.mlab.com:27802/heroku_vhdmcrh0`;
 
 // Get our API routes
 const api = require('./server/routes/api');
@@ -23,6 +25,11 @@ app.use('/api', api);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
+
+/**
+ * Connect to a MongoDB database (either local or hosted).
+ */
+mongoose.connect(MONGO_URL);
 
 /**
  * Get port from environment and store in Express.
