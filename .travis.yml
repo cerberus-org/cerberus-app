@@ -26,6 +26,6 @@ before_install:
 before_script:
 - yarn global add @angular/cli
 - yarn install
-- ng build
+- npm run build
 
 script: ng test --single-run
