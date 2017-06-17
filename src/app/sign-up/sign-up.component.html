@@ -1,12 +1,14 @@
 <div class="center">
-  <md-list>
-    <md-list-item *ngFor="let field of form">
-      <md-input-container>
-        <input mdInput placeholder={{field}}>
-      </md-input-container>
-    </md-list-item>
-  </md-list>  
-</div>
-<div class="center">
-  <button id="submitBtn" md-button color="primary">Submit</button>
+  <form [formGroup]="volunteerForm" nonvalidate>
+    <md-list>
+      <md-list-item *ngFor="let field of form">
+        <md-input-container> 
+          <input mdInput placeholder={{field.placeholder}} class="form-control" formControlName={{field.control}}>
+        </md-input-container>
+      </md-list-item>
+    </md-list>  
+    <div class="center">
+      <button id="submitBtn" md-button color="primary">Submit</button>
+    </div>
+  </form>
 </div>
