@@ -23,13 +23,12 @@ export class SignUpComponent implements OnInit {
   } 
   
   ngOnInit() {   
-    // get submit button 
-    let submitBtn = document.getElementById("submitBtn");
-    // register submit button as an Observable
-    let click = Observable.fromEvent(submitBtn, "click");
-    // register Observerable with Observer
-    click.subscribe(e => console.log(JSON.stringify(this.volunteerForm.value)));
   } 
+  
+  addVolunteer() {
+    console.log(JSON.stringify(this.volunteerForm.value))
+    this.volunteerForm.reset();
+  }
   
   // use FormBuilder to define FormGroup 
   createForm() {

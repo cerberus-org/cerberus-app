@@ -1,5 +1,5 @@
 <div class="center">
-  <form [formGroup]="volunteerForm" nonvalidate>
+  <form [formGroup]="volunteerForm" nonvalidate (ngSubmit)="addVolunteer()">
     <md-list>
       <md-list-item *ngFor="let field of form">
         <md-input-container> 
@@ -8,7 +8,7 @@
       </md-list-item>
     </md-list>  
     <div class="center">
-      <button id="submitBtn" md-button color="primary">Submit</button>
+      <button type="submit" id="submitBtn" md-button color="primary">Submit</button>
     </div>
   </form>
 </div>
