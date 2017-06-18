@@ -1,3 +1,6 @@
+import { AppComponent } from './app.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+// modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -5,18 +8,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
-import {MdButtonModule, MdCheckboxModule} from '@angular/material';
-import {MaterialModule, MdNativeDateModule} from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { FlexLayoutModule } from "@angular/flex-layout";
-
-import { AppComponent } from './app.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { MaterialModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignUpComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -24,13 +22,11 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     // angular material
     BrowserAnimationsModule,
     NoopAnimationsModule,
-    MdButtonModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule,
-    FlexLayoutModule
+    ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, SignUpComponent]
 })
 export class AppModule { }
