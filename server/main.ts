@@ -3,8 +3,6 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
 
-const MONGO_URL = `mongodb://cerberus:${process.env.MLAB_PASSWORD}@ds127802.mlab.com:27802/heroku_vhdmcrh0`;
-
 const app = express();
 app.set('port', (process.env.PORT || 3000));
 
@@ -12,7 +10,7 @@ app.use('/', express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-mongoose.connect(MONGO_URL);
+mongoose.connect(process.env.MONGODB_URI);
 const db = mongoose.connection;
 (<any>mongoose).Promise = global.Promise;
 
