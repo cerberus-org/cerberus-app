@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { VolunteerService } from './../shared/volunteer.service'
 
@@ -28,7 +27,12 @@ export class SignUpComponent implements OnInit {
   } 
   
   addVolunteer() {
-    this.volunteerService.postVolunteer(this.volunteerForm.value);
+    this.volunteerService.postVolunteer(this.volunteerForm.value)
+    .subscribe(
+      res => {
+        console.log(res);
+      }
+    )
     this.volunteerForm.reset();
   }
   
