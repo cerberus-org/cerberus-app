@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { VolunteerService } from './../volunteer.service'
+import { VolunteerService } from './../shared/volunteer.service'
 
 @Component({
   selector: 'app-sign-up',
