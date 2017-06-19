@@ -29,9 +29,8 @@ export class SignUpComponent implements OnInit {
   addVolunteer() {
     this.volunteerService.postVolunteer(this.volunteerForm.value)
     .subscribe(
-      res => {
-        console.log(res);
-      }
+      res => console.log(res),
+      err => console.log("An error occured posting the volunteer: " + err)
     )
     this.volunteerForm.reset();
   }
