@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { VolunteerService } from './../volunteer.service'
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['./sign-up.component.css'],
+  providers: [VolunteerService]
 })
 export class SignUpComponent implements OnInit {
   // declare FormGroup
@@ -18,7 +20,7 @@ export class SignUpComponent implements OnInit {
     {placeholder: "Favorite Pet Name", control: "pet"}
   ]
   
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private volunteerService: VolunteerService) { 
     this.createForm();
   } 
   
@@ -26,7 +28,7 @@ export class SignUpComponent implements OnInit {
   } 
   
   addVolunteer() {
-    console.log(JSON.stringify(this.volunteerForm.value))
+    this.volunteerService.postVolunteer(this.volunteerForm.value);
     this.volunteerForm.reset();
   }
   
