@@ -3,6 +3,8 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
 
+import setRoutes from './routes';
+
 const app = express();
 app.set('port', (process.env.PORT || 3000));
 
@@ -18,7 +20,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 
-  // Set routes here
+  setRoutes(app);
 
   app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'));
