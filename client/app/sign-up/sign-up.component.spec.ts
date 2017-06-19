@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import 'hammerjs';
+// volunteerService
+import { HttpModule } from '@angular/http';
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
@@ -21,7 +23,8 @@ describe('SignUpComponent', () => {
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterTestingModule
+        RouterTestingModule,
+        HttpModule
       ],
     })
     .compileComponents();

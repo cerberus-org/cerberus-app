@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
+// volunteerService
+import { HttpModule } from '@angular/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -20,6 +22,8 @@ describe('AppComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
+        // volunteerService
+        HttpModule
       ],
       declarations: [
         AppComponent,
