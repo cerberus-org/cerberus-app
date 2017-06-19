@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import 'hammerjs';
-// volunteerService
+// volunteer service
 import { HttpModule } from '@angular/http';
 
 describe('SignUpComponent', () => {
@@ -19,11 +19,13 @@ describe('SignUpComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ SignUpComponent ],
       imports: [
+        RouterTestingModule,
+        // angular material
         BrowserAnimationsModule,
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterTestingModule,
+        // volunteer service
         HttpModule
       ],
     })
