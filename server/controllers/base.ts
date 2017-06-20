@@ -8,6 +8,7 @@ abstract class BaseController {
   getAll = (req, res) => {
     this.model.find({}, (err, docs) => {
       if (err) {
+        res.status(400).send(err);
         return console.error(err);
       }
       res.json(docs);
@@ -20,6 +21,7 @@ abstract class BaseController {
   count = (req, res) => {
     this.model.count((err, count) => {
       if (err) {
+        res.status(400).send(err);
         return console.error(err);
       }
       res.json(count);
@@ -32,13 +34,14 @@ abstract class BaseController {
   insert = (req, res) => {
     const obj = new this.model(req.body);
     obj.save((err, item) => {
-      // 11000 is the code for duplicate key error
-      if (err && err.code === 11000) {
-        res.sendStatus(409);
-      }
       if (err) {
-        // Validation error
-        res.sendStatus(400);
+        // 11000 is the code for duplicate key error
+        if (err.code === 11000) {
+          res.status(409).send(err);
+        } else {
+          // Validation error
+          res.status(400).send(err);
+        }
         return console.error(err);
       }
       res.status(200).json(item);
@@ -52,7 +55,7 @@ abstract class BaseController {
     this.model.findOne({ _id: req.params.id }, (err, obj) => {
       if (err) {
         // Object not found
-        res.sendStatus(404);
+        res.status(404).send(err);
         return console.error(err);
       }
       res.json(obj);
@@ -66,7 +69,7 @@ abstract class BaseController {
     this.model.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
       if (err) {
         // Error updating object
-        res.sendStatus(400);
+        res.status(400).send(err);
         return console.error(err);
       }
       res.sendStatus(200);
@@ -80,7 +83,7 @@ abstract class BaseController {
     this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
       if (err) {
         // Object not found
-        res.sendStatus(404);
+        res.status(404).send(err);
         return console.error(err);
       }
       res.sendStatus(200);
