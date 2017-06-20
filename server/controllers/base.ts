@@ -52,7 +52,7 @@ abstract class BaseController {
    * Get by ID
    */
   get = (req, res) => {
-    this.model.findOne({ _id: req.params.id }, (err, obj) => {
+    this.model.findById(req.params.id, (err, obj) => {
       if (err) {
         // Object not found
         res.status(404).send(err);
@@ -66,7 +66,7 @@ abstract class BaseController {
    * Update by ID
    */
   update = (req, res) => {
-    this.model.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
+    this.model.findByIdAndUpdate(req.params.id, req.body, (err) => {
       if (err) {
         // 11000 is the code for duplicate key error
         if (err.code === 11000) {
@@ -85,7 +85,7 @@ abstract class BaseController {
    * Delete by ID
    */
   delete = (req, res) => {
-    this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
+    this.model.findByIdAndRemove(req.params.id, (err) => {
       if (err) {
         // Object not found
         res.status(404).send(err);
