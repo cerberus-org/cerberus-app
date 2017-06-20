@@ -68,8 +68,13 @@ abstract class BaseController {
   update = (req, res) => {
     this.model.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
       if (err) {
-        // Error updating object
-        res.status(400).send(err);
+        // 11000 is the code for duplicate key error
+        if (err.code === 11000) {
+          res.status(409).send(err);
+        } else {
+          // Object not found
+          res.status(404).send(err);
+        }
         return console.error(err);
       }
       res.sendStatus(200);
