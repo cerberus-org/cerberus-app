@@ -2,23 +2,33 @@ abstract class BaseController {
 
   abstract model: any;
 
-  // Get all
+  /**
+   * Get all
+   */
   getAll = (req, res) => {
     this.model.find({}, (err, docs) => {
-      if (err) { return console.error(err); }
+      if (err) {
+        return console.error(err);
+      }
       res.json(docs);
     });
   };
 
-  // Count all
+  /**
+   * Count all
+   */
   count = (req, res) => {
     this.model.count((err, count) => {
-      if (err) { return console.error(err); }
+      if (err) {
+        return console.error(err);
+      }
       res.json(count);
     });
   };
 
-  // Insert
+  /**
+   * Insert
+   */
   insert = (req, res) => {
     const obj = new this.model(req.body);
     obj.save((err, item) => {
@@ -33,26 +43,38 @@ abstract class BaseController {
     });
   };
 
-  // Get by id
+  /**
+   * Get by ID
+   */
   get = (req, res) => {
     this.model.findOne({ _id: req.params.id }, (err, obj) => {
-      if (err) { return console.error(err); }
+      if (err) {
+        return console.error(err);
+      }
       res.json(obj);
     });
   };
 
-  // Update by id
+  /**
+   * Update by ID
+   */
   update = (req, res) => {
     this.model.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
-      if (err) { return console.error(err); }
+      if (err) {
+        return console.error(err);
+      }
       res.sendStatus(200);
     });
   };
 
-  // Delete by id
+  /**
+   * Delete by ID
+   */
   delete = (req, res) => {
     this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
-      if (err) { return console.error(err); }
+      if (err) {
+        return console.error(err);
+      }
       res.sendStatus(200);
     });
   };
