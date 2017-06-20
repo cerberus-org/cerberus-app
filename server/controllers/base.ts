@@ -53,12 +53,15 @@ abstract class BaseController {
    */
   get = (req, res) => {
     this.model.findById(req.params.id, (err, obj) => {
-      if (err) {
-        // Object not found
-        res.status(404).send(err);
-        return console.error(err);
+      if (err || !obj) {
+        // Cast to ObjectId failed or object not found
+        res.sendStatus(404);
+        if (err) {
+          return console.error(err);
+        }
+      } else {
+        res.json(obj);
       }
-      res.json(obj);
     });
   };
 
@@ -66,18 +69,21 @@ abstract class BaseController {
    * Update by ID
    */
   update = (req, res) => {
-    this.model.findByIdAndUpdate(req.params.id, req.body, (err) => {
-      if (err) {
+    this.model.findByIdAndUpdate(req.params.id, req.body, (err, obj) => {
+      if (err || !obj) {
         // 11000 is the code for duplicate key error
-        if (err.code === 11000) {
+        if (err && err.code === 11000) {
           res.status(409).send(err);
         } else {
-          // Object not found
-          res.status(404).send(err);
+          // Cast to ObjectId failed or object not found
+          res.sendStatus(404);
         }
-        return console.error(err);
+        if (err) {
+          return console.error(err);
+        }
+      } else {
+        res.sendStatus(200);
       }
-      res.sendStatus(200);
     });
   };
 
@@ -85,13 +91,16 @@ abstract class BaseController {
    * Delete by ID
    */
   delete = (req, res) => {
-    this.model.findByIdAndRemove(req.params.id, (err) => {
-      if (err) {
-        // Object not found
-        res.status(404).send(err);
-        return console.error(err);
+    this.model.findByIdAndRemove(req.params.id, (err, obj) => {
+      if (err || !obj) {
+        // Cast to ObjectId failed or object not found
+        res.sendStatus(404);
+        if (err) {
+          return console.error(err);
+        }
+      } else {
+        res.sendStatus(200);
       }
-      res.sendStatus(200);
     });
   };
 }
