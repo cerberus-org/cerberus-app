@@ -1,0 +1,101 @@
+{
+	"variables": [],
+	"info": {
+		"name": "cerberus-app",
+		"_postman_id": "2784d8d7-f917-ad5c-9d9e-e30a7a77f652",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all volunteers",
+			"request": {
+				"url": "localhost:3000/api/volunteers",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Count all volunteers",
+			"request": {
+				"url": "localhost:3000/api/volunteers/count",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Insert volunteer",
+			"request": {
+				"url": "localhost:3000/api/volunteer",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Mimi\"\n}"
+				},
+				"description": "volunteer: {\n  firstName: String,\n  lastName: String,\n  petName: String\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Get volunteer by ID",
+			"request": {
+				"url": "localhost:3000/api/volunteer/5948594d3980ba2c2ac157bd",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update volunteer by ID",
+			"request": {
+				"url": "localhost:3000/api/volunteer/5948594d3980ba2c2ac157bd",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Gam-Gam\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete volunteer by ID",
+			"request": {
+				"url": "localhost:3000/api/volunteer/5948594d3980ba2c2ac157bd",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
