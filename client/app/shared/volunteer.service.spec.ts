@@ -9,9 +9,9 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 import { VolunteerService } from './volunteer.service';
 
 const mockResponse = {
-  first: "Jane",
-  last: "Jo",
-  pet : "Spot"
+  firstName: "Jane",
+  lastName: "Jo",
+  petName : "Spot"
 }
 
 describe('VolunteerService', () => {
@@ -35,7 +35,7 @@ describe('VolunteerService', () => {
       VolunteerService
     ], (mockBackend: MockBackend, volunteerService: VolunteerService) => {
 
-      const expectedUrl = 'app/postMockVolunteer.json';
+      const expectedUrl = '/api/volunteer';
     
       // subscribe to any incoming connections from the back-end
       mockBackend.connections.subscribe(
@@ -50,7 +50,7 @@ describe('VolunteerService', () => {
           ));
         });
 
-        volunteerService.postVolunteer('app/postMockVolunteer.json')
+        volunteerService.postVolunteer('/api/volunteer')
         .subscribe(res => {
           expect(res).toEqual(mockResponse);
         })
