@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignUpComponent } from './sign-up.component';
+import { FormBuilder } from '@angular/forms';
 // modules
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgModule } from '@angular/core';
@@ -14,6 +15,12 @@ import { HttpModule } from '@angular/http';
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
+  
+  let emptyForm = {
+    firstName: null,
+    lastName: null,
+    petName: null
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,8 +35,11 @@ describe('SignUpComponent', () => {
         // volunteer service
         HttpModule
       ],
+      providers: [
+        FormBuilder
+      ]
     })
-    .compileComponents();
+    .compileComponents()
   }));
 
   beforeEach(() => {
@@ -41,4 +51,9 @@ describe('SignUpComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+  
+  it('form should clear on submit', (() => {
+    component.addVolunteer();
+    expect(component.volunteerForm.value).toEqual(emptyForm);
+  }));
 });
