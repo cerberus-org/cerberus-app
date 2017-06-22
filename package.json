@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng build && tsc -p server/tsconfig.app.json && node dist/server/main.js",
     "build": "ng build && tsc -p server/tsconfig.app.json",
-    "test": "ng test",
+    "test": "tsc -p server/tsconfig.spec.json && jasmine-node out-tsc && rm -rf out-tsc && ng test --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
