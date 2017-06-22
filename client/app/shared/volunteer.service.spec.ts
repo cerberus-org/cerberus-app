@@ -1,59 +1,100 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, async, getTestBed, } from '@angular/core/testing';
 import {
   HttpModule,
   ResponseOptions,
   Response,
-  RequestMethod
+  RequestMethod,
+  XHRBackend,
+  BaseRequestOptions,
+  Http
 } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { VolunteerService } from './volunteer.service';
 
 const mockResponse = {
-  firstName: "Jane",
-  lastName: "Jo",
-  petName : "Spot"
+  _id: "594a89f64f081c10c0337080",
+  updated_at: "2017-06-21T15:00:06.977Z",
+  created_a: "2017-06-21T15:00:06.977Z",
+  firstName: "Ted",
+  lastName: "Mader",
+  petName: "Mimi",
+  __v: 0
+}
+
+const mockVolunteer = {
+  firstName: "Ted",
+  lastName: "Mader",
+  petName: "Mimi",
 }
 
 describe('VolunteerService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpModule],
-      providers: [
-        VolunteerService, 
-        MockBackend,
-      ]
-    });
-  });
-
-  it('should be created', inject([VolunteerService], (service: VolunteerService) => {
-    expect(service).toBeTruthy();
-  }));
+  let backend: MockBackend;
+  let service: VolunteerService;
   
-  it('should post volunteer',
-    inject([
-      MockBackend, 
-      VolunteerService
-    ], (mockBackend: MockBackend, volunteerService: VolunteerService) => {
-
-      const expectedUrl = '/api/volunteer';
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+        providers: [
+            BaseRequestOptions,
+            MockBackend,
+            VolunteerService,
+            {
+                // inject these dependencies into the instnace of Http useFactory creates
+                deps: [
+                    MockBackend,
+                    BaseRequestOptions
+                ],
+                // Http is provided,
+                provide: Http,
+                // but angular should use MockBackend and BaseRequestOptions instead
+                // useFactory creates an instance of Http that depends on MockBackend and BaseRequestOptions 
+                useFactory: (backend: XHRBackend, defaultOptions: BaseRequestOptions) => {
+                    return new Http(backend, defaultOptions);
+                }
+            }
+        ]
+    });
     
-      // subscribe to any incoming connections from the back-end
-      mockBackend.connections.subscribe(
-        // MockConnection always us to configure the response we want to send out form our back-end
-        // as well as test incoming requests. 
-        (connection: MockConnection) => {
-          expect(connection.request.method).toBe(RequestMethod.Post);
-          expect(connection.request.url).toBe(expectedUrl);
+    // testbed, backend and service will be utilized for tests
+    const testbed = getTestBed();
+    backend = testbed.get(MockBackend);
+    service = testbed.get(VolunteerService);
 
-          connection.mockRespond(new Response(
-            new ResponseOptions({ body: mockResponse })
-          ));
+    }));
+      
+    // establishes how the fake server will respond
+    function setupConnections(backend: MockBackend, options: any) {
+    // if the backend receives a request (aka connection), run the method 
+    // located in subscribe 
+    backend.connections.subscribe((connection: MockConnection) => {
+        if (connection.request.url === '/api/volunteer') {
+            const responseOptions = new ResponseOptions(options);
+            const response = new Response(responseOptions);
+            connection.mockRespond(response);
+        }
+      });
+    }
+    
+    it('should be created', inject([VolunteerService], (service: VolunteerService) => {
+      expect(service).toBeTruthy();
+    }));
+  
+    it('should return the list of forms from the server on success', () => {
+      // tell the connection what to return and the status code
+      setupConnections(backend, {
+          body: {
+                  _id: "594a89f64f081c10c0337080",
+                  updated_at: "2017-06-21T15:00:06.977Z",
+                  created_a: "2017-06-21T15:00:06.977Z",
+                  firstName: "Ted",
+                  lastName: "Mader",
+                  petName: "Mimi",
+                  __v: 0
+          },
+          status: 200
         });
 
-        volunteerService.postVolunteer('/api/volunteer')
-        .subscribe(res => {
-          expect(res).toEqual(mockResponse);
-        })
-    })
-  );
+        service.postVolunteer(mockVolunteer).subscribe(res => {
+            expect(res).toEqual(mockResponse);
+        });
+      });
 });
