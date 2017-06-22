@@ -2,7 +2,11 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../dist/server",
+    "module": "commonjs",
     "baseUrl": "",
-    "module": "commonjs"
-  }
+    "types": []
+  },
+  "exclude": [
+    "**/*.spec.ts"
+  ]
 }
