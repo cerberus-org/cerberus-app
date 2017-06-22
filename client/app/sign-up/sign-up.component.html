@@ -3,7 +3,7 @@
     <md-list>
       <md-list-item *ngFor="let field of form">
         <md-input-container> 
-          <input mdInput placeholder={{field.placeholder}} class="form-control" formControlName={{field.control}}>
+          <input mdInput placeholder={{field.placeholder}} class="form-control" formControlName={{field.control}} required>
         </md-input-container>
       </md-list-item>
     </md-list>  
