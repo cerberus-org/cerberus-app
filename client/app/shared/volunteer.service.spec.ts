@@ -38,7 +38,7 @@ describe('VolunteerService', () => {
             MockBackend,
             VolunteerService,
             {
-                // inject these dependencies into the instnace of Http useFactory creates
+                // Inject these dependencies into the instance that Http useFactory creates
                 deps: [
                     MockBackend,
                     BaseRequestOptions
@@ -46,7 +46,7 @@ describe('VolunteerService', () => {
                 // Http is provided,
                 provide: Http,
                 // but angular should use MockBackend and BaseRequestOptions instead
-                // useFactory creates an instance of Http that depends on MockBackend and BaseRequestOptions 
+                // useFactory creates an instance of Http that depends on MockBackend and BaseRequestOptions
                 useFactory: (backend: XHRBackend, defaultOptions: BaseRequestOptions) => {
                     return new Http(backend, defaultOptions);
                 }
@@ -61,11 +61,11 @@ describe('VolunteerService', () => {
 
     }));
       
-    // establishes how the fake server will respond
+    // Establishes how the fake server will respond
     function setupConnections(backend: MockBackend, options: any) {
-    // if the backend receives a request (aka connection), run the method 
-    // located in subscribe 
-    backend.connections.subscribe((connection: MockConnection) => {
+      // If the backend receives a request (aka connection), the connection
+      // returns and Observable and the Observable is subscribed
+      backend.connections.subscribe((connection: MockConnection) => {
         if (connection.request.url === '/api/volunteer') {
             const responseOptions = new ResponseOptions(options);
             const response = new Response(responseOptions);
@@ -79,7 +79,7 @@ describe('VolunteerService', () => {
     }));
   
     it('should return the list of forms from the server on success', () => {
-      // tell the connection what to return and the status code
+      // Tell the connection what to return and the expected status code
       setupConnections(backend, {
           body: {
                   _id: "594a89f64f081c10c0337080",

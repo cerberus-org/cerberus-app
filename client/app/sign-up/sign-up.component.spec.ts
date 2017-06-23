@@ -42,11 +42,11 @@ describe('SignUpComponent', () => {
     .compileComponents()
   }));
 
-  beforeEach(() => {
+  beforeEach(async (() => {
     fixture = TestBed.createComponent(SignUpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should be created', () => {
     expect(component).toBeTruthy();
