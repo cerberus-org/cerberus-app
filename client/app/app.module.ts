@@ -4,6 +4,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
+// volunteer service
+import { HttpModule } from '@angular/http';
 // angular material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,6 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    // volunteer service
+    HttpModule,
     // angular material
     BrowserAnimationsModule,
     NoopAnimationsModule,

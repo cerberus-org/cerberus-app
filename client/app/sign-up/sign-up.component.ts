@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { VolunteerService } from './../shared/volunteer.service'
 
@@ -15,9 +14,9 @@ export class SignUpComponent implements OnInit {
   volunteerForm: FormGroup; 
   // used to populate placeholders and set form controls
   form = [
-    {placeholder: "First", control: "first"},
-    {placeholder: "Last", control: "last"},
-    {placeholder: "Favorite Pet Name", control: "pet"}
+    {placeholder: "First", control: "firstName"},
+    {placeholder: "Last", control: "lastName"},
+    {placeholder: "Favorite Pet Name", control: "petName"}
   ]
   
   constructor(private fb: FormBuilder, private volunteerService: VolunteerService) { 
@@ -28,7 +27,14 @@ export class SignUpComponent implements OnInit {
   } 
   
   addVolunteer() {
-    this.volunteerService.postVolunteer(this.volunteerForm.value);
+    this.volunteerService.postVolunteer(this.volunteerForm.value)
+    // subscribe returned Observerable to Observer
+    .subscribe(
+      // log the response
+      res => console.log(res),
+      // else log the error
+      err => console.log("An error occured posting the volunteer: " + err)
+    )
     this.volunteerForm.reset();
   }
   
@@ -36,9 +42,9 @@ export class SignUpComponent implements OnInit {
   createForm() {
     this.volunteerForm = this.fb.group({
       // list form controls
-      first: '',
-      last: '',
-      pet: ''
+      firstName: '',
+      lastName: '',
+      petName: ''
     });
   }
 }

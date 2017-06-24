@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
+// volunteer service
+import { HttpModule } from '@angular/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -20,6 +22,8 @@ describe('AppComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
+        // volunteer service
+        HttpModule
       ],
       declarations: [
         AppComponent,
@@ -33,10 +37,10 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-
+  
   it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app');
+  const fixture = TestBed.createComponent(AppComponent);
+  const app = fixture.debugElement.componentInstance;
+  expect(app.title).toEqual('app');
   }));
 });
