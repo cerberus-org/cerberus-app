@@ -1,12 +1,13 @@
 <div class="center">
-  <form [formGroup]="checkInForm" nonvalidate (ngSubmit)="checkInVolunteer()">
-    <md-list>
-      <md-list-item *ngFor="let field of form">
-        <md-input-container> 
-          <input mdInput placeholder={{field.placeholder}} class="form-control" formControlName={{field.control}} required>
-        </md-input-container>
-      </md-list-item>
-    </md-list>  
+  <form>
+    <md-input-container>
+      <input mdInput placeholder="Name" [mdAutocomplete]="auto" [formControl]="nameCtrl">
+    </md-input-container>
+    <md-autocomplete #auto="mdAutocomplete">
+      <md-option *ngFor="let name of filteredNames | async" [value]="name">
+        {{ name }}
+      </md-option>
+    </md-autocomplete>  
     <div class="center">
       <button type="submit" id="submitBtn" md-button color="primary">Submit</button>
     </div>
