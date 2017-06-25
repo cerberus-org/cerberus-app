@@ -1,47 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { VolunteerService } from './../shared/volunteer.service'
 
 @Component({
   selector: 'app-check-in',
   templateUrl: './check-in.component.html',
-  styleUrls: ['./check-in.component.css']
+  styleUrls: ['./check-in.component.css'],
+  providers: [VolunteerService]
 })
 export class CheckInComponent implements OnInit {
-  // declare FormGroup
-  checkInForm: FormGroup; 
-  // used to populate placeholders and set form controls
-  form = [
-    {placeholder: "First", control: "firstName"},
-    {placeholder: "Last", control: "lastName"},
-    {placeholder: "Favorite Pet Name", control: "petName"}
-  ]
+  nameCtrl: FormControl;
+  filteredNames: any;
+  
+  names: any = []
+  
+  constructor(private volunteerService: VolunteerService) {
+    this.volunteerService.getVolunteers()
+      .subscribe(
+        // once complete 
+        (res) => {
+          console.log("complete");
+          for(let i in res) {
+            this.names.push(res[i].firstName + " " + res[i].lastName + " " + 
+            res[i].petName)
+          } 
+        }
+      )
 
-  constructor(private fb: FormBuilder) { 
-    this.createForm();
+      this.nameCtrl = new FormControl();
+      // Every time nameCtrl changes,
+      this.filteredNames = this.nameCtrl.valueChanges
+      // handle the returned Observable
+      // Start without filtering any input 
+      .startWith(null)
+      // For each input, adjust filteredNames
+      .map(input => this.filterNames(input));
   } 
 
-  ngOnInit() {   
+  ngOnInit() {
   } 
-
-  checkInVolunteer() {
-    // this.volunteerService.postVolunteer(this.volunteerForm.value)
-    // // subscribe returned Observerable to Observer
-    // .subscribe(
-    //   // log the response
-    //   res => console.log(res),
-    //   // else log the error
-    //   err => console.log("An error occured posting the volunteer: " + err)
-    // )
-    this.checkInForm.reset();
-  }
-
-  // use FormBuilder to define FormGroup 
-  createForm() {
-    this.checkInForm = this.fb.group({
-      // list form controls
-      firstName: '',
-      lastName: '',
-      petName: ''
-    });
-  }
+  
+  filterNames(val: string) {
+    // condition ? true : false
+    return val ? this.names.filter(s => s.toLowerCase().indexOf(val.toLowerCase()) === 0)
+       : this.names;
+   }
 }
