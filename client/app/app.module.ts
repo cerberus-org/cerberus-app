@@ -12,11 +12,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 import { MaterialModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CheckInComponent } from './check-in/check-in.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignUpComponent
+    SignUpComponent,
+    CheckInComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent, SignUpComponent]
+  bootstrap: [AppComponent, SignUpComponent, CheckInComponent]
 })
 export class AppModule { }
