@@ -2,6 +2,7 @@ import VolunteerHandler from './volunteer';
 
 let req, res;
 
+// Add each BaseHandler implementation here
 const handlers = [
   new VolunteerHandler
 ];
