@@ -1,14 +1,14 @@
-import VolunteerController from './volunteer';
+import VolunteerHandler from './volunteer';
 
 let req, res;
 
-const controllers = [
-  new VolunteerController
+const handlers = [
+  new VolunteerHandler
 ];
 
-controllers.forEach(controller => {
+handlers.forEach(handler => {
 
-  describe(typeof controller, () => {
+  describe(typeof handler, () => {
 
     beforeEach(() => {
       spyOn(console, 'error').and.stub();
@@ -36,14 +36,14 @@ controllers.forEach(controller => {
     describe('Get all', () => {
 
       afterEach(() => {
-        expect(controller.model.find.calls.count()).toEqual(1);
+        expect(handler.model.find.calls.count()).toEqual(1);
       });
 
       it('returns a JSON body', done => {
-        spyOn(controller.model, 'find').and.callFake((obj, cb) => {
+        spyOn(handler.model, 'find').and.callFake((obj, cb) => {
           cb();
         });
-        controller.getAll(req, res);
+        handler.getAll(req, res);
         expect(res.json.calls.count()).toEqual(1);
         expect(res.send.calls.count()).toEqual(0);
         expect(res.status.calls.count()).toEqual(0);
@@ -52,10 +52,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 400 if there is an error', done => {
-        spyOn(controller.model, 'find').and.callFake((obj, cb) => {
+        spyOn(handler.model, 'find').and.callFake((obj, cb) => {
           cb(true);
         });
-        controller.getAll(req, res);
+        handler.getAll(req, res);
         expect(res.json.calls.count()).toEqual(0);
         expect(res.send.calls.count()).toEqual(1);
         expect(res.status.calls.count()).toEqual(1);
@@ -69,10 +69,10 @@ controllers.forEach(controller => {
     describe('Count all', () => {
 
       it('returns a JSON body', done => {
-        spyOn(controller.model, 'count').and.callFake(cb => {
+        spyOn(handler.model, 'count').and.callFake(cb => {
           cb();
         });
-        controller.count(req, res);
+        handler.count(req, res);
         expect(res.json.calls.count()).toEqual(1);
         expect(res.send.calls.count()).toEqual(0);
         expect(res.status.calls.count()).toEqual(0);
@@ -81,10 +81,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 400 if there is an error', done => {
-        spyOn(controller.model, 'count').and.callFake(cb => {
+        spyOn(handler.model, 'count').and.callFake(cb => {
           cb(true);
         });
-        controller.count(req, res);
+        handler.count(req, res);
         expect(res.json.calls.count()).toEqual(0);
         expect(res.send.calls.count()).toEqual(1);
         expect(res.status.calls.count()).toEqual(1);
@@ -99,10 +99,10 @@ controllers.forEach(controller => {
 
       it('returns status code 201', done => {
 
-        spyOn(controller.model.prototype, 'save').and.callFake(cb => {
+        spyOn(handler.model.prototype, 'save').and.callFake(cb => {
           cb();
         });
-        controller.insert(req, res);
+        handler.insert(req, res);
         expect(res.json.calls.count()).toEqual(1);
         expect(res.send.calls.count()).toEqual(0);
         expect(res.status.calls.count()).toEqual(1);
@@ -112,10 +112,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 409 if there is a duplicate key error', done => {
-        spyOn(controller.model.prototype, 'save').and.callFake(cb => {
+        spyOn(handler.model.prototype, 'save').and.callFake(cb => {
           cb({ code: 11000 });
         });
-        controller.insert(req, res);
+        handler.insert(req, res);
         expect(res.json.calls.count()).toEqual(0);
         expect(res.send.calls.count()).toEqual(1);
         expect(res.status.calls.count()).toEqual(1);
@@ -125,10 +125,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 400 if there is an error', done => {
-        spyOn(controller.model.prototype, 'save').and.callFake(cb => {
+        spyOn(handler.model.prototype, 'save').and.callFake(cb => {
           cb(true);
         });
-        controller.insert(req, res);
+        handler.insert(req, res);
         expect(res.json.calls.count()).toEqual(0);
         expect(res.send.calls.count()).toEqual(1);
         expect(res.status.calls.count()).toEqual(1);
@@ -143,10 +143,10 @@ controllers.forEach(controller => {
 
       it('returns status code 201', done => {
 
-        spyOn(controller.model, 'findById').and.callFake((id, cb) => {
+        spyOn(handler.model, 'findById').and.callFake((id, cb) => {
           cb(false, true);
         });
-        controller.get(req, res);
+        handler.get(req, res);
         expect(res.json.calls.count()).toEqual(1);
         expect(res.sendStatus.calls.count()).toEqual(0);
         expect(console.error).not.toHaveBeenCalled();
@@ -154,10 +154,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if there is no object is found', done => {
-        spyOn(controller.model, 'findById').and.callFake((id, cb) => {
+        spyOn(handler.model, 'findById').and.callFake((id, cb) => {
           cb(false, false);
         });
-        controller.get(req, res);
+        handler.get(req, res);
         expect(res.json.calls.count()).toEqual(0);
         expect(res.sendStatus.calls.count()).toEqual(1);
         expect(res.sendStatus).toHaveBeenCalledWith(404);
@@ -166,10 +166,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if it receives an invalid key', done => {
-        spyOn(controller.model, 'findById').and.callFake((id, cb) => {
+        spyOn(handler.model, 'findById').and.callFake((id, cb) => {
           cb(true, true);
         });
-        controller.get(req, res);
+        handler.get(req, res);
         expect(res.json.calls.count()).toEqual(0);
         expect(res.sendStatus.calls.count()).toEqual(1);
         expect(res.sendStatus).toHaveBeenCalledWith(404);
@@ -183,10 +183,10 @@ controllers.forEach(controller => {
 
       it('returns status code 201', done => {
 
-        spyOn(controller.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        spyOn(handler.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
           cb(false, true);
         });
-        controller.update(req, res);
+        handler.update(req, res);
         expect(res.send.calls.count()).toEqual(0);
         expect(res.status.calls.count()).toEqual(0);
         expect(res.sendStatus.calls.count()).toEqual(1);
@@ -196,10 +196,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 409 if there is a duplicate key error', done => {
-        spyOn(controller.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        spyOn(handler.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
           cb({ code: 11000 }, true);
         });
-        controller.update(req, res);
+        handler.update(req, res);
         expect(res.send.calls.count()).toEqual(1);
         expect(res.status.calls.count()).toEqual(1);
         expect(res.sendStatus.calls.count()).toEqual(0);
@@ -209,10 +209,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if there is no object is found', done => {
-        spyOn(controller.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        spyOn(handler.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
           cb(false, false);
         });
-        controller.update(req, res);
+        handler.update(req, res);
         expect(res.send.calls.count()).toEqual(0);
         expect(res.status.calls.count()).toEqual(0);
         expect(res.sendStatus.calls.count()).toEqual(1);
@@ -222,10 +222,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if it receives an invalid key', done => {
-        spyOn(controller.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        spyOn(handler.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
           cb(true, true);
         });
-        controller.update(req, res);
+        handler.update(req, res);
         expect(res.send.calls.count()).toEqual(0);
         expect(res.status.calls.count()).toEqual(0);
         expect(res.sendStatus.calls.count()).toEqual(1);
@@ -240,10 +240,10 @@ controllers.forEach(controller => {
 
       it('returns status code 201', done => {
 
-        spyOn(controller.model, 'findByIdAndRemove').and.callFake((id, cb) => {
+        spyOn(handler.model, 'findByIdAndRemove').and.callFake((id, cb) => {
           cb(false, true);
         });
-        controller.delete(req, res);
+        handler.delete(req, res);
         expect(res.sendStatus.calls.count()).toEqual(1);
         expect(res.sendStatus).toHaveBeenCalledWith(204);
         expect(console.error).not.toHaveBeenCalled();
@@ -251,10 +251,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if there is no object is found', done => {
-        spyOn(controller.model, 'findByIdAndRemove').and.callFake((id, cb) => {
+        spyOn(handler.model, 'findByIdAndRemove').and.callFake((id, cb) => {
           cb(false, false);
         });
-        controller.delete(req, res);
+        handler.delete(req, res);
         expect(res.sendStatus.calls.count()).toEqual(1);
         expect(res.sendStatus).toHaveBeenCalledWith(404);
         expect(console.error).not.toHaveBeenCalled();
@@ -262,10 +262,10 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if it receives an invalid key', done => {
-        spyOn(controller.model, 'findByIdAndRemove').and.callFake((id, cb) => {
+        spyOn(handler.model, 'findByIdAndRemove').and.callFake((id, cb) => {
           cb(true, true);
         });
-        controller.delete(req, res);
+        handler.delete(req, res);
         expect(res.sendStatus.calls.count()).toEqual(1);
         expect(res.sendStatus).toHaveBeenCalledWith(404);
         expect(console.error).toHaveBeenCalled();
