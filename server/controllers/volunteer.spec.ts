@@ -177,6 +177,59 @@ describe('VolunteerController', function () {
 
   describe('Update by ID', function () {
 
+    it('returns status code 201', function (done) {
+
+      spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        cb(false, true);
+      });
+      volunteerController.update(req, res);
+      expect(res.send.calls.count()).toEqual(0);
+      expect(res.status.calls.count()).toEqual(0);
+      expect(res.sendStatus.calls.count()).toEqual(1);
+      expect(res.sendStatus).toHaveBeenCalledWith(204);
+      expect(console.error).not.toHaveBeenCalled();
+      done();
+    });
+
+    it('returns status code 409 if there is a duplicate key error', function (done) {
+      spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        cb({ code: 11000 }, true);
+      });
+      volunteerController.update(req, res);
+      expect(res.send.calls.count()).toEqual(1);
+      expect(res.status.calls.count()).toEqual(1);
+      expect(res.sendStatus.calls.count()).toEqual(0);
+      expect(res.status).toHaveBeenCalledWith(409);
+      expect(console.error).toHaveBeenCalled();
+      done();
+    });
+
+    it('returns status code 404 if there is no object is found', function (done) {
+      spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        cb(false, false);
+      });
+      volunteerController.update(req, res);
+      expect(res.send.calls.count()).toEqual(0);
+      expect(res.status.calls.count()).toEqual(0);
+      expect(res.sendStatus.calls.count()).toEqual(1);
+      expect(res.sendStatus).toHaveBeenCalledWith(404);
+      expect(console.error).not.toHaveBeenCalled();
+      done();
+    });
+
+    it('returns status code 404 if it receives an invalid key', function (done) {
+      spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        cb(true, true);
+      });
+      volunteerController.update(req, res);
+      expect(res.send.calls.count()).toEqual(0);
+      expect(res.status.calls.count()).toEqual(0);
+      expect(res.sendStatus.calls.count()).toEqual(1);
+      expect(res.sendStatus).toHaveBeenCalledWith(404);
+      expect(console.error).toHaveBeenCalled();
+      done();
+    });
+
   });
 
   describe('Delete by ID', function () {
