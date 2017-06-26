@@ -4,7 +4,7 @@ import VolunteerController from './volunteer';
 const volunteerController = new VolunteerController;
 let req, res;
 
-describe('VolunteerController', function () {
+describe('VolunteerController', () => {
 
   beforeEach(() => {
     spyOn(console, 'error').and.stub();
@@ -29,13 +29,13 @@ describe('VolunteerController', function () {
     };
   });
 
-  describe('Get all', function () {
+  describe('Get all', () => {
 
     afterEach(() => {
       expect(Volunteer.find.calls.count()).toEqual(1);
     });
 
-    it('returns a JSON body', function (done) {
+    it('returns a JSON body', done => {
       spyOn(Volunteer, 'find').and.callFake((obj, cb) => {
         cb();
       });
@@ -47,7 +47,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 400 if there is an error', function (done) {
+    it('returns status code 400 if there is an error', done => {
       spyOn(Volunteer, 'find').and.callFake((obj, cb) => {
         cb(true);
       });
@@ -62,9 +62,9 @@ describe('VolunteerController', function () {
 
   });
 
-  describe('Count all', function () {
+  describe('Count all', () => {
 
-    it('returns a JSON body', function (done) {
+    it('returns a JSON body', done => {
       spyOn(Volunteer, 'count').and.callFake(cb => {
         cb();
       });
@@ -76,7 +76,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 400 if there is an error', function (done) {
+    it('returns status code 400 if there is an error', done => {
       spyOn(Volunteer, 'count').and.callFake(cb => {
         cb(true);
       });
@@ -91,9 +91,9 @@ describe('VolunteerController', function () {
 
   });
 
-  describe('Insert', function () {
+  describe('Insert', () => {
 
-    it('returns status code 201', function (done) {
+    it('returns status code 201', done => {
 
       spyOn(Volunteer.prototype, 'save').and.callFake(cb => {
         cb();
@@ -107,7 +107,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 409 if there is a duplicate key error', function (done) {
+    it('returns status code 409 if there is a duplicate key error', done => {
       spyOn(Volunteer.prototype, 'save').and.callFake(cb => {
         cb({ code: 11000 });
       });
@@ -120,7 +120,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 400 if there is an error', function (done) {
+    it('returns status code 400 if there is an error', done => {
       spyOn(Volunteer.prototype, 'save').and.callFake(cb => {
         cb(true);
       });
@@ -135,9 +135,9 @@ describe('VolunteerController', function () {
 
   });
 
-  describe('Get by ID', function () {
+  describe('Get by ID', () => {
 
-    it('returns status code 201', function (done) {
+    it('returns status code 201', done => {
 
       spyOn(Volunteer, 'findById').and.callFake((id, cb) => {
         cb(false, true);
@@ -149,7 +149,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 404 if there is no object is found', function (done) {
+    it('returns status code 404 if there is no object is found', done => {
       spyOn(Volunteer, 'findById').and.callFake((id, cb) => {
         cb(false, false);
       });
@@ -161,7 +161,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 404 if it receives an invalid key', function (done) {
+    it('returns status code 404 if it receives an invalid key', done => {
       spyOn(Volunteer, 'findById').and.callFake((id, cb) => {
         cb(true, true);
       });
@@ -175,9 +175,9 @@ describe('VolunteerController', function () {
 
   });
 
-  describe('Update by ID', function () {
+  describe('Update by ID', () => {
 
-    it('returns status code 201', function (done) {
+    it('returns status code 201', done => {
 
       spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
         cb(false, true);
@@ -191,7 +191,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 409 if there is a duplicate key error', function (done) {
+    it('returns status code 409 if there is a duplicate key error', done => {
       spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
         cb({ code: 11000 }, true);
       });
@@ -204,7 +204,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 404 if there is no object is found', function (done) {
+    it('returns status code 404 if there is no object is found', done => {
       spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
         cb(false, false);
       });
@@ -217,7 +217,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 404 if it receives an invalid key', function (done) {
+    it('returns status code 404 if it receives an invalid key', done => {
       spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
         cb(true, true);
       });
@@ -232,9 +232,9 @@ describe('VolunteerController', function () {
 
   });
 
-  describe('Delete by ID', function () {
+  describe('Delete by ID', () => {
 
-    it('returns status code 201', function (done) {
+    it('returns status code 201', done => {
 
       spyOn(Volunteer, 'findByIdAndRemove').and.callFake((id, cb) => {
         cb(false, true);
@@ -246,7 +246,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 404 if there is no object is found', function (done) {
+    it('returns status code 404 if there is no object is found', done => {
       spyOn(Volunteer, 'findByIdAndRemove').and.callFake((id, cb) => {
         cb(false, false);
       });
@@ -257,7 +257,7 @@ describe('VolunteerController', function () {
       done();
     });
 
-    it('returns status code 404 if it receives an invalid key', function (done) {
+    it('returns status code 404 if it receives an invalid key', done => {
       spyOn(Volunteer, 'findByIdAndRemove').and.callFake((id, cb) => {
         cb(true, true);
       });
