@@ -62,7 +62,7 @@ describe('VolunteerController', function () {
   describe('Count all', function () {
 
     it('returns a JSON body', function (done) {
-      spyOn(Volunteer, 'count').and.callFake((cb) => {
+      spyOn(Volunteer, 'count').and.callFake(cb => {
         cb();
       });
       volunteerController.count(req, res);
@@ -74,7 +74,7 @@ describe('VolunteerController', function () {
     });
 
     it('returns status code 400 if there is an error', function (done) {
-      spyOn(Volunteer, 'count').and.callFake((cb) => {
+      spyOn(Volunteer, 'count').and.callFake(cb => {
         cb(true);
       });
       volunteerController.count(req, res);
@@ -92,11 +92,12 @@ describe('VolunteerController', function () {
 
     it('returns status code 201', function (done) {
 
-      spyOn(Volunteer, 'save').and.callFake((obj, cb) => {
+      spyOn(Volunteer.prototype, 'save').and.callFake(cb => {
         cb();
       });
       volunteerController.insert(req, res);
-      expect(res.send.calls.count()).toEqual(1);
+      expect(res.json.calls.count()).toEqual(1);
+      expect(res.send.calls.count()).toEqual(0);
       expect(res.status.calls.count()).toEqual(1);
       expect(res.status).toHaveBeenCalledWith(201);
       expect(console.error).not.toHaveBeenCalled();
@@ -104,10 +105,11 @@ describe('VolunteerController', function () {
     });
 
     it('returns status code 409 if there is a duplicate key error', function (done) {
-      spyOn(Volunteer, 'save').and.callFake((obj, cb) => {
+      spyOn(Volunteer.prototype, 'save').and.callFake(cb => {
         cb({ code: 11000 });
       });
       volunteerController.insert(req, res);
+      expect(res.json.calls.count()).toEqual(0);
       expect(res.send.calls.count()).toEqual(1);
       expect(res.status.calls.count()).toEqual(1);
       expect(res.status).toHaveBeenCalledWith(409);
@@ -116,10 +118,11 @@ describe('VolunteerController', function () {
     });
 
     it('returns status code 400 if there is an error', function (done) {
-      spyOn(Volunteer, 'save').and.callFake((obj, cb) => {
+      spyOn(Volunteer.prototype, 'save').and.callFake(cb => {
         cb(true);
       });
       volunteerController.insert(req, res);
+      expect(res.json.calls.count()).toEqual(0);
       expect(res.send.calls.count()).toEqual(1);
       expect(res.status.calls.count()).toEqual(1);
       expect(res.status).toHaveBeenCalledWith(400);
