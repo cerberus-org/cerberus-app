@@ -142,7 +142,7 @@ handlers.forEach(handler => {
 
     describe('Get by ID', () => {
 
-      it('returns status code 201', done => {
+      it('returns a JSON body', done => {
 
         spyOn(handler.model, 'findById').and.callFake((id, cb) => {
           cb(false, true);
@@ -182,7 +182,7 @@ handlers.forEach(handler => {
 
     describe('Update by ID', () => {
 
-      it('returns status code 201', done => {
+      it('returns status code 204', done => {
 
         spyOn(handler.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
           cb(false, true);
@@ -239,7 +239,7 @@ handlers.forEach(handler => {
 
     describe('Delete by ID', () => {
 
-      it('returns status code 201', done => {
+      it('returns status code 204', done => {
 
         spyOn(handler.model, 'findByIdAndRemove').and.callFake((id, cb) => {
           cb(false, true);
