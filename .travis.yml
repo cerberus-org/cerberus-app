@@ -28,4 +28,4 @@ before_script:
 - yarn install
 - npm run build
 
-script: ng test --single-run
+script: npm test
