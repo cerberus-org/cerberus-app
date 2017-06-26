@@ -5,7 +5,7 @@
     </md-input-container>
     <md-autocomplete #auto="mdAutocomplete">
       <md-option *ngFor="let name of filteredNames | async" [value]="name">
-        {{ name }}
+        {{ name }} <i class="material-icons">pets</i> 
       </md-option>
     </md-autocomplete>  
     <div class="center">
