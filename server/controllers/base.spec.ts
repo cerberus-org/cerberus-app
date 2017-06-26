@@ -1,9 +1,10 @@
-import Volunteer from '../models/volunteer';
 import VolunteerController from './volunteer';
 
 let req, res;
 
-const controllers = [new VolunteerController];
+const controllers = [
+  new VolunteerController
+];
 
 controllers.forEach(controller => {
 
@@ -35,11 +36,11 @@ controllers.forEach(controller => {
     describe('Get all', () => {
 
       afterEach(() => {
-        expect(Volunteer.find.calls.count()).toEqual(1);
+        expect(controller.model.find.calls.count()).toEqual(1);
       });
 
       it('returns a JSON body', done => {
-        spyOn(Volunteer, 'find').and.callFake((obj, cb) => {
+        spyOn(controller.model, 'find').and.callFake((obj, cb) => {
           cb();
         });
         controller.getAll(req, res);
@@ -51,7 +52,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 400 if there is an error', done => {
-        spyOn(Volunteer, 'find').and.callFake((obj, cb) => {
+        spyOn(controller.model, 'find').and.callFake((obj, cb) => {
           cb(true);
         });
         controller.getAll(req, res);
@@ -68,7 +69,7 @@ controllers.forEach(controller => {
     describe('Count all', () => {
 
       it('returns a JSON body', done => {
-        spyOn(Volunteer, 'count').and.callFake(cb => {
+        spyOn(controller.model, 'count').and.callFake(cb => {
           cb();
         });
         controller.count(req, res);
@@ -80,7 +81,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 400 if there is an error', done => {
-        spyOn(Volunteer, 'count').and.callFake(cb => {
+        spyOn(controller.model, 'count').and.callFake(cb => {
           cb(true);
         });
         controller.count(req, res);
@@ -98,7 +99,7 @@ controllers.forEach(controller => {
 
       it('returns status code 201', done => {
 
-        spyOn(Volunteer.prototype, 'save').and.callFake(cb => {
+        spyOn(controller.model.prototype, 'save').and.callFake(cb => {
           cb();
         });
         controller.insert(req, res);
@@ -111,7 +112,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 409 if there is a duplicate key error', done => {
-        spyOn(Volunteer.prototype, 'save').and.callFake(cb => {
+        spyOn(controller.model.prototype, 'save').and.callFake(cb => {
           cb({ code: 11000 });
         });
         controller.insert(req, res);
@@ -124,7 +125,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 400 if there is an error', done => {
-        spyOn(Volunteer.prototype, 'save').and.callFake(cb => {
+        spyOn(controller.model.prototype, 'save').and.callFake(cb => {
           cb(true);
         });
         controller.insert(req, res);
@@ -142,7 +143,7 @@ controllers.forEach(controller => {
 
       it('returns status code 201', done => {
 
-        spyOn(Volunteer, 'findById').and.callFake((id, cb) => {
+        spyOn(controller.model, 'findById').and.callFake((id, cb) => {
           cb(false, true);
         });
         controller.get(req, res);
@@ -153,7 +154,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if there is no object is found', done => {
-        spyOn(Volunteer, 'findById').and.callFake((id, cb) => {
+        spyOn(controller.model, 'findById').and.callFake((id, cb) => {
           cb(false, false);
         });
         controller.get(req, res);
@@ -165,7 +166,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if it receives an invalid key', done => {
-        spyOn(Volunteer, 'findById').and.callFake((id, cb) => {
+        spyOn(controller.model, 'findById').and.callFake((id, cb) => {
           cb(true, true);
         });
         controller.get(req, res);
@@ -182,7 +183,7 @@ controllers.forEach(controller => {
 
       it('returns status code 201', done => {
 
-        spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        spyOn(controller.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
           cb(false, true);
         });
         controller.update(req, res);
@@ -195,7 +196,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 409 if there is a duplicate key error', done => {
-        spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        spyOn(controller.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
           cb({ code: 11000 }, true);
         });
         controller.update(req, res);
@@ -208,7 +209,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if there is no object is found', done => {
-        spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        spyOn(controller.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
           cb(false, false);
         });
         controller.update(req, res);
@@ -221,7 +222,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if it receives an invalid key', done => {
-        spyOn(Volunteer, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
+        spyOn(controller.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
           cb(true, true);
         });
         controller.update(req, res);
@@ -239,7 +240,7 @@ controllers.forEach(controller => {
 
       it('returns status code 201', done => {
 
-        spyOn(Volunteer, 'findByIdAndRemove').and.callFake((id, cb) => {
+        spyOn(controller.model, 'findByIdAndRemove').and.callFake((id, cb) => {
           cb(false, true);
         });
         controller.delete(req, res);
@@ -250,7 +251,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if there is no object is found', done => {
-        spyOn(Volunteer, 'findByIdAndRemove').and.callFake((id, cb) => {
+        spyOn(controller.model, 'findByIdAndRemove').and.callFake((id, cb) => {
           cb(false, false);
         });
         controller.delete(req, res);
@@ -261,7 +262,7 @@ controllers.forEach(controller => {
       });
 
       it('returns status code 404 if it receives an invalid key', done => {
-        spyOn(Volunteer, 'findByIdAndRemove').and.callFake((id, cb) => {
+        spyOn(controller.model, 'findByIdAndRemove').and.callFake((id, cb) => {
           cb(true, true);
         });
         controller.delete(req, res);
