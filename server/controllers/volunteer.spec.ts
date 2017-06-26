@@ -234,6 +234,40 @@ describe('VolunteerController', function () {
 
   describe('Delete by ID', function () {
 
+    it('returns status code 201', function (done) {
+
+      spyOn(Volunteer, 'findByIdAndRemove').and.callFake((id, cb) => {
+        cb(false, true);
+      });
+      volunteerController.delete(req, res);
+      expect(res.sendStatus.calls.count()).toEqual(1);
+      expect(res.sendStatus).toHaveBeenCalledWith(204);
+      expect(console.error).not.toHaveBeenCalled();
+      done();
+    });
+
+    it('returns status code 404 if there is no object is found', function (done) {
+      spyOn(Volunteer, 'findByIdAndRemove').and.callFake((id, cb) => {
+        cb(false, false);
+      });
+      volunteerController.delete(req, res);
+      expect(res.sendStatus.calls.count()).toEqual(1);
+      expect(res.sendStatus).toHaveBeenCalledWith(404);
+      expect(console.error).not.toHaveBeenCalled();
+      done();
+    });
+
+    it('returns status code 404 if it receives an invalid key', function (done) {
+      spyOn(Volunteer, 'findByIdAndRemove').and.callFake((id, cb) => {
+        cb(true, true);
+      });
+      volunteerController.delete(req, res);
+      expect(res.sendStatus.calls.count()).toEqual(1);
+      expect(res.sendStatus).toHaveBeenCalledWith(404);
+      expect(console.error).toHaveBeenCalled();
+      done();
+    });
+
   });
 
 });
