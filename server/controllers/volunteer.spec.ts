@@ -1,51 +1,54 @@
-import * as request from 'request';
 import Volunteer from '../models/volunteer';
 import VolunteerController from './volunteer';
 
-const base_url = 'http://localhost:3000/api';
-
-Volunteer.prototype.find = function (callback) {
-  console.log('in the mock');
-  callback();
-};
-
-let req, res;
-beforeEach(() => {
-  console.log('*** BEGIN beforeEach() ***');
-  req = {
-    query: {},
-    params: {},
-    body: {},
-  };
-  res = {
-    status: jasmine.createSpy('status').and.callFake((msg) => {
-      console.log(`res.status called with ${msg}`);
-      return this;
-    }),
-    send: jasmine.createSpy('send').and.callFake((msg) => {
-      console.log(`res.send called with ${msg}`);
-      return this;
-    })
-  };
-  console.log(res.status(200));
-  console.log('*** END beforeEach() ***');
-});
-
-afterEach(() => {
-  expect(res.status.calls.count).toEqual(1);
-  expect(res.send.calls.count).toEqual(1);
-});
-
 const volunteerController = new VolunteerController;
+let req, res;
 
 describe('VolunteerController', function () {
+  beforeEach(() => {
+    req = {
+      query: {},
+      params: {},
+      body: {},
+    };
+    res = {
+      json: jasmine.createSpy('json').and.callFake(() => {
+        return res;
+      }),
+      status: jasmine.createSpy('status').and.callFake(() => {
+        return res;
+      }),
+      send: jasmine.createSpy('send').and.callFake(() => {
+        return res;
+      })
+    };
+  });
 
   describe('Get all', function () {
 
+    afterEach(() => {
+      expect(Volunteer.find.calls.count()).toEqual(1);
+    });
+
     it('returns status code 200', function (done) {
+      spyOn(Volunteer, 'find').and.callFake((obj, cb) => {
+        cb();
+      });
       volunteerController.getAll(req, res);
-      expect(Volunteer.find.calls.count).toEqual(1);
-      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json.calls.count()).toEqual(1);
+      expect(res.send.calls.count()).toEqual(0);
+      expect(res.status.calls.count()).toEqual(0);
+      done();
+    });
+
+    it('returns status code 400 if there is an error', function (done) {
+      spyOn(Volunteer, 'find').and.callFake((obj, cb) => {
+        cb(true);
+      });
+      volunteerController.getAll(req, res);
+      expect(res.json.calls.count()).toEqual(0);
+      expect(res.send.calls.count()).toEqual(1);
+      expect(res.status.calls.count()).toEqual(1);
       done();
     });
 
