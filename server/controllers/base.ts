@@ -44,7 +44,7 @@ abstract class BaseController {
         }
         return console.error(err);
       }
-      res.status(200).json(item);
+      res.status(201).json(item);
     });
   };
 
@@ -82,7 +82,7 @@ abstract class BaseController {
           return console.error(err);
         }
       } else {
-        res.sendStatus(200);
+        res.sendStatus(204);
       }
     });
   };
@@ -99,7 +99,7 @@ abstract class BaseController {
           return console.error(err);
         }
       } else {
-        res.sendStatus(200);
+        res.sendStatus(204);
       }
     });
   };

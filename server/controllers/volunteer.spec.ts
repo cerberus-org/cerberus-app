@@ -54,31 +54,68 @@ describe('VolunteerController', function () {
 
   });
 
-  // describe('Count all', function () {
-  //
-  //   it('returns status code 200', function (done) {
-  //     request.get(`${base_url}/volunteers`, function (error, response) {
-  //       expect(response.statusCode).toBe(200);
-  //       done();
-  //     });
-  //   });
-  //
-  // });
-  //
-  // describe('Insert', function () {
-  //
-  // });
-  //
-  // describe('Get by ID', function () {
-  //
-  // });
-  //
-  // describe('Update by ID', function () {
-  //
-  // });
-  //
-  // describe('Delete by ID', function () {
-  //
-  // });
+  describe('Count all', function () {
+
+    it('returns status code 200', function (done) {
+      spyOn(Volunteer, 'count').and.callFake((obj, cb) => {
+        cb();
+      });
+      volunteerController.getAll(req, res);
+      expect(res.json.calls.count()).toEqual(1);
+      expect(res.send.calls.count()).toEqual(0);
+      expect(res.status.calls.count()).toEqual(0);
+      done();
+    });
+
+    it('returns status code 400 if there is an error', function (done) {
+      spyOn(Volunteer, 'count').and.callFake((obj, cb) => {
+        cb(true);
+      });
+      volunteerController.getAll(req, res);
+      expect(res.json.calls.count()).toEqual(0);
+      expect(res.send.calls.count()).toEqual(1);
+      expect(res.status.calls.count()).toEqual(1);
+      done();
+    });
+
+  });
+
+  describe('Insert', function () {
+
+    it('returns status code 200', function (done) {
+      spyOn(Volunteer, 'count').and.callFake((obj, cb) => {
+        cb();
+      });
+      volunteerController.getAll(req, res);
+      expect(res.json.calls.count()).toEqual(1);
+      expect(res.send.calls.count()).toEqual(0);
+      expect(res.status.calls.count()).toEqual(0);
+      done();
+    });
+
+    it('returns status code 400 if there is an error', function (done) {
+      spyOn(Volunteer, 'count').and.callFake((obj, cb) => {
+        cb(true);
+      });
+      volunteerController.getAll(req, res);
+      expect(res.json.calls.count()).toEqual(0);
+      expect(res.send.calls.count()).toEqual(1);
+      expect(res.status.calls.count()).toEqual(1);
+      done();
+    });
+
+  });
+
+  describe('Get by ID', function () {
+
+  });
+
+  describe('Update by ID', function () {
+
+  });
+
+  describe('Delete by ID', function () {
+
+  });
 
 });
