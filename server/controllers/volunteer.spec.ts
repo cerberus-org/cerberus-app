@@ -22,6 +22,9 @@ describe('VolunteerController', function () {
       }),
       send: jasmine.createSpy('send').and.callFake(() => {
         return res;
+      }),
+      sendStatus: jasmine.createSpy('sendStatus').and.callFake(() => {
+        return res;
       })
     };
   });
@@ -133,6 +136,42 @@ describe('VolunteerController', function () {
   });
 
   describe('Get by ID', function () {
+
+    it('returns status code 201', function (done) {
+
+      spyOn(Volunteer, 'findById').and.callFake((id, cb) => {
+        cb(false, true);
+      });
+      volunteerController.get(req, res);
+      expect(res.json.calls.count()).toEqual(1);
+      expect(res.sendStatus.calls.count()).toEqual(0);
+      expect(console.error).not.toHaveBeenCalled();
+      done();
+    });
+
+    it('returns status code 404 if there is no object is found', function (done) {
+      spyOn(Volunteer, 'findById').and.callFake((id, cb) => {
+        cb(false, false);
+      });
+      volunteerController.get(req, res);
+      expect(res.json.calls.count()).toEqual(0);
+      expect(res.sendStatus.calls.count()).toEqual(1);
+      expect(res.sendStatus).toHaveBeenCalledWith(404);
+      expect(console.error).not.toHaveBeenCalled();
+      done();
+    });
+
+    it('returns status code 404 if it receives an invalid key', function (done) {
+      spyOn(Volunteer, 'findById').and.callFake((id, cb) => {
+        cb(true, true);
+      });
+      volunteerController.get(req, res);
+      expect(res.json.calls.count()).toEqual(0);
+      expect(res.sendStatus.calls.count()).toEqual(1);
+      expect(res.sendStatus).toHaveBeenCalledWith(404);
+      expect(console.error).toHaveBeenCalled();
+      done();
+    });
 
   });
 
