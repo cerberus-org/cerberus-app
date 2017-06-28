@@ -33,6 +33,6 @@ import { CheckInComponent } from './check-in/check-in.component';
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent, CheckInComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

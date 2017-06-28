@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { VolunteerService } from '../shared/volunteer.service';
-import { ViewChild, TemplateRef } from '@angular/core'
 import { Router } from '@angular/router';
+import { VolunteerService } from '../shared/volunteer.service';
 
 @Component({
   selector: 'app-check-in',

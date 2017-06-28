@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignUpComponent } from './sign-up.component';
-import { FormBuilder } from '@angular/forms';
 // modules
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgModule } from '@angular/core';
@@ -36,7 +35,6 @@ describe('SignUpComponent', () => {
         HttpModule
       ],
       providers: [
-        FormBuilder
       ]
     })
     .compileComponents()
