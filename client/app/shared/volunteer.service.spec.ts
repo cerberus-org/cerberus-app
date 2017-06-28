@@ -66,7 +66,7 @@ describe('VolunteerService', () => {
       // If the backend receives a request (aka connection), the connection
       // returns and Observable and the Observable is subscribed
       backend.connections.subscribe((connection: MockConnection) => {
-        if (connection.request.url === '/api/volunteer') {
+        if (connection.request.url === '/api/volunteer' || '/api/volunteers') {
             const responseOptions = new ResponseOptions(options);
             const response = new Response(responseOptions);
             connection.mockRespond(response);
@@ -78,7 +78,7 @@ describe('VolunteerService', () => {
       expect(service).toBeTruthy();
     }));
   
-    it('should return the list of forms from the server on success', () => {
+    it('should post volunteer', () => {
       // Tell the connection what to return and the expected status code
       setupConnections(backend, {
           body: {
@@ -97,4 +97,24 @@ describe('VolunteerService', () => {
             expect(res).toEqual(mockResponse);
         });
       });
+      
+      it('should get volunteers', () => {
+        // Tell the connection what to return and the expected status code
+        setupConnections(backend, {
+            body: {
+                    _id: "594a89f64f081c10c0337080",
+                    updated_at: "2017-06-21T15:00:06.977Z",
+                    created_a: "2017-06-21T15:00:06.977Z",
+                    firstName: "Ted",
+                    lastName: "Mader",
+                    petName: "Mimi",
+                    __v: 0
+            },
+            status: 200
+          });
+
+          service.getVolunteers().subscribe(res => {
+              expect(res).toEqual(mockResponse);
+          });
+        });
 });
