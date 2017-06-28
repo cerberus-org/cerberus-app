@@ -52,6 +52,6 @@ describe('SignUpComponent', () => {
   
   it('form should clear on submit', (() => {
     component.addVolunteer();
-    expect(component.volunteerForm.value).toEqual(emptyForm);
+    expect(component.signUpForm.value).toEqual(emptyForm);
   }));
 });

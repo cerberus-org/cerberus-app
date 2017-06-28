@@ -11,7 +11,7 @@ import { VolunteerService } from './../shared/volunteer.service'
 })
 export class SignUpComponent implements OnInit {
   // declare FormGroup
-  volunteerForm: FormGroup; 
+  signUpForm: FormGroup; 
   // used to populate placeholders and set form controls
   form = [
     {placeholder: "First", control: "firstName"},
@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit {
   } 
   
   addVolunteer() {
-    this.volunteerService.postVolunteer(this.volunteerForm.value)
+    this.volunteerService.postVolunteer(this.signUpForm.value)
     // subscribe returned Observerable to Observer
     .subscribe(
       // log the response
@@ -35,12 +35,12 @@ export class SignUpComponent implements OnInit {
       // else log the error
       err => console.log("An error occured posting the volunteer: " + err)
     )
-    this.volunteerForm.reset();
+    this.signUpForm.reset();
   }
   
   // use FormBuilder to define FormGroup 
   createForm() {
-    this.volunteerForm = this.fb.group({
+    this.signUpForm = this.fb.group({
       // list form controls
       firstName: '',
       lastName: '',
