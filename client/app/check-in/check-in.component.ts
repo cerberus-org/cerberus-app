@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { VolunteerService } from '../shared/volunteer.service'
+import { VolunteerService } from '../shared/volunteer.service';
+import { ViewChild, TemplateRef } from '@angular/core'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-check-in',
@@ -11,14 +13,15 @@ import { VolunteerService } from '../shared/volunteer.service'
 export class CheckInComponent implements OnInit {
   nameCtrl: FormControl;
   filteredNames: any;
-  
+  location: any;
   names: any = [
   ]
   
-  constructor(private volunteerService: VolunteerService) {
+  constructor(private volunteerService: VolunteerService, router: Router) {
+    this.location = router.url;
+    
     this.volunteerService.getVolunteers()
       .subscribe(
-        // once complete 
         (res) => {
           for(let i in res) {
             this.names.push(res[i].firstName + " " + res[i].lastName + " " + 
@@ -31,18 +34,19 @@ export class CheckInComponent implements OnInit {
       // Every time nameCtrl changes,
       this.filteredNames = this.nameCtrl.valueChanges
       // handle the returned Observable
-      // Start without filtering any input 
+      // Start without filtering the list of names
       .startWith(null)
       // For each input, adjust filteredNames
       .map(input => this.filterNames(input));
   } 
-
+  
   ngOnInit() {
   } 
   
-  filterNames(val: string) { 
-    // condition ? true : false
-    return val ? this.names.filter(s => s.toLowerCase().includes(val.toLowerCase()))
+  filterNames(input: string) { 
+    // If the list of names includes the input return filtered list
+    // else return list of all names
+    return input ? this.names.filter(s => s.toLowerCase().includes(input.toLowerCase()))
        : this.names;
    }
 }

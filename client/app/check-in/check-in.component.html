@@ -1,5 +1,5 @@
 <div class="center">
-  <form>
+  <form *ngIf="location =='/check-in'">
     <md-input-container>
       <input mdInput placeholder="Name" [mdAutocomplete]="auto" [formControl]="nameCtrl">
     </md-input-container>
@@ -11,5 +11,11 @@
     <div class="center">
       <button type="submit" id="submitBtn" md-button color="primary">Submit</button>
     </div>
+    <div class="center">
+      <a [routerLink]="['/sign-up']">
+        <sup>Sign up?</sup>
+      </a>
+    </div>
   </form>
+  <router-outlet *ngIf="location =='/sign-up'"></router-outlet>
 </div>
