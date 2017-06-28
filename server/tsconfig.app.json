@@ -4,5 +4,8 @@
     "outDir": "../dist/server",
     "baseUrl": "",
     "module": "commonjs"
-  }
+  },
+  "exclude": [
+    "**/*.spec.ts"
+  ]
 }
