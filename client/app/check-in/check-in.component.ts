@@ -25,8 +25,9 @@ export class CheckInComponent implements OnInit {
           for(let i in res) {
             this.names.push(res[i].firstName + " " + res[i].lastName + " " + 
             res[i].petName)
-          } 
-        }
+          }
+        },
+        err => console.log("An error occured getting volunteers: " + err) 
       )
 
       this.nameCtrl = new FormControl();
