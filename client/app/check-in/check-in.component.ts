@@ -20,6 +20,7 @@ export class CheckInComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.names = [];
     this.getVolunteers();
   }
 
@@ -33,19 +34,13 @@ export class CheckInComponent implements OnInit {
   }
 
   filterNames(input: string): void {
-    // If the list of names includes the input return filtered list
-    // else return list of all names
     this.filteredNames = input ? this.names.filter(s => s.toLowerCase().includes(input.toLowerCase())) : null;
   }
 
   getVolunteers(): void {
     this.volunteerService.getVolunteers()
-      .subscribe(res => {
-          for (let i in res) {
-            this.names.push(res[i].firstName + ' ' + res[i].lastName + ' ' +
-              res[i].petName)
-          }
-        },
+      .subscribe(volunteers => volunteers.forEach(
+        volunteer => this.names.push(`${volunteer.firstName} ${volunteer.lastName} ${volunteer.petName}`)),
         error => this.error = <any>error);
   }
 }
