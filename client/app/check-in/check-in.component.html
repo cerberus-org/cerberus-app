@@ -1,10 +1,10 @@
 <div class="center">
   <form>
     <md-input-container>
-      <input mdInput placeholder="Name" [mdAutocomplete]="auto" [formControl]="nameCtrl">
+      <input mdInput placeholder="Name" [mdAutocomplete]="auto" [formControl]="nameControl">
     </md-input-container>
     <md-autocomplete #auto="mdAutocomplete">
-      <md-option *ngFor="let name of filteredNames | async" [value]="name">
+      <md-option *ngFor="let name of filteredNames" [value]="name">
         {{ name }} <i class="material-icons">pets</i>
       </md-option>
     </md-autocomplete>

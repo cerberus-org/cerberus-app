@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { VolunteerService } from '../shared/volunteer.service';
 
 @Component({
@@ -10,15 +10,32 @@ import { VolunteerService } from '../shared/volunteer.service';
 })
 export class CheckInComponent implements OnInit {
   public error: string;
-  public nameCtrl: FormControl;
-  public filteredNames: any;
-  public names: any = [];
+  public names: string[];
+  public filteredNames: string[];
+  public nameControl: FormControl;
 
   constructor(private volunteerService: VolunteerService) {
+    this.createForm();
+    this.subscribeToForm();
   }
 
   ngOnInit(): void {
     this.getVolunteers();
+  }
+
+  createForm(): void {
+    this.nameControl = new FormControl('', Validators.required);
+  }
+
+  subscribeToForm(): void {
+    this.nameControl.valueChanges
+      .subscribe(changes => this.filterNames(changes));
+  }
+
+  filterNames(input: string): void {
+    // If the list of names includes the input return filtered list
+    // else return list of all names
+    this.filteredNames = input ? this.names.filter(s => s.toLowerCase().includes(input.toLowerCase())) : null;
   }
 
   getVolunteers(): void {
@@ -30,22 +47,5 @@ export class CheckInComponent implements OnInit {
           }
         },
         error => this.error = <any>error);
-
-    this.nameCtrl = new FormControl();
-    // Every time nameCtrl changes,
-    this.filteredNames = this.nameCtrl.valueChanges
-    // handle the returned Observable
-    // Start without filtering the list of names
-      .startWith(null)
-      // For each input, adjust filteredNames
-      .map(input => this.filterNames(input));
-  }
-
-  filterNames(input: string): string[] {
-    // If the list of names includes the input return filtered list
-    // else return list of all names
-    return input
-      ? this.names.filter(s => s.toLowerCase().includes(input.toLowerCase()))
-      : this.names;
   }
 }
