@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
 import { VolunteerService } from '../shared/volunteer.service';
 
 @Component({
@@ -10,43 +9,43 @@ import { VolunteerService } from '../shared/volunteer.service';
   providers: [VolunteerService]
 })
 export class CheckInComponent implements OnInit {
-  nameCtrl: FormControl;
-  filteredNames: any;
-  location: any;
-  names: any = [
-  ]
+  public error: string;
+  public nameCtrl: FormControl;
+  public filteredNames: any;
+  public names: any = [];
 
-  constructor(private volunteerService: VolunteerService, router: Router) {
-    this.location = router.url;
+  constructor(private volunteerService: VolunteerService) {
+  }
 
+  ngOnInit(): void {
+    this.getVolunteers();
+  }
+
+  getVolunteers(): void {
     this.volunteerService.getVolunteers()
-      .subscribe(
-        (res) => {
-          for(let i in res) {
-            this.names.push(res[i].firstName + " " + res[i].lastName + " " +
-            res[i].petName)
+      .subscribe(res => {
+          for (let i in res) {
+            this.names.push(res[i].firstName + ' ' + res[i].lastName + ' ' +
+              res[i].petName)
           }
         },
-        err => console.log("An error occured getting volunteers: " + err)
-      )
+        error => this.error = <any>error);
 
-      this.nameCtrl = new FormControl();
-      // Every time nameCtrl changes,
-      this.filteredNames = this.nameCtrl.valueChanges
-      // handle the returned Observable
-      // Start without filtering the list of names
+    this.nameCtrl = new FormControl();
+    // Every time nameCtrl changes,
+    this.filteredNames = this.nameCtrl.valueChanges
+    // handle the returned Observable
+    // Start without filtering the list of names
       .startWith(null)
       // For each input, adjust filteredNames
       .map(input => this.filterNames(input));
   }
 
-  ngOnInit() {
-  }
-
-  filterNames(input: string) {
+  filterNames(input: string): string[] {
     // If the list of names includes the input return filtered list
     // else return list of all names
-    return input ? this.names.filter(s => s.toLowerCase().includes(input.toLowerCase()))
-       : this.names;
-   }
+    return input
+      ? this.names.filter(s => s.toLowerCase().includes(input.toLowerCase()))
+      : this.names;
+  }
 }
