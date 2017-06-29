@@ -15,19 +15,19 @@ export class CheckInComponent implements OnInit {
   location: any;
   names: any = [
   ]
-  
+
   constructor(private volunteerService: VolunteerService, router: Router) {
     this.location = router.url;
-    
+
     this.volunteerService.getVolunteers()
       .subscribe(
         (res) => {
           for(let i in res) {
-            this.names.push(res[i].firstName + " " + res[i].lastName + " " + 
+            this.names.push(res[i].firstName + " " + res[i].lastName + " " +
             res[i].petName)
           }
         },
-        err => console.log("An error occured getting volunteers: " + err) 
+        err => console.log("An error occured getting volunteers: " + err)
       )
 
       this.nameCtrl = new FormControl();
@@ -38,12 +38,12 @@ export class CheckInComponent implements OnInit {
       .startWith(null)
       // For each input, adjust filteredNames
       .map(input => this.filterNames(input));
-  } 
-  
+  }
+
   ngOnInit() {
-  } 
-  
-  filterNames(input: string) { 
+  }
+
+  filterNames(input: string) {
     // If the list of names includes the input return filtered list
     // else return list of all names
     return input ? this.names.filter(s => s.toLowerCase().includes(input.toLowerCase()))
