@@ -11,22 +11,6 @@ import {
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { VolunteerService } from './volunteer.service';
 
-const mockResponse = {
-  _id: "594a89f64f081c10c0337080",
-  updated_at: "2017-06-21T15:00:06.977Z",
-  created_a: "2017-06-21T15:00:06.977Z",
-  firstName: "Ted",
-  lastName: "Mader",
-  petName: "Mimi",
-  __v: 0
-}
-
-const mockVolunteer = {
-  firstName: "Ted",
-  lastName: "Mader",
-  petName: "Mimi",
-}
-
 describe('VolunteerService', () => {
   let backend: MockBackend;
   let service: VolunteerService;
@@ -66,11 +50,9 @@ describe('VolunteerService', () => {
       // If the backend receives a request (aka connection), the connection
       // returns and Observable and the Observable is subscribed
       backend.connections.subscribe((connection: MockConnection) => {
-        if (connection.request.url === '/api/volunteer') {
             const responseOptions = new ResponseOptions(options);
             const response = new Response(responseOptions);
             connection.mockRespond(response);
-        }
       });
     }
     
@@ -78,23 +60,30 @@ describe('VolunteerService', () => {
       expect(service).toBeTruthy();
     }));
   
-    it('should return the list of forms from the server on success', () => {
+    it('should post volunteer', () => {
       // Tell the connection what to return and the expected status code
       setupConnections(backend, {
           body: {
-                  _id: "594a89f64f081c10c0337080",
-                  updated_at: "2017-06-21T15:00:06.977Z",
-                  created_a: "2017-06-21T15:00:06.977Z",
-                  firstName: "Ted",
-                  lastName: "Mader",
-                  petName: "Mimi",
-                  __v: 0
+            test: "test"
           },
           status: 200
         });
 
-        service.postVolunteer(mockVolunteer).subscribe(res => {
-            expect(res).toEqual(mockResponse);
+        service.postVolunteer({test: "test"}).subscribe(res => {
+            expect(res).toEqual({test: "test"});
         });
       });
+      
+      it('should get volunteers', () => {
+        setupConnections(backend, {
+            body: {
+              test: "test"
+            },
+            status: 201
+          });
+
+          service.getVolunteers().subscribe(res => {
+              expect(res).toEqual({test: "test"});
+          });
+        });
 });
