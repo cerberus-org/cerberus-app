@@ -4,13 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "build": "ng build",
-    "start": "node dist/server/app.js",
-    "predev": "tsc -p server",
+    "start": "ng build -aot -prod && tsc -p server/tsconfig.app.json && node dist/server/main.js",
+    "build": "ng build && tsc -p server/tsconfig.app.json",
     "dev": "concurrently \"mongod\" \"ng serve -pc proxy.conf.json --open\" \"tsc -w -p server/tsconfig.app.json\" \"nodemon dist/server/app.js\"",
-    "prod": "concurrently \"mongod\" \"ng build -aot -prod && tsc -p server/tsconfig.app.json && node dist/server/app.js\"",
     "test": "rm -rf out-tsc && tsc -p server/tsconfig.spec.json && jasmine-node out-tsc && ng test --single-run",
-    "test-server": "rm -rf out-tsc && tsc -p server/tsconfig.spec.json && jasmine-node out-tsc",
+    "test-client": "rm -rf out-tsc && tsc -p server/tsconfig.spec.json && jasmine-node out-tsc",
+    "test-server": "ng test",
     "lint": "ng lint",
     "lintbe": "tslint server/**/**.ts{,x}",
     "e2e": "ng e2e"
