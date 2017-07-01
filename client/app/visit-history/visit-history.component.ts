@@ -49,6 +49,10 @@ export class VisitHistoryComponent implements OnInit {
     return visit.endedAt.getTime() - visit.startedAt.getTime();
   }
 
+  formatDate(date: Date): string {
+    return date.toDateString();
+  }
+
   formatDuration(duration: number): string {
     // Convert to seconds
     let seconds = duration / 1000;

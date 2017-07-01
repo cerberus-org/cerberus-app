@@ -2,13 +2,13 @@
   <div fxFlex>
     <md-list>
       <h1 md-subheader>Start</h1>
-      <md-list-item *ngFor="let visit of visits">{{visit.startedAt}}</md-list-item>
+      <md-list-item *ngFor="let visit of visits">{{visit.startedAt.toLocaleTimeString()}}</md-list-item>
     </md-list>
   </div>
   <div fxFlex>
     <md-list>
       <h1 md-subheader>End</h1>
-      <md-list-item *ngFor="let visit of visits">{{visit.endedAt}}</md-list-item>
+      <md-list-item *ngFor="let visit of visits">{{visit.endedAt.toLocaleTimeString()}}</md-list-item>
     </md-list>
   </div>
   <div fxFlex>
