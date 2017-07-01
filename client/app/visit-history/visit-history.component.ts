@@ -46,6 +46,7 @@ export class VisitHistoryComponent implements OnInit {
   }
 
   calculateDuration(visit: Visit) {
-    return 1;
+    return visit.endedAt.getTime() - visit.startedAt.getTime();
   }
+
 }
