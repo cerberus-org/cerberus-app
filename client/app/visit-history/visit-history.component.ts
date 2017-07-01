@@ -45,4 +45,7 @@ export class VisitHistoryComponent implements OnInit {
     ];
   }
 
+  calculateDuration(visit: Visit) {
+    return 1;
+  }
 }

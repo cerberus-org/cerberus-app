@@ -1,5 +1,20 @@
-<div>
-  <md-list>
-    <md-list-item *ngFor="let visit of visits">{{visit.startedAt}} to {{visit.endedAt}}</md-list-item>
-  </md-list>
+<div class="center" fxLayout="row">
+  <div fxFlex>
+    <md-list>
+      <h1 md-subheader>Start</h1>
+      <md-list-item *ngFor="let visit of visits">{{visit.startedAt}}</md-list-item>
+    </md-list>
+  </div>
+  <div fxFlex>
+    <md-list>
+      <h1 md-subheader>End</h1>
+      <md-list-item *ngFor="let visit of visits">{{visit.endedAt}}</md-list-item>
+    </md-list>
+  </div>
+  <div fxFlex>
+    <md-list>
+      <h1 md-subheader>Duration</h1>
+      <md-list-item *ngFor="let visit of visits">{{calculateDuration(visit)}}</md-list-item>
+    </md-list>
+  </div>
 </div>
