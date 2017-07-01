@@ -42,7 +42,7 @@ export class VisitHistoryComponent implements OnInit {
         startedAt: new Date('2017-06-29T12:45:02.336Z'),
         endedAt: new Date('2017-06-29T18:45:02.336Z')
       }
-    ]
+    ];
   }
 
 }
