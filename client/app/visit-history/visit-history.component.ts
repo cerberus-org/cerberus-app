@@ -63,4 +63,12 @@ export class VisitHistoryComponent implements OnInit {
     const minutes = seconds / 60; // 60 seconds in 1 minute
     return `${hours} hours, ${minutes} minutes`;
   }
+
+  /**
+   * Display the date for each set of visits on that date
+   * @param visit
+   */
+  displayDate(visit: Visit): boolean {
+    return true;
+  }
 }

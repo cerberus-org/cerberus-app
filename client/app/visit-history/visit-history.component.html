@@ -1,20 +1,9 @@
-<div class="center" fxLayout="row">
-  <div fxFlex>
-    <md-list>
-      <h1 md-subheader>Start</h1>
-      <md-list-item *ngFor="let visit of visits">{{visit.startedAt.toLocaleTimeString()}}</md-list-item>
-    </md-list>
-  </div>
-  <div fxFlex>
-    <md-list>
-      <h1 md-subheader>End</h1>
-      <md-list-item *ngFor="let visit of visits">{{visit.endedAt.toLocaleTimeString()}}</md-list-item>
-    </md-list>
-  </div>
-  <div fxFlex>
-    <md-list>
-      <h1 md-subheader>Duration</h1>
-      <md-list-item *ngFor="let visit of visits">{{formatDuration(calculateDuration(visit))}}</md-list-item>
-    </md-list>
-  </div>
+<div class="center">
+  <md-list>
+    <h1 md-subheader>Visits</h1>
+    <md-list-item *ngFor="let visit of visits">
+      <h4 md-line>{{visit.startedAt.toLocaleTimeString()}} to {{visit.endedAt.toLocaleTimeString()}}</h4>
+      <p md-line>{{formatDuration(calculateDuration(visit))}}</p>
+    </md-list-item>
+  </md-list>
 </div>
