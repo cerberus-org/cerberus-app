@@ -14,6 +14,7 @@ import { MaterialModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckInComponent } from './check-in/check-in.component';
 import { VisitHistoryComponent } from './visit-history/visit-history.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -25,14 +26,13 @@ import { VisitHistoryComponent } from './visit-history/visit-history.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // volunteer service
     HttpModule,
-    // angular material
+    MaterialModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
-    MaterialModule,
+    FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
