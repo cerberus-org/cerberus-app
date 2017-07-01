@@ -13,12 +13,14 @@ import 'hammerjs';
 import { MaterialModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckInComponent } from './check-in/check-in.component';
+import { VisitHistoryComponent } from './visit-history/visit-history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
-    CheckInComponent
+    CheckInComponent,
+    VisitHistoryComponent
   ],
   imports: [
     BrowserModule,
