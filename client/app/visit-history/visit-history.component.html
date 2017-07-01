@@ -14,7 +14,7 @@
   <div fxFlex>
     <md-list>
       <h1 md-subheader>Duration</h1>
-      <md-list-item *ngFor="let visit of visits">{{calculateDuration(visit)}}</md-list-item>
+      <md-list-item *ngFor="let visit of visits">{{formatDuration(calculateDuration(visit))}}</md-list-item>
     </md-list>
   </div>
 </div>

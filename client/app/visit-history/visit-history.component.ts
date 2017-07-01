@@ -49,4 +49,14 @@ export class VisitHistoryComponent implements OnInit {
     return visit.endedAt.getTime() - visit.startedAt.getTime();
   }
 
+  formatDuration(duration: number): string {
+    // Convert to seconds
+    let seconds = duration / 1000;
+    // Extract hours
+    const hours = seconds / 3600; // 3,600 seconds in 1 hour
+    seconds = seconds % 3600; // seconds remaining after extracting hours
+    // Extract minutes
+    const minutes = seconds / 60; // 60 seconds in 1 minute
+    return `${hours} hours, ${minutes} minutes`;
+  }
 }
