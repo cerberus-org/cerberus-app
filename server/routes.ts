@@ -25,6 +25,7 @@ export default function setRoutes(app) {
   router.route('/visit/:id').get(visitHandler.get);
   router.route('/visit/:id').put(visitHandler.update);
   router.route('/visit/:id').delete(visitHandler.delete);
+  router.route('/visits/:date').get(visitHandler.getByDate);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);

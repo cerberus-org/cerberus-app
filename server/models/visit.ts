@@ -1,21 +1,21 @@
 import * as mongoose from 'mongoose';
 
 const visitSchema = new mongoose.Schema({
-   startAt: {
-    type: Date,
-    required: [true, 'Start time and date is required']
+   startedAt: {
+    type: Date, default: Date.now,
+    required: [false]
   },
-  endAt: {
+  endedAt: {
     type: Date,
     required: [false]
   },
-  volunterId: {
+  volunteerId: {
     type: String,
     required: [true]
   },
-}, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
+}, { timestamps: true });
 
-visitSchema.index({ startAt: 1, endAt: 1, volunterId: 1 }, { unique: true });
+visitSchema.index({ startedAt: 1, endedAt: 1, volunterId: 1 }, { unique: true });
 
 const Visit = mongoose.model('Visit', visitSchema);
 
