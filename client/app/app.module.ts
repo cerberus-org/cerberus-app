@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckInComponent } from './check-in/check-in.component';
 import { VisitHistoryComponent } from './visit-history/visit-history.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { VolunteerService } from './shared/volunteer.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [VolunteerService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

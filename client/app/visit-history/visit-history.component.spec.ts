@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialModule } from '@angular/material';
+import { MdListModule } from '@angular/material';
 
 import { VisitHistoryComponent } from './visit-history.component';
 import Volunteer from '../shared/volunteer';
@@ -13,7 +13,7 @@ describe('VisitHistoryComponent', () => {
     TestBed.configureTestingModule({
       declarations: [VisitHistoryComponent],
       imports: [
-        MaterialModule,
+        MdListModule,
       ]
     }).compileComponents();
   }));

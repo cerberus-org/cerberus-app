@@ -1,15 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { CheckInComponent } from './check-in.component';
-// modules
-import { RouterTestingModule } from '@angular/router/testing';
-import { NgModule } from '@angular/core';
-// angular material
+import { MdAutocompleteModule, MdInputModule } from '@angular/material';
+import { VolunteerService } from '../shared/volunteer.service';
+import { Observable } from 'rxjs/Observable';
+import Volunteer from '../shared/volunteer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import 'hammerjs';
-// volunteer service
-import { HttpModule } from '@angular/http';
 
 describe('CheckInComponent', () => {
   let component: CheckInComponent;
@@ -17,21 +14,17 @@ describe('CheckInComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CheckInComponent ],
+      declarations: [CheckInComponent],
       imports: [
-        RouterTestingModule,
-        // angular material
+        MdAutocompleteModule,
+        MdInputModule,
         BrowserAnimationsModule,
-        MaterialModule,
         FormsModule,
-        ReactiveFormsModule,
-        // volunteer service
-        HttpModule
+        ReactiveFormsModule
       ],
-      providers: [
-      ]
+      providers: [{ provide: VolunteerService, useClass: MockVolunteerService }]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -44,3 +37,30 @@ describe('CheckInComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+class MockVolunteerService extends VolunteerService {
+
+  constructor() {
+    super(null);
+  }
+
+  getVolunteers(): Observable<Volunteer[]> {
+    return Observable.of([{
+      firstName: 'Ted',
+      lastName: 'Mader',
+      petName: 'Mimi'
+    }, {
+      firstName: 'Hillary',
+      lastName: 'Arurang',
+      petName: 'Bandit'
+    }]);
+  }
+
+  postVolunteer(volunteer): Observable<Volunteer> {
+    return Observable.of({
+      firstName: 'Ted',
+      lastName: 'Mader',
+      petName: 'Mimi'
+    })
+  }
+}

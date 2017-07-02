@@ -53,10 +53,8 @@ export class VisitHistoryComponent implements OnInit {
       const date = visit.startedAt.toDateString();
       if (!map.has(date)) {
         map.set(date, []);
-        console.log('map set!');
       }
       map.get(date).push(visit);
-      console.log(map);
     });
     return map;
   }
