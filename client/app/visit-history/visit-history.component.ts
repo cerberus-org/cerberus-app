@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Volunteer } from '../shared/volunteer';
-import { Visit } from '../shared/visit';
+import { testVisits, Visit } from '../shared/visit';
 
 @Component({
   selector: 'app-visit-history',
@@ -23,28 +23,7 @@ export class VisitHistoryComponent implements OnInit {
    * @returns {[{volunteer: Volunteer, startedAt: Date, endedAt: Date}]}
    */
   getVisits(): Visit[] {
-    const testVolunteer: Volunteer = {
-      firstName: 'Ted',
-      lastName: 'Mader',
-      petName: 'Mimi'
-    };
-    return [
-      {
-        volunteer: testVolunteer,
-        startedAt: new Date('2017-06-29T10:45:02.336Z'),
-        endedAt: new Date('2017-06-29T16:45:56.336Z')
-      },
-      {
-        volunteer: testVolunteer,
-        startedAt: new Date('2017-06-29T12:45:42.336Z'),
-        endedAt: new Date('2017-06-29T18:45:01.336Z')
-      },
-      {
-        volunteer: testVolunteer,
-        startedAt: new Date('2017-06-30T12:45:32.336Z'),
-        endedAt: new Date('2017-06-30T18:45:52.336Z')
-      }
-    ];
+    return testVisits;
   }
 
   mapVisitsToDate(visits: Visit[]) {
