@@ -2,7 +2,7 @@
   <md-list>
     <h1 md-subheader>Visits</h1>
     <md-list-item *ngFor="let visit of visits">
-      <h4 md-line>{{visit.startedAt.toLocaleTimeString()}} to {{visit.endedAt.toLocaleTimeString()}}</h4>
+      <h4 md-line>{{visit.startedAt.toLocaleTimeString()}} - {{visit.endedAt.toLocaleTimeString()}}</h4>
       <p md-line>{{formatDuration(calculateDuration(visit))}}</p>
     </md-list-item>
   </md-list>
