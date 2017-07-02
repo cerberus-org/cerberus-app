@@ -61,19 +61,12 @@ export class VisitHistoryComponent implements OnInit {
     return map;
   }
 
-  calculateDuration(visit: Visit) {
-    return visit.endedAt.getTime() - visit.startedAt.getTime();
-  }
-
   formatTime(date: Date): string {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
-  formatDate(date: Date): string {
-    return date.toDateString();
-  }
-
-  formatDuration(duration: number): string {
+  formatDuration(visit: Visit): string {
+    const duration = visit.endedAt.getTime() - visit.startedAt.getTime();
     // Convert to seconds
     let seconds = duration / 1000;
     // Extract hours
@@ -82,13 +75,5 @@ export class VisitHistoryComponent implements OnInit {
     // Extract minutes
     const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
     return `${hours} hours, ${minutes} minutes`;
-  }
-
-  /**
-   * Display the date for each set of visits on that date
-   * @param visit
-   */
-  displayDate(visit: Visit): boolean {
-    return true;
   }
 }

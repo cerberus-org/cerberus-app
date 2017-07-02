@@ -6,7 +6,7 @@
       <h3 md-subheader>{{date}}</h3>
       <md-list-item *ngFor="let visit of visitsByDate.get(date)">
         <h4 md-line>{{formatTime(visit.startedAt)}} to {{formatTime(visit.endedAt)}}</h4>
-        <p md-line>{{formatDuration(calculateDuration(visit))}}</p>
+        <p md-line>{{formatDuration(visit)}}</p>
       </md-list-item>
     </div>
   </md-list>
