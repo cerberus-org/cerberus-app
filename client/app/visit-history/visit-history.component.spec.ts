@@ -2,8 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MdListModule } from '@angular/material';
 
 import { VisitHistoryComponent } from './visit-history.component';
-import Volunteer from '../shared/volunteer';
-import Visit from '../shared/visit';
+import { testVisits } from '../shared/visit';
 
 describe('VisitHistoryComponent', () => {
   let component: VisitHistoryComponent;
@@ -61,28 +60,4 @@ describe('VisitHistoryComponent', () => {
     expect(formatted).toEqual('6 hours, 0 minutes')
 
   });
-
-  const testVolunteer: Volunteer = {
-    firstName: 'Ted',
-    lastName: 'Mader',
-    petName: 'Mimi'
-  };
-
-  const testVisits: Visit[] = [
-    {
-      volunteer: testVolunteer,
-      startedAt: new Date('2017-06-29T10:45:02.336Z'),
-      endedAt: new Date('2017-06-29T16:45:56.336Z')
-    },
-    {
-      volunteer: testVolunteer,
-      startedAt: new Date('2017-06-29T12:45:42.336Z'),
-      endedAt: new Date('2017-06-29T18:45:01.336Z')
-    },
-    {
-      volunteer: testVolunteer,
-      startedAt: new Date('2017-06-30T12:45:32.336Z'),
-      endedAt: new Date('2017-06-30T18:45:52.336Z')
-    }
-  ];
 });

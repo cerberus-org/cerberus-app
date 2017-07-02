@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import Visit from '../shared/visit';
-import Volunteer from '../shared/volunteer';
+import { Volunteer } from '../shared/volunteer';
+import { Visit } from '../shared/visit';
 
 @Component({
   selector: 'app-visit-history',

@@ -1,12 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MdAutocompleteModule, MdInputModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CheckInComponent } from './check-in.component';
-import { MdAutocompleteModule, MdInputModule } from '@angular/material';
-import { VolunteerService } from '../shared/volunteer.service';
-import { Observable } from 'rxjs/Observable';
-import Volunteer from '../shared/volunteer';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MockVolunteerService, VolunteerService } from '../shared/volunteer.service';
 
 describe('CheckInComponent', () => {
   let component: CheckInComponent;
@@ -37,30 +35,3 @@ describe('CheckInComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-class MockVolunteerService extends VolunteerService {
-
-  constructor() {
-    super(null);
-  }
-
-  getVolunteers(): Observable<Volunteer[]> {
-    return Observable.of([{
-      firstName: 'Ted',
-      lastName: 'Mader',
-      petName: 'Mimi'
-    }, {
-      firstName: 'Hillary',
-      lastName: 'Arurang',
-      petName: 'Bandit'
-    }]);
-  }
-
-  postVolunteer(volunteer): Observable<Volunteer> {
-    return Observable.of({
-      firstName: 'Ted',
-      lastName: 'Mader',
-      petName: 'Mimi'
-    })
-  }
-}
