@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VisitHistoryComponent } from './visit-history.component';
+import { MaterialModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('VisitHistoryComponent', () => {
   let component: VisitHistoryComponent;
@@ -8,7 +10,10 @@ describe('VisitHistoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VisitHistoryComponent ]
+      declarations: [ VisitHistoryComponent ],
+      imports: [
+        MaterialModule,
+      ]
     })
     .compileComponents();
   }));
