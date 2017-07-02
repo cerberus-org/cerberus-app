@@ -8,14 +8,14 @@ import Volunteer from '../shared/volunteer';
   styleUrls: ['./visit-history.component.css']
 })
 export class VisitHistoryComponent implements OnInit {
-  public visits: Visit[];
   public visitsByDate: Map<string, Visit[]>;
+  public dates: string[];
 
   constructor() { }
 
   ngOnInit() {
-    this.visits = this.getVisits();
-    this.visitsByDate = this.mapVisitsToDate(this.visits);
+    this.visitsByDate = this.mapVisitsToDate(this.getVisits());
+    this.dates = Array.from(this.visitsByDate.keys());
   }
 
   /**
@@ -51,16 +51,22 @@ export class VisitHistoryComponent implements OnInit {
     const map = new Map<string, Visit[]>();
     visits.forEach(visit => {
       const date = visit.startedAt.toDateString();
-      if (!(date in map)) {
+      if (!map.has(date)) {
         map.set(date, []);
+        console.log('map set!');
       }
       map.get(date).push(visit);
+      console.log(map);
     });
     return map;
   }
 
   calculateDuration(visit: Visit) {
     return visit.endedAt.getTime() - visit.startedAt.getTime();
+  }
+
+  formatTime(date: Date): string {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
   formatDate(date: Date): string {
