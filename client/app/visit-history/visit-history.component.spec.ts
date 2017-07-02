@@ -51,8 +51,8 @@ describe('VisitHistoryComponent', () => {
   });
 
   it('should format times properly', () => {
-    const formatted = component.formatTime(testVisits[0].startedAt);
-    expect(formatted).toEqual('5:45 AM')
+    const formatted = component.formatTime(testVisits[0].startedAt, testVisits[0].timezone);
+    expect(formatted).toEqual('5:45 am')
   });
 
   it('should format durations properly', () => {

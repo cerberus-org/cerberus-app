@@ -22,8 +22,8 @@ export const testVisits: Visit[] = [
   },
   {
     volunteer: testVolunteers[0],
-    startedAt: new Date('2017-06-29T12:45:42.336Z'),
-    endedAt: new Date('2017-06-29T18:45:01.336Z'),
+    startedAt: new Date('2017-06-30T12:45:42.336Z'),
+    endedAt: new Date('2017-06-30T18:45:01.336Z'),
     timezone: 'America/Chicago'
   }
 ];
