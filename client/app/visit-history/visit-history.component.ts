@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Volunteer } from '../shared/volunteer';
 import { testVisits, Visit } from '../shared/visit';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-visit-history',
@@ -38,8 +39,9 @@ export class VisitHistoryComponent implements OnInit {
     return map;
   }
 
-  formatTime(date: Date): string {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  formatTime(date: Date, timezone: string): string {
+    const now = moment(date.toString());
+    return now.tz(timezone).format('h:m a');
   }
 
   formatDuration(visit: Visit): string {
