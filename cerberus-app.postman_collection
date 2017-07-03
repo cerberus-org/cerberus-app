@@ -172,7 +172,7 @@
 					"response": []
 				},
 				{
-					"name": "Get by date",
+					"name": "Get visits by date",
 					"event": [
 						{
 							"listen": "test",
