@@ -16,7 +16,7 @@ export default class VisitHandler extends BaseHandler {
       {'startedAt': { '$gte': date, '$lt': Date.now() }},
       (err, obj) => {
         if (err) {
-          res.status(404).send(err);
+          res.status(400).send(err);
           return console.error(err);
         }
         res.json(obj);

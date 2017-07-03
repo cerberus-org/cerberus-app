@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import moment = require('moment');
 
 const visitSchema = new mongoose.Schema({
    startedAt: {
@@ -13,6 +14,10 @@ const visitSchema = new mongoose.Schema({
     type: String,
     required: [true]
   },
+  timezone: {
+    type: String,
+    required: [true]
+  }
 }, { timestamps: true });
 
 visitSchema.index({ startedAt: 1, endedAt: 1, volunterId: 1 }, { unique: true });
