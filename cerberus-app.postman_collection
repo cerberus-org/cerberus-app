@@ -2,203 +2,434 @@
 	"variables": [],
 	"info": {
 		"name": "cerberus-app",
-		"_postman_id": "4bac46b5-f118-c84a-8b1b-02eb71cce8c4",
+		"_postman_id": "6d6a6562-77ea-34bf-d076-e1646731eb80",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Insert volunteer",
-			"event": [
+			"name": "visit",
+			"description": "",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || 409;",
-							"",
-							"if (responseCode.code === 201) {",
-							"    var jsonData = JSON.parse(responseBody);",
-							"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
-							"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
-							"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
-							"    tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
-							"} else if (responseCode.code === 409) {",
-							"    var jsonData = JSON.parse(responseBody);",
-							"    tests[\"code is correct\"] = jsonData.code === 11000;",
-							"}",
-							"",
-							"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "localhost:3000/api/volunteer",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+					"name": "Insert visit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || 409;",
+									"",
+									"if (responseCode.code === 201) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
+									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visit",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"674a861ace7ca574af9070c8\",\n\t\"volunteerId\": \"594a861ace7ca574ae9070c8\",\n\t\"timezone\": \"America/Los_Angeles\"\n}"
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"_id\": \"594a861ace7ca574ae9070c8\",\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Mimi\"\n}"
+					},
+					"response": []
 				},
-				"description": "volunteer: {\n  firstName: String,\n  lastName: String,\n  petName: String\n}"
-			},
-			"response": []
-		},
-		{
-			"name": "Get all volunteers",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"",
-							"var jsonData = JSON.parse(responseBody);",
-							"tests[\"_id is correct\"] = jsonData[0]._id === \"594a861ace7ca574ae9070c8\";",
-							"tests[\"firstName is correct\"] = jsonData[0].firstName === \"Ted\";",
-							"tests[\"lastName is correct\"] = jsonData[0].lastName === \"Mader\";",
-							"tests[\"petName is correct\"] = jsonData[0].petName === \"Mimi\";",
-							"",
-							"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "localhost:3000/api/volunteers",
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "Get volunteer by ID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"",
-							"var jsonData = JSON.parse(responseBody);",
-							"tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
-							"tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
-							"tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
-							"tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
-							"",
-							"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "Count all volunteers",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"",
-							"tests[\"Count is correct\"] = responseBody.has(1);",
-							"",
-							"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "localhost:3000/api/volunteers/count",
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "Update volunteer by ID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
-							"",
-							"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+					"name": "Get all visits",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"_id is correct\"] = jsonData[0]._id === \"674a861ace7ca574af9070c8\";",
+									"tests[\"volunteerId is correct\"] = jsonData[0].volunteerId === \"594a861ace7ca574ae9070c8\";",
+									"tests[\"timezone is correct\"] = jsonData[0].timezone === \"America/Los_Angeles\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visits",
+						"method": "GET",
+						"header": [],
+						"body": {},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Gam-Gam\"\n}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
+				{
+					"name": "Get visit by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200 || 404;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
+									"tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
+									"tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Count all visits ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Count is correct\"] = responseBody.has(1);",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visits",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update visit by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"startedAt\": \"2017-07-02T23:07:21.728Z\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get by date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"_id is correct\"] = jsonData[0]._id === \"674a861ace7ca574af9070c8\";",
+									"tests[\"volunteerId is correct\"] = jsonData[0].volunteerId === \"594a861ace7ca574ae9070c8\";",
+									"tests[\"timezone is correct\"] = jsonData[0].timezone === \"America/Los_Angeles\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visits/20170702",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete visit by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "Delete volunteer by ID",
-			"event": [
+			"name": "volunteer",
+			"description": "",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
-							"",
-							"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
+					"name": "Insert volunteer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || 409;",
+									"",
+									"if (responseCode.code === 201) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
+									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
+									"    tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"594a861ace7ca574ae9070c8\",\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Mimi\"\n}"
+						},
+						"description": "volunteer: {\n  firstName: String,\n  lastName: String,\n  petName: String\n}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
+				{
+					"name": "Get all volunteers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"_id is correct\"] = jsonData[0]._id === \"594a861ace7ca574ae9070c8\";",
+									"tests[\"firstName is correct\"] = jsonData[0].firstName === \"Ted\";",
+									"tests[\"lastName is correct\"] = jsonData[0].lastName === \"Mader\";",
+									"tests[\"petName is correct\"] = jsonData[0].petName === \"Mimi\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteers",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get volunteer by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
+									"tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
+									"tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
+									"tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Count all volunteers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Count is correct\"] = responseBody.has(1);",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteers/count",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update volunteer by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Gam-Gam\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete volunteer by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
