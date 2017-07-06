@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdAutocompleteModule, MdButtonModule, MdInputModule, MdListModule } from '@angular/material';
+import { MdAutocompleteModule, MdButtonModule, MdCardModule, MdInputModule, MdListModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
@@ -15,6 +15,7 @@ import { VisitHistoryComponent } from './visit-history/visit-history.component';
 import { VolunteerService } from './shared/volunteer.service';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { HomeComponent } from './home/home.component';
+import { JumbotronComponent } from './shared/jumbotron/jumbotron.component';
 
 @NgModule({
   declarations: [
@@ -23,20 +24,22 @@ import { HomeComponent } from './home/home.component';
     CheckInComponent,
     VisitHistoryComponent,
     LayoutComponent,
-    HomeComponent
+    HomeComponent,
+    JumbotronComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    MdAutocompleteModule,
-    MdButtonModule,
-    MdInputModule,
-    MdListModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    MdAutocompleteModule,
+    MdButtonModule,
+    MdCardModule,
+    MdInputModule,
+    MdListModule
   ],
   providers: [VolunteerService],
   bootstrap: [AppComponent]
