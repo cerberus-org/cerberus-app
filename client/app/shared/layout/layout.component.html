@@ -1,3 +1,10 @@
-<p>
-  layout works!
-</p>
+<div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap.xs="0">
+  <div fxFlex="50%"
+       fxFlex.sm="70%">
+    <ng-content></ng-content>
+  </div>
+</div>
