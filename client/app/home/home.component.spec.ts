@@ -9,12 +9,12 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent,
+      declarations: [HomeComponent,
         MockComponent({ selector: 'app-jumbotron' }),
         MockComponent({ selector: 'app-visit-history' }),
-        MockComponent({ selector: 'app-volunteer-check-in' })      ]
-    })
-    .compileComponents();
+        MockComponent({ selector: 'app-volunteer-check-in' })
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
