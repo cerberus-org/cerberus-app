@@ -14,6 +14,7 @@ import { CheckInComponent } from './check-in/check-in.component';
 import { VisitHistoryComponent } from './visit-history/visit-history.component';
 import { VolunteerService } from './shared/volunteer.service';
 import { LayoutComponent } from './shared/layout/layout.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LayoutComponent } from './shared/layout/layout.component';
     SignUpComponent,
     CheckInComponent,
     VisitHistoryComponent,
-    LayoutComponent
+    LayoutComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
