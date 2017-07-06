@@ -11,7 +11,7 @@ export default class VisitHandler extends BaseHandler {
    * @return visits that are greater than req.params.date
    */
   getByDate = (req, res) => {
-    const date = moment(req.params.date).format('YYYY-MM-DD');
+    const date = moment(req.params.date).format('YYYY-MM-DD h:mm:ss a');
     this.model.find(
       {'startedAt': { '$gte': date, '$lt': Date.now() }},
       (err, obj) => {

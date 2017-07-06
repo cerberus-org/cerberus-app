@@ -2,8 +2,6 @@ import * as mongoose from 'mongoose';
 import moment = require('moment');
 import Volunteer from './volunteer';
 
-const Schema = mongoose.Schema;
-
 const visitSchema = new mongoose.Schema({
    startedAt: {
     type: Date, default: Date.now,
@@ -14,7 +12,7 @@ const visitSchema = new mongoose.Schema({
     required: [false]
   },
   volunteerId: {
-    type: Schema.Types.ObjectId, ref: Volunteer,
+    type: mongoose.Schema.Types.ObjectId, ref: Volunteer,
     required: [true]
   },
   timezone: {
