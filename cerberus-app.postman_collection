@@ -192,7 +192,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:3000/api/visits/20170702",
+						"url": "localhost:3000/api/visits/2017-07-06T01:33:27.337Z",
 						"method": "GET",
 						"header": [],
 						"body": {},
