@@ -5,10 +5,9 @@
   "scripts": {
     "ng": "ng",
     "prestart": "ng build -prod && tsc -p server/tsconfig.app.json",
-    "start": "npm run prod",
+    "start": "node dist/server/app.js",
     "build": "ng build && tsc -p server/tsconfig.app.json",
     "dev": "concurrently \"mongod\" \"ng serve -pc proxy.conf.json --open\" \"tsc -w -p server/tsconfig.app.json\" \"nodemon dist/server/app.js\"",
-    "prod": "node dist/server/main.js",
     "test": "rm -rf out-tsc && tsc -p server/tsconfig.spec.json && jasmine-node out-tsc && ng test --single-run",
     "test-client": "ng test",
     "test-server": "rm -rf out-tsc && tsc -p server/tsconfig.spec.json && jasmine-node out-tsc",
