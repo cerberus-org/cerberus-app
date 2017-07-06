@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "prestart": "ng build -prod && tsc -p server/tsconfig.app.json",
+    "prestart": "ng build -aot -prod && tsc -p server/tsconfig.app.json",
     "start": "node dist/server/app.js",
     "build": "ng build && tsc -p server/tsconfig.app.json",
     "dev": "concurrently \"mongod\" \"ng serve -pc proxy.conf.json --open\" \"tsc -w -p server/tsconfig.app.json\" \"nodemon dist/server/app.js\"",
@@ -18,7 +18,6 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.2.2",
-    "@angular/cli": "1.1.1",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.0",
@@ -41,6 +40,7 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
+    "@angular/cli": "1.1.1",
     "@angular/language-service": "^4.0.0",
     "@types/jasmine": "2.5.45",
     "codelyzer": "~3.0.1",
