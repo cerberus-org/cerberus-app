@@ -4,7 +4,7 @@ import { MdAutocompleteModule, MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CheckInFormComponent } from './check-in-form.component';
-import { MockVolunteerService, VolunteerService } from '../shared/volunteer.service';
+import { MockVolunteerService, VolunteerService } from '../../shared/volunteer.service';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;

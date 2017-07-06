@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { VolunteerService } from '../shared/volunteer.service';
+import { VolunteerService } from '../../shared/volunteer.service';
 
 @Component({
   selector: 'app-check-in-form',

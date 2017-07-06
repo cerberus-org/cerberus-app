@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NewUserFormComponent } from './new-user-form.component';
+import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 // modules
 import { RouterTestingModule } from '@angular/router/testing';
 // angular material
@@ -10,9 +10,9 @@ import 'hammerjs';
 // volunteer service
 import { HttpModule } from '@angular/http';
 
-describe('NewUserFormComponent', () => {
-  let component: NewUserFormComponent;
-  let fixture: ComponentFixture<NewUserFormComponent>;
+describe('NewVolunteerFormComponent', () => {
+  let component: NewVolunteerFormComponent;
+  let fixture: ComponentFixture<NewVolunteerFormComponent>;
 
   let emptyForm = {
     firstName: null,
@@ -22,7 +22,7 @@ describe('NewUserFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewUserFormComponent ],
+      declarations: [ NewVolunteerFormComponent ],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
@@ -39,7 +39,7 @@ describe('NewUserFormComponent', () => {
   }));
 
   beforeEach(async (() => {
-    fixture = TestBed.createComponent(NewUserFormComponent);
+    fixture = TestBed.createComponent(NewVolunteerFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
@@ -50,6 +50,6 @@ describe('NewUserFormComponent', () => {
 
   it('form should clear on submit', (() => {
     component.addVolunteer();
-    expect(component.newUserForm.value).toEqual(emptyForm);
+    expect(component.newVolunteerForm.value).toEqual(emptyForm);
   }));
 });

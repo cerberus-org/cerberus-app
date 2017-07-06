@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { VolunteerService } from './../shared/volunteer.service';
+import { VolunteerService } from '../../shared/volunteer.service';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './new-user-form.component.html',
-  styleUrls: ['./new-user-form.component.css'],
+  selector: 'app-new-volunteer-form',
+  templateUrl: './new-volunteer-form.component.html',
+  styleUrls: ['./new-volunteer-form.component.css'],
   providers: [VolunteerService]
 })
-export class NewUserFormComponent implements OnInit {
+export class NewVolunteerFormComponent implements OnInit {
   // declare FormGroup
-  newUserForm: FormGroup;
+  newVolunteerForm: FormGroup;
   // used to populate placeholders and set form controls
   form = [
     { placeholder: 'First', control: 'firstName' },
@@ -27,7 +27,7 @@ export class NewUserFormComponent implements OnInit {
   }
 
   addVolunteer() {
-    this.volunteerService.postVolunteer(this.newUserForm.value)
+    this.volunteerService.postVolunteer(this.newVolunteerForm.value)
     // subscribe returned Observerable to Observer
       .subscribe(
         // log the response
@@ -35,12 +35,12 @@ export class NewUserFormComponent implements OnInit {
         // else log the error
         err => console.log('An error occured posting the volunteer: ' + err)
       )
-    this.newUserForm.reset();
+    this.newVolunteerForm.reset();
   }
 
   // use FormBuilder to define FormGroup
   createForm() {
-    this.newUserForm = this.fb.group({
+    this.newVolunteerForm = this.fb.group({
       // list form controls
       firstName: '',
       lastName: '',

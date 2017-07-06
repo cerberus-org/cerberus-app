@@ -9,12 +9,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
 
-import { CheckInFormComponent } from './check-in-form/check-in-form.component';
 import { JumbotronComponent } from './shared/jumbotron/jumbotron.component';
 import { HomeComponent } from './home/home.component';
 import { LayoutComponent } from './shared/layout/layout.component';
-import { NewUserFormComponent } from './new-user-form/new-user-form.component';
 import { VisitHistoryComponent } from './visit-history/visit-history.component';
+import { NewVolunteerFormComponent } from './volunteer-check-in/new-volunteer-form/new-volunteer-form.component';
+import { CheckInFormComponent } from './volunteer-check-in/check-in-form/check-in-form.component';
+import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-in.component';
 
 import { VolunteerService } from './shared/volunteer.service';
 
@@ -24,10 +25,11 @@ import { VolunteerService } from './shared/volunteer.service';
     AppComponent,
     CheckInFormComponent,
     LayoutComponent,
-    NewUserFormComponent,
+    NewVolunteerFormComponent,
     VisitHistoryComponent,
     HomeComponent,
-    JumbotronComponent
+    JumbotronComponent,
+    VolunteerCheckInComponent
   ],
   imports: [
     BrowserModule,
