@@ -1,19 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SignUpComponent } from './sign-up.component';
+import { NewUserFormComponent } from './new-user-form.component';
 // modules
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgModule } from '@angular/core';
 // angular material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule, MdAutocompleteModule, MdInputModule } from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MdAutocompleteModule, MdInputModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
 // volunteer service
 import { HttpModule } from '@angular/http';
 
-describe('SignUpComponent', () => {
-  let component: SignUpComponent;
-  let fixture: ComponentFixture<SignUpComponent>;
+describe('NewUserFormComponent', () => {
+  let component: NewUserFormComponent;
+  let fixture: ComponentFixture<NewUserFormComponent>;
 
   let emptyForm = {
     firstName: null,
@@ -23,7 +22,7 @@ describe('SignUpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignUpComponent ],
+      declarations: [ NewUserFormComponent ],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
@@ -40,7 +39,7 @@ describe('SignUpComponent', () => {
   }));
 
   beforeEach(async (() => {
-    fixture = TestBed.createComponent(SignUpComponent);
+    fixture = TestBed.createComponent(NewUserFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
@@ -51,6 +50,6 @@ describe('SignUpComponent', () => {
 
   it('form should clear on submit', (() => {
     component.addVolunteer();
-    expect(component.signUpForm.value).toEqual(emptyForm);
+    expect(component.newUserForm.value).toEqual(emptyForm);
   }));
 });
