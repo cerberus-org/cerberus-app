@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { JumbotronComponent } from './jumbotron.component';
+import { MdCardModule } from '@angular/material';
 
 describe('JumbotronComponent', () => {
   let component: JumbotronComponent;
@@ -8,9 +9,14 @@ describe('JumbotronComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JumbotronComponent ]
+      declarations: [
+        JumbotronComponent
+      ],
+      imports: [
+        MdCardModule
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

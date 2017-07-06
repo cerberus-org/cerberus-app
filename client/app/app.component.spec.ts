@@ -4,6 +4,7 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './shared/layout/layout.component';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -13,7 +14,7 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        LayoutComponent
+        MockComponent({ selector: 'app-layout' })
       ],
     }).compileComponents();
   }));

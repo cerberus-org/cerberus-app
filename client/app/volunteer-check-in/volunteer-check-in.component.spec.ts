@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VolunteerCheckInComponent } from './volunteer-check-in.component';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('VolunteerCheckInComponent', () => {
   let component: VolunteerCheckInComponent;
@@ -8,9 +9,12 @@ describe('VolunteerCheckInComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VolunteerCheckInComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        VolunteerCheckInComponent,
+        MockComponent({ selector: 'app-check-in-form' }),
+        MockComponent({ selector: 'app-new-volunteer-form' })
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
