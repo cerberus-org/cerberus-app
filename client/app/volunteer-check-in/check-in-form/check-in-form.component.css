@@ -1,6 +1,6 @@
 form {
-  margin-top: 3em;
-  margin-bottom: 10em; /* Work-around for mat-tab body content resizing when switching */
+  margin-top: 4em;
+  margin-bottom: 4em;
 }
 
 md-input-container {
