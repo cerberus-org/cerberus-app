@@ -17,7 +17,7 @@ export class NewVolunteerFormComponent implements OnInit {
     { placeholder: 'First', control: 'firstName' },
     { placeholder: 'Last', control: 'lastName' },
     { placeholder: 'Favorite Pet Name', control: 'petName' }
-  ]
+  ];
 
   constructor(private fb: FormBuilder, private volunteerService: VolunteerService) {
     this.createForm();
@@ -34,7 +34,7 @@ export class NewVolunteerFormComponent implements OnInit {
         res => console.log(res),
         // else log the error
         err => console.log('An error occured posting the volunteer: ' + err)
-      )
+      );
     this.newVolunteerForm.reset();
   }
 

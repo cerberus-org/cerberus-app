@@ -22,7 +22,7 @@ describe('NewVolunteerFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewVolunteerFormComponent ],
+      declarations: [NewVolunteerFormComponent],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
@@ -32,13 +32,12 @@ describe('NewVolunteerFormComponent', () => {
         ReactiveFormsModule,
         HttpModule
       ],
-      providers: [
-      ]
+      providers: []
     })
-    .compileComponents()
+      .compileComponents()
   }));
 
-  beforeEach(async (() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(NewVolunteerFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
