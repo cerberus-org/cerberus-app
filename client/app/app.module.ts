@@ -4,7 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdAutocompleteModule, MdButtonModule, MdCardModule, MdInputModule, MdListModule } from '@angular/material';
+import {
+  MdAutocompleteModule, MdButtonModule, MdCardModule, MdInputModule, MdListModule,
+  MdTabsModule
+} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
@@ -43,7 +46,8 @@ import { VolunteerService } from './shared/volunteer.service';
     MdButtonModule,
     MdCardModule,
     MdInputModule,
-    MdListModule
+    MdListModule,
+    MdTabsModule
   ],
   providers: [VolunteerService],
   bootstrap: [AppComponent]
