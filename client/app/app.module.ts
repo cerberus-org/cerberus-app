@@ -13,13 +13,15 @@ import 'hammerjs';
 import { CheckInComponent } from './check-in/check-in.component';
 import { VisitHistoryComponent } from './visit-history/visit-history.component';
 import { VolunteerService } from './shared/volunteer.service';
+import { LayoutComponent } from './shared/layout/layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
     CheckInComponent,
-    VisitHistoryComponent
+    VisitHistoryComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
