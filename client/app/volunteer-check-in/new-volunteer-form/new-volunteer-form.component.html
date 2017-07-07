@@ -1,11 +1,10 @@
-<form fxLayout="column" [formGroup]="newVolunteerForm" nonvalidate (ngSubmit)="addVolunteer()">
+<form fxLayout="column" [formGroup]="newVolunteerForm" (ngSubmit)="addVolunteer()">
   <md-list fxFlexAlign="center">
-    <md-list-item *ngFor="let field of form">
+    <md-list-item *ngFor="let form of forms">
       <md-input-container>
-        <input mdInput placeholder={{field.placeholder}} class="form-control" formControlName={{field.control}}
-               required>
+        <input mdInput formControlName={{form.control}} placeholder={{form.placeholder}}>
       </md-input-container>
     </md-list-item>
   </md-list>
-  <button fxFlexAlign="center" type="submit" id="submit-btn" md-button color="primary">Submit</button>
+  <button md-button type="submit" color="primary" fxFlexAlign="center" [disabled]="!newVolunteerForm.valid">Submit</button>
 </form>

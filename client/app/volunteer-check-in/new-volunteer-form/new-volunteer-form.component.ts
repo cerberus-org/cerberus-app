@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { VolunteerService } from '../../shared/volunteer.service';
 
@@ -10,41 +10,35 @@ import { VolunteerService } from '../../shared/volunteer.service';
   providers: [VolunteerService]
 })
 export class NewVolunteerFormComponent implements OnInit {
-  // declare FormGroup
-  newVolunteerForm: FormGroup;
-  // used to populate placeholders and set form controls
-  form = [
-    { placeholder: 'First', control: 'firstName' },
-    { placeholder: 'Last', control: 'lastName' },
-    { placeholder: 'Favorite Pet Name', control: 'petName' }
-  ];
+  public error: string;
+  public forms;
+  public newVolunteerForm: FormGroup;
 
   constructor(private fb: FormBuilder, private volunteerService: VolunteerService) {
     this.createForm();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   addVolunteer() {
     this.volunteerService.postVolunteer(this.newVolunteerForm.value)
-    // subscribe returned Observerable to Observer
       .subscribe(
-        // log the response
         res => console.log(res),
-        // else log the error
-        err => console.log('An error occured posting the volunteer: ' + err)
-      );
+        error => this.error = <any>error);
     this.newVolunteerForm.reset();
   }
 
-  // use FormBuilder to define FormGroup
+  // Use FormBuilder to define FormGroup
   createForm() {
+    this.forms = [
+      { placeholder: 'First', control: 'firstName' },
+      { placeholder: 'Last', control: 'lastName' },
+      { placeholder: 'Favorite Pet Name', control: 'petName' }
+    ];
     this.newVolunteerForm = this.fb.group({
-      // list form controls
-      firstName: '',
-      lastName: '',
-      petName: ''
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      petName: ['', Validators.required]
     });
   }
 }
