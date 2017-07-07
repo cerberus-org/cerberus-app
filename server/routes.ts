@@ -20,7 +20,7 @@ export default function setRoutes(app) {
 
   // Visits
   router.route('/visits').get(visitHandler.getAll);
-  router.route('/visit/count').get(visitHandler.count);
+  router.route('/visits/count').get(visitHandler.count);
   router.route('/visit').post(visitHandler.insert);
   router.route('/visit/:id').get(visitHandler.get);
   router.route('/visit/:id').put(visitHandler.update);

@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "cerberus-app",
-		"_postman_id": "6d6a6562-77ea-34bf-d076-e1646731eb80",
+		"_postman_id": "6165d3ee-6d07-05ed-0b1a-2476e16ed8d6",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -78,7 +78,10 @@
 						"url": "localhost:3000/api/visits",
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -107,7 +110,10 @@
 						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -130,7 +136,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:3000/api/visits",
+						"url": "localhost:3000/api/visits/count",
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -195,7 +201,10 @@
 						"url": "localhost:3000/api/visits/2017-07-06T01:33:27.337Z",
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -219,7 +228,10 @@
 						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
 						"method": "DELETE",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
