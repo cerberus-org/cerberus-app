@@ -1,10 +1,12 @@
 import VolunteerHandler from './volunteer';
+import VisitHandler from './visit';
 
 let req, res;
 
 // Add each BaseHandler implementation here
 const handlers = [
-  new VolunteerHandler
+  new VolunteerHandler,
+  new VisitHandler
 ];
 
 handlers.forEach(handler => {
