@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { VolunteerService } from '../../shared/volunteer.service';
@@ -9,15 +9,18 @@ import { VolunteerService } from '../../shared/volunteer.service';
   styleUrls: ['./new-volunteer-form.component.css']
 })
 export class NewVolunteerFormComponent implements OnInit {
+  @Output() changeTab: EventEmitter<number>;
   public error: string;
   public formGroup: FormGroup;
   public forms;
 
   constructor(private fb: FormBuilder, private volunteerService: VolunteerService) {
+    this.changeTab = new EventEmitter<number>();
     this.createForm();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   onSubmit(): void {
     this.volunteerService.postVolunteer(this.formGroup.value)
@@ -25,6 +28,7 @@ export class NewVolunteerFormComponent implements OnInit {
         res => console.log(res),
         error => this.error = <any>error);
     this.formGroup.reset();
+    this.changeTab.emit(0);
   }
 
   createForm(): void {
