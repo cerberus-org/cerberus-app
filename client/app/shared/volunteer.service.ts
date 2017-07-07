@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import Volunteer from './volunteer';
+import { testVolunteers, Volunteer } from './volunteer';
 import handleError from './handle-error';
 
 import 'rxjs/add/operator/map';
@@ -24,5 +24,19 @@ export class VolunteerService {
     return this.http.post('/api/volunteer', volunteer, options)
       .map((res: Response) => res.json())
       .catch(handleError);
+  }
+}
+export class MockVolunteerService extends VolunteerService {
+
+  constructor() {
+    super(null);
+  }
+
+  getVolunteers(): Observable<Volunteer[]> {
+    return Observable.of(testVolunteers);
+  }
+
+  postVolunteer(volunteer): Observable<Volunteer> {
+    return Observable.of(testVolunteers[0])
   }
 }
