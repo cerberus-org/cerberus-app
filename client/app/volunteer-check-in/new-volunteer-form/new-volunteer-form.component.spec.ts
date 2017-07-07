@@ -1,19 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SignUpComponent } from './sign-up.component';
+import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 // modules
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgModule } from '@angular/core';
 // angular material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule, MdAutocompleteModule, MdInputModule } from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MdAutocompleteModule, MdInputModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
 // volunteer service
 import { HttpModule } from '@angular/http';
 
-describe('SignUpComponent', () => {
-  let component: SignUpComponent;
-  let fixture: ComponentFixture<SignUpComponent>;
+describe('NewVolunteerFormComponent', () => {
+  let component: NewVolunteerFormComponent;
+  let fixture: ComponentFixture<NewVolunteerFormComponent>;
 
   let emptyForm = {
     firstName: null,
@@ -23,7 +22,7 @@ describe('SignUpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignUpComponent ],
+      declarations: [NewVolunteerFormComponent],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
@@ -33,14 +32,13 @@ describe('SignUpComponent', () => {
         ReactiveFormsModule,
         HttpModule
       ],
-      providers: [
-      ]
+      providers: []
     })
-    .compileComponents()
+      .compileComponents()
   }));
 
-  beforeEach(async (() => {
-    fixture = TestBed.createComponent(SignUpComponent);
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(NewVolunteerFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
@@ -51,6 +49,6 @@ describe('SignUpComponent', () => {
 
   it('form should clear on submit', (() => {
     component.addVolunteer();
-    expect(component.signUpForm.value).toEqual(emptyForm);
+    expect(component.newVolunteerForm.value).toEqual(emptyForm);
   }));
 });

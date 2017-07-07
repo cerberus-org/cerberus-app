@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { CheckInComponent } from './check-in/check-in.component';
-import { VisitHistoryComponent } from './visit-history/visit-history.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: 'signup', component: SignUpComponent },
-  { path: 'checkin', component: CheckInComponent },
-  { path: 'visithistory', component: VisitHistoryComponent },
-  { path: '**', redirectTo: 'checkin', pathMatch: 'full' }
+  { path: 'home', component: HomeComponent },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

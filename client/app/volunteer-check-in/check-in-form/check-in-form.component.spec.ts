@@ -3,16 +3,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdAutocompleteModule, MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CheckInComponent } from './check-in.component';
-import { MockVolunteerService, VolunteerService } from '../shared/volunteer.service';
+import { CheckInFormComponent } from './check-in-form.component';
+import { MockVolunteerService, VolunteerService } from '../../shared/volunteer.service';
 
-describe('CheckInComponent', () => {
-  let component: CheckInComponent;
-  let fixture: ComponentFixture<CheckInComponent>;
+describe('CheckInFormComponent', () => {
+  let component: CheckInFormComponent;
+  let fixture: ComponentFixture<CheckInFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CheckInComponent],
+      declarations: [CheckInFormComponent],
       imports: [
         MdAutocompleteModule,
         MdInputModule,
@@ -26,7 +26,7 @@ describe('CheckInComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CheckInComponent);
+    fixture = TestBed.createComponent(CheckInFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

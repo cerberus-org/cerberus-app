@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { VolunteerService } from '../shared/volunteer.service';
+import { VolunteerService } from '../../shared/volunteer.service';
 
 @Component({
-  selector: 'app-check-in',
-  templateUrl: './check-in.component.html',
-  styleUrls: ['./check-in.component.css'],
+  selector: 'app-check-in-form',
+  templateUrl: './check-in-form.component.html',
+  styleUrls: ['./check-in-form.component.css'],
 })
-export class CheckInComponent implements OnInit {
+export class CheckInFormComponent implements OnInit {
   public error: string;
   public names: string[];
   public filteredNames: string[];

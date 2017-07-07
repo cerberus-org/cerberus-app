@@ -1,33 +1,20 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-// modules
+import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgModule } from '@angular/core';
-// angular material
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MaterialModule } from '@angular/material';
 import 'hammerjs';
-// volunteer service
-import { HttpModule } from '@angular/http';
+
+import { AppComponent } from './app.component';
+import { LayoutComponent } from './shared/layout/layout.component';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        // angular material
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MaterialModule,
-        // volunteer service
-        HttpModule
+        RouterTestingModule
       ],
       declarations: [
         AppComponent,
-        SignUpComponent
+        MockComponent({ selector: 'app-layout' })
       ],
     }).compileComponents();
   }));
@@ -37,10 +24,10 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-  
+
   it(`should have as title 'app'`, async(() => {
-  const fixture = TestBed.createComponent(AppComponent);
-  const app = fixture.debugElement.componentInstance;
-  expect(app.title).toEqual('app');
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('app');
   }));
 });
