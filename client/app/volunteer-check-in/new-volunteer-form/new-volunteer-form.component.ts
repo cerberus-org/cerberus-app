@@ -11,36 +11,37 @@ import { VolunteerService } from '../../shared/volunteer.service';
 })
 export class NewVolunteerFormComponent implements OnInit {
   public error: string;
+  public formGroup: FormGroup;
   public forms;
-  public newVolunteerForm: FormGroup;
 
   constructor(private fb: FormBuilder, private volunteerService: VolunteerService) {
     this.createForm();
   }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
-  addVolunteer() {
-    this.volunteerService.postVolunteer(this.newVolunteerForm.value)
+  onSubmit(): void {
+    this.volunteerService.postVolunteer(this.formGroup.value)
       .subscribe(
         res => console.log(res),
         error => this.error = <any>error);
-    this.newVolunteerForm.reset();
+    this.formGroup.reset();
   }
 
-  // Use FormBuilder to define FormGroup
-  createForm() {
+  createForm(): void {
+    const regex = /^[a-z ,.'-]+$/i;
+    const validators = [Validators.required, Validators.pattern(regex), Validators.minLength(2), Validators.maxLength(30)];
+    // Defines the FormGroup
+    this.formGroup = this.fb.group({
+      firstName: ['', validators],
+      lastName: ['', validators],
+      petName: ['', validators]
+    });
+    // Allows using *ngFor to create forms
     this.forms = [
       { placeholder: 'First', control: 'firstName' },
       { placeholder: 'Last', control: 'lastName' },
       { placeholder: 'Favorite Pet Name', control: 'petName' }
     ];
-    const regex = /^[a-z ,.'-]+$/i;
-    const validators = [Validators.required, Validators.pattern(regex), Validators.minLength(2), Validators.maxLength(30)];
-    this.newVolunteerForm = this.fb.group({
-      firstName: ['', validators],
-      lastName: ['', validators],
-      petName: ['', validators]
-    });
   }
 }
