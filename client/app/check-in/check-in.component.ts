@@ -6,7 +6,6 @@ import { VolunteerService } from '../shared/volunteer.service';
   selector: 'app-check-in',
   templateUrl: './check-in.component.html',
   styleUrls: ['./check-in.component.css'],
-  providers: [VolunteerService]
 })
 export class CheckInComponent implements OnInit {
   public error: string;

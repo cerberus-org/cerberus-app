@@ -1,15 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CheckInComponent } from './check-in.component';
-// modules
-import { RouterTestingModule } from '@angular/router/testing';
-import { NgModule } from '@angular/core';
-// angular material
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MdAutocompleteModule, MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import 'hammerjs';
-// volunteer service
-import { HttpModule } from '@angular/http';
+
+import { CheckInComponent } from './check-in.component';
+import { MockVolunteerService, VolunteerService } from '../shared/volunteer.service';
 
 describe('CheckInComponent', () => {
   let component: CheckInComponent;
@@ -17,21 +12,17 @@ describe('CheckInComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CheckInComponent ],
+      declarations: [CheckInComponent],
       imports: [
-        RouterTestingModule,
-        // angular material
+        MdAutocompleteModule,
+        MdInputModule,
         BrowserAnimationsModule,
-        MaterialModule,
         FormsModule,
-        ReactiveFormsModule,
-        // volunteer service
-        HttpModule
+        ReactiveFormsModule
       ],
-      providers: [
-      ]
+      providers: [{ provide: VolunteerService, useClass: MockVolunteerService }]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

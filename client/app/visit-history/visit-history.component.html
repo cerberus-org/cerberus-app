@@ -1,9 +1,13 @@
 <div class="center">
   <md-list>
     <h1 md-subheader>Visits</h1>
-    <md-list-item *ngFor="let visit of visits">
-      <h4 md-line>{{visit.startedAt.toLocaleTimeString()}} to {{visit.endedAt.toLocaleTimeString()}}</h4>
-      <p md-line>{{formatDuration(calculateDuration(visit))}}</p>
-    </md-list-item>
+    <div *ngFor="let date of dates">
+      <md-divider></md-divider>
+      <h3 md-subheader>{{date}}</h3>
+      <md-list-item *ngFor="let visit of visitsByDate.get(date)">
+        <h4 md-line>{{formatTime(visit.startedAt, visit.timezone)}} to {{formatTime(visit.endedAt, visit.timezone)}}</h4>
+        <p md-line>{{formatDuration(visit)}}</p>
+      </md-list-item>
+    </div>
   </md-list>
 </div>
