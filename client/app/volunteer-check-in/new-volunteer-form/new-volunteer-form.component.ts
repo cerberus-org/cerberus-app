@@ -19,8 +19,7 @@ export class NewVolunteerFormComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onSubmit(): void {
     this.volunteerService.postVolunteer(this.formGroup.value)
@@ -28,6 +27,10 @@ export class NewVolunteerFormComponent implements OnInit {
         res => console.log(res),
         error => this.error = <any>error);
     this.formGroup.reset();
+    // Workaround for clearing error state
+    Object.keys(this.formGroup.controls).forEach(key => {
+      this.formGroup.controls[key].setErrors(null)
+    });
     this.changeTab.emit(0);
   }
 
