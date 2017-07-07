@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { VolunteerService } from '../../shared/volunteer.service';
@@ -6,8 +6,7 @@ import { VolunteerService } from '../../shared/volunteer.service';
 @Component({
   selector: 'app-new-volunteer-form',
   templateUrl: './new-volunteer-form.component.html',
-  styleUrls: ['./new-volunteer-form.component.css'],
-  providers: [VolunteerService]
+  styleUrls: ['./new-volunteer-form.component.css']
 })
 export class NewVolunteerFormComponent implements OnInit {
   public error: string;

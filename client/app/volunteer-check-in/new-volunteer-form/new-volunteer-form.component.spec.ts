@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NewVolunteerFormComponent } from './new-volunteer-form.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdAutocompleteModule, MdInputModule } from '@angular/material';
 import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MdAutocompleteModule, MdInputModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
-import { HttpModule } from '@angular/http';
+
+import { NewVolunteerFormComponent } from './new-volunteer-form.component';
+import { MockVolunteerService, VolunteerService } from '../../shared/volunteer.service';
 
 describe('NewVolunteerFormComponent', () => {
   let component: NewVolunteerFormComponent,
@@ -15,24 +15,21 @@ describe('NewVolunteerFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NewVolunteerFormComponent],
       imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        MdAutocompleteModule,
-        MdInputModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpModule
+        MdAutocompleteModule,
+        MdInputModule,
+        BrowserAnimationsModule
       ],
-      providers: []
-    })
-      .compileComponents()
+      providers: [{ provide: VolunteerService, useClass: MockVolunteerService }]
+    }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     fixture = TestBed.createComponent(NewVolunteerFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
