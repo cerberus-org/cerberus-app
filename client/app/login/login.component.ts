@@ -25,7 +25,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-
+    this.loginService.login(this.loginForm.value)
+      .subscribe(
+        () => console.log('complete'),
+        err => console.log(err)
+      )
   }
 
   // use FormBuilder to define FormGroup

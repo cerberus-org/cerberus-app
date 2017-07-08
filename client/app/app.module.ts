@@ -21,9 +21,9 @@ import { CheckInFormComponent } from './volunteer-check-in/check-in-form/check-i
 import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-in.component';
 
 import { VolunteerService } from './shared/volunteer.service';
-import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './shared/login.service';
+import { AuthHttp, AuthConfig } from "angular2-jwt/angular2-jwt";
 
 // Http functionality used for auth
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
