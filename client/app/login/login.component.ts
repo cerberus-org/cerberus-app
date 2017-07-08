@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoginService } from '../shared/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
     { placeholder: 'Password', control: 'password' }
   ];
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, public router: Router) {
     this.createForm();
   }
 
@@ -27,9 +28,17 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginService.login(this.loginForm.value)
       .subscribe(
-        () => console.log('complete'),
+        response => {
+          localStorage.setItem('token', response.access_token);
+          this.router.navigateByUrl('/home');
+        },
         err => console.log(err)
       )
+  }
+
+  logout() {
+    this.loginService.logout();
+    this.router.navigateByUrl('/login');
   }
 
   // use FormBuilder to define FormGroup
