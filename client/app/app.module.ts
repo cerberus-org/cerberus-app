@@ -22,6 +22,7 @@ import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-
 
 import { VolunteerService } from './shared/volunteer.service';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
+import { LoginComponent } from './login/login.component';
 
 // Http functionality used for auth
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -37,7 +38,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     VisitHistoryComponent,
     HomeComponent,
     JumbotronComponent,
-    VolunteerCheckInComponent
+    VolunteerCheckInComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
