@@ -9,7 +9,5 @@ export class VolunteerCheckInComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit(): void { }
 }

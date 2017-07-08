@@ -14,7 +14,7 @@ describe('VolunteerCheckInComponent', () => {
       declarations: [
         VolunteerCheckInComponent,
         MockComponent({ selector: 'app-check-in-form' }),
-        MockComponent({ selector: 'app-new-volunteer-form' })
+        MockComponent({ selector: 'app-new-volunteer-form', inputs: ['changeTab'] })
       ],
       imports: [
         BrowserAnimationsModule,

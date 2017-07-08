@@ -14,15 +14,14 @@ describe('CheckInFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [CheckInFormComponent],
       imports: [
+        FormsModule,
+        ReactiveFormsModule,
         MdAutocompleteModule,
         MdInputModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule
+        BrowserAnimationsModule
       ],
       providers: [{ provide: VolunteerService, useClass: MockVolunteerService }]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
