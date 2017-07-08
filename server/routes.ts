@@ -3,6 +3,7 @@ import * as express from 'express';
 import VolunteerHandler from './handlers/volunteer';
 import VisitHandler from './handlers/visit';
 import Volunteer from './models/volunteer';
+import UserHandler from './handlers/user';
 
 export default function setRoutes(app) {
 
@@ -10,6 +11,7 @@ export default function setRoutes(app) {
 
   const volunteerHandler = new VolunteerHandler();
   const visitHandler = new VisitHandler();
+  const userHandler = new UserHandler();
 
   // Volunteers
   // router.route('/volunteers').get(volunteerHandler.getAll);
@@ -27,6 +29,16 @@ export default function setRoutes(app) {
   router.route('/visit/:id').put(visitHandler.update);
   router.route('/visit/:id').delete(visitHandler.delete);
   router.route('/visits/:date').get(visitHandler.getByDate);
+
+  // Users
+  router.route('/users').get(userHandler.getAll);
+  router.route('/users/count').get(userHandler.count);
+  router.route('/user').post(userHandler.insert);
+  router.route('/user/:id').get(userHandler.get);
+  router.route('/user/:id').put(userHandler.update);
+  router.route('/user/:id').delete(userHandler.delete);
+  // Test
+  router.route('/users/login').get(userHandler.login);
 
   // Test
   app.get('/volunteers', (req, res, next) => {
