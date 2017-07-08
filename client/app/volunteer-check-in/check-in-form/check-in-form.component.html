@@ -1,11 +1,11 @@
-<form fxLayout="column">
+<form fxLayout="column" (ngSubmit)="onSubmit()">
   <md-input-container fxFlexAlign="center">
     <input mdInput placeholder="Name" [mdAutocomplete]="auto" [formControl]="nameControl">
   </md-input-container>
   <md-autocomplete fxFlexAlign="center" #auto="mdAutocomplete">
-    <md-option *ngFor="let name of filteredNames" [value]="name">
-      {{ name }} <i class="material-icons">pets</i>
+    <md-option *ngFor="let volunteer of filteredVolunteers" [value]="formatName(volunteer)">
+      {{volunteer.firstName}} {{volunteer.lastName}} <i class="material-icons">pets</i> {{volunteer.petName}}
     </md-option>
   </md-autocomplete>
-  <button fxFlexAlign="center" type="submit" id="submit-btn" md-button color="primary">Submit</button>
+  <button md-button color="primary" fxFlexAlign="center">Submit</button>
 </form>

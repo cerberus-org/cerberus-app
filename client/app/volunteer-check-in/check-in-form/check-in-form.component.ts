@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { VolunteerService } from '../../shared/volunteer.service';
+import { VisitService } from '../../shared/visit.service';
+import { Volunteer } from 'app/shared/volunteer';
 
 @Component({
   selector: 'app-check-in-form',
@@ -10,10 +12,11 @@ import { VolunteerService } from '../../shared/volunteer.service';
 export class CheckInFormComponent implements OnInit {
   public error: string;
   public names: string[];
-  public filteredNames: string[];
+  public volunteers: Volunteer[];
+  public filteredVolunteers: Volunteer[];
   public nameControl: FormControl;
 
-  constructor(private volunteerService: VolunteerService) {
+  constructor(private visitService: VisitService, private volunteerService: VolunteerService) {
     this.createForm();
     this.subscribeToForm();
   }
@@ -29,17 +32,34 @@ export class CheckInFormComponent implements OnInit {
 
   subscribeToForm(): void {
     this.nameControl.valueChanges
-      .subscribe(changes => this.filterNames(changes));
+      .subscribe(changes => this.filterVolunteers(changes));
   }
 
-  filterNames(input: string): void {
-    this.filteredNames = input ? this.names.filter(s => s.toLowerCase().includes(input.toLowerCase())) : null;
+  filterVolunteers(input: string): void {
+    this.filteredVolunteers = input ? this.volunteers.filter(volunteer => volunteer.firstName.toLowerCase().includes(input.toLowerCase()) ||
+    volunteer.lastName.toLowerCase().includes(input.toLowerCase())) : null;
+  }
+
+  formatName(volunteer: Volunteer) {
+    return `${volunteer.firstName} ${volunteer.lastName}`;
+  }
+
+  onSubmit(): void {
+    console.log(this.nameControl.value);
+    // this.visitService.postVisit(this.nameControl.value)
+    //   .subscribe(
+    //     res => console.log(res),
+    //     error => this.error = <any>error);
+    // this.nameControl.reset();
+  }
+
+  validateVolunteerName() {
+
   }
 
   getVolunteers(): void {
     this.volunteerService.getVolunteers()
-      .subscribe(volunteers => volunteers.forEach(
-        volunteer => this.names.push(`${volunteer.firstName} ${volunteer.lastName} ${volunteer.petName}`)),
+      .subscribe(volunteers => this.volunteers = volunteers,
         error => this.error = <any>error);
   }
 }
