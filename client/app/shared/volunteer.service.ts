@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { testVolunteers, Volunteer } from './volunteer';
 import handleError from './handle-error';
 import 'rxjs/add/observable/of';
-
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+
+import { testVolunteers, Volunteer } from './volunteer';
 
 @Injectable()
 export class VolunteerService {
