@@ -2,7 +2,7 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Headers, Http, RequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MdAutocompleteModule, MdButtonModule, MdCardModule, MdInputModule, MdListModule,
@@ -21,7 +21,12 @@ import { CheckInFormComponent } from './volunteer-check-in/check-in-form/check-i
 import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-in.component';
 
 import { VolunteerService } from './shared/volunteer.service';
+import { AuthConfig, AuthHttp } from 'angular2-jwt';
 
+// Http functionality used for auth
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({noJwtError: true}), http, options);
+}
 
 @NgModule({
   declarations: [
@@ -49,7 +54,11 @@ import { VolunteerService } from './shared/volunteer.service';
     MdListModule,
     MdTabsModule
   ],
-  providers: [VolunteerService],
+  providers: [VolunteerService,  {
+    provide: AuthHttp,
+    useFactory: authHttpServiceFactory,
+    deps: [Http, RequestOptions]
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
