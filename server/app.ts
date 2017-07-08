@@ -6,6 +6,8 @@ import * as path from 'path';
 import setRoutes from './routes';
 
 const app = express();
+const jwt = require('angular2-jwt');
+
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(path.join(__dirname, '../public')));
@@ -31,5 +33,9 @@ db.once('open', () => {
   });
 
 });
+
+// Add a catch all route to set the req.user property
+// unsure if app.config
+app.use(jwt({secret: app.config.get('sessionSecret'), credentialsRequired: false}));
 
 export { app };
