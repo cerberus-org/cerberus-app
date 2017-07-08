@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { VolunteerService } from '../../shared/volunteer.service';
 import { VisitService } from '../../shared/visit.service';
 import { Volunteer } from 'app/shared/volunteer';
@@ -27,7 +27,12 @@ export class CheckInFormComponent implements OnInit {
   }
 
   createForm(): void {
-    this.nameControl = new FormControl('', Validators.required);
+    const volunteerExistenceValidator = (control: AbstractControl): { [key: string]: any } => {
+      const name = control.value;
+      const found = this.volunteers ? this.volunteers.find(volunteer => this.formatName(volunteer) === name) : null;
+      return found ? null : { 'doesNotExist': { name } };
+    };
+    this.nameControl = new FormControl('', [Validators.required, volunteerExistenceValidator]);
   }
 
   subscribeToForm(): void {
@@ -35,9 +40,9 @@ export class CheckInFormComponent implements OnInit {
       .subscribe(changes => this.filterVolunteers(changes));
   }
 
-  filterVolunteers(input: string): void {
-    this.filteredVolunteers = input ? this.volunteers.filter(volunteer => volunteer.firstName.toLowerCase().includes(input.toLowerCase()) ||
-    volunteer.lastName.toLowerCase().includes(input.toLowerCase())) : null;
+  filterVolunteers(value: string): void {
+    this.filteredVolunteers = value ? this.volunteers.filter(volunteer => volunteer.firstName.toLowerCase().includes(value.toLowerCase()) ||
+    volunteer.lastName.toLowerCase().includes(value.toLowerCase())) : null;
   }
 
   formatName(volunteer: Volunteer) {
@@ -51,10 +56,6 @@ export class CheckInFormComponent implements OnInit {
     //     res => console.log(res),
     //     error => this.error = <any>error);
     // this.nameControl.reset();
-  }
-
-  validateVolunteerName() {
-
   }
 
   getVolunteers(): void {
