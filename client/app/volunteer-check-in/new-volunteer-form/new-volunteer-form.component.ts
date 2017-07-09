@@ -10,7 +10,7 @@ import { VolunteerService } from '../../shared/volunteer.service';
 })
 export class NewVolunteerFormComponent implements OnInit {
   @Output() changeTab: EventEmitter<number>;
-  public error: string;z
+  public error: string;
   public formGroup: FormGroup;
   public forms;
 

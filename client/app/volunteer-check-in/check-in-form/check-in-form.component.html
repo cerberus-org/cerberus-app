@@ -1,11 +1,19 @@
-<form fxLayout="column" (ngSubmit)="onSubmit()">
+<form fxLayout="column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <md-input-container fxFlexAlign="center">
-    <input mdInput placeholder="Name" [mdAutocomplete]="auto" [formControl]="nameControl">
+    <input mdInput placeholder="Name" [mdAutocomplete]="nameForm" formControlName="name">
   </md-input-container>
-  <md-autocomplete fxFlexAlign="center" #auto="mdAutocomplete">
+  <md-autocomplete fxFlexAlign="center" #nameForm="mdAutocomplete">
     <md-option *ngFor="let volunteer of filteredVolunteers" [value]="formatName(volunteer)">
-      {{volunteer.firstName}} {{volunteer.lastName}} <i class="material-icons">pets</i> {{volunteer.petName}}
+      {{volunteer.firstName}} {{volunteer.lastName}}
     </md-option>
   </md-autocomplete>
-  <button md-button color="primary" fxFlexAlign="center">Submit</button>
+  <md-input-container fxFlexAlign="center" *ngIf="showPetNameForm">
+    <input mdInput placeholder="Favorite Pet" [mdAutocomplete]="petNameForm" formControlName="petName">
+  </md-input-container>
+  <md-autocomplete fxFlexAlign="center" #petNameForm="mdAutocomplete">
+    <md-option *ngFor="let volunteer of filteredVolunteers" [value]="volunteer.petName">
+      <i class="material-icons">pets</i> {{volunteer.petName}}
+    </md-option>
+  </md-autocomplete>
+  <button md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid">Submit</button>
 </form>
