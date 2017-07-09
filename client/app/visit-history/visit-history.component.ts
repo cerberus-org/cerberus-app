@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Volunteer } from '../shared/volunteer';
 import { testVisits, Visit } from '../shared/visit';
 import * as moment from 'moment-timezone';
+import { VisitService } from '../shared/visit.service';
 
 @Component({
   selector: 'app-visit-history',
@@ -9,43 +10,52 @@ import * as moment from 'moment-timezone';
   styleUrls: ['./visit-history.component.css']
 })
 export class VisitHistoryComponent implements OnInit {
+  public error: string;
+  public visits: Visit[];
   public visitsByDate: Map<string, Visit[]>;
   public dates: string[];
 
-  constructor() { }
+  constructor(private visitService: VisitService) { }
 
   ngOnInit() {
-    this.visitsByDate = this.mapVisitsToDate(this.getVisits());
-    this.dates = Array.from(this.visitsByDate.keys());
+    this.visits = [];
+    this.getVisits();
   }
 
-  /**
-   * Use mock data until API is built
-   * @returns {[{volunteer: Volunteer, startedAt: Date, endedAt: Date}]}
-   */
-  getVisits(): Visit[] {
-    return testVisits;
+  getVisits(): void {
+    this.visitService.getVisits().subscribe(
+      visits => {
+        this.visits = visits;
+        this.mapVisitsToDate();
+      },
+      error => this.error = <any>error);
   }
 
-  mapVisitsToDate(visits: Visit[]) {
+  mapVisitsToDate() {
     const map = new Map<string, Visit[]>();
-    visits.forEach(visit => {
-      const date = visit.startedAt.toDateString();
+    this.visits.forEach(visit => {
+      const date = new Date(visit.startedAt).toString();
       if (!map.has(date)) {
         map.set(date, []);
       }
-      map.get(date).push(visit);
+        map.get(date).push(visit);
     });
-    return map;
+    this.visitsByDate = map;
+    this.dates = Array.from(this.visitsByDate.keys());
   }
 
   formatTime(date: Date, timezone: string): string {
-    const now = moment(date.toString());
-    return now.tz(timezone).format('h:m a');
+    const now = moment(new Date(date).toString());
+    return now.tz(timezone).format('h:mm a');
   }
 
   formatDuration(visit: Visit): string {
-    const duration = visit.endedAt.getTime() - visit.startedAt.getTime();
+    if (!visit.endedAt) {
+      return null;
+    }
+    const start = new Date(visit.startedAt);
+    const end = new Date(visit.endedAt);
+    const duration = end.getTime() - start.getTime();
     // Convert to seconds
     let seconds = duration / 1000;
     // Extract hours
