@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { VolunteerService } from '../../shared/volunteer.service';
 import { VisitService } from '../../shared/visit.service';
 import { Volunteer } from 'app/shared/volunteer';
+import { Visit } from '../../shared/visit';
 
 @Component({
   selector: 'app-check-in-form',
@@ -51,14 +52,28 @@ export class CheckInFormComponent implements OnInit {
   }
 
   subscribeToForm(): void {
-    this.formGroup.valueChanges
-      .subscribe(changes => {
-        this.filterVolunteers(changes.name);
-        this.showPetNameForm = this.checkIfNamesMatch(changes.name);
-        if (this.showPetNameForm) {
-          this.filterVolunteersByPetName(changes.petName);
-        }
-      });
+    this.formGroup.controls['name'].valueChanges.subscribe(changes => {
+      this.filterVolunteers(changes);
+      this.showPetNameForm = this.checkIfNamesMatch(changes);
+    });
+    this.formGroup.controls['petName'].valueChanges.subscribe(changes => {
+      if (this.showPetNameForm) {
+        this.filterVolunteersByPetName(changes);
+      }
+    });
+  }
+
+  onSubmit(): void {
+    console.log(this.selectedVolunteer);
+    // this.visitService.postVisit({
+    //   volunteerId: this.selectedVolunteer.volunteerId;
+    //   startedAt: Date;
+    //   endedAt: Date;
+    //   timezone: string;
+    // })
+    //   .subscribe(
+    //     res => console.log(res),
+    //     error => this.error = <any>error);
   }
 
   getVolunteers(): void {
@@ -119,14 +134,5 @@ export class CheckInFormComponent implements OnInit {
       ? this.filteredVolunteers.filter(
         volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length === this.filteredVolunteers.length
       : false;
-  }
-
-  onSubmit(): void {
-    console.log(this.selectedVolunteer);
-    // this.visitService.postVisit(this.nameControl.value)
-    //   .subscribe(
-    //     res => console.log(res),
-    //     error => this.error = <any>error);
-    // this.nameControl.reset();
   }
 }
