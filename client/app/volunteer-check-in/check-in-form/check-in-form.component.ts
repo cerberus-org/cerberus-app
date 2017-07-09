@@ -4,7 +4,6 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { VolunteerService } from '../../shared/volunteer.service';
 import { VisitService } from '../../shared/visit.service';
 import { Volunteer } from 'app/shared/volunteer';
-import { Visit } from '../../shared/visit';
 
 @Component({
   selector: 'app-check-in-form',
@@ -43,7 +42,7 @@ export class CheckInFormComponent implements OnInit {
       const match = this.getVolunteerByPetName(control.value);
       // Select volunteer in validator since validators fire before subscription
       this.selectedVolunteer = match;
-      return match ? null : { 'notUnique': { name } };
+      return match || !this.showPetNameForm ? null : { 'notUnique': { name } };
     };
     this.formGroup = this.fb.group({
       name: ['', [Validators.required, volunteerExistenceValidator]],
@@ -64,16 +63,15 @@ export class CheckInFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.selectedVolunteer);
-    // this.visitService.postVisit({
-    //   volunteerId: this.selectedVolunteer.volunteerId;
-    //   startedAt: Date;
-    //   endedAt: Date;
-    //   timezone: string;
-    // })
-    //   .subscribe(
-    //     res => console.log(res),
-    //     error => this.error = <any>error);
+    this.visitService.postVisit({
+      volunteerId: this.selectedVolunteer._id,
+      startedAt: Date.now(),
+      endedAt: null,
+      timezone: 'America/Chicago'
+    })
+      .subscribe(
+        res => console.log(res),
+        error => this.error = <any>error);
   }
 
   getVolunteers(): void {
