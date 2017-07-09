@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { VolunteerService } from '../../shared/volunteer.service';
 import { VisitService } from '../../shared/visit.service';
 import { Volunteer } from 'app/shared/volunteer';
@@ -48,6 +49,12 @@ export class CheckInFormComponent implements OnInit {
     });
   }
 
+  getVolunteers(): void {
+    this.volunteerService.getVolunteers()
+      .subscribe(volunteers => this.volunteers = volunteers,
+        error => this.error = <any>error);
+  }
+
   subscribeToForm(): void {
     this.formGroup.valueChanges
       .subscribe(changes => {
@@ -59,6 +66,19 @@ export class CheckInFormComponent implements OnInit {
       });
   }
 
+  /**
+   * Formats the name of a volunteer as one string.
+   * @param volunteer
+   * @returns {string}
+   */
+  formatName(volunteer: Volunteer) {
+    return `${volunteer.firstName} ${volunteer.lastName}`;
+  }
+
+  /**
+   * Filters volunteers by comparing against first and last names.
+   * @param name
+   */
   filterVolunteers(name: string): void {
     this.filteredVolunteers = name
       ? this.volunteers.filter(
@@ -87,10 +107,6 @@ export class CheckInFormComponent implements OnInit {
       : false;
   }
 
-  formatName(volunteer: Volunteer) {
-    return `${volunteer.firstName} ${volunteer.lastName}`;
-  }
-
   onSubmit(): void {
     console.log(this.formGroup.value);
     // this.visitService.postVisit(this.nameControl.value)
@@ -98,11 +114,5 @@ export class CheckInFormComponent implements OnInit {
     //     res => console.log(res),
     //     error => this.error = <any>error);
     // this.nameControl.reset();
-  }
-
-  getVolunteers(): void {
-    this.volunteerService.getVolunteers()
-      .subscribe(volunteers => this.volunteers = volunteers,
-        error => this.error = <any>error);
   }
 }
