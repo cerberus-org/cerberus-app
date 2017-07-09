@@ -6,8 +6,8 @@ abstract class BaseHandler {
    * Get all
    */
   getAll = (req, res) => {
-    console.log('Get method');
-    if (!req.user) {
+    console.log(req);
+    if (!req) {
       return res.status(401).json(JSON.stringify({'Message': 'Unauthorized.'}))
     }
 

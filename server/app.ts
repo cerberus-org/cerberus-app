@@ -24,6 +24,10 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 
+  // unsure about secret
+  app.use(jwt({secret: 'test', credentialsRequired: false}));
+
+
   setRoutes(app);
 
   app.get('/*', function(req, res) {
@@ -35,9 +39,5 @@ db.once('open', () => {
   });
 
 });
-
-// Add a catch all route to set the req.user property
-// unsure about secret
-app.use(jwt({secret: 'secret', credentialsRequired: false}));
 
 export { app };
