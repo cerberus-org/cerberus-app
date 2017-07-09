@@ -7,12 +7,11 @@ import 'rxjs/add/observable/of';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { AuthHttp } from 'angular2-jwt/angular2-jwt';
 
 @Injectable()
 export class VolunteerService {
 
-  constructor(private http: AuthHttp) {
+  constructor(private http: Http) {
   }
 
   getVolunteers(): Observable<Volunteer[]> {
