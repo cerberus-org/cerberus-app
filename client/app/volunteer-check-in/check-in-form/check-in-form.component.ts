@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { VolunteerService } from '../../shared/volunteer.service';
 import { VisitService } from '../../shared/visit.service';
 import { Volunteer } from 'app/shared/volunteer';
+import { Visit } from '../../shared/visit';
 
 @Component({
   selector: 'app-check-in-form',
@@ -13,6 +14,7 @@ import { Volunteer } from 'app/shared/volunteer';
 export class CheckInFormComponent implements OnInit {
   public error: string;
   public formGroup: FormGroup;
+  public visits: Visit[];
   public selectedVolunteer: Volunteer;
   public volunteers: Volunteer[];
   public filteredVolunteers: Volunteer[];
@@ -25,10 +27,32 @@ export class CheckInFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getVisits();
     this.getVolunteers();
   }
 
-  createForm(): void {
+  onSubmit(): void {
+    this.visitService.postVisit({
+      volunteerId: this.selectedVolunteer._id,
+      startedAt: Date.now(),
+      endedAt: null,
+      timezone: 'America/Chicago'
+    })
+      .subscribe(
+        res => console.log(res),
+        error => this.error = <any>error);
+  }
+
+  /**
+   * Formats the name of a volunteer as one string.
+   * @param volunteer
+   * @returns {string}
+   */
+  formatName(volunteer: Volunteer) {
+    return `${volunteer.firstName} ${volunteer.lastName}`;
+  }
+
+  private createForm(): void {
     const volunteerExistenceValidator = (control: AbstractControl): { [key: string]: any } => {
       const name = control.value;
       const match = this.volunteers ? this.volunteers.find(volunteer => this.formatName(volunteer) === name) : null;
@@ -50,7 +74,7 @@ export class CheckInFormComponent implements OnInit {
     });
   }
 
-  subscribeToForm(): void {
+  private subscribeToForm(): void {
     this.formGroup.controls['name'].valueChanges.subscribe(changes => {
       this.filterVolunteers(changes);
       this.showPetNameForm = this.checkIfNamesMatch(changes);
@@ -62,38 +86,30 @@ export class CheckInFormComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-    this.visitService.postVisit({
-      volunteerId: this.selectedVolunteer._id,
-      startedAt: Date.now(),
-      endedAt: null,
-      timezone: 'America/Chicago'
-    })
+  /**
+   * Gets visits from the data service. TODO: Only retrieve visits from last 24 hours
+   */
+  private getVisits(): void {
+    this.visitService.getVisits()
       .subscribe(
-        res => console.log(res),
+        visits => this.visits = visits,
         error => this.error = <any>error);
   }
 
-  getVolunteers(): void {
+  /**
+   * Gets volunteers from data service.
+   */
+  private getVolunteers(): void {
     this.volunteerService.getVolunteers()
       .subscribe(volunteers => this.volunteers = volunteers,
         error => this.error = <any>error);
   }
 
   /**
-   * Formats the name of a volunteer as one string.
-   * @param volunteer
-   * @returns {string}
-   */
-  formatName(volunteer: Volunteer) {
-    return `${volunteer.firstName} ${volunteer.lastName}`;
-  }
-
-  /**
    * Filters volunteers by comparing against first and last names.
    * @param name
    */
-  filterVolunteers(name: string): void {
+  private filterVolunteers(name: string): void {
     this.filteredVolunteers = name
       ? this.volunteers.filter(
         volunteer => `${volunteer.firstName.toLowerCase()} ${volunteer.lastName.toLowerCase()}`.includes(name.toLowerCase()))
@@ -105,7 +121,7 @@ export class CheckInFormComponent implements OnInit {
    * @param petName
    * @returns {boolean}
    */
-  filterVolunteersByPetName(petName: string): void {
+  private filterVolunteersByPetName(petName: string): void {
     this.filteredVolunteersByPetName = this.filteredVolunteers
       ? this.filteredVolunteers.filter(volunteer => volunteer.petName.includes(petName))
       : null;
@@ -116,7 +132,7 @@ export class CheckInFormComponent implements OnInit {
    * @param petName
    * @returns {boolean}
    */
-  getVolunteerByPetName(petName: string): Volunteer {
+  private getVolunteerByPetName(petName: string): Volunteer {
     return this.filteredVolunteers
       ? this.filteredVolunteers.find(volunteer => volunteer.petName === petName)
       : null;
@@ -127,7 +143,7 @@ export class CheckInFormComponent implements OnInit {
    * @param name
    * @returns {boolean}
    */
-  checkIfNamesMatch(name: string): boolean {
+  private checkIfNamesMatch(name: string): boolean {
     return this.filteredVolunteers && this.filteredVolunteers.length > 1
       ? this.filteredVolunteers.filter(
         volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length === this.filteredVolunteers.length
