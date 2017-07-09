@@ -57,8 +57,6 @@ export class CheckInFormComponent implements OnInit {
         this.showPetNameForm = this.checkIfNamesMatch(changes.name);
         if (this.showPetNameForm) {
           this.filterVolunteersByPetName(changes.petName);
-        } else {
-          this.formGroup.controls['petName'].setErrors(null);
         }
       });
   }
