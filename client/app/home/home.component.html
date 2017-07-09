@@ -1,6 +1,8 @@
 <app-jumbotron></app-jumbotron>
+<div fxLayout="row" fxLayoutAlign="end center">
+  <button (click)="logout()" md-button>Logout</button>
+</div>
 <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3em" fxLayoutGap.xs="0em">
   <app-volunteer-check-in fxFlex></app-volunteer-check-in>
   <app-visit-history fxFlex></app-visit-history>
 </div>
-<button (click)="logout()">Logout</button>
