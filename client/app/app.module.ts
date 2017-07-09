@@ -23,7 +23,8 @@ import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-
 import { VolunteerService } from './shared/volunteer.service';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './shared/login.service';
-import { AuthHttp, AuthConfig } from "angular2-jwt/angular2-jwt";
+import { AuthHttp, AuthConfig } from 'angular2-jwt/angular2-jwt';
+import { Guard } from './guard';
 
 // Http functionality used for auth
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -55,9 +56,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MdCardModule,
     MdInputModule,
     MdListModule,
-    MdTabsModule
   ],
-  providers: [VolunteerService, LoginService, {
+  providers: [VolunteerService, LoginService, Guard, {
     provide: AuthHttp,
     useFactory: authHttpServiceFactory,
     deps: [Http, RequestOptions]
