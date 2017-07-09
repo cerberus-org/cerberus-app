@@ -10,8 +10,8 @@ export class LoginService {
   constructor(private http: AuthHttp) { }
 
   login(user): Observable<any> {
-    // const headers = new Headers({ 'Content-Type': 'application/json' });
-    // const options = new RequestOptions({ headers: headers });
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
     return this.http.post('/api/user/login', user)
       .map((res: Response) => res.json())
       .catch(handleError);

@@ -38,7 +38,7 @@ export default function setRoutes(app) {
   router.route('/user/:id').put(userHandler.update);
   router.route('/user/:id').delete(userHandler.delete);
   // Test
-  router.route('/user/login').get(userHandler.login);
+  router.route('/user/login').post(userHandler.login);
 
   // Test
   app.get('/volunteers', (req, res, next) => {

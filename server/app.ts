@@ -38,6 +38,6 @@ db.once('open', () => {
 
 // Add a catch all route to set the req.user property
 // unsure about secret
-app.use(jwt({secret: 'test', credentialsRequired: false}));
+app.use(jwt({secret: 'secret', credentialsRequired: false}));
 
 export { app };
