@@ -6,6 +6,11 @@ abstract class BaseHandler {
    * Get all
    */
   getAll = (req, res) => {
+    console.log('Get method');
+    if (!req.user) {
+      res.status(401).json(JSON.stringify({'Message': 'Unauthorized.'}))
+    }
+
     this.model.find({}, (err, docs) => {
       if (err) {
         res.status(400).send(err);

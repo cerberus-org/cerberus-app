@@ -15,14 +15,20 @@ export class VolunteerService {
   }
 
   getVolunteers(): Observable<Volunteer[]> {
-    return this.http.get('/api/volunteers')
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authentication', localStorage.token);
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.get('/api/volunteers', options)
       .map((res: Response) => res.json())
       .catch(handleError);
   }
 
   postVolunteer(volunteer): Observable<Volunteer> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authentication', localStorage.token);
     const options = new RequestOptions({ headers: headers });
+
     return this.http.post('/api/volunteer', volunteer, options)
       .map((res: Response) => res.json())
       .catch(handleError);
