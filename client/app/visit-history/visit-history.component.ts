@@ -25,7 +25,12 @@ export class VisitHistoryComponent implements OnInit {
   getVisits(): void {
     this.visitService.getVisits().subscribe(
       visits => {
-        this.visits = visits;
+        this.visits = visits.map(visit => {
+          return Object.assign({}, visit, {
+            startedAt: new Date(visit.startedAt),
+            endedAt: visit.endedAt ? new Date(visit.endedAt) : null
+          });
+        });
         this.mapVisitsToDate();
       },
       error => this.error = <any>error);
@@ -34,18 +39,18 @@ export class VisitHistoryComponent implements OnInit {
   mapVisitsToDate() {
     const map = new Map<string, Visit[]>();
     this.visits.forEach(visit => {
-      const date = new Date(visit.startedAt).toString();
+      const date = visit.startedAt.toDateString();
       if (!map.has(date)) {
         map.set(date, []);
       }
-        map.get(date).push(visit);
+      map.get(date).push(visit);
     });
     this.visitsByDate = map;
     this.dates = Array.from(this.visitsByDate.keys());
   }
 
   formatTime(date: Date, timezone: string): string {
-    const now = moment(new Date(date).toString());
+    const now = moment(date.toString());
     return now.tz(timezone).format('h:mm a');
   }
 
@@ -53,9 +58,7 @@ export class VisitHistoryComponent implements OnInit {
     if (!visit.endedAt) {
       return null;
     }
-    const start = new Date(visit.startedAt);
-    const end = new Date(visit.endedAt);
-    const duration = end.getTime() - start.getTime();
+    const duration = visit.endedAt.getTime() - visit.startedAt.getTime();
     // Convert to seconds
     let seconds = duration / 1000;
     // Extract hours

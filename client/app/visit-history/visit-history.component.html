@@ -5,9 +5,12 @@
       <md-divider></md-divider>
       <h3 md-subheader>{{date}}</h3>
       <md-list-item *ngFor="let visit of visitsByDate.get(date)">
-        <h4 md-line>{{formatTime(visit.startedAt, visit.timezone)}}<span *ngIf="visit.endedAt"> to {{formatTime(visit.endedAt, visit.timezone)}}</span></h4>
+        <h4 md-line>{{formatTime(visit.startedAt, visit.timezone)}} to
+          <span *ngIf="visit.endedAt; else thenBlock">{{formatTime(visit.endedAt, visit.timezone)}}</span>
+          <ng-template #thenBlock>...</ng-template>
+        </h4>
         <p md-line>{{formatDuration(visit)}}</p>
-        <p md-line *ngIf="!formatDuration(visit)">Currently checked in</p>
+        <p md-line *ngIf="!formatDuration(visit)">Currently checked in!</p>
       </md-list-item>
     </div>
   </md-list>
