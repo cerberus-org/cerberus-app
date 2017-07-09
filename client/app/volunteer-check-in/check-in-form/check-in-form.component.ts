@@ -16,6 +16,7 @@ export class CheckInFormComponent implements OnInit {
   public selectedVolunteer: Volunteer;
   public volunteers: Volunteer[];
   public filteredVolunteers: Volunteer[];
+  public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
 
   constructor(private fb: FormBuilder, private visitService: VisitService, private volunteerService: VolunteerService) {
@@ -32,15 +33,15 @@ export class CheckInFormComponent implements OnInit {
       const name = control.value;
       const match = this.volunteers ? this.volunteers.find(volunteer => this.formatName(volunteer) === name) : null;
       if (!this.showPetNameForm) {
+        // Select volunteer in validator since validators fire before subscription
         this.selectedVolunteer = match;
       }
       return match ? null : { 'doesNotExist': { name } };
     };
     const volunteerUniqueValidator = (control: AbstractControl): { [key: string]: any } => {
-      const filtered = this.filterVolunteersByPetName(control.value);
-      const match = filtered && filtered.length === 1 ? filtered[0] : null;
+      const match = this.getVolunteerByPetName(control.value);
+      // Select volunteer in validator since validators fire before subscription
       this.selectedVolunteer = match;
-      console.log(match);
       return match ? null : { 'notUnique': { name } };
     };
     this.formGroup = this.fb.group({
@@ -49,21 +50,23 @@ export class CheckInFormComponent implements OnInit {
     });
   }
 
-  getVolunteers(): void {
-    this.volunteerService.getVolunteers()
-      .subscribe(volunteers => this.volunteers = volunteers,
-        error => this.error = <any>error);
-  }
-
   subscribeToForm(): void {
     this.formGroup.valueChanges
       .subscribe(changes => {
         this.filterVolunteers(changes.name);
         this.showPetNameForm = this.checkIfNamesMatch(changes.name);
-        if (!this.showPetNameForm) {
-          this.formGroup.controls['petName'].setErrors(null)
+        if (this.showPetNameForm) {
+          this.filterVolunteersByPetName(changes.petName);
+        } else {
+          this.formGroup.controls['petName'].setErrors(null);
         }
       });
+  }
+
+  getVolunteers(): void {
+    this.volunteerService.getVolunteers()
+      .subscribe(volunteers => this.volunteers = volunteers,
+        error => this.error = <any>error);
   }
 
   /**
@@ -88,11 +91,24 @@ export class CheckInFormComponent implements OnInit {
 
   /**
    * Checks if the given pet name narrows the filtered volunteers to one.
-   * @param name
+   * @param petName
    * @returns {boolean}
    */
-  filterVolunteersByPetName(petName: string): Volunteer[] {
-    return this.filteredVolunteers ? this.filteredVolunteers.filter(volunteer => volunteer.petName === petName) : null;
+  filterVolunteersByPetName(petName: string): void {
+    this.filteredVolunteersByPetName = this.filteredVolunteers
+      ? this.filteredVolunteers.filter(volunteer => volunteer.petName.includes(petName))
+      : null;
+  }
+
+  /**
+   * Gets a unique volunteer using a pet name (no two volunteers of the first and last names can have the same pet name).
+   * @param petName
+   * @returns {boolean}
+   */
+  getVolunteerByPetName(petName: string): Volunteer {
+    return this.filteredVolunteers
+      ? this.filteredVolunteers.find(volunteer => volunteer.petName === petName)
+      : null;
   }
 
   /**
@@ -108,7 +124,7 @@ export class CheckInFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.formGroup.value);
+    console.log(this.selectedVolunteer);
     // this.visitService.postVisit(this.nameControl.value)
     //   .subscribe(
     //     res => console.log(res),

@@ -11,7 +11,7 @@
     <input mdInput placeholder="Favorite Pet" [mdAutocomplete]="petNameForm" formControlName="petName">
   </md-input-container>
   <md-autocomplete fxFlexAlign="center" #petNameForm="mdAutocomplete">
-    <md-option *ngFor="let volunteer of filteredVolunteers" [value]="volunteer.petName">
+    <md-option *ngFor="let volunteer of filteredVolunteersByPetName" [value]="volunteer.petName">
       <i class="material-icons">pets</i> {{volunteer.petName}}
     </md-option>
   </md-autocomplete>
