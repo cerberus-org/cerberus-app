@@ -11,7 +11,6 @@ import { Volunteer } from 'app/shared/volunteer';
 })
 export class CheckInFormComponent implements OnInit {
   public error: string;
-  public names: string[];
   public formGroup: FormGroup;
   public selectedVolunteer: Volunteer;
   public volunteers: Volunteer[];
@@ -24,7 +23,6 @@ export class CheckInFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.names = [];
     this.getVolunteers();
   }
 
@@ -38,10 +36,10 @@ export class CheckInFormComponent implements OnInit {
       return match ? null : { 'doesNotExist': { name } };
     };
     const volunteerUniqueValidator = (control: AbstractControl): { [key: string]: any } => {
-      const petName = control.value;
       const filtered = this.filterVolunteersByPetName(control.value);
       const match = filtered && filtered.length === 1 ? filtered[0] : null;
       this.selectedVolunteer = match;
+      console.log(match);
       return match ? null : { 'notUnique': { name } };
     };
     this.formGroup = this.fb.group({
@@ -55,7 +53,9 @@ export class CheckInFormComponent implements OnInit {
       .subscribe(changes => {
         this.filterVolunteers(changes.name);
         this.showPetNameForm = this.checkIfNamesMatch(changes.name);
-        console.log(this.selectedVolunteer);
+        if (!this.showPetNameForm) {
+          this.formGroup.controls['petName'].setErrors(null)
+        }
       });
   }
 
