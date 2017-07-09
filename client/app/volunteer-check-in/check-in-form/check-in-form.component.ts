@@ -14,6 +14,7 @@ import { Visit } from '../../shared/visit';
 export class CheckInFormComponent implements OnInit {
   public error: string;
   public formGroup: FormGroup;
+  public activeVisitForVolunteer: Visit;
   public visits: Visit[];
   public selectedVolunteer: Volunteer;
   public volunteers: Volunteer[];
@@ -75,6 +76,11 @@ export class CheckInFormComponent implements OnInit {
   }
 
   private subscribeToForm(): void {
+    this.formGroup.valueChanges.subscribe(() => {
+      const error = this.formGroup.controls['name'].errors || this.formGroup.controls['petName'].errors;
+      console.log(error);
+      this.activeVisitForVolunteer = error ? null : this.findActiveVisitForVolunteer();
+    })
     this.formGroup.controls['name'].valueChanges.subscribe(changes => {
       this.filterVolunteers(changes);
       this.showPetNameForm = this.checkIfNamesMatch(changes);
@@ -103,6 +109,10 @@ export class CheckInFormComponent implements OnInit {
     this.volunteerService.getVolunteers()
       .subscribe(volunteers => this.volunteers = volunteers,
         error => this.error = <any>error);
+  }
+
+  private findActiveVisitForVolunteer(): Visit {
+    return this.visits.find(visit => visit.endedAt === null && this.selectedVolunteer._id === visit.volunteerId);
   }
 
   /**
