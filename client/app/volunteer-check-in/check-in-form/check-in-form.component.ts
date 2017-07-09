@@ -32,12 +32,17 @@ export class CheckInFormComponent implements OnInit {
     const volunteerExistenceValidator = (control: AbstractControl): { [key: string]: any } => {
       const name = control.value;
       const match = this.volunteers ? this.volunteers.find(volunteer => this.formatName(volunteer) === name) : null;
-      this.selectedVolunteer = match;
+      if (!this.showPetNameForm) {
+        this.selectedVolunteer = match;
+      }
       return match ? null : { 'doesNotExist': { name } };
     };
     const volunteerUniqueValidator = (control: AbstractControl): { [key: string]: any } => {
-      const name = control.value;
-      return this.checkIfUniqueName(name) ? null : { 'notUnique': { name } };
+      const petName = control.value;
+      const filtered = this.filterVolunteersByPetName(control.value);
+      const match = filtered && filtered.length === 1 ? filtered[0] : null;
+      this.selectedVolunteer = match;
+      return match ? null : { 'notUnique': { name } };
     };
     this.formGroup = this.fb.group({
       name: ['', [Validators.required, volunteerExistenceValidator]],
@@ -50,6 +55,7 @@ export class CheckInFormComponent implements OnInit {
       .subscribe(changes => {
         this.filterVolunteers(changes.name);
         this.showPetNameForm = this.checkIfNamesMatch(changes.name);
+        console.log(this.selectedVolunteer);
       });
   }
 
@@ -60,16 +66,24 @@ export class CheckInFormComponent implements OnInit {
       : null;
   }
 
+  /**
+   * Checks if the given pet name narrows the filtered volunteers to one.
+   * @param name
+   * @returns {boolean}
+   */
+  filterVolunteersByPetName(petName: string): Volunteer[] {
+    return this.filteredVolunteers ? this.filteredVolunteers.filter(volunteer => volunteer.petName === petName) : null;
+  }
+
+  /**
+   * Checks if the filtered volunteers contain more than one volunteer of the same name.
+   * @param name
+   * @returns {boolean}
+   */
   checkIfNamesMatch(name: string): boolean {
     return this.filteredVolunteers && this.filteredVolunteers.length > 1
       ? this.filteredVolunteers.filter(
         volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length === this.filteredVolunteers.length
-      : false;
-  }
-
-  checkIfUniqueName(name: string): boolean {
-    return this.filteredVolunteers
-      ? this.filteredVolunteers.filter(volunteer => this.formatName(volunteer) === name).length === 1
       : false;
   }
 
