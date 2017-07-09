@@ -29,17 +29,12 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.loginForm.value)
       .subscribe(
         response => {
-          localStorage.setItem('token', response.access_token);
+          localStorage.setItem('token', response.token);
           this.router.navigateByUrl('/home');
-          console.log(response.access_token);
+          console.log(response.token);
         },
         err => console.log(err)
       )
-  }
-
-  logout() {
-    this.loginService.logout();
-    this.router.navigateByUrl('/login');
   }
 
   // use FormBuilder to define FormGroup
