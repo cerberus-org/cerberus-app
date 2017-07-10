@@ -19,7 +19,6 @@ export class VolunteerService {
     headers.append('authorization', localStorage.token);
     const options = new RequestOptions({ headers: headers })
 
-    console.log('local storage   ' + localStorage.token);
     return this.http.get('/api/volunteers', options)
       .map((res: Response) => res.json())
       .catch(handleError);

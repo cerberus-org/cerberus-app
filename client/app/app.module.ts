@@ -57,11 +57,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MdInputModule,
     MdListModule,
   ],
-  providers: [VolunteerService, LoginService, Guard, {
-    provide: AuthHttp,
-    useFactory: authHttpServiceFactory,
-    deps: [Http, RequestOptions]
-  }],
+  providers: [VolunteerService, LoginService, Guard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

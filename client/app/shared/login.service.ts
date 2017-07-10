@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Response, RequestOptions } from '@angular/http';
+import { Headers, Response, RequestOptions, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import handleError from './handle-error';
 import { AuthHttp } from 'angular2-jwt/angular2-jwt';
@@ -7,7 +7,7 @@ import { AuthHttp } from 'angular2-jwt/angular2-jwt';
 @Injectable()
 export class LoginService {
 
-  constructor(private http: AuthHttp) { }
+  constructor(private http: Http) { }
 
   login(user): Observable<any> {
     const headers = new Headers({ 'Content-Type': 'application/json' });

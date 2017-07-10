@@ -27,20 +27,16 @@ db.once('open', () => {
   // Api security middleware
   // App level, consider using Router level
   app.use('/api/volunteers', function(req, res, next) {
-    console.log('header' + req.headers['authorization']);
     let token = req.headers['authorization'];
     if (token) {
       try {
         token = jwt.decode(token, 'test');
         const user = token.user;
-        console.log('user ' + user);
         next();
       } catch (err) {
-        console.log(err);
         return res.sendStatus(401);
       }
     } else {
-      console.log('token does not exist');
       return res.sendStatus(401);
     }
   });
