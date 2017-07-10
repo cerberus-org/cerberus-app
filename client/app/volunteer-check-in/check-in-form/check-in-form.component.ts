@@ -128,6 +128,10 @@ export class CheckInFormComponent implements OnInit {
         error => this.error = <any>error);
   }
 
+  /**
+   * Finds an active visit for the selected volunteer if one exists.
+   * @returns {undefined|Visit}
+   */
   private findActiveVisitForVolunteer(): Visit {
     return this.visits.find(visit => visit.endedAt === null && this.selectedVolunteer._id === visit.volunteerId);
   }

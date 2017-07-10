@@ -46,7 +46,7 @@ export class VisitHistoryComponent implements OnInit {
       map.get(date).push(visit);
     });
     this.visitsByDate = map;
-    this.dates = Array.from(this.visitsByDate.keys());
+    this.dates = Array.from(this.visitsByDate.keys()).reverse();
   }
 
   formatTime(date: Date, timezone: string): string {
