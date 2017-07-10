@@ -77,10 +77,8 @@ export class CheckInFormComponent implements OnInit {
 
   private subscribeToForm(): void {
     this.formGroup.valueChanges.subscribe(() => {
-      const error = this.formGroup.controls['name'].errors || this.formGroup.controls['petName'].errors;
-      console.log(error);
-      this.activeVisitForVolunteer = error ? null : this.findActiveVisitForVolunteer();
-    })
+      this.activeVisitForVolunteer = this.formGroup.invalid ? null : this.findActiveVisitForVolunteer();
+    });
     this.formGroup.controls['name'].valueChanges.subscribe(changes => {
       this.filterVolunteers(changes);
       this.showPetNameForm = this.checkIfNamesMatch(changes);

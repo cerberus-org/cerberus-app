@@ -15,6 +15,11 @@
       <i class="material-icons">pets</i> {{volunteer.petName}}
     </md-option>
   </md-autocomplete>
-  <button md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid">Submit</button>
+  <div *ngIf="formGroup.invalid || !activeVisitForVolunteer; then showCheckIn else showCheckOut"></div>
+  <ng-template #showCheckIn>
+    <button md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid">Check In</button>
+  </ng-template>
+  <ng-template #showCheckOut>
+    <button md-button color="primary" fxFlexAlign="center">Check Out</button>
+  </ng-template>
 </form>
-<div *ngIf="activeVisitForVolunteer">{{activeVisitForVolunteer}}</div>
