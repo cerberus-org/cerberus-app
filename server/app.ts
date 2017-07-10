@@ -8,7 +8,7 @@ import 'reflect-metadata';
 import setRoutes from './routes';
 
 const app = express();
-const jwt = require('express-jwt');
+const jwt = require('jwt-simple');
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -24,17 +24,25 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 
-  // unsure about secret
-  app.use(jwt({secret: 'test', credentialsRequired: false}));
-
   // Api security middleware
   // App level, consider using Router level
-  app.use('/api', function(req, res, next) {
-    if (req !== '123') {
-      return res.status(401).json(JSON.stringify({ 'Message': 'Unauthorized' }));
+  app.use('/api/volunteers', function(req, res, next) {
+    console.log('header' + req.headers['authorization']);
+    let token = req.headers['authorization'];
+    if (token) {
+      try {
+        token = jwt.decode(token, 'test');
+        const user = token.user;
+        console.log('user ' + user);
+        next();
+      } catch (err) {
+        console.log(err);
+        return res.sendStatus(401);
+      }
+    } else {
+      console.log('token does not exist');
+      return res.sendStatus(401);
     }
-    // Continue to the next middleware or http request
-    next();
   });
 
   setRoutes(app);
