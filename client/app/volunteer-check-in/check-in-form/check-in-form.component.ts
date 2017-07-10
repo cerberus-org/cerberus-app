@@ -33,15 +33,11 @@ export class CheckInFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.visitService.postVisit({
-      volunteerId: this.selectedVolunteer._id,
-      startedAt: Date.now(),
-      endedAt: null,
-      timezone: 'America/Chicago'
-    })
-      .subscribe(
-        res => console.log(res),
-        error => this.error = <any>error);
+    if (this.activeVisitForVolunteer) {
+      this.endVisit();
+    } else {
+      this.startVisit();
+    }
   }
 
   /**
@@ -53,6 +49,9 @@ export class CheckInFormComponent implements OnInit {
     return `${volunteer.firstName} ${volunteer.lastName}`;
   }
 
+  /**
+   * Creates the form group.
+   */
   private createForm(): void {
     const volunteerExistenceValidator = (control: AbstractControl): { [key: string]: any } => {
       const name = control.value;
@@ -75,14 +74,20 @@ export class CheckInFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Subscribes to value changes in the form.
+   */
   private subscribeToForm(): void {
+    // Always check for an active visit
     this.formGroup.valueChanges.subscribe(() => {
       this.activeVisitForVolunteer = this.formGroup.invalid ? null : this.findActiveVisitForVolunteer();
     });
+    // Filter volunteers when name value changes
     this.formGroup.controls['name'].valueChanges.subscribe(changes => {
       this.filterVolunteers(changes);
       this.showPetNameForm = this.checkIfNamesMatch(changes);
     });
+    // Filter volunteers by pet name when petName value changes
     this.formGroup.controls['petName'].valueChanges.subscribe(changes => {
       if (this.showPetNameForm) {
         this.filterVolunteersByPetName(changes);
@@ -101,7 +106,21 @@ export class CheckInFormComponent implements OnInit {
   }
 
   /**
-   * Gets volunteers from data service.
+   * Creates a new visit with now as the start time and a null end time.
+   */
+  private startVisit(): void {
+    this.visitService.createVisit(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago'));
+  }
+
+  /**
+   * Updates a visit with now as the end time.
+   */
+  private endVisit(): void {
+    this.visitService.updateVisit(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }));
+  }
+
+  /**
+   * Gets volunteers from the data service.
    */
   private getVolunteers(): void {
     this.volunteerService.getVolunteers()
