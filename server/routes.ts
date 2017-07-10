@@ -2,7 +2,6 @@ import * as express from 'express';
 
 import VolunteerHandler from './handlers/volunteer';
 import VisitHandler from './handlers/visit';
-import Volunteer from './models/volunteer';
 import UserHandler from './handlers/user';
 
 export default function setRoutes(app) {
@@ -37,7 +36,6 @@ export default function setRoutes(app) {
   router.route('/user/:id').get(userHandler.get);
   router.route('/user/:id').put(userHandler.update);
   router.route('/user/:id').delete(userHandler.delete);
-  // Test
   router.route('/user/login').post(userHandler.login);
 
   // Apply the routes to our application with the prefix /api

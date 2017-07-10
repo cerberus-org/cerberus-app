@@ -27,6 +27,15 @@ db.once('open', () => {
   // unsure about secret
   app.use(jwt({secret: 'test', credentialsRequired: false}));
 
+  // Api security middleware
+  // App level, consider using Router level
+  app.use('/api', function(req, res, next) {
+    if (req !== '123') {
+      return res.status(401).json(JSON.stringify({ 'Message': 'Unauthorized' }));
+    }
+    // Continue to the next middleware or http request
+    next();
+  });
 
   setRoutes(app);
 
