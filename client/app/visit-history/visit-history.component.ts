@@ -25,7 +25,8 @@ export class VisitHistoryComponent implements OnInit {
   getVisits(): void {
     this.visitService.getVisits().subscribe(
       visits => {
-        this.visits = visits.map(visit => {
+        // Reverse array to sort by latest visit
+        this.visits = visits.reverse().map(visit => {
           return Object.assign({}, visit, {
             startedAt: new Date(visit.startedAt),
             endedAt: visit.endedAt ? new Date(visit.endedAt) : null
@@ -46,7 +47,7 @@ export class VisitHistoryComponent implements OnInit {
       map.get(date).push(visit);
     });
     this.visitsByDate = map;
-    this.dates = Array.from(this.visitsByDate.keys()).reverse();
+    this.dates = Array.from(this.visitsByDate.keys());
   }
 
   formatTime(date: Date, timezone: string): string {
