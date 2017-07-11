@@ -50,7 +50,7 @@ export class VisitHistoryComponent implements OnInit {
   }
 
   formatTime(date: Date, timezone: string): string {
-    const now = moment(date.toString());
+    const now = moment(date.getTime());
     return now.tz(timezone).format('h:mm a');
   }
 
