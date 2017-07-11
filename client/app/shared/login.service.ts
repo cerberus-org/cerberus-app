@@ -21,3 +21,15 @@ export class LoginService {
     localStorage.clear();
   }
 }
+
+export class MockLoginService extends LoginService {
+
+  constructor() {
+    super(null);
+  }
+
+  login(): Observable<any> {
+    return Observable.of({token: 'token'});
+  }
+}
+

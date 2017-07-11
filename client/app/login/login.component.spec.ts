@@ -35,7 +35,7 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     spyOn(component, 'login').and.callFake(() => {
-      return 'token';
+      return {token: 'token'};
     });
     fixture.detectChanges();
   });
