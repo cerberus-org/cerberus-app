@@ -2,12 +2,9 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpModule, Headers, Http, RequestOptions } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MdAutocompleteModule, MdButtonModule, MdCardModule, MdInputModule, MdListModule,
-  MdTabsModule
-} from '@angular/material';
+import { MdAutocompleteModule, MdButtonModule, MdCardModule, MdInputModule, MdListModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
@@ -23,13 +20,7 @@ import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-
 import { VolunteerService } from './shared/volunteer.service';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './shared/login.service';
-import { AuthHttp, AuthConfig } from 'angular2-jwt/angular2-jwt';
 import { Guard } from './guard';
-
-// Http functionality used for auth
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(new AuthConfig({noJwtError: true}), http, options);
-}
 
 @NgModule({
   declarations: [

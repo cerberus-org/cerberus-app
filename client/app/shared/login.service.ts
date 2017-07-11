@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Headers, Response, RequestOptions, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import handleError from './handle-error';
-import { AuthHttp } from 'angular2-jwt/angular2-jwt';
 
 @Injectable()
 export class LoginService {
