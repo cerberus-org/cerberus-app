@@ -13,8 +13,7 @@ export default class UserHandler extends BaseHandler {
       if (!user) { return res.sendStatus(403); }
       user.comparePassword(req.body.password, (error, isMatch) => {
         if (!isMatch) { return res.sendStatus(403); }
-        // 'test' will be the code used to decode the token
-        console.log(process.env.SECRET_TOKEN);
+        // process.env.SECRET_TOKEN will be the code used to decode the token
         const token = jwt.encode({user: user}, process.env.SECRET_TOKEN, 'HS512')
         res.status(200).json({ token: token });
       });

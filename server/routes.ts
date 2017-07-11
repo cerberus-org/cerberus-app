@@ -35,7 +35,7 @@ export default function setRoutes(app) {
   // Users
   router.route('/users').get(auth.ensureLoggedIn, userHandler.getAll);
   router.route('/users/count').get(auth.ensureLoggedIn, userHandler.count);
-  router.route('/user').post(auth.ensureLoggedIn, userHandler.insert);
+  router.route('/user').post(userHandler.insert);
   router.route('/user/:id').get(auth.ensureLoggedIn, userHandler.get);
   router.route('/user/:id').put(auth.ensureLoggedIn, userHandler.update);
   router.route('/user/:id').delete(auth.ensureLoggedIn, userHandler.delete);
