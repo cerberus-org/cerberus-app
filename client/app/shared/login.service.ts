@@ -15,11 +15,6 @@ export class LoginService {
       .map((res: Response) => res.json())
       .catch(handleError);
   }
-
-  public logout() {
-    localStorage.removeItem('token');
-    localStorage.clear();
-  }
 }
 
 export class MockLoginService extends LoginService {
