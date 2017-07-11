@@ -1,9 +1,7 @@
 import { TestBed, inject, async, getTestBed, } from '@angular/core/testing';
 import {
-  HttpModule,
   ResponseOptions,
   Response,
-  RequestMethod,
   XHRBackend,
   BaseRequestOptions,
   Http
@@ -14,7 +12,7 @@ import { VolunteerService } from './volunteer.service';
 describe('VolunteerService', () => {
   let backend: MockBackend;
   let service: VolunteerService;
-  
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
         providers: [
@@ -37,14 +35,14 @@ describe('VolunteerService', () => {
             }
         ]
     });
-    
+
     // testbed, backend and service will be utilized for tests
     const testbed = getTestBed();
     backend = testbed.get(MockBackend);
     service = testbed.get(VolunteerService);
 
     }));
-      
+
     // Establishes how the fake server will respond
     function setupConnections(backend: MockBackend, options: any) {
       // If the backend receives a request (aka connection), the connection
@@ -55,35 +53,35 @@ describe('VolunteerService', () => {
             connection.mockRespond(response);
       });
     }
-    
+
     it('should be created', inject([VolunteerService], (service: VolunteerService) => {
       expect(service).toBeTruthy();
     }));
-  
+
     it('should post volunteer', () => {
       // Tell the connection what to return and the expected status code
       setupConnections(backend, {
           body: {
-            test: "test"
+            test: 'test'
           },
           status: 200
         });
 
-        service.postVolunteer({test: "test"}).subscribe(res => {
-            expect(res).toEqual({test: "test"});
+        service.postVolunteer({test: 'test'}).subscribe(res => {
+            expect(res).toEqual({test: 'test'});
         });
       });
-      
+
       it('should get volunteers', () => {
         setupConnections(backend, {
             body: {
-              test: "test"
+              test: 'test'
             },
             status: 201
           });
 
           service.getVolunteers().subscribe(res => {
-              expect(res).toEqual({test: "test"});
+              expect(res).toEqual({test: 'test'});
           });
         });
 });
