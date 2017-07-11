@@ -29,8 +29,8 @@ describe('VolunteerService', () => {
                 provide: Http,
                 // but angular should use MockBackend and BaseRequestOptions instead
                 // useFactory creates an instance of Http that depends on MockBackend and BaseRequestOptions
-                useFactory: (backend: XHRBackend, defaultOptions: BaseRequestOptions) => {
-                    return new Http(backend, defaultOptions);
+                useFactory: (mockBackend: XHRBackend, defaultOptions: BaseRequestOptions) => {
+                    return new Http(mockBackend, defaultOptions);
                 }
             }
         ]
@@ -44,18 +44,18 @@ describe('VolunteerService', () => {
     }));
 
     // Establishes how the fake server will respond
-    function setupConnections(backend: MockBackend, options: any) {
+    function setupConnections(mockBackend: MockBackend, options: any) {
       // If the backend receives a request (aka connection), the connection
       // returns and Observable and the Observable is subscribed
-      backend.connections.subscribe((connection: MockConnection) => {
+      mockBackend.connections.subscribe((connection: MockConnection) => {
             const responseOptions = new ResponseOptions(options);
             const response = new Response(responseOptions);
             connection.mockRespond(response);
       });
     }
 
-    it('should be created', inject([VolunteerService], (service: VolunteerService) => {
-      expect(service).toBeTruthy();
+    it('should be created', inject([VolunteerService], (volunteerService: VolunteerService) => {
+      expect(volunteerService).toBeTruthy();
     }));
 
     it('should post volunteer', () => {
