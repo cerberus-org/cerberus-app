@@ -27,7 +27,9 @@ export class VisitService {
   }
 
   createVisit(visit: Visit): Observable<Visit> {
+    console.log(JSON.stringify(visit));
     return this.http.post('/api/visit', JSON.stringify(visit), this.options)
+      .map(res => res.json())
       .catch(handleError);
   }
 
@@ -38,13 +40,15 @@ export class VisitService {
   }
 
   updateVisit(visit: Visit): Observable<Visit> {
-    console.log(visit);
+    console.log(JSON.stringify(visit));
     return this.http.put(`/api/visit/${visit._id}`, JSON.stringify(visit), this.options)
+      .map(res => res.json())
       .catch(handleError);
   }
 
-  deleteVisit(visit: Visit): Observable<any> {
+  deleteVisit(visit: Visit): Observable<Visit> {
     return this.http.delete(`/api/visit/${visit._id}`, this.options)
+      .map(res => res.json())
       .catch(handleError);
   }
 }

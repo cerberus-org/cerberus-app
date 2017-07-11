@@ -109,14 +109,20 @@ export class CheckInFormComponent implements OnInit {
    * Creates a new visit with now as the start time and a null end time.
    */
   private startVisit(): void {
-    this.visitService.createVisit(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago'));
+    this.visitService.createVisit(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago'))
+      .subscribe(
+        res => console.log(res),
+        error => this.error = <any>error);;
   }
 
   /**
    * Updates a visit with now as the end time.
    */
   private endVisit(): void {
-    this.visitService.updateVisit(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }));
+    this.visitService.updateVisit(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }))
+      .subscribe(
+        res => console.log(res),
+        error => this.error = <any>error);;
   }
 
   /**
