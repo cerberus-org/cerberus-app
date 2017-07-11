@@ -9,7 +9,7 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
 
   class MockRouter {
-    navigate = jasmine.createSpy('navigate');
+    navigateByUrl = jasmine.createSpy('navigateByUrl');
   }
 
   let mockRouter: MockRouter;

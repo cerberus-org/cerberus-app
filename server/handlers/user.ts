@@ -1,7 +1,6 @@
 import BaseHandler from './base';
 import User from '../models/user';
 import * as jwt from 'jwt-simple'
-import * as dotenv from 'dotenv';
 import 'zone.js';
 import 'reflect-metadata';
 

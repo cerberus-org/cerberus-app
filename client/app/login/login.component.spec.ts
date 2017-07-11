@@ -13,7 +13,7 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
 
   class MockRouter {
-    navigate = jasmine.createSpy('navigate');
+    navigateByUrl = jasmine.createSpy('navigateByUrl');
   }
 
   let mockRouter: MockRouter;
