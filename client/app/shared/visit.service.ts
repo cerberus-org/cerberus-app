@@ -27,7 +27,6 @@ export class VisitService {
   }
 
   createVisit(visit: Visit): Observable<Visit> {
-    console.log(visit);
     return this.http.post('/api/visit', JSON.stringify(visit), this.options)
       .catch(handleError);
   }

@@ -45,7 +45,7 @@ export class CheckInFormComponent implements OnInit {
    * @param volunteer
    * @returns {string}
    */
-  formatName(volunteer: Volunteer) {
+  private formatName(volunteer: Volunteer) {
     return `${volunteer.firstName} ${volunteer.lastName}`;
   }
 
