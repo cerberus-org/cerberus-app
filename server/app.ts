@@ -8,7 +8,6 @@ import 'reflect-metadata';
 import setRoutes from './routes';
 
 const app = express();
-const jwt = require('jwt-simple');
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -23,23 +22,6 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
-
-  // Api security middleware
-  // App level, consider using Router level
-  app.use('/api/volunteers', function(req, res, next) {
-    let token = req.headers['authorization'];
-    if (token) {
-      try {
-        token = jwt.decode(token, 'test');
-        const user = token.user;
-        next();
-      } catch (err) {
-        return res.sendStatus(401);
-      }
-    } else {
-      return res.sendStatus(401);
-    }
-  });
 
   setRoutes(app);
 
