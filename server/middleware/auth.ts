@@ -6,7 +6,6 @@ export class Auth {
     let token = req.headers['authorization'];
     if (token) {
       try {
-        console.log(process.env.SECRET_TOKEN);
         token = jwt.decode(token, process.env.SECRET_TOKEN);
         const user = token.user;
         next();
