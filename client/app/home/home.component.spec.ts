@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 import { MockComponent } from 'ng2-mock-component';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -22,8 +22,6 @@ describe('HomeComponent', () => {
         MockComponent({ selector: 'app-visit-history' }),
         MockComponent({ selector: 'app-volunteer-check-in' })
       ],
-      imports: [
-        RouterModule],
       providers: [ { provide: Router, useValue: mockRouter }]
     }).compileComponents();
   }));
@@ -36,5 +34,10 @@ describe('HomeComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('local storage should be cleared', () => {
+    component.logout();
+    expect(localStorage.token).toBe(undefined);
   });
 });
