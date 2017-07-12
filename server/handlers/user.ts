@@ -10,12 +10,18 @@ export default class UserHandler extends BaseHandler {
 
   login = (req, res) => {
     this.model.findOne({ email: req.body.email }, (err, user) => {
-      if (!user) { return res.sendStatus(403); }
+      if (!user) {
+        res.sendStatus(403);
+        return console.error(err)
+      }
       user.comparePassword(req.body.password, (error, isMatch) => {
-        if (!isMatch) { return res.sendStatus(403); }
+        if (!isMatch) {
+          res.sendStatus(403);
+          return console.error(err)
+        }
         // process.env.SECRET_TOKEN will be the code used to decode the token
         const token = jwt.encode({user: user}, process.env.SECRET_TOKEN, 'HS512')
-        res.status(200).json({ token: token });
+        res.json({ token: token });
       });
     });
   };
