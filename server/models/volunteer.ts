@@ -5,7 +5,8 @@ const volunteerSchema = new mongoose.Schema({
     type: String,
     required: [true, 'First name is required'],
     minlength: [2],
-    maxlength: [30]
+    maxlength: [30],
+    validate: /^[a-z ,.'-]+$/i
   },
   lastName: {
     type: String,
@@ -17,7 +18,8 @@ const volunteerSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Favorite pet name is required'],
     minlength: [2],
-    maxlength: [30]
+    maxlength: [30],
+    validate: /^[a-z ,.'-]+$/i
   },
 }, { timestamps: true });
 
