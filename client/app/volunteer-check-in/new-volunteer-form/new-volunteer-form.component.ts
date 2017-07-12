@@ -50,4 +50,11 @@ export class NewVolunteerFormComponent implements OnInit {
       { placeholder: 'Favorite Pet Name', control: 'petName' }
     ];
   }
+
+  capitalize(): void {
+    Object.keys(this.formGroup.controls).forEach(key => {
+      this.formGroup.controls[key].setValue(this.formGroup.controls[key].value.charAt(0).toUpperCase() +
+        this.formGroup.controls[key].value.slice(1));
+    });
+  }
 }
