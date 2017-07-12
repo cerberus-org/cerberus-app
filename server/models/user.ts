@@ -1,3 +1,5 @@
+// Retrieved from https://github.com/DavideViolante/Angular-Full-Stack/blob/master/server/models/user.ts
+
 import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
 
