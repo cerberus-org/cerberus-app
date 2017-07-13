@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from '@angular/http';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import handleError from './handle-error';
-import { testVolunteers } from './volunteer';
 
-@Injectable()
-export abstract class BaseService {
+abstract class BaseService {
   abstract model: any;
   abstract modelName: string;
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-  private options = new RequestOptions({ headers: this.headers });
 
-  constructor(private http: Http) { }
+  constructor(protected http: Http) { }
+
+  private get options() {
+    const headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': localStorage.token });
+    return new RequestOptions({ headers: headers });
+  }
 
   getAll(): Observable<any[]> {
     return this.http.get(`/api/${this.modelName}s`)
@@ -50,30 +50,4 @@ export abstract class BaseService {
   }
 }
 
-abstract class MockBaseService extends BaseService {
-  abstract testData: any[];
-
-  getAll(): Observable<any[]> {
-    return Observable.of(this.testData);
-  }
-
-  count(): Observable<number> {
-    return Observable.of(this.testData.length);
-  }
-
-  create(obj: any): Observable<any> {
-    return Observable.of(this.testData[0]);
-  }
-
-  get(obj: any): Observable<any> {
-    return Observable.of(this.testData[0]);
-  }
-
-  update(obj: any): Observable<any> {
-    return Observable.of(this.testData[0]);
-  }
-
-  delete(obj: any): Observable<any> {
-    return Observable.of(this.testData[0]);
-  }
-}
+export default BaseService

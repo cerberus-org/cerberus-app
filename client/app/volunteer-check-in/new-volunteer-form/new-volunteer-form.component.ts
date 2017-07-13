@@ -22,7 +22,7 @@ export class NewVolunteerFormComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    this.volunteerService.postVolunteer(this.formGroup.value)
+    this.volunteerService.create(this.formGroup.value)
       .subscribe(
         res => console.log(res),
         error => this.error = <any>error);
