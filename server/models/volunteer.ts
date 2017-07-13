@@ -24,11 +24,6 @@ const volunteerSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-volunteerSchema.path('firstName').validate(function (value) {
-  const regex = /^\d{10}$/;
-  return regex.test(value)
-}, 'Invalid first name');
-
 volunteerSchema.index({ firstName: 1, lastName: 1, petName: 1 }, { unique: true });
 
 const Volunteer = mongoose.model('Volunteer', volunteerSchema);
