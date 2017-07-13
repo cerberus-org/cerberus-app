@@ -26,12 +26,8 @@ export class VisitHistoryComponent implements OnInit {
     this.visitService.getAll().subscribe(
       visits => {
         // Reverse array to sort by latest visit
-        this.visits = visits.reverse().map(visit => {
-          return Object.assign({}, visit, {
-            startedAt: new Date(visit.startedAt),
-            endedAt: visit.endedAt ? new Date(visit.endedAt) : null
-          });
-        });
+        this.visits = visits.reverse();
+        console.log(this.visits);
         this.mapVisitsToDate();
       },
       error => this.error = <any>error);

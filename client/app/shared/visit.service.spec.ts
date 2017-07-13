@@ -60,7 +60,7 @@ describe('VisitService', () => {
   it('should create the visit', () => {
     setConnections(testVisits[0]);
     service.create(testVisits[0]).subscribe(res => {
-      expect(res).toEqual(JSON.stringify(testVisits[0]);
+      expect(res).toEqual(testVisits[0]);
     });
   });
 

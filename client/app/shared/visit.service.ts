@@ -15,6 +15,17 @@ export class VisitService extends BaseService {
   constructor(http: Http) {
     super(http);
   }
+
+  /**
+   * Override convert to parse strings into Date objects.
+   * @param visit
+   * @returns {any}
+   */
+  convert(visit) {
+    visit.startedAt = new Date(visit.startedAt);
+    visit.endedAt = visit.endedAt ? new Date(visit.endedAt) : null;
+    return visit
+  }
 }
 
 export class MockVisitService extends VisitService {

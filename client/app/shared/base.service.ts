@@ -15,7 +15,7 @@ abstract class BaseService {
 
   getAll(): Observable<any[]> {
     return this.http.get(`/api/${this.modelName}s`)
-      .map((res: Response) => res.json())
+      .map(res => res.json().map(this.convert))
       .catch(handleError);
   }
 
@@ -27,26 +27,35 @@ abstract class BaseService {
 
   create(obj: any): Observable<any> {
     return this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
-      .map(res => res.json())
+      .map(res => this.convert(res.json()))
       .catch(handleError);
   }
 
   get(obj: any): Observable<any> {
     return this.http.get(`/api/${this.modelName}/${obj._id}`)
-      .map((res: Response) => res.json())
+      .map(res => this.convert(res.json()))
       .catch(handleError);
   }
 
   update(obj: any): Observable<any> {
     return this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
-      .map(res => res.json())
+      .map(res => this.convert(res.json()))
       .catch(handleError);
   }
 
   delete(obj: any): Observable<any> {
     return this.http.delete(`/api/${this.modelName}/${obj._id}`, this.options)
-      .map(res => res.json())
+      .map(res => this.convert(res.json()))
       .catch(handleError);
+  }
+
+  /**
+   * Override this function to perform custom conversions to the data, e.g., converting date strings into Date objects (see VisitService).
+   * @param data
+   * @returns {any}
+   */
+  convert(data: any) {
+    return data;
   }
 }
 
