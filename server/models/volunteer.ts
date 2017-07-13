@@ -12,7 +12,8 @@ const volunteerSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Last name is required'],
     minlength: [2],
-    maxlength: [30]
+    maxlength: [30],
+    validate: /^[a-z ,.'-]+$/i
   },
   petName: {
     type: String,
