@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-// test
+// testing
 const volunteerSchema = new mongoose.Schema({
   firstName: {
     type: String,
