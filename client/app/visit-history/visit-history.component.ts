@@ -23,7 +23,7 @@ export class VisitHistoryComponent implements OnInit {
   }
 
   getVisits(): void {
-    this.visitService.getVisits().subscribe(
+    this.visitService.getAll().subscribe(
       visits => {
         // Reverse array to sort by latest visit
         this.visits = visits.reverse().map(visit => {

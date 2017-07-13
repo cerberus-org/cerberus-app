@@ -99,7 +99,7 @@ export class CheckInFormComponent implements OnInit {
    * Gets visits from the data service. TODO: Only retrieve visits from last 24 hours
    */
   private getVisits(): void {
-    this.visitService.getVisits()
+    this.visitService.getAll()
       .subscribe(
         visits => this.visits = visits,
         error => this.error = <any>error);
@@ -109,7 +109,7 @@ export class CheckInFormComponent implements OnInit {
    * Creates a new visit with now as the start time and a null end time.
    */
   private startVisit(): void {
-    this.visitService.createVisit(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago'))
+    this.visitService.create(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago'))
       .subscribe(
         res => console.log(res),
         error => this.error = <any>error);;
@@ -119,7 +119,7 @@ export class CheckInFormComponent implements OnInit {
    * Updates a visit with now as the end time.
    */
   private endVisit(): void {
-    this.visitService.updateVisit(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }))
+    this.visitService.update(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }))
       .subscribe(
         res => console.log(res),
         error => this.error = <any>error);;
