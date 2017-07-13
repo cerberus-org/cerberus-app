@@ -4,8 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Visit } from './visit';
+import { testVisits, Visit } from './visit';
 import handleError from 'app/shared/handle-error';
+import { Volunteer } from './volunteer';
 
 @Injectable()
 export class VisitService {
@@ -52,3 +53,23 @@ export class VisitService {
       .catch(handleError);
   }
 }
+
+export class MockVisitService extends VisitService {
+
+  constructor() {
+    super(null);
+  }
+
+  getVisits(): Observable<Visit[]> {
+    return Observable.of(testVisits);
+  }
+
+  createVisit(visit: Visit): Observable<Visit> {
+    return Observable.of(testVisits[0])
+  }
+
+  updateVisit(visit: Visit): Observable<Visit> {
+    return Observable.of(testVisits[0])
+  }
+}
+

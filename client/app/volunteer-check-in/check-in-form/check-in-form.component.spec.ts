@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CheckInFormComponent } from './check-in-form.component';
 import { MockVolunteerService, VolunteerService } from '../../shared/volunteer.service';
+import { MockVisitService, VisitService } from '../../shared/visit.service';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
@@ -20,7 +21,10 @@ describe('CheckInFormComponent', () => {
         MdInputModule,
         BrowserAnimationsModule
       ],
-      providers: [{ provide: VolunteerService, useClass: MockVolunteerService }]
+      providers: [
+        { provide: VisitService, useClass: MockVisitService },
+        { provide: VolunteerService, useClass: MockVolunteerService }
+      ]
     }).compileComponents();
   }));
 

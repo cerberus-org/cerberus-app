@@ -3,6 +3,7 @@ import { MdListModule } from '@angular/material';
 
 import { VisitHistoryComponent } from './visit-history.component';
 import { testVisits } from '../shared/visit';
+import { MockVisitService, VisitService } from '../shared/visit.service';
 
 describe('VisitHistoryComponent', () => {
   let component: VisitHistoryComponent;
@@ -13,6 +14,9 @@ describe('VisitHistoryComponent', () => {
       declarations: [VisitHistoryComponent],
       imports: [
         MdListModule,
+      ],
+      providers: [
+        { provide: VisitService, useClass: MockVisitService },
       ]
     }).compileComponents();
   }));
@@ -31,7 +35,8 @@ describe('VisitHistoryComponent', () => {
   });
 
   it('should create a key for each unique date', () => {
-    component.ngOnInit();
+    component.visits = testVisits;
+    component.mapVisitsToDate();
     expect(component.dates.length).toEqual(2);
     expect(component.dates).toEqual([
       testVisits[0].startedAt.toDateString(),
@@ -40,7 +45,8 @@ describe('VisitHistoryComponent', () => {
   });
 
   it('should map the visits to the correct date key', () => {
-    component.ngOnInit();
+    component.visits = testVisits;
+    component.mapVisitsToDate();
     expect(component.visitsByDate.get(component.dates[0])).toEqual([
       testVisits[0],
       testVisits[1]
