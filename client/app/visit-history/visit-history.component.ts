@@ -27,7 +27,6 @@ export class VisitHistoryComponent implements OnInit {
       visits => {
         // Reverse array to sort by latest visit
         this.visits = visits.reverse();
-        console.log(this.visits);
         this.mapVisitsToDate();
       },
       error => this.error = <any>error);

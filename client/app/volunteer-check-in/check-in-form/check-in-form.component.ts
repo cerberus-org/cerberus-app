@@ -42,16 +42,17 @@ export class CheckInFormComponent implements OnInit {
    * Starts or ends a visit and resets the form group on clicking the submit button.
    */
   onSubmit(): void {
-    if (this.selectedVolunteer) {
-      this.startVisit();
-    } else if (this.activeVisitForVolunteer) {
+    if (this.activeVisitForVolunteer) {
       this.endVisit();
+    } else if (this.selectedVolunteer) {
+      this.startVisit();
     }
     this.formGroup.reset();
     // Workaround for clearing error state
     Object.keys(this.formGroup.controls).forEach(key => {
       this.formGroup.controls[key].setErrors(null)
     });
+    this.getVisits();
   }
 
   /**
@@ -77,10 +78,13 @@ export class CheckInFormComponent implements OnInit {
       return match ? null : { 'doesNotExist': { name } };
     };
     const volunteerUniqueValidator = (control: AbstractControl): { [key: string]: any } => {
+      if (!this.showPetNameForm) {
+        return null;
+      }
       const match = this.findVolunteerByPetName(control.value);
       // Select volunteer in validator since validators fire before subscription
       this.selectedVolunteer = match;
-      return match || !this.showPetNameForm ? null : { 'notUnique': { name } };
+      return match ? null : { 'notUnique': { name } };
     };
     this.formGroup = this.fb.group({
       name: ['', [Validators.required, volunteerExistenceValidator]],
@@ -92,17 +96,22 @@ export class CheckInFormComponent implements OnInit {
    * Subscribes to value changes in the form.
    */
   subscribeToForm(): void {
+    const nameControl = this.formGroup.controls['name'];
+    const petNameControl = this.formGroup.controls['petName'];
     // Always check for an active visit
     this.formGroup.valueChanges.subscribe(() => {
       this.activeVisitForVolunteer = this.formGroup.invalid ? null : this.findActiveVisitForVolunteer();
     });
     // Filter volunteers when name value changes
-    this.formGroup.controls['name'].valueChanges.subscribe(changes => {
+    nameControl.valueChanges.subscribe(changes => {
       this.filterVolunteers(changes);
       this.showPetNameForm = this.checkIfFilteredHaveSameName(changes);
+      if (!this.showPetNameForm) {
+        petNameControl.reset();
+      }
     });
     // Filter volunteers by pet name when petName value changes
-    this.formGroup.controls['petName'].valueChanges.subscribe(changes => {
+    petNameControl.valueChanges.subscribe(changes => {
       if (this.showPetNameForm) {
         this.filterVolunteersByPetName(changes);
       }
@@ -197,7 +206,7 @@ export class CheckInFormComponent implements OnInit {
   checkIfFilteredHaveSameName(name: string): boolean {
     return this.filteredVolunteers && this.filteredVolunteers.length > 1
       ? this.filteredVolunteers.filter(
-        volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length === this.filteredVolunteers.length
+        volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length > 1
       : false;
   }
 }
