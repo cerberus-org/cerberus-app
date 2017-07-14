@@ -1,4 +1,3 @@
-///<reference path="../../../node_modules/@angular/http/testing/src/mock_backend.d.ts"/>
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';

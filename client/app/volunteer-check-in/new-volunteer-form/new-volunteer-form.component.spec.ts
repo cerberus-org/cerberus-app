@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdAutocompleteModule, MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import 'hammerjs';
 
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 import { MockVolunteerService, VolunteerService } from '../../shared/volunteer.service';

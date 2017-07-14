@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import BaseService from './base.service';
 import { testVolunteers, Volunteer } from './volunteer';
-import { Http } from '@angular/http';
 
 @Injectable()
 export class VolunteerService extends BaseService {
