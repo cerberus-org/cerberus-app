@@ -30,11 +30,11 @@ describe('VisitHistoryComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('is created', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create a key for each unique date', () => {
+  it('creates a key for each unique date', () => {
     component.visits = testVisits;
     component.mapVisitsToDate();
     expect(component.dates.length).toEqual(2);
@@ -44,7 +44,7 @@ describe('VisitHistoryComponent', () => {
     ]);
   });
 
-  it('should map the visits to the correct date key', () => {
+  it('maps the visits to the correct date key', () => {
     component.visits = testVisits;
     component.mapVisitsToDate();
     expect(component.visitsByDate.get(component.dates[0])).toEqual([
@@ -56,12 +56,12 @@ describe('VisitHistoryComponent', () => {
     ]);
   });
 
-  it('should format times properly', () => {
+  it('formats times properly', () => {
     const formatted = component.formatTime(testVisits[0].startedAt, testVisits[0].timezone);
     expect(formatted).toEqual('5:45 am')
   });
 
-  it('should format durations properly', () => {
+  it('formats durations properly', () => {
     const formatted = component.formatDuration(testVisits[1]);
     expect(formatted).toEqual('5 hours, 59 minutes')
 

@@ -29,7 +29,7 @@ describe('VisitService', () => {
     service = testbed.get(VisitService);
   }));
 
-  it('should be created', inject([VisitService], (VisitService: VisitService) => {
+  it('is created', inject([VisitService], (VisitService: VisitService) => {
     expect(VisitService).toBeTruthy();
   }));
 
@@ -42,42 +42,42 @@ describe('VisitService', () => {
     });
   };
 
-  it('should get all visits', () => {
+  it('gets all visits', () => {
     setConnections(testVisits);
     service.getAll().subscribe(res => {
       expect(res).toEqual(testVisits);
     });
   });
 
-  it('should count all visits', () => {
+  it('counts all visits', () => {
     setConnections(testVisits.length);
     service.count().subscribe(res => {
       expect(res).toEqual(testVisits.length);
     });
   });
 
-  it('should create the visit', () => {
+  it('creates the visit', () => {
     setConnections(testVisits[0]);
     service.create(testVisits[0]).subscribe(res => {
       expect(res).toEqual(testVisits[0]);
     });
   });
 
-  it('should get the visit', () => {
+  it('gets the visit', () => {
     setConnections(testVisits[0]);
     service.get(testVisits[0]).subscribe(res => {
       expect(res).toEqual(testVisits[0]);
     });
   });
 
-  it('should update the visit', () => {
+  it('updates the visit', () => {
     setConnections(testVisits[0]);
     service.update(testVisits[0]).subscribe(res => {
       expect(res).toEqual(testVisits[0]);
     });
   });
 
-  it('should delete the visit', () => {
+  it('deletes the visit', () => {
     setConnections(testVisits[0]);
     service.delete(testVisits[0]).subscribe(res => {
       expect(res).toEqual(testVisits[0]);

@@ -30,7 +30,7 @@ describe('NewVolunteerFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('is created', () => {
     expect(component).toBeTruthy();
   });
 
@@ -42,40 +42,40 @@ describe('NewVolunteerFormComponent', () => {
         control = component.formGroup.controls[form];
       }));
 
-      it('should validate requirement', (() => {
+      it('validates requirement', (() => {
         const errors = control.errors || {};
         expect(control.valid).toBeFalsy();
         expect(errors['required']).toBeTruthy();
       }));
 
-      it('should validate min length', (() => {
+      it('validates min length', (() => {
         control.setValue('C');
         const errors = control.errors || {};
         expect(errors['required']).toBeFalsy();
         expect(errors['minlength']).toBeTruthy();
       }));
 
-      it('should validate max length', (() => {
+      it('validates max length', (() => {
         control.setValue('Quinquagintaquadringentilliards');
         const errors = control.errors || {};
         expect(errors['required']).toBeFalsy();
         expect(errors['maxlength']).toBeTruthy();
       }));
 
-      it('should validate pattern', (() => {
+      it('validates pattern', (() => {
         control.setValue('!@#$%^&*()_+');
         const errors = control.errors || {};
         expect(errors['required']).toBeFalsy();
         expect(errors['pattern']).toBeTruthy();
       }));
 
-      it('should accept a valid name', (() => {
+      it('accepts a valid name', (() => {
         control.setValue('Cerberus');
         expect(control.valid).toBeTruthy();
         expect(control.errors).toBeFalsy();
       }));
 
-      it('should clear the form on submit', (() => {
+      it('clears the form on submit', (() => {
         control.setValue('Cerberus');
         component.onSubmit();
         expect(control.value).toBeFalsy();

@@ -42,42 +42,42 @@ describe('VolunteerService', () => {
     });
   };
 
-  it('should get all volunteers', () => {
+  it('gets all volunteers', () => {
     setConnections(testVolunteers);
     service.getAll().subscribe(res => {
       expect(res).toEqual(testVolunteers);
     });
   });
 
-  it('should count all volunteers', () => {
+  it('counts all volunteers', () => {
     setConnections(testVolunteers.length);
     service.count().subscribe(res => {
       expect(res).toEqual(testVolunteers.length);
     });
   });
 
-  it('should create the volunteer', () => {
+  it('creates the volunteer', () => {
     setConnections(testVolunteers[0]);
     service.create(testVolunteers[0]).subscribe(res => {
       expect(res).toEqual(testVolunteers[0]);
     });
   });
 
-  it('should get the volunteer', () => {
+  it('gets the volunteer', () => {
     setConnections(testVolunteers[0]);
     service.get(testVolunteers[0]).subscribe(res => {
       expect(res).toEqual(testVolunteers[0]);
     });
   });
 
-  it('should update the volunteer', () => {
+  it('updates the volunteer', () => {
     setConnections(testVolunteers[0]);
     service.update(testVolunteers[0]).subscribe(res => {
       expect(res).toEqual(testVolunteers[0]);
     });
   });
 
-  it('should delete the volunteer', () => {
+  it('deletes the volunteer', () => {
     setConnections(testVolunteers[0]);
     service.delete(testVolunteers[0]).subscribe(res => {
       expect(res).toEqual(testVolunteers[0]);
