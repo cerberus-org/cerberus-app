@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { VolunteerService } from '../../shared/volunteer.service';
-import { VisitService } from '../../shared/visit.service';
+import { VisitService } from 'app/shared/visit.service';
+import { VolunteerService } from 'app/shared/volunteer.service';
+import { Visit } from 'app/shared/visit';
 import { Volunteer } from 'app/shared/volunteer';
-import { Visit } from '../../shared/visit';
 
 @Component({
   selector: 'app-check-in-form',
@@ -22,16 +22,25 @@ export class CheckInFormComponent implements OnInit {
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
 
+  /**
+   * Creates the form group and subscribes on construction.
+   */
   constructor(private fb: FormBuilder, private visitService: VisitService, private volunteerService: VolunteerService) {
     this.createForm();
     this.subscribeToForm();
   }
 
+  /**
+   * Gets visit and volunteer data from services on initialization.
+   */
   ngOnInit(): void {
     this.getVisits();
     this.getVolunteers();
   }
 
+  /**
+   * Starts or ends a visit and resets the form group on clicking the submit button.
+   */
   onSubmit(): void {
     if (this.selectedVolunteer) {
       this.startVisit();
