@@ -112,7 +112,7 @@ export class CheckInFormComponent implements OnInit {
     this.visitService.create(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago'))
       .subscribe(
         res => console.log(res),
-        error => this.error = <any>error);;
+        error => this.error = <any>error);
   }
 
   /**
@@ -122,7 +122,7 @@ export class CheckInFormComponent implements OnInit {
     this.visitService.update(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }))
       .subscribe(
         res => console.log(res),
-        error => this.error = <any>error);;
+        error => this.error = <any>error);
   }
 
   /**
