@@ -44,8 +44,8 @@ describe('NewVolunteerFormComponent', () => {
       }));
 
       it('should validate requirement', (() => {
-        expect(control.valid).toBeFalsy();
         const errors = control.errors || {};
+        expect(control.valid).toBeFalsy();
         expect(errors['required']).toBeTruthy();
       }));
 
@@ -72,6 +72,7 @@ describe('NewVolunteerFormComponent', () => {
 
       it('should accept a valid name', (() => {
         control.setValue('Cerberus');
+        expect(control.valid).toBeTruthy();
         expect(control.errors).toBeFalsy();
       }));
 

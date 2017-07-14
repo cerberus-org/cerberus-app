@@ -33,11 +33,16 @@ export class CheckInFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.activeVisitForVolunteer) {
-      this.endVisit();
-    } else {
+    if (this.selectedVolunteer) {
       this.startVisit();
+    } else if (this.activeVisitForVolunteer) {
+      this.endVisit();
     }
+    this.formGroup.reset();
+    // Workaround for clearing error state
+    Object.keys(this.formGroup.controls).forEach(key => {
+      this.formGroup.controls[key].setErrors(null)
+    });
   }
 
   /**

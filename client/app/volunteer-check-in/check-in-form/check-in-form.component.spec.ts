@@ -95,4 +95,61 @@ describe('CheckInFormComponent', () => {
     const many = component.checkIfFilteredHaveSameName(`${testVolunteers[0].firstName} ${testVolunteers[0].lastName}`);
     expect(many).toBeTruthy();
   });
+
+  describe('name control', () => {
+
+    it('validates requirement', (() => {
+      const control = component.formGroup.controls['name'];
+      const errors = control.errors || {};
+      expect(control.valid).toBeFalsy();
+      expect(errors['required']).toBeTruthy();
+    }));
+
+    it('validates existence', (() => {
+      this.volunteers = testVolunteers;
+      const control = component.formGroup.controls['name'];
+      control.setValue('Cerberus');
+      const errors = control.errors || {};
+      expect(control.valid).toBeFalsy();
+      expect(errors['doesNotExist']).toBeTruthy();
+    }));
+
+    it('accepts an existing name', (() => {
+      this.volunteers = testVolunteers;
+      const control = component.formGroup.controls['name'];
+      control.setValue('Ted Mader');
+      expect(control.valid).toBeTruthy();
+      expect(control.errors).toBeFalsy();
+    }));
+
+    it('clears the form on submit', (() => {
+      const control = component.formGroup.controls['name'];
+      control.setValue('Cerberus');
+      component.onSubmit();
+      expect(control.value).toBeFalsy();
+    }));
+  });
+
+  describe('petName control', () => {
+
+    beforeEach(() => {
+      component.showPetNameForm = true;
+    });
+
+    it('clears the form on submit', (() => {
+      const control = component.formGroup.controls['petName'];
+      control.setValue('Cerberus');
+      component.onSubmit();
+      expect(control.value).toBeFalsy();
+    }));
+
+    it('accepts a petName for a unique volunteer', (() => {
+      component.filteredVolunteers = testVolunteers;
+      component.filterVolunteers(testVolunteers[0].firstName);
+      const control = component.formGroup.controls['petName'];
+      control.setValue('Mimi');
+      expect(control.valid).toBeTruthy();
+      expect(control.errors).toBeFalsy();
+    }));
+  });
 });
