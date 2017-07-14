@@ -62,8 +62,8 @@ describe('VisitHistoryComponent', () => {
   });
 
   it('should format durations properly', () => {
-    const formatted = component.formatDuration(testVisits[0]);
-    expect(formatted).toEqual('6 hours, 0 minutes')
+    const formatted = component.formatDuration(testVisits[1]);
+    expect(formatted).toEqual('5 hours, 59 minutes')
 
   });
 });
