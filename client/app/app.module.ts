@@ -21,7 +21,9 @@ import { CheckInFormComponent } from './volunteer-check-in/check-in-form/check-i
 import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-in.component';
 
 import { VolunteerService } from './shared/volunteer.service';
-
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './shared/login.service';
+import { Guard } from './guard';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { VolunteerService } from './shared/volunteer.service';
     VisitHistoryComponent,
     HomeComponent,
     JumbotronComponent,
-    VolunteerCheckInComponent
+    VolunteerCheckInComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ import { VolunteerService } from './shared/volunteer.service';
     MdListModule,
     MdTabsModule
   ],
-  providers: [VolunteerService],
+  providers: [VolunteerService, LoginService, Guard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

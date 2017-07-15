@@ -2,11 +2,281 @@
 	"variables": [],
 	"info": {
 		"name": "cerberus-app",
-		"_postman_id": "6165d3ee-6d07-05ed-0b1a-2476e16ed8d6",
+		"_postman_id": "6d6a6562-77ea-34bf-d076-e1646731eb80",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "user",
+			"description": "",
+			"item": [
+				{
+					"name": "Insert User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || 409;",
+									"",
+									"if (responseCode.code === 201) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"__v is correct\"] = jsonData.__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData._id === \"596178f9668eaf34ab10a35c\";",
+									"    tests[\"email is correct\"] = jsonData.email === \"test@gmail.com\";",
+									"    tests[\"username is correct\"] = jsonData.username === \"test\";",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/user",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"__v\": 0,\n\t\"_id\": \"596178f9668eaf34ab10a35c\",\n\t\"email\": \"test@gmail.com\",\n\t\"username\": \"test\",\n\t\"password\": \"test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200 or 403\"] = responseCode.code === 200 || 403;\r",
+									"\r",
+									"if (responseCode.code === 200) {\r",
+									"    // set env variable\r",
+									"    var jsonData = JSON.parse(responseBody);\r",
+									"    postman.setEnvironmentVariable(\"token\", jsonData.token);\r",
+									"    tests[\"token is returned\"] = jsonData.token !== null;\r",
+									"} else {\r",
+									"    responseCode.code === 403\r",
+									"}\r",
+									"\r",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/user/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "",
+								"value": "",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@gmail.com\",\n\t\"username\": \"test\",\n\t\"password\": \"test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"__v is correct\"] = jsonData[0].__v === 0;",
+									"tests[\"_id is correct\"] = jsonData[0]._id === \"596178f9668eaf34ab10a35c\";",
+									"tests[\"email is correct\"] = jsonData[0].email === \"test@gmail.com\";",
+									"tests[\"username is correct\"] = jsonData[0].username === \"test\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200 || 404;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"__v is correct\"] = jsonData.__v === 0;",
+									"tests[\"_id is correct\"] = jsonData._id === \"596178f9668eaf34ab10a35c\";",
+									"tests[\"email is correct\"] = jsonData.email === \"test@gmail.com\";",
+									"tests[\"username is correct\"] = jsonData.username === \"test\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/user/596178f9668eaf34ab10a35c",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Count all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Count is correct\"] = responseBody.has(1);",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/users/count",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update user by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/user/596178f9668eaf34ab10a35c",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"_id\": \"596178f9668eaf34ab10a35c\",\n    \"email\": \"test@gmail.com\",\n    \"username\": \"test\",\n    \"password\": \"testing\",\n    \"__v\": 0\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/user/596178f9668eaf34ab10a35c",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "visit",
 			"description": "",
@@ -78,10 +348,7 @@
 						"url": "localhost:3000/api/visits",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -110,10 +377,7 @@
 						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -201,10 +465,7 @@
 						"url": "localhost:3000/api/visits/2017-07-06T01:33:27.337Z",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -228,10 +489,7 @@
 						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"description": ""
 					},
 					"response": []

@@ -2,10 +2,13 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
+import 'zone.js';
+import 'reflect-metadata';
 
 import setRoutes from './routes';
 
 const app = express();
+
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(path.join(__dirname, '../public')));
