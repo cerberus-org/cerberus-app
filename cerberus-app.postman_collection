@@ -193,7 +193,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:3000/api/visits/count",
+						"url": "localhost:3000/api/users/count",
 						"method": "GET",
 						"header": [
 							{
