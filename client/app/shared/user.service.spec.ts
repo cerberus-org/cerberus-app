@@ -7,18 +7,18 @@ import {
   Http
 } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { LoginService } from './login.service';
+import { UserService } from './user.service';
 
-describe('LoginService', () => {
+describe('UserService', () => {
   let backend: MockBackend;
-  let service: LoginService;
+  let service: UserService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
         BaseRequestOptions,
         MockBackend,
-        LoginService,
+        UserService,
         {
           // Inject these dependencies into the instance that Http useFactory creates
           deps: [
@@ -39,7 +39,7 @@ describe('LoginService', () => {
     // testbed, backend and service will be utilized for tests
     const testbed = getTestBed();
     backend = testbed.get(MockBackend);
-    service = testbed.get(LoginService);
+    service = testbed.get(UserService);
   }));
 
   // Establishes how the fake server will respond
@@ -53,7 +53,7 @@ describe('LoginService', () => {
     });
   }
 
-  it('should be created', inject([LoginService], (loginService: LoginService) => {
+  it('should be created', inject([UserService], (loginService: UserService) => {
     expect(loginService).toBeTruthy();
   }));
 

@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Headers, Response, RequestOptions, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
 import handleError from './handle-error';
+import BaseService from './base.service';
 
 @Injectable()
-export class LoginService {
+export class UserService extends BaseService {
+  model: any;
+  modelName: 'user';
 
-  constructor(private http: Http) { }
+  constructor(protected http: Http) {
+    super(http);
+  }
 
   login(user): Observable<any> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -17,7 +23,7 @@ export class LoginService {
   }
 }
 
-export class MockLoginService extends LoginService {
+export class MockLoginService extends UserService {
 
   constructor() {
     super(null);

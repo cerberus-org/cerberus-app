@@ -26,7 +26,7 @@ import { NewVolunteerFormComponent } from './volunteer-check-in/new-volunteer-fo
 import { CheckInFormComponent } from './volunteer-check-in/check-in-form/check-in-form.component';
 import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-in.component';
 
-import { LoginService } from './shared/login.service';
+import { UserService } from './shared/user.service';
 import { VolunteerService } from './shared/volunteer.service';
 import { VisitService } from './shared/visit.service';
 
@@ -58,7 +58,7 @@ import { VisitService } from './shared/visit.service';
     MdTabsModule
   ],
   providers: [
-    LoginService,
+    UserService,
     Guard,
     VisitService,
     VolunteerService

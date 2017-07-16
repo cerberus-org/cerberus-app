@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdInputModule, MdListModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
-import { LoginService, MockLoginService } from '../shared/login.service';
+import { UserService, MockLoginService } from '../shared/user.service';
 import { Router } from '@angular/router';
 
 describe('LoginComponent', () => {
@@ -29,7 +29,7 @@ describe('LoginComponent', () => {
         BrowserAnimationsModule,
         MdListModule
       ],
-      providers: [{ provide: LoginService, useClass: MockLoginService }, { provide: Router, useValue: mockRouter }]
+      providers: [{ provide: UserService, useClass: MockLoginService }, { provide: Router, useValue: mockRouter }]
     })
     .compileComponents();
   }));

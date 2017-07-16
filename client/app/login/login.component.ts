@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { LoginService } from '../shared/login.service';
+import { UserService } from '../shared/user.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     { placeholder: 'Password', control: 'password' }
   ];
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, public router: Router) {
+  constructor(private fb: FormBuilder, private loginService: UserService, public router: Router) {
     this.createForm();
   }
 
