@@ -9,7 +9,7 @@ export const visitReducer = (state: Visit[] = [], action: Action) =>  {
     case 'ADD_VISITS':
       return action.payload;
     case 'ADD_VISIT':
-      return [...state, action.payload];
+      return [action.payload, ...state];
     default:
       return state;
   }
