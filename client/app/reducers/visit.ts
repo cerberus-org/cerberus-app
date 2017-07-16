@@ -8,7 +8,8 @@ export const MODIFY_VISIT = 'MODIFY_VISIT';
 export const visitReducer = (state: Visit[] = [], action: Action) =>  {
   switch (action.type) {
     case 'LOAD_VISITS':
-      return action.payload;
+      // Reverse to order from newest to oldest
+      return action.payload.reverse();
     case 'ADD_VISIT':
       return [action.payload, ...state];
     case 'MODIFY_VISIT':

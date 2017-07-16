@@ -150,10 +150,7 @@ export class CheckInFormComponent implements OnInit {
    * Updates a visit with now as the end time.
    */
   endVisit(): void {
-    this.visitService.update(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }))
-      .subscribe(
-        res => console.log(res),
-        error => this.error = <any>error);
+    this.visitService.updateRx(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }));
   }
 
   /**
