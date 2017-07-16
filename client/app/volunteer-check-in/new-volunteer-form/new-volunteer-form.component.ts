@@ -23,13 +23,7 @@ export class NewVolunteerFormComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-<<<<<<< HEAD
     this.volunteerService.create(this.formGroup.value)
-=======
-    // this.capitalize();
-    console.log(this.formGroup.value);
-    this.volunteerService.postVolunteer(this.formGroup.value)
->>>>>>> Use text transform for capitalization of css
       .subscribe(
         res => console.log(res),
         error => this.error = <any>error);
