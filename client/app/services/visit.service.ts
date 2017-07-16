@@ -6,7 +6,7 @@ import 'rxjs/add/observable/of';
 
 import BaseService from './base.service';
 import { testVisits, Visit } from '../models/visit';
-import { ADD_VISIT, ADD_VISITS } from '../reducers/visit';
+import { ADD_VISIT, LOAD_VISITS } from '../reducers/visit';
 import handleError from '../helpers/handle-error';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class VisitService extends BaseService {
   getAllRx(): void {
     this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
-      .map(payload => ({ type: ADD_VISITS, payload: payload }))
+      .map(payload => ({ type: LOAD_VISITS, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
   }
 
