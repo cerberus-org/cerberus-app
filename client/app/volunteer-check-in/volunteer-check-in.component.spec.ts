@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { VolunteerCheckInComponent } from './volunteer-check-in.component';
-import { MockComponent } from 'ng2-mock-component';
 import { MdTabsModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MockComponent } from 'ng2-mock-component';
+
+import { VolunteerCheckInComponent } from './volunteer-check-in.component';
 
 describe('VolunteerCheckInComponent', () => {
   let component: VolunteerCheckInComponent;
@@ -29,7 +29,7 @@ describe('VolunteerCheckInComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('is created', () => {
     expect(component).toBeTruthy();
   });
 });

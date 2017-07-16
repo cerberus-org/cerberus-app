@@ -1,11 +1,25 @@
-<form fxLayout="column">
+<form fxLayout="column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <md-input-container fxFlexAlign="center">
-    <input mdInput placeholder="Name" [mdAutocomplete]="auto" [formControl]="nameControl">
+    <input mdInput placeholder="Name" [mdAutocomplete]="nameForm" formControlName="name">
   </md-input-container>
-  <md-autocomplete fxFlexAlign="center" #auto="mdAutocomplete">
-    <md-option *ngFor="let name of filteredNames" [value]="name">
-      {{ name }} <i class="material-icons">pets</i>
+  <md-autocomplete fxFlexAlign="center" #nameForm="mdAutocomplete">
+    <md-option *ngFor="let volunteer of filteredVolunteers" [value]="formatName(volunteer)">
+      {{volunteer.firstName}} {{volunteer.lastName}}
     </md-option>
   </md-autocomplete>
-  <button fxFlexAlign="center" type="submit" id="submit-btn" md-button color="primary">Submit</button>
+  <md-input-container fxFlexAlign="center" *ngIf="showPetNameForm">
+    <input mdInput placeholder="Favorite Pet" [mdAutocomplete]="petNameForm" formControlName="petName">
+  </md-input-container>
+  <md-autocomplete fxFlexAlign="center" #petNameForm="mdAutocomplete">
+    <md-option *ngFor="let volunteer of filteredVolunteersByPetName" [value]="volunteer.petName">
+      <i class="material-icons">pets</i> {{volunteer.petName}}
+    </md-option>
+  </md-autocomplete>
+  <div *ngIf="formGroup.invalid || !activeVisitForVolunteer; then showCheckIn else showCheckOut"></div>
+  <ng-template #showCheckIn>
+    <button md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid || selectedVolunteer === null">Check In</button>
+  </ng-template>
+  <ng-template #showCheckOut>
+    <button md-button color="primary" fxFlexAlign="center">Check Out</button>
+  </ng-template>
 </form>

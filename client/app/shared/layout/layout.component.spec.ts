@@ -19,7 +19,7 @@ describe('LayoutComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('is created', () => {
     expect(component).toBeTruthy();
   });
 });

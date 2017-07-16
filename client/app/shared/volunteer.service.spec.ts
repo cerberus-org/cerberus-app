@@ -1,87 +1,86 @@
-import { TestBed, inject, async, getTestBed, } from '@angular/core/testing';
-import {
-  ResponseOptions,
-  Response,
-  XHRBackend,
-  BaseRequestOptions,
-  Http
-} from '@angular/http';
+import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
+import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
+
 import { VolunteerService } from './volunteer.service';
+import { testVolunteers } from './volunteer';
 
 describe('VolunteerService', () => {
-  let backend: MockBackend;
-  let service: VolunteerService;
+  let backend: MockBackend = null;
+  let service: VolunteerService = null;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-        providers: [
-            BaseRequestOptions,
-            MockBackend,
-            VolunteerService,
-            {
-                // Inject these dependencies into the instance that Http useFactory creates
-                deps: [
-                    MockBackend,
-                    BaseRequestOptions
-                ],
-                // Http is provided,
-                provide: Http,
-                // but angular should use MockBackend and BaseRequestOptions instead
-                // useFactory creates an instance of Http that depends on MockBackend and BaseRequestOptions
-                useFactory: (mockBackend: XHRBackend, defaultOptions: BaseRequestOptions) => {
-                    return new Http(mockBackend, defaultOptions);
-                }
-            }
-        ]
+      providers: [
+        BaseRequestOptions,
+        MockBackend,
+        VolunteerService,
+        {
+          provide: Http,
+          useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
+            return new Http(backendInstance, defaultOptions);
+          },
+          deps: [MockBackend, BaseRequestOptions]
+        }
+      ]
     });
-
-    // testbed, backend and service will be utilized for tests
     const testbed = getTestBed();
     backend = testbed.get(MockBackend);
     service = testbed.get(VolunteerService);
+  }));
 
-    }));
+  it('should be created', inject([VolunteerService], (volunteerService: VolunteerService) => {
+    expect(volunteerService).toBeTruthy();
+  }));
 
-    // Establishes how the fake server will respond
-    function setupConnections(mockBackend: MockBackend, options: any) {
-      // If the backend receives a request (aka connection), the connection
-      // returns and Observable and the Observable is subscribed
-      mockBackend.connections.subscribe((connection: MockConnection) => {
-            const responseOptions = new ResponseOptions(options);
-            const response = new Response(responseOptions);
-            connection.mockRespond(response);
+  const setConnections = body => {
+    backend.connections.subscribe((connection: MockConnection) => {
+      const options = new ResponseOptions({
+        body: JSON.stringify(body)
       });
-    }
+      connection.mockRespond(new Response(options));
+    });
+  };
 
-    it('should be created', inject([VolunteerService], (volunteerService: VolunteerService) => {
-      expect(volunteerService).toBeTruthy();
-    }));
+  it('gets all volunteers', () => {
+    setConnections(testVolunteers);
+    service.getAll().subscribe(res => {
+      expect(res).toEqual(testVolunteers);
+    });
+  });
 
-    it('should post volunteer', () => {
-      // Tell the connection what to return and the expected status code
-      setupConnections(backend, {
-          body: {
-            test: 'test'
-          },
-          status: 200
-        });
+  it('counts all volunteers', () => {
+    setConnections(testVolunteers.length);
+    service.count().subscribe(res => {
+      expect(res).toEqual(testVolunteers.length);
+    });
+  });
 
-        service.postVolunteer({test: 'test'}).subscribe(res => {
-            expect(res).toEqual({test: 'test'});
-        });
-      });
+  it('creates the volunteer', () => {
+    setConnections(testVolunteers[0]);
+    service.create(testVolunteers[0]).subscribe(res => {
+      expect(res).toEqual(testVolunteers[0]);
+    });
+  });
 
-      it('should get volunteers', () => {
-        setupConnections(backend, {
-            body: {
-              test: 'test'
-            },
-            status: 201
-          });
+  it('gets the volunteer', () => {
+    setConnections(testVolunteers[0]);
+    service.get(testVolunteers[0]).subscribe(res => {
+      expect(res).toEqual(testVolunteers[0]);
+    });
+  });
 
-          service.getVolunteers().subscribe(res => {
-              expect(res).toEqual({test: 'test'});
-          });
-        });
+  it('updates the volunteer', () => {
+    setConnections(testVolunteers[0]);
+    service.update(testVolunteers[0]).subscribe(res => {
+      expect(res).toEqual(testVolunteers[0]);
+    });
+  });
+
+  it('deletes the volunteer', () => {
+    setConnections(testVolunteers[0]);
+    service.delete(testVolunteers[0]).subscribe(res => {
+      expect(res).toEqual(testVolunteers[0]);
+    });
+  });
 });

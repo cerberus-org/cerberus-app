@@ -5,7 +5,7 @@ import Volunteer from './volunteer';
 const visitSchema = new mongoose.Schema({
    startedAt: {
     type: Date, default: Date.now,
-    required: [false]
+    required: [true]
   },
   endedAt: {
     type: Date,

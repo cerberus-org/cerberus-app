@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Volunteer } from '../shared/volunteer';
 import { testVisits, Visit } from '../shared/visit';
 import * as moment from 'moment-timezone';
+import { VisitService } from '../shared/visit.service';
 
 @Component({
   selector: 'app-visit-history',
@@ -9,42 +10,50 @@ import * as moment from 'moment-timezone';
   styleUrls: ['./visit-history.component.css']
 })
 export class VisitHistoryComponent implements OnInit {
+  public error: string;
+  public visits: Visit[];
   public visitsByDate: Map<string, Visit[]>;
   public dates: string[];
 
-  constructor() { }
+  constructor(private visitService: VisitService) { }
 
   ngOnInit() {
-    this.visitsByDate = this.mapVisitsToDate(this.getVisits());
-    this.dates = Array.from(this.visitsByDate.keys());
+    this.visits = [];
+    this.getVisits();
   }
 
-  /**
-   * Use mock data until API is built
-   * @returns {[{volunteer: Volunteer, startedAt: Date, endedAt: Date}]}
-   */
-  getVisits(): Visit[] {
-    return testVisits;
+  getVisits(): void {
+    this.visitService.getAll().subscribe(
+      visits => {
+        // Reverse array to sort by latest visit
+        this.visits = visits.reverse();
+        this.mapVisitsToDate();
+      },
+      error => this.error = <any>error);
   }
 
-  mapVisitsToDate(visits: Visit[]) {
+  mapVisitsToDate() {
     const map = new Map<string, Visit[]>();
-    visits.forEach(visit => {
+    this.visits.forEach(visit => {
       const date = visit.startedAt.toDateString();
       if (!map.has(date)) {
         map.set(date, []);
       }
       map.get(date).push(visit);
     });
-    return map;
+    this.visitsByDate = map;
+    this.dates = Array.from(this.visitsByDate.keys());
   }
 
   formatTime(date: Date, timezone: string): string {
-    const now = moment(date.toString());
-    return now.tz(timezone).format('h:m a');
+    const now = moment(date.getTime());
+    return now.tz(timezone).format('h:mm a');
   }
 
   formatDuration(visit: Visit): string {
+    if (!visit.endedAt) {
+      return null;
+    }
     const duration = visit.endedAt.getTime() - visit.startedAt.getTime();
     // Convert to seconds
     let seconds = duration / 1000;
