@@ -17,13 +17,13 @@ abstract class BaseService {
   }
 
   getAll(): Observable<any[]> {
-    return this.http.get(`/api/${this.modelName}s`)
+    return this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
       .catch(handleError);
   }
 
   count(): Observable<number> {
-    return this.http.get(`/api/${this.modelName}s/count`)
+    return this.http.get(`/api/${this.modelName}s/count`, this.options)
       .map(res => res.json())
       .catch(handleError);
   }
@@ -35,7 +35,7 @@ abstract class BaseService {
   }
 
   get(obj: any): Observable<any> {
-    return this.http.get(`/api/${this.modelName}/${obj._id}`)
+    return this.http.get(`/api/${this.modelName}/${obj._id}`, this.options)
       .map(res => this.convert(res.json()))
       .catch(handleError);
   }
