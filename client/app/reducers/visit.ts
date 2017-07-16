@@ -5,7 +5,7 @@ export const LOAD_VISITS = 'LOAD_VISITS';
 export const ADD_VISIT = 'ADD_VISIT';
 export const MODIFY_VISIT = 'MODIFY_VISIT';
 
-export const visitReducer = (state: Visit[] = [], action: Action) =>  {
+export default function VisitReducer(state: Visit[] = [], action: Action) {
   switch (action.type) {
     case 'LOAD_VISITS':
       // Reverse to order from newest to oldest
@@ -13,12 +13,12 @@ export const visitReducer = (state: Visit[] = [], action: Action) =>  {
     case 'ADD_VISIT':
       return [action.payload, ...state];
     case 'MODIFY_VISIT':
-      const modified = action.payload;
-      const index = state.findIndex(visit => visit._id === modified._id);
-      state[index] = modified;
-      return state;
+      console.log(action.payload);
+      return state.map(visit => {
+        return visit._id === action.payload._id ? action.payload : visit;
+      });
     default:
       return state;
   }
-};
+}
 

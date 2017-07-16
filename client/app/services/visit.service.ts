@@ -38,7 +38,6 @@ export class VisitService extends BaseService {
       .subscribe(action => this.store.dispatch(action));
   }
 
-
   /**
    * Override convert to parse strings into Date objects.
    * @param visit
