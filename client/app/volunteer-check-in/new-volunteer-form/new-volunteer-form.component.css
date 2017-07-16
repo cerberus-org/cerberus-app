@@ -6,6 +6,3 @@ form {
 button {
   margin-top: 1em;
 }
-input.capitalize {
-  text-transform: capitalize;
-}

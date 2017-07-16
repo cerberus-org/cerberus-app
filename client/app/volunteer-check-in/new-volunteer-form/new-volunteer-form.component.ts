@@ -23,16 +23,18 @@ export class NewVolunteerFormComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    this.volunteerService.create(this.formGroup.value)
-      .subscribe(
-        res => console.log(res),
-        error => this.error = <any>error);
-    this.formGroup.reset();
-    // Workaround for clearing error state
-    Object.keys(this.formGroup.controls).forEach(key => {
-      this.formGroup.controls[key].setErrors(null)
-    });
-    this.changeTab.emit(0);
+    this.capitalize();
+    console.log(this.formGroup.value);
+    // this.volunteerService.create(this.formGroup.value)
+    //   .subscribe(
+    //     res => console.log(res),
+    //     error => this.error = <any>error);
+    // this.formGroup.reset();
+    // // Workaround for clearing error state
+    // Object.keys(this.formGroup.controls).forEach(key => {
+    //   this.formGroup.controls[key].setErrors(null)
+    // });
+    // this.changeTab.emit(0);
   }
 
   createForm(): void {
@@ -64,9 +66,8 @@ export class NewVolunteerFormComponent implements OnInit {
           // if there is a -
           if (word.indexOf('-') !== null) {
             index = word.indexOf('-');
-            word.charAt(index--).toUpperCase();
-            index += 2;
-            word.charAt(index).toUpperCase();
+            let letter = index += 1;
+            word = word.slice(0, index) + word.charAt(letter).toUpperCase() + word.slice(letter += 1);
           }
           // capitalize
           control += word.charAt(0).toUpperCase() + word.slice(1)
