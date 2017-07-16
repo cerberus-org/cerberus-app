@@ -1,10 +1,17 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import { Visit } from '../models/visit';
 
-export const GET_ALL = 'GET_ALL';
+export const ADD_VISITS = 'ADD_VISITS';
+export const ADD_VISIT = 'ADD_VISIT';
 
 export const visitReducer = (state: Visit[] = [], action: Action) =>  {
   switch (action.type) {
+    case 'ADD_VISITS':
+      return action.payload;
+    case 'ADD_VISIT':
+      return [...state, action.payload];
+    default:
+      return state;
   }
 };
 
