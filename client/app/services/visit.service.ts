@@ -6,8 +6,7 @@ import 'rxjs/add/observable/of';
 
 import BaseService from './base.service';
 import { testVisits, Visit } from '../models/visit';
-import { ADD_VISIT, LOAD_VISITS } from '../reducers/visit';
-import handleError from '../helpers/handle-error';
+import { ADD_VISIT, LOAD_VISITS, MODIFY_VISIT } from '../reducers/visit';
 
 @Injectable()
 export class VisitService extends BaseService {
@@ -32,6 +31,14 @@ export class VisitService extends BaseService {
       .subscribe(action => this.store.dispatch(action));
   }
 
+  updateRx(obj: any): void {
+    this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
+      .map(res => this.convert(res.json()))
+      .map(payload => ({ type: MODIFY_VISIT, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
+  }
+
+
   /**
    * Override convert to parse strings into Date objects.
    * @param visit
@@ -53,6 +60,8 @@ export class MockVisitService extends VisitService {
   getAllRx(): void { }
 
   createRx(obj: any): void { }
+
+  updateRx(obj: any): void { }
 
   getAll(): Observable<Visit[]> {
     return Observable.of(testVisits);
