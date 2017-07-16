@@ -3,7 +3,7 @@ import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/ht
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { VolunteerService } from './volunteer.service';
-import { testVolunteers } from './volunteer';
+import { testVolunteers } from '../models/volunteer';
 
 describe('VolunteerService', () => {
   let backend: MockBackend = null;

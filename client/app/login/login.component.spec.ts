@@ -6,7 +6,7 @@ import { MdInputModule, MdListModule } from '@angular/material';
 import 'hammerjs';
 
 import { LoginComponent } from './login.component';
-import { MockLoginService, UserService } from '../shared/user.service';
+import { MockLoginService, UserService } from '../services/user.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

@@ -4,7 +4,7 @@ import { MdAutocompleteModule, MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
-import { MockVolunteerService, VolunteerService } from '../../shared/volunteer.service';
+import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
 
 describe('NewVolunteerFormComponent', () => {
   let component: NewVolunteerFormComponent,

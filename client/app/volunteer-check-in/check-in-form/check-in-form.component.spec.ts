@@ -4,10 +4,10 @@ import { MdAutocompleteModule, MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CheckInFormComponent } from './check-in-form.component';
-import { MockVolunteerService, VolunteerService } from '../../shared/volunteer.service';
-import { MockVisitService, VisitService } from '../../shared/visit.service';
-import { testVisits } from '../../shared/visit';
-import { testVolunteers } from '../../shared/volunteer';
+import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
+import { MockVisitService, VisitService } from '../../services/visit.service';
+import { testVisits } from '../../models/visit';
+import { testVolunteers } from '../../models/volunteer';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;

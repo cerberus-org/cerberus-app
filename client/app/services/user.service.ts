@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Response, RequestOptions, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import handleError from './handle-error';
+import handleError from '../helpers/handle-error';
 import BaseService from './base.service';
 
 @Injectable()

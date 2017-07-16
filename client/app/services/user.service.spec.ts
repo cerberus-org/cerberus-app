@@ -7,7 +7,7 @@ import {
 } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { UserService } from './user.service';
-import { testUsers } from './user';
+import { testUsers } from '../models/user';
 
 describe('UserService', () => {
   let backend: MockBackend = null;

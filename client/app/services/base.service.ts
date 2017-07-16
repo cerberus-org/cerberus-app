@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import handleError from './handle-error';
+import handleError from '../helpers/handle-error';
 
 abstract class BaseService {
   abstract model: any;
