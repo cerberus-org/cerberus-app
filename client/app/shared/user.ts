@@ -12,4 +12,4 @@ export const testUsers: User[] = [{
   _id: '5961327dfba1ca1b64b8945b',
   email: 'harurang@gmail.com',
   username: 'harurang'
-}
+}];
