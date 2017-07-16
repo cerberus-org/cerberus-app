@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { VisitService } from 'app/shared/visit.service';
-import { VolunteerService } from 'app/shared/volunteer.service';
-import { Visit } from 'app/shared/visit';
-import { Volunteer } from 'app/shared/volunteer';
+import { VisitService } from 'app/services/visit.service';
+import { VolunteerService } from 'app/services/volunteer.service';
+import { Visit } from 'app/models/visit';
+import { Volunteer } from 'app/models/volunteer';
 
 @Component({
   selector: 'app-check-in-form',

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { VolunteerService } from '../../shared/volunteer.service';
+import { VolunteerService } from '../../services/volunteer.service';
 
 @Component({
   selector: 'app-new-volunteer-form',

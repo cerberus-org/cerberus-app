@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MdListModule } from '@angular/material';
 
 import { VisitHistoryComponent } from './visit-history.component';
-import { MockVisitService, VisitService } from '../shared/visit.service';
-import { testVisits } from '../shared/visit';
+import { MockVisitService, VisitService } from '../services/visit.service';
+import { testVisits } from '../models/visit';
 
 describe('VisitHistoryComponent', () => {
   let component: VisitHistoryComponent;

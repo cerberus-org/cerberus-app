@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Volunteer } from '../shared/volunteer';
-import { testVisits, Visit } from '../shared/visit';
+import { Volunteer } from '../models/volunteer';
+import { testVisits, Visit } from '../models/visit';
 import * as moment from 'moment-timezone';
-import { VisitService } from '../shared/visit.service';
+import { VisitService } from '../services/visit.service';
 
 @Component({
   selector: 'app-visit-history',

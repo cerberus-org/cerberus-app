@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdInputModule, MdListModule } from '@angular/material';
+import 'hammerjs';
 
 import { LoginComponent } from './login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MdInputModule, MdListModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import 'hammerjs';
-import { LoginService, MockLoginService } from '../shared/login.service';
-import { Router } from '@angular/router';
+import { MockLoginService, UserService } from '../services/user.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -19,19 +19,22 @@ describe('LoginComponent', () => {
   let mockRouter: MockRouter;
 
   beforeEach(async(() => {
-      mockRouter = new MockRouter(),
-      TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+    mockRouter = new MockRouter();
+    TestBed.configureTestingModule({
+      declarations: [LoginComponent],
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        MdInputModule,
         BrowserAnimationsModule,
-        MdListModule
+        MdInputModule,
+        MdListModule,
       ],
-      providers: [{ provide: LoginService, useClass: MockLoginService }, { provide: Router, useValue: mockRouter }]
+      providers: [
+        { provide: Router, useValue: mockRouter },
+        { provide: UserService, useClass: MockLoginService }
+        ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -44,12 +47,12 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     spyOn(component, 'login').and.callFake(() => {
-      return {token: 'token'};
+      return { token: 'token' };
     });
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('is created', () => {
     expect(component).toBeTruthy();
   });
 });
