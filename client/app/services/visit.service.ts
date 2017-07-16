@@ -21,7 +21,7 @@ export class VisitService extends BaseService {
   getAll(): Observable<any[]> {
     return this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
-      .map(payload => this.store.dispatch({ type: ADD_VISITS }))
+      .map(payload => this.store.dispatch({ type: ADD_VISITS, payload: payload }))
       .catch(handleError);
   }
 
