@@ -21,8 +21,9 @@ export class VisitHistoryComponent implements OnInit {
   }
 
   getVisits(): void {
-    this.visitService.getAll();
-    this.store.select('visits').subscribe(visits => this.mapVisitsToDate(visits));
+    this.store.select('visits').subscribe(
+      visits => this.mapVisitsToDate(visits),
+      error => this.error = <any>error);
   }
 
   mapVisitsToDate(visits) {

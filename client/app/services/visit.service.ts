@@ -18,18 +18,18 @@ export class VisitService extends BaseService {
     super(http);
   }
 
-  getAll(): Observable<any[]> {
-    return this.http.get(`/api/${this.modelName}s`, this.options)
+  getAllRx(): void {
+    this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
-      .map(payload => this.store.dispatch({ type: ADD_VISITS, payload: payload }))
-      .catch(handleError);
+      .map(payload => ({ type: ADD_VISITS, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  create(obj: any): Observable<any> {
+  createRx(obj: any) {
     return this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
-      .map(payload => this.store.dispatch({ type: ADD_VISIT, payload: payload }))
-      .catch(handleError);
+      .map(payload => ({ type: ADD_VISIT, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
   /**
