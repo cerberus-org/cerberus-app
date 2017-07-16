@@ -29,6 +29,8 @@ import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-
 import { UserService } from './services/user.service';
 import { VolunteerService } from './services/volunteer.service';
 import { VisitService } from './services/visit.service';
+import { StoreModule } from '@ngrx/store';
+import { visitReducer } from './reducers/visit';
 
 @NgModule({
   declarations: [
@@ -55,11 +57,12 @@ import { VisitService } from './services/visit.service';
     MdCardModule,
     MdInputModule,
     MdListModule,
-    MdTabsModule
+    MdTabsModule,
+    StoreModule.provideStore({ visits: visitReducer })
   ],
   providers: [
-    UserService,
     Guard,
+    UserService,
     VisitService,
     VolunteerService
   ],
