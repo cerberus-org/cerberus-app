@@ -8,6 +8,8 @@ import { MockVolunteerService, VolunteerService } from '../../services/volunteer
 import { MockVisitService, VisitService } from '../../services/visit.service';
 import { testVisits } from '../../models/visit';
 import { testVolunteers } from '../../models/volunteer';
+import { Store, StoreModule } from '@ngrx/store';
+import { visitReducer } from '../../reducers/visit';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
@@ -19,9 +21,10 @@ describe('CheckInFormComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
+        BrowserAnimationsModule,
         MdAutocompleteModule,
         MdInputModule,
-        BrowserAnimationsModule
+        StoreModule.provideStore({ visits: visitReducer })
       ],
       providers: [
         { provide: VisitService, useClass: MockVisitService },
@@ -45,16 +48,6 @@ describe('CheckInFormComponent', () => {
     expect(component.formGroup).toBeTruthy();
     expect(component.formGroup.controls['name']).toBeTruthy();
     expect(component.formGroup.controls['petName']).toBeTruthy();
-  });
-
-  it('gets the visits', () => {
-    component.getVisits();
-    expect(component.visits.length).toBe(testVisits.length);
-  });
-
-  it('gets the visits', () => {
-    component.getVisits();
-    expect(component.visits.length).toBe(testVisits.length);
   });
 
   it('gets the volunteers', () => {

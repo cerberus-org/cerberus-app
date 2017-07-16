@@ -36,7 +36,7 @@ export class CheckInFormComponent implements OnInit {
    * Gets visit and volunteer data from services on initialization.
    */
   ngOnInit(): void {
-    this.getVisits();
+    this.subscribeToVisits();
     this.getVolunteers();
   }
 
@@ -56,7 +56,6 @@ export class CheckInFormComponent implements OnInit {
     });
     this.activeVisitForVolunteer = null;
     this.selectedVolunteer = null;
-    this.getVisits();
   }
 
   /**
@@ -123,9 +122,9 @@ export class CheckInFormComponent implements OnInit {
   }
 
   /**
-   * Gets visits from the data service. TODO: Only retrieve visits from last 24 hours
+   * Subscribes visits in the store. TODO: Only retrieve visits from last 24 hours
    */
-  getVisits(): void {
+  subscribeToVisits(): void {
     this.store.select('visits').subscribe(
       visits => this.visits = visits,
       error => this.error = <any>error);

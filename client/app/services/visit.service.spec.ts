@@ -4,6 +4,8 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { VisitService } from './visit.service';
 import { testVisits } from '../models/visit';
+import { Store, StoreModule } from '@ngrx/store';
+import { visitReducer } from '../reducers/visit';
 
 describe('VisitService', () => {
   let backend: MockBackend = null;
@@ -11,6 +13,9 @@ describe('VisitService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.provideStore({ visits: visitReducer })
+      ],
       providers: [
         BaseRequestOptions,
         MockBackend,

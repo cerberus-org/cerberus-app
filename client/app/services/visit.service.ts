@@ -25,8 +25,8 @@ export class VisitService extends BaseService {
       .subscribe(action => this.store.dispatch(action));
   }
 
-  createRx(obj: any) {
-    return this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
+  createRx(obj: any): void {
+    this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
       .map(payload => ({ type: ADD_VISIT, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
@@ -49,6 +49,10 @@ export class MockVisitService extends VisitService {
   constructor() {
     super(null, null);
   }
+
+  getAllRx(): void { }
+
+  createRx(obj: any): void { }
 
   getAll(): Observable<Visit[]> {
     return Observable.of(testVisits);

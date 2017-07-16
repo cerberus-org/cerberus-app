@@ -14,13 +14,13 @@ export class VisitHistoryComponent implements OnInit {
   public visitsByDate: Map<string, Visit[]>;
   public dates: string[];
 
-  constructor(private visitService: VisitService, private store: Store<any>) { }
+  constructor(private store: Store<any>) { }
 
   ngOnInit() {
-    this.getVisits();
+    this.subscribeToVisits();
   }
 
-  getVisits(): void {
+  subscribeToVisits(): void {
     this.store.select('visits').subscribe(
       visits => this.mapVisitsToDate(visits),
       error => this.error = <any>error);
