@@ -4,7 +4,7 @@ import { MdListModule } from '@angular/material';
 import { VisitHistoryComponent } from './visit-history.component';
 import { testVisits } from '../models/visit';
 import { StoreModule } from '@ngrx/store';
-import { visitReducer } from '../reducers/visit';
+import VisitReducer from '../reducers/visit';
 
 describe('VisitHistoryComponent', () => {
   let component: VisitHistoryComponent;
@@ -15,7 +15,7 @@ describe('VisitHistoryComponent', () => {
       declarations: [VisitHistoryComponent],
       imports: [
         MdListModule,
-        StoreModule.provideStore({ visits: visitReducer })
+        StoreModule.provideStore({ visits: VisitReducer })
       ]
     }).compileComponents();
   }));

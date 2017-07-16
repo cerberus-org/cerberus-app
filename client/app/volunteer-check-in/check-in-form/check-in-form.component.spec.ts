@@ -8,8 +8,8 @@ import { MockVolunteerService, VolunteerService } from '../../services/volunteer
 import { MockVisitService, VisitService } from '../../services/visit.service';
 import { testVisits } from '../../models/visit';
 import { testVolunteers } from '../../models/volunteer';
-import { Store, StoreModule } from '@ngrx/store';
-import { visitReducer } from '../../reducers/visit';
+import { StoreModule } from '@ngrx/store';
+import VisitReducer from '../../reducers/visit';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
@@ -24,7 +24,7 @@ describe('CheckInFormComponent', () => {
         BrowserAnimationsModule,
         MdAutocompleteModule,
         MdInputModule,
-        StoreModule.provideStore({ visits: visitReducer })
+        StoreModule.provideStore({ visits: VisitReducer })
       ],
       providers: [
         { provide: VisitService, useClass: MockVisitService },

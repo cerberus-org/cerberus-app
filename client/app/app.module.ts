@@ -30,7 +30,7 @@ import { UserService } from './services/user.service';
 import { VolunteerService } from './services/volunteer.service';
 import { VisitService } from './services/visit.service';
 import { StoreModule } from '@ngrx/store';
-import { visitReducer } from './reducers/visit';
+import VisitReducer from './reducers/visit';
 
 @NgModule({
   declarations: [
@@ -58,7 +58,7 @@ import { visitReducer } from './reducers/visit';
     MdInputModule,
     MdListModule,
     MdTabsModule,
-    StoreModule.provideStore({ visits: visitReducer })
+    StoreModule.provideStore({ visits: VisitReducer })
   ],
   providers: [
     Guard,

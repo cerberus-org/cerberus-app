@@ -13,7 +13,6 @@ export default function VisitReducer(state: Visit[] = [], action: Action) {
     case 'ADD_VISIT':
       return [action.payload, ...state];
     case 'MODIFY_VISIT':
-      console.log(action.payload);
       return state.map(visit => {
         return visit._id === action.payload._id ? action.payload : visit;
       });
