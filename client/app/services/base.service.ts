@@ -11,7 +11,7 @@ abstract class BaseService {
 
   constructor(protected http: Http) { }
 
-  private get options() {
+  get options() {
     const headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': localStorage.token });
     return new RequestOptions({ headers: headers });
   }
