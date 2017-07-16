@@ -184,16 +184,16 @@ handlers.forEach(handler => {
 
     describe('Update by ID', () => {
 
-      it('returns status code 204', done => {
+      it('returns a JSON body', done => {
 
         spyOn(handler.model, 'findByIdAndUpdate').and.callFake((id, obj, cb) => {
           cb(false, true);
         });
         handler.update(req, res);
+        expect(res.json.calls.count()).toEqual(1);
         expect(res.send.calls.count()).toEqual(0);
         expect(res.status.calls.count()).toEqual(0);
-        expect(res.sendStatus.calls.count()).toEqual(1);
-        expect(res.sendStatus).toHaveBeenCalledWith(204);
+        expect(res.sendStatus.calls.count()).toEqual(0);
         expect(console.error).not.toHaveBeenCalled();
         done();
       });
@@ -203,6 +203,7 @@ handlers.forEach(handler => {
           cb({ code: 11000 }, true);
         });
         handler.update(req, res);
+        expect(res.json.calls.count()).toEqual(0);
         expect(res.send.calls.count()).toEqual(1);
         expect(res.status.calls.count()).toEqual(1);
         expect(res.sendStatus.calls.count()).toEqual(0);
@@ -216,6 +217,7 @@ handlers.forEach(handler => {
           cb(false, false);
         });
         handler.update(req, res);
+        expect(res.json.calls.count()).toEqual(0);
         expect(res.send.calls.count()).toEqual(0);
         expect(res.status.calls.count()).toEqual(0);
         expect(res.sendStatus.calls.count()).toEqual(1);
@@ -229,6 +231,7 @@ handlers.forEach(handler => {
           cb(true, true);
         });
         handler.update(req, res);
+        expect(res.json.calls.count()).toEqual(0);
         expect(res.send.calls.count()).toEqual(0);
         expect(res.status.calls.count()).toEqual(0);
         expect(res.sendStatus.calls.count()).toEqual(1);

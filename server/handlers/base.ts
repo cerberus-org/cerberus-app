@@ -82,7 +82,7 @@ abstract class BaseHandler {
           return console.error(err);
         }
       } else {
-        res.sendStatus(204);
+        res.json(Object.assign(obj, req.body));
       }
     });
   };
