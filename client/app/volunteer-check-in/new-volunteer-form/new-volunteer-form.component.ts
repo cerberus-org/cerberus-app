@@ -81,26 +81,36 @@ export class NewVolunteerFormComponent implements OnInit {
     });
   }
 
-  /*
-  @requires a String
-  @ensures all the first letter after a hyphen is capitalized
+  /**
+   *
+   * @param word
+   * @return A new String with the characters after all hyphens capitalized
    */
   hyphens(word: String): String {
-    let newWord = '';
-    let index = 0;
-    // index to capitalize
-    let letter: number;
+    let letter = 0;
     // for each letter in a word
     for (let i = 0, len = word.length; i < len; i++) {
       if (word.charAt(i) === '-') {
+        // get the letter after the hyphen
         letter = i + 1;
-        // concat last index that wasnt added to index that was capitalized
-        newWord += word.slice(index, i += 1).concat(word.charAt(letter).toUpperCase());
-        index = letter += 1
+        // replace that letter with a capitalized letter
+        word = this.setCharAt(word, letter, word.charAt(letter).toUpperCase());
       }
     }
-    // if all necessary letters were capitialzied, concat the rest of the string
-    newWord = newWord.slice(0, index) + word.slice(index);
-    return newWord;
+    return word;
+  }
+
+  /**
+   *
+   * @param str
+   * @param index
+   * @param chr
+   * @return A new string with the original character at the supplied index replaced with chr
+   */
+  setCharAt(str: String, index: number, chr: String): String {
+    if (index > str.length - 1) {
+      return str;
+    }
+    return str.substr(0, index) + chr + str.substr(index + 1);
   }
 }
