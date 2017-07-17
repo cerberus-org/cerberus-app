@@ -24,17 +24,16 @@ export class NewVolunteerFormComponent implements OnInit {
 
   onSubmit(): void {
     this.capitalize();
-    console.log(this.formGroup.value);
-    // this.volunteerService.create(this.formGroup.value)
-    //   .subscribe(
-    //     res => console.log(res),
-    //     error => this.error = <any>error);
-    // this.formGroup.reset();
-    // // Workaround for clearing error state
-    // Object.keys(this.formGroup.controls).forEach(key => {
-    //   this.formGroup.controls[key].setErrors(null)
-    // });
-    // this.changeTab.emit(0);
+    this.volunteerService.create(this.formGroup.value)
+      .subscribe(
+        res => console.log(res),
+        error => this.error = <any>error);
+    this.formGroup.reset();
+    // Workaround for clearing error state
+    Object.keys(this.formGroup.controls).forEach(key => {
+      this.formGroup.controls[key].setErrors(null)
+    });
+    this.changeTab.emit(0);
   }
 
   createForm(): void {
@@ -54,6 +53,9 @@ export class NewVolunteerFormComponent implements OnInit {
     ];
   }
 
+  /**
+   * Capitalize all controls in a FormGroup
+   */
   capitalize(): void {
     let control = '';
     let words: Array<String>;
@@ -67,15 +69,16 @@ export class NewVolunteerFormComponent implements OnInit {
             // capitalize all characters after a -
             word = this.hyphens(word);
           }
-          // capitalize first letter of every word
-          control += word.charAt(0).toUpperCase() + word.slice(1)
+          // capitalize first char of word
+          word = this.setCharAt(word, 0, word.charAt(0).toUpperCase());
+          control += word;
           // if it isnt the first word or the last word add a space
           if (control !== ' ' && control.split(' ').length !== words.length) {
             control += ' ';
           }
         })
-        // update control
-        this.formGroup.controls[key].setValue(control);
+      // update control once all words have been capitalized
+      this.formGroup.controls[key].setValue(control);
         // clear variable for next control
         control = '';
     });
@@ -84,7 +87,7 @@ export class NewVolunteerFormComponent implements OnInit {
   /**
    *
    * @param word
-   * @return A new String with the characters after all hyphens capitalized
+   * @return A new String with capitalized characters after each hyphen
    */
   hyphens(word: String): String {
     let letter = 0;
