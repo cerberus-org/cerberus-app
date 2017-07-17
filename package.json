@@ -31,6 +31,8 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/store": "^2.2.3",
     "@types/angular-material": "^1.1.52",
     "@types/node": "~6.0.60",
     "bcryptjs": "^2.4.3",

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Volunteer } from '../models/volunteer';
-import { testVisits, Visit } from '../models/visit';
+import { Visit } from '../models/visit';
 import * as moment from 'moment-timezone';
 import { VisitService } from '../services/visit.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-visit-history',
@@ -11,30 +11,24 @@ import { VisitService } from '../services/visit.service';
 })
 export class VisitHistoryComponent implements OnInit {
   public error: string;
-  public visits: Visit[];
   public visitsByDate: Map<string, Visit[]>;
   public dates: string[];
 
-  constructor(private visitService: VisitService) { }
+  constructor(private store: Store<any>) { }
 
   ngOnInit() {
-    this.visits = [];
-    this.getVisits();
+    this.subscribeToVisits();
   }
 
-  getVisits(): void {
-    this.visitService.getAll().subscribe(
-      visits => {
-        // Reverse array to sort by latest visit
-        this.visits = visits.reverse();
-        this.mapVisitsToDate();
-      },
+  subscribeToVisits(): void {
+    this.store.select('visits').subscribe(
+      visits => this.mapVisitsToDate(visits),
       error => this.error = <any>error);
   }
 
-  mapVisitsToDate() {
+  mapVisitsToDate(visits) {
     const map = new Map<string, Visit[]>();
-    this.visits.forEach(visit => {
+    visits.forEach(visit => {
       const date = visit.startedAt.toDateString();
       if (!map.has(date)) {
         map.set(date, []);
