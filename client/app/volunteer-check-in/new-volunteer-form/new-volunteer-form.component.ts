@@ -57,7 +57,6 @@ export class NewVolunteerFormComponent implements OnInit {
   capitalize(): void {
     let control = '';
     let words: Array<String>;
-    let index: number;
     // for each form control
     Object.keys(this.formGroup.controls).forEach(key => {
       words = this.formGroup.controls[key].value.split(' ');
@@ -65,11 +64,10 @@ export class NewVolunteerFormComponent implements OnInit {
         words.forEach(word => {
           // if there is a -
           if (word.indexOf('-') !== null) {
-            index = word.indexOf('-');
-            let letter = index += 1;
-            word = word.slice(0, index) + word.charAt(letter).toUpperCase() + word.slice(letter += 1);
+            // capitalize all characters after a -
+            word = this.hyphens(word);
           }
-          // capitalize
+          // capitalize first letter of every word
           control += word.charAt(0).toUpperCase() + word.slice(1)
           // if it isnt the first word or the last word add a space
           if (control !== ' ' && control.split(' ').length !== words.length) {
@@ -81,5 +79,28 @@ export class NewVolunteerFormComponent implements OnInit {
         // clear variable for next control
         control = '';
     });
+  }
+
+  /*
+  @requires a String
+  @ensures all the first letter after a hyphen is capitalized
+   */
+  hyphens(word: String): String {
+    let newWord = '';
+    let index = 0;
+    // index to capitalize
+    let letter: number;
+    // for each letter in a word
+    for (let i = 0, len = word.length; i < len; i++) {
+      if (word.charAt(i) === '-') {
+        letter = i + 1;
+        // concat last index that wasnt added to index that was capitalized
+        newWord += word.slice(index, i += 1).concat(word.charAt(letter).toUpperCase());
+        index = letter += 1
+      }
+    }
+    // if all necessary letters were capitialzied, concat the rest of the string
+    newWord = newWord.slice(0, index) + word.slice(index);
+    return newWord;
   }
 }
