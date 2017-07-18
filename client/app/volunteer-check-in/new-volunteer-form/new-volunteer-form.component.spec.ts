@@ -122,6 +122,16 @@ describe('NewVolunteerFormComponent', () => {
         component.capitalize();
         expect(control.value).toEqual('One Two Three')
       }));
+
+      it('replaces a character in a String', (() => {
+        const newWord = component.setCharAt('Mary-anne', 5, 'A');
+        expect(newWord).toEqual('Mary-Anne');
+      }));
+
+      it('capitalizes the letter after a hyphen for a single word', (() => {
+        const newWord = component.handleHyphens('Mary-anne');
+        expect(newWord).toEqual('Mary-Anne');
+      }));
     });
   })
 });
