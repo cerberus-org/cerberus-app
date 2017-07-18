@@ -81,37 +81,37 @@ describe('NewVolunteerFormComponent', () => {
         expect(control.value).toBeFalsy();
       }));
 
-      it('capitalizes hyphenated word', (() => {
+      it('capitalizes hyphenated String', (() => {
         control.setValue('one-two');
         component.capitalize();
         expect(control.value).toBe('One-Two')
       }));
 
-      it('capitalizes word with multiple hyphens', (() => {
+      it('capitalizes String with multiple hyphens', (() => {
         control.setValue('one-two-three');
         component.capitalize();
         expect(control.value).toEqual('One-Two-Three')
       }));
 
-      it('capitalizes multiple hyphenated words', (() => {
+      it('capitalizes String with multiple hyphenated words', (() => {
         control.setValue('one-two three-four');
         component.capitalize();
         expect(control.value).toEqual('One-Two Three-Four')
       }));
 
-      it('capitalizes word and hyphenated word', (() => {
-        control.setValue('one two-three');
+      it('capitalizes uppercase word', (() => {
+        control.setValue('ONE TWO-THREE');
         component.capitalize();
         expect(control.value).toEqual('One Two-Three')
       }));
 
-      it('capitalizes single word', (() => {
+      it('capitalizes single String', (() => {
         control.setValue('one');
         component.capitalize();
         expect(control.value).toEqual('One')
       }));
 
-      it('capitalizes multiple words', (() => {
+      it('capitalizes String with multiple words', (() => {
         control.setValue('one two three');
         component.capitalize();
         expect(control.value).toEqual('One Two Three')
