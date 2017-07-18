@@ -24,16 +24,17 @@ export class NewVolunteerFormComponent implements OnInit {
 
   onSubmit(): void {
     this.capitalize();
-    this.volunteerService.create(this.formGroup.value)
-      .subscribe(
-        res => console.log(res),
-        error => this.error = <any>error);
-    this.formGroup.reset();
-    // Workaround for clearing error state
-    Object.keys(this.formGroup.controls).forEach(key => {
-      this.formGroup.controls[key].setErrors(null)
-    });
-    this.changeTab.emit(0);
+    console.log(this.formGroup.value);
+    // this.volunteerService.create(this.formGroup.value)
+    //   .subscribe(
+    //     res => console.log(res),
+    //     error => this.error = <any>error);
+    // this.formGroup.reset();
+    // // Workaround for clearing error state
+    // Object.keys(this.formGroup.controls).forEach(key => {
+    //   this.formGroup.controls[key].setErrors(null)
+    // });
+    // this.changeTab.emit(0);
   }
 
   createForm(): void {
@@ -58,25 +59,19 @@ export class NewVolunteerFormComponent implements OnInit {
    */
   capitalize(): void {
     let control = '';
-    let words: Array<String>;
     // for each form control
     Object.keys(this.formGroup.controls).forEach(key => {
-      words = this.formGroup.controls[key].value.split(' ');
-        // for each word in a control
-        words.forEach(word => {
-          // if there is a -
-          if (word.indexOf('-') !== null) {
-            // capitalize all characters after a -
-            word = this.hyphens(word);
-          }
-          // capitalize first char of word
-          word = this.setCharAt(word, 0, word.charAt(0).toUpperCase());
-          control += word;
-          // if it isnt the first word or the last word add a space
-          if (control !== ' ' && control.split(' ').length !== words.length) {
-            control += ' ';
-          }
-        })
+      this.formGroup.controls[key].value.split(' ').forEach(word => {
+        // if there is a -
+        if (word.indexOf('-') !== null) {
+          // capitalize all characters after an -
+          word = this.hyphens(word);
+        }
+        // capitalize first char of word
+        word = this.setCharAt(word, 0, word.charAt(0).toUpperCase());
+        control += word + ' ';
+      });
+      control.trim();
       // update control once all words have been capitalized
       this.formGroup.controls[key].setValue(control);
         // clear variable for next control
@@ -90,16 +85,15 @@ export class NewVolunteerFormComponent implements OnInit {
    * @return A new String with capitalized characters after each hyphen
    */
   hyphens(word: String): String {
-    let letter = 0;
-    // for each letter in a word
-    for (let i = 0, len = word.length; i < len; i++) {
-      if (word.charAt(i) === '-') {
-        // get the letter after the hyphen
-        letter = i + 1;
-        // replace that letter with a capitalized letter
-        word = this.setCharAt(word, letter, word.charAt(letter).toUpperCase());
+    let index = 0;
+    let capIndex = 0;
+    word.split('').forEach(letter => {
+      if (letter === '-') {
+        capIndex = index + 1;
+        word = this.setCharAt(word, capIndex, word.charAt(capIndex).toUpperCase());
       }
-    }
+      index += 1;
+    })
     return word;
   }
 
