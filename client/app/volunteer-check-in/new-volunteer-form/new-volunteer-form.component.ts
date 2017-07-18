@@ -70,9 +70,8 @@ export class NewVolunteerFormComponent implements OnInit {
         word = this.setCharAt(word, 0, word.charAt(0).toUpperCase());
         control += word + ' ';
       });
-      control.trim();
       // update control once all words have been capitalized
-      this.formGroup.controls[key].setValue(control);
+      this.formGroup.controls[key].setValue(control.trim());
         // clear variable for next control
         control = '';
     });

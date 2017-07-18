@@ -80,6 +80,42 @@ describe('NewVolunteerFormComponent', () => {
         component.onSubmit();
         expect(control.value).toBeFalsy();
       }));
+
+      it('capitalizes with single hyphen', (() => {
+        control.setValue('one-two');
+        component.capitalize();
+        expect(control.value).toBe('One-Two')
+      }));
+
+      it('capitalizes with multiple hyphens', (() => {
+        control.setValue('one-two-three');
+        component.capitalize();
+        expect(control.value).toEqual('One-Two-Three')
+      }));
+
+      it('capitalizes with hyphen then word', (() => {
+        control.setValue('one-two three');
+        component.capitalize();
+        expect(control.value).toEqual('One-Two Three')
+      }));
+
+      it('capitalizes with word then hyphen', (() => {
+        control.setValue('one two-three');
+        component.capitalize();
+        expect(control.value).toEqual('One Two-Three')
+      }));
+
+      it('capitalizes single word', (() => {
+        control.setValue('one');
+        component.capitalize();
+        expect(control.value).toEqual('One')
+      }));
+
+      it('capitalizes multiple words', (() => {
+        control.setValue('one two three');
+        component.capitalize();
+        expect(control.value).toEqual('One Two Three')
+      }));
     });
   })
 });
