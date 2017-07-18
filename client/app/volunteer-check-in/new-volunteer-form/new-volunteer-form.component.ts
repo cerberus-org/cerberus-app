@@ -55,7 +55,7 @@ export class NewVolunteerFormComponent implements OnInit {
   capitalize(): void {
     Object.keys(this.formGroup.controls).forEach(input => {
       this.formGroup.controls[input].setValue(this.formGroup.controls[input].value.replace(/\b[\w']+\b/g,
-        (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())));
+        (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())).trim());
     })
   }
 }

@@ -99,13 +99,7 @@ describe('NewVolunteerFormComponent', () => {
         expect(control.value).toEqual('One-Two Three-Four')
       }));
 
-      it('capitalizes hyphenated word then word', (() => {
-        control.setValue('one-two three');
-        component.capitalize();
-        expect(control.value).toEqual('One-Two Three')
-      }));
-
-      it('capitalizes word then hyphenated word', (() => {
+      it('capitalizes word and hyphenated word', (() => {
         control.setValue('one two-three');
         component.capitalize();
         expect(control.value).toEqual('One Two-Three')
@@ -119,6 +113,12 @@ describe('NewVolunteerFormComponent', () => {
 
       it('capitalizes multiple words', (() => {
         control.setValue('one two three');
+        component.capitalize();
+        expect(control.value).toEqual('One Two Three')
+      }));
+
+      it('trims white space', (() => {
+        control.setValue(' one two three ');
         component.capitalize();
         expect(control.value).toEqual('One Two Three')
       }));
