@@ -52,61 +52,10 @@ export class NewVolunteerFormComponent implements OnInit {
     ];
   }
 
-  /**
-   * Capitalize all controls in a FormGroup
-   */
   capitalize(): void {
-    let control = '';
-    // for each form control
-    Object.keys(this.formGroup.controls).forEach(key => {
-      // for each word in a form control
-      this.formGroup.controls[key].value.split(' ').forEach(word => {
-        // if there is a -
-        if (word.indexOf('-') !== null) {
-          // capitalize all characters after a hyphen
-          word = this.handleHyphens(word);
-        }
-        // capitalize first char of the word
-        word = this.setCharAt(word, 0, word.charAt(0).toUpperCase());
-        control += word + ' ';
-      });
-      // update control once all words have been capitalized
-      this.formGroup.controls[key].setValue(control.trim());
-      // clear variable for next control
-      control = '';
-    });
-  }
-
-  /**
-   *
-   * @param word
-   * @return A new String with capitalized characters after each hyphen
-   */
-  handleHyphens(word: String): String {
-    let letter = 0;
-    // for each letter in a word
-    for (let i = 0, len = word.length; i < len; i++) {
-      if (word.charAt(i) === '-') {
-        // get the letter after the hyphen
-        letter = i + 1;
-        // replace that letter with a capitalized letter
-        word = this.setCharAt(word, letter, word.charAt(letter).toUpperCase());
-      }
-    }
-    return word;
-  }
-
-  /**
-   *
-   * @param str
-   * @param index
-   * @param chr
-   * @return A new string with the original character at the supplied index replaced with chr
-   */
-  setCharAt(str: String, index: number, chr: String): String {
-    if (index > str.length - 1) {
-      return str;
-    }
-    return str.substr(0, index) + chr + str.substr(index + 1);
+    Object.keys(this.formGroup.controls).forEach(input => {
+      this.formGroup.controls[input].setValue(this.formGroup.controls[input].value.replace(/\b[\w']+\b/g,
+        (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())));
+    })
   }
 }
