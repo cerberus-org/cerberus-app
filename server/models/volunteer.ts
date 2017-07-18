@@ -6,21 +6,24 @@ const volunteerSchema = new mongoose.Schema({
     required: [true, 'First name is required'],
     minlength: [2],
     maxlength: [30],
-    validate: /^[a-z ,.'-]+$/i
+    validate: /^[a-z ,.'-]+$/i,
+    trim: true
   },
   lastName: {
     type: String,
     required: [true, 'Last name is required'],
     minlength: [2],
     maxlength: [30],
-    validate: /^[a-z ,.'-]+$/i
+    validate: /^[a-z ,.'-]+$/i,
+    trim: true
   },
   petName: {
     type: String,
     required: [true, 'Favorite pet name is required'],
     minlength: [2],
     maxlength: [30],
-    validate: /^[a-z ,.'-]+$/i
+    validate: /^[a-z ,.'-]+$/i,
+    trim: true
   },
 }, { timestamps: true });
 
@@ -36,21 +39,17 @@ volunteerSchema.pre('save', function(next) {
 });
 
 volunteerSchema.methods.capitalize = function(field: String): String {
-  const words = field.split(' ');
   let capitalizedWord = '';
   let count = 0;
-  words.forEach(word => {
+  field.split(' ').forEach(word => {
     count += 1;
     if (word.indexOf('-') !== null) {
       // capitalize all characters after an -
       word = this.hyphens(word);
     }
-    // if it isnt the first word or the last word add a space
-    if (capitalizedWord !== ' ' && count !== words.length) {
-      capitalizedWord += ' ';
-    }
     capitalizedWord += this.setCharAt(word, 0, word.charAt(0).toUpperCase());
-  })
+    capitalizedWord += ' ';
+  });
   return capitalizedWord;
 };
 
