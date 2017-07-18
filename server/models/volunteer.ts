@@ -43,7 +43,7 @@ volunteerSchema.methods.capitalize = function(field: String): String {
   // for each word in a field
   field.split(' ').forEach(word => {
     if (word.indexOf('-') !== null) {
-      // capitalize all characters after an -
+      // capitalize all characters after a hyphen
       word = this.handleHyphens(word);
     }
     capitalizedWord += this.setCharAt(word, 0, word.charAt(0).toUpperCase());

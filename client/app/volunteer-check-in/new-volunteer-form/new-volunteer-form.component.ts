@@ -63,7 +63,7 @@ export class NewVolunteerFormComponent implements OnInit {
       this.formGroup.controls[key].value.split(' ').forEach(word => {
         // if there is a -
         if (word.indexOf('-') !== null) {
-          // capitalize all characters after an -
+          // capitalize all characters after a hyphen
           word = this.handleHyphens(word);
         }
         // capitalize first char of the word
