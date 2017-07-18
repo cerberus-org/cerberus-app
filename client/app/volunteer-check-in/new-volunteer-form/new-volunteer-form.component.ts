@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { VolunteerService } from '../../shared/volunteer.service';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-new-volunteer-form',
@@ -93,7 +92,7 @@ export class NewVolunteerFormComponent implements OnInit {
         word = this.setCharAt(word, capIndex, word.charAt(capIndex).toUpperCase());
       }
       index += 1;
-    })
+    });
     return word;
   }
 
