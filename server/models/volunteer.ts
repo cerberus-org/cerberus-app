@@ -38,51 +38,8 @@ volunteerSchema.pre('save', function(next) {
   next();
 });
 
-volunteerSchema.methods.capitalize = function(field: String): String {
-  let capitalizedWord = '';
-  // for each word in a field
-  field.split(' ').forEach(word => {
-    if (word.indexOf('-') !== null) {
-      // capitalize all characters after a hyphen
-      word = this.handleHyphens(word);
-    }
-    capitalizedWord += this.setCharAt(word, 0, word.charAt(0).toUpperCase());
-    capitalizedWord += ' ';
-  });
-  return capitalizedWord;
-};
-
-/**
- *
- * @param word
- * @return A new String with capitalized characters after each hyphen
- */
-volunteerSchema.methods.handleHyphens = function(word: String): String {
-  let letter = 0;
-  // for each letter in a word
-  for (let i = 0, len = word.length; i < len; i++) {
-    if (word.charAt(i) === '-') {
-      // get the letter after the hyphen
-      letter = i + 1;
-      // replace that letter with a capitalized letter
-      word = this.setCharAt(word, letter, word.charAt(letter).toUpperCase());
-    }
-  }
-  return word;
-};
-
-/**
- *
- * @param str
- * @param index
- * @param chr
- * @return A new string with the original character at the supplied index replaced with chr
- */
-volunteerSchema.methods.setCharAt = function(str: String, index: number, chr: String): String {
-  if (index > str.length - 1) {
-    return str;
-  }
-  return str.substr(0, index) + chr + str.substr(index + 1);
+volunteerSchema.methods.capitalize = function(field: string): string {
+  return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
 };
 
 const Volunteer = mongoose.model('Volunteer', volunteerSchema);
