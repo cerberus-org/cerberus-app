@@ -64,7 +64,7 @@ export class NewVolunteerFormComponent implements OnInit {
         // if there is a -
         if (word.indexOf('-') !== null) {
           // capitalize all characters after an -
-          word = this.hyphens(word);
+          word = this.handleHyphens(word);
         }
         // capitalize first char of the word
         word = this.setCharAt(word, 0, word.charAt(0).toUpperCase());
@@ -82,7 +82,7 @@ export class NewVolunteerFormComponent implements OnInit {
    * @param word
    * @return A new String with capitalized characters after each hyphen
    */
-  hyphens(word: String): String {
+  handleHyphens(word: String): String {
     let letter = 0;
     // for each letter in a word
     for (let i = 0, len = word.length; i < len; i++) {

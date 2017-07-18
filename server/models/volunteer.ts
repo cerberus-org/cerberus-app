@@ -44,7 +44,7 @@ volunteerSchema.methods.capitalize = function(field: String): String {
   field.split(' ').forEach(word => {
     if (word.indexOf('-') !== null) {
       // capitalize all characters after an -
-      word = this.hyphens(word);
+      word = this.handleHyphens(word);
     }
     capitalizedWord += this.setCharAt(word, 0, word.charAt(0).toUpperCase());
     capitalizedWord += ' ';
@@ -57,7 +57,7 @@ volunteerSchema.methods.capitalize = function(field: String): String {
  * @param word
  * @return A new String with capitalized characters after each hyphen
  */
-volunteerSchema.methods.hyphens = function(word: String): String {
+volunteerSchema.methods.handleHyphens = function(word: String): String {
   let letter = 0;
   // for each letter in a word
   for (let i = 0, len = word.length; i < len; i++) {
