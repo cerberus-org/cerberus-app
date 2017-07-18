@@ -81,25 +81,31 @@ describe('NewVolunteerFormComponent', () => {
         expect(control.value).toBeFalsy();
       }));
 
-      it('capitalizes with single hyphen', (() => {
+      it('capitalizes hyphenated word', (() => {
         control.setValue('one-two');
         component.capitalize();
         expect(control.value).toBe('One-Two')
       }));
 
-      it('capitalizes with multiple hyphens', (() => {
+      it('capitalizes word with multiple hyphens', (() => {
         control.setValue('one-two-three');
         component.capitalize();
         expect(control.value).toEqual('One-Two-Three')
       }));
 
-      it('capitalizes with hyphen then word', (() => {
+      it('capitalizes multiple hyphenated words', (() => {
+        control.setValue('one-two three-four');
+        component.capitalize();
+        expect(control.value).toEqual('One-Two Three-Four')
+      }));
+
+      it('capitalizes hyphenated word then word', (() => {
         control.setValue('one-two three');
         component.capitalize();
         expect(control.value).toEqual('One-Two Three')
       }));
 
-      it('capitalizes with word then hyphen', (() => {
+      it('capitalizes word then hyphenated word', (() => {
         control.setValue('one two-three');
         component.capitalize();
         expect(control.value).toEqual('One Two-Three')

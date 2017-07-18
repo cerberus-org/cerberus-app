@@ -72,8 +72,8 @@ export class NewVolunteerFormComponent implements OnInit {
       });
       // update control once all words have been capitalized
       this.formGroup.controls[key].setValue(control.trim());
-        // clear variable for next control
-        control = '';
+      // clear variable for next control
+      control = '';
     });
   }
 
