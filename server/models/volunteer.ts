@@ -29,7 +29,7 @@ const volunteerSchema = new mongoose.Schema({
 
 volunteerSchema.index({ firstName: 1, lastName: 1, petName: 1 }, { unique: true });
 
-// Before saving the user, capitalize User
+// Before saving the user, capitalize name fields
 volunteerSchema.pre('save', function(next) {
   const volunteer = this;
   volunteer.firstName = this.capitalize(volunteer.firstName);
@@ -40,9 +40,8 @@ volunteerSchema.pre('save', function(next) {
 
 volunteerSchema.methods.capitalize = function(field: String): String {
   let capitalizedWord = '';
-  let count = 0;
+  // for each word in a field
   field.split(' ').forEach(word => {
-    count += 1;
     if (word.indexOf('-') !== null) {
       // capitalize all characters after an -
       word = this.hyphens(word);

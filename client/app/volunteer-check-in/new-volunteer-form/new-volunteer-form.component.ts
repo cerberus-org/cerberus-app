@@ -84,15 +84,16 @@ export class NewVolunteerFormComponent implements OnInit {
    * @return A new String with capitalized characters after each hyphen
    */
   hyphens(word: String): String {
-    let index = 0;
-    let capIndex = 0;
-    word.split('').forEach(letter => {
-      if (letter === '-') {
-        capIndex = index + 1;
-        word = this.setCharAt(word, capIndex, word.charAt(capIndex).toUpperCase());
+    let letter = 0;
+    // for each letter in a word
+    for (let i = 0, len = word.length; i < len; i++) {
+      if (word.charAt(i) === '-') {
+        // get the letter after the hyphen
+        letter = i + 1;
+        // replace that letter with a capitalized letter
+        word = this.setCharAt(word, letter, word.charAt(letter).toUpperCase());
       }
-      index += 1;
-    });
+    }
     return word;
   }
 
