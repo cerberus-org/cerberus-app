@@ -24,17 +24,16 @@ export class NewVolunteerFormComponent implements OnInit {
 
   onSubmit(): void {
     this.capitalize();
-    console.log(this.formGroup.value);
-    // this.volunteerService.create(this.formGroup.value)
-    //   .subscribe(
-    //     res => console.log(res),
-    //     error => this.error = <any>error);
-    // this.formGroup.reset();
-    // // Workaround for clearing error state
-    // Object.keys(this.formGroup.controls).forEach(key => {
-    //   this.formGroup.controls[key].setErrors(null)
-    // });
-    // this.changeTab.emit(0);
+    this.volunteerService.create(this.formGroup.value)
+      .subscribe(
+        res => console.log(res),
+        error => this.error = <any>error);
+    this.formGroup.reset();
+    // Workaround for clearing error state
+    Object.keys(this.formGroup.controls).forEach(key => {
+      this.formGroup.controls[key].setErrors(null)
+    });
+    this.changeTab.emit(0);
   }
 
   createForm(): void {
@@ -61,13 +60,14 @@ export class NewVolunteerFormComponent implements OnInit {
     let control = '';
     // for each form control
     Object.keys(this.formGroup.controls).forEach(key => {
+      // for each word in a form control
       this.formGroup.controls[key].value.split(' ').forEach(word => {
         // if there is a -
         if (word.indexOf('-') !== null) {
           // capitalize all characters after an -
           word = this.hyphens(word);
         }
-        // capitalize first char of word
+        // capitalize first char of the word
         word = this.setCharAt(word, 0, word.charAt(0).toUpperCase());
         control += word + ' ';
       });
