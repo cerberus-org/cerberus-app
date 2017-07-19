@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { VolunteerService } from '../../services/volunteer.service';
+import { Volunteer } from '../../models/volunteer';
 
 @Component({
   selector: 'app-new-volunteer-form',
@@ -22,7 +23,8 @@ export class NewVolunteerFormComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    this.volunteerService.createRx(this.formGroup.value);
+    this.volunteerService.createRx(new Volunteer(this.formGroup.value.firstName, this.formGroup.value.lastName,
+      this.formGroup.value.petName));
       // .subscribe(
       //   res => console.log(res),
       //   error => this.error = <any>error);
