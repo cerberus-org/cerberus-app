@@ -31,7 +31,8 @@ import { VolunteerService } from './services/volunteer.service';
 import { VisitService } from './services/visit.service';
 import { StoreModule } from '@ngrx/store';
 import VisitReducer from './reducers/visit';
-import VolunteerReducer from './reducers/volunteer';
+import { ToolbarComponent } from './shared/toolbar/toolbar.component';
+import { VolunteerMenuComponent } from './home/volunteer-menu/volunteer-menu.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,9 @@ import VolunteerReducer from './reducers/volunteer';
     HomeComponent,
     JumbotronComponent,
     VolunteerCheckInComponent,
-    LoginComponent
+    LoginComponent,
+    ToolbarComponent,
+    VolunteerMenuComponent
   ],
   imports: [
     BrowserModule,
