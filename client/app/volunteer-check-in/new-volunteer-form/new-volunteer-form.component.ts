@@ -22,10 +22,10 @@ export class NewVolunteerFormComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    this.volunteerService.create(this.formGroup.value)
-      .subscribe(
-        res => console.log(res),
-        error => this.error = <any>error);
+    this.volunteerService.createRx(this.formGroup.value);
+      // .subscribe(
+      //   res => console.log(res),
+      //   error => this.error = <any>error);
     this.formGroup.reset();
     // Workaround for clearing error state
     Object.keys(this.formGroup.controls).forEach(key => {
