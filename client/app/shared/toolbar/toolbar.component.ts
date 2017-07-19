@@ -17,6 +17,10 @@ export class ToolbarComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
+  get showBack() {
+    return this.router.url !== '/home';
+  }
+
   get showLogout() {
     return this.router.url !== '/login';
   }

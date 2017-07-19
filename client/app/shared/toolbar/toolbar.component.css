@@ -2,6 +2,10 @@ md-toolbar {
   margin-bottom: 2rem;
 }
 
+.title {
+  margin-right: 1em;
+}
+
 .spacer {
   flex: 1 1 auto;
 }

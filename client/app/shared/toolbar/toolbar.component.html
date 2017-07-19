@@ -1,7 +1,6 @@
 <md-toolbar color="primary">
-  <span>cerberus</span>
+  <span class="title">cerberus</span>
+  <a md-button *ngIf="showBack" href="home">Back</a>
   <span class="spacer"></span>
-  <div fxLayout="row">
-    <button *ngIf="showLogout" (click)="logout()" md-button>Logout</button>
-  </div>
+  <button *ngIf="showLogout" (click)="logout()" md-button>Logout</button>
 </md-toolbar>
