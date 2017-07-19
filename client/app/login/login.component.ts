@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { Router } from '@angular/router';
-  ;
+
 import { UserService } from '../services/user.service';
+import { VisitService } from '../services/visit.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
     { placeholder: 'Password', control: 'password' }
   ];
 
-  constructor(private fb: FormBuilder, private loginService: UserService, public router: Router) {
+  constructor(public router: Router, private fb: FormBuilder, private loginService: UserService, private visitService: VisitService) {
     this.createForm();
   }
 
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
         },
         err => console.log(err)
       )
+    this.visitService.getAllRx();
   }
 
   // use FormBuilder to define FormGroup

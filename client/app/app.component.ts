@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VisitService } from './services/visit.service';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor() { }
+  constructor(private visitService: VisitService) { }
 
   ngOnInit() {
+    this.visitService.getAllRx();
   }
 }
