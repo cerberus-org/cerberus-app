@@ -130,6 +130,12 @@ export class CheckInFormComponent implements OnInit {
       error => this.error = <any>error);
   }
 
+  subscribeToVolunteers(): void {
+    this.store.select('volunteers').subscribe(
+      volunteers => this.volunteers = volunteers,
+      error => this.error = <any>error);
+  }
+
   /**
    * Gets volunteers from the data service.
    */
