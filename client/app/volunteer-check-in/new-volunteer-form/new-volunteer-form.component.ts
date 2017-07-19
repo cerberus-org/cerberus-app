@@ -25,9 +25,6 @@ export class NewVolunteerFormComponent implements OnInit {
   onSubmit(): void {
     this.volunteerService.createRx(new Volunteer(this.formGroup.value.firstName, this.formGroup.value.lastName,
       this.formGroup.value.petName));
-      // .subscribe(
-      //   res => console.log(res),
-      //   error => this.error = <any>error);
     this.formGroup.reset();
     // Workaround for clearing error state
     Object.keys(this.formGroup.controls).forEach(key => {
