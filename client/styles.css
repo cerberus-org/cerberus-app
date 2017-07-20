@@ -1,7 +1,9 @@
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-body {
+html, body {
+  box-sizing: border-box;
+  height: 100%;
   margin: 0;
   font-family: Roboto, sans-serif;
 }

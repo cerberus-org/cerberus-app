@@ -1,9 +1,9 @@
 <div class="container"
-     fxLayout
-     fxLayout.xs="column"
-     fxLayoutAlign="center"
+     fxFlexFill
+     fxLayout="column"
      fxLayoutGap.xs="0">
-  <div fxFlex="70%">
+  <app-toolbar></app-toolbar>
+  <div fxFlex fxFlexFill>
     <ng-content></ng-content>
   </div>
 </div>
