@@ -17,6 +17,13 @@ export class VolunteerService extends BaseService {
     super(http);
   }
 
+  getAllRx(): void {
+    this.http.get(`/api/${this.modelName}s`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: LOAD_VOLUNTEERS, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
+  }
+
   createRx(obj: any): void {
     this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))

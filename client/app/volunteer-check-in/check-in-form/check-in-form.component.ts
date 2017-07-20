@@ -144,9 +144,7 @@ export class CheckInFormComponent implements OnInit {
    * Gets volunteers from the data service.
    */
   getVolunteers(): void {
-    this.volunteerService.getAll()
-      .subscribe(volunteers => this.volunteers = volunteers,
-        error => this.error = <any>error);
+    this.volunteerService.getAllRx();
   }
 
   /**
