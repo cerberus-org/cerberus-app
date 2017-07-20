@@ -1,4 +1,4 @@
 .overflow {
-  height: inherit;
+  height: calc(100% - 48px);
   overflow: scroll;
 }
