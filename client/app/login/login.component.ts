@@ -33,10 +33,10 @@ export class LoginComponent implements OnInit {
         response => {
           localStorage.setItem('token', response.token);
           this.router.navigateByUrl('/home');
+          this.visitService.getAllRx();
         },
         err => console.log(err)
-      )
-    this.visitService.getAllRx();
+      );
   }
 
   // use FormBuilder to define FormGroup

@@ -18,7 +18,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   get showBack() {
-    return this.router.url !== '/home';
+    return this.router.url !== '/home' && this.router.url !== '/login';
   }
 
   get showLogout() {
