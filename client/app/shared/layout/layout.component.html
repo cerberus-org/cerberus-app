@@ -2,8 +2,9 @@
      fxFlexFill
      fxLayout="column"
      fxLayoutGap.xs="0">
-  <app-toolbar></app-toolbar>
-  <div fxFlex fxFlexFill>
+  <app-toolbar fxFlex="64px"></app-toolbar>
+  <div fxFlex="calc(100% - 128px)">
     <ng-content></ng-content>
   </div>
+  <app-footer fxFlex="64px"></app-footer>
 </div>

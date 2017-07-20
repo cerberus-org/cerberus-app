@@ -33,6 +33,7 @@ import { StoreModule } from '@ngrx/store';
 import VisitReducer from './reducers/visit';
 import { ToolbarComponent } from './shared/layout/toolbar/toolbar.component';
 import { VolunteerMenuComponent } from './home/volunteer-menu/volunteer-menu.component';
+import { FooterComponent } from './shared/layout/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { VolunteerMenuComponent } from './home/volunteer-menu/volunteer-menu.com
     VolunteerCheckInComponent,
     LoginComponent,
     ToolbarComponent,
-    VolunteerMenuComponent
+    VolunteerMenuComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
