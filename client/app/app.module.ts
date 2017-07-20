@@ -21,7 +21,7 @@ import { JumbotronComponent } from './shared/jumbotron/jumbotron.component';
 import { HomeComponent } from './home/home.component';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { LoginComponent } from './login/login.component';
-import { VisitHistoryComponent } from './home/visit-history/visit-history.component';
+import { VisitHistoryComponent } from './visit-data-display/visit-history/visit-history.component';
 import { NewVolunteerFormComponent } from './volunteer-check-in/new-volunteer-form/new-volunteer-form.component';
 import { CheckInFormComponent } from './volunteer-check-in/check-in-form/check-in-form.component';
 import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-in.component';
@@ -34,6 +34,7 @@ import VisitReducer from './reducers/visit';
 import { ToolbarComponent } from './shared/layout/toolbar/toolbar.component';
 import { VolunteerMenuComponent } from './home/volunteer-menu/volunteer-menu.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
+import { VisitDataDisplayComponent } from './visit-data-display/visit-data-display.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
     LoginComponent,
     ToolbarComponent,
     VolunteerMenuComponent,
-    FooterComponent
+    FooterComponent,
+    VisitDataDisplayComponent
   ],
   imports: [
     BrowserModule,
