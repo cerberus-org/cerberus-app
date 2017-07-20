@@ -1,6 +1,7 @@
 <md-toolbar color="primary">
-  <span class="title">cerberus</span>
+  <md-icon class="material-icons icon">home</md-icon>
+  <span class="title">Midgar SPCA</span>
   <a md-button *ngIf="showBack" href="home">Back</a>
   <span class="spacer"></span>
-  <button *ngIf="showLogout" (click)="logout()" md-button>Logout</button>
+  <button class="logout" *ngIf="showLogout" (click)="logout()" md-button>Logout</button>
 </md-toolbar>
