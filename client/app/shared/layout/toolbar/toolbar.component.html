@@ -1,7 +1,13 @@
 <md-toolbar color="primary">
-  <md-icon class="material-icons icon">home</md-icon>
+  <i class="material-icons home-icon">home</i>
   <span class="title">Midgar SPCA</span>
-  <a md-button *ngIf="showBack" href="home">Back</a>
+  <a md-button *ngIf="showBack" href="home">
+    <i class="material-icons" fxHide.lg fxHide.md fxHide.sm>keyboard_backspace</i>
+    <span fxHide.xs>Back</span>
+  </a>
   <span class="spacer"></span>
-  <button class="logout" *ngIf="showLogout" (click)="logout()" md-button>Logout</button>
+  <button class="logout" *ngIf="showLogout" (click)="logout()" md-button>
+    <i class="material-icons" fxHide.lg fxHide.md fxHide.sm>exit_to_app</i>
+    <span fxHide.xs>Logout</span>
+  </button>
 </md-toolbar>
