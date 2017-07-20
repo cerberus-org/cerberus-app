@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MdListModule } from '@angular/material';
 
 import { VisitHistoryComponent } from './visit-history.component';
-import { testVisits } from '../models/visit';
+import { testVisits } from '../../models/visit';
 import { StoreModule } from '@ngrx/store';
-import VisitReducer from '../reducers/visit';
+import VisitReducer from '../../reducers/visit';
 
 describe('VisitHistoryComponent', () => {
   let component: VisitHistoryComponent;

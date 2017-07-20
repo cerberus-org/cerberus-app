@@ -1,4 +1,4 @@
 .overflow {
-  height: 30rem;
+  height: inherit;
   overflow: scroll;
 }

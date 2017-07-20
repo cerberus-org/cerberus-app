@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Visit } from '../models/visit';
+import { Visit } from '../../models/visit';
 import * as moment from 'moment-timezone';
 import { Store } from '@ngrx/store';
 
