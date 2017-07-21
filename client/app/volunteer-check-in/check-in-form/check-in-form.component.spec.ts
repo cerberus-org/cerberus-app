@@ -10,6 +10,7 @@ import { testVisits } from '../../models/visit';
 import { testVolunteers } from '../../models/volunteer';
 import { StoreModule } from '@ngrx/store';
 import VisitReducer from '../../reducers/visit';
+import VolunteerReducer from '../../reducers/volunteer';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
@@ -24,7 +25,7 @@ describe('CheckInFormComponent', () => {
         BrowserAnimationsModule,
         MdAutocompleteModule,
         MdInputModule,
-        StoreModule.provideStore({ visits: VisitReducer })
+        StoreModule.provideStore({ visits: VisitReducer, volunteers: VolunteerReducer })
       ],
       providers: [
         { provide: VisitService, useClass: MockVisitService },
@@ -48,11 +49,6 @@ describe('CheckInFormComponent', () => {
     expect(component.formGroup).toBeTruthy();
     expect(component.formGroup.controls['name']).toBeTruthy();
     expect(component.formGroup.controls['petName']).toBeTruthy();
-  });
-
-  it('gets the volunteers', () => {
-    component.getVolunteers();
-    expect(component.volunteers.length).toBe(testVolunteers.length);
   });
 
   it('filters volunteers by first and last name', () => {

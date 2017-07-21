@@ -8,7 +8,6 @@ export const MODIFY_VOLUNTEER = 'MODIFY_VOLUNTEER';
 export default function VolunteerReducer(state: Volunteer[] = [], action: Action) {
   switch (action.type) {
     case 'LOAD_VOLUNTEERS':
-      // Reverse to order from newest to oldest
       return action.payload.reverse();
     case 'ADD_VOLUNTEER':
       return [action.payload, ...state];

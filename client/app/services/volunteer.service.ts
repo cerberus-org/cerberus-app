@@ -38,6 +38,12 @@ export class MockVolunteerService extends VolunteerService {
     super(null, null);
   }
 
+  getAllRx(): void { }
+
+  createRx(obj: any): void { }
+
+  updateRx(obj: any): void { }
+
   getAll(): Observable<Volunteer[]> {
     return Observable.of(testVolunteers);
   }

@@ -1,9 +1,11 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
+import { StoreModule } from '@ngrx/store';
 
 import { VolunteerService } from './volunteer.service';
 import { testVolunteers } from '../models/volunteer';
+import VolunteerReducer from '../reducers/volunteer';
 
 describe('VolunteerService', () => {
   let backend: MockBackend = null;
@@ -11,6 +13,9 @@ describe('VolunteerService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.provideStore({volunteers: VolunteerReducer})
+      ],
       providers: [
         BaseRequestOptions,
         MockBackend,
