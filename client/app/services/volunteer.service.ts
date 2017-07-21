@@ -41,9 +41,7 @@ export class MockVolunteerService extends VolunteerService {
   getAllRx(): void { }
 
   createRx(obj: any): void { }
-
-  updateRx(obj: any): void { }
-
+  
   getAll(): Observable<Volunteer[]> {
     return Observable.of(testVolunteers);
   }
