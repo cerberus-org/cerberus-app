@@ -79,6 +79,7 @@ describe('CheckInFormComponent', () => {
   });
 
   it('checks if there are many volunteers with the same name', () => {
+    component.volunteers = testVolunteers;
     component.filteredVolunteers = testVolunteers;
     component.filterVolunteers(testVolunteers[0].firstName);
     const many = component.checkIfFilteredHaveSameName(`${testVolunteers[0].firstName} ${testVolunteers[0].lastName}`);
@@ -104,7 +105,7 @@ describe('CheckInFormComponent', () => {
     }));
 
     it('accepts an existing name', (() => {
-      this.volunteers = testVolunteers;
+      component.volunteers = testVolunteers;
       const control = component.formGroup.controls['name'];
       control.setValue('Ted Mader');
       expect(control.valid).toBeTruthy();
@@ -133,6 +134,7 @@ describe('CheckInFormComponent', () => {
     }));
 
     it('accepts a petName for a unique volunteer', (() => {
+      component.volunteers = testVolunteers;
       component.filteredVolunteers = testVolunteers;
       component.filterVolunteers(testVolunteers[0].firstName);
       const control = component.formGroup.controls['petName'];
