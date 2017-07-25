@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
-import { VisitService } from 'app/shared/visit.service';
-import { VolunteerService } from 'app/shared/volunteer.service';
-import { Visit } from 'app/shared/visit';
-import { Volunteer } from 'app/shared/volunteer';
+import { Visit } from '../../models/visit';
+import { Volunteer } from '../../models/volunteer';
+import { VisitService } from '../../services/visit.service';
+import { VolunteerService } from '../../services/volunteer.service';
 
 @Component({
   selector: 'app-check-in-form',
@@ -15,9 +16,9 @@ export class CheckInFormComponent implements OnInit {
   public error: string;
   public formGroup: FormGroup;
   public activeVisitForVolunteer: Visit;
-  public visits: Visit[];
+  public visits;
   public selectedVolunteer: Volunteer;
-  public volunteers: Volunteer[];
+  public volunteers;
   public filteredVolunteers: Volunteer[];
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
@@ -25,7 +26,8 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Creates the form group and subscribes on construction.
    */
-  constructor(private fb: FormBuilder, private visitService: VisitService, private volunteerService: VolunteerService) {
+  constructor(private fb: FormBuilder, private store: Store<any>,
+              private visitService: VisitService, private volunteerService: VolunteerService) {
     this.createForm();
     this.subscribeToForm();
   }
@@ -34,7 +36,8 @@ export class CheckInFormComponent implements OnInit {
    * Gets visit and volunteer data from services on initialization.
    */
   ngOnInit(): void {
-    this.getVisits();
+    this.subscribeToVisits();
+    this.subscribeToVolunteers();
     this.getVolunteers();
   }
 
@@ -54,7 +57,6 @@ export class CheckInFormComponent implements OnInit {
     });
     this.activeVisitForVolunteer = null;
     this.selectedVolunteer = null;
-    this.getVisits();
   }
 
   /**
@@ -121,42 +123,42 @@ export class CheckInFormComponent implements OnInit {
   }
 
   /**
-   * Gets visits from the data service. TODO: Only retrieve visits from last 24 hours
+   * Subscribes visits in the store. TODO: Only retrieve visits from last 24 hours
    */
-  getVisits(): void {
-    this.visitService.getAll()
-      .subscribe(
-        visits => this.visits = visits,
-        error => this.error = <any>error);
+  subscribeToVisits(): void {
+    this.store.select('visits').subscribe(
+      visits => this.visits = visits,
+      error => this.error = <any>error);
+  }
+
+  /**
+   * Subscribes volunteers in the store
+   */
+  subscribeToVolunteers(): void {
+    this.store.select('volunteers').subscribe(
+      volunteers => this.volunteers = volunteers,
+      error => this.error = <any>error);
   }
 
   /**
    * Gets volunteers from the data service.
    */
   getVolunteers(): void {
-    this.volunteerService.getAll()
-      .subscribe(volunteers => this.volunteers = volunteers,
-        error => this.error = <any>error);
+    this.volunteerService.getAllRx();
   }
 
   /**
    * Creates a new visit with now as the start time and a null end time.
    */
   startVisit(): void {
-    this.visitService.create(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago'))
-      .subscribe(
-        res => console.log(res),
-        error => this.error = <any>error);
+    this.visitService.createRx(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago'));
   }
 
   /**
    * Updates a visit with now as the end time.
    */
   endVisit(): void {
-    this.visitService.update(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }))
-      .subscribe(
-        res => console.log(res),
-        error => this.error = <any>error);
+    this.visitService.updateRx(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }));
   }
 
   /**

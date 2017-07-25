@@ -2,8 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MdListModule } from '@angular/material';
 
 import { VisitHistoryComponent } from './visit-history.component';
-import { MockVisitService, VisitService } from '../shared/visit.service';
-import { testVisits } from '../shared/visit';
+import { testVisits } from '../models/visit';
+import { StoreModule } from '@ngrx/store';
+import VisitReducer from '../reducers/visit';
 
 describe('VisitHistoryComponent', () => {
   let component: VisitHistoryComponent;
@@ -14,9 +15,7 @@ describe('VisitHistoryComponent', () => {
       declarations: [VisitHistoryComponent],
       imports: [
         MdListModule,
-      ],
-      providers: [
-        { provide: VisitService, useClass: MockVisitService },
+        StoreModule.provideStore({ visits: VisitReducer })
       ]
     }).compileComponents();
   }));
@@ -24,9 +23,6 @@ describe('VisitHistoryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(VisitHistoryComponent);
     component = fixture.componentInstance;
-    spyOn(component, 'getVisits').and.callFake(() => {
-      return testVisits;
-    });
     fixture.detectChanges();
   });
 
@@ -35,8 +31,7 @@ describe('VisitHistoryComponent', () => {
   });
 
   it('creates a key for each unique date', () => {
-    component.visits = testVisits;
-    component.mapVisitsToDate();
+    component.mapVisitsToDate(testVisits);
     expect(component.dates.length).toEqual(2);
     expect(component.dates).toEqual([
       testVisits[0].startedAt.toDateString(),
@@ -45,8 +40,7 @@ describe('VisitHistoryComponent', () => {
   });
 
   it('maps the visits to the correct date key', () => {
-    component.visits = testVisits;
-    component.mapVisitsToDate();
+    component.mapVisitsToDate(testVisits);
     expect(component.visitsByDate.get(component.dates[0])).toEqual([
       testVisits[0],
       testVisits[1]

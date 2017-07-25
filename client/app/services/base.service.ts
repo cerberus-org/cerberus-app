@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import handleError from './handle-error';
+import handleError from '../helpers/handle-error';
 
 abstract class BaseService {
   abstract model: any;
@@ -11,7 +11,7 @@ abstract class BaseService {
 
   constructor(protected http: Http) { }
 
-  private get options() {
+  get options() {
     const headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': localStorage.token });
     return new RequestOptions({ headers: headers });
   }

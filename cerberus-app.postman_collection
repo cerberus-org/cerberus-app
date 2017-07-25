@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "cerberus-app",
-		"_postman_id": "6d6a6562-77ea-34bf-d076-e1646731eb80",
+		"_postman_id": "09b751dc-91c9-fdf5-8938-32462617932d",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -134,7 +134,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -170,7 +173,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -193,7 +199,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:3000/api/users/count",
+						"url": "localhost:3000/api/visits/count",
 						"method": "GET",
 						"header": [
 							{
@@ -202,7 +208,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -228,7 +237,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{token}}",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Il9pZCI6IjU5NjE3OGY5NjY4ZWFmMzRhYjEwYTM1YyIsIl9fdiI6MCwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoidGVzdCJ9fQ.EyJq4lNYEYsU1l5A-ErAr-TfQjM_7hXlkQ42E8FcPYhq8gNnD5gB0YaIPG2b-sbatPhvUO6ClO5J3GZNRfPl2g",
 								"description": ""
 							},
 							{
@@ -239,7 +248,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"_id\": \"596178f9668eaf34ab10a35c\",\n    \"email\": \"test@gmail.com\",\n    \"username\": \"test\",\n    \"password\": \"testing\",\n    \"__v\": 0\n}"
+							"raw": "{\n    \"_id\": \"596178f9668eaf34ab10a35c\",\n    \"email\": \"test@gmail.com\",\n    \"username\": \"test\",\n    \"password\": \"testing\"\n}"
 						},
 						"description": ""
 					},
@@ -270,7 +279,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -296,6 +308,7 @@
 									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
 									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
 									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
+									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
 									"} else if (responseCode.code === 409) {",
 									"    var jsonData = JSON.parse(responseBody);",
 									"    tests[\"code is correct\"] = jsonData.code === 11000;",
@@ -314,11 +327,16 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"_id\": \"674a861ace7ca574af9070c8\",\n\t\"volunteerId\": \"594a861ace7ca574ae9070c8\",\n\t\"timezone\": \"America/Los_Angeles\"\n}"
+							"raw": "{\n\t\"_id\": \"674a861ace7ca574af9070c8\",\n\t\"volunteerId\": \"594a861ace7ca574ae9070c8\",\n\t\"timezone\": \"America/Los_Angeles\",\n\t\"startedAt\": \"2017-07-17T21:20:31.814Z\"\n}"
 						},
 						"description": ""
 					},
@@ -347,7 +365,13 @@
 					"request": {
 						"url": "localhost:3000/api/visits",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
 						"body": {},
 						"description": ""
 					},
@@ -376,7 +400,13 @@
 					"request": {
 						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
 						"body": {},
 						"description": ""
 					},
@@ -402,7 +432,13 @@
 					"request": {
 						"url": "localhost:3000/api/visits/count",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
 						"body": {},
 						"description": ""
 					},
@@ -418,6 +454,18 @@
 								"exec": [
 									"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
 									"",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
+									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
+									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
+									"    tests[\"endedAt is correct\"] = jsonData.endedAt === \"2017-07-17T22:20:31.814Z\";",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
 									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
 								]
 							}
@@ -431,11 +479,16 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"startedAt\": \"2017-07-02T23:07:21.728Z\"\n}"
+							"raw": "{\n\t\"endedAt\": \"2017-07-17T22:20:31.814Z\"\n}"
 						},
 						"description": ""
 					},
@@ -464,7 +517,13 @@
 					"request": {
 						"url": "localhost:3000/api/visits/2017-07-06T01:33:27.337Z",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
 						"body": {},
 						"description": ""
 					},
@@ -488,7 +547,13 @@
 					"request": {
 						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
 						"body": {},
 						"description": ""
 					},
@@ -534,6 +599,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
 							}
 						],
 						"body": {
@@ -568,7 +638,13 @@
 					"request": {
 						"url": "localhost:3000/api/volunteers",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -601,7 +677,13 @@
 					"request": {
 						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
@@ -630,7 +712,13 @@
 					"request": {
 						"url": "localhost:3000/api/volunteers/count",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -662,6 +750,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
 							}
 						],
 						"body": {
@@ -690,7 +783,13 @@
 					"request": {
 						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"

@@ -26,9 +26,12 @@ import { NewVolunteerFormComponent } from './volunteer-check-in/new-volunteer-fo
 import { CheckInFormComponent } from './volunteer-check-in/check-in-form/check-in-form.component';
 import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-in.component';
 
-import { LoginService } from './shared/login.service';
-import { VolunteerService } from './shared/volunteer.service';
-import { VisitService } from './shared/visit.service';
+import { UserService } from './services/user.service';
+import { VolunteerService } from './services/volunteer.service';
+import { VisitService } from './services/visit.service';
+import { StoreModule } from '@ngrx/store';
+import VisitReducer from './reducers/visit';
+import VolunteerReducer from './reducers/volunteer';
 
 @NgModule({
   declarations: [
@@ -55,11 +58,12 @@ import { VisitService } from './shared/visit.service';
     MdCardModule,
     MdInputModule,
     MdListModule,
-    MdTabsModule
+    MdTabsModule,
+    StoreModule.provideStore({ visits: VisitReducer, volunteers: VolunteerReducer })
   ],
   providers: [
-    LoginService,
     Guard,
+    UserService,
     VisitService,
     VolunteerService
   ],

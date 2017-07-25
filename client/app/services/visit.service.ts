@@ -1,18 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import BaseService from './base.service';
-import { testVisits, Visit } from './visit';
+import { testVisits, Visit } from '../models/visit';
+import { ADD_VISIT, LOAD_VISITS, MODIFY_VISIT } from '../reducers/visit';
 
 @Injectable()
 export class VisitService extends BaseService {
   model = Visit;
   modelName = 'visit';
 
-  constructor(http: Http) {
+  constructor(protected http: Http, private store: Store<Visit[]>) {
     super(http);
+  }
+
+  getAllRx(): void {
+    this.http.get(`/api/${this.modelName}s`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: LOAD_VISITS, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
+  }
+
+  createRx(obj: any): void {
+    this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
+      .map(res => this.convert(res.json()))
+      .map(payload => ({ type: ADD_VISIT, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
+  }
+
+  updateRx(obj: any): void {
+    this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
+      .map(res => this.convert(res.json()))
+      .map(payload => ({ type: MODIFY_VISIT, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
   /**
@@ -30,8 +53,14 @@ export class VisitService extends BaseService {
 export class MockVisitService extends VisitService {
 
   constructor() {
-    super(null);
+    super(null, null);
   }
+
+  getAllRx(): void { }
+
+  createRx(obj: any): void { }
+
+  updateRx(obj: any): void { }
 
   getAll(): Observable<Visit[]> {
     return Observable.of(testVisits);
