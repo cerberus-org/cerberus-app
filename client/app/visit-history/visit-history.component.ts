@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Visit } from '../models/visit';
 import * as moment from 'moment-timezone';
-import { VisitService } from '../services/visit.service';
 import { Store } from '@ngrx/store';
 
 @Component({

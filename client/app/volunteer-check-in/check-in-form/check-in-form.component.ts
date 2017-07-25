@@ -18,7 +18,7 @@ export class CheckInFormComponent implements OnInit {
   public activeVisitForVolunteer: Visit;
   public visits;
   public selectedVolunteer: Volunteer;
-  public volunteers: Volunteer[];
+  public volunteers;
   public filteredVolunteers: Volunteer[];
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
@@ -37,6 +37,7 @@ export class CheckInFormComponent implements OnInit {
    */
   ngOnInit(): void {
     this.subscribeToVisits();
+    this.subscribeToVolunteers();
     this.getVolunteers();
   }
 
@@ -131,12 +132,19 @@ export class CheckInFormComponent implements OnInit {
   }
 
   /**
+   * Subscribes volunteers in the store
+   */
+  subscribeToVolunteers(): void {
+    this.store.select('volunteers').subscribe(
+      volunteers => this.volunteers = volunteers,
+      error => this.error = <any>error);
+  }
+
+  /**
    * Gets volunteers from the data service.
    */
   getVolunteers(): void {
-    this.volunteerService.getAll()
-      .subscribe(volunteers => this.volunteers = volunteers,
-        error => this.error = <any>error);
+    this.volunteerService.getAllRx();
   }
 
   /**

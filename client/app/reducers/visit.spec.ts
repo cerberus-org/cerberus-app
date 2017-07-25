@@ -26,7 +26,7 @@ describe('VisitReducer', () => {
   it('modifies a visit', () => {
     const modified = Object.assign({}, visits[0]);
     modified.endedAt = new Date('2017-06-29T18:45:01.336Z');
-    const result = VisitReducer(visits, { type: 'ADD_VISIT', payload: modified });
+    const result = VisitReducer(visits, { type: 'MODIFY_VISIT', payload: modified });
     expect(result[0]).toBe(modified);
   });
 });

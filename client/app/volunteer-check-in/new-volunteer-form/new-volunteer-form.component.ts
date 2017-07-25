@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { VolunteerService } from '../../services/volunteer.service';
+import { Volunteer } from '../../models/volunteer';
 
 @Component({
   selector: 'app-new-volunteer-form',
@@ -22,10 +23,8 @@ export class NewVolunteerFormComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    this.volunteerService.create(this.formGroup.value)
-      .subscribe(
-        res => console.log(res),
-        error => this.error = <any>error);
+    this.volunteerService.createRx(new Volunteer(this.formGroup.value.firstName, this.formGroup.value.lastName,
+      this.formGroup.value.petName));
     this.formGroup.reset();
     // Workaround for clearing error state
     Object.keys(this.formGroup.controls).forEach(key => {

@@ -10,6 +10,7 @@ import { testVisits } from '../../models/visit';
 import { testVolunteers } from '../../models/volunteer';
 import { StoreModule } from '@ngrx/store';
 import VisitReducer from '../../reducers/visit';
+import VolunteerReducer from '../../reducers/volunteer';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
@@ -24,7 +25,7 @@ describe('CheckInFormComponent', () => {
         BrowserAnimationsModule,
         MdAutocompleteModule,
         MdInputModule,
-        StoreModule.provideStore({ visits: VisitReducer })
+        StoreModule.provideStore({ visits: VisitReducer, volunteers: VolunteerReducer })
       ],
       providers: [
         { provide: VisitService, useClass: MockVisitService },
@@ -48,11 +49,6 @@ describe('CheckInFormComponent', () => {
     expect(component.formGroup).toBeTruthy();
     expect(component.formGroup.controls['name']).toBeTruthy();
     expect(component.formGroup.controls['petName']).toBeTruthy();
-  });
-
-  it('gets the volunteers', () => {
-    component.getVolunteers();
-    expect(component.volunteers.length).toBe(testVolunteers.length);
   });
 
   it('filters volunteers by first and last name', () => {
@@ -83,6 +79,7 @@ describe('CheckInFormComponent', () => {
   });
 
   it('checks if there are many volunteers with the same name', () => {
+    component.volunteers = testVolunteers;
     component.filteredVolunteers = testVolunteers;
     component.filterVolunteers(testVolunteers[0].firstName);
     const many = component.checkIfFilteredHaveSameName(`${testVolunteers[0].firstName} ${testVolunteers[0].lastName}`);
@@ -108,7 +105,7 @@ describe('CheckInFormComponent', () => {
     }));
 
     it('accepts an existing name', (() => {
-      this.volunteers = testVolunteers;
+      component.volunteers = testVolunteers;
       const control = component.formGroup.controls['name'];
       control.setValue('Ted Mader');
       expect(control.valid).toBeTruthy();
@@ -137,6 +134,7 @@ describe('CheckInFormComponent', () => {
     }));
 
     it('accepts a petName for a unique volunteer', (() => {
+      component.volunteers = testVolunteers;
       component.filteredVolunteers = testVolunteers;
       component.filterVolunteers(testVolunteers[0].firstName);
       const control = component.formGroup.controls['petName'];
