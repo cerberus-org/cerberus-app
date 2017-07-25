@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
@@ -6,6 +6,7 @@ import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
 import { VisitService } from '../../services/visit.service';
 import { VolunteerService } from '../../services/volunteer.service';
+import { SignatureFieldComponent } from '../../signature-field/signature-field.component';
 
 @Component({
   selector: 'app-check-in-form',
@@ -22,6 +23,11 @@ export class CheckInFormComponent implements OnInit {
   public filteredVolunteers: Volunteer[];
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
+
+  @ViewChildren(SignatureFieldComponent)
+  public sigs: QueryList<SignatureFieldComponent>;
+  @ViewChildren('sigContainer')
+  public sigContainer: QueryList<ElementRef>;
 
   /**
    * Creates the form group and subscribes on construction.
@@ -92,7 +98,8 @@ export class CheckInFormComponent implements OnInit {
     };
     this.formGroup = this.fb.group({
       name: ['', [Validators.required, volunteerExistenceValidator]],
-      petName: ['', volunteerUniqueValidator]
+      petName: ['', volunteerUniqueValidator],
+      signatureField: ['', Validators.required]
     });
   }
 
@@ -212,5 +219,32 @@ export class CheckInFormComponent implements OnInit {
       ? this.filteredVolunteers.filter(
         volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length > 1
       : false;
+  }
+
+  public AfterViewInit() {
+    this.setOptions();
+  }
+
+  public size(container: ElementRef, sig: SignatureFieldComponent){
+    sig.signaturePad.set('canvasWidth', container.nativeElement.clientWidth);
+    sig.signaturePad.set('canvasHeight', container.nativeElement.clientHeight);
+  }
+
+  public setOptions() {
+    this.sigs.first.signaturePad.set('penColor', 'rgb(255, 0, 0)');
+    this.sigs.last.signaturePad.set('penColor', 'rgb(255, 255, 0)');
+    this.sigs.last.signaturePad.set('backgroundColor', 'rgb(0, 0, 255)');
+    this.sigs.last.signaturePad.clear(); // clearing is needed to set the background colour
+  }
+
+  public submit() {
+    console.log('CAPTURED SIGS:');
+    console.log(this.sigs.first.signature);
+    console.log(this.sigs.last.signature);
+  }
+
+  public clear() {
+    this.sigs.first.clear();
+    this.sigs.last.clear();
   }
 }

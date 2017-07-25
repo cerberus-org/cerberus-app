@@ -40,8 +40,9 @@ import { VisitDataDisplayComponent } from './visit-data-display/visit-data-displ
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
 import { CdkTableModule } from '@angular/cdk';
-import { SignaturePageComponent } from './signature-page/signature-page.component';
-import { SignatureFieldComponent } from './signature-page/signature-field/signature-field.component';
+
+
+import { SignatureFieldComponent } from './signature-field/signature-field.component';
 
 
 @NgModule({
@@ -58,7 +59,6 @@ import { SignatureFieldComponent } from './signature-page/signature-field/signat
     VolunteerMenuComponent,
     FooterComponent,
     VisitDataDisplayComponent,
-    SignaturePageComponent,
     SignatureFieldComponent,
   ],
   imports: [

@@ -51,6 +51,10 @@ export class SignatureFieldComponent {
     this.signaturePad.fromDataURL(this.signature);
   }
 
+  public registerOnTouched() {
+    // no op
+  }
+
   public registerOnChange(fn: any): void {
     this.propagateChange = fn;
   }

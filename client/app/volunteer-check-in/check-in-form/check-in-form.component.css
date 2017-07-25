@@ -10,3 +10,7 @@ md-input-container {
 button {
   margin-top: 1rem;
 }
+.sig-container {
+  border-style: dashed;
+  border-width: 1px;
+}
