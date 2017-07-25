@@ -16,6 +16,7 @@ import {
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SignaturePadModule } from 'angular2-signaturepad';
 import { Guard } from './guard';
 import 'hammerjs';
 
@@ -39,6 +40,9 @@ import { VisitDataDisplayComponent } from './visit-data-display/visit-data-displ
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
 import { CdkTableModule } from '@angular/cdk';
+import { SignaturePageComponent } from './signature-page/signature-page.component';
+import { SignatureFieldComponent } from './signature-page/signature-field/signature-field.component';
+
 
 @NgModule({
   declarations: [
@@ -53,7 +57,9 @@ import { CdkTableModule } from '@angular/cdk';
     HeaderComponent,
     VolunteerMenuComponent,
     FooterComponent,
-    VisitDataDisplayComponent
+    VisitDataDisplayComponent,
+    SignaturePageComponent,
+    SignatureFieldComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +79,8 @@ import { CdkTableModule } from '@angular/cdk';
     MdTabsModule,
     MdToolbarModule,
     CdkTableModule,
-    StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
+    StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer }),
+    SignaturePadModule,
   ],
   providers: [
     Guard,
