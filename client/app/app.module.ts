@@ -10,7 +10,7 @@ import {
   MdCardModule,
   MdInputModule,
   MdListModule,
-  MdTabsModule
+  MdTabsModule, MdToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,11 +30,13 @@ import { UserService } from './services/user.service';
 import { VolunteerService } from './services/volunteer.service';
 import { VisitService } from './services/visit.service';
 import { StoreModule } from '@ngrx/store';
-import VisitReducer from './reducers/visit';
 import { ToolbarComponent } from './shared/layout/toolbar/toolbar.component';
 import { VolunteerMenuComponent } from './home/volunteer-menu/volunteer-menu.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { VisitDataDisplayComponent } from './visit-data-display/visit-data-display.component';
+
+import VisitReducer from './reducers/visit';
+import VolunteerReducer from './reducers/volunteer';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { VisitDataDisplayComponent } from './visit-data-display/visit-data-displ
     MdInputModule,
     MdListModule,
     MdTabsModule,
+    MdToolbarModule,
     StoreModule.provideStore({ visits: VisitReducer, volunteers: VolunteerReducer })
   ],
   providers: [
