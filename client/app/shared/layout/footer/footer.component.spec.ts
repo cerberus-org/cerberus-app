@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MdIconModule } from '@angular/material';
 
 import { FooterComponent } from './footer.component';
 
@@ -8,9 +9,13 @@ describe('FooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
-    })
-    .compileComponents();
+      imports: [
+        MdIconModule
+      ],
+      declarations: [
+        FooterComponent
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -10,14 +10,14 @@ import {
   MdCardModule,
   MdInputModule,
   MdListModule,
-  MdTabsModule, MdToolbarModule
+  MdTabsModule,
+  MdToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Guard } from './guard';
 import 'hammerjs';
 
-import { JumbotronComponent } from './shared/jumbotron/jumbotron.component';
 import { HomeComponent } from './home/home.component';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { LoginComponent } from './login/login.component';
@@ -30,7 +30,7 @@ import { UserService } from './services/user.service';
 import { VolunteerService } from './services/volunteer.service';
 import { VisitService } from './services/visit.service';
 import { StoreModule } from '@ngrx/store';
-import { ToolbarComponent } from './shared/layout/toolbar/toolbar.component';
+import { HeaderComponent } from './shared/layout/header/header.component';
 import { VolunteerMenuComponent } from './home/volunteer-menu/volunteer-menu.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { VisitDataDisplayComponent } from './visit-data-display/visit-data-display.component';
@@ -46,10 +46,9 @@ import VolunteerReducer from './reducers/volunteer';
     NewVolunteerFormComponent,
     VisitHistoryComponent,
     HomeComponent,
-    JumbotronComponent,
     VolunteerCheckInComponent,
     LoginComponent,
-    ToolbarComponent,
+    HeaderComponent,
     VolunteerMenuComponent,
     FooterComponent,
     VisitDataDisplayComponent

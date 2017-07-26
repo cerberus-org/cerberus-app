@@ -19,9 +19,8 @@ describe('HomeComponent', () => {
     mockRouter = new MockRouter();
     TestBed.configureTestingModule({
       declarations: [HomeComponent,
-        MockComponent({ selector: 'app-jumbotron' }),
-        MockComponent({ selector: 'app-visit-history' }),
-        MockComponent({ selector: 'app-volunteer-check-in' })
+        MockComponent({ selector: 'app-visit-data-display' }),
+        MockComponent({ selector: 'app-volunteer-menu' })
       ],
       providers: [
         { provide: Router, useValue: mockRouter }

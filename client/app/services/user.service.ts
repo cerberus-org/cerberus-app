@@ -23,7 +23,7 @@ export class UserService extends BaseService {
   }
 }
 
-export class MockLoginService extends UserService {
+export class MockUserService extends UserService {
 
   constructor() {
     super(null);
