@@ -1,19 +1,16 @@
 <div fxFlex fxFlexFill fxLayoutAlign="center">
-  <md-list fxFlexFill>
-    <h1 md-subheader>Visits</h1>
-    <div>
-      <div *ngFor="let date of dates">
-        <md-divider></md-divider>
-        <h3 md-subheader>{{date}}</h3>
-        <md-list-item *ngFor="let visit of visitsByDate.get(date)">
-          <h4 md-line>{{formatTime(visit.startedAt, visit.timezone)}} to
-            <span *ngIf="visit.endedAt; else thenBlock">{{formatTime(visit.endedAt, visit.timezone)}}</span>
-            <ng-template #thenBlock>...</ng-template>
-          </h4>
-          <p md-line>{{formatDuration(visit)}}</p>
-          <p md-line *ngIf="!formatDuration(visit)">Currently checked in!</p>
-        </md-list-item>
-      </div>
+  <md-list fxFlex fxFlexFill>
+    <div *ngFor="let date of dates">
+      <h3 md-subheader>{{date}}</h3>
+      <md-list-item *ngFor="let visit of visitsByDate.get(date)">
+        <h4 md-line>{{formatTime(visit.startedAt, visit.timezone)}} to
+          <span *ngIf="visit.endedAt; else thenBlock">{{formatTime(visit.endedAt, visit.timezone)}}</span>
+          <ng-template #thenBlock>...</ng-template>
+        </h4>
+        <p md-line>{{formatDuration(visit)}}</p>
+        <p md-line *ngIf="!formatDuration(visit)">Currently checked in!</p>
+      </md-list-item>
+      <md-divider></md-divider>
     </div>
   </md-list>
 </div>
