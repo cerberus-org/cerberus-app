@@ -166,7 +166,7 @@ export class CheckInFormComponent implements OnInit {
    * @param name
    */
   filterVolunteers(name: string): void {
-    this.filteredVolunteers = name
+    this.filteredVolunteers = name && this.volunteers
       ? this.volunteers.filter(
         volunteer => `${volunteer.firstName.toLowerCase()} ${volunteer.lastName.toLowerCase()}`.includes(name.toLowerCase()))
       : null;
@@ -178,7 +178,7 @@ export class CheckInFormComponent implements OnInit {
    * @returns {boolean}
    */
   filterVolunteersByPetName(petName: string): void {
-    this.filteredVolunteersByPetName = this.filteredVolunteers
+    this.filteredVolunteersByPetName = petName && this.filteredVolunteers
       ? this.filteredVolunteers.filter(volunteer => volunteer.petName.includes(petName))
       : null;
   }

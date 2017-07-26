@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { Store } from '@ngrx/store';
-import { ADD_VOLUNTEER, LOAD_VOLUNTEERS, MODIFY_VOLUNTEER } from '../reducers/volunteer';
+import { ADD_VOLUNTEER, LOAD_VOLUNTEERS } from '../reducers/volunteer';
 
 import BaseService from './base.service';
 import { testVolunteers, Volunteer } from '../models/volunteer';
@@ -41,7 +41,7 @@ export class MockVolunteerService extends VolunteerService {
   getAllRx(): void { }
 
   createRx(obj: any): void { }
-  
+
   getAll(): Observable<Volunteer[]> {
     return Observable.of(testVolunteers);
   }

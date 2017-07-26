@@ -26,6 +26,9 @@ export class VisitHistoryComponent implements OnInit {
   }
 
   mapVisitsToDate(visits) {
+    if (!visits) {
+      return;
+    }
     const map = new Map<string, Visit[]>();
     visits.forEach(visit => {
       const date = visit.startedAt.toDateString();
