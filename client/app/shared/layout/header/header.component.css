@@ -1,0 +1,12 @@
+.home-icon {
+  padding: 0 0.5rem;
+}
+
+.title {
+  font-weight: lighter;
+  margin-right: 1em;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

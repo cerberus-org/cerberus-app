@@ -1,5 +1,5 @@
-<form fxLayout="column" [formGroup]="loginForm" nonvalidate (ngSubmit)="login()">
-  <md-list fxFlexAlign="center">
+<form fxFlexFill fxLayout="column" fxLayoutAlign="center center" [formGroup]="loginForm" nonvalidate (ngSubmit)="login()">
+  <md-list>
     <md-list-item *ngFor="let field of form">
       <md-input-container>
         <input mdInput placeholder={{field.placeholder}} class="form-control" formControlName={{field.control}}

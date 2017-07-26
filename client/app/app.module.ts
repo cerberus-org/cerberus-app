@@ -10,18 +10,18 @@ import {
   MdCardModule,
   MdInputModule,
   MdListModule,
-  MdTabsModule
+  MdTabsModule,
+  MdToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Guard } from './guard';
 import 'hammerjs';
 
-import { JumbotronComponent } from './shared/jumbotron/jumbotron.component';
 import { HomeComponent } from './home/home.component';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { LoginComponent } from './login/login.component';
-import { VisitHistoryComponent } from './visit-history/visit-history.component';
+import { VisitHistoryComponent } from './visit-data-display/visit-history/visit-history.component';
 import { NewVolunteerFormComponent } from './volunteer-check-in/new-volunteer-form/new-volunteer-form.component';
 import { CheckInFormComponent } from './volunteer-check-in/check-in-form/check-in-form.component';
 import { VolunteerCheckInComponent } from './volunteer-check-in/volunteer-check-in.component';
@@ -30,6 +30,11 @@ import { UserService } from './services/user.service';
 import { VolunteerService } from './services/volunteer.service';
 import { VisitService } from './services/visit.service';
 import { StoreModule } from '@ngrx/store';
+import { HeaderComponent } from './shared/layout/header/header.component';
+import { VolunteerMenuComponent } from './home/volunteer-menu/volunteer-menu.component';
+import { FooterComponent } from './shared/layout/footer/footer.component';
+import { VisitDataDisplayComponent } from './visit-data-display/visit-data-display.component';
+
 import VisitReducer from './reducers/visit';
 import VolunteerReducer from './reducers/volunteer';
 
@@ -41,9 +46,12 @@ import VolunteerReducer from './reducers/volunteer';
     NewVolunteerFormComponent,
     VisitHistoryComponent,
     HomeComponent,
-    JumbotronComponent,
     VolunteerCheckInComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent,
+    VolunteerMenuComponent,
+    FooterComponent,
+    VisitDataDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +67,7 @@ import VolunteerReducer from './reducers/volunteer';
     MdInputModule,
     MdListModule,
     MdTabsModule,
+    MdToolbarModule,
     StoreModule.provideStore({ visits: VisitReducer, volunteers: VolunteerReducer })
   ],
   providers: [

@@ -6,7 +6,8 @@ import { MdInputModule, MdListModule } from '@angular/material';
 import 'hammerjs';
 
 import { LoginComponent } from './login.component';
-import { MockLoginService, UserService } from '../services/user.service';
+import { MockUserService, UserService } from '../services/user.service';
+import { MockVisitService, VisitService } from '../services/visit.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -31,8 +32,9 @@ describe('LoginComponent', () => {
       ],
       providers: [
         { provide: Router, useValue: mockRouter },
-        { provide: UserService, useClass: MockLoginService }
-        ]
+        { provide: UserService, useClass: MockUserService },
+        { provide: VisitService, useClass: MockVisitService }
+      ]
     })
       .compileComponents();
   }));

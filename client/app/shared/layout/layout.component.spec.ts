@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockComponent } from 'ng2-mock-component';
 
 import { LayoutComponent } from './layout.component';
 
@@ -8,7 +9,11 @@ describe('LayoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LayoutComponent]
+      declarations: [
+        LayoutComponent,
+        MockComponent({ selector: 'app-footer' }),
+        MockComponent({ selector: 'app-header' })
+      ]
     })
       .compileComponents();
   }));

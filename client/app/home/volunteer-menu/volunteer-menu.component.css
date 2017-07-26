@@ -1,0 +1,8 @@
+.container {
+  background-color: lightgray;
+}
+
+.check-in {
+  width: 10rem;
+  max-width: 100%;
+}
