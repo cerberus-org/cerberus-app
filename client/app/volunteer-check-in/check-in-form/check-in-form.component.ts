@@ -51,6 +51,7 @@ export class CheckInFormComponent implements OnInit {
    * Starts or ends a visit and resets the form group on clicking the submit button.
    */
   onSubmit(): void {
+    this.clear();
     if (this.activeVisitForVolunteer) {
       this.endVisit();
     } else if (this.selectedVolunteer) {

@@ -1,5 +1,5 @@
 import { Component, ViewChild, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 
 @Component({
@@ -17,7 +17,7 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
     },
   ],
 })
-export class SignatureFieldComponent {
+export class SignatureFieldComponent implements ControlValueAccessor {
 
   public options: Object = {};
 
@@ -38,8 +38,8 @@ export class SignatureFieldComponent {
   set signature(value: any) {
     this._signature = value;
     console.log('set signature to ' + this._signature);
+    console.log('signature data :');
     console.log(this.signaturePad.toData());
-    // ?
     this.propagateChange(this.signature);
   }
 
@@ -51,12 +51,16 @@ export class SignatureFieldComponent {
     this.signaturePad.fromDataURL(this.signature);
   }
 
-  public registerOnTouched() {
-    // no op
-  }
-
   public registerOnChange(fn: any): void {
     this.propagateChange = fn;
+  }
+
+  public registerOnTouched(): void {
+    // no-op
+  }
+
+  public AfterViewInit(): void {
+    this.signaturePad.clear();
   }
 
   public drawBegin(): void {
@@ -64,7 +68,7 @@ export class SignatureFieldComponent {
   }
 
   public drawComplete(): void {
-    this.signature = this.signaturePad.toDataURL('image/jpeg', 0.5);
+    this.signature = this.signaturePad.toDataURL('image/jpeg', .5);
   }
 
   public clear(): void {
