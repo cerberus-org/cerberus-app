@@ -35,8 +35,8 @@ import { VolunteerMenuComponent } from './home/volunteer-menu/volunteer-menu.com
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { VisitDataDisplayComponent } from './visit-data-display/visit-data-display.component';
 
-import VisitReducer from './reducers/visit';
-import VolunteerReducer from './reducers/volunteer';
+import { visitReducer } from './reducers/visit';
+import { volunteerReducer } from './reducers/volunteer';
 
 @NgModule({
   declarations: [
@@ -68,7 +68,7 @@ import VolunteerReducer from './reducers/volunteer';
     MdListModule,
     MdTabsModule,
     MdToolbarModule,
-    StoreModule.provideStore({ visits: VisitReducer, volunteers: VolunteerReducer })
+    StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
   ],
   providers: [
     Guard,

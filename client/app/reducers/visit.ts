@@ -5,7 +5,7 @@ export const LOAD_VISITS = 'LOAD_VISITS';
 export const ADD_VISIT = 'ADD_VISIT';
 export const MODIFY_VISIT = 'MODIFY_VISIT';
 
-export default function VisitReducer(state: Visit[] = [], action: Action) {
+export function visitReducer(state: Visit[] = [], action: Action) {
   switch (action.type) {
     case 'LOAD_VISITS':
       // Reverse to order from newest to oldest
