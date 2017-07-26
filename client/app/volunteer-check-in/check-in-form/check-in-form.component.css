@@ -14,3 +14,6 @@ button {
   border-style: dashed;
   border-width: 1px;
 }
+input.capitalize {
+  text-transform: capitalize;
+}

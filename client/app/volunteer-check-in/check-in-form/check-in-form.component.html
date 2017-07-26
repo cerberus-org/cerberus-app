@@ -1,6 +1,6 @@
 <form fxLayout="column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <md-input-container fxFlexAlign="center">
-    <input mdInput placeholder="Name" [mdAutocomplete]="nameForm" formControlName="name">
+    <input class="capitalize" mdInput placeholder="Name" [mdAutocomplete]="nameForm" formControlName="name">
   </md-input-container>
   <md-autocomplete fxFlexAlign="center" #nameForm="mdAutocomplete">
     <md-option *ngFor="let volunteer of filteredVolunteers" [value]="formatName(volunteer)">
@@ -8,7 +8,7 @@
     </md-option>
   </md-autocomplete>
   <md-input-container fxFlexAlign="center" *ngIf="showPetNameForm">
-    <input mdInput placeholder="Favorite Pet" [mdAutocomplete]="petNameForm" formControlName="petName">
+    <input class="capitalize" mdInput placeholder="Favorite Pet" [mdAutocomplete]="petNameForm" formControlName="petName">
   </md-input-container>
   <md-autocomplete fxFlexAlign="center" #petNameForm="mdAutocomplete">
     <md-option *ngFor="let volunteer of filteredVolunteersByPetName" [value]="volunteer.petName">
