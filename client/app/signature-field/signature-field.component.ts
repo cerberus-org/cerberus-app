@@ -8,15 +8,16 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
   styleUrls: ['./signature-field.component.css'],
   providers: [
     {
-      // provides a ControlValueAccessor for forms
+      // since SignatureFieldComponent implements the ControlValueAccessor it is registered as a provider
       provide: NG_VALUE_ACCESSOR,
       // since classes that are referenced in the same file they are used are not hoisted, a foward reference is used
       useExisting: forwardRef(() => SignatureFieldComponent),
-      // a multi provider passes all the providers registered with NG_VALUE_ACCESSOR
+      // a multi provider provides all the providers registered with NG_VALUE_ACCESSOR
       multi: true,
     },
   ],
 })
+// implement ControlValueAccessor so SignatureFieldComponent can be used on a form
 export class SignatureFieldComponent implements ControlValueAccessor {
 
   public options: Object = {};
@@ -25,7 +26,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
 
   public propagateChange: Function = null;
 
-  // provides reference to signature pad in component view
+  // ViewChild provides reference to signature pad in component view
   @ViewChild(SignaturePad)
   public signaturePad: SignaturePad;
 
@@ -37,12 +38,15 @@ export class SignatureFieldComponent implements ControlValueAccessor {
 
   set signature(value: any) {
     this._signature = value;
-    console.log('set signature to ' + this._signature);
-    console.log('signature data :');
-    console.log(this.signaturePad.toData());
+    // update form
     this.propagateChange(this.signature);
   }
 
+  /**
+   * Initialize value
+   *
+   * @param value
+   */
   public writeValue(value: any): void {
     if (!value) {
       return;
@@ -51,20 +55,21 @@ export class SignatureFieldComponent implements ControlValueAccessor {
     this.signaturePad.fromDataURL(this.signature);
   }
 
+  /**
+   * Set function which will be called when control changes
+   * @param fn
+   */
   public registerOnChange(fn: any): void {
     this.propagateChange = fn;
   }
 
+  // part of interface contract
   public registerOnTouched(): void {
     // no-op
   }
 
   public AfterViewInit(): void {
     this.signaturePad.clear();
-  }
-
-  public drawBegin(): void {
-    console.log('Begin Drawing');
   }
 
   public drawComplete(): void {
