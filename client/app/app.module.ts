@@ -9,7 +9,8 @@ import {
   MdButtonModule,
   MdCardModule,
   MdInputModule,
-  MdListModule,
+  MdListModule, MdPaginatorModule,
+  MdTableModule,
   MdTabsModule,
   MdToolbarModule
 } from '@angular/material';
@@ -37,6 +38,7 @@ import { VisitDataDisplayComponent } from './visit-data-display/visit-data-displ
 
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
+import { CdkTableModule } from '@angular/cdk';
 
 @NgModule({
   declarations: [
@@ -66,8 +68,11 @@ import { volunteerReducer } from './reducers/volunteer';
     MdCardModule,
     MdInputModule,
     MdListModule,
+    MdPaginatorModule,
+    MdTableModule,
     MdTabsModule,
     MdToolbarModule,
+    CdkTableModule,
     StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
   ],
   providers: [
