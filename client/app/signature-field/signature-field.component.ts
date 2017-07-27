@@ -56,7 +56,8 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   }
 
   /**
-   * Set function which will be called when control changes
+   * registers 'fn' which will be fired when changes are made
+   * this is how changes are emitted back to the form
    * @param fn
    */
   public registerOnChange(fn: any): void {

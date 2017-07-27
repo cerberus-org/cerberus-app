@@ -52,6 +52,7 @@ export class CheckInFormComponent implements OnInit {
    */
   onSubmit(): void {
     this.clear();
+    this.submit();
     if (this.activeVisitForVolunteer) {
       this.endVisit();
     } else if (this.selectedVolunteer) {
@@ -226,7 +227,7 @@ export class CheckInFormComponent implements OnInit {
     this.setOptions();
   }
 
-  public size(container: ElementRef, sig: SignatureFieldComponent){
+  public size(container: ElementRef, sig: SignatureFieldComponent) {
     sig.signaturePad.set('canvasWidth', container.nativeElement.clientWidth);
     sig.signaturePad.set('canvasHeight', container.nativeElement.clientHeight);
   }
@@ -235,7 +236,7 @@ export class CheckInFormComponent implements OnInit {
     this.sigs.first.signaturePad.set('penColor', 'rgb(255, 0, 0)');
     this.sigs.last.signaturePad.set('penColor', 'rgb(255, 255, 0)');
     this.sigs.last.signaturePad.set('backgroundColor', 'rgb(0, 0, 255)');
-    this.sigs.last.signaturePad.clear(); // clearing is needed to set the background colour
+    // this.sigs.last.signaturePad.clear(); // clearing is needed to set the background colour
   }
 
   public submit() {
