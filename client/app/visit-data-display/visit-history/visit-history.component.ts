@@ -14,7 +14,7 @@ import 'rxjs/add/observable/merge';
 })
 export class VisitHistoryComponent implements OnInit {
   error: string;
-  visits;
+  visits: Visit[];
   visitsByDate: Map<string, Visit[]>;
   dates: string[];
   displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
@@ -25,11 +25,12 @@ export class VisitHistoryComponent implements OnInit {
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
+    this.subscribeToVisits();
     this.dataSource = new VisitDataSource(this.store, this.paginator);
   }
 
   subscribeToVisits(): void {
-    this.store.select('visits').subscribe(
+    this.store.select<Visit[]>('visits').subscribe(
       visits => this.visits = visits,
       error => this.error = <any>error);
   }
@@ -56,7 +57,7 @@ export class VisitHistoryComponent implements OnInit {
 
   formatDuration(visit: Visit): string {
     if (!visit.endedAt) {
-      return null;
+      return '-';
     }
     const duration = visit.endedAt.getTime() - visit.startedAt.getTime();
     // Convert to seconds
@@ -83,23 +84,23 @@ export class VisitDataSource extends DataSource<any> {
 
   constructor(private store: Store<any>, private paginator: MdPaginator) {
     super();
+    this.store.select<Visit[]>('visits').subscribe(
+      visits => {
+        this.visits = visits;
+      },
+      error => this.error = <any>error);
   }
 
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  /**
+   * Connect function called by the table to retrieve one stream containing the data to render.
+   */
   connect(): Observable<any[]> {
-
-    this.store.select('visits').subscribe(
-      visits => this.visits = visits,
-      error => this.error = <any>error);
-
     const displayDataChanges = [
       this.visits,
       this.paginator.page,
     ];
-
     return Observable.merge(...displayDataChanges).map(() => {
       const data = this.visits.slice();
-
       // Grab the page's slice of data.
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);

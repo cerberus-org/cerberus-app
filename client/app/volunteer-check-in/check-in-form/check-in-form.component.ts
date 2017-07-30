@@ -16,9 +16,9 @@ export class CheckInFormComponent implements OnInit {
   public error: string;
   public formGroup: FormGroup;
   public activeVisitForVolunteer: Visit;
-  public visits;
+  public visits: Visit[];
   public selectedVolunteer: Volunteer;
-  public volunteers;
+  public volunteers: Volunteer[];
   public filteredVolunteers: Volunteer[];
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
@@ -126,7 +126,7 @@ export class CheckInFormComponent implements OnInit {
    * Subscribes visits in the store. TODO: Only retrieve visits from last 24 hours
    */
   subscribeToVisits(): void {
-    this.store.select('visits').subscribe(
+    this.store.select<Visit[]>('visits').subscribe(
       visits => this.visits = visits,
       error => this.error = <any>error);
   }
@@ -135,7 +135,7 @@ export class CheckInFormComponent implements OnInit {
    * Subscribes volunteers in the store
    */
   subscribeToVolunteers(): void {
-    this.store.select('volunteers').subscribe(
+    this.store.select<Volunteer[]>('volunteers').subscribe(
       volunteers => this.volunteers = volunteers,
       error => this.error = <any>error);
   }
