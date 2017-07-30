@@ -74,11 +74,15 @@ export class VisitDataSource extends DataSource<any> {
    */
   connect(): Observable<any[]> {
     return Observable.merge(this.paginator.page, this.store).map(() => {
-      const data = this.visits.slice();
-      // Grab the page's slice of data based on the current page and items per page.
-      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-      return data.splice(startIndex, this.paginator.pageSize);
+      return this.getPageData();
     });
+  }
+
+  getPageData(): Visit[] {
+    const data = this.visits.slice();
+    // Grab the page's slice of data based on the current page and items per page.
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    return data.splice(startIndex, this.paginator.pageSize);
   }
 
   disconnect() {}
