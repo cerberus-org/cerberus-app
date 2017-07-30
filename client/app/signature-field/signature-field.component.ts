@@ -20,8 +20,10 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 // implement ControlValueAccessor so SignatureFieldComponent can be used on a form
 export class SignatureFieldComponent implements ControlValueAccessor {
 
-  // canvasWidth and canvasHeight can be set here
-  public options: Object = { };
+  public options: Object = {
+    'canvasWidth': 500,
+    'canvasHeight': 200
+  };
 
   public _signature: any = null;
 

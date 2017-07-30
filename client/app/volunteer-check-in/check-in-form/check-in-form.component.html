@@ -16,10 +16,12 @@
     </md-option>
   </md-autocomplete>
   <!--signature-->
-  <div class="sig-container">
-    <app-signature-field formControlName="signatureField"></app-signature-field>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div class="sig-container">
+      <app-signature-field formControlName="signatureField"></app-signature-field>
+    </div>
   </div>
-  <div>
+  <div fxLayout="row" fxLayoutAlign="center center">
     <button md-button type="button" (click)="clear()" [disabled]="!formGroup.controls.signatureField.valid">Clear</button>
   </div>
   <!--end signature-->
@@ -31,3 +33,4 @@
     <button [disabled]="!formGroup.valid" md-button color="primary" fxFlexAlign="center">Check Out</button>
   </ng-template>
 </form>
+
