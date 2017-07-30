@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Visit } from '../../models/visit';
-import * as moment from 'moment-timezone';
-import { Store } from '@ngrx/store';
 import { DataSource } from '@angular/cdk';
 import { MdPaginator } from '@angular/material';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/merge';
+import * as moment from 'moment-timezone';
+import 'rxjs/add/observable/merge'
+
+import { Visit } from '../../models/visit';
 
 @Component({
   selector: 'app-visit-history',
@@ -13,10 +14,6 @@ import 'rxjs/add/observable/merge';
   styleUrls: ['./visit-history.component.css']
 })
 export class VisitHistoryComponent implements OnInit {
-  error: string;
-  visits: Visit[];
-  visitsByDate: Map<string, Visit[]>;
-  dates: string[];
   displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
   dataSource: VisitDataSource | null;
 
@@ -25,30 +22,7 @@ export class VisitHistoryComponent implements OnInit {
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
-    this.subscribeToVisits();
     this.dataSource = new VisitDataSource(this.store, this.paginator);
-  }
-
-  subscribeToVisits(): void {
-    this.store.select<Visit[]>('visits').subscribe(
-      visits => this.visits = visits,
-      error => this.error = <any>error);
-  }
-
-  mapVisitsToDate(visits) {
-    if (!visits) {
-      return;
-    }
-    const map = new Map<string, Visit[]>();
-    visits.forEach(visit => {
-      const date = visit.startedAt.toDateString();
-      if (!map.has(date)) {
-        map.set(date, []);
-      }
-      map.get(date).push(visit);
-    });
-    this.visitsByDate = map;
-    this.dates = Array.from(this.visitsByDate.keys());
   }
 
   formatTime(date: Date, timezone: string): string {
@@ -79,11 +53,15 @@ export class VisitHistoryComponent implements OnInit {
  * should be rendered.
  */
 export class VisitDataSource extends DataSource<any> {
-  public error: string;
-  public visits;
+  error: string;
+  visits: Visit[];
 
   constructor(private store: Store<any>, private paginator: MdPaginator) {
     super();
+    this.subscribeToVisits();
+  }
+
+  subscribeToVisits(): void {
     this.store.select<Visit[]>('visits').subscribe(
       visits => {
         this.visits = visits;
@@ -95,13 +73,9 @@ export class VisitDataSource extends DataSource<any> {
    * Connect function called by the table to retrieve one stream containing the data to render.
    */
   connect(): Observable<any[]> {
-    const displayDataChanges = [
-      this.visits,
-      this.paginator.page,
-    ];
-    return Observable.merge(...displayDataChanges).map(() => {
+    return Observable.merge(this.paginator.page, this.store).map(() => {
       const data = this.visits.slice();
-      // Grab the page's slice of data.
+      // Grab the page's slice of data based on the current page and items per page.
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
     });
