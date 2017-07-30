@@ -47,6 +47,10 @@ export class CheckInFormComponent implements OnInit {
     this.getVolunteers();
   }
 
+  ngAfterView() {
+    this.setSigOptions();
+  }
+
   /**
    * Starts or ends a visit and resets the form group on clicking the submit button.
    */
@@ -223,30 +227,18 @@ export class CheckInFormComponent implements OnInit {
       : false;
   }
 
-  public AfterViewInit() {
-    this.setOptions();
-  }
-
-  public size(container: ElementRef, sig: SignatureFieldComponent) {
-    sig.signaturePad.set('canvasWidth', container.nativeElement.clientWidth);
-    sig.signaturePad.set('canvasHeight', container.nativeElement.clientHeight);
-  }
-
-  public setOptions() {
-    this.sigs.first.signaturePad.set('penColor', 'rgb(255, 0, 0)');
-    this.sigs.last.signaturePad.set('penColor', 'rgb(255, 255, 0)');
-    this.sigs.last.signaturePad.set('backgroundColor', 'rgb(0, 0, 255)');
-    // this.sigs.last.signaturePad.clear(); // clearing is needed to set the background colour
+  public setSigOptions() {
+    this.sigs.first.signaturePad.set('penColor', 'rgb(0, 0, 0)');
+    this.sigs.first.signaturePad.set('backgroundColor', 'rgb(255, 255, 255, 0)');
+    this.sigs.first.signaturePad.clear(); // clearing is needed to set the background colour
   }
 
   public submit() {
     console.log('CAPTURED SIGS:');
     console.log(this.sigs.first.signature);
-    console.log(this.sigs.last.signature);
   }
 
   public clear() {
     this.sigs.first.clear();
-    this.sigs.last.clear();
   }
 }
