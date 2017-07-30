@@ -8,16 +8,16 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
   styleUrls: ['./signature-field.component.css'],
   providers: [
     {
-      // since SignatureFieldComponent implements the ControlValueAccessor it is registered as a provider
+      // Since SignatureFieldComponent implements the ControlValueAccessor it is registered as a provider.
       provide: NG_VALUE_ACCESSOR,
-      // since classes that are referenced in the same file they are used are not hoisted, a foward reference is used
+      // Since classes that are referenced in the same file they are used are not hoisted, a foward reference is used.
       useExisting: forwardRef(() => SignatureFieldComponent),
-      // a multi provider provides all the providers registered with NG_VALUE_ACCESSOR
+      // A multi provider provides all the providers registered with NG_VALUE_ACCESSOR.
       multi: true,
     },
   ],
 })
-// implement ControlValueAccessor so SignatureFieldComponent can be used on a form
+// Implement ControlValueAccessor so SignatureFieldComponent can be used on a form
 export class SignatureFieldComponent implements ControlValueAccessor {
 
   public options: Object = {
@@ -46,7 +46,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   }
 
   /**
-   * Initialize value
+   * Initialize value.
    *
    * @param value
    */
@@ -59,23 +59,31 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   }
 
   /**
-   * registers 'fn' which will be fired when changes are made
-   * this is how changes are emitted back to the form
+   * Register 'fn' which will be fired when changes are made.
+   * This is how changes are emitted back to the form.
    * @param fn
    */
   public registerOnChange(fn: any): void {
     this.propagateChange = fn;
   }
 
-  // part of interface contract
+  /**
+   * Part of interface contract.
+   */
   public registerOnTouched(): void {
     // no-op
   }
 
+  /**
+   * Called after view has been initialized.
+   */
   public AfterViewInit(): void {
     this.signaturePad.clear();
   }
 
+  /**
+   * After the user has finished drawing, save the signature as an image.
+   */
   public drawComplete(): void {
     this.signature = this.signaturePad.toDataURL('image/jpeg', .5);
   }

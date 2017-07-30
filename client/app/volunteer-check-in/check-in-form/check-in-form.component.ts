@@ -56,7 +56,7 @@ export class CheckInFormComponent implements OnInit {
    */
   onSubmit(): void {
     this.submit();
-    this.clear();
+    this.clearSigPad();
     if (this.activeVisitForVolunteer) {
       this.endVisit();
     } else if (this.selectedVolunteer) {
@@ -227,6 +227,9 @@ export class CheckInFormComponent implements OnInit {
       : false;
   }
 
+  /**
+   * Set signature pad properites.
+   */
   public setSigOptions() {
     this.sigs.first.signaturePad.set('penColor', 'rgb(0, 0, 0)');
     this.sigs.first.signaturePad.set('backgroundColor', 'rgb(255, 255, 255, 0)');
@@ -238,7 +241,7 @@ export class CheckInFormComponent implements OnInit {
     console.log(this.sigs.first.signature);
   }
 
-  public clear() {
+  public clearSigPad() {
     this.sigs.first.clear();
   }
 }
