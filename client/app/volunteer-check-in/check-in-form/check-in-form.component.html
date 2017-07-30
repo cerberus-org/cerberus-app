@@ -22,7 +22,7 @@
     </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
-    <button md-button type="button" (click)="clear()" [disabled]="!formGroup.controls.signatureField.valid">Clear</button>
+    <button md-button type="button" (click)="clearSigPad()" [disabled]="!formGroup.controls.signatureField.valid">Clear</button>
   </div>
   <!--end signature-->
   <div *ngIf="formGroup.invalid || !activeVisitForVolunteer; then showCheckIn else showCheckOut"></div>
