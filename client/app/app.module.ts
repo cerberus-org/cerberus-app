@@ -36,13 +36,11 @@ import { HeaderComponent } from './shared/layout/header/header.component';
 import { VolunteerMenuComponent } from './home/volunteer-menu/volunteer-menu.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { VisitDataDisplayComponent } from './visit-data-display/visit-data-display.component';
+import { SignatureFieldComponent } from './signature-field/signature-field.component';
 
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
 import { CdkTableModule } from '@angular/cdk';
-
-
-import { SignatureFieldComponent } from './signature-field/signature-field.component';
 
 
 @NgModule({
@@ -80,6 +78,7 @@ import { SignatureFieldComponent } from './signature-field/signature-field.compo
     MdToolbarModule,
     CdkTableModule,
     StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer }),
+    SignaturePadModule,
     SignaturePadModule,
   ],
   providers: [
