@@ -9,7 +9,8 @@ import {
   MdButtonModule,
   MdCardModule,
   MdInputModule,
-  MdListModule,
+  MdListModule, MdPaginatorModule,
+  MdTableModule,
   MdTabsModule,
   MdToolbarModule
 } from '@angular/material';
@@ -35,8 +36,9 @@ import { VolunteerMenuComponent } from './home/volunteer-menu/volunteer-menu.com
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { VisitDataDisplayComponent } from './visit-data-display/visit-data-display.component';
 
-import VisitReducer from './reducers/visit';
-import VolunteerReducer from './reducers/volunteer';
+import { visitReducer } from './reducers/visit';
+import { volunteerReducer } from './reducers/volunteer';
+import { CdkTableModule } from '@angular/cdk';
 
 @NgModule({
   declarations: [
@@ -66,9 +68,12 @@ import VolunteerReducer from './reducers/volunteer';
     MdCardModule,
     MdInputModule,
     MdListModule,
+    MdPaginatorModule,
+    MdTableModule,
     MdTabsModule,
     MdToolbarModule,
-    StoreModule.provideStore({ visits: VisitReducer, volunteers: VolunteerReducer })
+    CdkTableModule,
+    StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
   ],
   providers: [
     Guard,

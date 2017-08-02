@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { VolunteerService } from './volunteer.service';
 import { testVolunteers } from '../models/volunteer';
-import VolunteerReducer from '../reducers/volunteer';
+import { volunteerReducer } from '../reducers/volunteer';
 
 describe('VolunteerService', () => {
   let backend: MockBackend = null;
@@ -14,7 +14,7 @@ describe('VolunteerService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.provideStore({volunteers: VolunteerReducer})
+        StoreModule.provideStore({volunteers: volunteerReducer})
       ],
       providers: [
         BaseRequestOptions,

@@ -1,19 +1,39 @@
-<div fxFlex fxFlexFill fxLayoutAlign="center">
-  <md-list fxFlexFill>
-    <h1 md-subheader>Visits</h1>
-    <div class="overflow">
-      <div *ngFor="let date of dates">
-        <md-divider></md-divider>
-        <h3 md-subheader>{{date}}</h3>
-        <md-list-item *ngFor="let visit of visitsByDate.get(date)">
-          <h4 md-line>{{formatTime(visit.startedAt, visit.timezone)}} to
-            <span *ngIf="visit.endedAt; else thenBlock">{{formatTime(visit.endedAt, visit.timezone)}}</span>
-            <ng-template #thenBlock>...</ng-template>
-          </h4>
-          <p md-line>{{formatDuration(visit)}}</p>
-          <p md-line *ngIf="!formatDuration(visit)">Currently checked in!</p>
-        </md-list-item>
-      </div>
-    </div>
-  </md-list>
-</div>
+<md-table #table [dataSource]="dataSource">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- ID Column -->
+  <ng-container cdkColumnDef="date">
+    <md-header-cell *cdkHeaderCellDef> Date </md-header-cell>
+    <md-cell *cdkCellDef="let row"> {{row.startedAt.toDateString()}} </md-cell>
+  </ng-container>
+
+  <!-- Progress Column -->
+  <ng-container cdkColumnDef="startedAt">
+    <md-header-cell *cdkHeaderCellDef> Start </md-header-cell>
+    <md-cell *cdkCellDef="let row"> {{formatTime(row.startedAt, row.timezone)}} </md-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container cdkColumnDef="endedAt">
+    <md-header-cell *cdkHeaderCellDef> End </md-header-cell>
+    <md-cell *cdkCellDef="let row"> {{formatTime(row.endedAt, row.timezone)}} </md-cell>
+  </ng-container>
+
+  <!-- Color Column -->
+  <ng-container cdkColumnDef="duration">
+    <md-header-cell *cdkHeaderCellDef> Duration </md-header-cell>
+    <md-cell *cdkCellDef="let row"> {{formatDuration(row)}} </md-cell>
+  </ng-container>
+
+  <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+  <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+</md-table>
+
+<md-paginator #paginator
+              [length]="dataSource.visits.length"
+              [pageIndex]="0"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+</md-paginator>

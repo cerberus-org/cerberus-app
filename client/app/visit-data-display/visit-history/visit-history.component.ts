@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Visit } from '../../models/visit';
-import * as moment from 'moment-timezone';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DataSource } from '@angular/cdk';
+import { MdPaginator } from '@angular/material';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import * as moment from 'moment-timezone';
+import 'rxjs/add/observable/merge'
+
+import { Visit } from '../../models/visit';
 
 @Component({
   selector: 'app-visit-history',
@@ -9,43 +14,24 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./visit-history.component.css']
 })
 export class VisitHistoryComponent implements OnInit {
-  public error: string;
-  public visitsByDate: Map<string, Visit[]>;
-  public dates: string[];
+  displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
+  dataSource: VisitDataSource | null;
+
+  @ViewChild(MdPaginator) paginator: MdPaginator;
 
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
-    this.subscribeToVisits();
-  }
-
-  subscribeToVisits(): void {
-    this.store.select('visits').subscribe(
-      visits => this.mapVisitsToDate(visits),
-      error => this.error = <any>error);
-  }
-
-  mapVisitsToDate(visits) {
-    const map = new Map<string, Visit[]>();
-    visits.forEach(visit => {
-      const date = visit.startedAt.toDateString();
-      if (!map.has(date)) {
-        map.set(date, []);
-      }
-      map.get(date).push(visit);
-    });
-    this.visitsByDate = map;
-    this.dates = Array.from(this.visitsByDate.keys());
+    this.dataSource = new VisitDataSource(this.store, this.paginator);
   }
 
   formatTime(date: Date, timezone: string): string {
-    const now = moment(date.getTime());
-    return now.tz(timezone).format('h:mm a');
+    return date ? moment(date.getTime()).tz(timezone).format('h:mm a') : '-';
   }
 
   formatDuration(visit: Visit): string {
     if (!visit.endedAt) {
-      return null;
+      return '-';
     }
     const duration = visit.endedAt.getTime() - visit.startedAt.getTime();
     // Convert to seconds
@@ -57,4 +43,47 @@ export class VisitHistoryComponent implements OnInit {
     const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
     return `${hours} hours, ${minutes} minutes`;
   }
+}
+
+/**
+ * Data source to provide what data should be rendered in the table. Note that the data source
+ * can retrieve its data in any way. In this case, the data source is provided a reference
+ * to a common data base, ExampleDatabase. It is not the data source's responsibility to manage
+ * the underlying data. Instead, it only needs to take the data and send the table exactly what
+ * should be rendered.
+ */
+export class VisitDataSource extends DataSource<any> {
+  error: string;
+  visits: Visit[];
+
+  constructor(private store: Store<any>, private paginator: MdPaginator) {
+    super();
+    this.subscribeToVisits();
+  }
+
+  subscribeToVisits(): void {
+    this.store.select<Visit[]>('visits').subscribe(
+      visits => {
+        this.visits = visits;
+      },
+      error => this.error = <any>error);
+  }
+
+  /**
+   * Connect function called by the table to retrieve one stream containing the data to render.
+   */
+  connect(): Observable<any[]> {
+    return Observable.merge(this.paginator.page, this.store).map(() => {
+      return this.getPageData();
+    });
+  }
+
+  getPageData(): Visit[] {
+    const data = this.visits.slice();
+    // Grab the page's slice of data based on the current page and items per page.
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    return data.splice(startIndex, this.paginator.pageSize);
+  }
+
+  disconnect() {}
 }

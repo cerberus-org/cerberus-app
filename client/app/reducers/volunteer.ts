@@ -5,7 +5,7 @@ export const LOAD_VOLUNTEERS = 'LOAD_VOLUNTEERS';
 export const ADD_VOLUNTEER = 'ADD_VOLUNTEER';
 export const MODIFY_VOLUNTEER = 'MODIFY_VOLUNTEER';
 
-export default function VolunteerReducer(state: Volunteer[] = [], action: Action) {
+export function volunteerReducer(state: Volunteer[] = [], action: Action) {
   switch (action.type) {
     case 'LOAD_VOLUNTEERS':
       return action.payload.reverse();

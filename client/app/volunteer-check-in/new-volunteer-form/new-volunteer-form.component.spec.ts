@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
 import { StoreModule } from '@ngrx/store';
-import VolunteerReducer from '../../reducers/volunteer';
+import { volunteerReducer } from '../../reducers/volunteer';
 
 describe('NewVolunteerFormComponent', () => {
   let component: NewVolunteerFormComponent,
@@ -21,7 +21,7 @@ describe('NewVolunteerFormComponent', () => {
         MdAutocompleteModule,
         MdInputModule,
         BrowserAnimationsModule,
-        StoreModule.provideStore({ visits: VolunteerReducer })
+        StoreModule.provideStore({ volunteers: volunteerReducer })
       ],
       providers: [{ provide: VolunteerService, useClass: MockVolunteerService }]
     }).compileComponents();
