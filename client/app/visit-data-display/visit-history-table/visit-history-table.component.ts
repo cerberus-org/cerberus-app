@@ -9,11 +9,11 @@ import 'rxjs/add/observable/merge'
 import { Visit } from '../../models/visit';
 
 @Component({
-  selector: 'app-visit-history',
-  templateUrl: './visit-history.component.html',
-  styleUrls: ['./visit-history.component.css']
+  selector: 'app-visit-history-table',
+  templateUrl: './visit-history-table.component.html',
+  styleUrls: ['./visit-history-table.component.css']
 })
-export class VisitHistoryComponent implements OnInit {
+export class VisitHistoryTableComponent implements OnInit {
   displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
   dataSource: VisitDataSource | null;
 

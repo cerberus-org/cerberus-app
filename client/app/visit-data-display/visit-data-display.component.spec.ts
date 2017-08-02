@@ -17,7 +17,7 @@ describe('VisitDataDisplayComponent', () => {
       ],
       declarations: [
         VisitDataDisplayComponent,
-        MockComponent({ selector: 'app-visit-history' })
+        MockComponent({ selector: 'app-visit-history-table' })
       ]
     })
     .compileComponents();

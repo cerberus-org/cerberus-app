@@ -3,18 +3,18 @@ import { MdListModule, MdPaginatorModule, MdTableModule } from '@angular/materia
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk';
 
-import { VisitHistoryComponent } from './visit-history.component';
+import { VisitHistoryTableComponent } from './visit-history-table.component';
 import { StoreModule } from '@ngrx/store';
 import { visitReducer } from '../../reducers/visit';
 import { testVisits } from '../../models/visit';
 
-describe('VisitHistoryComponent', () => {
-  let component: VisitHistoryComponent;
-  let fixture: ComponentFixture<VisitHistoryComponent>;
+describe('VisitHistoryTableComponent', () => {
+  let component: VisitHistoryTableComponent;
+  let fixture: ComponentFixture<VisitHistoryTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [VisitHistoryComponent],
+      declarations: [VisitHistoryTableComponent],
       imports: [
         NoopAnimationsModule,
         CdkTableModule,
@@ -27,7 +27,7 @@ describe('VisitHistoryComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VisitHistoryComponent);
+    fixture = TestBed.createComponent(VisitHistoryTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
