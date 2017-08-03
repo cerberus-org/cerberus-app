@@ -53,8 +53,8 @@ export class VisitHistoryTableComponent implements OnInit {
  * should be rendered.
  */
 export class VisitDataSource extends DataSource<any> {
-  error: string;
   visits: Visit[];
+  error: string;
 
   constructor(private store: Store<any>, private paginator: MdPaginator) {
     super();
@@ -63,9 +63,7 @@ export class VisitDataSource extends DataSource<any> {
 
   subscribeToVisits(): void {
     this.store.select<Visit[]>('visits').subscribe(
-      visits => {
-        this.visits = visits;
-      },
+      visits => this.visits = visits,
       error => this.error = <any>error);
   }
 
