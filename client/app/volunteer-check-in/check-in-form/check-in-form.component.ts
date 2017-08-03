@@ -55,7 +55,7 @@ export class CheckInFormComponent implements OnInit {
    * Starts or ends a visit and resets the form group on clicking the submit button.
    */
   onSubmit(): void {
-    this.submit();
+    // this.submit();
     this.clearSigPad();
     if (this.activeVisitForVolunteer) {
       this.endVisit();
@@ -164,7 +164,9 @@ export class CheckInFormComponent implements OnInit {
    * Creates a new visit with now as the start time and a null end time.
    */
   startVisit(): void {
-    this.visitService.createRx(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago'));
+    this.visitService.createRx(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago',
+      this.sigs.first.signature
+    ));
   }
 
   /**
@@ -236,12 +238,13 @@ export class CheckInFormComponent implements OnInit {
     this.sigs.first.signaturePad.clear(); // clearing is needed to set the background colour
   }
 
-  public submit() {
-    console.log('CAPTURED SIGS:');
-    console.log(this.sigs.first.signature);
-  }
+  // public submit() {
+  //   console.log('CAPTURED SIGS:');
+  //   console.log(this.sigs.first.signature);
+  // }
 
   public clearSigPad() {
+    console.log(this.sigs.first.signature);
     this.sigs.first.clear();
   }
 }
