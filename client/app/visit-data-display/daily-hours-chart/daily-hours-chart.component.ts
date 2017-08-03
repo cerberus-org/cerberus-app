@@ -38,4 +38,13 @@ export class DailyHoursChartComponent implements OnInit {
     });
     this.visitsByDate = map;
   }
+
+  setLineChartLabels(): void {
+    const date = new Date();
+    this.lineChartLabels = Array.from(Array(10), (_, i) => {
+      date.setDate(date.getDate() - i);
+      return date.toDateString();
+    });
+    console.log(this.lineChartLabels);
+  }
 }
