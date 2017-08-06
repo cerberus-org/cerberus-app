@@ -116,8 +116,9 @@ export class CheckInFormComponent implements OnInit {
     // Always check for an active visit
     this.formGroup.valueChanges.subscribe(() => {
       this.activeVisitForVolunteer = this.formGroup.invalid ? null : this.findActiveVisitForVolunteer();
+      // if the visit is active
       if (this.activeVisitForVolunteer) {
-        console.log(this.activeVisitForVolunteer);
+        // update signature to check in signature
         this.sigs.first.signaturePad.fromData(this.activeVisitForVolunteer.signature);
       }
     });

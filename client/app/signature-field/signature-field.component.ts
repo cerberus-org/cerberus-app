@@ -1,6 +1,6 @@
 import { Component, ViewChild, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Point, SignaturePad } from 'angular2-signaturepad/signature-pad';
+import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 
 @Component({
   selector: 'app-signature-field',
@@ -77,7 +77,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   /**
    * Called after view has been initialized.
    */
-  public AfterViewInit(): void {
+  public ngAfterView(): void {
     this.signaturePad.clear();
   }
 
