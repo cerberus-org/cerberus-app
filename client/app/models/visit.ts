@@ -7,8 +7,6 @@ export class Visit {
   signature: any[];
 
   constructor(volunteerId: string, startedAt: Date, endedAt: Date, timezone: string, signature: any[]) {
-    console.log('constructor ' + signature);
-
     this.volunteerId = volunteerId;
     this.startedAt = startedAt;
     this.endedAt = endedAt;
