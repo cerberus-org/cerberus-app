@@ -82,10 +82,10 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   }
 
   /**
-   * After the user has finished drawing, save the signature as an image.
+   * After the user has finished drawing, save the signature as an array of point groups.
    */
   public drawComplete(): void {
-    this.signature = this.signaturePad.toDataURL('image/jpeg', .5);
+    this.signature = this.signaturePad.toData();
   }
 
   public clear(): void {

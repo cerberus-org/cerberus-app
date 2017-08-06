@@ -56,7 +56,7 @@ export class CheckInFormComponent implements OnInit {
    */
   onSubmit(): void {
     // this.submit();
-    this.clearSigPad();
+    // this.clearSigPad();
     if (this.activeVisitForVolunteer) {
       this.endVisit();
     } else if (this.selectedVolunteer) {
@@ -165,7 +165,7 @@ export class CheckInFormComponent implements OnInit {
    */
   startVisit(): void {
     this.visitService.createRx(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago',
-      this.sigs.first.signature
+      this.sigs.first.signature[0]
     ));
   }
 
@@ -238,13 +238,7 @@ export class CheckInFormComponent implements OnInit {
     this.sigs.first.signaturePad.clear(); // clearing is needed to set the background colour
   }
 
-  // public submit() {
-  //   console.log('CAPTURED SIGS:');
-  //   console.log(this.sigs.first.signature);
-  // }
-
   public clearSigPad() {
-    console.log(this.sigs.first.signature);
     this.sigs.first.clear();
   }
 }
