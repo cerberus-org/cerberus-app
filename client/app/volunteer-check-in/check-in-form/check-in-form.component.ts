@@ -117,7 +117,8 @@ export class CheckInFormComponent implements OnInit {
     this.formGroup.valueChanges.subscribe(() => {
       this.activeVisitForVolunteer = this.formGroup.invalid ? null : this.findActiveVisitForVolunteer();
       if (this.activeVisitForVolunteer) {
-        this.sigs.first.signaturePad.fromData([this.activeVisitForVolunteer.signature]);
+        console.log(this.activeVisitForVolunteer);
+        this.sigs.first.signaturePad.fromData(this.activeVisitForVolunteer.signature);
       }
     });
     // Filter volunteers when name value changes
@@ -166,7 +167,7 @@ export class CheckInFormComponent implements OnInit {
    */
   startVisit(): void {
     this.visitService.createRx(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago',
-      this.sigs.first.signature[0]
+      this.sigs.first.signature
     ));
   }
 
