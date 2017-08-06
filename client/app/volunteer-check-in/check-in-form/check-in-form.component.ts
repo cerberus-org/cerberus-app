@@ -55,8 +55,6 @@ export class CheckInFormComponent implements OnInit {
    * Starts or ends a visit and resets the form group on clicking the submit button.
    */
   onSubmit(): void {
-    // this.submit();
-    // this.clearSigPad();
     if (this.activeVisitForVolunteer) {
       this.endVisit();
     } else if (this.selectedVolunteer) {
@@ -118,6 +116,9 @@ export class CheckInFormComponent implements OnInit {
     // Always check for an active visit
     this.formGroup.valueChanges.subscribe(() => {
       this.activeVisitForVolunteer = this.formGroup.invalid ? null : this.findActiveVisitForVolunteer();
+      if (this.activeVisitForVolunteer) {
+        this.sigs.first.signaturePad.fromData([this.activeVisitForVolunteer.signature]);
+      }
     });
     // Filter volunteers when name value changes
     nameControl.valueChanges.subscribe(changes => {
