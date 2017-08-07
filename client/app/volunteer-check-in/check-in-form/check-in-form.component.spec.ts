@@ -125,12 +125,12 @@ describe('CheckInFormComponent', () => {
       expect(control.errors).toBeFalsy();
     }));
 
-    // it('clears the form on submit', (() => {
-    //   const control = component.formGroup.controls['name'];
-    //   control.setValue('Cerberus');
-    //   component.onSubmit();
-    //   expect(control.value).toBeFalsy();
-    // }));
+    xit('clears the form on submit', (() => {
+      const control = component.formGroup.controls['name'];
+      control.setValue('Cerberus');
+      component.onSubmit();
+      expect(control.value).toBeFalsy();
+    }));
   });
 
   describe('petName control', () => {
@@ -139,12 +139,12 @@ describe('CheckInFormComponent', () => {
       component.showPetNameForm = true;
     });
 
-    // it('clears the form on submit', (() => {
-    //   const control = component.formGroup.controls['petName'];
-    //   control.setValue('Cerberus');
-    //   component.onSubmit();
-    //   expect(control.value).toBeFalsy();
-    // }));
+    xit('clears the form on submit', (() => {
+      const control = component.formGroup.controls['petName'];
+      control.setValue('Cerberus');
+      component.onSubmit();
+      expect(control.value).toBeFalsy();
+    }));
 
     it('accepts a petName for a unique volunteer', (() => {
       component.volunteers = testVolunteers;
