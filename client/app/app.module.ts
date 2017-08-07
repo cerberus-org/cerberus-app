@@ -78,7 +78,6 @@ import { volunteerReducer } from './reducers/volunteer';
     CdkTableModule,
     StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer }),
     SignaturePadModule,
-    SignaturePadModule,
   ],
   providers: [
     Guard,
