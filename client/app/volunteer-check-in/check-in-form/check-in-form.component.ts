@@ -7,6 +7,7 @@ import { Volunteer } from '../../models/volunteer';
 import { VisitService } from '../../services/visit.service';
 import { VolunteerService } from '../../services/volunteer.service';
 import { SignatureFieldComponent } from '../../signature-field/signature-field.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-check-in-form',
@@ -33,7 +34,7 @@ export class CheckInFormComponent implements OnInit {
    * Creates the form group and subscribes on construction.
    */
   constructor(private fb: FormBuilder, private store: Store<any>,
-              private visitService: VisitService, private volunteerService: VolunteerService) {
+              private visitService: VisitService, private volunteerService: VolunteerService, public router: Router) {
     this.createForm();
     this.subscribeToForm();
   }
@@ -67,6 +68,8 @@ export class CheckInFormComponent implements OnInit {
     });
     this.activeVisitForVolunteer = null;
     this.selectedVolunteer = null;
+    this.router.navigateByUrl('/home');
+    this.clearSigPad();
   }
 
   /**
