@@ -1,3 +1,8 @@
-<p>
-  daily-hours-chart works!
-</p>
+<div style="display: block;">
+  <canvas baseChart width="400" height="150"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [chartType]="lineChartType">
+  </canvas>
+</div>
