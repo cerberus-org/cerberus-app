@@ -55,7 +55,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
       return;
     }
     this._signature = value;
-    this.signaturePad.fromDataURL(this.signature);
+    this.signaturePad.fromData(this.signature);
   }
 
   /**

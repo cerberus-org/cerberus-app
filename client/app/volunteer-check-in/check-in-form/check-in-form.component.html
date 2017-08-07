@@ -15,18 +15,20 @@
       <i class="material-icons">pets</i> {{volunteer.petName}}
     </md-option>
   </md-autocomplete>
-  <!--signature-->
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <div class="sig-container">
-      <app-signature-field formControlName="signatureField"></app-signature-field>
-    </div>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <button md-button type="button" (click)="clearSigPad()" [disabled]="!formGroup.controls.signatureField.valid">Clear</button>
-  </div>
-  <!--end signature-->
   <div *ngIf="formGroup.invalid || !activeVisitForVolunteer; then showCheckIn else showCheckOut"></div>
   <ng-template #showCheckIn>
+    <!--signature-->
+    <div *ngIf="activeVisitForVolunteer !== null">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div class="sig-container">
+          <app-signature-field formControlName="signatureField"></app-signature-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button md-button type="button" (click)="clearSigPad()">Clear</button>
+      </div>
+    </div>
+    <!--end signature-->
     <button md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid || selectedVolunteer === null">Check In</button>
   </ng-template>
   <ng-template #showCheckOut>
