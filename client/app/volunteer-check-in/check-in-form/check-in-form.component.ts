@@ -241,6 +241,8 @@ export class CheckInFormComponent implements OnInit {
   }
 
   public clearSigPad() {
-    this.sigs.first.clear();
+    if (this.sigs.first !== undefined) {
+      this.sigs.first.clear();
+    }
   }
 }
