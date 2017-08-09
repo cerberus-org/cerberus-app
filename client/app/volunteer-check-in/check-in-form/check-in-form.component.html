@@ -1,6 +1,6 @@
 <form fxLayout="column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <md-input-container fxFlexAlign="center">
-    <input mdInput placeholder="Name" [mdAutocomplete]="nameForm" formControlName="name">
+    <input class="capitalize" mdInput placeholder="Name" [mdAutocomplete]="nameForm" formControlName="name">
   </md-input-container>
   <md-autocomplete fxFlexAlign="center" #nameForm="mdAutocomplete">
     <md-option *ngFor="let volunteer of filteredVolunteers" [value]="formatName(volunteer)">
@@ -8,7 +8,7 @@
     </md-option>
   </md-autocomplete>
   <md-input-container fxFlexAlign="center" *ngIf="showPetNameForm">
-    <input mdInput placeholder="Favorite Pet" [mdAutocomplete]="petNameForm" formControlName="petName">
+    <input class="capitalize" mdInput placeholder="Favorite Pet" [mdAutocomplete]="petNameForm" formControlName="petName">
   </md-input-container>
   <md-autocomplete fxFlexAlign="center" #petNameForm="mdAutocomplete">
     <md-option *ngFor="let volunteer of filteredVolunteersByPetName" [value]="volunteer.petName">
@@ -17,9 +17,22 @@
   </md-autocomplete>
   <div *ngIf="formGroup.invalid || !activeVisitForVolunteer; then showCheckIn else showCheckOut"></div>
   <ng-template #showCheckIn>
+    <!--signature-->
+    <div *ngIf="activeVisitForVolunteer !== null">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div class="sig-container">
+          <app-signature-field formControlName="signatureField"></app-signature-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button md-button type="button" (click)="clearSigPad()">Clear</button>
+      </div>
+    </div>
+    <!--end signature-->
     <button md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid || selectedVolunteer === null">Check In</button>
   </ng-template>
   <ng-template #showCheckOut>
     <button md-button color="primary" fxFlexAlign="center">Check Out</button>
   </ng-template>
 </form>
+

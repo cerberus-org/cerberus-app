@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
@@ -6,6 +6,8 @@ import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
 import { VisitService } from '../../services/visit.service';
 import { VolunteerService } from '../../services/volunteer.service';
+import { SignatureFieldComponent } from '../../signature-field/signature-field.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-check-in-form',
@@ -23,11 +25,16 @@ export class CheckInFormComponent implements OnInit {
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
 
+  @ViewChildren(SignatureFieldComponent)
+  public sigs: QueryList<SignatureFieldComponent>;
+  @ViewChildren('sigContainer')
+  public sigContainer: QueryList<ElementRef>;
+
   /**
    * Creates the form group and subscribes on construction.
    */
   constructor(private fb: FormBuilder, private store: Store<any>,
-              private visitService: VisitService, private volunteerService: VolunteerService) {
+              private visitService: VisitService, private volunteerService: VolunteerService, private router: Router) {
     this.createForm();
     this.subscribeToForm();
   }
@@ -36,9 +43,14 @@ export class CheckInFormComponent implements OnInit {
    * Gets visit and volunteer data from services on initialization.
    */
   ngOnInit(): void {
+    this.activeVisitForVolunteer = null;
     this.subscribeToVisits();
     this.subscribeToVolunteers();
     this.getVolunteers();
+  }
+
+  ngAfterView() {
+    this.setSigOptions();
   }
 
   /**
@@ -57,6 +69,8 @@ export class CheckInFormComponent implements OnInit {
     });
     this.activeVisitForVolunteer = null;
     this.selectedVolunteer = null;
+    this.router.navigateByUrl('/home');
+    this.clearSigPad();
   }
 
   /**
@@ -92,7 +106,8 @@ export class CheckInFormComponent implements OnInit {
     };
     this.formGroup = this.fb.group({
       name: ['', [Validators.required, volunteerExistenceValidator]],
-      petName: ['', volunteerUniqueValidator]
+      petName: ['', volunteerUniqueValidator],
+      signatureField: []
     });
   }
 
@@ -151,7 +166,9 @@ export class CheckInFormComponent implements OnInit {
    * Creates a new visit with now as the start time and a null end time.
    */
   startVisit(): void {
-    this.visitService.createRx(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago'));
+    this.visitService.createRx(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago',
+      this.sigs.first.signature
+    ));
   }
 
   /**
@@ -212,5 +229,20 @@ export class CheckInFormComponent implements OnInit {
       ? this.filteredVolunteers.filter(
         volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length > 1
       : false;
+  }
+
+  /**
+   * Set signature pad properites.
+   */
+  public setSigOptions() {
+    this.sigs.first.signaturePad.set('penColor', 'rgb(0, 0, 0)');
+    this.sigs.first.signaturePad.set('backgroundColor', 'rgb(255, 255, 255, 0)');
+    this.sigs.first.signaturePad.clear(); // clearing is needed to set the background colour
+  }
+
+  public clearSigPad() {
+    if (this.sigs.first !== undefined) {
+      this.sigs.first.clear();
+    }
   }
 }

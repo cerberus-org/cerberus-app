@@ -15,13 +15,17 @@ const visitSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, ref: Volunteer,
     required: [true]
   },
+  signature: {
+    type: [],
+    required: [true]
+  },
   timezone: {
     type: String,
     required: [true]
   }
 }, { timestamps: true });
 
-visitSchema.index({ startedAt: 1, endedAt: 1, volunterId: 1 }, { unique: true });
+visitSchema.index({ startedAt: 1, endedAt: 1, volunterId: 1, signature: 1 }, { unique: true });
 
 const Visit = mongoose.model('Visit', visitSchema);
 

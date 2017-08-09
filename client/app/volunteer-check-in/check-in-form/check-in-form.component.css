@@ -10,3 +10,10 @@ md-input-container {
 button {
   margin-top: 1rem;
 }
+.sig-container {
+  border-style: dashed;
+  border-width: .07rem;
+}
+input.capitalize {
+  text-transform: capitalize;
+}
