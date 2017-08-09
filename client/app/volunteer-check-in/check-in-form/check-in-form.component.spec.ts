@@ -125,7 +125,7 @@ describe('CheckInFormComponent', () => {
       expect(control.errors).toBeFalsy();
     }));
 
-    xit('clears the form on submit', (() => {
+    it('clears the form on submit', (() => {
       const control = component.formGroup.controls['name'];
       control.setValue('Cerberus');
       component.onSubmit();
@@ -139,7 +139,7 @@ describe('CheckInFormComponent', () => {
       component.showPetNameForm = true;
     });
 
-    xit('clears the form on submit', (() => {
+    it('clears the form on submit', (() => {
       const control = component.formGroup.controls['petName'];
       control.setValue('Cerberus');
       component.onSubmit();
