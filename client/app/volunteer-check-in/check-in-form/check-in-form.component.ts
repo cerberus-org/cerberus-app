@@ -34,7 +34,7 @@ export class CheckInFormComponent implements OnInit {
    * Creates the form group and subscribes on construction.
    */
   constructor(private fb: FormBuilder, private store: Store<any>,
-              private visitService: VisitService, private volunteerService: VolunteerService, public router: Router) {
+              private visitService: VisitService, private volunteerService: VolunteerService, private router: Router) {
     this.createForm();
     this.subscribeToForm();
   }
