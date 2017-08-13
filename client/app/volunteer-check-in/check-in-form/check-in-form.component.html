@@ -15,6 +15,7 @@
       <i class="material-icons">pets</i> {{volunteer.petName}}
     </md-option>
   </md-autocomplete>
+  <!--activeVisitForVolunteer is initially set to null. activeVisitForVolunteer is set to undefined if no active visit is found.-->
   <div *ngIf="activeVisitForVolunteer === null || activeVisitForVolunteer === undefined; then showCheckIn else showCheckOut"></div>
   <ng-template #showCheckIn>
     <!--signature-->
