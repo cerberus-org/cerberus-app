@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CheckInFormComponent } from './check-in-form.component';
 import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
 import { MockVisitService, VisitService } from '../../services/visit.service';
-import { testVisits } from '../../models/visit';
+import { testVisits, Visit } from '../../models/visit';
 import { testVolunteers } from '../../models/volunteer';
 import { StoreModule } from '@ngrx/store';
 import { visitReducer } from '../../reducers/visit';
@@ -14,7 +14,6 @@ import { volunteerReducer } from '../../reducers/volunteer';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureFieldComponent } from '../../signature-field/signature-field.component';
 import { Router } from '@angular/router';
-import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
@@ -152,6 +151,23 @@ describe('CheckInFormComponent', () => {
       component.filterVolunteers(testVolunteers[0].firstName);
       const control = component.formGroup.controls['petName'];
       control.setValue('Mimi');
+      expect(control.valid).toBeTruthy();
+      expect(control.errors).toBeFalsy();
+    }));
+  });
+
+  describe('signatureField control', () => {
+
+    it('validates requirement on check in', (() => {
+      const control = component.formGroup.controls['signatureField'];
+      control.setValue('test');
+      expect(control.valid).toBeTruthy();
+      expect(control.errors).toBeFalsy();
+    }));
+
+    it('validates non-requirement on check out', (() => {
+      const control = component.formGroup.controls['signatureField'];
+      component.activeVisitForVolunteer = testVisits[0];
       expect(control.valid).toBeTruthy();
       expect(control.errors).toBeFalsy();
     }));

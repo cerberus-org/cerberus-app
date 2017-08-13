@@ -105,7 +105,7 @@ export class CheckInFormComponent implements OnInit {
     };
     const sigValidator = (control: AbstractControl): { [key: string]: any } => {
       // If there is an active visit the signature pad is valid as is
-      if (this.activeVisitForVolunteer !== undefined && this.activeVisitForVolunteer !== null) {
+      if (this.activeVisitForVolunteer !== undefined || this.activeVisitForVolunteer !== null) {
         return null;
       }
       const sig = control.value;
