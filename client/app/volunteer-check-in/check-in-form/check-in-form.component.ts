@@ -24,6 +24,7 @@ export class CheckInFormComponent implements OnInit {
   public filteredVolunteers: Volunteer[];
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
+  public showSig: boolean;
 
   @ViewChildren(SignatureFieldComponent)
   public sigs: QueryList<SignatureFieldComponent>;
@@ -43,7 +44,6 @@ export class CheckInFormComponent implements OnInit {
    * Gets visit and volunteer data from services on initialization.
    */
   ngOnInit(): void {
-    this.activeVisitForVolunteer = null;
     this.subscribeToVisits();
     this.subscribeToVolunteers();
     this.getVolunteers();
@@ -67,7 +67,6 @@ export class CheckInFormComponent implements OnInit {
     Object.keys(this.formGroup.controls).forEach(key => {
       this.formGroup.controls[key].setErrors(null);
     });
-    this.activeVisitForVolunteer = null;
     this.selectedVolunteer = null;
     this.router.navigateByUrl('/home');
     this.clearSigPad();
@@ -104,10 +103,21 @@ export class CheckInFormComponent implements OnInit {
       this.selectedVolunteer = match;
       return match ? null : { 'notUnique': { name } };
     };
+    const sigValidator = (control: AbstractControl): { [key: string]: any } => {
+      // If there is an active visit the signature pad is valid as is
+      if (this.activeVisitForVolunteer !== undefined && this.activeVisitForVolunteer !== null) {
+        return null;
+      }
+      const sig = control.value;
+      // If sigs is defined and the signature pad has not been signed
+      if (sig !== undefined && sig === '') {
+        return { 'noSig': { sig }};
+      }
+    };
     this.formGroup = this.fb.group({
       name: ['', [Validators.required, volunteerExistenceValidator]],
       petName: ['', volunteerUniqueValidator],
-      signatureField: []
+      signatureField: ['', sigValidator]
     });
   }
 
@@ -119,7 +129,7 @@ export class CheckInFormComponent implements OnInit {
     const petNameControl = this.formGroup.controls['petName'];
     // Always check for an active visit
     this.formGroup.valueChanges.subscribe(() => {
-      this.activeVisitForVolunteer = this.formGroup.invalid ? null : this.findActiveVisitForVolunteer();
+      this.activeVisitForVolunteer = nameControl.invalid || petNameControl.invalid ? null : this.findActiveVisitForVolunteer();
     });
     // Filter volunteers when name value changes
     nameControl.valueChanges.subscribe(changes => {
