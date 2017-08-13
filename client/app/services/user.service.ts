@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import handleError from '../helpers/handle-error';
 import BaseService from './base.service';
+import { User } from '../models/user';
 
 @Injectable()
 export class UserService extends BaseService {
@@ -15,6 +16,7 @@ export class UserService extends BaseService {
   }
 
   login(user): Observable<any> {
+    user.email = user.email.toLowerCase();
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
     return this.http.post('/api/user/login', user)
