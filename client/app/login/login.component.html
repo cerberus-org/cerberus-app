@@ -1,9 +1,13 @@
 <form fxFlexFill fxLayout="column" fxLayoutAlign="center center" [formGroup]="loginForm" nonvalidate (ngSubmit)="login()">
   <md-list>
-    <md-list-item *ngFor="let field of form">
+    <md-list-item>
       <md-input-container>
-        <input mdInput placeholder={{field.placeholder}} class="form-control" formControlName={{field.control}}
-               required>
+        <input  type="email" mdInput placeholder='email' class="form-control" formControlName='email' required>
+      </md-input-container>
+    </md-list-item>
+    <md-list-item>
+      <md-input-container>
+        <input type="password" mdInput placeholder='password' class="form-control" formControlName='password' required>
       </md-input-container>
     </md-list-item>
   </md-list>

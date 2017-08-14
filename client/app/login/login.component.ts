@@ -13,11 +13,6 @@ export class LoginComponent implements OnInit {
 
   // declare FormGroup
   loginForm: FormGroup;
-  // used to populate placeholders and set form controls
-  form = [
-    { placeholder: 'Email', control: 'email' },
-    { placeholder: 'Password', control: 'password' }
-  ];
 
   constructor(public router: Router, private fb: FormBuilder, private loginService: UserService, private visitService: VisitService) {
     this.createForm();
