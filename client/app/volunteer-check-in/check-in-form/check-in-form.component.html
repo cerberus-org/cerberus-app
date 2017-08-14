@@ -18,7 +18,7 @@
   <div *ngIf="activeVisitForVolunteer === null || activeVisitForVolunteer === undefined; then showCheckIn else showCheckOut"></div>
   <ng-template #showCheckIn>
     <!--signature-->
-    <div *ngIf="selectedVolunteer !== undefined">
+    <div *ngIf="selectedVolunteer !== undefined" [@myTrigger]="state">
       <div fxLayout="row" fxLayoutAlign="center center">
         <div class="sig-container">
           <app-signature-field formControlName="signatureField"></app-signature-field>
@@ -29,10 +29,10 @@
       </div>
     </div>
     <!--end signature-->
-    <button md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid">Check In</button>
+    <button [@myTrigger]="state" md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid">Check In</button>
   </ng-template>
   <ng-template #showCheckOut>
-    <button md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid">Check Out</button>
+    <button [@myTrigger]="state" md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid">Check Out</button>
   </ng-template>
 </form>
 
