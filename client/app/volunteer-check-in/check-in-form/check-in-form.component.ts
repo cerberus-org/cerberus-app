@@ -24,7 +24,6 @@ export class CheckInFormComponent implements OnInit {
   public filteredVolunteers: Volunteer[];
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
-  public showSig: boolean;
 
   @ViewChildren(SignatureFieldComponent)
   public sigs: QueryList<SignatureFieldComponent>;
@@ -131,7 +130,6 @@ export class CheckInFormComponent implements OnInit {
     // Always check for an active visit
     this.formGroup.valueChanges.subscribe(() => {
       this.activeVisitForVolunteer = nameControl.invalid || petNameControl.invalid ? null : this.findActiveVisitForVolunteer();
-      console.log(this.activeVisitForVolunteer);
     });
     // Filter volunteers when name value changes
     nameControl.valueChanges.subscribe(changes => {
