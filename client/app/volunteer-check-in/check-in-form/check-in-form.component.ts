@@ -44,6 +44,7 @@ export class CheckInFormComponent implements OnInit {
    * Gets visit and volunteer data from services on initialization.
    */
   ngOnInit(): void {
+    this.activeVisitForVolunteer = null;
     this.subscribeToVisits();
     this.subscribeToVolunteers();
     this.getVolunteers();
@@ -105,7 +106,7 @@ export class CheckInFormComponent implements OnInit {
     };
     const sigValidator = (control: AbstractControl): { [key: string]: any } => {
       // If there is an active visit the signature pad is valid as is
-      if (this.activeVisitForVolunteer !== undefined || this.activeVisitForVolunteer !== null) {
+      if (this.activeVisitForVolunteer !== undefined) {
         return null;
       }
       const sig = control.value;
@@ -130,6 +131,7 @@ export class CheckInFormComponent implements OnInit {
     // Always check for an active visit
     this.formGroup.valueChanges.subscribe(() => {
       this.activeVisitForVolunteer = nameControl.invalid || petNameControl.invalid ? null : this.findActiveVisitForVolunteer();
+      console.log(this.activeVisitForVolunteer);
     });
     // Filter volunteers when name value changes
     nameControl.valueChanges.subscribe(changes => {
