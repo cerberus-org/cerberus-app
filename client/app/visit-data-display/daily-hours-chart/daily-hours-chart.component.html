@@ -1,5 +1,6 @@
-<div style="display: block;">
-  <canvas baseChart width="400" height="150"
+<div fxFlexFill fxFlexLayout="column" fxLayoutAlign="center center">
+  <canvas class="graph" fxFlex fxFlexFill
+          baseChart height="150"
           [datasets]="lineChartData"
           [labels]="lineChartLabels"
           [options]="lineChartOptions"

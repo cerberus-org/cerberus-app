@@ -11,7 +11,7 @@ export class DailyHoursChartComponent implements OnInit {
   visitsByDate: Map<string, Visit[]>;
   lineChartData: any[]
   lineChartLabels: string[];
-  lineChartOptions: any = { responsive: true };
+  lineChartOptions: any = { responsive: true, maintainAspectRatio: false };
   lineChartType = 'line';
   error: string;
 
