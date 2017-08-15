@@ -5,6 +5,7 @@ import { ChartsModule } from 'ng2-charts';
 import { DailyHoursChartComponent } from './daily-hours-chart.component';
 import { testVisits } from '../../models/visit';
 import { visitReducer } from '../../reducers/visit';
+import { forEach } from '@angular/router/src/utils/collection';
 
 describe('DailyHoursChartComponent', () => {
   let component: DailyHoursChartComponent;
@@ -53,5 +54,12 @@ describe('DailyHoursChartComponent', () => {
     expect(component.visitsByDate.get(dates[1])).toEqual([
       testVisits[2]
     ]);
+  });
+
+  it('it sets the line chart labels to the correct dates', () => {
+    const date = testVisits[3].startedAt;
+    component.setLineChartLabels(date);
+    const labels = component.lineChartLabels.reverse();
+    labels.forEach((label, i) => expect(label).toEqual(new Date(date.getDate() - i).toDateString()));
   });
 });
