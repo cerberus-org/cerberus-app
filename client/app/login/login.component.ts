@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { VisitService } from '../services/visit.service';
@@ -13,11 +13,6 @@ export class LoginComponent implements OnInit {
 
   // declare FormGroup
   loginForm: FormGroup;
-  // used to populate placeholders and set form controls
-  form = [
-    { placeholder: 'Email', control: 'email' },
-    { placeholder: 'Password', control: 'password' }
-  ];
 
   constructor(public router: Router, private fb: FormBuilder, private loginService: UserService, private visitService: VisitService) {
     this.createForm();
@@ -42,8 +37,8 @@ export class LoginComponent implements OnInit {
   createForm() {
     this.loginForm = this.fb.group({
       // list form controls
-      email: '',
-      password: '',
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required]
     });
   }
 }
