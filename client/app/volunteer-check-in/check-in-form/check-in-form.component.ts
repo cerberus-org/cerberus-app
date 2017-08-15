@@ -17,7 +17,7 @@ import { state, style, trigger, transition, animate } from '@angular/animations'
   // Any css properties that use a trigger or are composed inside an element that uses a trigger will go here
   styles: [
     '.sig-container { border-style: dashed; border-width: .07rem; }',
-    'input.capitalize { text-transform: capitalize; } ',
+    'input.capitalize { text-transform: capitalize; }',
     'button { margin-top: 1rem; }',
     'md-input-container { width: 15rem; }',
     'form { margin-top: 2rem; margin-bottom: 2rem; }'
@@ -57,7 +57,6 @@ export class CheckInFormComponent implements OnInit {
    */
   constructor(private fb: FormBuilder, private store: Store<any>,
               private visitService: VisitService, private volunteerService: VolunteerService, private router: Router) {
-    this.sigState = 'fadeIn';
     this.createForm();
     this.subscribeToForm();
   }
