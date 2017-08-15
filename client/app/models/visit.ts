@@ -43,7 +43,7 @@ export const testVisits: Visit[] = [
   {
     _id: '674a861ace7ca574af9070c3',
     volunteerId: '5961327dfba1ca1b64b8945a',
-    startedAt: new Date('2017-06-31T14:45:42.336Z'),
+    startedAt: new Date('2017-07-01T14:45:42.336Z'),
     endedAt: null,
     timezone: 'America/Chicago',
     signature: null

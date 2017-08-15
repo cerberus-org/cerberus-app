@@ -57,9 +57,14 @@ describe('DailyHoursChartComponent', () => {
   });
 
   it('it sets the line chart labels to the correct dates', () => {
-    const date = testVisits[3].startedAt;
-    component.setLineChartLabels(date);
-    const labels = component.lineChartLabels.reverse();
-    labels.forEach((label, i) => expect(label).toEqual(new Date(date.getDate() - i).toDateString()));
+    const latest = new Date('2017-07-01T14:45:42.336Z');
+    component.setLineChartLabels(latest, 3);
+    const labels = component.lineChartLabels;
+    expect(labels.length).toEqual(3);
+    expect(labels).toEqual([
+      'Thu Jun 29 2017',
+      'Fri Jun 30 2017',
+      'Sat Jul 01 2017'
+    ]);
   });
 });
