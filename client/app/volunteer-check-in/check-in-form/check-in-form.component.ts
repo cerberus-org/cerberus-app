@@ -23,13 +23,13 @@ import { state, style, trigger, transition, animate } from '@angular/animations'
     'form { margin-top: 2rem; margin-bottom: 2rem; }'
   ],
   animations: [
-    trigger('myTrigger', [
+    trigger('sigTrigger', [
       state('fadeIn', style({
         opacity: '1',
       })),
       transition('void => *', [
         style({ opacity: '0'}),
-        animate('500ms')
+        animate('500ms 0s ease-in')
       ])
     ])
   ]
@@ -45,6 +45,7 @@ export class CheckInFormComponent implements OnInit {
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
   public state = 'fadeIn';
+  public sigState: string;
 
   @ViewChildren(SignatureFieldComponent)
   public sigs: QueryList<SignatureFieldComponent>;
@@ -56,6 +57,7 @@ export class CheckInFormComponent implements OnInit {
    */
   constructor(private fb: FormBuilder, private store: Store<any>,
               private visitService: VisitService, private volunteerService: VolunteerService, private router: Router) {
+    this.sigState = 'fadeIn';
     this.createForm();
     this.subscribeToForm();
   }
