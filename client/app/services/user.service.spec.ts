@@ -7,7 +7,7 @@ import {
 } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { UserService } from './user.service';
-import { testUsers } from '../models/user';
+import { testLoginCredentials, testUsers } from '../models/user';
 
 describe('UserService', () => {
   let backend: MockBackend = null;
@@ -49,7 +49,7 @@ describe('UserService', () => {
   it('logs the user in', () => {
     // Tell the connection what to return and the expected status code
     setConnections({ token: 'token' });
-    service.login(testUsers[0]).subscribe(res => {
+    service.login(testLoginCredentials[0]).subscribe(res => {
       expect(res).toEqual({ token: 'token' });
     });
   });

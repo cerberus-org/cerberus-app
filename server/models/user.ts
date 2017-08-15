@@ -13,12 +13,19 @@ const userSchema = new mongoose.Schema({
 // Before saving the user, hash the password
 userSchema.pre('save', function(next) {
   const user = this;
-  if (!user.isModified('password')) { return next(); }
+  if (!user.isModified('password')) {
+    return next();
+  }
   bcrypt.genSalt(10, function(err, salt) {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     bcrypt.hash(user.password, salt, function(error, hash) {
-      if (error) { return next(error); }
+      if (error) {
+        return next(error);
+      }
       user.password = hash;
+      user.email = user.email.toLowerCase();
       next();
     });
   });
