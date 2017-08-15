@@ -29,9 +29,6 @@ export class DailyHoursChartComponent implements OnInit {
         this.mapVisitsToDate(visits);
         this.setLineChartLabels();
         this.setLineChartData();
-        console.log(this.visitsByDate);
-        console.log(this.lineChartLabels);
-        console.log(this.lineChartData);
       }, error => this.error = <any>error);
   }
 
@@ -49,9 +46,8 @@ export class DailyHoursChartComponent implements OnInit {
     this.visitsByDate = map;
   }
 
-  setLineChartLabels(): void {
+  setLineChartLabels(date: Date = new Date()): void {
     const labels = Array.from(Array(7), (_, i) => {
-      const date = new Date();
       date.setDate(date.getDate() - i);
       return date.toDateString();
     });

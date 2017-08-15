@@ -52,6 +52,6 @@ describe('VisitHistoryTableComponent', () => {
     component.paginator.pageIndex = 1;
     component.paginator.pageSize = 2;
     const pageData = component.dataSource.getPageData();
-    expect(pageData.length).toEqual(1);
+    expect(pageData.length).toEqual(2);
   });
 });
