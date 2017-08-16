@@ -67,4 +67,17 @@ describe('DailyHoursChartComponent', () => {
       'Sat Jul 01 2017'
     ]);
   });
+
+  it('it sets the line chart data to the correct values', () => {
+    component.mapVisitsToDate(testVisits); // TODO: Find a way to test without using this function
+    component.lineChartLabels = [
+      'Thu Jun 29 2017',
+      'Fri Jun 30 2017',
+      'Sat Jul 01 2017'
+    ];
+    component.setLineChartData();
+    const data = component.lineChartData[0].data;
+    expect(data.length).toEqual(3);
+    expect(data).toEqual([9, 5, 0]);
+  });
 });

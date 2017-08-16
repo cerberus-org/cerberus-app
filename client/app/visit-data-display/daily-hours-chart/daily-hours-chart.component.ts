@@ -9,9 +9,9 @@ import { Store } from '@ngrx/store';
 })
 export class DailyHoursChartComponent implements OnInit {
   visitsByDate: Map<string, Visit[]>;
-  lineChartData: any[];
+  lineChartData;
   lineChartLabels: string[];
-  lineChartOptions: any = { responsive: true, maintainAspectRatio: false };
+  lineChartOptions = { responsive: true, maintainAspectRatio: false };
   lineChartType = 'line';
   error: string;
 
