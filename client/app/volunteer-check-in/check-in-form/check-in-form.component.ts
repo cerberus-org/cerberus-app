@@ -206,7 +206,7 @@ export class CheckInFormComponent implements OnInit {
    */
   filterVolunteersByPetName(petName: string): void {
     this.filteredVolunteersByPetName = petName && this.filteredVolunteers
-      ? this.filteredVolunteers.filter(volunteer => volunteer.petName.includes(petName))
+      ? this.filteredVolunteers.filter(volunteer => volunteer.petName.toLowerCase().includes(petName.toLowerCase()))
       : null;
   }
 
