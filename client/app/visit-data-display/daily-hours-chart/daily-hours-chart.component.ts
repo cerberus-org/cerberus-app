@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { testVisits, Visit } from '../../models/visit';
+import { Visit } from '../../models/visit';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -51,7 +51,7 @@ export class DailyHoursChartComponent implements OnInit {
    * @param {Date} latest  the latest date that will be used as the rightmost label.
    * @param count          the number of previous dates to use as labels, defaults to 7 for week view
    */
-  setLineChartLabels(latest: Date = testVisits[3].startedAt, count: number = 7): void {
+  setLineChartLabels(latest: Date = new Date(), count: number = 7): void {
     const labels = Array.from(Array(count), (_, i) => {
       const date = new Date(latest.getTime());
       date.setDate(date.getDate() - i);
