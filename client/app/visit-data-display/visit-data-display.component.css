@@ -4,6 +4,7 @@
   flex: 1;
 }
 
+/* Adjust content of a tab to 100% of height of parent container by making all the child tab body containers flex. */
 /deep/ .mat-tab-body-wrapper {
   flex-grow: 1;
 }

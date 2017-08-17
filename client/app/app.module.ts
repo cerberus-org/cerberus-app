@@ -15,7 +15,6 @@ import { Guard } from './guard';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import 'hammerjs';
 
-
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';

@@ -1,3 +1,9 @@
+/* Makes host element a flex container */
+:host {
+  display: flex;
+  flex: 1;
+}
+
 .graph {
   max-width: 100%;
   max-height: 100vmin;

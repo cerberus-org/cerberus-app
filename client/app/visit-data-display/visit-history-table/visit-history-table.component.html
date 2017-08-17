@@ -31,12 +31,10 @@
     <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
     <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
   </md-table>
-
   <md-paginator fxFlex #paginator
                 [length]="dataSource.visits.length"
                 [pageIndex]="0"
                 [pageSize]="8"
                 [pageSizeOptions]="[8, 20, 50, 100]">
   </md-paginator>
-
 </div>
