@@ -14,6 +14,7 @@ import { Visit } from '../../models/visit';
   styleUrls: ['./visit-history-table.component.css']
 })
 export class VisitHistoryTableComponent implements OnInit {
+  initialPageSize: number;
   displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
   dataSource: VisitDataSource | null;
 
@@ -22,6 +23,10 @@ export class VisitHistoryTableComponent implements OnInit {
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
+    // Determine initial page size using inner height of window at component init
+    const surroundingElementsPx = 281;
+    const cellPx = 49;
+    this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.dataSource = new VisitDataSource(this.store, this.paginator);
   }
 
@@ -46,11 +51,9 @@ export class VisitHistoryTableComponent implements OnInit {
 }
 
 /**
- * Data source to provide what data should be rendered in the table. Note that the data source
- * can retrieve its data in any way. In this case, the data source is provided a reference
- * to a common data base, ExampleDatabase. It is not the data source's responsibility to manage
- * the underlying data. Instead, it only needs to take the data and send the table exactly what
- * should be rendered.
+ * Data source to provide what data should be rendered in the table. Note that the data source can retrieve its data in
+ * any way. It is not the data source's responsibility to manage the underlying data. Instead, it only needs to take the
+ * data and send the table exactly what should be rendered.
  */
 export class VisitDataSource extends DataSource<any> {
   visits: Visit[];

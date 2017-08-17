@@ -37,7 +37,7 @@
   <md-paginator fxFlex #paginator
                 [length]="dataSource.visits.length"
                 [pageIndex]="0"
-                [pageSize]="8"
-                [pageSizeOptions]="[8, 20, 50, 100]">
+                [pageSize]="initialPageSize"
+                [pageSizeOptions]="[initialPageSize, 25, 50, 100]">
   </md-paginator>
 </div>
