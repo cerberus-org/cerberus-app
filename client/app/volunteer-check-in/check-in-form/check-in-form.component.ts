@@ -216,7 +216,13 @@ export class CheckInFormComponent implements OnInit {
    * Updates a visit with now as the end time.
    */
   endVisit(): void {
-    this.visitService.updateRx(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }));
+    this.visitService.updateRx(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }),
+      () => this.snackBar.open('Volunteer successfully checked out!', '', {
+        duration: 3000
+      }),
+      error => this.snackBar.open(error ? `Error checking out: ${error}` : 'Error checking out!', '', {
+        duration: 3000
+      }));
   }
 
   /**

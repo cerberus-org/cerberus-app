@@ -28,17 +28,14 @@ export class VisitService extends BaseService {
     this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
       .map(payload => ({ type: ADD_VISIT, payload: payload }))
-      .subscribe(action => {
-          this.store.dispatch(action);
-          successCb();
-        }, errorCb);
+      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
   }
 
-  updateRx(obj: any): void {
+  updateRx(obj: any, successCb, errorCb): void {
     this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
       .map(payload => ({ type: MODIFY_VISIT, payload: payload }))
-      .subscribe(action => this.store.dispatch(action));
+      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
   }
 
   /**
