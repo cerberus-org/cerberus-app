@@ -8,6 +8,7 @@ import { VisitService } from '../../services/visit.service';
 import { VolunteerService } from '../../services/volunteer.service';
 import { SignatureFieldComponent } from '../../signature-field/signature-field.component';
 import { Router } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 import { state, style, trigger, transition, animate } from '@angular/animations';
 
 @Component({
@@ -54,7 +55,7 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Creates the form group and subscribes on construction.
    */
-  constructor(private fb: FormBuilder, private store: Store<any>,
+  constructor(private fb: FormBuilder, private store: Store<any>, private snackBar: MdSnackBar,
               private visitService: VisitService, private volunteerService: VolunteerService, private router: Router) {
     this.createForm();
     this.subscribeToForm();
@@ -201,9 +202,14 @@ export class CheckInFormComponent implements OnInit {
    * Creates a new visit with now as the start time and a null end time.
    */
   startVisit(): void {
-    this.visitService.createRx(new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago',
-      this.sigs.first.signature
-    ));
+    this.visitService.createRx(
+      new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago', this.sigs.first.signature),
+      () => this.snackBar.open('Volunteer successfully checked in!', '', {
+        duration: 3000
+      }),
+      error => this.snackBar.open(error ? `Error checking in: ${error}` : 'Error checking in!', '', {
+        duration: 3000
+      }));
   }
 
   /**
@@ -219,8 +225,8 @@ export class CheckInFormComponent implements OnInit {
    */
   filterVolunteers(name: string): void {
     this.filteredVolunteers = name && this.volunteers
-      ? this.volunteers.filter(
-        volunteer => `${volunteer.firstName.toLowerCase()} ${volunteer.lastName.toLowerCase()}`.includes(name.toLowerCase()))
+      ? this.volunteers.filter(volunteer =>
+        `${volunteer.firstName.toLowerCase()} ${volunteer.lastName.toLowerCase()}`.includes(name.toLowerCase()))
       : null;
   }
 
@@ -240,7 +246,9 @@ export class CheckInFormComponent implements OnInit {
    * @returns {undefined|Visit}
    */
   findActiveVisitForVolunteer(): Visit {
-    return this.visits.find(visit => visit.endedAt === null && this.selectedVolunteer._id === visit.volunteerId);
+    return this.visits && this.selectedVolunteer
+      ? this.visits.find(visit => visit.endedAt === null && this.selectedVolunteer._id === visit.volunteerId)
+      : null;
   }
 
   /**
@@ -262,7 +270,7 @@ export class CheckInFormComponent implements OnInit {
   checkIfFilteredHaveSameName(name: string): boolean {
     return this.filteredVolunteers && this.filteredVolunteers.length > 1
       ? this.filteredVolunteers.filter(
-        volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length > 1
+      volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length > 1
       : false;
   }
 
