@@ -30,7 +30,7 @@ export class NewVolunteerFormComponent implements OnInit {
       () => this.snackBar.open('Volunteer successfully signed up!', '', {
         duration: 3000
       }),
-      error => this.snackBar.open(error ? `Error checking out: ${error}` : 'Error checking out!', '', {
+      error => this.snackBar.open(error ? `Error signing up: ${error}` : 'Error signing up!', '', {
         duration: 3000
       }));
     this.formGroup.reset();
