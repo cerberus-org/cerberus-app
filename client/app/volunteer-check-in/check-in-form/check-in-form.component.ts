@@ -44,7 +44,6 @@ export class CheckInFormComponent implements OnInit {
   public filteredVolunteers: Volunteer[];
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
-  public state = 'fadeIn';
   public sigState: string;
 
   @ViewChildren(SignatureFieldComponent)
