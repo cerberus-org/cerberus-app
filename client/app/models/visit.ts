@@ -17,26 +17,34 @@ export class Visit {
 
 export const testVisits: Visit[] = [
   {
-    _id: '674a861ace7ca574af9070c8',
+    _id: '674a861ace7ca574af9070c0',
     volunteerId: '5961327dfba1ca1b64b8945a',
     startedAt: new Date('2017-06-29T10:45:02.336Z'),
-    endedAt: null,
+    endedAt: new Date('2017-06-29T14:45:02.336Z'),
     timezone: 'America/Chicago',
     signature: null
   },
   {
-    _id: '674a861ace7ca574af9070c8',
-    volunteerId: '5961327dfba1ca1b64b8945a',
+    _id: '674a861ace7ca574af9070c1',
+    volunteerId: '5961327dfba1ca1b64b8945b',
     startedAt: new Date('2017-06-29T12:45:42.336Z'),
     endedAt: new Date('2017-06-29T18:45:01.336Z'),
     timezone: 'America/New_York',
     signature: null
   },
   {
-    _id: '674a861ace7ca574af9070c8',
-    volunteerId: '5961327dfba1ca1b64b8945a',
+    _id: '674a861ace7ca574af9070c2',
+    volunteerId: '5961327dfba1ca1b64b8945c',
     startedAt: new Date('2017-06-30T12:45:42.336Z'),
     endedAt: new Date('2017-06-30T18:45:01.336Z'),
+    timezone: 'America/Chicago',
+    signature: null
+  },
+  {
+    _id: '674a861ace7ca574af9070c3',
+    volunteerId: '5961327dfba1ca1b64b8945a',
+    startedAt: new Date('2017-07-01T14:45:42.336Z'),
+    endedAt: null,
     timezone: 'America/Chicago',
     signature: null
   }

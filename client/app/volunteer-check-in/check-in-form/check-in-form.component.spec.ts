@@ -81,7 +81,7 @@ describe('CheckInFormComponent', () => {
     component.visits = testVisits;
     component.selectedVolunteer = testVolunteers[0];
     const found = component.findActiveVisitForVolunteer();
-    expect(found).toBe(testVisits[0]);
+    expect(found).toBe(testVisits[3]);
   });
 
   it('finds a volunteer by pet name', () => {

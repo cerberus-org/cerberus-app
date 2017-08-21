@@ -1,0 +1,43 @@
+<div fxFlex fxLayout="column">
+  <md-table fxFlex #table [dataSource]="dataSource">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- ID Column -->
+    <ng-container cdkColumnDef="date">
+      <md-header-cell *cdkHeaderCellDef> Date</md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.startedAt.toDateString()}}</md-cell>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container cdkColumnDef="startedAt">
+      <md-header-cell *cdkHeaderCellDef> Start</md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{formatTime(row.startedAt, row.timezone)}}</md-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="endedAt">
+      <md-header-cell *cdkHeaderCellDef> End</md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{formatTime(row.endedAt, row.timezone)}}</md-cell>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container cdkColumnDef="duration">
+      <md-header-cell *cdkHeaderCellDef> Duration</md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{formatDuration(row)}}</md-cell>
+    </ng-container>
+
+    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+  </md-table>
+
+  <!-- Spacer to keep paginator in bottom -->
+  <div fxFlex="10 1 auto"></div>
+  <md-paginator fxFlex #paginator
+                [length]="dataSource.visits.length"
+                [pageIndex]="0"
+                [pageSize]="initialPageSize"
+                [pageSizeOptions]="[initialPageSize, 25, 50, 100]">
+  </md-paginator>
+</div>

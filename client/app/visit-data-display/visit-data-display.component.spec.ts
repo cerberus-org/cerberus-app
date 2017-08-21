@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { VisitDataDisplayComponent } from './visit-data-display.component';
-import { MockComponent } from 'ng2-mock-component';
 import { MdTabsModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MockComponent } from 'ng2-mock-component';
+
+import { VisitDataDisplayComponent } from './visit-data-display.component';
 
 describe('VisitDataDisplayComponent', () => {
   let component: VisitDataDisplayComponent;
@@ -17,7 +17,8 @@ describe('VisitDataDisplayComponent', () => {
       ],
       declarations: [
         VisitDataDisplayComponent,
-        MockComponent({ selector: 'app-visit-history' })
+        MockComponent({ selector: 'app-daily-hours-chart' }),
+        MockComponent({ selector: 'app-visit-history-table' })
       ]
     })
     .compileComponents();
