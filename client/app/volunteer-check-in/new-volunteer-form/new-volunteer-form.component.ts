@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { VolunteerService } from '../../services/volunteer.service';
 import { Volunteer } from '../../models/volunteer';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-new-volunteer-form',
@@ -15,7 +16,7 @@ export class NewVolunteerFormComponent implements OnInit {
   public formGroup: FormGroup;
   public forms;
 
-  constructor(private fb: FormBuilder, private volunteerService: VolunteerService) {
+  constructor(private fb: FormBuilder, private snackBar: MdSnackBar, private volunteerService: VolunteerService) {
     this.changeTab = new EventEmitter<number>();
     this.createForm();
   }
@@ -25,7 +26,13 @@ export class NewVolunteerFormComponent implements OnInit {
   onSubmit(): void {
     this.capitalize();
     this.volunteerService.createRx(new Volunteer(this.formGroup.value.firstName, this.formGroup.value.lastName,
-      this.formGroup.value.petName));
+      this.formGroup.value.petName),
+      () => this.snackBar.open('Volunteer successfully signed up!', '', {
+        duration: 3000
+      }),
+      error => this.snackBar.open(error ? `Error checking out: ${error}` : 'Error checking out!', '', {
+        duration: 3000
+      }));
     this.formGroup.reset();
     // Workaround for clearing error state
     Object.keys(this.formGroup.controls).forEach(key => {
