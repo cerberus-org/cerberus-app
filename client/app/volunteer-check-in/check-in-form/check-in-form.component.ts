@@ -44,6 +44,9 @@ export class CheckInFormComponent implements OnInit {
    */
   ngOnInit(): void {
     this.activeVisitForVolunteer = null;
+    // Set selectedVolunteer to null so when after a new volunteer is created,
+    // the signature box is intially hidden.
+    this.selectedVolunteer = null;
     this.subscribeToVisits();
     this.subscribeToVolunteers();
     this.getVolunteers();
@@ -68,7 +71,8 @@ export class CheckInFormComponent implements OnInit {
       this.formGroup.controls[key].setErrors(null);
     });
     this.selectedVolunteer = null;
-    this.router.navigateByUrl('/home');
+    // TODO: Figure out why routing doesn't work
+    // this.router.navigateByUrl('/home');
     this.clearSigPad();
   }
 
