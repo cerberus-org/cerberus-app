@@ -24,18 +24,18 @@ export class VisitService extends BaseService {
       .subscribe(action => this.store.dispatch(action));
   }
 
-  createRx(obj: any): void {
+  createRx(obj: any, successCb, errorCb): void {
     this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
       .map(payload => ({ type: ADD_VISIT, payload: payload }))
-      .subscribe(action => this.store.dispatch(action));
+      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
   }
 
-  updateRx(obj: any): void {
+  updateRx(obj: any, successCb, errorCb): void {
     this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
       .map(payload => ({ type: MODIFY_VISIT, payload: payload }))
-      .subscribe(action => this.store.dispatch(action));
+      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
   }
 
   /**
@@ -74,7 +74,7 @@ export class MockVisitService extends VisitService {
     return Observable.of(testVisits[0]);
   }
 
-  get(obj: Visit): Observable<Visit> {
+  get (obj: Visit): Observable<Visit> {
     return Observable.of(testVisits[0]);
   }
 

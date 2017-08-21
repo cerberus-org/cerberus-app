@@ -24,11 +24,11 @@ export class VolunteerService extends BaseService {
       .subscribe(action => this.store.dispatch(action));
   }
 
-  createRx(obj: any): void {
+  createRx(obj: any, successCb, errorCb): void {
     this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
       .map(payload => ({ type: ADD_VOLUNTEER, payload: payload }))
-      .subscribe(action => this.store.dispatch(action));
+      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
   }
 }
 
