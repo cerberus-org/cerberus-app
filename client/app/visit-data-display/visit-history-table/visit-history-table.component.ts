@@ -9,11 +9,12 @@ import 'rxjs/add/observable/merge'
 import { Visit } from '../../models/visit';
 
 @Component({
-  selector: 'app-visit-history',
-  templateUrl: './visit-history.component.html',
-  styleUrls: ['./visit-history.component.css']
+  selector: 'app-visit-history-table',
+  templateUrl: './visit-history-table.component.html',
+  styleUrls: ['./visit-history-table.component.css']
 })
-export class VisitHistoryComponent implements OnInit {
+export class VisitHistoryTableComponent implements OnInit {
+  initialPageSize: number;
   displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
   dataSource: VisitDataSource | null;
 
@@ -22,6 +23,10 @@ export class VisitHistoryComponent implements OnInit {
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
+    // Determine initial page size using inner height of window at component init
+    const surroundingElementsPx = 281;
+    const cellPx = 49;
+    this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.dataSource = new VisitDataSource(this.store, this.paginator);
   }
 
@@ -46,15 +51,13 @@ export class VisitHistoryComponent implements OnInit {
 }
 
 /**
- * Data source to provide what data should be rendered in the table. Note that the data source
- * can retrieve its data in any way. In this case, the data source is provided a reference
- * to a common data base, ExampleDatabase. It is not the data source's responsibility to manage
- * the underlying data. Instead, it only needs to take the data and send the table exactly what
- * should be rendered.
+ * Data source to provide what data should be rendered in the table. Note that the data source can retrieve its data in
+ * any way. It is not the data source's responsibility to manage the underlying data. Instead, it only needs to take the
+ * data and send the table exactly what should be rendered.
  */
 export class VisitDataSource extends DataSource<any> {
-  error: string;
   visits: Visit[];
+  error: string;
 
   constructor(private store: Store<any>, private paginator: MdPaginator) {
     super();
@@ -63,9 +66,7 @@ export class VisitDataSource extends DataSource<any> {
 
   subscribeToVisits(): void {
     this.store.select<Visit[]>('visits').subscribe(
-      visits => {
-        this.visits = visits;
-      },
+      visits => this.visits = visits,
       error => this.error = <any>error);
   }
 

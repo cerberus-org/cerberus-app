@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import moment = require('moment');
 import Volunteer from './volunteer';
 
 const visitSchema = new mongoose.Schema({
@@ -16,8 +15,7 @@ const visitSchema = new mongoose.Schema({
     required: [true]
   },
   signature: {
-    type: [],
-    required: [true]
+    type: []
   },
   timezone: {
     type: String,
