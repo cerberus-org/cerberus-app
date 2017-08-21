@@ -3,17 +3,3 @@ form {
   margin-bottom: 4rem;
 }
 
-md-input-container {
-  width: 15rem;
-}
-
-button {
-  margin-top: 1rem;
-}
-.sig-container {
-  border-style: dashed;
-  border-width: .07rem;
-}
-input.capitalize {
-  text-transform: capitalize;
-}

@@ -8,11 +8,31 @@ import { VisitService } from '../../services/visit.service';
 import { VolunteerService } from '../../services/volunteer.service';
 import { SignatureFieldComponent } from '../../signature-field/signature-field.component';
 import { Router } from '@angular/router';
+import { state, style, trigger, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-check-in-form',
   templateUrl: './check-in-form.component.html',
   styleUrls: ['./check-in-form.component.css'],
+  // Any css properties that use a trigger or are composed inside an element that uses a trigger will go here
+  styles: [
+    '.sig-container { border-style: dashed; border-width: .07rem; }',
+    'input.capitalize { text-transform: capitalize; }',
+    'button { margin-top: 1rem; }',
+    'md-input-container { width: 15rem; }',
+    'form { margin-top: 2rem; margin-bottom: 2rem; }'
+  ],
+  animations: [
+    trigger('sigTrigger', [
+      state('fadeIn', style({
+        opacity: '1',
+      })),
+      transition('void => *', [
+        style({ opacity: '0'}),
+        animate('500ms 0s ease-in')
+      ])
+    ])
+  ]
 })
 export class CheckInFormComponent implements OnInit {
   public error: string;
@@ -24,6 +44,7 @@ export class CheckInFormComponent implements OnInit {
   public filteredVolunteers: Volunteer[];
   public filteredVolunteersByPetName: Volunteer[];
   public showPetNameForm: boolean;
+  public sigState: string;
 
   @ViewChildren(SignatureFieldComponent)
   public sigs: QueryList<SignatureFieldComponent>;
