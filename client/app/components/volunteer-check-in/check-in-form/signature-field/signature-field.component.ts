@@ -88,6 +88,14 @@ export class SignatureFieldComponent implements ControlValueAccessor {
     this.signature = this.signaturePad.toData();
   }
 
+  /**
+   * Destringify signature and then draw signature image from an array of point groups
+   * @param data
+   */
+  public getImage(data): void {
+    this.signature = this.signaturePad.fromData(JSON.parse(data));
+  }
+
   public clear(): void {
     this.signaturePad.clear();
     this.signature = '';
