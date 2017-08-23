@@ -1,38 +1,32 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdAutocompleteModule, MdInputModule, MdSnackBarModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { CheckInFormComponent } from './check-in-form.component';
 import { MockVolunteerService, VolunteerService } from '../../../services/volunteer.service';
 import { MockVisitService, VisitService } from '../../../services/visit.service';
-import { testVisits, Visit } from '../../../models/visit';
+import { testVisits } from '../../../models/visit';
 import { testVolunteers } from '../../../models/volunteer';
 import { StoreModule } from '@ngrx/store';
 import { visitReducer } from '../../../reducers/visit';
 import { volunteerReducer } from '../../../reducers/volunteer';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
-import { Router } from '@angular/router';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
   let fixture: ComponentFixture<CheckInFormComponent>;
 
-  class MockRouter {
-    navigateByUrl = jasmine.createSpy('navigateByUrl');
-  }
-
-  let mockRouter: MockRouter;
-
   beforeEach(async(() => {
-    mockRouter = new MockRouter();
     TestBed.configureTestingModule({
-      declarations: [CheckInFormComponent, SignatureFieldComponent ],
+      declarations: [CheckInFormComponent, SignatureFieldComponent],
       imports: [
+        NoopAnimationsModule,
+        RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MdAutocompleteModule,
         MdInputModule,
         MdSnackBarModule,
@@ -40,7 +34,6 @@ describe('CheckInFormComponent', () => {
         StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
       ],
       providers: [
-        { provide: Router, useValue: mockRouter },
         { provide: VisitService, useClass: MockVisitService },
         { provide: VolunteerService, useClass: MockVolunteerService }
       ]

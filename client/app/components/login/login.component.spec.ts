@@ -1,37 +1,31 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MdInputModule, MdListModule } from '@angular/material';
 import 'hammerjs';
 
 import { LoginComponent } from './login.component';
 import { MockUserService, UserService } from '../../services/user.service';
 import { MockVisitService, VisitService } from '../../services/visit.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-  class MockRouter {
-    navigateByUrl = jasmine.createSpy('navigateByUrl');
-  }
-
-  let mockRouter: MockRouter;
-
   beforeEach(async(() => {
-    mockRouter = new MockRouter();
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
       imports: [
+        NoopAnimationsModule,
+        RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MdInputModule,
         MdListModule,
       ],
       providers: [
-        { provide: Router, useValue: mockRouter },
         { provide: UserService, useClass: MockUserService },
         { provide: VisitService, useClass: MockVisitService }
       ]

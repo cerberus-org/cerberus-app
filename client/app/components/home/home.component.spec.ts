@@ -1,29 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { Router } from '@angular/router';
 
 import { HomeComponent } from './home.component';
-import { MockVisitService, VisitService } from '../../services/visit.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-  class MockRouter {
-    navigateByUrl = jasmine.createSpy('navigateByUrl');
-  }
-
-  let mockRouter: MockRouter;
-
   beforeEach(async(() => {
-    mockRouter = new MockRouter();
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [HomeComponent,
         MockComponent({ selector: 'app-visit-data-display' }),
         MockComponent({ selector: 'app-volunteer-menu' })
-      ],
-      providers: [
-        { provide: Router, useValue: mockRouter }
       ]
     }).compileComponents();
   }));

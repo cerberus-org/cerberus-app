@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdAutocompleteModule, MdInputModule, MdSnackBarModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
@@ -16,12 +16,12 @@ describe('NewVolunteerFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NewVolunteerFormComponent],
       imports: [
+        NoopAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         MdAutocompleteModule,
         MdInputModule,
         MdSnackBarModule,
-        BrowserAnimationsModule,
         StoreModule.provideStore({ volunteers: volunteerReducer })
       ],
       providers: [{ provide: VolunteerService, useClass: MockVolunteerService }]
