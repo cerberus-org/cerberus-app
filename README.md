@@ -42,6 +42,16 @@ Before running the tests make sure you are serving the app via `npm start`.
 ## Running TSLint
 Run `ng lint` (frontend) and `npm run lintbe` (backend) to execute the linter via [TSLint](https://palantir.github.io/tslint/).
 
+## Coding standards
+
+### Pure Functions
+
+[What is a pure function?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976)
+
+* A function is only pure if, given the same input, it will always produce the same output.
+* JavaScript’s object arguments are references, which means that if a function were to mutate a property on an object or array parameter, that would mutate state that is accessible outside the function. Pure functions must not mutate external state.
+* A pure function produces no side effects, which means that it can’t alter any external state.
+
 ## Commit message guidelines
 
 The seven rules of a great Git commit message:
