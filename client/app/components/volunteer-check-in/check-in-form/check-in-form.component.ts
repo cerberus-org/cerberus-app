@@ -2,11 +2,11 @@ import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { Visit } from '../../models/visit';
-import { Volunteer } from '../../models/volunteer';
-import { VisitService } from '../../services/visit.service';
-import { VolunteerService } from '../../services/volunteer.service';
-import { SignatureFieldComponent } from '../../signature-field/signature-field.component';
+import { Visit } from '../../../models/visit';
+import { Volunteer } from '../../../models/volunteer';
+import { VisitService } from '../../../services/visit.service';
+import { VolunteerService } from '../../../services/volunteer.service';
+import { SignatureFieldComponent } from './signature-field/signature-field.component';
 import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { state, style, trigger, transition, animate } from '@angular/animations';
@@ -29,7 +29,7 @@ import { state, style, trigger, transition, animate } from '@angular/animations'
         opacity: '1',
       })),
       transition('void => *', [
-        style({ opacity: '0'}),
+        style({ opacity: '0' }),
         animate('500ms 0s ease-in')
       ])
     ])
@@ -137,7 +137,7 @@ export class CheckInFormComponent implements OnInit {
       const sig = control.value;
       // If sigs is defined and the signature pad has not been signed
       if (sig !== undefined && sig === '') {
-        return { 'noSig': { sig }};
+        return { 'noSig': { sig } };
       }
     };
     this.formGroup = this.fb.group({

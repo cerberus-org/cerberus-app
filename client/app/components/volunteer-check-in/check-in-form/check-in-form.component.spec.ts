@@ -4,15 +4,15 @@ import { MdAutocompleteModule, MdInputModule, MdSnackBarModule } from '@angular/
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CheckInFormComponent } from './check-in-form.component';
-import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
-import { MockVisitService, VisitService } from '../../services/visit.service';
-import { testVisits, Visit } from '../../models/visit';
-import { testVolunteers } from '../../models/volunteer';
+import { MockVolunteerService, VolunteerService } from '../../../services/volunteer.service';
+import { MockVisitService, VisitService } from '../../../services/visit.service';
+import { testVisits, Visit } from '../../../models/visit';
+import { testVolunteers } from '../../../models/volunteer';
 import { StoreModule } from '@ngrx/store';
-import { visitReducer } from '../../reducers/visit';
-import { volunteerReducer } from '../../reducers/volunteer';
+import { visitReducer } from '../../../reducers/visit';
+import { volunteerReducer } from '../../../reducers/volunteer';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import { SignatureFieldComponent } from '../../signature-field/signature-field.component';
+import { SignatureFieldComponent } from './signature-field/signature-field.component';
 import { Router } from '@angular/router';
 
 describe('CheckInFormComponent', () => {

@@ -3,7 +3,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { Router } from '@angular/router';
 
 import { HomeComponent } from './home.component';
-import { MockVisitService, VisitService } from '../services/visit.service';
+import { MockVisitService, VisitService } from '../../services/visit.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;

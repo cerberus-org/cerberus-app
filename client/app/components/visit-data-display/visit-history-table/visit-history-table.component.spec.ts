@@ -5,8 +5,8 @@ import { CdkTableModule } from '@angular/cdk';
 
 import { VisitHistoryTableComponent } from './visit-history-table.component';
 import { StoreModule } from '@ngrx/store';
-import { visitReducer } from '../../reducers/visit';
-import { testVisits } from '../../models/visit';
+import { visitReducer } from '../../../reducers/visit';
+import { testVisits } from '../../../models/visit';
 
 describe('VisitHistoryTableComponent', () => {
   let component: VisitHistoryTableComponent;
