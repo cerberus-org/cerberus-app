@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MdTabsModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
 import { VisitDataDisplayComponent } from './visit-data-display.component';
@@ -11,17 +11,16 @@ describe('VisitDataDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule,
-        MdTabsModule
-      ],
       declarations: [
         VisitDataDisplayComponent,
         MockComponent({ selector: 'app-daily-hours-chart' }),
         MockComponent({ selector: 'app-visit-history-table' })
+      ],
+      imports: [
+        NoopAnimationsModule,
+        MdTabsModule
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { VolunteerService } from '../../services/volunteer.service';
-import { Volunteer } from '../../models/volunteer';
+import { VolunteerService } from '../../../services/volunteer.service';
+import { Volunteer } from '../../../models/volunteer';
 import { MdSnackBar } from '@angular/material';
 
 @Component({

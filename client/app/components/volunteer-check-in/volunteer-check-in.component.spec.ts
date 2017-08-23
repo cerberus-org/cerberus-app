@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MdTabsModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
 import { VolunteerCheckInComponent } from './volunteer-check-in.component';
@@ -17,7 +17,7 @@ describe('VolunteerCheckInComponent', () => {
         MockComponent({ selector: 'app-new-volunteer-form', inputs: ['changeTab'] })
       ],
       imports: [
-        BrowserAnimationsModule,
+        NoopAnimationsModule,
         MdTabsModule
       ]
     }).compileComponents();

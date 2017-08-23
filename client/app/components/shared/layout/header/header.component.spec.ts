@@ -11,8 +11,8 @@ describe('HeaderComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MdToolbarModule,
-        RouterTestingModule
+        RouterTestingModule,
+        MdToolbarModule
       ],
       declarations: [
         HeaderComponent
