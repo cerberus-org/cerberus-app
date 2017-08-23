@@ -26,9 +26,9 @@ export class DailyHoursChartComponent implements OnInit {
   subscribeToVisits(): void {
     this.store.select<Visit[]>('visits').subscribe(
       visits => {
-        this.mapVisitsToDate(visits);
-        this.setLineChartLabels();
-        this.setLineChartData();
+        this.visitsByDate = this.mapVisitsToDate(visits);
+        this.lineChartLabels = this.setLineChartLabels();
+        this.lineChartData = this.setLineChartData(this.lineChartLabels, this.visitsByDate);
       }, error => this.error = <any>error);
   }
 
@@ -47,7 +47,7 @@ export class DailyHoursChartComponent implements OnInit {
         map.get(date).push(visit);
       }
     });
-    this.visitsByDate = map;
+    return map;
   }
 
   /**
@@ -55,23 +55,23 @@ export class DailyHoursChartComponent implements OnInit {
    * @param {Date} latest  the latest date that will be used as the rightmost label.
    * @param count          the number of previous dates to use as labels, defaults to 7 for week view
    */
-  setLineChartLabels(latest: Date = new Date(), count: number = 7): void {
+  setLineChartLabels(latest: Date = new Date(), count: number = 7): string[] {
     const labels = Array.from(Array(count), (_, i) => {
       const date = new Date(latest.getTime());
       date.setDate(date.getDate() - i);
       return date.toDateString();
     });
     labels.reverse();
-    this.lineChartLabels = labels;
+    return labels;
   }
 
   /**
    * Creates data structure for chart data by reducing visits for each date to the sum of visit durations in hours.
    */
-  setLineChartData(): void {
-    this.lineChartData = [{
-      data: this.lineChartLabels.map(date => this.visitsByDate.has(date)
-        ? Math.floor(this.visitsByDate.get(date)
+  setLineChartData(labels: string[], visitsByDate: any): any[] {
+    return [{
+      data: labels.map(date => visitsByDate.has(date)
+        ? Math.floor(visitsByDate.get(date)
           .reduce((total, currentVisit) => total + this.getDuration(currentVisit), 0) / 3600000)
         : 0),
       label: 'Hours'

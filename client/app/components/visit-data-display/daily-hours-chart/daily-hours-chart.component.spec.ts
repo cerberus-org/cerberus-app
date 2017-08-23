@@ -19,8 +19,7 @@ describe('DailyHoursChartComponent', () => {
         ChartsModule,
         StoreModule.provideStore({ visits: visitReducer })
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -34,8 +33,7 @@ describe('DailyHoursChartComponent', () => {
   });
 
   it('creates a key for each unique date', () => {
-    component.mapVisitsToDate(testVisits);
-    const dates = Array.from(component.visitsByDate.keys());
+    const dates = Array.from(component.mapVisitsToDate(testVisits).keys());
     expect(dates.length).toEqual(2);
     expect(dates).toEqual([
       testVisits[0].startedAt.toDateString(),
@@ -44,21 +42,20 @@ describe('DailyHoursChartComponent', () => {
   });
 
   it('maps the visits to the correct date key', () => {
-    component.mapVisitsToDate(testVisits);
-    const dates = Array.from(component.visitsByDate.keys());
-    expect(component.visitsByDate.get(dates[0])).toEqual([
+    const visitsByDate = component.mapVisitsToDate(testVisits);
+    const dates = Array.from(visitsByDate.keys());
+    expect(visitsByDate.get(dates[0])).toEqual([
       testVisits[0],
       testVisits[1]
     ]);
-    expect(component.visitsByDate.get(dates[1])).toEqual([
+    expect(visitsByDate.get(dates[1])).toEqual([
       testVisits[2]
     ]);
   });
 
   it('it sets the line chart labels to the correct dates', () => {
     const latest = new Date('2017-07-01T14:45:42.336Z');
-    component.setLineChartLabels(latest, 3);
-    const labels = component.lineChartLabels;
+    const labels = component.setLineChartLabels(latest, 3);
     expect(labels.length).toEqual(3);
     expect(labels).toEqual([
       'Thu Jun 29 2017',
@@ -68,14 +65,13 @@ describe('DailyHoursChartComponent', () => {
   });
 
   it('it sets the line chart data to the correct values', () => {
-    component.mapVisitsToDate(testVisits); // TODO: Find a way to test without using this function
-    component.lineChartLabels = [
+    const visitsByDate = component.mapVisitsToDate(testVisits); // TODO: Find a way to test without using this function
+    const labels = [
       'Thu Jun 29 2017',
       'Fri Jun 30 2017',
       'Sat Jul 01 2017'
     ];
-    component.setLineChartData();
-    const data = component.lineChartData[0].data;
+    const data = component.setLineChartData(labels, visitsByDate)[0].data;
     expect(data.length).toEqual(3);
     expect(data).toEqual([9, 5, 0]);
   });
