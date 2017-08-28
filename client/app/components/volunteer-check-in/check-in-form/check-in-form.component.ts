@@ -204,12 +204,12 @@ export class CheckInFormComponent implements OnInit {
   startVisit(): void {
     this.visitService.createRx(
       new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago', this.sigs.first.signature),
-      () => this.snackBar.open('Volunteer successfully checked in!', '', {
-        duration: 3000
-      }),
-      error => this.snackBar.open(error ? `Error checking in: ${error}` : 'Error checking in!', '', {
-        duration: 3000
-      }));
+      () => {
+        this.snackBar.open('Volunteer successfully checked in!', '', { duration: 3000 });
+        this.router.navigateByUrl('/home');
+      },
+      error => this.snackBar.open(error ? `Error checking in: ${error}` : 'Error checking in!',
+        '', { duration: 3000 }));
   }
 
   /**
