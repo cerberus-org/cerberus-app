@@ -15,22 +15,13 @@ const visitSchema = new mongoose.Schema({
     required: [true]
   },
   signature: {
-    type: []
+    type: String // { data: Buffer, contentType: String }
   },
   timezone: {
     type: String,
     required: [true]
   }
 }, { timestamps: true });
-
-// Before saving, stringify signature
-visitSchema.pre('save', function(next) {
-  // If the signature has not been stringified
-  if (!(this.signature instanceof String)) {
-    this.signature = JSON.stringify(this.signature);
-  }
-  next();
-});
 
 visitSchema.index({ startedAt: 1, endedAt: 1, volunterId: 1, signature: 1 }, { unique: true });
 
