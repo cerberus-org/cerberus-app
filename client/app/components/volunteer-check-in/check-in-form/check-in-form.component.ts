@@ -92,7 +92,6 @@ export class CheckInFormComponent implements OnInit {
     Object.keys(this.formGroup.controls).forEach(key => {
       this.formGroup.controls[key].setErrors(null);
     });
-    this.selectedVolunteer = null;
     // TODO: Figure out why routing doesn't work
     // this.router.navigateByUrl('/home');
     this.clearSigPad();
