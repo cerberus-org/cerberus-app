@@ -51,7 +51,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
    * @param value
    */
   public writeValue(value: any): void {
-    if (!value) {
+    if (!value || !this.signaturePad || !this._signature) {
       return;
     }
     this._signature = value;
