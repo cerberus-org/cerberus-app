@@ -15,7 +15,7 @@ const visitSchema = new mongoose.Schema({
     required: [true]
   },
   signature: {
-    type: []
+    type: String
   },
   timezone: {
     type: String,
