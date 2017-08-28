@@ -217,9 +217,10 @@ export class CheckInFormComponent implements OnInit {
    */
   endVisit(): void {
     this.visitService.updateRx(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }),
-      () => this.snackBar.open('Volunteer successfully checked out!', '', {
-        duration: 3000
-      }),
+      () => {
+        this.snackBar.open('Volunteer successfully checked out!', '', { duration: 3000 });
+        this.router.navigateByUrl('/home');
+      },
       error => this.snackBar.open(error ? `Error checking out: ${error}` : 'Error checking out!', '', {
         duration: 3000
       }));
