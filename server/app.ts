@@ -25,11 +25,6 @@ db.once('open', () => {
 
   setRoutes(app);
 
-  // Hash signature index so there are not any limits placed on key length
-  db.collection('visits').createIndex( {
-    'signature' : 'hashed',
-  });
-
   app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'));
   });

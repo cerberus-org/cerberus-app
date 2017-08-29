@@ -23,16 +23,8 @@ const visitSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-// Before saving, stringify signature
-visitSchema.pre('save', function(next) {
-  // If the signature has not been stringified
-  if (!(this.signature instanceof String)) {
-    this.signature = JSON.stringify(this.signature);
-  }
-  next();
-});
-
-visitSchema.index({ startedAt: 1, endedAt: 1, volunterId: 1, signature: 1 }, { unique: true });
+// Hash signature index so there are not any limits placed on key length
+visitSchema.index({ startedAt: 1, endedAt: 1, volunterId: 1, signature: 'hashed' }, { unique: true });
 
 const Visit = mongoose.model('Visit', visitSchema);
 

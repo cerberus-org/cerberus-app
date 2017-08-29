@@ -51,7 +51,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
    * @param value
    */
   public writeValue(value: any): void {
-    if (!value) {
+    if (!value || !this.signaturePad || !this._signature) {
       return;
     }
     this._signature = value;
@@ -86,14 +86,6 @@ export class SignatureFieldComponent implements ControlValueAccessor {
    */
   public drawComplete(): void {
     this.signature = this.signaturePad.toDataURL();
-  }
-
-  /**
-   * Destringify signature and then draw signature image from an array of point groups
-   * @param data
-   */
-  public getImage(data): void {
-    this.signature = this.signaturePad.fromData(JSON.parse(data));
   }
 
   public clear(): void {
