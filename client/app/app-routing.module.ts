@@ -5,11 +5,13 @@ import { OrganizationDashboardComponent } from './components/organization-dashbo
 import { LoginComponent } from './components/login/login.component';
 import { Guard } from './guard';
 import { VolunteerCheckInComponent } from './components/volunteer-check-in/volunteer-check-in.component';
+import { GettingStartedComponent } from './components/getting-started/getting-started.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: OrganizationDashboardComponent, canActivate : [Guard] },
   { path: 'checkin', component: VolunteerCheckInComponent, canActivate : [Guard] },
+  { path: 'start', component: GettingStartedComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

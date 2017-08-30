@@ -41,6 +41,7 @@ import { VisitService } from './services/visit.service';
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
 import { OrganizationService } from './services/organization.service';
+import { GettingStartedComponent } from './components/getting-started/getting-started.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { OrganizationService } from './services/organization.service';
     FooterComponent,
     VisitDataDisplayComponent,
     DailyHoursChartComponent,
-    SignatureFieldComponent
+    SignatureFieldComponent,
+    GettingStartedComponent
   ],
   imports: [
     BrowserModule,
