@@ -36,21 +36,18 @@ import { state, style, trigger, transition, animate } from '@angular/animations'
   ]
 })
 export class CheckInFormComponent implements OnInit {
-  public error: string;
-  public formGroup: FormGroup;
-  public activeVisitForVolunteer: Visit;
-  public visits: Visit[];
-  public selectedVolunteer: Volunteer;
-  public volunteers: Volunteer[];
-  public filteredVolunteers: Volunteer[];
-  public filteredVolunteersByPetName: Volunteer[];
-  public showPetNameForm: boolean;
-  public sigState: string;
-
-  @ViewChildren(SignatureFieldComponent)
-  public sigs: QueryList<SignatureFieldComponent>;
-  @ViewChildren('sigContainer')
-  public sigContainer: QueryList<ElementRef>;
+  @ViewChildren(SignatureFieldComponent) sigs: QueryList<SignatureFieldComponent>;
+  @ViewChildren('sigContainer') sigContainer: QueryList<ElementRef>;
+  error: string;
+  formGroup: FormGroup;
+  activeVisitForVolunteer: Visit;
+  visits: Visit[];
+  selectedVolunteer: Volunteer;
+  volunteers: Volunteer[];
+  filteredVolunteers: Volunteer[];
+  filteredVolunteersByPetName: Volunteer[];
+  showPetNameForm: boolean;
+  sigState: string;
 
   /**
    * Creates the form group and subscribes on construction.
@@ -78,6 +75,90 @@ export class CheckInFormComponent implements OnInit {
     this.setSigOptions();
   }
 
+  volunteerExistenceValidator = (control: AbstractControl): { [key: string]: any } => {
+    const name = control.value;
+    const match = this.volunteers ? this.volunteers.find(volunteer => this.formatName(volunteer) === name) : null;
+    if (!this.showPetNameForm) {
+      // Select volunteer in validator since validators fire before subscription
+      this.selectedVolunteer = match;
+    }
+    return match ? null : { 'doesNotExist': { name } };
+  };
+
+  volunteerUniqueValidator = (control: AbstractControl): { [key: string]: any } => {
+    if (!this.showPetNameForm) {
+      return null;
+    }
+    const match = this.findVolunteerByPetName(control.value);
+    // Select volunteer in validator since validators fire before subscription
+    this.selectedVolunteer = match;
+    return match ? null : { 'notUnique': { name } };
+  };
+
+  signatureValidator = (control: AbstractControl): { [key: string]: any } => {
+    // If there is an active visit the signature pad is valid as is
+    if (this.activeVisitForVolunteer !== undefined) {
+      return null;
+    }
+    const sig = control.value;
+    // If sigs is defined and the signature pad has not been signed
+    if (sig !== undefined && sig === '') {
+      return { 'noSig': { sig } };
+    }
+  };
+
+  /**
+   * Creates the form group.
+   */
+  createForm(): void {
+    this.formGroup = this.fb.group({
+      name: ['', [Validators.required, this.volunteerExistenceValidator]],
+      petName: ['', this.volunteerUniqueValidator],
+      signatureField: ['', this.signatureValidator]
+    });
+  }
+
+  /**
+   * Checks for an active visit
+   */
+  checkForActiveVisit = (nameControlInvalid: boolean, petNameControlInvalid: boolean) => {
+    this.activeVisitForVolunteer = nameControlInvalid || petNameControlInvalid ? null : this.findActiveVisitForVolunteer();
+  };
+
+  /**
+   * Filters volunteers when name value changes
+   * @param changes
+   * @param petNameControl
+   */
+  handleNameChanges = (changes, petNameControl: AbstractControl) => {
+    this.filterVolunteers(changes);
+    this.showPetNameForm = this.checkIfFilteredHaveSameName(changes);
+    if (!this.showPetNameForm) {
+      petNameControl.reset();
+    }
+  };
+
+  /**
+   * Filters volunteers by pet name when petName value changes.
+   * @param changes
+   */
+  handlePetNameChanges = changes => {
+    if (this.showPetNameForm) {
+      this.filterVolunteersByPetName(changes);
+    }
+  };
+
+  /**
+   * Subscribes to value changes in the form.
+   */
+  subscribeToForm(): void {
+    const nameControl = this.formGroup.controls['name'];
+    const petNameControl = this.formGroup.controls['petName'];
+    this.formGroup.valueChanges.subscribe(() => this.checkForActiveVisit(nameControl.invalid, petNameControl.invalid));
+    nameControl.valueChanges.subscribe(changes => this.handleNameChanges(changes, petNameControl));
+    petNameControl.valueChanges.subscribe(this.handlePetNameChanges);
+  }
+
   /**
    * Starts or ends a visit and resets the form group on clicking the submit button.
    */
@@ -95,81 +176,6 @@ export class CheckInFormComponent implements OnInit {
     // TODO: Figure out why routing doesn't work
     // this.router.navigateByUrl('/home');
     this.clearSigPad();
-  }
-
-  /**
-   * Formats the name of a volunteer as one string.
-   * @param volunteer
-   * @returns {string}
-   */
-  formatName(volunteer: Volunteer) {
-    return `${volunteer.firstName} ${volunteer.lastName}`;
-  }
-
-  /**
-   * Creates the form group.
-   */
-  createForm(): void {
-    const volunteerExistenceValidator = (control: AbstractControl): { [key: string]: any } => {
-      const name = control.value;
-      const match = this.volunteers ? this.volunteers.find(volunteer => this.formatName(volunteer) === name) : null;
-      if (!this.showPetNameForm) {
-        // Select volunteer in validator since validators fire before subscription
-        this.selectedVolunteer = match;
-      }
-      return match ? null : { 'doesNotExist': { name } };
-    };
-    const volunteerUniqueValidator = (control: AbstractControl): { [key: string]: any } => {
-      if (!this.showPetNameForm) {
-        return null;
-      }
-      const match = this.findVolunteerByPetName(control.value);
-      // Select volunteer in validator since validators fire before subscription
-      this.selectedVolunteer = match;
-      return match ? null : { 'notUnique': { name } };
-    };
-    const sigValidator = (control: AbstractControl): { [key: string]: any } => {
-      // If there is an active visit the signature pad is valid as is
-      if (this.activeVisitForVolunteer !== undefined) {
-        return null;
-      }
-      const sig = control.value;
-      // If sigs is defined and the signature pad has not been signed
-      if (sig !== undefined && sig === '') {
-        return { 'noSig': { sig } };
-      }
-    };
-    this.formGroup = this.fb.group({
-      name: ['', [Validators.required, volunteerExistenceValidator]],
-      petName: ['', volunteerUniqueValidator],
-      signatureField: ['', sigValidator]
-    });
-  }
-
-  /**
-   * Subscribes to value changes in the form.
-   */
-  subscribeToForm(): void {
-    const nameControl = this.formGroup.controls['name'];
-    const petNameControl = this.formGroup.controls['petName'];
-    // Always check for an active visit
-    this.formGroup.valueChanges.subscribe(() => {
-      this.activeVisitForVolunteer = nameControl.invalid || petNameControl.invalid ? null : this.findActiveVisitForVolunteer();
-    });
-    // Filter volunteers when name value changes
-    nameControl.valueChanges.subscribe(changes => {
-      this.filterVolunteers(changes);
-      this.showPetNameForm = this.checkIfFilteredHaveSameName(changes);
-      if (!this.showPetNameForm) {
-        petNameControl.reset();
-      }
-    });
-    // Filter volunteers by pet name when petName value changes
-    petNameControl.valueChanges.subscribe(changes => {
-      if (this.showPetNameForm) {
-        this.filterVolunteersByPetName(changes);
-      }
-    });
   }
 
   /**
@@ -283,15 +289,24 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Set signature pad properites.
    */
-  public setSigOptions() {
+  setSigOptions() {
     this.sigs.first.signaturePad.set('penColor', 'rgb(0, 0, 0)');
     this.sigs.first.signaturePad.set('backgroundColor', 'rgb(255, 255, 255, 0)');
     this.sigs.first.signaturePad.clear(); // clearing is needed to set the background colour
   }
 
-  public clearSigPad() {
+  clearSigPad() {
     if (this.sigs.first !== undefined) {
       this.sigs.first.clear();
     }
+  }
+
+  /**
+   * Formats the name of a volunteer as one string.
+   * @param volunteer
+   * @returns {string}
+   */
+  formatName(volunteer: Volunteer) {
+    return `${volunteer.firstName} ${volunteer.lastName}`;
   }
 }
