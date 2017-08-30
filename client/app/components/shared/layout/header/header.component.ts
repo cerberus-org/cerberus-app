@@ -7,10 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  icon: string;
+  text: string;
 
   constructor(private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.setHeader();
+  }
 
   logout() {
     localStorage.removeItem('token');
@@ -18,10 +22,24 @@ export class HeaderComponent implements OnInit {
   }
 
   get showBack() {
-    return this.router.url !== '/organization-dashboard' && this.router.url !== '/login';
+    return this.router.url === '/checkin';
   }
 
   get showLogout() {
     return this.router.url !== '/login';
+  }
+
+  setHeader = (): void => {
+    this.router.events.subscribe(() => {
+      switch (this.router.url) {
+        case '/start':
+          this.icon = 'wb_sunny';
+          this.text = 'Getting Started';
+          break;
+        default:
+          this.icon = 'group_work';
+          this.text = 'Cerberus';
+      }
+    });
   }
 }
