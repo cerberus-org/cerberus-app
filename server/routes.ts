@@ -1,5 +1,6 @@
 import * as express from 'express';
 
+import OrganizationHandler from './handlers/organization';
 import VolunteerHandler from './handlers/volunteer';
 import VisitHandler from './handlers/visit';
 import UserHandler from './handlers/user';
@@ -11,9 +12,18 @@ export default function setRoutes(app) {
 
   const auth = new Auth();
 
+  const organizationHandler = new OrganizationHandler();
   const volunteerHandler = new VolunteerHandler();
   const visitHandler = new VisitHandler();
   const userHandler = new UserHandler();
+
+  // Organizations
+  router.route('/organizations').get(auth.ensureLoggedIn, organizationHandler.getAll);
+  router.route('/organizations/count').get(auth.ensureLoggedIn, organizationHandler.count);
+  router.route('/organization').post(organizationHandler.insert);
+  router.route('/organization/:id').get(auth.ensureLoggedIn, organizationHandler.get);
+  router.route('/organization/:id').put(auth.ensureLoggedIn, organizationHandler.update);
+  router.route('/organization/:id').delete(auth.ensureLoggedIn, organizationHandler.delete);
 
   // Volunteers
   router.route('/volunteers').get(auth.ensureLoggedIn, volunteerHandler.getAll);
