@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
 import { VolunteerCheckInComponent } from './volunteer-check-in.component';
+import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
 
 describe('VolunteerCheckInComponent', () => {
   let component: VolunteerCheckInComponent;
@@ -19,6 +20,9 @@ describe('VolunteerCheckInComponent', () => {
       imports: [
         NoopAnimationsModule,
         MdTabsModule
+      ],
+      providers: [
+        { provide: VolunteerService, useClass: MockVolunteerService }
       ]
     }).compileComponents();
   }));
