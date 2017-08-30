@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "cerberus-app",
-		"_postman_id": "522798ac-b905-6633-f4e9-f5ec55437221",
+		"_postman_id": "6e39817e-74ec-7fd4-d8ea-1c2d07b48199",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -91,7 +91,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -127,7 +130,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -182,7 +188,7 @@
 									"    tests[\"_id is correct\"] = jsonData._id === \"59a7055733bfe28af47cff40\";",
 									"    tests[\"name is correct\"] = jsonData.name === \"EDIT-Jefferson SPCA\";",
 									"    tests[\"description is correct\"] = jsonData.description === \"EDIT-The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\";",
-									"    tests[\"website is correct\"] = jsonData.website === \"www.jeffersonspca.org\";",
+									"    tests[\"website is correct\"] = jsonData.website === \"www.editjeffersonspca.org\";",
 									"} else if (responseCode.code === 409) {",
 									"    var jsonData = JSON.parse(responseBody);",
 									"    tests[\"code is correct\"] = jsonData.code === 11000;",
@@ -241,7 +247,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
