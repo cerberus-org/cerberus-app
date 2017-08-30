@@ -1,5 +1,5 @@
-form {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+/* Makes host element a flex container */
+:host {
+  display: flex;
+  flex: 1;
 }
-

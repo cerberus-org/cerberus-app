@@ -1,39 +1,50 @@
-<form fxFlex fxLayout="column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-  <md-input-container fxFlexAlign="center">
-    <input class="capitalize" mdInput placeholder="Name" [mdAutocomplete]="nameForm" formControlName="name">
+<form fxFlex
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      [formGroup]="formGroup"
+      (ngSubmit)="onSubmit()">
+  <md-input-container fxFlex>
+    <input mdInput
+           class="capitalize"
+           placeholder="Name"
+           [mdAutocomplete]="nameForm"
+           formControlName="name">
   </md-input-container>
-  <md-autocomplete fxFlexAlign="center" #nameForm="mdAutocomplete">
-    <md-option *ngFor="let volunteer of filteredVolunteers" [value]="formatName(volunteer)">
+  <md-autocomplete fxFlex #nameForm="mdAutocomplete">
+    <md-option *ngFor="let volunteer of filteredVolunteers"
+               [value]="formatName(volunteer)">
       {{volunteer.firstName}} {{volunteer.lastName}}
     </md-option>
   </md-autocomplete>
-  <md-input-container fxFlexAlign="center" *ngIf="showPetNameForm">
-    <input class="capitalize" mdInput placeholder="Favorite Pet" [mdAutocomplete]="petNameForm"
+  <md-input-container fxFlex *ngIf="showPetNameForm">
+    <input mdInput
+           class="capitalize"
+           placeholder="Favorite Pet"
+           [mdAutocomplete]="petNameForm"
            formControlName="petName">
   </md-input-container>
-  <md-autocomplete fxFlexAlign="center" #petNameForm="mdAutocomplete">
-    <md-option *ngFor="let volunteer of filteredVolunteersByPetName" [value]="volunteer.petName">
+  <md-autocomplete fxFlex #petNameForm="mdAutocomplete">
+    <md-option *ngFor="let volunteer of filteredVolunteersByPetName" value]="volunteer.petName">
       <i class="material-icons">pets</i> {{volunteer.petName}}
     </md-option>
   </md-autocomplete>
   <div *ngIf="activeVisitForVolunteer === null || activeVisitForVolunteer === undefined; then showCheckIn else showCheckOut"></div>
-  <ng-template #showCheckIn>
-    <!--signature-->
-    <div *ngIf="selectedVolunteer !== undefined" [@sigTrigger]="sigState">
-      <div fxLayout="row" fxLayoutAlign="center center">
-        <div class="sig-container">
-          <app-signature-field formControlName="signatureField"></app-signature-field>
+  <div fxFlex>
+    <ng-template #showCheckIn>
+      <div fxLayout="column"
+           fxLayoutAlign="center center"
+           *ngIf="selectedVolunteer !== undefined"
+           [@sigTrigger]="sigState">
+        <app-signature-field class="sig-container" fxFlex formControlName="signatureField"></app-signature-field>
+        <div fxFlex>
+          <button md-button type="button" [disabled]="formGroup.invalid" (click)="clearSigPad()">Clear</button>
         </div>
       </div>
-      <div fxLayout="row" fxLayoutAlign="center center">
-        <button md-button type="button" (click)="clearSigPad()" [disabled]="formGroup.invalid">Clear</button>
-      </div>
-    </div>
-    <!--end signature-->
-    <button md-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid">Check In</button>
-  </ng-template>
-  <ng-template #showCheckOut>
-    <button md-button color="primary" fxFlexAlign="center">Check Out</button>
-  </ng-template>
+      <button md-raised-button color="primary" [disabled]="formGroup.invalid">Check In</button>
+    </ng-template>
+    <ng-template #showCheckOut>
+      <button md-raised-button color="primary">Check Out</button>
+    </ng-template>
+  </div>
 </form>
 

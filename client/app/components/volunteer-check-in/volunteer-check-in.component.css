@@ -3,3 +3,19 @@
   display: flex;
   flex: 1;
 }
+
+/* Adjust content of a tab to 100% of height of parent container by making all the child tab body containers flex */
+/deep/ .mat-tab-body-wrapper {
+  flex-grow: 1;
+}
+
+/deep/ .mat-tab-body {
+  display: flex !important;
+  flex-direction: column;
+}
+
+/deep/ .mat-tab-body-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
