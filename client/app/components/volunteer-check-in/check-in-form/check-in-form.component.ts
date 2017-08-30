@@ -32,6 +32,7 @@ export class CheckInFormComponent implements OnInit {
   @ViewChildren('sigContainer') sigContainer: QueryList<ElementRef>;
   error: string;
   formGroup: FormGroup;
+  filteredNames: string[];
   activeVisitForVolunteer: Visit;
   visits: Visit[];
   selectedVolunteer: Volunteer;
@@ -117,6 +118,7 @@ export class CheckInFormComponent implements OnInit {
   handleNameChanges = (changes, petNameControl: AbstractControl): void => {
     console.log(changes);
     this.filterVolunteers(changes);
+    this.filteredNames = this.filterVolunteerNames(changes, this.filteredVolunteers);
     this.showPetNameForm = this.checkIfFilteredHaveSameName(changes);
     if (!this.showPetNameForm) {
       this.selectedVolunteer = changes && this.volunteers
@@ -221,6 +223,19 @@ export class CheckInFormComponent implements OnInit {
       error => this.snackBar.open(error ? `Error checking out: ${error}` : 'Error checking out!', '', {
         duration: 3000
       }));
+  }
+
+  /**
+   * Filters volunteers names for autocomplete by comparing against first and last names and removing duplicates.
+   * @param name
+   * @param volunteers
+   */
+  filterVolunteerNames(name: string, volunteers: Volunteer[]): string[] {
+    return name && volunteers
+      ? Array.from(new Set(volunteers
+        .filter(volunteer => this.formatName(volunteer).toLowerCase().includes(name.toLowerCase()))
+        .map(volunteer => this.formatName(volunteer))))
+      : null;
   }
 
   /**

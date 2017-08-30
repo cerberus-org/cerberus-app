@@ -11,10 +11,7 @@
            formControlName="name">
   </md-input-container>
   <md-autocomplete #nameForm="mdAutocomplete">
-    <md-option *ngFor="let volunteer of filteredVolunteers"
-               [value]="formatName(volunteer)">
-      {{volunteer.firstName}} {{volunteer.lastName}}
-    </md-option>
+    <md-option *ngFor="let name of filteredNames" [value]="name">{{name}}</md-option>
   </md-autocomplete>
   <md-radio-group *ngIf="showPetNameForm"
                   class="pets-container"
