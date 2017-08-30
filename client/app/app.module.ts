@@ -24,8 +24,8 @@ import { LayoutComponent } from './components/shared/layout/layout.component';
 import { HeaderComponent } from './components/shared/layout/header/header.component';
 import { FooterComponent } from './components/shared/layout/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
-import { VolunteerMenuComponent } from './components/home/volunteer-menu/volunteer-menu.component';
+import { OrganizationDashboardComponent } from './components/organization-dashboard/organization-dashboard.component';
+import { VolunteerMenuComponent } from './components/organization-dashboard/volunteer-menu/volunteer-menu.component';
 import { VolunteerCheckInComponent } from './components/volunteer-check-in/volunteer-check-in.component';
 import { CheckInFormComponent } from './components/volunteer-check-in/check-in-form/check-in-form.component';
 import { SignatureFieldComponent } from './components/volunteer-check-in/check-in-form/signature-field/signature-field.component';
@@ -49,7 +49,7 @@ import { OrganizationService } from './services/organization.service';
     LayoutComponent,
     NewVolunteerFormComponent,
     VisitHistoryTableComponent,
-    HomeComponent,
+    OrganizationDashboardComponent,
     VolunteerCheckInComponent,
     LoginComponent,
     HeaderComponent,

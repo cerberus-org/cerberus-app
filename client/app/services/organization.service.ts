@@ -10,5 +10,4 @@ export class OrganizationService extends BaseService {
   constructor(protected http: Http) {
     super(http);
   }
-
 }

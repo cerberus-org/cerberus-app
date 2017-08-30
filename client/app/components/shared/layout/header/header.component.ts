@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   }
 
   get showBack() {
-    return this.router.url !== '/home' && this.router.url !== '/login';
+    return this.router.url !== '/organization-dashboard' && this.router.url !== '/login';
   }
 
   get showLogout() {
