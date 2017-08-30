@@ -28,19 +28,18 @@ import { state, style, trigger, transition, animate } from '@angular/animations'
   ]
 })
 export class CheckInFormComponent implements OnInit {
-  @ViewChildren(SignatureFieldComponent) sigs: QueryList<SignatureFieldComponent>;
-  @ViewChildren('sigContainer') sigContainer: QueryList<ElementRef>;
+  @ViewChildren(SignatureFieldComponent) signatures: QueryList<SignatureFieldComponent>;
+  showPetNameForm: boolean;
   error: string;
-  formGroup: FormGroup;
+  signatureState: string;
   filteredNames: string[];
+  formGroup: FormGroup;
   activeVisitForVolunteer: Visit;
   visits: Visit[];
   selectedVolunteer: Volunteer;
   volunteers: Volunteer[];
   filteredVolunteers: Volunteer[];
   filteredVolunteersByPetName: Volunteer[];
-  showPetNameForm: boolean;
-  sigState: string;
 
   /**
    * Creates the form group and subscribes on construction.
@@ -63,7 +62,7 @@ export class CheckInFormComponent implements OnInit {
   }
 
   ngAfterView() {
-    this.setSigOptions();
+    this.setSignatureOptions();
   }
 
   /**
@@ -98,9 +97,9 @@ export class CheckInFormComponent implements OnInit {
       return null;
     }
     const signature = control.value;
-    // If sigs is defined and the signature pad has not been signed
+    // If signatures is defined and the signature pad has not been signed
     if (signature !== undefined && signature === '') {
-      return { 'noSig': { sig: signature } };
+      return { 'noSignature': { signature } };
     }
   };
 
@@ -203,7 +202,7 @@ export class CheckInFormComponent implements OnInit {
    */
   startVisit(): void {
     this.visitService.createRx(
-      new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago', this.sigs.first.signature),
+      new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago', this.signatures.first.signature),
       () => {
         this.snackBar.open('Volunteer successfully checked in!', '', { duration: 3000 });
         this.router.navigateByUrl('/home');
@@ -297,15 +296,15 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Set signature pad properites.
    */
-  setSigOptions(): void {
-    this.sigs.first.signaturePad.set('penColor', 'rgb(0, 0, 0)');
-    this.sigs.first.signaturePad.set('backgroundColor', 'rgb(255, 255, 255, 0)');
-    this.sigs.first.signaturePad.clear(); // clearing is needed to set the background colour
+  setSignatureOptions(): void {
+    this.signatures.first.signaturePad.set('penColor', 'rgb(0, 0, 0)');
+    this.signatures.first.signaturePad.set('backgroundColor', 'rgb(255, 255, 255, 0)');
+    this.signatures.first.signaturePad.clear(); // clearing is needed to set the background colour
   }
 
   clearSignature(): void {
-    if (this.sigs.first !== undefined) {
-      this.sigs.first.clear();
+    if (this.signatures.first !== undefined) {
+      this.signatures.first.clear();
     }
   }
 
