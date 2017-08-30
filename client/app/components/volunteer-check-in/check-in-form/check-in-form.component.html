@@ -31,7 +31,7 @@
            [@sigTrigger]="sigState">
         <app-signature-field class="signature-container" fxFlex formControlName="signatureField"></app-signature-field>
         <div fxFlex fxLayoutGap="2rem">
-          <button md-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSigPad()">Clear</button>
+          <button md-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">Clear</button>
           <button md-raised-button color="primary" [disabled]="formGroup.invalid">Check In</button>
         </div>
       </div>

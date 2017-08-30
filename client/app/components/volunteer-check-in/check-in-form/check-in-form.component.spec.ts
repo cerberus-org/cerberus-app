@@ -59,7 +59,7 @@ describe('CheckInFormComponent', () => {
 
   it('filters volunteers by first and last name', () => {
     component.volunteers = testVolunteers;
-    component.filterVolunteers(testVolunteers[0].firstName);
+    component.filterVolunteersByName(testVolunteers[0].firstName);
     expect(component.filteredVolunteers.length).toBe(2);
     expect(component.filteredVolunteers[0]).toBe(testVolunteers[0]);
   });
@@ -87,7 +87,7 @@ describe('CheckInFormComponent', () => {
   it('checks if there are many volunteers with the same name', () => {
     component.volunteers = testVolunteers;
     component.filteredVolunteers = testVolunteers;
-    component.filterVolunteers(testVolunteers[0].firstName);
+    component.filterVolunteersByName(testVolunteers[0].firstName);
     const many = component.checkIfFilteredHaveSameName(`${testVolunteers[0].firstName} ${testVolunteers[0].lastName}`);
     expect(many).toBeTruthy();
   });
@@ -142,7 +142,7 @@ describe('CheckInFormComponent', () => {
     it('accepts a petName for a unique volunteer', (() => {
       component.volunteers = testVolunteers;
       component.filteredVolunteers = testVolunteers;
-      component.filterVolunteers(testVolunteers[0].firstName);
+      component.filterVolunteersByName(testVolunteers[0].firstName);
       const control = component.formGroup.controls['petName'];
       control.setValue('Mimi');
       expect(control.valid).toBeTruthy();

@@ -46,7 +46,7 @@ export class CheckInFormComponent implements OnInit {
    * Creates the form group and subscribes on construction.
    */
   constructor(private fb: FormBuilder, private store: Store<any>, private snackBar: MdSnackBar,
-              private visitService: VisitService, private volunteerService: VolunteerService, private router: Router) {
+              private visitService: VisitService, private router: Router) {
     this.createForm();
     this.subscribeToForm();
   }
@@ -56,18 +56,20 @@ export class CheckInFormComponent implements OnInit {
    */
   ngOnInit(): void {
     this.activeVisitForVolunteer = null;
-    // Set selectedVolunteer to null so when after a new volunteer is created,
-    // the signature box is intially hidden.
+    // Set selectedVolunteer to null so the signature box is hidden after a new volunteer is created
     this.selectedVolunteer = null;
     this.subscribeToVisits();
     this.subscribeToVolunteers();
-    this.getVolunteers();
   }
 
   ngAfterView() {
     this.setSigOptions();
   }
 
+  /**
+   * Validates if a matching volunteer is found by name (control value).
+   * @param {AbstractControl} control
+   */
   volunteerExistenceValidator = (control: AbstractControl): { [key: string]: any } => {
     const name = control.value;
     const match = this.volunteers
@@ -76,19 +78,29 @@ export class CheckInFormComponent implements OnInit {
     return match ? null : { 'doesNotExist': { name } };
   };
 
+  /**
+   * Validates if a matching volunteer is found by pet name (control value).
+   * @param {AbstractControl} control
+   */
   volunteerUniqueValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !this.showPetNameForm || this.findVolunteerByPetName(control.value) ? null : { 'notUnique': { name } };
+    return !this.showPetNameForm || this.findVolunteerByPetName(control.value, this.filteredVolunteers)
+      ? null
+      : { 'notUnique': { name } };
   };
 
+  /**
+   * Validates if a signature has been entered.
+   * @param {AbstractControl} control
+   */
   signatureValidator = (control: AbstractControl): { [key: string]: any } => {
     // If there is an active visit the signature pad is valid as is
     if (this.activeVisitForVolunteer !== undefined) {
       return null;
     }
-    const sig = control.value;
+    const signature = control.value;
     // If sigs is defined and the signature pad has not been signed
-    if (sig !== undefined && sig === '') {
-      return { 'noSig': { sig } };
+    if (signature !== undefined && signature === '') {
+      return { 'noSig': { sig: signature } };
     }
   };
 
@@ -116,8 +128,7 @@ export class CheckInFormComponent implements OnInit {
    * @param petNameControl
    */
   handleNameChanges = (changes, petNameControl: AbstractControl): void => {
-    console.log(changes);
-    this.filterVolunteers(changes);
+    this.filteredVolunteers = this.filterVolunteersByName(changes, this.volunteers);
     this.filteredNames = this.filterVolunteerNames(changes, this.filteredVolunteers);
     this.showPetNameForm = this.checkIfFilteredHaveSameName(changes);
     if (!this.showPetNameForm) {
@@ -126,7 +137,6 @@ export class CheckInFormComponent implements OnInit {
         : null;
       petNameControl.reset();
     }
-    console.log(this.selectedVolunteer);
   };
 
   /**
@@ -137,9 +147,9 @@ export class CheckInFormComponent implements OnInit {
     if (!this.showPetNameForm) {
       return;
     }
-    this.selectedVolunteer = this.findVolunteerByPetName(changes);
-    this.filterVolunteersByPetName(changes);
-    this.clearSigPad();
+    this.selectedVolunteer = this.findVolunteerByPetName(changes, this.filteredVolunteers);
+    this.filteredVolunteersByPetName = this.filterVolunteersByPetName(changes, this.filteredVolunteers);
+    this.clearSignature();
   };
 
   /**
@@ -167,9 +177,7 @@ export class CheckInFormComponent implements OnInit {
     Object.keys(this.formGroup.controls).forEach(key => {
       this.formGroup.controls[key].setErrors(null);
     });
-    // TODO: Figure out why routing doesn't work
-    // this.router.navigateByUrl('/home');
-    this.clearSigPad();
+    this.clearSignature();
   }
 
   /**
@@ -188,13 +196,6 @@ export class CheckInFormComponent implements OnInit {
     this.store.select<Volunteer[]>('volunteers').subscribe(
       volunteers => this.volunteers = volunteers,
       error => this.error = <any>error);
-  }
-
-  /**
-   * Gets volunteers from the data service.
-   */
-  getVolunteers(): void {
-    this.volunteerService.getAllRx();
   }
 
   /**
@@ -241,22 +242,23 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Filters volunteers by comparing against first and last names.
    * @param name
+   * @param volunteers
    */
-  filterVolunteers(name: string): void {
-    this.filteredVolunteers = name && this.volunteers
-      ? this.volunteers.filter(volunteer =>
-        `${volunteer.firstName.toLowerCase()} ${volunteer.lastName.toLowerCase()}`.includes(name.toLowerCase()))
+  filterVolunteersByName(name: string, volunteers: Volunteer[]): Volunteer[] {
+    return name && volunteers
+      ? volunteers.filter(volunteer => this.formatName(volunteer).toLowerCase().includes(name.toLowerCase()))
       : null;
   }
 
   /**
    * Checks if the given pet name narrows the filtered volunteers to one.
    * @param petName
+   * @param volunteers
    * @returns {boolean}
    */
-  filterVolunteersByPetName(petName: string): void {
-    this.filteredVolunteersByPetName = petName && this.filteredVolunteers
-      ? this.filteredVolunteers.filter(volunteer => volunteer.petName.toLowerCase().includes(petName.toLowerCase()))
+  filterVolunteersByPetName(petName: string, volunteers: Volunteer[]): Volunteer[] {
+    return petName && volunteers
+      ? volunteers.filter(volunteer => volunteer.petName.toLowerCase().includes(petName.toLowerCase()))
       : null;
   }
 
@@ -273,12 +275,11 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Finds a unique volunteer using a pet name (no two volunteers of the first and last names can have the same pet name).
    * @param petName
+   * @param volunteers
    * @returns {boolean}
    */
-  findVolunteerByPetName(petName: string): Volunteer {
-    return this.filteredVolunteers
-      ? this.filteredVolunteers.find(volunteer => volunteer.petName === petName)
-      : null;
+  findVolunteerByPetName(petName: string, volunteers: Volunteer[]): Volunteer {
+    return volunteers ? volunteers.find(volunteer => volunteer.petName === petName) : null;
   }
 
   /**
@@ -296,13 +297,13 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Set signature pad properites.
    */
-  setSigOptions() {
+  setSigOptions(): void {
     this.sigs.first.signaturePad.set('penColor', 'rgb(0, 0, 0)');
     this.sigs.first.signaturePad.set('backgroundColor', 'rgb(255, 255, 255, 0)');
     this.sigs.first.signaturePad.clear(); // clearing is needed to set the background colour
   }
 
-  clearSigPad() {
+  clearSignature(): void {
     if (this.sigs.first !== undefined) {
       this.sigs.first.clear();
     }
@@ -313,7 +314,7 @@ export class CheckInFormComponent implements OnInit {
    * @param volunteer
    * @returns {string}
    */
-  formatName(volunteer: Volunteer) {
+  formatName(volunteer: Volunteer): string {
     return `${volunteer.firstName} ${volunteer.lastName}`;
   }
 }

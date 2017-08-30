@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VolunteerService } from '../../services/volunteer.service';
 
 @Component({
   selector: 'app-volunteer-check-in',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VolunteerCheckInComponent implements OnInit {
 
-  constructor() { }
+  constructor(private volunteerService: VolunteerService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.getVolunteers();
+  }
+
+  /**
+   * Gets volunteers from the data service.
+   */
+  getVolunteers(): void {
+    this.volunteerService.getAllRx();
+  }
 }
