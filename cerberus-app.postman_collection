@@ -2,11 +2,491 @@
 	"variables": [],
 	"info": {
 		"name": "cerberus-app",
-		"_postman_id": "09b751dc-91c9-fdf5-8938-32462617932d",
+		"_postman_id": "522798ac-b905-6633-f4e9-f5ec55437221",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "organization",
+			"description": "",
+			"item": [
+				{
+					"name": "Insert organization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || 409;",
+									"",
+									"if (responseCode.code === 201) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"name is correct\"] = jsonData.name === \"Jefferson SPCA\";",
+									"    tests[\"description is correct\"] = jsonData.description === \"The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\";",
+									"    tests[\"website is correct\"] = jsonData.website === \"www.jeffersonspca.org\";",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/organization",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"59a7055733bfe28af47cff40\",\n\t\"name\": \"Jefferson SPCA\",\n\t\"description\": \"The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\",\n\t\"website\": \"www.jeffersonspca.org\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all organizations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"_id is correct\"] = jsonData[0]._id === \"59a7055733bfe28af47cff40\";",
+									"tests[\"name is correct\"] = jsonData[0].name === \"Jefferson SPCA\";",
+									"tests[\"description is correct\"] = jsonData[0].description === \"The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\";",
+									"tests[\"website is correct\"] = jsonData[0].website === \"www.jeffersonspca.org\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/organizations",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get organization by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200 || 404;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"_id is correct\"] = jsonData._id === \"59a7055733bfe28af47cff40\";",
+									"tests[\"name is correct\"] = jsonData.name === \"Jefferson SPCA\";",
+									"tests[\"description is correct\"] = jsonData.description === \"The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\";",
+									"tests[\"website is correct\"] = jsonData.website === \"www.jeffersonspca.org\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/organization/59a7055733bfe28af47cff40",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Count all organizations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Count is correct\"] = responseBody.has(1);",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visits/count",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update organization by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
+									"",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"name is correct\"] = jsonData.name === \"EDIT-Jefferson SPCA\";",
+									"    tests[\"description is correct\"] = jsonData.description === \"EDIT-The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\";",
+									"    tests[\"website is correct\"] = jsonData.website === \"www.jeffersonspca.org\";",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/organization/59a7055733bfe28af47cff40",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"EDIT-Jefferson SPCA\",\n\t\"description\": \"EDIT-The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\",\n\t\"website\": \"www.editjeffersonspca.org\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete organization by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/organization/59a7055733bfe28af47cff40",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "volunteer",
+			"description": "",
+			"item": [
+				{
+					"name": "Insert volunteer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || 409;",
+									"",
+									"if (responseCode.code === 201) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
+									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
+									"    tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"594a861ace7ca574ae9070c8\",\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Mimi\"\n}"
+						},
+						"description": "volunteer: {\n  firstName: String,\n  lastName: String,\n  petName: String\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all volunteers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"_id is correct\"] = jsonData[0]._id === \"594a861ace7ca574ae9070c8\";",
+									"tests[\"firstName is correct\"] = jsonData[0].firstName === \"Ted\";",
+									"tests[\"lastName is correct\"] = jsonData[0].lastName === \"Mader\";",
+									"tests[\"petName is correct\"] = jsonData[0].petName === \"Mimi\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteers",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get volunteer by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
+									"tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
+									"tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
+									"tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Count all volunteers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Count is correct\"] = responseBody.has(1);",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteers/count",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update volunteer by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Gam-Gam\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete volunteer by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "user",
 			"description": "",
@@ -372,7 +852,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -407,7 +890,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -439,7 +925,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -524,7 +1013,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -554,245 +1046,9 @@
 								"description": ""
 							}
 						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "volunteer",
-			"description": "",
-			"item": [
-				{
-					"name": "Insert volunteer",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || 409;",
-									"",
-									"if (responseCode.code === 201) {",
-									"    var jsonData = JSON.parse(responseBody);",
-									"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
-									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
-									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
-									"    tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
-									"} else if (responseCode.code === 409) {",
-									"    var jsonData = JSON.parse(responseBody);",
-									"    tests[\"code is correct\"] = jsonData.code === 11000;",
-									"}",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteer",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"_id\": \"594a861ace7ca574ae9070c8\",\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Mimi\"\n}"
-						},
-						"description": "volunteer: {\n  firstName: String,\n  lastName: String,\n  petName: String\n}"
-					},
-					"response": []
-				},
-				{
-					"name": "Get all volunteers",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"_id is correct\"] = jsonData[0]._id === \"594a861ace7ca574ae9070c8\";",
-									"tests[\"firstName is correct\"] = jsonData[0].firstName === \"Ted\";",
-									"tests[\"lastName is correct\"] = jsonData[0].lastName === \"Mader\";",
-									"tests[\"petName is correct\"] = jsonData[0].petName === \"Mimi\";",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteers",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get volunteer by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
-									"tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
-									"tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
-									"tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Count all volunteers",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"tests[\"Count is correct\"] = responseBody.has(1);",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteers/count",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Update volunteer by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Gam-Gam\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Delete volunteer by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
 						},
 						"description": ""
 					},

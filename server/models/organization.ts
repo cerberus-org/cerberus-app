@@ -25,12 +25,12 @@ const organizationSchema = new mongoose.Schema({
 organizationSchema.index({ name: 1, description: 1, website: 1 }, { unique: true });
 
 // Before saving the organization, capitalize name field
-organizationSchema.pre('save', function(next) {
+organizationSchema.pre('save', next => {
   this.name = this.capitalize(this.name);
   next();
 });
 
-organizationSchema.methods.capitalize = function(field: string): string {
+organizationSchema.methods.capitalize = (field: string): string => {
   return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1)));
 };
 
