@@ -1,46 +1,34 @@
 <form fxFlex
       fxLayout="column"
-      fxLayoutAlign="center center"
+      fxLayoutAlign="start center"
       [formGroup]="formGroup"
       (ngSubmit)="onSubmit()">
-  <md-input-container fxFlex>
+  <md-input-container fxFlex="0 1 auto">
     <input mdInput
            class="capitalize"
            placeholder="Name"
            [mdAutocomplete]="nameForm"
            formControlName="name">
   </md-input-container>
-  <md-autocomplete fxFlex #nameForm="mdAutocomplete">
+  <md-autocomplete #nameForm="mdAutocomplete">
     <md-option *ngFor="let volunteer of filteredVolunteers"
                [value]="formatName(volunteer)">
       {{volunteer.firstName}} {{volunteer.lastName}}
     </md-option>
   </md-autocomplete>
-  <!--<md-input-container fxFlex *ngIf="showPetNameForm">-->
-    <!--<input mdInput-->
-           <!--class="capitalize"-->
-           <!--placeholder="Favorite Pet"-->
-           <!--[mdAutocomplete]="petNameForm"-->
-           <!--formControlName="petName">-->
-  <!--</md-input-container>-->
-  <!--<md-autocomplete fxFlex #petNameForm="mdAutocomplete">-->
-    <!--<md-option *ngFor="let volunteer of filteredVolunteersByPetName" [value]="volunteer.petName">-->
-      <!--<i class="material-icons">pets</i> {{volunteer.petName}}-->
-    <!--</md-option>-->
-  <!--</md-autocomplete>-->
-  <md-radio-group fxFlex *ngIf="showPetNameForm" formControlName="petName">
+  <md-radio-group class="pets-container" fxFlex="0 1 auto" fxLayoutGap="1rem" *ngIf="showPetNameForm" formControlName="petName">
     <md-radio-button *ngFor="let volunteer of filteredVolunteers" [value]="volunteer.petName">
       <i class="material-icons">pets</i> {{volunteer.petName}}
     </md-radio-button>
   </md-radio-group>
   <div *ngIf="activeVisitForVolunteer === null || activeVisitForVolunteer === undefined; then showCheckIn else showCheckOut"></div>
-  <div fxFlex>
+  <div fxFlex="0 1 auto">
     <ng-template #showCheckIn>
       <div fxLayout="column"
            fxLayoutAlign="center center"
            *ngIf="selectedVolunteer !== undefined"
            [@sigTrigger]="sigState">
-        <app-signature-field class="sig-container" fxFlex formControlName="signatureField"></app-signature-field>
+        <app-signature-field class="signature-container" fxFlex formControlName="signatureField"></app-signature-field>
         <div fxFlex>
           <button md-button type="button" [disabled]="formGroup.invalid" (click)="clearSigPad()">Clear</button>
         </div>

@@ -15,14 +15,6 @@ import { state, style, trigger, transition, animate } from '@angular/animations'
   selector: 'app-check-in-form',
   templateUrl: './check-in-form.component.html',
   styleUrls: ['./check-in-form.component.css'],
-  // Any css properties that use a trigger or are composed inside an element that uses a trigger will go here
-  styles: [
-    '.sig-container { border-style: dashed; border-width: .07rem; }',
-    'input.capitalize { text-transform: capitalize; }',
-    'button { margin-top: 1rem; }',
-    'md-input-container { width: 15rem; }',
-    'form { margin-top: 2rem; margin-bottom: 2rem; }'
-  ],
   animations: [
     trigger('sigTrigger', [
       state('fadeIn', style({

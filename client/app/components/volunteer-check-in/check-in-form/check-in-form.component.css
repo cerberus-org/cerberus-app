@@ -3,3 +3,29 @@
   display: flex;
   flex: 1;
 }
+
+.pets-container {
+  margin-bottom: 1rem;
+}
+
+.signature-container {
+  border-style: dashed;
+  border-width: .07rem;
+}
+
+input.capitalize {
+  text-transform: capitalize;
+}
+
+button {
+  margin-top: 1rem;
+}
+
+md-input-container {
+  width: 15rem;
+}
+
+form {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
