@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { Visit } from '../../../models/visit';
 import { Volunteer } from '../../../models/volunteer';
 import { VisitService } from '../../../services/visit.service';
-import { VolunteerService } from '../../../services/volunteer.service';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
 import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
@@ -140,13 +139,13 @@ export class CheckInFormComponent implements OnInit {
   };
 
   /**
-   * Filters volunteers when name value changes
+   * Modifies client state based on name changes.
    * @param changes
    */
   handleNameChanges = (changes): void => {
     this.filteredVolunteers = this.filterVolunteersByName(this.volunteers, changes);
     this.filteredNames = this.filterVolunteerNames(this.filteredVolunteers, changes);
-    this.showPetNameForm = this.checkIfFilteredHaveSameName(changes);
+    this.showPetNameForm = this.checkIfSameNames(this.filteredVolunteers, changes);
     if (!this.showPetNameForm) {
       this.selectedVolunteer = changes && this.volunteers
         ? this.volunteers.find(volunteer => this.formatName(volunteer).toLowerCase() === changes.toLowerCase())
@@ -289,13 +288,13 @@ export class CheckInFormComponent implements OnInit {
 
   /**
    * Checks if the remaining filtered volunteers all have the same name.
+   * @param volunteers
    * @param name
    * @returns {boolean}
    */
-  checkIfFilteredHaveSameName(name: string): boolean {
-    return this.filteredVolunteers && this.filteredVolunteers.length > 1
-      ? this.filteredVolunteers.filter(
-      volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length > 1
+  checkIfSameNames(volunteers: Volunteer[], name: string): boolean {
+    return volunteers && volunteers.length > 1
+      ? volunteers.filter(volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length > 1
       : false;
   }
 

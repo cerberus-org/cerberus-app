@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MdAutocompleteModule, MdInputModule, MdSnackBarModule } from '@angular/material';
+import { MdAutocompleteModule, MdInputModule, MdRadioModule, MdSnackBarModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -29,13 +29,13 @@ describe('CheckInFormComponent', () => {
         ReactiveFormsModule,
         MdAutocompleteModule,
         MdInputModule,
+        MdRadioModule,
         MdSnackBarModule,
         SignaturePadModule,
         StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
       ],
       providers: [
-        { provide: VisitService, useClass: MockVisitService },
-        { provide: VolunteerService, useClass: MockVolunteerService }
+        { provide: VisitService, useClass: MockVisitService }
       ]
     }).compileComponents();
   }));
@@ -58,37 +58,30 @@ describe('CheckInFormComponent', () => {
   });
 
   it('filters volunteers by first and last name', () => {
-    component.volunteers = testVolunteers;
-    component.filterVolunteersByName(testVolunteers[0].firstName);
-    expect(component.filteredVolunteers.length).toBe(2);
-    expect(component.filteredVolunteers[0]).toBe(testVolunteers[0]);
+    const filtered = component.filterVolunteersByName(testVolunteers, testVolunteers[0].firstName);
+    expect(filtered.length).toBe(2);
+    expect(filtered[0]).toBe(testVolunteers[0]);
   });
 
   it('filters volunteers by pet name', () => {
-    component.filteredVolunteers = testVolunteers;
-    component.filterVolunteersByPetName(testVolunteers[0].petName);
-    expect(component.filteredVolunteersByPetName.length).toBe(1);
-    expect(component.filteredVolunteersByPetName[0]).toBe(testVolunteers[0]);
+    const filtered = component.filterVolunteersByPetName(testVolunteers, testVolunteers[0].petName);
+    expect(filtered.length).toBe(1);
+    expect(filtered[0]).toBe(testVolunteers[0]);
   });
 
   it('finds an active visit for a volunteer', () => {
-    component.visits = testVisits;
-    component.selectedVolunteer = testVolunteers[0];
-    const found = component.findActiveVisitForVolunteer();
+    const found = component.findActiveVisitForVolunteer(testVisits, testVolunteers[0]);
     expect(found).toBe(testVisits[3]);
   });
 
   it('finds a volunteer by pet name', () => {
-    component.filteredVolunteers = testVolunteers;
-    const found = component.findVolunteerByPetName(testVolunteers[0].petName);
+    const found = component.findVolunteerByPetName(testVolunteers, testVolunteers[0].petName);
     expect(found).toBe(testVolunteers[0]);
   });
 
   it('checks if there are many volunteers with the same name', () => {
-    component.volunteers = testVolunteers;
-    component.filteredVolunteers = testVolunteers;
-    component.filterVolunteersByName(testVolunteers[0].firstName);
-    const many = component.checkIfFilteredHaveSameName(`${testVolunteers[0].firstName} ${testVolunteers[0].lastName}`);
+    const filtered = component.filterVolunteersByName(testVolunteers, testVolunteers[0].firstName);
+    const many = component.checkIfSameNames(filtered, `${testVolunteers[0].firstName} ${testVolunteers[0].lastName}`);
     expect(many).toBeTruthy();
   });
 
@@ -140,9 +133,7 @@ describe('CheckInFormComponent', () => {
     }));
 
     it('accepts a petName for a unique volunteer', (() => {
-      component.volunteers = testVolunteers;
-      component.filteredVolunteers = testVolunteers;
-      component.filterVolunteersByName(testVolunteers[0].firstName);
+      component.filteredVolunteers = component.filterVolunteersByName(testVolunteers, testVolunteers[0].firstName);
       const control = component.formGroup.controls['petName'];
       control.setValue('Mimi');
       expect(control.valid).toBeTruthy();
