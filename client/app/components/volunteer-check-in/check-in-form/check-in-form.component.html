@@ -16,17 +16,21 @@
       {{volunteer.firstName}} {{volunteer.lastName}}
     </md-option>
   </md-autocomplete>
-  <md-radio-group class="pets-container" fxFlex="0 1 auto" fxLayoutGap="1rem" *ngIf="showPetNameForm" formControlName="petName">
+  <md-radio-group *ngIf="showPetNameForm"
+                  class="pets-container"
+                  fxFlex="0 1 auto"
+                  fxLayoutGap="1rem"
+                  formControlName="petName">
     <md-radio-button *ngFor="let volunteer of filteredVolunteers" [value]="volunteer.petName">
       <i class="material-icons">pets</i> {{volunteer.petName}}
     </md-radio-button>
   </md-radio-group>
-  <div *ngIf="activeVisitForVolunteer === null || activeVisitForVolunteer === undefined; then showCheckIn else showCheckOut"></div>
+  <div *ngIf="activeVisitForVolunteer; then showCheckOut else showCheckIn"></div>
   <div fxFlex="0 1 auto">
     <ng-template #showCheckIn>
-      <div fxLayout="column"
+      <div *ngIf="selectedVolunteer"
+           fxLayout="column"
            fxLayoutAlign="center center"
-           *ngIf="selectedVolunteer !== undefined"
            [@sigTrigger]="sigState">
         <app-signature-field class="signature-container" fxFlex formControlName="signatureField"></app-signature-field>
         <div fxFlex>

@@ -69,22 +69,14 @@ export class CheckInFormComponent implements OnInit {
 
   volunteerExistenceValidator = (control: AbstractControl): { [key: string]: any } => {
     const name = control.value;
-    const match = this.volunteers ? this.volunteers.find(volunteer => this.formatName(volunteer) === name) : null;
-    if (!this.showPetNameForm) {
-      // Select volunteer in validator since validators fire before subscription
-      this.selectedVolunteer = match;
-    }
+    const match = this.volunteers
+      ? this.volunteers.find(volunteer => this.formatName(volunteer) === name)
+      : null;
     return match ? null : { 'doesNotExist': { name } };
   };
 
   volunteerUniqueValidator = (control: AbstractControl): { [key: string]: any } => {
-    if (!this.showPetNameForm) {
-      return null;
-    }
-    const match = this.findVolunteerByPetName(control.value);
-    // Select volunteer in validator since validators fire before subscription
-    this.selectedVolunteer = match;
-    return match ? null : { 'notUnique': { name } };
+    return !this.showPetNameForm || this.findVolunteerByPetName(control.value) ? null : { 'notUnique': { name } };
   };
 
   signatureValidator = (control: AbstractControl): { [key: string]: any } => {
@@ -122,22 +114,30 @@ export class CheckInFormComponent implements OnInit {
    * @param changes
    * @param petNameControl
    */
-  handleNameChanges = (changes, petNameControl: AbstractControl) => {
+  handleNameChanges = (changes, petNameControl: AbstractControl): void => {
+    console.log(changes);
     this.filterVolunteers(changes);
     this.showPetNameForm = this.checkIfFilteredHaveSameName(changes);
     if (!this.showPetNameForm) {
+      this.selectedVolunteer = changes && this.volunteers
+        ? this.volunteers.find(volunteer => this.formatName(volunteer).toLowerCase() === changes.toLowerCase())
+        : null;
       petNameControl.reset();
     }
+    console.log(this.selectedVolunteer);
   };
 
   /**
    * Filters volunteers by pet name when petName value changes.
    * @param changes
    */
-  handlePetNameChanges = changes => {
-    if (this.showPetNameForm) {
-      this.filterVolunteersByPetName(changes);
+  handlePetNameChanges = (changes): void => {
+    if (!this.showPetNameForm) {
+      return;
     }
+    this.selectedVolunteer = this.findVolunteerByPetName(changes);
+    this.filterVolunteersByPetName(changes);
+    this.clearSigPad();
   };
 
   /**
