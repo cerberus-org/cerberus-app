@@ -16,18 +16,23 @@
       {{volunteer.firstName}} {{volunteer.lastName}}
     </md-option>
   </md-autocomplete>
-  <md-input-container fxFlex *ngIf="showPetNameForm">
-    <input mdInput
-           class="capitalize"
-           placeholder="Favorite Pet"
-           [mdAutocomplete]="petNameForm"
-           formControlName="petName">
-  </md-input-container>
-  <md-autocomplete fxFlex #petNameForm="mdAutocomplete">
-    <md-option *ngFor="let volunteer of filteredVolunteersByPetName" value]="volunteer.petName">
+  <!--<md-input-container fxFlex *ngIf="showPetNameForm">-->
+    <!--<input mdInput-->
+           <!--class="capitalize"-->
+           <!--placeholder="Favorite Pet"-->
+           <!--[mdAutocomplete]="petNameForm"-->
+           <!--formControlName="petName">-->
+  <!--</md-input-container>-->
+  <!--<md-autocomplete fxFlex #petNameForm="mdAutocomplete">-->
+    <!--<md-option *ngFor="let volunteer of filteredVolunteersByPetName" [value]="volunteer.petName">-->
+      <!--<i class="material-icons">pets</i> {{volunteer.petName}}-->
+    <!--</md-option>-->
+  <!--</md-autocomplete>-->
+  <md-radio-group fxFlex *ngIf="showPetNameForm" formControlName="petName">
+    <md-radio-button *ngFor="let volunteer of filteredVolunteers" [value]="volunteer.petName">
       <i class="material-icons">pets</i> {{volunteer.petName}}
-    </md-option>
-  </md-autocomplete>
+    </md-radio-button>
+  </md-radio-group>
   <div *ngIf="activeVisitForVolunteer === null || activeVisitForVolunteer === undefined; then showCheckIn else showCheckOut"></div>
   <div fxFlex>
     <ng-template #showCheckIn>

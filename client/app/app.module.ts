@@ -4,7 +4,8 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MdAutocompleteModule, MdButtonModule, MdCardModule, MdInputModule, MdListModule, MdPaginatorModule, MdSnackBarModule,
+  MdAutocompleteModule, MdButtonModule, MdCardModule, MdInputModule, MdListModule, MdPaginatorModule, MdRadioModule,
+  MdSnackBarModule,
   MdTableModule,
   MdTabsModule, MdToolbarModule
 } from '@angular/material';
@@ -71,6 +72,7 @@ import { volunteerReducer } from './reducers/volunteer';
     MdInputModule,
     MdListModule,
     MdPaginatorModule,
+    MdRadioModule,
     MdSnackBarModule,
     MdTableModule,
     MdTabsModule,
