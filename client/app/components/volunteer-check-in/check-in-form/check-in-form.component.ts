@@ -66,6 +66,24 @@ export class CheckInFormComponent implements OnInit {
   }
 
   /**
+   * Subscribes visits in the store. TODO: Only retrieve visits from last 24 hours
+   */
+  subscribeToVisits(): void {
+    this.store.select<Visit[]>('visits').subscribe(
+      visits => this.visits = visits,
+      error => this.error = <any>error);
+  }
+
+  /**
+   * Subscribes volunteers in the store
+   */
+  subscribeToVolunteers(): void {
+    this.store.select<Volunteer[]>('volunteers').subscribe(
+      volunteers => this.volunteers = volunteers,
+      error => this.error = <any>error);
+  }
+
+  /**
    * Validates if a matching volunteer is found by name (control value).
    * @param {AbstractControl} control
    */
@@ -82,7 +100,7 @@ export class CheckInFormComponent implements OnInit {
    * @param {AbstractControl} control
    */
   volunteerUniqueValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !this.showPetNameForm || this.findVolunteerByPetName(control.value, this.filteredVolunteers)
+    return !this.showPetNameForm || this.findVolunteerByPetName(this.filteredVolunteers, control.value)
       ? null
       : { 'notUnique': { name } };
   };
@@ -117,24 +135,22 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Checks for an active visit
    */
-  checkForActiveVisit = (nameControlInvalid: boolean, petNameControlInvalid: boolean) => {
-    this.activeVisitForVolunteer = nameControlInvalid || petNameControlInvalid ? null : this.findActiveVisitForVolunteer();
+  checkForActiveVisit = (visits: Visit[], volunteer: Volunteer) => {
+    return visits && volunteer ? this.findActiveVisitForVolunteer(visits, volunteer) : null;
   };
 
   /**
    * Filters volunteers when name value changes
    * @param changes
-   * @param petNameControl
    */
-  handleNameChanges = (changes, petNameControl: AbstractControl): void => {
-    this.filteredVolunteers = this.filterVolunteersByName(changes, this.volunteers);
-    this.filteredNames = this.filterVolunteerNames(changes, this.filteredVolunteers);
+  handleNameChanges = (changes): void => {
+    this.filteredVolunteers = this.filterVolunteersByName(this.volunteers, changes);
+    this.filteredNames = this.filterVolunteerNames(this.filteredVolunteers, changes);
     this.showPetNameForm = this.checkIfFilteredHaveSameName(changes);
     if (!this.showPetNameForm) {
       this.selectedVolunteer = changes && this.volunteers
         ? this.volunteers.find(volunteer => this.formatName(volunteer).toLowerCase() === changes.toLowerCase())
         : null;
-      petNameControl.reset();
     }
   };
 
@@ -146,8 +162,8 @@ export class CheckInFormComponent implements OnInit {
     if (!this.showPetNameForm) {
       return;
     }
-    this.selectedVolunteer = this.findVolunteerByPetName(changes, this.filteredVolunteers);
-    this.filteredVolunteersByPetName = this.filterVolunteersByPetName(changes, this.filteredVolunteers);
+    this.selectedVolunteer = this.findVolunteerByPetName(this.filteredVolunteers, changes);
+    this.filteredVolunteersByPetName = this.filterVolunteersByPetName(this.filteredVolunteers, changes);
     this.clearSignature();
   };
 
@@ -157,8 +173,16 @@ export class CheckInFormComponent implements OnInit {
   subscribeToForm(): void {
     const nameControl = this.formGroup.controls['name'];
     const petNameControl = this.formGroup.controls['petName'];
-    this.formGroup.valueChanges.subscribe(() => this.checkForActiveVisit(nameControl.invalid, petNameControl.invalid));
-    nameControl.valueChanges.subscribe(changes => this.handleNameChanges(changes, petNameControl));
+    this.formGroup.valueChanges.subscribe(() =>
+      this.activeVisitForVolunteer = nameControl.invalid || petNameControl.invalid
+        ? null
+        : this.checkForActiveVisit(this.visits, this.selectedVolunteer));
+    nameControl.valueChanges.subscribe(changes => {
+      this.handleNameChanges(changes);
+      if (!this.showPetNameForm) {
+        petNameControl.reset();
+      }
+    });
     petNameControl.valueChanges.subscribe(this.handlePetNameChanges);
   }
 
@@ -167,9 +191,9 @@ export class CheckInFormComponent implements OnInit {
    */
   onSubmit(): void {
     if (this.activeVisitForVolunteer) {
-      this.endVisit();
+      this.endVisit(this.activeVisitForVolunteer);
     } else if (this.selectedVolunteer) {
-      this.startVisit();
+      this.startVisit(this.selectedVolunteer, this.signatures.first.signature);
     }
     this.formGroup.reset();
     // Workaround for clearing error state
@@ -180,29 +204,11 @@ export class CheckInFormComponent implements OnInit {
   }
 
   /**
-   * Subscribes visits in the store. TODO: Only retrieve visits from last 24 hours
-   */
-  subscribeToVisits(): void {
-    this.store.select<Visit[]>('visits').subscribe(
-      visits => this.visits = visits,
-      error => this.error = <any>error);
-  }
-
-  /**
-   * Subscribes volunteers in the store
-   */
-  subscribeToVolunteers(): void {
-    this.store.select<Volunteer[]>('volunteers').subscribe(
-      volunteers => this.volunteers = volunteers,
-      error => this.error = <any>error);
-  }
-
-  /**
    * Creates a new visit with now as the start time and a null end time.
    */
-  startVisit(): void {
+  startVisit(volunteer: Volunteer, signature: any): void {
     this.visitService.createRx(
-      new Visit(this.selectedVolunteer._id, new Date(), null, 'America/Chicago', this.signatures.first.signature),
+      new Visit(volunteer._id, new Date(), null, 'America/Chicago', signature),
       () => {
         this.snackBar.open('Volunteer successfully checked in!', '', { duration: 3000 });
         this.router.navigateByUrl('/home');
@@ -214,8 +220,8 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Updates a visit with now as the end time.
    */
-  endVisit(): void {
-    this.visitService.updateRx(Object.assign({}, this.activeVisitForVolunteer, { endedAt: new Date() }),
+  endVisit(visit: Visit): void {
+    this.visitService.updateRx(Object.assign({}, visit, { endedAt: new Date() }),
       () => {
         this.snackBar.open('Volunteer successfully checked out!', '', { duration: 3000 });
         this.router.navigateByUrl('/home');
@@ -227,10 +233,10 @@ export class CheckInFormComponent implements OnInit {
 
   /**
    * Filters volunteers names for autocomplete by comparing against first and last names and removing duplicates.
-   * @param name
    * @param volunteers
+   * @param name
    */
-  filterVolunteerNames(name: string, volunteers: Volunteer[]): string[] {
+  filterVolunteerNames(volunteers: Volunteer[], name: string): string[] {
     return name && volunteers
       ? Array.from(new Set(volunteers
         .filter(volunteer => this.formatName(volunteer).toLowerCase().includes(name.toLowerCase()))
@@ -240,10 +246,10 @@ export class CheckInFormComponent implements OnInit {
 
   /**
    * Filters volunteers by comparing against first and last names.
-   * @param name
    * @param volunteers
+   * @param name
    */
-  filterVolunteersByName(name: string, volunteers: Volunteer[]): Volunteer[] {
+  filterVolunteersByName(volunteers: Volunteer[], name: string): Volunteer[] {
     return name && volunteers
       ? volunteers.filter(volunteer => this.formatName(volunteer).toLowerCase().includes(name.toLowerCase()))
       : null;
@@ -251,11 +257,11 @@ export class CheckInFormComponent implements OnInit {
 
   /**
    * Checks if the given pet name narrows the filtered volunteers to one.
-   * @param petName
    * @param volunteers
+   * @param petName
    * @returns {boolean}
    */
-  filterVolunteersByPetName(petName: string, volunteers: Volunteer[]): Volunteer[] {
+  filterVolunteersByPetName(volunteers: Volunteer[], petName: string): Volunteer[] {
     return petName && volunteers
       ? volunteers.filter(volunteer => volunteer.petName.toLowerCase().includes(petName.toLowerCase()))
       : null;
@@ -265,19 +271,19 @@ export class CheckInFormComponent implements OnInit {
    * Finds an active visit for the selected volunteer if one exists.
    * @returns {undefined|Visit}
    */
-  findActiveVisitForVolunteer(): Visit {
-    return this.visits && this.selectedVolunteer
-      ? this.visits.find(visit => visit.endedAt === null && this.selectedVolunteer._id === visit.volunteerId)
+  findActiveVisitForVolunteer(visits: Visit[], volunteer: Volunteer): Visit {
+    return visits && volunteer
+      ? visits.find(visit => visit.endedAt === null && volunteer._id === visit.volunteerId)
       : null;
   }
 
   /**
    * Finds a unique volunteer using a pet name (no two volunteers of the first and last names can have the same pet name).
-   * @param petName
    * @param volunteers
+   * @param petName
    * @returns {boolean}
    */
-  findVolunteerByPetName(petName: string, volunteers: Volunteer[]): Volunteer {
+  findVolunteerByPetName(volunteers: Volunteer[], petName: string): Volunteer {
     return volunteers ? volunteers.find(volunteer => volunteer.petName === petName) : null;
   }
 
