@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Response, RequestOptions, Http } from '@angular/http';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import handleError from '../helpers/handle-error';
@@ -8,7 +8,7 @@ import { User } from '../models/user';
 
 @Injectable()
 export class UserService extends BaseService {
-  model: any;
+  model: User;
   modelName: 'user';
 
   constructor(protected http: Http) {

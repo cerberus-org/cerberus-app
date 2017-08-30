@@ -25,13 +25,14 @@ export default function setRoutes(app) {
   router.route('/organization/:id').put(auth.ensureLoggedIn, organizationHandler.update);
   router.route('/organization/:id').delete(auth.ensureLoggedIn, organizationHandler.delete);
 
-  // Volunteers
-  router.route('/volunteers').get(auth.ensureLoggedIn, volunteerHandler.getAll);
-  router.route('/volunteers/count').get(auth.ensureLoggedIn, volunteerHandler.count);
-  router.route('/volunteer').post(auth.ensureLoggedIn, volunteerHandler.insert);
-  router.route('/volunteer/:id').get(auth.ensureLoggedIn, volunteerHandler.get);
-  router.route('/volunteer/:id').put(auth.ensureLoggedIn, volunteerHandler.update);
-  router.route('/volunteer/:id').delete(auth.ensureLoggedIn, volunteerHandler.delete);
+  // Users
+  router.route('/users').get(auth.ensureLoggedIn, userHandler.getAll);
+  router.route('/users/count').get(auth.ensureLoggedIn, userHandler.count);
+  router.route('/user').post(userHandler.insert);
+  router.route('/user/:id').get(auth.ensureLoggedIn, userHandler.get);
+  router.route('/user/:id').put(auth.ensureLoggedIn, userHandler.update);
+  router.route('/user/:id').delete(auth.ensureLoggedIn, userHandler.delete);
+  router.route('/user/login').post(userHandler.login);
 
   // Visits
   router.route('/visits').get(auth.ensureLoggedIn, visitHandler.getAll);
@@ -42,14 +43,13 @@ export default function setRoutes(app) {
   router.route('/visit/:id').delete(auth.ensureLoggedIn, visitHandler.delete);
   router.route('/visits/:date').get(auth.ensureLoggedIn, visitHandler.getByDate);
 
-  // Users
-  router.route('/users').get(auth.ensureLoggedIn, userHandler.getAll);
-  router.route('/users/count').get(auth.ensureLoggedIn, userHandler.count);
-  router.route('/user').post(userHandler.insert);
-  router.route('/user/:id').get(auth.ensureLoggedIn, userHandler.get);
-  router.route('/user/:id').put(auth.ensureLoggedIn, userHandler.update);
-  router.route('/user/:id').delete(auth.ensureLoggedIn, userHandler.delete);
-  router.route('/user/login').post(userHandler.login);
+  // Volunteers
+  router.route('/volunteers').get(auth.ensureLoggedIn, volunteerHandler.getAll);
+  router.route('/volunteers/count').get(auth.ensureLoggedIn, volunteerHandler.count);
+  router.route('/volunteer').post(auth.ensureLoggedIn, volunteerHandler.insert);
+  router.route('/volunteer/:id').get(auth.ensureLoggedIn, volunteerHandler.get);
+  router.route('/volunteer/:id').put(auth.ensureLoggedIn, volunteerHandler.update);
+  router.route('/volunteer/:id').delete(auth.ensureLoggedIn, volunteerHandler.delete);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);

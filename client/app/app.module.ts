@@ -40,6 +40,7 @@ import { VisitService } from './services/visit.service';
 
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
+import { OrganizationService } from './services/organization.service';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { volunteerReducer } from './reducers/volunteer';
   ],
   providers: [
     Guard,
+    OrganizationService,
     UserService,
     VisitService,
     VolunteerService
