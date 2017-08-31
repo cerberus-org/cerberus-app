@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MdListModule, MdPaginatorModule, MdTableModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CdkTableModule } from '@angular/cdk';
+import { CdkTableModule } from '@angular/cdk/table';
 
 import { VisitHistoryTableComponent } from './visit-history-table.component';
 import { StoreModule } from '@ngrx/store';

@@ -10,7 +10,7 @@ import {
   MdTableModule,
   MdTabsModule, MdToolbarModule
 } from '@angular/material';
-import { CdkTableModule } from '@angular/cdk';
+import { CdkTableModule } from '@angular/cdk/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { ChartsModule } from 'ng2-charts';
