@@ -44,6 +44,7 @@ import { volunteerReducer } from './reducers/volunteer';
 import { OrganizationService } from './services/organization.service';
 import { GettingStartedComponent } from './components/getting-started/getting-started.component';
 import { AboutUsComponent } from './components/getting-started/about-us/about-us.component';
+import { NewOrganizationFormComponent } from './components/getting-started/new-organization-form/new-organization-form.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { AboutUsComponent } from './components/getting-started/about-us/about-us
     DailyHoursChartComponent,
     SignatureFieldComponent,
     GettingStartedComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    NewOrganizationFormComponent
   ],
   imports: [
     BrowserModule,
