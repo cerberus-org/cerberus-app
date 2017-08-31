@@ -34,10 +34,11 @@ describe('DailyHoursChartComponent', () => {
 
   it('creates a key for each unique date', () => {
     const dates = Array.from(component.mapVisitsToDate(testVisits).keys());
-    expect(dates.length).toEqual(2);
+    expect(dates.length).toEqual(3);
     expect(dates).toEqual([
       testVisits[0].startedAt.toDateString(),
-      testVisits[2].startedAt.toDateString()
+      testVisits[2].startedAt.toDateString(),
+      testVisits[4].startedAt.toDateString()
     ]);
   });
 

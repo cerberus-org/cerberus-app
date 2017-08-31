@@ -43,5 +43,4 @@ export default function setRoutes(app) {
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
-
 }

@@ -12,7 +12,7 @@ describe('visitReducer', () => {
 
   it('loads visits', () => {
     const result = visitReducer([], { type: 'LOAD_VISITS', payload: visits });
-    expect(result).toBe(visits);
+    expect(result).toEqual(testVisits.slice(0, 3).reverse());
   });
 
   it('adds a visit', () => {
