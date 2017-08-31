@@ -24,7 +24,6 @@ export function visitReducer(state: Visit[] = [], action: Action) {
 
 /**
  * Filter out invalid visits.
- *
  * @param visits
  * @return {Visit[]}
  */
@@ -48,6 +47,21 @@ function getValidVisits (visits: Visit[]): Visit[] {
       return true;
     }
   });
+  deleteInvalidVisits(invalidVisits);
   return validVisits;
+}
+
+/**
+ * Delete invalid visits.
+ * @param visits
+ */
+function deleteInvalidVisits(visits: Visit[]): void {
+  this.visitService.batchDelete(visits)
+    .subscribe(
+      response => {
+        console.log(response);
+      },
+      err => console.log(err)
+    );
 }
 
