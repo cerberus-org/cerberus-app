@@ -9,6 +9,7 @@
 }
 
 .signature-container {
+  max-height: 200px;
   border-style: dashed;
   border-width: .07rem;
 }
