@@ -22,6 +22,12 @@ export function visitReducer(state: Visit[] = [], action: Action) {
   }
 }
 
+/**
+ * Filter out invalid visits.
+ *
+ * @param visits
+ * @return {Visit[]}
+ */
 function getValidVisits (visits: Visit[]): Visit[] {
   // visits to discard
   const invalidVisits: Visit[] = new Array();
