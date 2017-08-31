@@ -4,7 +4,8 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MdAutocompleteModule, MdButtonModule, MdCardModule, MdInputModule, MdListModule, MdPaginatorModule, MdRadioModule,
+  MdAutocompleteModule, MdButtonModule, MdCardModule, MdIconModule, MdInputModule, MdListModule, MdPaginatorModule,
+  MdRadioModule,
   MdSnackBarModule,
   MdTableModule,
   MdTabsModule, MdToolbarModule
@@ -42,6 +43,7 @@ import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
 import { OrganizationService } from './services/organization.service';
 import { GettingStartedComponent } from './components/getting-started/getting-started.component';
+import { AboutUsComponent } from './components/getting-started/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { GettingStartedComponent } from './components/getting-started/getting-st
     VisitDataDisplayComponent,
     DailyHoursChartComponent,
     SignatureFieldComponent,
-    GettingStartedComponent
+    GettingStartedComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +75,7 @@ import { GettingStartedComponent } from './components/getting-started/getting-st
     MdAutocompleteModule,
     MdButtonModule,
     MdCardModule,
+    MdIconModule,
     MdInputModule,
     MdListModule,
     MdPaginatorModule,
