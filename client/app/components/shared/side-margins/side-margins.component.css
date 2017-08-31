@@ -3,3 +3,7 @@
   display: flex;
   flex: 1;
 }
+
+.margins {
+  margin: 1rem;
+}
