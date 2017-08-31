@@ -26,6 +26,7 @@
   <div fxFlex="0 1 auto">
     <ng-template #showCheckIn>
       <div *ngIf="!!selectedVolunteer"
+           fxFlex
            fxLayout="column"
            fxLayoutAlign="center center"
            [@sigTrigger]="signatureState">
