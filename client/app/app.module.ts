@@ -45,6 +45,7 @@ import { OrganizationService } from './services/organization.service';
 import { GettingStartedComponent } from './components/getting-started/getting-started.component';
 import { AboutUsComponent } from './components/getting-started/about-us/about-us.component';
 import { NewOrganizationFormComponent } from './components/getting-started/new-organization-form/new-organization-form.component';
+import { SideMarginsComponent } from './components/shared/side-margins/side-margins.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { NewOrganizationFormComponent } from './components/getting-started/new-o
     SignatureFieldComponent,
     GettingStartedComponent,
     AboutUsComponent,
-    NewOrganizationFormComponent
+    NewOrganizationFormComponent,
+    SideMarginsComponent
   ],
   imports: [
     BrowserModule,

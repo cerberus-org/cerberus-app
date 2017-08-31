@@ -6,7 +6,7 @@
   flex: 1;
 }
 
-.icon {
+md-icon {
   margin: 1rem;
   height: 15vw;
   width: 15vw;
@@ -14,12 +14,6 @@
   color: gray;
 }
 
-.icon-text {
-  font-size: 2rem;
-  font-weight: lighter;
-}
-
-.text-container {
-  font-size: 1.5rem;
-  font-weight: 200;
+h2 {
+  margin: 2rem;
 }

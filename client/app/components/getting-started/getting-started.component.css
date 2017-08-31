@@ -19,3 +19,8 @@
   flex-direction: column;
   flex-grow: 1;
 }
+
+/* Prevent overflow-x in sm */
+md-tab-group {
+  max-width: 100vw
+}

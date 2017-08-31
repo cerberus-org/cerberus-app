@@ -1,5 +1,5 @@
-<form fxFlex fxLayout="column" [formGroup]="null" (ngSubmit)="null">
-  <p>Tell us about your organization.</p>
+<form fxFlex fxLayout="column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <h1>Tell us about your organization.</h1>
   <md-form-field>
     <input mdInput placeholder="Organization name">
   </md-form-field>
