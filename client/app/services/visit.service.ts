@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -7,7 +7,6 @@ import 'rxjs/add/observable/of';
 import BaseService from './base.service';
 import { testVisits, Visit } from '../models/visit';
 import { ADD_VISIT, LOAD_VISITS, MODIFY_VISIT } from '../reducers/visit';
-import handleError from '../helpers/handle-error';
 
 @Injectable()
 export class VisitService extends BaseService {
@@ -48,19 +47,6 @@ export class VisitService extends BaseService {
     visit.startedAt = new Date(visit.startedAt);
     visit.endedAt = visit.endedAt ? new Date(visit.endedAt) : null;
     return visit
-  }
-
-  /**
-   * Delete an array of visits.
-   * @param visits
-   * @return {Observable<R|T>}
-   */
-  batchDelete(visits: Visit[]): Observable<any> {
-    const headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': localStorage.token });
-    const options = new RequestOptions({ headers: headers, body: JSON.stringify(visits) });
-    return this.http.delete(`/api/${this.modelName}`, options)
-      .map(res => this.convert(res.json()))
-      .catch(handleError);
   }
 }
 

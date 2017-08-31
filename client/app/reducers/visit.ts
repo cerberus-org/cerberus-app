@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Visit } from '../models/visit';
+import { VisitService } from '../services/visit.service';
 
 export const LOAD_VISITS = 'LOAD_VISITS';
 export const ADD_VISIT = 'ADD_VISIT';
@@ -28,9 +29,7 @@ export function visitReducer(state: Visit[] = [], action: Action) {
  * @return {Visit[]}
  */
 function getValidVisits (visits: Visit[]): Visit[] {
-  // visits to discard
   const invalidVisits: Visit[] = new Array();
-  // visits to return
   const validVisits = visits.filter(function(visit){
     // if the visit is still ongoing
     if (visit.endedAt === null) {
@@ -47,21 +46,6 @@ function getValidVisits (visits: Visit[]): Visit[] {
       return true;
     }
   });
-  deleteInvalidVisits(invalidVisits);
   return validVisits;
-}
-
-/**
- * Delete invalid visits.
- * @param visits
- */
-function deleteInvalidVisits(visits: Visit[]): void {
-  this.visitService.batchDelete(visits)
-    .subscribe(
-      response => {
-        console.log(response);
-      },
-      err => console.log(err)
-    );
 }
 

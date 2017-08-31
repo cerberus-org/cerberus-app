@@ -23,28 +23,4 @@ export default class VisitHandler extends BaseHandler {
       }
     );
   };
-
-  /**
-   * Remove list of visits.
-   *
-   * @param req
-   * @param res
-   */
-  batchDelete = (req, res) => {
-    // for each visit in req
-    for (const visit of req) {
-      // find by id and remove
-      this.model.findByIdAndRemove(visit.params.id, (err, obj) => {
-        if (err || !obj) {
-          // Cast to ObjectId failed or object not found
-          res.sendStatus(404);
-          if (err) {
-            return console.error(err);
-          }
-        } else {
-          res.sendStatus(204);
-        }
-      });
-    }
-  };
 }

@@ -30,7 +30,6 @@ export default function setRoutes(app) {
   router.route('/visit/:id').get(auth.ensureLoggedIn, visitHandler.get);
   router.route('/visit/:id').put(auth.ensureLoggedIn, visitHandler.update);
   router.route('/visit/:id').delete(auth.ensureLoggedIn, visitHandler.delete);
-  router.route('/visits').delete(auth.ensureLoggedIn, visitHandler.batchDelete);
   router.route('/visits/:date').get(auth.ensureLoggedIn, visitHandler.getByDate);
 
   // Users
@@ -44,5 +43,4 @@ export default function setRoutes(app) {
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
-
 }
