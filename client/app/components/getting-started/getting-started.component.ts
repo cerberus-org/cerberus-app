@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./getting-started.component.css']
 })
 export class GettingStartedComponent implements OnInit {
+  step: number;
 
   constructor() { }
 
   ngOnInit() {
+    this.step = 0;
   }
 
+  setStep = value => {
+    this.step = value > this.step ? value : this.step;
+  };
 }
