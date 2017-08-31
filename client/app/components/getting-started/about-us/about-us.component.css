@@ -1,15 +1,22 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-
 /* Makes host element a flex container */
 :host {
   display: flex;
   flex: 1;
 }
 
+.icons-container {
+  margin: 5rem;
+}
+
 md-icon {
   margin: 1rem;
-  height: 15vw;
-  width: 15vw;
-  font-size: 15vw;
+  height: 10vw;
+  width: 10vw;
+  font-size: 10vw;
   color: gray;
+}
+
+h2 {
+  width: auto;
+  max-width: 75rem;
 }

@@ -1,11 +1,11 @@
 <div fxFlex fxLayout="column">
   <h1>Welcome to Cerberus.</h1>
-  <div fxFlex
+  <div class="icons-container"
+       fxFlex
        fxLayout="row"
        fxLayout.xs="column"
        fxLayoutAlign="center center"
-       fxLayoutGap="5rem"
-       fxLayoutGap.xs="0">
+       fxLayoutGap.xs="5rem">
     <div fxFlex fxLayout="column" fxLayout.xs="row" fxLayoutAlign="center center">
       <md-icon class="material-icons">touch_app</md-icon>
       <h1>Collect</h1>
@@ -19,8 +19,11 @@
       <h1>Manage</h1>
     </div>
   </div>
-  <div fxFlex="0.2 1 auto" fxLayout="row">
-    <h2 fxFlex>Cerberus allows volunteers to sign in and out digitally and collects real-time data. This data is
-      displayed through meaningful graphics to help volunteers better allocate their time.</h2>
+  <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="center start">
+    <h2>Cerberus allows volunteers to sign in and out digitally and collects real-time data. This data is
+      displayed through meaningful graphics to help volunteers better manage their time.</h2>
+  </div>
+  <div fxFlex="0 1 auto" fxLayout="row-reverse">
+    <button fxFlex="0 1 auto" md-raised-button color="primary">Next</button>
   </div>
 </div>

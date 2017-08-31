@@ -1,6 +1,12 @@
-<form fxFlex fxLayout="column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-  <h1>Tell us about your organization.</h1>
-  <md-form-field>
+<form fxFlex="0 1 auto" fxLayout="column" fxLayoutGap="2rem" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <h1 fxFlex="0 1 auto">Tell us about your organization.</h1>
+  <md-form-field fxFlex="0 1 auto">
     <input mdInput placeholder="Organization name">
+  </md-form-field>
+  <md-form-field fxFlex="0 1 auto">
+    <textarea mdInput placeholder="Short description"></textarea>
+  </md-form-field>
+  <md-form-field fxFlex="0 1 auto">
+    <input mdInput placeholder="Website">
   </md-form-field>
 </form>
