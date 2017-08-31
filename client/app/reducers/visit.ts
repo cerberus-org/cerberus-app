@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { Visit } from '../models/visit';
-import { VisitService } from '../services/visit.service';
 
 export const LOAD_VISITS = 'LOAD_VISITS';
 export const ADD_VISIT = 'ADD_VISIT';
@@ -29,20 +28,18 @@ export function visitReducer(state: Visit[] = [], action: Action) {
  * @return {Visit[]}
  */
 function getValidVisits (visits: Visit[]): Visit[] {
-  const invalidVisits: Visit[] = new Array();
-  const validVisits = visits.filter(function(visit){
+  let hours = 0;
+  const validVisits = visits.filter(function(visit) {
     // if the visit is still ongoing
     if (visit.endedAt === null) {
       // get current visit hours
-      const hours = Math.abs(visit.startedAt.getTime() - new Date().getTime()) / 3600000;
-      if (hours > maxHours) {
-        invalidVisits.push(visit);
-      } else {
-        // if the visit is valid keep it
-        return true;
-      }
-    } else {
-      // if the visit is complete keep it
+      hours = Math.abs(visit.startedAt.getTime() - new Date().getTime()) / 3600000;
+    } else { // if the visit is completed
+      hours = Math.abs(visit.startedAt.getTime() - visit.endedAt.getTime()) / 3600000;
+    }
+    if (hours > maxHours) {
+      return false;
+    } else { // if the visit is valid
       return true;
     }
   });
