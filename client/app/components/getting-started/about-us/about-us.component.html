@@ -1,29 +1,27 @@
 <div fxFlex fxLayout="column">
-  <h1>Welcome to Cerberus.</h1>
+  <h1 fxFlex>Welcome to Cerberus.</h1>
   <div class="icons-container"
-       fxFlex
+       fxFlex="0 1 auto"
        fxLayout="row"
        fxLayout.xs="column"
        fxLayoutAlign="center center"
-       fxLayoutGap.xs="5rem">
-    <div fxFlex fxLayout="column" fxLayout.xs="row" fxLayoutAlign="center center">
+       fxLayoutGap="5rem"
+       fxLayoutGap.xs="0">
+    <div fxFlex="0 1 auto" fxLayout="column" fxLayout.xs="row" fxLayoutAlign="center center">
       <md-icon class="material-icons">touch_app</md-icon>
       <h1>Collect</h1>
     </div>
-    <div fxFlex fxLayout="column" fxLayout.xs="row" fxLayoutAlign="center center">
+    <div fxFlex="0 1 auto" fxLayout="column" fxLayout.xs="row" fxLayoutAlign="center center">
       <md-icon class="material-icons">timeline</md-icon>
       <h1>Display</h1>
     </div>
-    <div fxFlex fxLayout="column" fxLayout.xs="row" fxLayoutAlign="center center">
+    <div fxFlex="0 1 auto" fxLayout="column" fxLayout.xs="row" fxLayoutAlign="center center">
       <md-icon class="material-icons">supervisor_account</md-icon>
       <h1>Manage</h1>
     </div>
   </div>
-  <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="center start">
+  <div class="text-container" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="center start">
     <h2>Cerberus allows volunteers to sign in and out digitally and collects real-time data. This data is
       displayed through meaningful graphics to help volunteers better manage their time.</h2>
-  </div>
-  <div fxFlex="0 1 auto" fxLayout="row-reverse">
-    <button fxFlex="0 1 auto" md-raised-button color="primary" (click)="onNext()">Next</button>
   </div>
 </div>

@@ -24,3 +24,7 @@
 md-tab-group {
   max-width: 100vw
 }
+
+button {
+  margin: 1rem;
+}

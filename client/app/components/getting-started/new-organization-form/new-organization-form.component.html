@@ -1,4 +1,8 @@
-<form fxFlex="0 1 auto" fxLayout="column" fxLayoutGap="2rem" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+<form fxFlex="0 1 auto"
+      fxLayout="column"
+      fxLayoutGap="1rem"
+      [formGroup]="formGroup"
+      (ngSubmit)="onSubmit()">
   <h1 fxFlex="0 1 auto">Tell us about your organization.</h1>
   <md-form-field fxFlex="0 1 auto">
     <input mdInput placeholder="Organization name">
@@ -9,7 +13,4 @@
   <md-form-field fxFlex="0 1 auto">
     <input mdInput placeholder="Website">
   </md-form-field>
-  <div fxFlex="0 1 auto" fxLayout="row-reverse">
-    <button fxFlex="0 1 auto" md-raised-button color="primary">Next</button>
-  </div>
 </form>

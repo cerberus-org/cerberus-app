@@ -4,8 +4,8 @@
   flex: 1;
 }
 
-h1 {
-  width: auto;
+.overflow-container {
+  overflow-y: auto;
 }
 
 md-form-field {

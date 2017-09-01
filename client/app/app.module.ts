@@ -46,6 +46,7 @@ import { GettingStartedComponent } from './components/getting-started/getting-st
 import { AboutUsComponent } from './components/getting-started/about-us/about-us.component';
 import { NewOrganizationFormComponent } from './components/getting-started/new-organization-form/new-organization-form.component';
 import { SideMarginsComponent } from './components/shared/side-margins/side-margins.component';
+import { NewUserFormComponent } from './components/getting-started/new-user-form/new-user-form.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { SideMarginsComponent } from './components/shared/side-margins/side-marg
     GettingStartedComponent,
     AboutUsComponent,
     NewOrganizationFormComponent,
-    SideMarginsComponent
+    SideMarginsComponent,
+    NewUserFormComponent
   ],
   imports: [
     BrowserModule,

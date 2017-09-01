@@ -4,8 +4,17 @@
   flex: 1;
 }
 
+.container {
+  height:auto;
+}
+
+.overflow-container {
+  overflow-y: auto;
+}
+
 .icons-container {
-  margin: 5rem;
+  height: auto;
+  width: auto;
 }
 
 md-icon {
@@ -16,7 +25,13 @@ md-icon {
   color: gray;
 }
 
-h2 {
+p {
   width: auto;
-  max-width: 75rem;
+  max-width: 50rem;
+  font-weight: 200;
+}
+
+.text-container {
+  height: auto;
+  width: auto;
 }
