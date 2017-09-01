@@ -34,4 +34,5 @@ p {
 .text-container {
   height: auto;
   width: auto;
+  max-width: 50rem;
 }
