@@ -1,8 +1,10 @@
-<md-tab-group fxFlex="60%" fxFlex.sm="75%" fxFlex.xs="100%" fxLayout="column" fxLayoutAlign="center" md-stretch-tabs dynamicHeight #tabGroup>
-  <md-tab label="Check In">
-    <app-check-in-form></app-check-in-form>
-  </md-tab>
-  <md-tab label="New Volunteer">
-    <app-new-volunteer-form (changeTab)="tabGroup.selectedIndex = $event"></app-new-volunteer-form>
-  </md-tab>
-</md-tab-group>
+<app-side-margins fxFlex fxLayout="column">
+  <md-tab-group class="container" fxLayout="column" md-stretch-tabs dynamicHeight #tabGroup>
+    <md-tab label="Check In">
+      <app-check-in-form></app-check-in-form>
+    </md-tab>
+    <md-tab label="New Volunteer">
+      <app-new-volunteer-form (changeTab)="tabGroup.selectedIndex = $event"></app-new-volunteer-form>
+    </md-tab>
+  </md-tab-group>
+</app-side-margins>

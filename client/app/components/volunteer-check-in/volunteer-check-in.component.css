@@ -19,3 +19,8 @@
   flex-direction: column;
   flex-grow: 1;
 }
+
+.container {
+  width: 50rem;
+  max-width: 100vw;
+}

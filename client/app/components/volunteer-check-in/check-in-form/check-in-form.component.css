@@ -10,6 +10,7 @@
 
 .signature-container {
   max-height: 200px;
+  max-width: 100vw;
   border-style: dashed;
   border-width: .07rem;
 }

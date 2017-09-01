@@ -25,14 +25,9 @@ md-icon {
   color: gray;
 }
 
-p {
-  width: auto;
-  max-width: 50rem;
-  font-weight: 200;
-}
-
 .text-container {
   height: auto;
   width: auto;
-  max-width: 50rem;
+  max-width: 60rem;
+  line-height: 2.2rem;
 }
