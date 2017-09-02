@@ -4,6 +4,18 @@
   flex: 1;
 }
 
+form {
+  margin-top: 2rem;
+}
+
+md-input-container {
+  width: 15rem;
+}
+
+input.capitalize {
+  text-transform: capitalize;
+}
+
 .pets-container {
   margin-bottom: 1rem;
 }
@@ -15,18 +27,6 @@
   border-width: .07rem;
 }
 
-input.capitalize {
-  text-transform: capitalize;
-}
-
 button {
-  margin-top: 1rem;
-}
-
-md-input-container {
-  width: 15rem;
-}
-
-form {
-  margin: 2rem;
+  margin: 1rem;
 }

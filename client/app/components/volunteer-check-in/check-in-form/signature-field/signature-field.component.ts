@@ -21,7 +21,7 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 export class SignatureFieldComponent implements ControlValueAccessor {
 
   public options: Object = {
-    'canvasWidth': 500,
+    'canvasWidth': 600,
     'canvasHeight': 200
   };
 
@@ -59,7 +59,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   }
 
   /**
-   * Register 'fn' which will be fired when changes are made.
+   * Register 'fn' which will be fired when changes are mad
    * This is how changes are emitted back to the form.
    * @param fn
    */

@@ -5,16 +5,18 @@
 }
 
 .container {
-  height:auto;
+  height: auto;
+  width: auto;
+  margin: 1rem;
 }
+
 
 .overflow-container {
   overflow-y: auto;
 }
 
 .icons-container {
-  height: auto;
-  width: auto;
+  min-height: 8rem;
 }
 
 md-icon {
@@ -22,12 +24,9 @@ md-icon {
   height: 10vw;
   width: 10vw;
   font-size: 10vw;
-  color: gray;
+  color: mediumaquamarine;
 }
-
-.text-container {
-  height: auto;
-  width: auto;
+h2 {
   max-width: 60rem;
   line-height: 2.2rem;
 }
