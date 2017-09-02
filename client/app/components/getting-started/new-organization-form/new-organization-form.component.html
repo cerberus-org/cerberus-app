@@ -1,17 +1,17 @@
-<form fxFlex="0 1 auto"
+<form fxFlex
       fxLayout="column"
       fxLayoutAlign="start center"
       fxLayoutGap="1rem"
       [formGroup]="formGroup"
       (ngSubmit)="onSubmit()">
-  <h1 fxFlex="0 1 auto">Tell us about your organization.</h1>
-  <md-form-field fxFlex="0 1 auto">
-    <input mdInput placeholder="Organization name">
+  <h1 class="text-container" fxFlex="0 1 auto">Tell us about your organization.</h1>
+  <md-form-field class="input-container" fxFlex="0 1 auto">
+    <input mdInput class="capitalize" placeholder="Organization name" formControlName="name">
   </md-form-field>
-  <md-form-field fxFlex="0 1 auto">
-    <textarea mdInput placeholder="Short description"></textarea>
+  <md-form-field class="input-container" fxFlex="0 1 auto">
+    <textarea mdInput placeholder="Short description" formControlName="description"></textarea>
   </md-form-field>
-  <md-form-field fxFlex="0 1 auto">
-    <input mdInput placeholder="Website">
+  <md-form-field class="input-container" fxFlex="0 1 auto">
+    <input mdInput placeholder="Website" formControlName="website">
   </md-form-field>
 </form>

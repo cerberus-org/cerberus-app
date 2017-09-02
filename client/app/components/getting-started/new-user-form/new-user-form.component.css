@@ -4,10 +4,17 @@
   flex: 1;
 }
 
-h1 {
+.text-container {
   width: auto;
+  margin: 1rem;
 }
 
-md-form-field {
+.input-container {
   width: 25rem;
+  max-width: calc(100vw - 2rem);
+  margin: 1rem;
+}
+
+input.capitalize {
+  text-transform: capitalize;
 }

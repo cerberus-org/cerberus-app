@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,12 +7,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./new-user-form.component.css']
 })
 export class NewUserFormComponent implements OnInit {
+  @Output() valid = new EventEmitter<boolean>();
   formGroup: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.formGroup = this.createForm();
+    this.subscribeToForm(this.formGroup);
   }
 
   onSubmit() {
@@ -23,9 +25,16 @@ export class NewUserFormComponent implements OnInit {
    */
   createForm(): FormGroup {
     return this.fb.group({
-      username: ['', [Validators.required]],
-      email: ['', Validators.required],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required]
+    });
+  }
+
+  subscribeToForm(group: FormGroup): void {
+    group.valueChanges.subscribe(changes => {
+      this.valid.emit(group.valid);
     });
   }
 }

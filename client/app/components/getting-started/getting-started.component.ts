@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GettingStartedComponent implements OnInit {
   step: number;
+  validOrganization;
+  validUser;
 
   constructor() { }
 
@@ -14,7 +16,7 @@ export class GettingStartedComponent implements OnInit {
     this.step = 0;
   }
 
-  setStep = value => {
+  setStep(value) {
     this.step = value > this.step ? value : this.step;
   };
 }
