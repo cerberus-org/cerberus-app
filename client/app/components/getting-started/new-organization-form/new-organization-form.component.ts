@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { Organization } from '../../../models/organization';
+
 @Component({
   selector: 'app-new-organization-form',
   templateUrl: './new-organization-form.component.html',
@@ -8,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class NewOrganizationFormComponent implements OnInit {
   @Output() valid = new EventEmitter<boolean>();
+  @Output() organization = new EventEmitter<Organization>();
   formGroup: FormGroup;
 
   constructor(private fb: FormBuilder) { }
@@ -34,6 +37,10 @@ export class NewOrganizationFormComponent implements OnInit {
   subscribeToForm(group: FormGroup): void {
     group.valueChanges.subscribe(changes => {
       this.valid.emit(group.valid);
+      if (group.valid) {
+        const value = this.formGroup.value;
+        this.organization.emit(new Organization(value.name, value.description, value.website));
+      }
     });
   }
 }

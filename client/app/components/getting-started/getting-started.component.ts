@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Organization } from '../../models/organization';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-getting-started',
@@ -7,8 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GettingStartedComponent implements OnInit {
   step: number;
-  validOrganization;
-  validUser;
+  validOrganization: boolean;
+  validUser: boolean;
+  organization: Organization;
+  user: User;
 
   constructor() { }
 

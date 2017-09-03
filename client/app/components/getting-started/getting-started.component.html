@@ -4,39 +4,51 @@
       <app-about-us></app-about-us>
     </app-side-margins>
     <div fxFlex="0 1 auto" fxLayout="row-reverse">
-      <button fxFlex="0 1 auto" md-raised-button color="primary" (click)="setStep(1); tabGroup.selectedIndex = 1">Next</button>
+      <button md-raised-button
+              fxFlex="0 1 auto"
+              color="primary"
+              (click)="setStep(1); tabGroup.selectedIndex = 1">
+        Next
+      </button>
     </div>
   </md-tab>
   <md-tab label="2. Your Organization" [disabled]="step < 1">
     <app-side-margins>
-      <app-new-organization-form (valid)="validOrganization = $event"></app-new-organization-form>
+      <app-new-organization-form (valid)="validOrganization = $event"
+                                 (organization)="organization = $event">
+      </app-new-organization-form>
     </app-side-margins>
     <div fxFlex="0 1 auto" fxLayout="row-reverse">
       <button md-raised-button
               fxFlex="0 1 auto"
               color="primary"
               (click)="setStep(2); tabGroup.selectedIndex = 2"
-              [disabled]="!validOrganization">Next</button>
+              [disabled]="!validOrganization">
+        Next
+      </button>
     </div>
   </md-tab>
   <md-tab label="3. Your Account" [disabled]="step < 2 || !validOrganization">
     <app-side-margins>
-      <app-new-user-form (valid)="validUser = $event"></app-new-user-form>
+      <app-new-user-form (valid)="validUser = $event" (user)="user = $event"></app-new-user-form>
     </app-side-margins>
     <div fxFlex="0 1 auto" fxLayout="row-reverse">
       <button md-raised-button
               fxFlex="0 1 auto"
               color="primary"
               (click)="setStep(3); tabGroup.selectedIndex = 3"
-              [disabled]="!validUser">Next</button>
+              [disabled]="!validUser">
+        Next
+      </button>
     </div>
   </md-tab>
   <md-tab label="4. Confirm" [disabled]="step < 3 || !validOrganization || !validUser">
     <app-side-margins>
-
+      <app-organization-confirm [organization]="organization" [user]="user">
+      </app-organization-confirm>
     </app-side-margins>
     <div fxFlex="0 1 auto" fxLayout="row-reverse">
-      <button fxFlex="0 1 auto" md-raised-button color="primary">Next</button>
+      <button md-raised-button fxFlex="0 1 auto" color="primary">Submit</button>
     </div>
   </md-tab>
 </md-tab-group>
