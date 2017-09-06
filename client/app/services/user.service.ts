@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 
 import handleError from '../helpers/handle-error';
 import BaseService from './base.service';
-import { User } from '../models/user';
 
 @Injectable()
 export class UserService extends BaseService {

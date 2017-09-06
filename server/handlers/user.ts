@@ -1,9 +1,10 @@
 import BaseHandler from './base';
 import User from '../models/user';
-import * as jwt from 'jwt-simple'
 import 'zone.js';
 import 'reflect-metadata';
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
 
 export default class UserHandler extends BaseHandler {
   model = User;
@@ -20,7 +21,7 @@ export default class UserHandler extends BaseHandler {
           return console.error(err)
         }
         // process.env.SECRET_TOKEN will be the code used to decode the token
-        const token = jwt.encode({user: user}, process.env.SECRET_TOKEN, 'HS512')
+        const token = jwt.sign({ expiresIn: '30', user: user } , process.env.SECRET_TOKEN);
         res.json({ token: token });
       });
     });
