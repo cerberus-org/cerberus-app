@@ -4,13 +4,12 @@ import { Visit } from '../models/visit';
 export const LOAD_VISITS = 'LOAD_VISITS';
 export const ADD_VISIT = 'ADD_VISIT';
 export const MODIFY_VISIT = 'MODIFY_VISIT';
-const maxHours = 8;
 
 export function visitReducer(state: Visit[] = [], action: Action) {
   switch (action.type) {
     case 'LOAD_VISITS':
       // Reverse to order from newest to oldest
-      return getValidVisits(action.payload).reverse();
+      return getValidVisits(action.payload, 8).reverse();
     case 'ADD_VISIT':
       return [action.payload, ...state];
     case 'MODIFY_VISIT':
@@ -23,11 +22,11 @@ export function visitReducer(state: Visit[] = [], action: Action) {
 }
 
 /**
- * Filter out invalid visits.
+ * Filter out invalid visits. Any visits that have a visit greater than maxHours will be considered invalid.
  * @param visits
  * @return {Visit[]}
  */
-function getValidVisits (visits: Visit[]): Visit[] {
+function getValidVisits (visits: Visit[], maxHours: number): Visit[] {
   let hours = 0;
   const validVisits = visits.filter(function(visit) {
     // if the visit is still ongoing
