@@ -9,7 +9,6 @@ export class Auth {
         if (err) {
           res.sendStatus(401);
         } else {
-          res.sendStatus(200);
           next();
         }
       })
