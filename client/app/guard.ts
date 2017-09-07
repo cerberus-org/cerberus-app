@@ -4,7 +4,7 @@ import { CanActivate , Router} from '@angular/router';
 @Injectable()
 export class Guard implements CanActivate {
 
-  constructor(public router: Router) {}
+  constructor(private router: Router) {}
   canActivate() {
 
     if (localStorage.getItem('token') === null) {
