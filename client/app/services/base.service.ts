@@ -9,7 +9,7 @@ abstract class BaseService {
   abstract model: any;
   abstract modelName: string;
 
-  constructor(protected http: Http, protected error: ErrorService) { }
+  constructor(protected http: Http, protected errorService: ErrorService) { }
 
   get options() {
     const headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': localStorage.token });
@@ -19,37 +19,37 @@ abstract class BaseService {
   getAll(): Observable<any[]> {
     return this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
-      .catch(this.error.handleHttpError);
+      .catch(this.errorService.handleHttpError);
   }
 
   count(): Observable<number> {
     return this.http.get(`/api/${this.modelName}s/count`, this.options)
       .map(res => res.json())
-      .catch(this.error.handleHttpError);
+      .catch(this.errorService.handleHttpError);
   }
 
   create(obj: any): Observable<any> {
     return this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
-      .catch(this.error.handleHttpError);
+      .catch(this.errorService.handleHttpError);
   }
 
   get(obj: any): Observable<any> {
     return this.http.get(`/api/${this.modelName}/${obj._id}`, this.options)
       .map(res => this.convert(res.json()))
-      .catch(this.error.handleHttpError);
+      .catch(this.errorService.handleHttpError);
   }
 
   update(obj: any): Observable<any> {
     return this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
-      .catch(this.error.handleHttpError);
+      .catch(this.errorService.handleHttpError);
   }
 
   delete(obj: any): Observable<any> {
     return this.http.delete(`/api/${this.modelName}/${obj._id}`, this.options)
       .map(res => this.convert(res.json()))
-      .catch(this.error.handleHttpError);
+      .catch(this.errorService.handleHttpError);
   }
 
   /**

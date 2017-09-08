@@ -10,8 +10,8 @@ export class UserService extends BaseService {
   model: any;
   modelName: 'user';
 
-  constructor(protected http: Http, protected error: ErrorService) {
-    super(http, error);
+  constructor(protected http: Http, protected errorService: ErrorService) {
+    super(http, errorService);
   }
 
   login(user): Observable<any> {
@@ -20,7 +20,7 @@ export class UserService extends BaseService {
     const options = new RequestOptions({ headers: headers });
     return this.http.post('/api/user/login', user)
       .map((res: Response) => res.json())
-      .catch(this.error.handleHttpError);
+      .catch(this.errorService.handleHttpError);
   }
 }
 

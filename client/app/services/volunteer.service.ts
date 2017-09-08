@@ -14,15 +14,15 @@ export class VolunteerService extends BaseService {
   model = Volunteer;
   modelName = 'volunteer';
 
-  constructor(protected http: Http, private store: Store<Volunteer[]>, protected error: ErrorService) {
-    super(http, error);
+  constructor(protected http: Http, private store: Store<Volunteer[]>, protected errorService: ErrorService) {
+    super(http, errorService);
   }
 
   getAllRx(): void {
     this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
       .map(payload => ({ type: LOAD_VOLUNTEERS, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), err => this.error.handleHttpError(err));
+      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
   }
 
   createRx(obj: any, successCb, errorCb): void {

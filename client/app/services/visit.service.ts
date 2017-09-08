@@ -14,15 +14,15 @@ export class VisitService extends BaseService {
   model = Visit;
   modelName = 'visit';
 
-  constructor(protected http: Http, private store: Store<Visit[]>, protected error: ErrorService) {
-    super(http, error);
+  constructor(protected http: Http, private store: Store<Visit[]>, protected errorService: ErrorService) {
+    super(http, errorService);
   }
 
   getAllRx(): void {
     this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
       .map(payload => ({ type: LOAD_VISITS, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), err => this.error.handleHttpError(err));
+      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
   }
 
   createRx(obj: any, successCb, errorCb): void {
@@ -47,7 +47,7 @@ export class VisitService extends BaseService {
     this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
       .map(res => res.json().map(this.convert))
       .map(payload => ({ type: LOAD_VISITS, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), err => this.error.handleHttpError(err));
+      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
   }
 
   /**
