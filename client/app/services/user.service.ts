@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { Headers, Response, RequestOptions, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import handleError from '../helpers/handle-error';
 import BaseService from './base.service';
+import ErrorService from './error.service';
 
 @Injectable()
 export class UserService extends BaseService {
   model: any;
   modelName: 'user';
 
-  constructor(protected http: Http) {
-    super(http);
+  constructor(protected http: Http, protected error: ErrorService) {
+    super(http, error);
   }
 
   login(user): Observable<any> {
@@ -20,14 +20,14 @@ export class UserService extends BaseService {
     const options = new RequestOptions({ headers: headers });
     return this.http.post('/api/user/login', user)
       .map((res: Response) => res.json())
-      .catch(handleError);
+      .catch(this.error.handleHttpError);
   }
 }
 
 export class MockUserService extends UserService {
 
   constructor() {
-    super(null);
+    super(null, null);
   }
 
   login(): Observable<any> {

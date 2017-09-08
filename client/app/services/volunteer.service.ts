@@ -3,25 +3,26 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { Store } from '@ngrx/store';
-import { ADD_VOLUNTEER, LOAD_VOLUNTEERS } from '../reducers/volunteer';
 
-import BaseService from './base.service';
 import { testVolunteers, Volunteer } from '../models/volunteer';
+import { ADD_VOLUNTEER, LOAD_VOLUNTEERS } from '../reducers/volunteer';
+import BaseService from './base.service';
+import ErrorService from './error.service';
 
 @Injectable()
 export class VolunteerService extends BaseService {
   model = Volunteer;
   modelName = 'volunteer';
 
-  constructor(http: Http, private store: Store<Volunteer[]>) {
-    super(http);
+  constructor(protected http: Http, private store: Store<Volunteer[]>, protected error: ErrorService) {
+    super(http, error);
   }
 
   getAllRx(): void {
     this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
       .map(payload => ({ type: LOAD_VOLUNTEERS, payload: payload }))
-      .subscribe(action => this.store.dispatch(action));
+      .subscribe(action => this.store.dispatch(action), err => this.error.handleHttpError(err));
   }
 
   createRx(obj: any, successCb, errorCb): void {
@@ -35,7 +36,7 @@ export class VolunteerService extends BaseService {
 export class MockVolunteerService extends VolunteerService {
 
   constructor() {
-    super(null, null);
+    super(null, null, null);
   }
 
   getAllRx(): void { }

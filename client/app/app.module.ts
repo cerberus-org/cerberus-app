@@ -37,6 +37,7 @@ import { DailyHoursChartComponent } from './components/visit-data-display/daily-
 import { UserService } from './services/user.service';
 import { VolunteerService } from './services/volunteer.service';
 import { VisitService } from './services/visit.service';
+import ErrorService from './services/error.service';
 
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
@@ -86,7 +87,8 @@ import { volunteerReducer } from './reducers/volunteer';
     Guard,
     UserService,
     VisitService,
-    VolunteerService
+    VolunteerService,
+    ErrorService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,13 +3,13 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import handleError from '../helpers/handle-error';
+import ErrorService from './error.service';
 
 abstract class BaseService {
   abstract model: any;
   abstract modelName: string;
 
-  constructor(protected http: Http) { }
+  constructor(protected http: Http, protected error: ErrorService) { }
 
   get options() {
     const headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': localStorage.token });
@@ -19,37 +19,37 @@ abstract class BaseService {
   getAll(): Observable<any[]> {
     return this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
-      .catch(handleError);
+      .catch(this.error.handleHttpError);
   }
 
   count(): Observable<number> {
     return this.http.get(`/api/${this.modelName}s/count`, this.options)
       .map(res => res.json())
-      .catch(handleError);
+      .catch(this.error.handleHttpError);
   }
 
   create(obj: any): Observable<any> {
     return this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
-      .catch(handleError);
+      .catch(this.error.handleHttpError);
   }
 
   get(obj: any): Observable<any> {
     return this.http.get(`/api/${this.modelName}/${obj._id}`, this.options)
       .map(res => this.convert(res.json()))
-      .catch(handleError);
+      .catch(this.error.handleHttpError);
   }
 
   update(obj: any): Observable<any> {
     return this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
-      .catch(handleError);
+      .catch(this.error.handleHttpError);
   }
 
   delete(obj: any): Observable<any> {
     return this.http.delete(`/api/${this.modelName}/${obj._id}`, this.options)
       .map(res => this.convert(res.json()))
-      .catch(handleError);
+      .catch(this.error.handleHttpError);
   }
 
   /**
