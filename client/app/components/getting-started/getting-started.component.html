@@ -44,8 +44,7 @@
   </md-tab>
   <md-tab label="4. Confirm" [disabled]="step < 3 || !validOrganization || !validUser">
     <app-side-margins>
-      <app-organization-confirm [organization]="organization" [user]="user">
-      </app-organization-confirm>
+      <app-organization-confirm [organization]="organization" [user]="user"></app-organization-confirm>
     </app-side-margins>
     <div fxFlex="0 1 auto" fxLayout="row-reverse">
       <button md-raised-button fxFlex="0 1 auto" color="primary">Submit</button>

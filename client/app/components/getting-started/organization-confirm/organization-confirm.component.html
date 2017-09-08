@@ -1,24 +1,30 @@
-<h1 class="text-container" fxFlex="0 1 auto">Please confirm your details.</h1>
-<div fxFlex fxLayout="row" fxLayout.xs="column">
-  <div fxFlex fxLayout="column" *ngIf="organization">
-    <h2 md-subheader>Organization</h2>
-    <md-list-item>
-      <h3 md-line>{{organization.name}}</h3>
-    </md-list-item>
-    <md-list-item>
-      <h3 md-line>{{organization.website}}</h3>
-    </md-list-item>
-    <md-list-item>
-      <h4 md-line>{{organization.description}}</h4>
-    </md-list-item>
-  </div>
-  <div fxFlex fxLayout="column" *ngIf="user">
-    <h2 md-subheader>User</h2>
-    <md-list-item>
-      <h3 md-line>{{user.firstName}} {{user.lastName}}</h3>
-    </md-list-item>
-    <md-list-item>
-      <h3 md-line>{{user.email}}</h3>
-    </md-list-item>
+<div fxFlex fxLayout="column" fxLayoutAlign="start center">
+  <h1 class="container" fxFlex="0 1 auto">Please confirm your details.</h1>
+  <div fxFlex fxLayout="row" fxLayout.xs="column">
+    <md-list class="container column" *ngIf="organization">
+      <h1 md-subheader>Organization</h1>
+      <md-list-item>
+        <md-icon md-list-icon>folder</md-icon>
+        <h3 md-line>{{organization.name}}</h3>
+      </md-list-item>
+      <md-list-item>
+        <md-icon md-list-icon>folder</md-icon>
+        <h3 md-line>{{organization.website}}</h3>
+      </md-list-item>
+      <md-list-item class="description">
+        <h3 md-line>{{organization.description}}</h3>
+      </md-list-item>
+    </md-list>
+    <md-list class="container column" *ngIf="user">
+      <h1 md-subheader>User</h1>
+      <md-list-item>
+        <md-icon md-list-icon>folder</md-icon>
+        <h3 md-line>{{user.firstName}} {{user.lastName}}</h3>
+      </md-list-item>
+      <md-list-item>
+        <md-icon md-list-icon>folder</md-icon>
+        <h3 md-line>{{user.email}}</h3>
+      </md-list-item>
+    </md-list>
   </div>
 </div>

@@ -2,5 +2,32 @@
 :host {
   display: flex;
   flex: 1;
-  flex-direction: column;
+}
+
+.container {
+  height: auto;
+  width: auto;
+  margin: 1rem;
+}
+
+.column {
+  max-width: calc(50vw - 2rem);
+}
+
+@media(max-width:767px) {
+  .container {
+    max-width: calc(100vw - 2rem);
+  }
+}
+
+/* Workarounds to handle multi-line short description */
+
+/deep/ .mat-list .mat-list-item .mat-list-item-content {
+  height: auto !important;
+  margin-bottom: 1rem;
+
+}
+
+/deep/ .mat-list .mat-list-item .mat-line {
+  white-space: normal !important;
 }
