@@ -2,8 +2,9 @@ import * as mongoose from 'mongoose';
 import Volunteer from './volunteer';
 
 const visitSchema = new mongoose.Schema({
-   startedAt: {
-    type: Date, default: Date.now,
+  startedAt: {
+    type: Date,
+    default: Date.now,
     required: [true]
   },
   endedAt: {

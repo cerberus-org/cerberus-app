@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { isURL } from 'validator';
 
 const organizationSchema = new mongoose.Schema({
   name: {
@@ -17,7 +18,7 @@ const organizationSchema = new mongoose.Schema({
   website: {
     type: String,
     maxlength: [255],
-    validate: /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi,
+    validate: [isURL, 'Invalid website'],
     trim: true
   },
 }, { timestamps: true });
