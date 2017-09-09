@@ -9,10 +9,10 @@ import { User } from '../models/user';
 @Injectable()
 export class UserService extends BaseService {
   model: User;
-  modelName: 'user';
 
   constructor(protected http: Http) {
     super(http);
+    this.modelName = 'user';
   }
 
   login(user): Observable<any> {

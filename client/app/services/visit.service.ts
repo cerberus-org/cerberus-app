@@ -11,10 +11,10 @@ import { ADD_VISIT, LOAD_VISITS, MODIFY_VISIT } from '../reducers/visit';
 @Injectable()
 export class VisitService extends BaseService {
   model = Visit;
-  modelName = 'visit';
 
   constructor(protected http: Http, private store: Store<Visit[]>) {
     super(http);
+    this.modelName = 'visit';
   }
 
   getAllRx(): void {

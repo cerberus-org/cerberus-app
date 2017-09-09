@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import BaseService from './base.service';
 import { Http } from '@angular/http';
+
+import BaseService from './base.service';
 
 @Injectable()
 export class OrganizationService extends BaseService {
-  model: any;
-  modelName: 'organization';
 
   constructor(protected http: Http) {
     super(http);
+    this.modelName = 'organization';
   }
 }

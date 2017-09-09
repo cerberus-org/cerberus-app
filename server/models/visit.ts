@@ -27,6 +27,4 @@ const visitSchema = new mongoose.Schema({
 // Hash signature index so there are not any limits placed on key length
 visitSchema.index({ startedAt: 1, endedAt: 1, volunterId: 1, signature: 'hashed' }, { unique: true });
 
-const Visit = mongoose.model('Visit', visitSchema);
-
-export default Visit;
+export default mongoose.model('Visit', visitSchema);

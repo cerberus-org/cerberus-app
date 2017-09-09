@@ -18,7 +18,7 @@ const organizationSchema = new mongoose.Schema({
   website: {
     type: String,
     maxlength: [255],
-    validate: [isURL, 'Invalid website'],
+    validate: isURL,
     trim: true
   },
 }, { timestamps: true });
@@ -26,15 +26,13 @@ const organizationSchema = new mongoose.Schema({
 organizationSchema.index({ name: 1, description: 1, website: 1 }, { unique: true });
 
 // Before saving the organization, capitalize name field
-organizationSchema.pre('save', next => {
-  this.name = this.capitalize(this.name);
-  next();
-});
+// organizationSchema.pre('save', next => {
+//   this.name = this.capitalize(this.name);
+//   next();
+// });
 
-organizationSchema.methods.capitalize = (field: string): string => {
-  return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1)));
-};
+// organizationSchema.methods.capitalize = (field: string): string => {
+//   return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1)));
+// };
 
-const organization = mongoose.model('organization', organizationSchema);
-
-export default organization;
+export default mongoose.model('organization', organizationSchema);

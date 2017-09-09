@@ -40,7 +40,7 @@ export class NewUserFormComponent implements OnInit {
       this.valid.emit(group.valid);
       if (group.valid) {
         const value = this.formGroup.value;
-        this.user.emit(new User(value.firstName, value.lastName, value.email));
+        this.user.emit(new User(value.firstName, value.lastName, value.email, value.password));
       }
     });
   }

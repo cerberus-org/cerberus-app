@@ -3,32 +3,41 @@ import * as mongoose from 'mongoose';
 import { isEmail } from 'validator';
 
 const userSchema = new mongoose.Schema({
-  organizationId: { type: String },
+  organizationId: {
+    type: String,
+    required: [true, 'Organization ID is required']
+  },
   firstName: {
     type: String,
     required: [true, 'First name is required'],
-    trim: true,
     minlength: [2],
     maxlength: [30],
-    validate: /^[a-z ,.'-]+$/i
+    validate: /^[a-z ,.'-]+$/i,
+    trim: true
   },
   lastName: {
     type: String,
     required: [true, 'Last name is required'],
-    trim: true,
     minlength: [2],
     maxlength: [30],
-    validate: /^[a-z ,.'-]+$/i
+    validate: /^[a-z ,.'-]+$/i,
+    trim: true
   },
   email: {
     type: String,
     required: [true, 'Email is required'],
     unique: true,
-    trim: true,
-    validate: [isEmail, 'Invalid email'],
+    validate: isEmail,
+    trim: true
   },
-  password: String,
-  role: String
+  password: {
+    type: String,
+    required: [true, 'Password is required']
+  },
+  role: {
+    type: String,
+    required: [true, 'Role is required']
+  }
 });
 
 // Before saving the user, hash the password
@@ -69,6 +78,4 @@ userSchema.set('toJSON', {
   }
 });
 
-const User = mongoose.model('User', userSchema);
-
-export default User;
+export default mongoose.model('User', userSchema);

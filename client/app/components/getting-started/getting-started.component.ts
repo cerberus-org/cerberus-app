@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MdSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
+
 import { Organization } from '../../models/organization';
+import { OrganizationService } from '../../services/organization.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import { OrganizationService } from '../../services/organization.service';
-import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-getting-started',
@@ -17,7 +19,7 @@ export class GettingStartedComponent implements OnInit {
   organization: Organization;
   user: User;
 
-  constructor(private snackBar: MdSnackBar, private organizationService: OrganizationService, private userService: UserService) { }
+  constructor(private router: Router, private snackBar: MdSnackBar, private organizationService: OrganizationService, private userService: UserService) { }
 
   ngOnInit() {
     this.step = 0;
@@ -29,13 +31,21 @@ export class GettingStartedComponent implements OnInit {
 
   onSubmit() {
     this.organizationService.create(this.organization).subscribe(organization => {
-      const user = Object.assign({}, this.user);
-      user.organizationId = organization.organizationId;
-      this.userService.create(user).subscribe(
-        () =>
-          this.snackBar.open('Organization was successfully created!', '', {
+      this.user.organizationId = organization._id;
+      this.userService.create(this.user).subscribe(
+        user => {
+          this.snackBar.open('Organization was successfully added!', '', {
             duration: 3000
-          }),
+          });
+          this.userService.login(this.user)
+            .subscribe(
+              response => {
+                localStorage.setItem('token', response.token);
+                this.router.navigateByUrl('/organization-dashboard');
+              },
+              err => console.log(err)
+            );
+        },
         error => this.snackBar.open(error
           ? `Error creating your user account: ${error}`
           : 'Error creating your user account!', '', {
