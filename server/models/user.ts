@@ -40,6 +40,8 @@ const userSchema = new mongoose.Schema({
   }
 });
 
+userSchema.index({ organizationId: 1, email: 1 }, { unique: true });
+
 // Before saving the user, hash the password
 userSchema.pre('save', function (next) {
   const user = this;
