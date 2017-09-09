@@ -54,7 +54,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"_id\": \"59a7055733bfe28af47cff40\",\n\t\"name\": \"Jefferson SPCA\",\n\t\"description\": \"The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\",\n\t\"website\": \"www.jeffersonspca.org\"\n}"
+							"raw": "{\n\t\"name\": \"jefferson SPCA\",\n\t\"description\": \"The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\",\n\t\"website\": \"www.jeffersonspca.org\"\n}"
 						},
 						"description": ""
 					},
@@ -514,8 +514,11 @@
 									"    var jsonData = JSON.parse(responseBody);",
 									"    tests[\"__v is correct\"] = jsonData.__v === 0;",
 									"    tests[\"_id is correct\"] = jsonData._id === \"596178f9668eaf34ab10a35c\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"firstName is correct\"] = jsonData.firstName === \"First\";",
+									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Last\";",
 									"    tests[\"email is correct\"] = jsonData.email === \"test@gmail.com\";",
-									"    tests[\"username is correct\"] = jsonData.username === \"test\";",
+									"    tests[\"role is correct\"] = jsonData.role === \"admin\";",
 									"} else if (responseCode.code === 409) {",
 									"    var jsonData = JSON.parse(responseBody);",
 									"    tests[\"code is correct\"] = jsonData.code === 11000;",
@@ -538,7 +541,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"__v\": 0,\n\t\"_id\": \"596178f9668eaf34ab10a35c\",\n\t\"email\": \"test@gmail.com\",\n\t\"username\": \"test\",\n\t\"password\": \"test\"\n}"
+							"raw": "{\n\t\"_id\": \"596178f9668eaf34ab10a35c\",\n\t\"organizationId\": \"59a7055733bfe28af47cff40\",\n\t\"email\": \"test@gmail.com\",\n\t\"firstName\": \"first\",\n\t\"lastName\": \"last\",\n\t\"password\": \"test\",\n\t\"role\": \"admin\"\n}"
 						},
 						"description": ""
 					},

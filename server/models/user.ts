@@ -63,6 +63,17 @@ userSchema.pre('save', function (next) {
   });
 });
 
+// Before saving the user, capitalize name fields
+userSchema.pre('save', function(next) {
+  this.firstName = this.capitalize(this.firstName);
+  this.lastName = this.capitalize(this.lastName);
+  next();
+});
+
+userSchema.methods.capitalize = function(field: string): string {
+  return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
+};
+
 userSchema.methods.comparePassword = function (candidatePassword, callback) {
   bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
     if (err) {
