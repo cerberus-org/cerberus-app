@@ -25,13 +25,13 @@ const organizationSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Before saving the organization, capitalize the name
-// organizationSchema.pre('save', next => {
-//   this.name = this.capitalize(this.name);
-//   next();
-// });
-//
-// organizationSchema.methods.capitalize = (field: string): string => {
-//   return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1)));
-// };
+organizationSchema.pre('save', function(next) {
+  this.name = this.capitalize(this.name);
+  next();
+});
+
+organizationSchema.methods.capitalize = (field: string): string => {
+  return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1)));
+};
 
 export default mongoose.model('organization', organizationSchema);
