@@ -37,11 +37,15 @@ export class GettingStartedComponent implements OnInit {
             duration: 3000
           }),
         error => this.snackBar.open(error
-          ? `Error creating your organization: ${error}`
-          : 'Error creating your organization!', '', {
+          ? `Error creating your user account: ${error}`
+          : 'Error creating your user account!', '', {
           duration: 3000
         })
       );
-    })
+    }, error => this.snackBar.open(error
+      ? `Error creating your organization: ${error}`
+      : 'Error creating your organization!', '', {
+      duration: 3000
+    }))
   };
 }
