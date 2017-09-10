@@ -45,4 +45,12 @@ describe('GettingStartedComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('sets step to the next step', () => {
+    expect(component.nextStep(0, 1)).toEqual(1);
+  });
+
+  it('does not set step to the next step when backtracking', () => {
+    expect(component.nextStep(2, 1)).toEqual(2);
+  });
 });

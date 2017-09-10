@@ -7,7 +7,7 @@
       <button md-raised-button
               fxFlex="0 1 auto"
               color="primary"
-              (click)="setStep(1); tabGroup.selectedIndex = 1">Next</button>
+              (click)="onNext(1); tabGroup.selectedIndex = 1">Next</button>
     </div>
   </md-tab>
   <md-tab label="2. Your Organization" [disabled]="step < 1">
@@ -20,7 +20,7 @@
       <button md-raised-button
               fxFlex="0 1 auto"
               color="primary"
-              (click)="setStep(2); tabGroup.selectedIndex = 2"
+              (click)="onNext(2); tabGroup.selectedIndex = 2"
               [disabled]="!validOrganization">Next</button>
     </div>
   </md-tab>
@@ -32,7 +32,7 @@
       <button md-raised-button
               fxFlex="0 1 auto"
               color="primary"
-              (click)="setStep(3); tabGroup.selectedIndex = 3"
+              (click)="onNext(3); tabGroup.selectedIndex = 3"
               [disabled]="!validUser">Next</button>
     </div>
   </md-tab>
