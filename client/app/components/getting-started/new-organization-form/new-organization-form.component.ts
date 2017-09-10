@@ -15,25 +15,31 @@ export class NewOrganizationFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
 
+  /**
+   * Creates and subscribes to the form group.
+   */
   ngOnInit() {
     this.formGroup = this.createForm();
     this.subscribeToForm(this.formGroup);
-  }
-
-  onSubmit() {
   }
 
   /**
    * Creates the form group.
    */
   createForm(): FormGroup {
+    const nameRegex = /^[a-z ,.'-]+$/i;
+    const websiteRegex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     return this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern(nameRegex)]],
       description: ['', Validators.required],
-      website: ['', Validators.required]
+      website: ['', [Validators.required, Validators.pattern(websiteRegex)]]
     });
   }
 
+  /**
+   * Subscribes to the form group and outputs the current validity and a new Organization object if valid.
+   * @param {FormGroup} group
+   */
   subscribeToForm(group: FormGroup): void {
     group.valueChanges.subscribe(changes => {
       this.valid.emit(group.valid);

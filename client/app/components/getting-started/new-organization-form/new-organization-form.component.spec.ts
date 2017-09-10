@@ -15,7 +15,7 @@ describe('NewOrganizationFormComponent', () => {
       imports: [
         MdInputModule,
         NoopAnimationsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
       ]
     }).compileComponents();
   }));
@@ -28,5 +28,49 @@ describe('NewOrganizationFormComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('name control', () => {
+
+    it('validates requirement', (() => {
+      const control = component.formGroup.controls['name'];
+      const errors = control.errors || {};
+      expect(control.valid).toBeFalsy();
+      expect(errors['required']).toBeTruthy();
+    }));
+  });
+
+  describe('website control', () => {
+
+    it('validates requirement', (() => {
+      const control = component.formGroup.controls['website'];
+      const errors = control.errors || {};
+      expect(control.valid).toBeFalsy();
+      expect(errors['required']).toBeTruthy();
+    }));
+
+    it('accepts valid websites', (() => {
+      const control = component.formGroup.controls['website'];
+      control.setValue('website.com');
+      expect(control.valid).toBeTruthy();
+    }));
+
+    it('does not accept invalid websites', (() => {
+      const control = component.formGroup.controls['website'];
+      control.setValue('notAWebsite');
+      const errors = control.errors || {};
+      expect(control.valid).toBeFalsy();
+      expect(errors['pattern']).toBeTruthy();
+    }));
+  });
+
+  describe('description control', () => {
+
+    it('validates requirement', (() => {
+      const control = component.formGroup.controls['description'];
+      const errors = control.errors || {};
+      expect(control.valid).toBeFalsy();
+      expect(errors['required']).toBeTruthy();
+    }));
   });
 });
