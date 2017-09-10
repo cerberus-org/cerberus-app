@@ -3,9 +3,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdAutocompleteModule, MdInputModule, MdRadioModule, MdSnackBarModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockComponent } from 'ng2-mock-component';
 
 import { CheckInFormComponent } from './check-in-form.component';
-import { MockVolunteerService, VolunteerService } from '../../../services/volunteer.service';
 import { MockVisitService, VisitService } from '../../../services/visit.service';
 import { testVisits } from '../../../models/visit';
 import { testVolunteers } from '../../../models/volunteer';
@@ -21,7 +21,10 @@ describe('CheckInFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CheckInFormComponent, SignatureFieldComponent],
+      declarations: [
+        CheckInFormComponent,
+        SignatureFieldComponent
+      ],
       imports: [
         NoopAnimationsModule,
         RouterTestingModule,

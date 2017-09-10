@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import handleError from '../helpers/handle-error';
 import BaseService from './base.service';
-import { User } from '../models/user';
+import { testUsers, User } from '../models/user';
 
 @Injectable()
 export class UserService extends BaseService {
@@ -31,8 +31,31 @@ export class MockUserService extends UserService {
     super(null);
   }
 
+  getAll(): Observable<User[]> {
+    return Observable.of(testUsers);
+  }
+
+  count(): Observable<number> {
+    return Observable.of(testUsers.length);
+  }
+
+  create(obj: User): Observable<User> {
+    return Observable.of(testUsers[0]);
+  }
+
+  get (obj: User): Observable<User> {
+    return Observable.of(testUsers[0]);
+  }
+
+  update(obj: User): Observable<User> {
+    return Observable.of(testUsers[0]);
+  }
+
+  delete(obj: User): Observable<User> {
+    return Observable.of(testUsers[0]);
+  }
+
   login(): Observable<any> {
-    return Observable.of({token: 'token'});
+    return Observable.of({ token: 'token' });
   }
 }
-

@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MdIconModule, MdListModule } from '@angular/material';
 
 import { OrganizationConfirmComponent } from './organization-confirm.component';
 
@@ -8,9 +9,12 @@ describe('OrganizationConfirmComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrganizationConfirmComponent ]
-    })
-    .compileComponents();
+      declarations: [OrganizationConfirmComponent],
+      imports: [
+        MdIconModule,
+        MdListModule
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

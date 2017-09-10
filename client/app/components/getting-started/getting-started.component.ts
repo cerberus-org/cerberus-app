@@ -33,7 +33,7 @@ export class GettingStartedComponent implements OnInit {
     this.organizationService.create(this.organization).subscribe(organization => {
       this.user.organizationId = organization._id;
       this.userService.create(this.user).subscribe(
-        user => {
+        () => {
           this.snackBar.open('Organization was successfully added!', '', {
             duration: 3000
           });
