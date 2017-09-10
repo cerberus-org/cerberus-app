@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MdAutocompleteModule, MdInputModule, MdRadioModule, MdSnackBarModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockComponent } from 'ng2-mock-component';
 
 import { CheckInFormComponent } from './check-in-form.component';
 import { MockVisitService, VisitService } from '../../../services/visit.service';
@@ -28,7 +27,6 @@ describe('CheckInFormComponent', () => {
       imports: [
         NoopAnimationsModule,
         RouterTestingModule,
-        FormsModule,
         ReactiveFormsModule,
         MdAutocompleteModule,
         MdInputModule,

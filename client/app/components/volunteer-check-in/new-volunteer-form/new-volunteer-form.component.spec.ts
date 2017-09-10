@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { MdAutocompleteModule, MdInputModule, MdSnackBarModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
@@ -17,7 +17,6 @@ describe('NewVolunteerFormComponent', () => {
       declarations: [NewVolunteerFormComponent],
       imports: [
         NoopAnimationsModule,
-        FormsModule,
         ReactiveFormsModule,
         MdAutocompleteModule,
         MdInputModule,

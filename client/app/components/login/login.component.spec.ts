@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MdInputModule, MdListModule } from '@angular/material';
 import 'hammerjs';
@@ -20,7 +19,6 @@ describe('LoginComponent', () => {
       imports: [
         NoopAnimationsModule,
         RouterTestingModule,
-        FormsModule,
         ReactiveFormsModule,
         MdInputModule,
         MdListModule,
@@ -29,8 +27,7 @@ describe('LoginComponent', () => {
         { provide: UserService, useClass: MockUserService },
         { provide: VisitService, useClass: MockVisitService }
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
