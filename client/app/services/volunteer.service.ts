@@ -14,7 +14,7 @@ export class VolunteerService extends BaseService {
   model = Volunteer;
   modelName = 'volunteer';
 
-  constructor(protected http: Http, private store: Store<Volunteer[]>, protected errorService: ErrorService) {
+  constructor(protected http: Http, private store: Store<Volunteer[]>, public errorService: ErrorService) {
     super(http, errorService);
   }
 
@@ -25,11 +25,11 @@ export class VolunteerService extends BaseService {
       .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
   }
 
-  createRx(obj: any, successCb, errorCb): void {
+  createRx(obj: any, successCb): void {
     this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
       .map(payload => ({ type: ADD_VOLUNTEER, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
+      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err), successCb);
   }
 }
 

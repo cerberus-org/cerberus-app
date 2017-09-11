@@ -7,7 +7,6 @@ import 'hammerjs';
 
 import { LoginComponent } from './login.component';
 import { MockUserService, UserService } from '../../services/user.service';
-import ErrorService, { MockErrorService } from '../../services/error.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -26,7 +25,6 @@ describe('LoginComponent', () => {
       ],
       providers: [
         { provide: UserService, useClass: MockUserService },
-        { provide: ErrorService, useClass: MockErrorService }
       ]
     })
       .compileComponents();

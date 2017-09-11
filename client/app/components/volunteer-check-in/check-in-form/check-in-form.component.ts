@@ -7,7 +7,6 @@ import { state, style, trigger, transition, animate } from '@angular/animations'
 
 import { Visit } from '../../../models/visit';
 import { Volunteer } from '../../../models/volunteer';
-import ErrorService from '../../../services/error.service';
 import { VisitService } from '../../../services/visit.service';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
 
@@ -45,7 +44,7 @@ export class CheckInFormComponent implements OnInit {
    * Creates the form group and subscribes on construction.
    */
   constructor(private fb: FormBuilder, private store: Store<any>, private snackBar: MdSnackBar,
-              private visitService: VisitService, private router: Router, private errorService: ErrorService) {
+              private visitService: VisitService, private router: Router) {
     this.createForm();
     this.subscribeToForm();
   }
@@ -212,8 +211,8 @@ export class CheckInFormComponent implements OnInit {
       () => {
         this.snackBar.open('Volunteer successfully checked in!', '', { duration: 3000 });
         this.router.navigateByUrl('/home');
-      },
-      error => this.errorService.handleHttpError(error));
+      }
+    );
   }
 
   /**
@@ -224,8 +223,8 @@ export class CheckInFormComponent implements OnInit {
       () => {
         this.snackBar.open('Volunteer successfully checked out!', '', { duration: 3000 });
         this.router.navigateByUrl('/home');
-      },
-      error => this.errorService.handleHttpError(error));
+      }
+    );
   }
 
   /**

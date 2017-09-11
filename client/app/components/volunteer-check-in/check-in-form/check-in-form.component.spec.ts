@@ -13,7 +13,6 @@ import { visitReducer } from '../../../reducers/visit';
 import { volunteerReducer } from '../../../reducers/volunteer';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
-import ErrorService, { MockErrorService } from '../../../services/error.service';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
@@ -35,7 +34,7 @@ describe('CheckInFormComponent', () => {
         StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
       ],
       providers: [
-        { provide: VisitService, useClass: MockVisitService }, { provide: ErrorService, useClass: MockErrorService }
+        { provide: VisitService, useClass: MockVisitService }
       ]
     }).compileComponents();
   }));

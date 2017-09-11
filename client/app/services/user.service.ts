@@ -10,7 +10,7 @@ export class UserService extends BaseService {
   model: any;
   modelName: 'user';
 
-  constructor(protected http: Http, protected errorService: ErrorService) {
+  constructor(protected http: Http, public errorService: ErrorService) {
     super(http, errorService);
   }
 

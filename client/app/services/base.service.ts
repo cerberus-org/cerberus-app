@@ -9,7 +9,7 @@ abstract class BaseService {
   abstract model: any;
   abstract modelName: string;
 
-  constructor(protected http: Http, protected errorService: ErrorService) { }
+  constructor(protected http: Http, public errorService: ErrorService) { }
 
   get options() {
     const headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': localStorage.token });

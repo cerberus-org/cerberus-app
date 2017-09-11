@@ -13,8 +13,9 @@ export class LoginComponent implements OnInit {
 
   // declare FormGroup
   loginForm: FormGroup;
+  error: string;
 
-  constructor(private router: Router, private fb: FormBuilder, private loginService: UserService, private errorService: ErrorService) {
+  constructor(private router: Router, private fb: FormBuilder, private loginService: UserService) {
     this.createForm();
   }
 
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', response.token);
           this.router.navigateByUrl('/home');
         },
-        err => this.errorService.handleHttpError(err)
+        error => this.error = <any>error
       );
   }
 
