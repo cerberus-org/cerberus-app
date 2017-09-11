@@ -13,6 +13,7 @@ import { CdkTableModule } from '@angular/cdk';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { ChartsModule } from 'ng2-charts';
+import { Guard } from './guard';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import 'hammerjs';
 
@@ -36,10 +37,10 @@ import { DailyHoursChartComponent } from './components/visit-data-display/daily-
 import { UserService } from './services/user.service';
 import { VolunteerService } from './services/volunteer.service';
 import { VisitService } from './services/visit.service';
-import ErrorService from './services/error.service';
 
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
+import ErrorService from './services/error.service';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { volunteerReducer } from './reducers/volunteer';
     StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
   ],
   providers: [
+    Guard,
     UserService,
     VisitService,
     VolunteerService,
