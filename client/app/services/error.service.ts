@@ -21,7 +21,7 @@ export default class ErrorService {
    */
   handleHttpError (error: any | Response) {
     // Display error
-    this.snackBarError(error, this.httpStatuses.get(error.status) ? this.httpStatuses.get(error.status) : 'An error occurred');
+    this.openSnackBar(error, this.httpStatuses.get(error.status) ? this.httpStatuses.get(error.status) : 'Error');
     // Consider the special case that the token is expired
     this.handleTokenExpiration(error);
     // Handle error
@@ -37,7 +37,7 @@ export default class ErrorService {
    * @param error
    * @param message
    */
-  snackBarError (error, message) {
+  openSnackBar (error, message) {
     this.snackBar.open(message, '', { duration: 3000 })
   }
 
