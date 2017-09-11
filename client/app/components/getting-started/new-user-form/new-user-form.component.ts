@@ -28,10 +28,10 @@ export class NewUserFormComponent implements OnInit {
    */
   createForm(): FormGroup {
     return this.fb.group({
-      firstName: ['', [Validators.maxLength(35), Validators.required]],
-      lastName: ['', [Validators.maxLength(35), Validators.required]],
+      firstName: ['', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
+      lastName: ['', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
       email: ['', [Validators.maxLength(255), Validators.required, Validators.email]],
-      password: ['', [Validators.maxLength(128), Validators.required]]
+      password: ['', [Validators.minLength(8), Validators.maxLength(128), Validators.required]]
     });
   }
 
