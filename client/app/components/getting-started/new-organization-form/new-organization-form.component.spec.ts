@@ -38,6 +38,22 @@ describe('NewOrganizationFormComponent', () => {
       expect(control.valid).toBeFalsy();
       expect(errors['required']).toBeTruthy();
     }));
+
+    it('validates min length', (() => {
+      const control = component.formGroup.controls['name'];
+      control.setValue('ABC');
+      const errors = control.errors || {};
+      expect(control.valid).toBeFalsy();
+      expect(errors['minlength']).toBeTruthy();
+    }));
+
+    it('validates max length', (() => {
+      const control = component.formGroup.controls['name'];
+      control.setValue('Lorem Ipsum Dolor Sit Amet Consectetuer Adipiscing Elit Aenean Commodo Li');
+      const errors = control.errors || {};
+      expect(control.valid).toBeFalsy();
+      expect(errors['maxlength']).toBeTruthy();
+    }));
   });
 
   describe('website control', () => {
@@ -47,6 +63,16 @@ describe('NewOrganizationFormComponent', () => {
       const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
       expect(errors['required']).toBeTruthy();
+    }));
+
+    it('validates max length', (() => {
+      const control = component.formGroup.controls['website'];
+      control.setValue('Lorem.ipsum.dolor.sit.amet.consectetuer.adipiscing.elit.Aenean.commodo.ligula.eget.dolor' +
+        '.Aenean.massa.Cum.sociis.natoque.penatibus.et.magnis.dis.parturient.montes.nascetur.ridiculus.mus.Donec.quam' +
+        '.felis.ultricies.nec.pellentesque.eu.pretium.quis.Lorem.ipsum.com');
+      const errors = control.errors || {};
+      expect(control.valid).toBeFalsy();
+      expect(errors['maxlength']).toBeTruthy();
     }));
 
     it('accepts valid websites', (() => {
@@ -71,6 +97,15 @@ describe('NewOrganizationFormComponent', () => {
       const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
       expect(errors['required']).toBeTruthy();
+    }));
+
+    it('validates max length', (() => {
+      const control = component.formGroup.controls['description'];
+      control.setValue('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.' +
+        'Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis');
+      const errors = control.errors || {};
+      expect(control.valid).toBeFalsy();
+      expect(errors['maxlength']).toBeTruthy();
     }));
   });
 });
