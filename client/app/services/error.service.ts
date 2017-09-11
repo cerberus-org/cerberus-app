@@ -48,7 +48,7 @@ export default class ErrorService {
   handleTokenExpiration(error: any | Response) {
     // If the token has expired
     if (error.status === 401) {
-      // Remove the token
+      // Remove the token so login and logout buttons can be accurately displayed or hidden
       localStorage.clear();
       this.router.navigateByUrl('/login');
     }
