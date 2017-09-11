@@ -1,15 +1,15 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
+import { state, style, trigger, transition, animate } from '@angular/animations';
 
 import { Visit } from '../../../models/visit';
 import { Volunteer } from '../../../models/volunteer';
 import ErrorService from '../../../services/error.service';
 import { VisitService } from '../../../services/visit.service';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
-import { Router } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
-import { state, style, trigger, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-check-in-form',

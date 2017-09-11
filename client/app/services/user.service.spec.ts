@@ -8,6 +8,7 @@ import {
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { UserService } from './user.service';
 import { testLoginCredentials, testUsers } from '../models/user';
+import ErrorService, { MockErrorService } from './error.service';
 
 describe('UserService', () => {
   let backend: MockBackend = null;
@@ -19,6 +20,7 @@ describe('UserService', () => {
         BaseRequestOptions,
         MockBackend,
         UserService,
+        { provide: ErrorService, useClass: MockErrorService },
         {
           provide: Http,
           useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {

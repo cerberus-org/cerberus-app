@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 import { MockVolunteerService, VolunteerService } from '../../../services/volunteer.service';
 import { volunteerReducer } from '../../../reducers/volunteer';
+import ErrorService, { MockErrorService } from '../../../services/error.service';
 
 describe('NewVolunteerFormComponent', () => {
   let component: NewVolunteerFormComponent,
@@ -24,7 +25,8 @@ describe('NewVolunteerFormComponent', () => {
         MdSnackBarModule,
         StoreModule.provideStore({ volunteers: volunteerReducer })
       ],
-      providers: [{ provide: VolunteerService, useClass: MockVolunteerService }]
+      providers: [{ provide: VolunteerService, useClass: MockVolunteerService },
+        { provide: ErrorService, useClass: MockErrorService }]
     }).compileComponents();
   }));
 

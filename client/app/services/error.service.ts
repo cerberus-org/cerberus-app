@@ -10,7 +10,8 @@ export default class ErrorService {
   constructor(private router: Router, private snackBar: MdSnackBar) {
     this.httpStatuses = new Map<number, string>([
       [401, 'Session Expired'],
-      [504, 'Server Error']
+      [504, 'Server Error'],
+      [403, 'Forbidden']
     ]);
   }
 
@@ -54,3 +55,26 @@ export default class ErrorService {
     }
   }
 }
+
+
+export class MockErrorService extends ErrorService {
+
+  constructor() {
+    super(null, null);
+  }
+
+  handleHttpError(error: any | Response) {
+    try {
+      return Observable.throw(error);
+    } catch (Error) {
+      console.error(error);
+    }
+  }
+
+  handleTokenExpiration(error: any | Response) {
+    localStorage.clear();
+  }
+
+  openSnackBar() {}
+}
+
