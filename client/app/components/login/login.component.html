@@ -1,15 +1,14 @@
-<form fxFlexFill fxLayout="column" fxLayoutAlign="center center" [formGroup]="loginForm" nonvalidate (ngSubmit)="login()">
-  <md-list>
-    <md-list-item>
-      <md-input-container>
-        <input  type="email" mdInput placeholder='email' class="form-control" formControlName='email' email>
-      </md-input-container>
-    </md-list-item>
-    <md-list-item>
-      <md-input-container>
-        <input type="password" mdInput placeholder='password' class="form-control" formControlName='password'>
-      </md-input-container>
-    </md-list-item>
-  </md-list>
-  <button fxFlexAlign="center" type="submit" id="submit-btn" md-button color="primary" [disabled]="loginForm.invalid">Submit</button>
-</form>
+<div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5rem">
+  <form fxFlex="0 1 auto" fxLayout="column" fxLayoutAlign="center center" [formGroup]="loginForm" nonvalidate (ngSubmit)="login()">
+    <md-input-container fxFlex>
+      <input type="email" mdInput placeholder='email' class="form-control" formControlName='email' email>
+    </md-input-container>
+    <md-input-container fxFlex>
+      <input type="password" mdInput placeholder='password' class="form-control" formControlName='password'>
+    </md-input-container>
+    <button fxFlex md-button id="submit-btn" color="primary" [disabled]="loginForm.invalid">Submit</button>
+  </form>
+  <div fxFlex="0 1 auto">
+    <a md-raised-button color="accent" href="start">New Organization?</a>
+  </div>
+</div>

@@ -4,29 +4,29 @@
   flex: 1;
 }
 
-.pets-container {
-  margin-bottom: 1rem;
-}
-
-.signature-container {
-  max-height: 200px;
-  border-style: dashed;
-  border-width: .07rem;
-}
-
-input.capitalize {
-  text-transform: capitalize;
-}
-
-button {
-  margin-top: 1rem;
+form {
+  margin-top: 2rem;
 }
 
 md-input-container {
   width: 15rem;
 }
 
-form {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+input.capitalize {
+  text-transform: capitalize;
+}
+
+.pets-container {
+  margin-bottom: 1rem;
+}
+
+.signature-container {
+  max-height: 200px;
+  max-width: 100vw;
+  border-style: dashed;
+  border-width: .07rem;
+}
+
+button {
+  margin: 1rem;
 }

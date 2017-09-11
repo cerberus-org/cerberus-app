@@ -1,6 +1,7 @@
 <form fxFlex
       fxLayout="column"
       fxLayoutAlign="start center"
+      fxLayoutGap="1rem"
       [formGroup]="formGroup"
       (ngSubmit)="onSubmit()">
   <md-input-container fxFlex="0 1 auto">
@@ -29,9 +30,10 @@
            fxFlex
            fxLayout="column"
            fxLayoutAlign="center center"
+           fxLayoutGap="2rem"
            [@sigTrigger]="signatureState">
         <app-signature-field class="signature-container" fxFlex formControlName="signatureField"></app-signature-field>
-        <div fxFlex fxLayoutGap="2rem">
+        <div fxFlex>
           <button md-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">Clear</button>
           <button md-raised-button color="primary" [disabled]="formGroup.invalid">Check In</button>
         </div>

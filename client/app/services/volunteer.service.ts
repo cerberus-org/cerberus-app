@@ -11,10 +11,10 @@ import { testVolunteers, Volunteer } from '../models/volunteer';
 @Injectable()
 export class VolunteerService extends BaseService {
   model = Volunteer;
-  modelName = 'volunteer';
 
   constructor(http: Http, private store: Store<Volunteer[]>) {
     super(http);
+    this.modelName = 'volunteer';
   }
 
   getAllRx(): void {

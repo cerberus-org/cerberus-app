@@ -15,11 +15,12 @@ describe('VolunteerCheckInComponent', () => {
       declarations: [
         VolunteerCheckInComponent,
         MockComponent({ selector: 'app-check-in-form' }),
-        MockComponent({ selector: 'app-new-volunteer-form', inputs: ['changeTab'] })
+        MockComponent({ selector: 'app-new-volunteer-form', inputs: ['changeTab'] }),
+        MockComponent({ selector: 'app-side-margins' })
       ],
       imports: [
-        NoopAnimationsModule,
-        MdTabsModule
+        MdTabsModule,
+        NoopAnimationsModule
       ],
       providers: [
         { provide: VolunteerService, useClass: MockVolunteerService }

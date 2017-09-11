@@ -210,7 +210,7 @@ export class CheckInFormComponent implements OnInit {
       new Visit(volunteer._id, new Date(), null, 'America/Chicago', signature),
       () => {
         this.snackBar.open('Volunteer successfully checked in!', '', { duration: 3000 });
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/dashboard');
       },
       error => this.snackBar.open(error ? `Error checking in: ${error}` : 'Error checking in!',
         '', { duration: 3000 }));
@@ -223,7 +223,7 @@ export class CheckInFormComponent implements OnInit {
     this.visitService.updateRx(Object.assign({}, visit, { endedAt: new Date() }),
       () => {
         this.snackBar.open('Volunteer successfully checked out!', '', { duration: 3000 });
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/dashboard');
       },
       error => this.snackBar.open(error ? `Error checking out: ${error}` : 'Error checking out!', '', {
         duration: 3000

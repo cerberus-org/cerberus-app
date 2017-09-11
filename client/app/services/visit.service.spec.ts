@@ -34,58 +34,58 @@ describe('VisitService', () => {
     service = testbed.get(VisitService);
   }));
 
-  it('is created', inject([VisitService], (VisitService: VisitService) => {
-    expect(VisitService).toBeTruthy();
-  }));
+it('is created', inject([VisitService], (VisitService: VisitService) => {
+  expect(VisitService).toBeTruthy();
+}));
 
-  const setConnections = body => {
-    backend.connections.subscribe(function (connection: MockConnection) {
-      const options = new ResponseOptions({
-        body: JSON.stringify(body)
-      });
-      connection.mockRespond(new Response(options));
+const setConnections = body => {
+  backend.connections.subscribe(function (connection: MockConnection) {
+    const options = new ResponseOptions({
+      body: JSON.stringify(body)
     });
-  };
-
-  it('gets all visits', () => {
-    setConnections(testVisits);
-    service.getAll().subscribe(res => {
-      expect(res).toEqual(testVisits);
-    });
+    connection.mockRespond(new Response(options));
   });
+};
 
-  it('counts all visits', () => {
-    setConnections(testVisits.length);
-    service.count().subscribe(res => {
-      expect(res).toEqual(testVisits.length);
-    });
+it('gets all visits', () => {
+  setConnections(testVisits);
+  service.getAll().subscribe(res => {
+    expect(res).toEqual(testVisits);
   });
+});
 
-  it('creates the visit', () => {
-    setConnections(testVisits[0]);
-    service.create(testVisits[0]).subscribe(res => {
-      expect(res).toEqual(testVisits[0]);
-    });
+it('counts all visits', () => {
+  setConnections(testVisits.length);
+  service.count().subscribe(res => {
+    expect(res).toEqual(testVisits.length);
   });
+});
 
-  it('gets the visit', () => {
-    setConnections(testVisits[0]);
-    service.get(testVisits[0]).subscribe(res => {
-      expect(res).toEqual(testVisits[0]);
-    });
+it('creates the visit', () => {
+  setConnections(testVisits[0]);
+  service.create(testVisits[0]).subscribe(res => {
+    expect(res).toEqual(testVisits[0]);
   });
+});
 
-  it('updates the visit', () => {
-    setConnections(testVisits[0]);
-    service.update(testVisits[0]).subscribe(res => {
-      expect(res).toEqual(testVisits[0]);
-    });
+it('gets the visit', () => {
+  setConnections(testVisits[0]);
+  service.get(testVisits[0]).subscribe(res => {
+    expect(res).toEqual(testVisits[0]);
   });
+});
 
-  it('deletes the visit', () => {
-    setConnections(testVisits[0]);
-    service.delete(testVisits[0]).subscribe(res => {
-      expect(res).toEqual(testVisits[0]);
-    });
+it('updates the visit', () => {
+  setConnections(testVisits[0]);
+  service.update(testVisits[0]).subscribe(res => {
+    expect(res).toEqual(testVisits[0]);
   });
+});
+
+it('deletes the visit', () => {
+  setConnections(testVisits[0]);
+  service.delete(testVisits[0]).subscribe(res => {
+    expect(res).toEqual(testVisits[0]);
+  });
+});
 });

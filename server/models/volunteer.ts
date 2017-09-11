@@ -31,10 +31,9 @@ volunteerSchema.index({ firstName: 1, lastName: 1, petName: 1 }, { unique: true 
 
 // Before saving the user, capitalize name fields
 volunteerSchema.pre('save', function(next) {
-  const volunteer = this;
-  volunteer.firstName = this.capitalize(volunteer.firstName);
-  volunteer.lastName = this.capitalize(volunteer.lastName);
-  volunteer.petName = this.capitalize(volunteer.petName);
+  this.firstName = this.capitalize(this.firstName);
+  this.lastName = this.capitalize(this.lastName);
+  this.petName = this.capitalize(this.petName);
   next();
 });
 
@@ -42,6 +41,4 @@ volunteerSchema.methods.capitalize = function(field: string): string {
   return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
 };
 
-const Volunteer = mongoose.model('Volunteer', volunteerSchema);
-
-export default Volunteer;
+export default mongoose.model('Volunteer', volunteerSchema);
