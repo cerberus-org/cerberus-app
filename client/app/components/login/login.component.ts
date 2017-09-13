@@ -21,13 +21,17 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  getVisitsByDate(daysToSubtract: number): void {
+    this.visitService.getByDateRx(new Date(new Date().getTime() - (daysToSubtract * 24 * 60 * 60 * 1000)));
+  }
+
   login() {
     this.loginService.login(this.loginForm.value)
       .subscribe(
         response => {
           localStorage.setItem('token', response.token);
           this.router.navigateByUrl('/organization-dashboard');
-          this.visitService.getAllRx();
+          this.getVisitsByDate(7);
         },
         err => console.log(err)
       );
