@@ -15,6 +15,6 @@ export class AppComponent implements OnInit {
   }
 
   getVisitsByDate(daysToSubtract: number): void {
-    this.visitService.getRxByDate(new Date(new Date().getTime() - (daysToSubtract * 24 * 60 * 60 * 1000)));
+    this.visitService.getByDateRx(new Date(new Date().getTime() - (daysToSubtract * 24 * 60 * 60 * 1000)));
   }
 }

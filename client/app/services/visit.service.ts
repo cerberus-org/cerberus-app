@@ -42,7 +42,7 @@ export class VisitService extends BaseService {
    * Get all dates that occur after the date provided.
    * @param date
    */
-  getRxByDate(date: Date): void {
+  getByDateRx(date: Date): void {
     this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
       .map(res => res.json().map(this.convert))
       .map(payload => ({ type: LOAD_VISITS, payload: payload }))
