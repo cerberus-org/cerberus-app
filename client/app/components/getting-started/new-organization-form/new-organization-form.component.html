@@ -2,8 +2,7 @@
       fxLayout="column"
       fxLayoutAlign="start center"
       fxLayoutGap="1rem"
-      [formGroup]="formGroup"
-      (ngSubmit)="onSubmit()">
+      [formGroup]="formGroup">
   <h1 class="text-container" fxFlex="0 1 auto">Tell us about your organization.</h1>
   <md-form-field class="input-container" fxFlex="0 1 auto">
     <input mdInput class="capitalize" maxlength="70" placeholder="Organization name" formControlName="name">
