@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import { isURL } from 'validator';
+
 import { capitalize } from '../functions/capitalize';
 
 const organizationSchema = new mongoose.Schema({
