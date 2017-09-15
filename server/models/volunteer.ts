@@ -2,11 +2,19 @@ import * as mongoose from 'mongoose';
 import { capitalizeWithNameCase } from '../functions/capitalize';
 
 const volunteerSchema = new mongoose.Schema({
+  organizationId: {
+    type: String,
+    required: [true, 'Organization ID is required']
+  },
+  locationId: {
+    type: String,
+    required: [true, 'Location ID is required']
+  },
   firstName: {
     type: String,
     required: [true, 'First name is required'],
     minlength: [2],
-    maxlength: [30],
+    maxlength: [35],
     validate: /^[a-z ,.'-]+$/i,
     trim: true
   },
@@ -14,7 +22,7 @@ const volunteerSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Last name is required'],
     minlength: [2],
-    maxlength: [30],
+    maxlength: [35],
     validate: /^[a-z ,.'-]+$/i,
     trim: true
   },
@@ -22,7 +30,7 @@ const volunteerSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Favorite pet name is required'],
     minlength: [2],
-    maxlength: [30],
+    maxlength: [35],
     validate: /^[a-z ,.'-]+$/i,
     trim: true
   },

@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'First name is required'],
     minlength: [2],
-    maxlength: [30],
+    maxlength: [35],
     validate: /^[a-z ,.'-]+$/i,
     trim: true
   },
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Last name is required'],
     minlength: [2],
-    maxlength: [30],
+    maxlength: [35],
     validate: /^[a-z ,.'-]+$/i,
     trim: true
   },

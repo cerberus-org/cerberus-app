@@ -2,6 +2,14 @@ import * as mongoose from 'mongoose';
 import Volunteer from './volunteer';
 
 const visitSchema = new mongoose.Schema({
+  organizationId: {
+    type: String,
+    required: [true, 'Organization ID is required']
+  },
+  locationId: {
+    type: String,
+    required: [true, 'Location ID is required']
+  },
   startedAt: {
     type: Date,
     default: Date.now,

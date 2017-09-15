@@ -11,7 +11,7 @@ const locationSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Name is required'],
     minlength: [2],
-    maxlength: [30],
+    maxlength: [70],
     validate: /^[a-z ,.'-]+$/i,
     trim: true
   },
@@ -25,6 +25,7 @@ const locationSchema = new mongoose.Schema({
 // Before saving the organization, capitalize the name
 locationSchema.pre('save', function (next) {
   this.name = this.capitalize(this.name);
+  this.address = this.capitalize(this.address);
   next();
 });
 

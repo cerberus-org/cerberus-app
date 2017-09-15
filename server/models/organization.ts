@@ -8,7 +8,7 @@ const organizationSchema = new mongoose.Schema({
     required: [true, 'Name is required'],
     unique: true,
     minlength: [2],
-    maxlength: [30],
+    maxlength: [70],
     validate: /^[a-z ,.'-]+$/i,
     trim: true
   },
