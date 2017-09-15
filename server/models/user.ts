@@ -1,11 +1,13 @@
 import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
+
+import Organization from './organization';
 import { isEmail } from 'validator';
 import { capitalizeWithNameCase } from '../functions/capitalize';
 
 const userSchema = new mongoose.Schema({
   organizationId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId, ref: Organization,
     required: [true, 'Organization ID is required']
   },
   firstName: {

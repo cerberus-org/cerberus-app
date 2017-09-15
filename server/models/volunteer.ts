@@ -1,13 +1,15 @@
 import * as mongoose from 'mongoose';
+import Organization from './organization';
+import Volunteer from './volunteer';
 import { capitalizeWithNameCase } from '../functions/capitalize';
 
 const volunteerSchema = new mongoose.Schema({
   organizationId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId, ref: Organization,
     required: [true, 'Organization ID is required']
   },
   locationId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId, ref: Location,
     required: [true, 'Location ID is required']
   },
   firstName: {

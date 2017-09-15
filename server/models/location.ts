@@ -1,10 +1,12 @@
 import * as mongoose from 'mongoose';
 import { isURL } from 'validator';
+
+import Organization from './organization';
 import { capitalize } from '../functions/capitalize';
 
 const locationSchema = new mongoose.Schema({
   organizationId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId, ref: Organization,
     required: [true, 'Organization ID is required']
   },
   name: {
