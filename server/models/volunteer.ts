@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 
+import Location from './location';
 import Organization from './organization';
 import Volunteer from './volunteer';
 import { capitalizeWithNameCase } from '../functions/capitalize';
