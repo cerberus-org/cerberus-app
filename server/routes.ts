@@ -5,6 +5,7 @@ import VolunteerHandler from './handlers/volunteer';
 import VisitHandler from './handlers/visit';
 import UserHandler from './handlers/user';
 import { Auth } from './middleware/auth';
+import LocationHandler from './handlers/location';
 
 export default function setRoutes(app) {
 
@@ -12,10 +13,19 @@ export default function setRoutes(app) {
 
   const auth = new Auth();
 
+  const locationHandler = new LocationHandler();
   const organizationHandler = new OrganizationHandler();
   const volunteerHandler = new VolunteerHandler();
   const visitHandler = new VisitHandler();
   const userHandler = new UserHandler();
+
+  // Locations
+  router.route('/locations').get(auth.ensureLoggedIn, locationHandler.getAll);
+  router.route('/locations/count').get(auth.ensureLoggedIn, locationHandler.count);
+  router.route('/location').post(locationHandler.insert);
+  router.route('/location/:id').get(auth.ensureLoggedIn, locationHandler.get);
+  router.route('/location/:id').put(auth.ensureLoggedIn, locationHandler.update);
+  router.route('/location/:id').delete(auth.ensureLoggedIn, locationHandler.delete);
 
   // Organizations
   router.route('/organizations').get(auth.ensureLoggedIn, organizationHandler.getAll);
