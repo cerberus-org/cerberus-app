@@ -3,6 +3,10 @@ import { isURL } from 'validator';
 import { capitalize } from '../functions/capitalize';
 
 const locationSchema = new mongoose.Schema({
+  organizationId: {
+    type: String,
+    required: [true, 'Organization ID is required']
+  },
   name: {
     type: String,
     required: [true, 'Name is required'],
