@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import { isURL } from 'validator';
+import { capitalize } from '../functions/capitalize';
 
 const locationSchema = new mongoose.Schema({
   name: {
@@ -18,13 +19,11 @@ const locationSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Before saving the organization, capitalize the name
-locationSchema.pre('save', function(next) {
+locationSchema.pre('save', function (next) {
   this.name = this.capitalize(this.name);
   next();
 });
 
-locationSchema.methods.capitalize = (field: string): string => {
-  return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1)));
-};
+locationSchema.methods.capitalize = capitalize;
 
-export default mongoose.model('organization', locationSchema);
+export default mongoose.model('location', locationSchema);
