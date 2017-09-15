@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import { isURL } from 'validator';
+import { capitalize } from '../functions/capitalize';
 
 const organizationSchema = new mongoose.Schema({
   name: {
@@ -30,8 +31,6 @@ organizationSchema.pre('save', function(next) {
   next();
 });
 
-organizationSchema.methods.capitalize = (field: string): string => {
-  return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1)));
-};
+organizationSchema.methods.capitalize = capitalize;
 
 export default mongoose.model('organization', organizationSchema);

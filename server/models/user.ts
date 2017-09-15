@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
 import { isEmail } from 'validator';
+import { capitalizeWithNameCase } from '../functions/capitalize';
 
 const userSchema = new mongoose.Schema({
   organizationId: {
@@ -70,9 +71,7 @@ userSchema.pre('save', function(next) {
   next();
 });
 
-userSchema.methods.capitalize = function(field: string): string {
-  return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
-};
+userSchema.methods.capitalize = capitalizeWithNameCase;
 
 userSchema.methods.comparePassword = function (candidatePassword, callback) {
   bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {

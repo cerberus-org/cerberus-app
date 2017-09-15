@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { capitalizeWithNameCase } from '../functions/capitalize';
 
 const volunteerSchema = new mongoose.Schema({
   firstName: {
@@ -37,8 +38,6 @@ volunteerSchema.pre('save', function(next) {
   next();
 });
 
-volunteerSchema.methods.capitalize = function(field: string): string {
-  return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
-};
+volunteerSchema.methods.capitalize = capitalizeWithNameCase;
 
 export default mongoose.model('Volunteer', volunteerSchema);
