@@ -6,7 +6,10 @@ export class Volunteer {
   lastName: string;
   petName: string;
 
-  constructor(firstName: string, lastName: string, petName: string) {
+  constructor(organizationId: string, locationId: string,
+              firstName: string, lastName: string, petName: string) {
+    this.organizationId = organizationId;
+    this.locationId = locationId;
     this.firstName = firstName;
     this.lastName = lastName;
     this.petName = petName;

@@ -207,7 +207,7 @@ export class CheckInFormComponent implements OnInit {
    */
   startVisit(volunteer: Volunteer, signature: any): void {
     this.visitService.createRx(
-      new Visit(volunteer._id, new Date(), null, 'America/Chicago', signature),
+      new Visit(null, null, volunteer._id, new Date(), null, 'America/Chicago', signature),
       () => {
         this.snackBar.open('Volunteer successfully checked in!', '', { duration: 3000 });
         this.router.navigateByUrl('/dashboard');

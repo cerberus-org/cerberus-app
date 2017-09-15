@@ -25,7 +25,7 @@ export class NewVolunteerFormComponent implements OnInit {
 
   onSubmit(): void {
     this.capitalize();
-    this.volunteerService.createRx(new Volunteer(this.formGroup.value.firstName, this.formGroup.value.lastName,
+    this.volunteerService.createRx(new Volunteer(null, null, this.formGroup.value.firstName, this.formGroup.value.lastName,
       this.formGroup.value.petName),
       () => this.snackBar.open('Volunteer successfully signed up!', '', {
         duration: 3000

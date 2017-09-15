@@ -8,7 +8,10 @@ export class Visit {
   timezone: string;
   signature: any;
 
-  constructor(volunteerId: string, startedAt: Date, endedAt: Date, timezone: string, signature: any) {
+  constructor(organizationId: string, locationId: string, volunteerId: string,
+              startedAt: Date, endedAt: Date, timezone: string, signature: any) {
+    this.organizationId = organizationId;
+    this.locationId = locationId;
     this.volunteerId = volunteerId;
     this.startedAt = startedAt;
     this.endedAt = endedAt;
