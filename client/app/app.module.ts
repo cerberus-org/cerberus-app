@@ -49,6 +49,7 @@ import { UserService } from './services/user.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 
+import { locationReducer } from './reducers/location';
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
 
@@ -97,7 +98,11 @@ import { volunteerReducer } from './reducers/volunteer';
     MdToolbarModule,
     ReactiveFormsModule,
     SignaturePadModule,
-    StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
+    StoreModule.provideStore({
+      locations: locationReducer,
+      visits: visitReducer,
+      volunteers: volunteerReducer
+    })
   ],
   providers: [
     Guard,
