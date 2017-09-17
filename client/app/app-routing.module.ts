@@ -10,7 +10,7 @@ import { GettingStartedComponent } from './components/getting-started/getting-st
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: OrganizationDashboardComponent, canActivate : [Guard] },
-  { path: 'checkin', component: VolunteerCheckInComponent, canActivate : [Guard] },
+  { path: 'checkin/:id', component: VolunteerCheckInComponent, canActivate : [Guard] },
   { path: 'start', component: GettingStartedComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
