@@ -9,7 +9,7 @@ import { testOrganizations, Organization } from '../models/organization';
 export class OrganizationService extends BaseService {
 
   constructor(protected http: Http) {
-    super(http);
+    super(http, null);
     this.modelName = 'organization';
   }
 }
@@ -19,6 +19,12 @@ export class MockOrganizationService extends OrganizationService {
   constructor() {
     super(null);
   }
+
+  getAllRx(): void { }
+
+  createRx(obj: any): void { }
+
+  updateRx(obj: any): void { }
 
   getAll(): Observable<Organization[]> {
     return Observable.of(testOrganizations);

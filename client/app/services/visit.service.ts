@@ -12,30 +12,14 @@ import { ADD_VISIT, LOAD_VISITS, MODIFY_VISIT } from '../reducers/visit';
 export class VisitService extends BaseService {
   model = Visit;
 
-  constructor(protected http: Http, private store: Store<Visit[]>) {
-    super(http);
+  constructor(protected http: Http, protected store: Store<Visit[]>) {
+    super(http, store);
     this.modelName = 'visit';
-  }
-
-  getAllRx(): void {
-    this.http.get(`/api/${this.modelName}s`, this.options)
-      .map(res => res.json().map(this.convert))
-      .map(payload => ({ type: LOAD_VISITS, payload: payload }))
-      .subscribe(action => this.store.dispatch(action));
-  }
-
-  createRx(obj: any, successCb, errorCb): void {
-    this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
-      .map(res => this.convert(res.json()))
-      .map(payload => ({ type: ADD_VISIT, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
-  }
-
-  updateRx(obj: any, successCb, errorCb): void {
-    this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
-      .map(res => this.convert(res.json()))
-      .map(payload => ({ type: MODIFY_VISIT, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
+    this.actionTypes = {
+      getAll: LOAD_VISITS,
+      create: ADD_VISIT,
+      update: MODIFY_VISIT
+    }
   }
 
   /**

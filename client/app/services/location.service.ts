@@ -5,28 +5,19 @@ import { Observable } from 'rxjs/Observable';
 
 import BaseService from './base.service';
 import { Location, testLocations } from '../models/location';
-import { ADD_LOCATION, LOAD_LOCATIONS } from '../reducers/location';
+import { ADD_LOCATION, LOAD_LOCATIONS, MODIFY_LOCATION } from '../reducers/location';
 
 @Injectable()
 export class LocationService extends BaseService {
 
-  constructor(protected http: Http, private store: Store<Location[]>) {
-    super(http);
+  constructor(protected http: Http, protected store: Store<Location[]>) {
+    super(http, store);
     this.modelName = 'location';
-  }
-
-  getAllRx(): void {
-    this.http.get(`/api/${this.modelName}s`, this.options)
-      .map(res => res.json().map(this.convert))
-      .map(payload => ({ type: LOAD_LOCATIONS, payload: payload }))
-      .subscribe(action => this.store.dispatch(action));
-  }
-
-  createRx(obj: any, successCb, errorCb): void {
-    this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
-      .map(res => this.convert(res.json()))
-      .map(payload => ({ type: ADD_LOCATION, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
+    this.actionTypes = {
+      getAll: LOAD_LOCATIONS,
+      create: ADD_LOCATION,
+      update: MODIFY_LOCATION
+    };
   }
 }
 
@@ -39,6 +30,8 @@ export class MockLocationService extends LocationService {
   getAllRx(): void { }
 
   createRx(obj: any): void { }
+
+  updateRx(obj: any): void { }
 
   getAll(): Observable<Location[]> {
     return Observable.of(testLocations);

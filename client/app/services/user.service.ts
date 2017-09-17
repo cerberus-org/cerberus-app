@@ -11,7 +11,7 @@ export class UserService extends BaseService {
   model: User;
 
   constructor(protected http: Http) {
-    super(http);
+    super(http, null);
     this.modelName = 'user';
   }
 
@@ -30,6 +30,12 @@ export class MockUserService extends UserService {
   constructor() {
     super(null);
   }
+
+  getAllRx(): void { }
+
+  createRx(obj: any): void { }
+
+  updateRx(obj: any): void { }
 
   getAll(): Observable<User[]> {
     return Observable.of(testUsers);
