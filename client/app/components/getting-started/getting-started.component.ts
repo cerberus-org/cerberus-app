@@ -6,6 +6,7 @@ import { Organization } from '../../models/organization';
 import { OrganizationService } from '../../services/organization.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
+import { VisitService } from '../../services/visit.service';
 
 @Component({
   selector: 'app-getting-started',
@@ -20,7 +21,7 @@ export class GettingStartedComponent implements OnInit {
   user: User;
 
   constructor(private router: Router, private snackBar: MdSnackBar,
-              private organizationService: OrganizationService, private userService: UserService) { }
+              private organizationService: OrganizationService, private userService: UserService, private visitService: VisitService) { }
 
   ngOnInit() {
     this.step = 0;
@@ -66,12 +67,17 @@ export class GettingStartedComponent implements OnInit {
     );
   }
 
+  getVisitsByDate(daysToSubtract: number): void {
+    this.visitService.getByDateRx(new Date(new Date().getTime() - (daysToSubtract * 24 * 60 * 60 * 1000)));
+  }
+
   login(user: User): void {
     this.userService.login(user)
       .subscribe(
         response => {
           localStorage.setItem('token', response.token);
           this.router.navigateByUrl('/organization-dashboard');
+          this.getVisitsByDate(7);
         },
         err => console.log(err)
       );

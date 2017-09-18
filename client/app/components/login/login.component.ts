@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   // declare FormGroup
   loginForm: FormGroup;
 
-  constructor(public router: Router, private fb: FormBuilder, private loginService: UserService, private visitService: VisitService) {
+  constructor(public router: Router, private fb: FormBuilder, private userService: UserService, private visitService: VisitService) {
     this.createForm();
   }
 
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loginService.login(this.loginForm.value)
+    this.userService.login(this.loginForm.value)
       .subscribe(
         response => {
           localStorage.setItem('token', response.token);
