@@ -24,7 +24,8 @@ describe('NewVolunteerFormComponent', () => {
         MdSnackBarModule,
         StoreModule.provideStore({ volunteers: volunteerReducer })
       ],
-      providers: [{ provide: VolunteerService, useClass: MockVolunteerService }).compileComponents();
+      providers: [{ provide: VolunteerService, useClass: MockVolunteerService }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
