@@ -2,8 +2,11 @@
          fxFlex
          fxLayout="column"
          fxLayoutAlign="center center">
-  <a class="check-in" md-raised-button color="primary" href="checkin">
-    <span class="material-icons">check_circle</span>
-    <span>Check In</span>
+  <a *ngFor="let location of locations"
+          md-raised-button
+          class="check-in"
+          color="primary"
+          (click)="onClick(location)">
+    <i class="material-icons">check_circle</i> {{location.name}}
   </a>
 </md-card>

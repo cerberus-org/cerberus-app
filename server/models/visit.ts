@@ -1,7 +1,22 @@
 import * as mongoose from 'mongoose';
+
+import Location from './location';
+import Organization from './organization';
 import Volunteer from './volunteer';
 
 const visitSchema = new mongoose.Schema({
+  organizationId: {
+    type: mongoose.Schema.Types.ObjectId, ref: Organization,
+    // required: [true, 'Organization ID is required']
+  },
+  locationId: {
+    type: mongoose.Schema.Types.ObjectId, ref: Location,
+    required: [true, 'Location ID is required']
+  },
+  volunteerId: {
+    type: mongoose.Schema.Types.ObjectId, ref: Volunteer,
+    required: [true]
+  },
   startedAt: {
     type: Date,
     default: Date.now,
@@ -10,10 +25,6 @@ const visitSchema = new mongoose.Schema({
   endedAt: {
     type: Date,
     required: [false]
-  },
-  volunteerId: {
-    type: mongoose.Schema.Types.ObjectId, ref: Volunteer,
-    required: [true]
   },
   signature: {
     type: String

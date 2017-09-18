@@ -19,7 +19,7 @@ export class User {
 export const testUsers: User[] = [
   {
     _id: '5961327dfba1ca1b64b8945a',
-    organizationId: null,
+    organizationId: '59a7055733bfe28af47cff40',
     firstName: 'Ted',
     lastName: 'Mader',
     email: 'tlmader.dev@gmail.com',
@@ -27,7 +27,7 @@ export const testUsers: User[] = [
     role: 'admin'
   }, {
     _id: '5961327dfba1ca1b64b8945b',
-    organizationId: null,
+    organizationId: '59a7055733bfe28af47cff40',
     firstName: 'Hillary',
     lastName: 'Lynn',
     email: 'harurang@gmail.com',
