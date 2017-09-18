@@ -9,13 +9,13 @@ import {
   MdTableModule,
   MdTabsModule, MdToolbarModule
 } from '@angular/material';
-import { CdkTableModule } from '@angular/cdk';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { ChartsModule } from 'ng2-charts';
 import { Guard } from './guard';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import 'hammerjs';
+import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppRoutingModule } from './app-routing.module';
 
