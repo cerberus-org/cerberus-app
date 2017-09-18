@@ -6,7 +6,7 @@ import { VisitService } from './visit.service';
 import { testVisits } from '../models/visit';
 import { StoreModule } from '@ngrx/store';
 import { visitReducer } from '../reducers/visit';
-import ErrorService, { MockErrorService } from './error.service';
+import { ErrorService, MockErrorService } from './error.service';
 
 describe('VisitService', () => {
   let backend: MockBackend = null;

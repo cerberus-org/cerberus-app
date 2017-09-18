@@ -1,8 +1,8 @@
 import { TestBed, inject, async, getTestBed, } from '@angular/core/testing';
-import ErrorService from './error.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MdSnackBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ErrorService } from './error.service';
 
 describe('UserService', () => {
   let service: ErrorService = null;
