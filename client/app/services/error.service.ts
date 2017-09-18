@@ -4,7 +4,7 @@ import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export default class ErrorService {
+export class ErrorService {
   public httpStatuses: Map<number, string>;
 
   constructor(private router: Router, private snackBar: MdSnackBar) {

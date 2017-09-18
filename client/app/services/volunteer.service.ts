@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { testVolunteers, Volunteer } from '../models/volunteer';
 import { ADD_VOLUNTEER, LOAD_VOLUNTEERS } from '../reducers/volunteer';
 import BaseService from './base.service';
-import ErrorService from './error.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class VolunteerService extends BaseService {
