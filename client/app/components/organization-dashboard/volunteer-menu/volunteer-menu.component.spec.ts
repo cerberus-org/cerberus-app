@@ -1,8 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MdCardModule } from '@angular/material';
+import { StoreModule } from '@ngrx/store';
 
 import { VolunteerMenuComponent } from './volunteer-menu.component';
-import { MdCardModule } from '@angular/material';
-import { MockVisitService, VisitService } from '../../../services/visit.service';
+import { LocationService, MockLocationService } from '../../../services/location.service';
+import { locationReducer } from '../../../reducers/location';
 
 describe('VolunteerMenuComponent', () => {
   let component: VolunteerMenuComponent;
@@ -10,11 +13,16 @@ describe('VolunteerMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MdCardModule
-      ],
       declarations: [
         VolunteerMenuComponent
+      ],
+      imports: [
+        MdCardModule,
+        RouterTestingModule,
+        StoreModule.provideStore({ locations: locationReducer })
+      ],
+      providers: [
+        { provide: LocationService, useClass: MockLocationService }
       ]
     }).compileComponents();
   }));

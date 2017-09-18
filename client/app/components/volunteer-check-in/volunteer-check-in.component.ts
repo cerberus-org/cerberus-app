@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class VolunteerCheckInComponent implements OnInit {
   locationId: string;
 
-  constructor(private route: ActivatedRoute, private volunteerService: VolunteerService) { }
+  constructor(private volunteerService: VolunteerService) { }
 
   ngOnInit(): void {
     this.getVolunteers();

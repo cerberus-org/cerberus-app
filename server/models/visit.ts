@@ -7,7 +7,7 @@ import Volunteer from './volunteer';
 const visitSchema = new mongoose.Schema({
   organizationId: {
     type: mongoose.Schema.Types.ObjectId, ref: Organization,
-    required: [true, 'Organization ID is required']
+    // required: [true, 'Organization ID is required']
   },
   locationId: {
     type: mongoose.Schema.Types.ObjectId, ref: Location,

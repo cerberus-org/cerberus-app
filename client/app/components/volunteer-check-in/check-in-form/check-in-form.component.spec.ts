@@ -25,13 +25,13 @@ describe('CheckInFormComponent', () => {
         SignatureFieldComponent
       ],
       imports: [
-        NoopAnimationsModule,
-        RouterTestingModule,
-        ReactiveFormsModule,
         MdAutocompleteModule,
         MdInputModule,
         MdRadioModule,
         MdSnackBarModule,
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
         SignaturePadModule,
         StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
       ],

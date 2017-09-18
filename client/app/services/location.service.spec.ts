@@ -1,9 +1,11 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
+import { StoreModule } from '@ngrx/store';
 
 import { LocationService } from './location.service';
 import { testLocations } from '../models/location';
+import { locationReducer } from '../reducers/location';
 
 describe('LocationService', () => {
   let backend: MockBackend = null;
@@ -11,6 +13,9 @@ describe('LocationService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.provideStore({locations: locationReducer})
+      ],
       providers: [
         BaseRequestOptions,
         MockBackend,
