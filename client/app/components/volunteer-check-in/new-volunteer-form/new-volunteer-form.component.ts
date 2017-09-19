@@ -33,10 +33,6 @@ export class NewVolunteerFormComponent implements OnInit {
       this.formGroup.value.firstName,
       this.formGroup.value.lastName,
       this.formGroup.value.petName));
-      () => this.snackBar.open('Volunteer successfully signed up!', '', {
-        duration: 3000
-      })
-    );
     this.formGroup.reset();
     // Workaround for clearing error state
     Object.keys(this.formGroup.controls).forEach(key => {
@@ -47,6 +43,9 @@ export class NewVolunteerFormComponent implements OnInit {
 
   createVolunteer(volunteer: Volunteer): void {
     this.volunteerService.createRx(volunteer,
+      () => this.snackBar.open('Volunteer successfully signed up!', '', {
+        duration: 3000
+      }));
   }
 
   createForm(): void {

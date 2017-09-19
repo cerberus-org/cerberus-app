@@ -13,7 +13,6 @@ import { StoreModule } from '@ngrx/store';
 import { ChartsModule } from 'ng2-charts';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import 'hammerjs';
-import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { Guard } from './guard';

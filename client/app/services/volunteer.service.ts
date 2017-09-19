@@ -13,7 +13,7 @@ import { ErrorService } from './error.service';
 export class VolunteerService extends BaseService {
   model = Volunteer;
 
-  constructor(protected http: Http, protected store: Store<Volunteer[]>) {
+  constructor(protected http: Http, protected store: Store<Volunteer[]>, protected errorService: ErrorService) {
     super(http, store, errorService);
     this.modelName = 'volunteer';
     this.actionTypes = {

@@ -10,7 +10,7 @@ import { ErrorService } from './error.service';
 export class UserService extends BaseService {
   model: User;
 
-  constructor(protected http: Http, public errorService: ErrorService) {
+  constructor(protected http: Http, protected errorService: ErrorService) {
     super(http, null, errorService);
     this.modelName = 'user';
   }

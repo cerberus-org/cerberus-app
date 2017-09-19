@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { LocationService } from './location.service';
 import { testLocations } from '../models/location';
 import { locationReducer } from '../reducers/location';
+import { ErrorService, MockErrorService } from './error.service';
 
 describe('LocationService', () => {
   let backend: MockBackend = null;
@@ -20,6 +21,7 @@ describe('LocationService', () => {
         BaseRequestOptions,
         MockBackend,
         LocationService,
+        { provide: ErrorService, useClass: MockErrorService },
         {
           provide: Http,
           useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {

@@ -4,12 +4,13 @@ import { Observable } from 'rxjs/Observable';
 
 import BaseService from './base.service';
 import { testOrganizations, Organization } from '../models/organization';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class OrganizationService extends BaseService {
 
-  constructor(protected http: Http) {
-    super(http, null);
+  constructor(protected http: Http, protected errorService: ErrorService) {
+    super(http, null, errorService);
     this.modelName = 'organization';
   }
 }
@@ -17,7 +18,7 @@ export class OrganizationService extends BaseService {
 export class MockOrganizationService extends OrganizationService {
 
   constructor() {
-    super(null);
+    super(null, null);
   }
 
   getAllRx(): void { }

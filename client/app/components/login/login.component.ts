@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { VisitService } from '../../services/visit.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string;
 
-  constructor(private router: Router, private fb: FormBuilder, private loginService: UserService) {
+  constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private visitService: VisitService) {
     this.createForm();
   }
 
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loginService.login(this.loginForm.value)
+    this.userService.login(this.loginForm.value)
       .subscribe(
         response => {
           localStorage.setItem('token', response.token);

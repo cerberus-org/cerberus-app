@@ -32,18 +32,18 @@ abstract class BaseService {
       .subscribe(action => this.store.dispatch(action));
   }
 
-  createRx(obj: any, successCb, errorCb): void {
+  createRx(obj: any, successCb): void {
     this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
       .map(payload => ({ type: this.actionTypes.create, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
+      .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError, successCb);
   }
 
-  updateRx(obj: any, successCb, errorCb): void {
+  updateRx(obj: any, successCb): void {
     this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
       .map(payload => ({ type: this.actionTypes.update, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), errorCb, successCb);
+      .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError, successCb);
   }
 
   getAll(): Observable<any[]> {

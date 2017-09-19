@@ -9,9 +9,9 @@ export class ErrorService {
 
   constructor(private router: Router, private snackBar: MdSnackBar) {
     this.httpStatuses = new Map<number, string>([
-      [401, 'Session Expired'],
-      [504, 'Server Error'],
-      [403, 'Forbidden']
+      [401, 'Session expired!'],
+      [504, 'Server error!'],
+      [403, 'Forbidden!']
     ]);
   }
 
