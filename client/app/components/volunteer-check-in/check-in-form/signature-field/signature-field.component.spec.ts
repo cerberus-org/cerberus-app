@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignatureFieldComponent } from './signature-field.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('SignatureFieldComponent', () => {
   let component: SignatureFieldComponent;
@@ -10,14 +10,12 @@ describe('SignatureFieldComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignatureFieldComponent ],
+      declarations: [SignatureFieldComponent],
       imports: [
-        FormsModule,
         ReactiveFormsModule,
         SignaturePadModule,
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -2,11 +2,1096 @@
 	"variables": [],
 	"info": {
 		"name": "cerberus-app",
-		"_postman_id": "09b751dc-91c9-fdf5-8938-32462617932d",
+		"_postman_id": "6e39817e-74ec-7fd4-d8ea-1c2d07b48199",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "location",
+			"description": "",
+			"item": [
+				{
+					"name": "Insert location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || responseCode.code === 409;",
+									"",
+									"const jsonData = JSON.parse(responseBody);",
+									"if (responseCode.code === 201) {",
+									"    tests[\"__v is correct\"] = jsonData.__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData._id === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"name is correct\"] = jsonData.name === \"Jefferson Parish Eastbank Animal Shelter\";",
+									"    tests[\"address is correct\"] = jsonData.address === \"1 Humane Way, New Orleans, LA 70123\";",
+									"} else if (responseCode.code === 409) {",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/location",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"_id\": \"59bc1e7ad92a6ac6f6252bfa\",\n\t\"organizationId\": \"59a7055733bfe28af47cff40\",\n\t\"name\": \"jefferson parish eastbank animal shelter\",\n\t\"address\": \"1 humane way, new orleans, LA 70123\"\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all locations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.length > 0) {",
+									"    tests[\"__v is correct\"] = jsonData[0].__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData[0]._id === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"organizationId is correct\"] = jsonData[0].organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"name is correct\"] = jsonData[0].name === \"Jefferson Parish Eastbank Animal Shelter\";",
+									"    tests[\"address is correct\"] = jsonData[0].address === \"1 Humane Way, New Orleans, LA 70123\";",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/locations",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get location by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200 or 404\"] = responseCode.code === 200 || 404;",
+									"",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"__v is correct\"] = jsonData.__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData._id === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"name is correct\"] = jsonData.name === \"Jefferson Parish Eastbank Animal Shelter\";",
+									"    tests[\"address is correct\"] = jsonData.address === \"1 Humane Way, New Orleans, LA 70123\";",
+									"} else if (responseCode.code === 404) {",
+									"    tests[\"Body has \\\"Not Found\\\"\"] = responseBody.has(\"Not Found\");",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/location/59bc1e7ad92a6ac6f6252bfa",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Count all locations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Count is correct\"] = responseBody.has(1);",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/locations/count",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update location by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const codeIsValid = responseCode.code === 204 || responseCode.code === 404 || responseCode.code === 409;",
+									"tests[\"Status code is 204, 404, or 409\"] = codeIsValid;",
+									"",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"name is correct\"] = jsonData.name === \"EDIT-Jefferson Parish Eastbank Animal Shelter\";",
+									"    tests[\"address is correct\"] = jsonData.address === \"EDIT-1 Humane Way, New Orleans, LA 70123\";",
+									"} else if (responseCode.code === 404) {",
+									"    tests[\"Body has \\\"Not Found\\\"\"] = responseBody.has(\"Not Found\");",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/location/59bc1e7ad92a6ac6f6252bfa",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"EDIT-Jefferson Parish Eastbank Animal Shelter\",\n\t\"address\": \"EDIT-1 Humane Way, New Orleans, LA 70123\"\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete location by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/location/59bc1e7ad92a6ac6f6252bfa",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "organization",
+			"description": "",
+			"item": [
+				{
+					"name": "Insert organization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || responseCode.code === 409;",
+									"",
+									"const jsonData = JSON.parse(responseBody);",
+									"if (responseCode.code === 201) {",
+									"    tests[\"__v is correct\"] = jsonData[0].__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData[0]._id === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"name is correct\"] = jsonData[0].name === \"Jefferson SPCA\";",
+									"    tests[\"description is correct\"] = jsonData[0].description === \"The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\";",
+									"    tests[\"website is correct\"] = jsonData[0].website === \"www.jeffersonspca.org\";",
+									"} else if (responseCode.code === 409) {",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/organization",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"59a7055733bfe28af47cff40\",\n\t\"name\": \"jefferson SPCA\",\n\t\"description\": \"The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\",\n\t\"website\": \"www.jeffersonspca.org\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all organizations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.length > 0) {",
+									"    tests[\"__v is correct\"] = jsonData[0].__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData[0]._id === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"name is correct\"] = jsonData[0].name === \"Jefferson SPCA\";",
+									"    tests[\"description is correct\"] = jsonData[0].description === \"The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\";",
+									"    tests[\"website is correct\"] = jsonData[0].website === \"www.jeffersonspca.org\";",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/organizations",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get organization by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"name is correct\"] = jsonData.name === \"Jefferson SPCA\";",
+									"    tests[\"description is correct\"] = jsonData.description === \"The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\";",
+									"    tests[\"website is correct\"] = jsonData.website === \"www.jeffersonspca.org\";",
+									"} else if (responseCode.code === 404) {",
+									"    tests[\"Body has \\\"Not Found\\\"\"] = responseBody.has(\"Not Found\");",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/organization/59a7055733bfe28af47cff40",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Count all organizations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Count is correct\"] = responseBody.has(1);",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visits/count",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update organization by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const codeIsValid = responseCode.code === 200 || responseCode.code === 404 || responseCode.code === 409;",
+									"tests[\"Status code is 200, 404, or 409\"] = codeIsValid;",
+									"",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"name is correct\"] = jsonData.name === \"EDIT-Jefferson SPCA\";",
+									"    tests[\"description is correct\"] = jsonData.description === \"EDIT-The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\";",
+									"    tests[\"website is correct\"] = jsonData.website === \"www.editjeffersonspca.org\";",
+									"} else if (responseCode.code === 404) {",
+									"    tests[\"Body has \\\"Not Found\\\"\"] = responseBody.has(\"Not Found\");",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/organization/59a7055733bfe28af47cff40",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"EDIT-Jefferson SPCA\",\n\t\"description\": \"EDIT-The Jefferson SPCA exists to support the Jefferson Parish Animal Shelter, and aid in its lifesaving mission. Our programs prevent and address animal cruelty and provide much-needed medical treatment, rescues, and ultimately adoptions for homeless pets.\",\n\t\"website\": \"www.editjeffersonspca.org\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete organization by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/organization/59a7055733bfe28af47cff40",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "visit",
+			"description": "",
+			"item": [
+				{
+					"name": "Insert visit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || responseCode.code === 409;",
+									"",
+									"const jsonData = JSON.parse(responseBody);",
+									"if (responseCode.code === 201) {",
+									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
+									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
+									"} else if (responseCode.code === 409) {",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visit",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"674a861ace7ca574af9070c8\",\n\t\"organizationId\": \"59a7055733bfe28af47cff40\",\n\t\"locationId\": \"59bc1e7ad92a6ac6f6252bfa\",\n\t\"volunteerId\": \"594a861ace7ca574ae9070c8\",\n\t\"startedAt\": \"2017-07-17T21:20:31.814Z\",\n\t\"timezone\": \"America/Los_Angeles\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all visits",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.length > 0) {",
+									"    tests[\"__v is correct\"] = jsonData[0].__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData[0]._id === \"674a861ace7ca574af9070c8\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"volunteerId is correct\"] = jsonData[0].volunteerId === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
+									"    tests[\"timezone is correct\"] = jsonData[0].timezone === \"America/Los_Angeles\";",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visits",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get visit by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200 or 404\"] = responseCode.code === 200 || 404;",
+									"",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
+									"} else if (responseCode.code === 404) {",
+									"    tests[\"Body has \\\"Not Found\\\"\"] = responseBody.has(\"Not Found\");",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Count all visits ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Count is correct\"] = responseBody.has(1);",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visits/count",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update visit by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const codeIsValid = responseCode.code === 200 || responseCode.code === 404 || responseCode.code === 409;",
+									"tests[\"Status code is 200, 404, or 409\"] = codeIsValid;",
+									"",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
+									"    tests[\"endedAt is correct\"] = jsonData.endedAt === \"2017-07-17T22:20:31.814Z\";",
+									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
+									"} else if (responseCode.code === 404) {",
+									"    tests[\"Body has \\\"Not Found\\\"\"] = responseBody.has(\"Not Found\");",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"endedAt\": \"2017-07-17T22:20:31.814Z\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get visits by date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.length > 0) {",
+									"    tests[\"_id is correct\"] = jsonData[0]._id === \"674a861ace7ca574af9070c8\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"volunteerId is correct\"] = jsonData[0].volunteerId === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
+									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visits/2017-07-06T01:33:27.337Z",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete visit by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "volunteer",
+			"description": "",
+			"item": [
+				{
+					"name": "Insert volunteer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || responseCode.code === 409;",
+									"",
+									"const jsonData = JSON.parse(responseBody);",
+									"if (responseCode.code === 201) {",
+									"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
+									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
+									"    tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
+									"} else if (responseCode.code === 409) {",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"organizationId\": \"59a7055733bfe28af47cff40\",\n\t\"locationId\": \"59bc1e7ad92a6ac6f6252bfa\",\n\t\"_id\": \"594a861ace7ca574ae9070c8\",\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Mimi\"\n}\n"
+						},
+						"description": "volunteer: {\n  firstName: String,\n  lastName: String,\n  petName: String\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all volunteers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.length > 0) {",
+									"    tests[\"__v is correct\"] = jsonData[0].__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData[0]._id === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"firstName is correct\"] = jsonData[0].firstName === \"Ted\";",
+									"    tests[\"lastName is correct\"] = jsonData[0].lastName === \"Mader\";",
+									"    tests[\"petName is correct\"] = jsonData[0].petName === \"Mimi\";",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteers",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get volunteer by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200 or 404\"] = responseCode.code === 200 || 404;",
+									"",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"__v is correct\"] = jsonData[0].__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
+									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
+									"    tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
+									"} else if (responseCode.code === 404) {",
+									"    tests[\"Body has \\\"Not Found\\\"\"] = responseBody.has(\"Not Found\");",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Count all volunteers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Count is correct\"] = responseBody.has(1);",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteers/count",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update volunteer by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const codeIsValid = responseCode.code === 200 || responseCode.code === 404 || responseCode.code === 409;",
+									"tests[\"Status code is 200, 404, or 409\"] = codeIsValid;",
+									"",
+									"if (responseCode.code === 200) {",
+									"    const jsonData = JSON.parse(responseBody);",
+									"    tests[\"__v is correct\"] = jsonData.__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"firstName is correct\"] = jsonData.firstName === \"EDIT-Ted\";",
+									"    tests[\"lastName is correct\"] = jsonData.lastName === \"EDIT-Mader\";",
+									"    tests[\"petName is correct\"] = jsonData.petName === \"EDIT-Mimi\";",
+									"} else if (responseCode.code === 404) {",
+									"    tests[\"Body has \\\"Not Found\\\"\"] = responseBody.has(\"Not Found\");",
+									"} else if (responseCode.code === 409) {",
+									"    const jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"EDIT-Ted\",\n\t\"lastName\": \"EDIT-Mader\",\n\t\"petName\": \"EDIT-Mimi\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete volunteer by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "user",
 			"description": "",
@@ -19,16 +1104,18 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || 409;",
+									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || responseCode.code === 409;",
 									"",
+									"const jsonData = JSON.parse(responseBody);",
 									"if (responseCode.code === 201) {",
-									"    var jsonData = JSON.parse(responseBody);",
 									"    tests[\"__v is correct\"] = jsonData.__v === 0;",
 									"    tests[\"_id is correct\"] = jsonData._id === \"596178f9668eaf34ab10a35c\";",
-									"    tests[\"email is correct\"] = jsonData.email === \"test@gmail.com\";",
-									"    tests[\"username is correct\"] = jsonData.username === \"test\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
+									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
+									"    tests[\"email is correct\"] = jsonData.email === \"ted.mader@gmail.com\";",
+									"    tests[\"role is correct\"] = jsonData.role === \"admin\";",
 									"} else if (responseCode.code === 409) {",
-									"    var jsonData = JSON.parse(responseBody);",
 									"    tests[\"code is correct\"] = jsonData.code === 11000;",
 									"}",
 									"",
@@ -49,7 +1136,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"__v\": 0,\n\t\"_id\": \"596178f9668eaf34ab10a35c\",\n\t\"email\": \"test@gmail.com\",\n\t\"username\": \"test\",\n\t\"password\": \"test\"\n}"
+							"raw": "{\n\t\"_id\": \"596178f9668eaf34ab10a35c\",\n\t\"organizationId\": \"59a7055733bfe28af47cff40\",\n\t\"email\": \"ted.mader@gmail.com\",\n\t\"firstName\": \"ted\",\n\t\"lastName\": \"mader\",\n\t\"password\": \"test\",\n\t\"role\": \"admin\"\n}"
 						},
 						"description": ""
 					},
@@ -114,10 +1201,15 @@
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
 									"",
 									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"__v is correct\"] = jsonData[0].__v === 0;",
-									"tests[\"_id is correct\"] = jsonData[0]._id === \"596178f9668eaf34ab10a35c\";",
-									"tests[\"email is correct\"] = jsonData[0].email === \"test@gmail.com\";",
-									"tests[\"username is correct\"] = jsonData[0].username === \"test\";",
+									"if (jsonData.length > 0) {",
+									"    tests[\"__v is correct\"] = jsonData[0].__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData[0]._id === \"596178f9668eaf34ab10a35c\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
+									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
+									"    tests[\"email is correct\"] = jsonData.email === \"ted.mader@gmail.com\";",
+									"    tests[\"role is correct\"] = jsonData.role === \"admin\";",
+									"}",
 									"",
 									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
 								]
@@ -150,13 +1242,20 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200 || 404;",
+									"tests[\"Status code is 200 or 404\"] = responseCode.code === 200 || 404;",
 									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"__v is correct\"] = jsonData.__v === 0;",
-									"tests[\"_id is correct\"] = jsonData._id === \"596178f9668eaf34ab10a35c\";",
-									"tests[\"email is correct\"] = jsonData.email === \"test@gmail.com\";",
-									"tests[\"username is correct\"] = jsonData.username === \"test\";",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"__v is correct\"] = jsonData.__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData._id === \"596178f9668eaf34ab10a35c\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
+									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
+									"    tests[\"email is correct\"] = jsonData.email === \"ted.mader@gmail.com\";",
+									"    tests[\"role is correct\"] = jsonData.role === \"admin\";",
+									"} else if (responseCode.code === 404) {",
+									"    tests[\"Body has \\\"Not Found\\\"\"] = responseBody.has(\"Not Found\");",
+									"}",
 									"",
 									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
 								]
@@ -224,7 +1323,24 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
+									"const codeIsValid = responseCode.code === 200 || responseCode.code === 404 || responseCode.code === 409;",
+									"tests[\"Status code is 200, 404, or 409\"] = codeIsValid;",
+									"",
+									"if (responseCode.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"__v is correct\"] = jsonData.__v === 0;",
+									"    tests[\"_id is correct\"] = jsonData._id === \"596178f9668eaf34ab10a35c\";",
+									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
+									"    tests[\"firstName is correct\"] = jsonData.firstName === \"EDIT-First\";",
+									"    tests[\"lastName is correct\"] = jsonData.lastName === \"EDIT-Last\";",
+									"    tests[\"email is correct\"] = jsonData.email === \"EDIT-test@gmail.com\";",
+									"    tests[\"role is correct\"] = jsonData.role === \"EDIT-admin\";  ",
+									"} else if (responseCode.code === 404) {",
+									"    tests[\"Body has \\\"Not Found\\\"\"] = responseBody.has(\"Not Found\");",
+									"} else if (responseCode.code === 409) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"code is correct\"] = jsonData.code === 11000;",
+									"}",
 									"",
 									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
 								]
@@ -248,7 +1364,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"_id\": \"596178f9668eaf34ab10a35c\",\n    \"email\": \"test@gmail.com\",\n    \"username\": \"test\",\n    \"password\": \"testing\"\n}"
+							"raw": "{\n    \"_id\": \"596178f9668eaf34ab10a35c\",\n    \"email\": \"EDIT-test@gmail.com\",\n    \"firstName\": \"EDIT-First\",\n    \"lastName\": \"EDIT-Last\",\n    \"role\": \"EDIT-admin\"\n}"
 						},
 						"description": ""
 					},
@@ -282,517 +1398,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "visit",
-			"description": "",
-			"item": [
-				{
-					"name": "Insert visit",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || 409;",
-									"",
-									"if (responseCode.code === 201) {",
-									"    var jsonData = JSON.parse(responseBody);",
-									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
-									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
-									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
-									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
-									"} else if (responseCode.code === 409) {",
-									"    var jsonData = JSON.parse(responseBody);",
-									"    tests[\"code is correct\"] = jsonData.code === 11000;",
-									"}",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/visit",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"_id\": \"674a861ace7ca574af9070c8\",\n\t\"volunteerId\": \"594a861ace7ca574ae9070c8\",\n\t\"timezone\": \"America/Los_Angeles\",\n\t\"startedAt\": \"2017-07-17T21:20:31.814Z\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all visits",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"_id is correct\"] = jsonData[0]._id === \"674a861ace7ca574af9070c8\";",
-									"tests[\"volunteerId is correct\"] = jsonData[0].volunteerId === \"594a861ace7ca574ae9070c8\";",
-									"tests[\"timezone is correct\"] = jsonData[0].timezone === \"America/Los_Angeles\";",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/visits",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get visit by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200 || 404;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
-									"tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
-									"tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Count all visits ",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"tests[\"Count is correct\"] = responseBody.has(1);",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/visits/count",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Update visit by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
-									"",
-									"if (responseCode.code === 200) {",
-									"    var jsonData = JSON.parse(responseBody);",
-									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
-									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
-									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
-									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
-									"    tests[\"endedAt is correct\"] = jsonData.endedAt === \"2017-07-17T22:20:31.814Z\";",
-									"} else if (responseCode.code === 409) {",
-									"    var jsonData = JSON.parse(responseBody);",
-									"    tests[\"code is correct\"] = jsonData.code === 11000;",
-									"}",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"endedAt\": \"2017-07-17T22:20:31.814Z\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get visits by date",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"_id is correct\"] = jsonData[0]._id === \"674a861ace7ca574af9070c8\";",
-									"tests[\"volunteerId is correct\"] = jsonData[0].volunteerId === \"594a861ace7ca574ae9070c8\";",
-									"tests[\"timezone is correct\"] = jsonData[0].timezone === \"America/Los_Angeles\";",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/visits/2017-07-06T01:33:27.337Z",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Delete visit by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/visit/674a861ace7ca574af9070c8",
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "volunteer",
-			"description": "",
-			"item": [
-				{
-					"name": "Insert volunteer",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 201 or 409\"] = responseCode.code === 201 || 409;",
-									"",
-									"if (responseCode.code === 201) {",
-									"    var jsonData = JSON.parse(responseBody);",
-									"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
-									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
-									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
-									"    tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
-									"} else if (responseCode.code === 409) {",
-									"    var jsonData = JSON.parse(responseBody);",
-									"    tests[\"code is correct\"] = jsonData.code === 11000;",
-									"}",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteer",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"_id\": \"594a861ace7ca574ae9070c8\",\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Mimi\"\n}"
-						},
-						"description": "volunteer: {\n  firstName: String,\n  lastName: String,\n  petName: String\n}"
-					},
-					"response": []
-				},
-				{
-					"name": "Get all volunteers",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"_id is correct\"] = jsonData[0]._id === \"594a861ace7ca574ae9070c8\";",
-									"tests[\"firstName is correct\"] = jsonData[0].firstName === \"Ted\";",
-									"tests[\"lastName is correct\"] = jsonData[0].lastName === \"Mader\";",
-									"tests[\"petName is correct\"] = jsonData[0].petName === \"Mimi\";",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteers",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get volunteer by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
-									"tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
-									"tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
-									"tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Count all volunteers",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"tests[\"Count is correct\"] = responseBody.has(1);",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteers/count",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Update volunteer by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 204 or 409\"] = responseCode.code === 204 || 409;",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Gam-Gam\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Delete volunteer by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 204 or 404\"] = responseCode.code === 204 || 404;",
-									"",
-									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "localhost:3000/api/volunteer/594a861ace7ca574ae9070c8",
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "volunteer: {\n\tfirstName: Ted,\n\tlastName: Mader,\n\tpetName: Mimi\n}"
 						},
 						"description": ""
 					},

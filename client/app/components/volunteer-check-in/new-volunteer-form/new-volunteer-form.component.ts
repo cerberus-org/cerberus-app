@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { VolunteerService } from '../../../services/volunteer.service';
-import { Volunteer } from '../../../models/volunteer';
 import { MdSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+
+import { Volunteer } from '../../../models/volunteer';
+import { VolunteerService } from '../../../services/volunteer.service';
 
 @Component({
   selector: 'app-new-volunteer-form',
@@ -16,7 +17,8 @@ export class NewVolunteerFormComponent implements OnInit {
   public formGroup: FormGroup;
   public forms;
 
-  constructor(private fb: FormBuilder, private snackBar: MdSnackBar, private volunteerService: VolunteerService) {
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private snackBar: MdSnackBar,
+              private volunteerService: VolunteerService) {
     this.changeTab = new EventEmitter<number>();
     this.createForm();
   }
@@ -25,8 +27,12 @@ export class NewVolunteerFormComponent implements OnInit {
 
   onSubmit(): void {
     this.capitalize();
-    this.volunteerService.createRx(new Volunteer(this.formGroup.value.firstName, this.formGroup.value.lastName,
-      this.formGroup.value.petName),
+    this.createVolunteer(new Volunteer(
+      null,
+      this.route.snapshot.paramMap.get('id'),
+      this.formGroup.value.firstName,
+      this.formGroup.value.lastName,
+      this.formGroup.value.petName));
       () => this.snackBar.open('Volunteer successfully signed up!', '', {
         duration: 3000
       })
@@ -37,6 +43,10 @@ export class NewVolunteerFormComponent implements OnInit {
       this.formGroup.controls[key].setErrors(null)
     });
     this.changeTab.emit(0);
+  }
+
+  createVolunteer(volunteer: Volunteer): void {
+    this.volunteerService.createRx(volunteer,
   }
 
   createForm(): void {

@@ -3,33 +3,24 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { Store } from '@ngrx/store';
+import { ADD_VOLUNTEER, LOAD_VOLUNTEERS, MODIFY_VOLUNTEER } from '../reducers/volunteer';
 
 import { testVolunteers, Volunteer } from '../models/volunteer';
-import { ADD_VOLUNTEER, LOAD_VOLUNTEERS } from '../reducers/volunteer';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 
 @Injectable()
 export class VolunteerService extends BaseService {
   model = Volunteer;
-  modelName = 'volunteer';
 
-  constructor(protected http: Http, private store: Store<Volunteer[]>, public errorService: ErrorService) {
-    super(http, errorService);
-  }
-
-  getAllRx(): void {
-    this.http.get(`/api/${this.modelName}s`, this.options)
-      .map(res => res.json().map(this.convert))
-      .map(payload => ({ type: LOAD_VOLUNTEERS, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
-  }
-
-  createRx(obj: any, successCb): void {
-    this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
-      .map(res => this.convert(res.json()))
-      .map(payload => ({ type: ADD_VOLUNTEER, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err), successCb);
+  constructor(protected http: Http, protected store: Store<Volunteer[]>) {
+    super(http, store, errorService);
+    this.modelName = 'volunteer';
+    this.actionTypes = {
+      getAll: LOAD_VOLUNTEERS,
+      create: ADD_VOLUNTEER,
+      update: MODIFY_VOLUNTEER,
+    }
   }
 }
 
@@ -42,6 +33,8 @@ export class MockVolunteerService extends VolunteerService {
   getAllRx(): void { }
 
   createRx(obj: any): void { }
+
+  updateRx(obj: any): void { }
 
   getAll(): Observable<Volunteer[]> {
     return Observable.of(testVolunteers);

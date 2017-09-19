@@ -1,0 +1,12 @@
+<md-card class="gray-menu"
+         fxFlex
+         fxLayout="column"
+         fxLayoutAlign="center center">
+  <a *ngFor="let location of locations"
+          md-raised-button
+          class="check-in"
+          color="primary"
+          (click)="onClick(location)">
+    <i class="material-icons">check_circle</i> {{location.name}}
+  </a>
+</md-card>

@@ -1,7 +1,7 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { state, style, trigger, transition, animate } from '@angular/animations';
 
@@ -43,7 +43,7 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Creates the form group and subscribes on construction.
    */
-  constructor(private fb: FormBuilder, private store: Store<any>, private snackBar: MdSnackBar,
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private store: Store<any>, private snackBar: MdSnackBar,
               private visitService: VisitService, private router: Router) {
     this.createForm();
     this.subscribeToForm();
@@ -192,7 +192,11 @@ export class CheckInFormComponent implements OnInit {
     if (this.activeVisitForVolunteer) {
       this.endVisit(this.activeVisitForVolunteer);
     } else if (this.selectedVolunteer) {
-      this.startVisit(this.selectedVolunteer, this.signatures.first.signature);
+      this.startVisit(
+        null,
+        this.route.snapshot.paramMap.get('id'),
+        this.selectedVolunteer,
+        this.signatures.first.signature);
     }
     this.formGroup.reset();
     // Workaround for clearing error state
@@ -205,12 +209,12 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Creates a new visit with now as the start time and a null end time.
    */
-  startVisit(volunteer: Volunteer, signature: any): void {
+  startVisit(organizationId: string, locationId: string, volunteer: Volunteer, signature: any): void {
     this.visitService.createRx(
-      new Visit(volunteer._id, new Date(), null, 'America/Chicago', signature),
+      new Visit(organizationId, locationId, volunteer._id, new Date(), null, 'America/Chicago', signature),
       () => {
         this.snackBar.open('Volunteer successfully checked in!', '', { duration: 3000 });
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/dashboard');
       }
     );
   }
@@ -222,7 +226,7 @@ export class CheckInFormComponent implements OnInit {
     this.visitService.updateRx(Object.assign({}, visit, { endedAt: new Date() }),
       () => {
         this.snackBar.open('Volunteer successfully checked out!', '', { duration: 3000 });
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/dashboard');
       }
     );
   }

@@ -24,7 +24,7 @@
     "@angular/compiler": "^4.3.1",
     "@angular/compiler-cli": "^4.3.1",
     "@angular/core": "^4.3.1",
-    "@angular/flex-layout": "^2.0.0-beta.8",
+    "@angular/flex-layout": "^2.0.0-beta.10",
     "@angular/forms": "^4.3.1",
     "@angular/http": "^4.3.1",
     "@angular/material": "^2.0.0-beta.10",
@@ -50,6 +50,7 @@
     "ng2-charts": "^1.6.0",
     "rxjs": "^5.4.2",
     "typescript": "^2.3.4",
+    "validator": "^8.2.0",
     "zone.js": "0.8.14"
   },
   "devDependencies": {

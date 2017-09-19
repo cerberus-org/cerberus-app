@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MdAutocompleteModule, MdInputModule, MdRadioModule, MdSnackBarModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -20,16 +20,18 @@ describe('CheckInFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CheckInFormComponent, SignatureFieldComponent],
+      declarations: [
+        CheckInFormComponent,
+        SignatureFieldComponent
+      ],
       imports: [
-        NoopAnimationsModule,
-        RouterTestingModule,
-        FormsModule,
-        ReactiveFormsModule,
         MdAutocompleteModule,
         MdInputModule,
         MdRadioModule,
         MdSnackBarModule,
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
         SignaturePadModule,
         StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
       ],

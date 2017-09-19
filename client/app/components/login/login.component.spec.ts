@@ -18,7 +18,6 @@ describe('LoginComponent', () => {
       imports: [
         NoopAnimationsModule,
         RouterTestingModule,
-        FormsModule,
         ReactiveFormsModule,
         MdInputModule,
         MdListModule,
@@ -26,8 +25,7 @@ describe('LoginComponent', () => {
       providers: [
         { provide: UserService, useClass: MockUserService },
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

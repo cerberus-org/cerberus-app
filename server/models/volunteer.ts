@@ -1,11 +1,24 @@
 import * as mongoose from 'mongoose';
 
+import Location from './location';
+import Organization from './organization';
+import Volunteer from './volunteer';
+import { capitalizeWithNameCase } from '../functions/capitalize';
+
 const volunteerSchema = new mongoose.Schema({
+  organizationId: {
+    type: mongoose.Schema.Types.ObjectId, ref: Organization,
+    // required: [true, 'Organization ID is required']
+  },
+  locationId: {
+    type: mongoose.Schema.Types.ObjectId, ref: Location,
+    required: [true, 'Location ID is required']
+  },
   firstName: {
     type: String,
     required: [true, 'First name is required'],
     minlength: [2],
-    maxlength: [30],
+    maxlength: [35],
     validate: /^[a-z ,.'-]+$/i,
     trim: true
   },
@@ -13,7 +26,7 @@ const volunteerSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Last name is required'],
     minlength: [2],
-    maxlength: [30],
+    maxlength: [35],
     validate: /^[a-z ,.'-]+$/i,
     trim: true
   },
@@ -21,7 +34,7 @@ const volunteerSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Favorite pet name is required'],
     minlength: [2],
-    maxlength: [30],
+    maxlength: [35],
     validate: /^[a-z ,.'-]+$/i,
     trim: true
   },
@@ -31,17 +44,12 @@ volunteerSchema.index({ firstName: 1, lastName: 1, petName: 1 }, { unique: true 
 
 // Before saving the user, capitalize name fields
 volunteerSchema.pre('save', function(next) {
-  const volunteer = this;
-  volunteer.firstName = this.capitalize(volunteer.firstName);
-  volunteer.lastName = this.capitalize(volunteer.lastName);
-  volunteer.petName = this.capitalize(volunteer.petName);
+  this.firstName = this.capitalize(this.firstName);
+  this.lastName = this.capitalize(this.lastName);
+  this.petName = this.capitalize(this.petName);
   next();
 });
 
-volunteerSchema.methods.capitalize = function(field: string): string {
-  return field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
-};
+volunteerSchema.methods.capitalize = capitalizeWithNameCase;
 
-const Volunteer = mongoose.model('Volunteer', volunteerSchema);
-
-export default Volunteer;
+export default mongoose.model('Volunteer', volunteerSchema);

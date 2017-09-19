@@ -1,12 +1,18 @@
-import VolunteerHandler from './volunteer';
+import LocationHandler from './location';
+import OrganizationHandler from './organization';
+import UserHandler from './user';
 import VisitHandler from './visit';
+import VolunteerHandler from './volunteer';
 
 let req, res;
 
 // Add each BaseHandler implementation here
 const handlers = [
+  new LocationHandler,
+  new OrganizationHandler,
+  new UserHandler,
+  new VisitHandler,
   new VolunteerHandler,
-  new VisitHandler
 ];
 
 handlers.forEach(handler => {

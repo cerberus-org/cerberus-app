@@ -12,38 +12,22 @@ import { ErrorService } from './error.service';
 @Injectable()
 export class VisitService extends BaseService {
   model = Visit;
-  modelName = 'visit';
 
-  constructor(protected http: Http, private store: Store<Visit[]>, public errorService: ErrorService) {
-    super(http, errorService);
-  }
-
-  getAllRx(): void {
-    this.http.get(`/api/${this.modelName}s`, this.options)
-      .map(res => res.json().map(this.convert))
-      .map(payload => ({ type: LOAD_VISITS, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
-  }
-
-  createRx(obj: any, successCb): void {
-    this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
-      .map(res => this.convert(res.json()))
-      .map(payload => ({ type: ADD_VISIT, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err), successCb);
-  }
-
-  updateRx(obj: any, successCb): void {
-    this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
-      .map(res => this.convert(res.json()))
-      .map(payload => ({ type: MODIFY_VISIT, payload: payload }))
-      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err), successCb);
+  constructor(protected http: Http, protected store: Store<Visit[]>, protected errorService: ErrorService)) {
+    super(http, store, errorService);
+    this.modelName = 'visit';
+    this.actionTypes = {
+      getAll: LOAD_VISITS,
+      create: ADD_VISIT,
+      update: MODIFY_VISIT
+    }
   }
 
   /**
    * Get all dates that occur after the date provided.
    * @param date
    */
-  getRxByDate(date: Date): void {
+  getByDateRx(date: Date): void {
     this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
       .map(res => res.json().map(this.convert))
       .map(payload => ({ type: LOAD_VISITS, payload: payload }))

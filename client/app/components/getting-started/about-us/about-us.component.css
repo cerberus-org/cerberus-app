@@ -1,0 +1,32 @@
+/* Makes host element a flex container */
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.container {
+  height: auto;
+  width: auto;
+  margin: 1rem;
+}
+
+
+.overflow-container {
+  overflow-y: auto;
+}
+
+.icons-container {
+  min-height: 10rem;
+}
+
+md-icon {
+  margin: 1rem;
+  height: 10vw;
+  width: 10vw;
+  font-size: 10vw;
+  color: mediumaquamarine;
+}
+h2 {
+  max-width: 60rem;
+  line-height: 2.2rem;
+}

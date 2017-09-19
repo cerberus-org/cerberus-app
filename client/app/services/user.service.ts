@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Headers, Response, RequestOptions, Http } from '@angular/http';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import BaseService from './base.service';
+import { testUsers, User } from '../models/user';
 import { ErrorService } from './error.service';
 
 @Injectable()
 export class UserService extends BaseService {
-  model: any;
-  modelName: 'user';
+  model: User;
 
   constructor(protected http: Http, public errorService: ErrorService) {
-    super(http, errorService);
+    super(http, null, errorService);
+    this.modelName = 'user';
   }
 
   login(user): Observable<any> {
@@ -30,8 +31,37 @@ export class MockUserService extends UserService {
     super(null, null);
   }
 
+  getAllRx(): void { }
+
+  createRx(obj: any): void { }
+
+  updateRx(obj: any): void { }
+
+  getAll(): Observable<User[]> {
+    return Observable.of(testUsers);
+  }
+
+  count(): Observable<number> {
+    return Observable.of(testUsers.length);
+  }
+
+  create(obj: User): Observable<User> {
+    return Observable.of(testUsers[0]);
+  }
+
+  get (obj: User): Observable<User> {
+    return Observable.of(testUsers[0]);
+  }
+
+  update(obj: User): Observable<User> {
+    return Observable.of(testUsers[0]);
+  }
+
+  delete(obj: User): Observable<User> {
+    return Observable.of(testUsers[0]);
+  }
+
   login(): Observable<any> {
-    return Observable.of({token: 'token'});
+    return Observable.of({ token: 'token' });
   }
 }
-

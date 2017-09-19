@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Event, NavigationEnd, Router } from '@angular/router';
+
+import { Guard } from '../../../../guard';
 
 @Component({
   selector: 'app-header',
@@ -7,21 +9,51 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  icon: string;
+  text: string;
+  previousUrl: string;
 
   constructor(private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.setHeader();
+  }
 
   logout() {
     localStorage.removeItem('token');
     this.router.navigateByUrl('/login');
   }
 
+  setHeader = (): void => {
+    const setToDefault = () => {
+      this.icon = 'group_work';
+      this.text = 'Cerberus';
+    };
+    this.router.events.subscribe(() => {
+      switch (this.router.url) {
+        case '/start':
+          this.previousUrl = '/login';
+          this.icon = 'wb_sunny';
+          this.text = 'Getting Started';
+          break;
+        case '/dashboard':
+          setToDefault();
+          break;
+        case '/checkin':
+          this.previousUrl = '/dashboard';
+          setToDefault();
+          break;
+        default:
+          setToDefault();
+      }
+    });
+  };
+
   get showBack() {
-    return this.router.url !== '/home' && this.router.url !== '/login';
+    return (this.router.url !== '/login') && (this.router.url !== '/dashboard');
   }
 
   get showLogout() {
-    return this.router.url !== '/login';
+    return !!localStorage.getItem('token');
   }
 }
