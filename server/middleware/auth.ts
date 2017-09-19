@@ -1,19 +1,19 @@
-const jwt = require('jwt-simple');
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
 
 export class Auth {
   ensureLoggedIn (req, res, next) {
-    let token = req.headers['authorization'];
+    const token = req.headers['authorization'];
     if (token) {
-      try {
-        token = jwt.decode(token, process.env.SECRET_TOKEN);
-        const user = token.user;
-        next();
-      } catch (err) {
-        return res.sendStatus(401);
-      }
+      jwt.verify(token, process.env.SECRET_TOKEN, function (err, decoded) {
+        if (err) {
+          res.sendStatus(401);
+        } else {
+          next();
+        }
+      })
     } else {
-    return res.sendStatus(401);
+      return res.sendStatus(401);
     }
   }
 }

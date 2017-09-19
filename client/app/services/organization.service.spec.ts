@@ -4,6 +4,7 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { OrganizationService } from './organization.service';
 import { testOrganizations } from '../models/organization';
+import { ErrorService, MockErrorService } from './error.service';
 
 describe('OrganizationService', () => {
   let backend: MockBackend = null;
@@ -15,6 +16,7 @@ describe('OrganizationService', () => {
         BaseRequestOptions,
         MockBackend,
         OrganizationService,
+        { provide: ErrorService, useClass: MockErrorService },
         {
           provide: Http,
           useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {

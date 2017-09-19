@@ -5,15 +5,16 @@ import 'rxjs/add/observable/of';
 import { Store } from '@ngrx/store';
 import { ADD_VOLUNTEER, LOAD_VOLUNTEERS, MODIFY_VOLUNTEER } from '../reducers/volunteer';
 
-import BaseService from './base.service';
 import { testVolunteers, Volunteer } from '../models/volunteer';
+import BaseService from './base.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class VolunteerService extends BaseService {
   model = Volunteer;
 
-  constructor(protected http: Http, protected store: Store<Volunteer[]>) {
-    super(http, store);
+  constructor(protected http: Http, protected store: Store<Volunteer[]>, protected errorService: ErrorService) {
+    super(http, store, errorService);
     this.modelName = 'volunteer';
     this.actionTypes = {
       getAll: LOAD_VOLUNTEERS,
@@ -26,7 +27,7 @@ export class VolunteerService extends BaseService {
 export class MockVolunteerService extends VolunteerService {
 
   constructor() {
-    super(null, null);
+    super(null, null, null);
   }
 
   getAllRx(): void { }

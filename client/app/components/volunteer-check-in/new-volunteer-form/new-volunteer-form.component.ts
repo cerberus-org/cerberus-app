@@ -45,9 +45,6 @@ export class NewVolunteerFormComponent implements OnInit {
     this.volunteerService.createRx(volunteer,
       () => this.snackBar.open('Volunteer successfully signed up!', '', {
         duration: 3000
-      }),
-      error => this.snackBar.open(error ? `Error signing up: ${error}` : 'Error signing up!', '', {
-        duration: 3000
       }));
   }
 

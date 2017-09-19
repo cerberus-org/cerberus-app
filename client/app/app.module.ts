@@ -48,6 +48,7 @@ import { OrganizationService } from './services/organization.service';
 import { UserService } from './services/user.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
+import { ErrorService } from './services/error.service';
 
 import { locationReducer } from './reducers/location';
 import { visitReducer } from './reducers/visit';
@@ -111,7 +112,8 @@ import { LocationService } from './services/location.service';
     OrganizationService,
     UserService,
     VisitService,
-    VolunteerService
+    VolunteerService,
+    ErrorService
   ],
   bootstrap: [AppComponent]
 })

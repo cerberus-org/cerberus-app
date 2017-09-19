@@ -4,14 +4,15 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import BaseService from './base.service';
+import { ErrorService } from './error.service';
 import { Location, testLocations } from '../models/location';
 import { ADD_LOCATION, LOAD_LOCATIONS, MODIFY_LOCATION } from '../reducers/location';
 
 @Injectable()
 export class LocationService extends BaseService {
 
-  constructor(protected http: Http, protected store: Store<Location[]>) {
-    super(http, store);
+  constructor(protected http: Http, protected store: Store<Location[]>, protected errorService: ErrorService) {
+    super(http, store, errorService);
     this.modelName = 'location';
     this.actionTypes = {
       getAll: LOAD_LOCATIONS,
@@ -24,7 +25,7 @@ export class LocationService extends BaseService {
 export class MockLocationService extends LocationService {
 
   constructor() {
-    super(null, null);
+    super(null, null, null);
   }
 
   getAllRx(): void { }

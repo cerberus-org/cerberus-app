@@ -7,13 +7,14 @@ import 'rxjs/add/observable/of';
 import BaseService from './base.service';
 import { testVisits, Visit } from '../models/visit';
 import { ADD_VISIT, LOAD_VISITS, MODIFY_VISIT } from '../reducers/visit';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class VisitService extends BaseService {
   model = Visit;
 
-  constructor(protected http: Http, protected store: Store<Visit[]>) {
-    super(http, store);
+  constructor(protected http: Http, protected store: Store<Visit[]>, protected errorService: ErrorService) {
+    super(http, store, errorService);
     this.modelName = 'visit';
     this.actionTypes = {
       getAll: LOAD_VISITS,
@@ -30,7 +31,7 @@ export class VisitService extends BaseService {
     this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
       .map(res => res.json().map(this.convert))
       .map(payload => ({ type: LOAD_VISITS, payload: payload }))
-      .subscribe(action => this.store.dispatch(action));
+      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
   }
 
   /**
@@ -48,7 +49,7 @@ export class VisitService extends BaseService {
 export class MockVisitService extends VisitService {
 
   constructor() {
-    super(null, null);
+    super(null, null, null);
   }
 
   getAllRx(): void { }

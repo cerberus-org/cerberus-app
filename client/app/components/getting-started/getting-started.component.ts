@@ -75,12 +75,7 @@ export class GettingStartedComponent implements OnInit {
    */
   createLocation(organization: Organization, successCb): void {
     // TODO: Get values from a new location form
-    this.locationService.createRx(new Location(organization._id, organization.name, null), successCb,
-      error => this.snackBar.open(error
-        ? `Error creating your organization: ${error}`
-        : 'Error creating your organization!', '', {
-        duration: 3000
-      }));
+    this.locationService.createRx(new Location(organization._id, organization.name, null), successCb);
   }
 
   /**

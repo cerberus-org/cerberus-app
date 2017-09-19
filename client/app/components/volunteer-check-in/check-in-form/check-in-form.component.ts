@@ -1,14 +1,14 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
+import { state, style, trigger, transition, animate } from '@angular/animations';
 
 import { Visit } from '../../../models/visit';
 import { Volunteer } from '../../../models/volunteer';
 import { VisitService } from '../../../services/visit.service';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
-import { state, style, trigger, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-check-in-form',
@@ -215,9 +215,8 @@ export class CheckInFormComponent implements OnInit {
       () => {
         this.snackBar.open('Volunteer successfully checked in!', '', { duration: 3000 });
         this.router.navigateByUrl('/dashboard');
-      },
-      error => this.snackBar.open(error ? `Error checking in: ${error}` : 'Error checking in!',
-        '', { duration: 3000 }));
+      }
+    );
   }
 
   /**
@@ -228,10 +227,8 @@ export class CheckInFormComponent implements OnInit {
       () => {
         this.snackBar.open('Volunteer successfully checked out!', '', { duration: 3000 });
         this.router.navigateByUrl('/dashboard');
-      },
-      error => this.snackBar.open(error ? `Error checking out: ${error}` : 'Error checking out!', '', {
-        duration: 3000
-      }));
+      }
+    );
   }
 
   /**

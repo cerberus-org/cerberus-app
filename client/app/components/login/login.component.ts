@@ -13,8 +13,9 @@ export class LoginComponent implements OnInit {
 
   // declare FormGroup
   loginForm: FormGroup;
+  error: string;
 
-  constructor(public router: Router, private fb: FormBuilder, private loginService: UserService, private visitService: VisitService) {
+  constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private visitService: VisitService) {
     this.createForm();
   }
 
@@ -26,14 +27,14 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loginService.login(this.loginForm.value)
+    this.userService.login(this.loginForm.value)
       .subscribe(
         response => {
           localStorage.setItem('token', response.token);
           this.router.navigateByUrl('/organization-dashboard');
           this.getVisitsByDate(7);
         },
-        err => console.log(err)
+        error => this.error = <any>error
       );
   }
 
