@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment-timezone';
 import 'rxjs/add/observable/merge'
 
-import { Visit } from '../../../models/visit';
+import { Visit } from '../../../../models/visit';
 
 @Component({
   selector: 'app-visit-history-table',

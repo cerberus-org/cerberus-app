@@ -3,11 +3,11 @@ import { VolunteerService } from '../../services/volunteer.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-volunteer-check-in',
-  templateUrl: './volunteer-check-in.component.html',
-  styleUrls: ['./volunteer-check-in.component.css']
+  selector: 'app-location-check-in',
+  templateUrl: './location-check-in.component.html',
+  styleUrls: ['./location-check-in.component.css']
 })
-export class VolunteerCheckInComponent implements OnInit {
+export class LocationCheckInComponent implements OnInit {
   locationId: string;
 
   constructor(private volunteerService: VolunteerService) { }

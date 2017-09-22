@@ -34,15 +34,14 @@ import { OrganizationConfirmComponent } from './components/getting-started/organ
 
 import { OrganizationDashboardComponent } from './components/organization-dashboard/organization-dashboard.component';
 import { VolunteerMenuComponent } from './components/organization-dashboard/volunteer-menu/volunteer-menu.component';
+import { DataDisplayComponent } from './components/organization-dashboard/data-display/data-display.component';
+import { VisitHistoryTableComponent } from './components/organization-dashboard/data-display/visit-history-table/visit-history-table.component';
+import { DailyHoursChartComponent } from './components/organization-dashboard/data-display/daily-hours-chart/daily-hours-chart.component';
 
-import { VisitDataDisplayComponent } from './components/visit-data-display/visit-data-display.component';
-import { VisitHistoryTableComponent } from './components/visit-data-display/visit-history-table/visit-history-table.component';
-import { DailyHoursChartComponent } from './components/visit-data-display/daily-hours-chart/daily-hours-chart.component';
-
-import { VolunteerCheckInComponent } from './components/volunteer-check-in/volunteer-check-in.component';
-import { CheckInFormComponent } from './components/volunteer-check-in/check-in-form/check-in-form.component';
-import { SignatureFieldComponent } from './components/volunteer-check-in/check-in-form/signature-field/signature-field.component';
-import { NewVolunteerFormComponent } from './components/volunteer-check-in/new-volunteer-form/new-volunteer-form.component';
+import { LocationCheckInComponent } from './components/location-check-in/location-check-in.component';
+import { CheckInFormComponent } from './components/location-check-in/check-in-form/check-in-form.component';
+import { SignatureFieldComponent } from './components/location-check-in/check-in-form/signature-field/signature-field.component';
+import { NewVolunteerFormComponent } from './components/location-check-in/new-volunteer-form/new-volunteer-form.component';
 
 import { OrganizationService } from './services/organization.service';
 import { UserService } from './services/user.service';
@@ -73,9 +72,9 @@ import { LocationService } from './services/location.service';
     OrganizationDashboardComponent,
     SideMarginsComponent,
     SignatureFieldComponent,
-    VisitDataDisplayComponent,
+    DataDisplayComponent,
     VisitHistoryTableComponent,
-    VolunteerCheckInComponent,
+    LocationCheckInComponent,
     VolunteerMenuComponent,
   ],
   imports: [

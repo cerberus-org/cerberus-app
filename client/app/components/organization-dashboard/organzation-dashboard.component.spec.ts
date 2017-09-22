@@ -14,7 +14,7 @@ describe('OrganizationDashboardComponent', () => {
         RouterTestingModule
       ],
       declarations: [OrganizationDashboardComponent,
-        MockComponent({ selector: 'app-visit-data-display' }),
+        MockComponent({ selector: 'app-data-display' }),
         MockComponent({ selector: 'app-volunteer-menu' })
       ]
     }).compileComponents();
