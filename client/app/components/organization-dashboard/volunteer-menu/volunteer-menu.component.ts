@@ -16,7 +16,6 @@ export class VolunteerMenuComponent implements OnInit {
   constructor(private router: Router, private store: Store<Location>, private locationService: LocationService) { }
 
   ngOnInit() {
-    this.locationService.getAllRx();
     this.subscribeToLocations();
   }
 
