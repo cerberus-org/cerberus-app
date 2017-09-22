@@ -28,9 +28,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.userService.login(this.loginForm.value)
-      .subscribe(
-        response => {
-          localStorage.setItem('token', response.token);
+      .subscribe(res => {
+          localStorage.setItem('organizationId', res.organizationId);
+          localStorage.setItem('userId', res.userId);
+          localStorage.setItem('token', res.token);
           this.router.navigateByUrl('/organization-dashboard');
           this.getVisitsByDate(7);
         },
