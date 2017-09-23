@@ -23,7 +23,7 @@ export default function setRoutes(app) {
   router.route('/locations').get(auth.ensureLoggedIn, locationHandler.getAll);
   router.route('/locations/count').get(auth.ensureLoggedIn, locationHandler.count);
   router.route('/location').post(locationHandler.insert);
-  router.route('/location/:id').get(auth.ensureLoggedIn, locationHandler.get);
+  router.route('/location/:id').get(auth.ensureLoggedIn, locationHandler.getById);
   router.route('/location/:id').put(auth.ensureLoggedIn, locationHandler.update);
   router.route('/location/:id').delete(auth.ensureLoggedIn, locationHandler.delete);
 
@@ -31,7 +31,7 @@ export default function setRoutes(app) {
   router.route('/organizations').get(auth.ensureLoggedIn, organizationHandler.getAll);
   router.route('/organizations/count').get(auth.ensureLoggedIn, organizationHandler.count);
   router.route('/organization').post(organizationHandler.insert);
-  router.route('/organization/:id').get(auth.ensureLoggedIn, organizationHandler.get);
+  router.route('/organization/:id').get(auth.ensureLoggedIn, organizationHandler.getById);
   router.route('/organization/:id').put(auth.ensureLoggedIn, organizationHandler.update);
   router.route('/organization/:id').delete(auth.ensureLoggedIn, organizationHandler.delete);
 
@@ -39,7 +39,7 @@ export default function setRoutes(app) {
   router.route('/users').get(auth.ensureLoggedIn, userHandler.getAll);
   router.route('/users/count').get(auth.ensureLoggedIn, userHandler.count);
   router.route('/user').post(userHandler.insert);
-  router.route('/user/:id').get(auth.ensureLoggedIn, userHandler.get);
+  router.route('/user/:id').get(auth.ensureLoggedIn, userHandler.getById);
   router.route('/user/:id').put(auth.ensureLoggedIn, userHandler.update);
   router.route('/user/:id').delete(auth.ensureLoggedIn, userHandler.delete);
   router.route('/user/login').post(userHandler.login);
@@ -48,7 +48,7 @@ export default function setRoutes(app) {
   router.route('/visits').get(auth.ensureLoggedIn, visitHandler.getAll);
   router.route('/visits/count').get(auth.ensureLoggedIn, visitHandler.count);
   router.route('/visit').post(auth.ensureLoggedIn, visitHandler.insert);
-  router.route('/visit/:id').get(auth.ensureLoggedIn, visitHandler.get);
+  router.route('/visit/:id').get(auth.ensureLoggedIn, visitHandler.getById);
   router.route('/visit/:id').put(auth.ensureLoggedIn, visitHandler.update);
   router.route('/visit/:id').delete(auth.ensureLoggedIn, visitHandler.delete);
   router.route('/visits/:date').get(auth.ensureLoggedIn, visitHandler.getByDate);
@@ -57,7 +57,7 @@ export default function setRoutes(app) {
   router.route('/volunteers').get(auth.ensureLoggedIn, volunteerHandler.getAll);
   router.route('/volunteers/count').get(auth.ensureLoggedIn, volunteerHandler.count);
   router.route('/volunteer').post(auth.ensureLoggedIn, volunteerHandler.insert);
-  router.route('/volunteer/:id').get(auth.ensureLoggedIn, volunteerHandler.get);
+  router.route('/volunteer/:id').get(auth.ensureLoggedIn, volunteerHandler.getById);
   router.route('/volunteer/:id').put(auth.ensureLoggedIn, volunteerHandler.update);
   router.route('/volunteer/:id').delete(auth.ensureLoggedIn, volunteerHandler.delete);
 

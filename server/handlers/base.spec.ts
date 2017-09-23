@@ -155,7 +155,7 @@ handlers.forEach(handler => {
         spyOn(handler.model, 'findById').and.callFake((id, cb) => {
           cb(false, true);
         });
-        handler.get(req, res);
+        handler.getById(req, res);
         expect(res.json.calls.count()).toEqual(1);
         expect(res.sendStatus.calls.count()).toEqual(0);
         expect(console.error).not.toHaveBeenCalled();
@@ -166,7 +166,7 @@ handlers.forEach(handler => {
         spyOn(handler.model, 'findById').and.callFake((id, cb) => {
           cb(false, false);
         });
-        handler.get(req, res);
+        handler.getById(req, res);
         expect(res.json.calls.count()).toEqual(0);
         expect(res.sendStatus.calls.count()).toEqual(1);
         expect(res.sendStatus).toHaveBeenCalledWith(404);
@@ -178,7 +178,7 @@ handlers.forEach(handler => {
         spyOn(handler.model, 'findById').and.callFake((id, cb) => {
           cb(true, true);
         });
-        handler.get(req, res);
+        handler.getById(req, res);
         expect(res.json.calls.count()).toEqual(0);
         expect(res.sendStatus.calls.count()).toEqual(1);
         expect(res.sendStatus).toHaveBeenCalledWith(404);

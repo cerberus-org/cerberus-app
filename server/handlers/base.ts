@@ -5,7 +5,7 @@ abstract class BaseHandler {
   /**
    * Get all
    */
-  getAll = (req, res) => {
+  getAll(req, res) {
     this.model.find({}, (err, docs) => {
       if (err) {
         res.status(400).send(err);
@@ -18,7 +18,7 @@ abstract class BaseHandler {
   /**
    * Count all
    */
-  count = (req, res) => {
+  count(req, res) {
     this.model.count((err, count) => {
       if (err) {
         res.status(400).send(err);
@@ -31,7 +31,7 @@ abstract class BaseHandler {
   /**
    * Insert
    */
-  insert = (req, res) => {
+  insert(req, res) {
     const obj = new this.model(req.body);
     obj.save((err, item) => {
       if (err) {
@@ -51,7 +51,7 @@ abstract class BaseHandler {
   /**
    * Get by ID
    */
-  get = (req, res) => {
+  getById(req, res) {
     this.model.findById(req.params.id, (err, obj) => {
       if (err || !obj) {
         // Cast to ObjectId failed or object not found
@@ -68,7 +68,7 @@ abstract class BaseHandler {
   /**
    * Update by ID
    */
-  update = (req, res) => {
+  update(req, res) {
     this.model.findByIdAndUpdate(req.params.id, req.body, (err, obj) => {
       if (err || !obj) {
         // 11000 is the code for duplicate key error
@@ -90,7 +90,7 @@ abstract class BaseHandler {
   /**
    * Delete by ID
    */
-  delete = (req, res) => {
+  delete(req, res) {
     this.model.findByIdAndRemove(req.params.id, (err, obj) => {
       if (err || !obj) {
         // Cast to ObjectId failed or object not found
