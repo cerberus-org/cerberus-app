@@ -15,6 +15,7 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./getting-started.component.css']
 })
 export class GettingStartedComponent implements OnInit {
+  error: string;
   step: number;
   validOrganization: boolean;
   validUser: boolean;
@@ -37,7 +38,7 @@ export class GettingStartedComponent implements OnInit {
   };
 
   /**
-   * On submit, create the following in order: Organization, Location, then User.
+   * On submit, add the following in order: Organization, Location, then User.
    */
   onSubmit(): void {
     this.createOrganization(this.organization, organization => {
@@ -94,12 +95,18 @@ export class GettingStartedComponent implements OnInit {
 
   login(user: User): void {
     this.userService.login(user)
-      .subscribe(
-        response => {
-          localStorage.setItem('token', response.token);
-          this.router.navigateByUrl('/organization-dashboard');
+      .subscribe(res => {
+          this.setLocalStorageItems(res.user, res.token);
+          this.router.navigateByUrl('/dashboard');
+          this.snackBar.open(`Welcome to Cerberus, ${res.user.firstName}.`, '', { duration: 3000 });
         },
-        err => console.log(err)
+        error => this.error = <any>error
       );
+  }
+
+  setLocalStorageItems(user: User, token: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('userId', user._id);
+    localStorage.setItem('organizationId', user.organizationId);
   }
 }

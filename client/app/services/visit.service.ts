@@ -17,9 +17,9 @@ export class VisitService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'visit';
     this.actionTypes = {
-      getAll: LOAD_VISITS,
-      create: ADD_VISIT,
-      update: MODIFY_VISIT
+      load: LOAD_VISITS,
+      add: ADD_VISIT,
+      modify: MODIFY_VISIT
     }
   }
 
@@ -54,6 +54,8 @@ export class MockVisitService extends VisitService {
   }
 
   getAllRx(): void { }
+
+  getByIdRx(id: string): void { }
 
   createRx(obj: any): void { }
 

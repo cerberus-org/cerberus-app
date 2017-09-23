@@ -9,6 +9,6 @@
     <button fxFlex md-button id="submit-btn" color="primary" [disabled]="loginForm.invalid">Submit</button>
   </form>
   <div fxFlex="0 1 auto">
-    <a md-raised-button color="accent" href="start">New Organization?</a>
+    <button md-raised-button color="accent" (click)="onNewOrganization()">New Organization?</button>
   </div>
 </div>

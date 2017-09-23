@@ -15,9 +15,9 @@ export class LocationService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'location';
     this.actionTypes = {
-      getAll: LOAD_LOCATIONS,
-      create: ADD_LOCATION,
-      update: MODIFY_LOCATION
+      load: LOAD_LOCATIONS,
+      add: ADD_LOCATION,
+      modify: MODIFY_LOCATION
     };
   }
 }
@@ -29,6 +29,8 @@ export class MockLocationService extends LocationService {
   }
 
   getAllRx(): void { }
+
+  getByIdRx(id: string): void { }
 
   createRx(obj: any): void { }
 

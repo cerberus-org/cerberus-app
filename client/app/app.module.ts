@@ -44,6 +44,7 @@ import { SignatureFieldComponent } from './components/location-check-in/check-in
 import { NewVolunteerFormComponent } from './components/location-check-in/new-volunteer-form/new-volunteer-form.component';
 
 import { OrganizationService } from './services/organization.service';
+import { LocationService } from './services/location.service';
 import { UserService } from './services/user.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
@@ -52,7 +53,8 @@ import { ErrorService } from './services/error.service';
 import { locationReducer } from './reducers/location';
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
-import { LocationService } from './services/location.service';
+import { organizationReducer } from './reducers/organization';
+import { userReducer } from './reducers/user';
 
 @NgModule({
   declarations: [
@@ -101,8 +103,10 @@ import { LocationService } from './services/location.service';
     SignaturePadModule,
     StoreModule.provideStore({
       locations: locationReducer,
+      organizations: organizationReducer,
       visits: visitReducer,
-      volunteers: volunteerReducer
+      volunteers: volunteerReducer,
+      users: userReducer
     })
   ],
   providers: [

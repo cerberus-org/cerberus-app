@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { LocationService } from '../../services/location.service';
 import { VisitService } from '../../services/visit.service';
+import { OrganizationService } from '../../services/organization.service';
 
 @Component({
   selector: 'app-organization-dashboard',
@@ -11,10 +12,14 @@ import { VisitService } from '../../services/visit.service';
 })
 export class OrganizationDashboardComponent implements OnInit {
 
-  constructor(private router: Router, private locationService: LocationService, private visitService: VisitService) { }
+  constructor(private router: Router,
+              private locationService: LocationService,
+              private organizationService: OrganizationService,
+              private visitService: VisitService) { }
 
   ngOnInit() {
     this.locationService.getAllRx();
+    this.organizationService.getByIdRx(localStorage.getItem('organizationId'));
     this.visitService.getByLastGivenDaysRx(7);
   }
 

@@ -1,8 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MdToolbarModule } from '@angular/material';
+import { StoreModule } from '@ngrx/store';
 
 import { HeaderComponent } from './header.component';
+import { organizationReducer } from '../../../../reducers/organization';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -12,7 +14,8 @@ describe('HeaderComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        MdToolbarModule
+        MdToolbarModule,
+        StoreModule.provideStore({ organizations: organizationReducer })
       ],
       declarations: [
         HeaderComponent

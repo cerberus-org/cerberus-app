@@ -9,12 +9,14 @@ import { ErrorService } from './error.service';
 abstract class BaseService {
   protected modelName: string;
   protected actionTypes: {
-    getAll: string;
-    create: string;
-    update: string;
+    load: string;
+    add: string;
+    modify: string;
   };
 
-  constructor(protected http: Http, protected store: Store<any>, protected errorService: ErrorService) { }
+  constructor(protected http: Http,
+              protected store: Store<any>,
+              protected errorService: ErrorService) { }
 
   get options() {
     const headers = new Headers({
@@ -28,21 +30,28 @@ abstract class BaseService {
   getAllRx(): void {
     this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
-      .map(payload => ({ type: this.actionTypes.getAll, payload: payload }))
+      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
+  }
+
+  getByIdRx(id: string): void {
+    this.http.get(`/api/${this.modelName}/${id}`, this.options)
+      .map(res => this.convert(res.json()))
+      .map(payload => ({ type: this.actionTypes.add, payload: payload }))
+      .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError);
   }
 
   createRx(obj: any, successCb): void {
     this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
-      .map(payload => ({ type: this.actionTypes.create, payload: payload }))
+      .map(payload => ({ type: this.actionTypes.add, payload: payload }))
       .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError, successCb);
   }
 
   updateRx(obj: any, successCb): void {
     this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
       .map(res => this.convert(res.json()))
-      .map(payload => ({ type: this.actionTypes.update, payload: payload }))
+      .map(payload => ({ type: this.actionTypes.modify, payload: payload }))
       .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError, successCb);
   }
 

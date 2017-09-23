@@ -31,7 +31,7 @@ function getValidVisits (visits: Visit[], maxHours: number): Visit[] {
   const validVisits = visits.filter(function(visit) {
     // if the visit is still ongoing
     if (visit.endedAt === null) {
-      // get current visit hours
+      // load current visit hours
       hours = Math.abs(visit.startedAt.getTime() - new Date().getTime()) / 3600000;
     } else { // if the visit is completed
       hours = Math.abs(visit.startedAt.getTime() - visit.endedAt.getTime()) / 3600000;
