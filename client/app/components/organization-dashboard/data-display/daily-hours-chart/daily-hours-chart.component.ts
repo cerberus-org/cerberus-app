@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Visit } from '../../../models/visit';
+import { Visit } from '../../../../models/visit';
 
 @Component({
   selector: 'app-daily-hours-chart',

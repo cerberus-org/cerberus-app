@@ -3,6 +3,8 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { OrganizationDashboardComponent } from './organization-dashboard.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LocationService, MockLocationService } from '../../services/location.service';
+import { MockVisitService, VisitService } from '../../services/visit.service';
 
 describe('OrganizationDashboardComponent', () => {
   let component: OrganizationDashboardComponent;
@@ -14,8 +16,12 @@ describe('OrganizationDashboardComponent', () => {
         RouterTestingModule
       ],
       declarations: [OrganizationDashboardComponent,
-        MockComponent({ selector: 'app-visit-data-display' }),
+        MockComponent({ selector: 'app-data-display' }),
         MockComponent({ selector: 'app-volunteer-menu' })
+      ],
+      providers: [
+        { provide: LocationService, useClass: MockLocationService },
+        { provide: VisitService, useClass: MockVisitService }
       ]
     }).compileComponents();
   }));

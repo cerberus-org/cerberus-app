@@ -25,9 +25,10 @@ export class VisitService extends BaseService {
 
   /**
    * Get all dates that occur after the date provided.
-   * @param date
+   * @param days
    */
-  getByDateRx(date: Date): void {
+  getByLastGivenDaysRx(days: number): void {
+    const date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));
     this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
       .map(res => res.json().map(this.convert))
       .map(payload => ({ type: LOAD_VISITS, payload: payload }))
@@ -57,6 +58,8 @@ export class MockVisitService extends VisitService {
   createRx(obj: any): void { }
 
   updateRx(obj: any): void { }
+
+  getByLastGivenDaysRx(days: number): void { };
 
   getAll(): Observable<Visit[]> {
     return Observable.of(testVisits);

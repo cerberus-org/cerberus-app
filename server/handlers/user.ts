@@ -21,7 +21,7 @@ export default class UserHandler extends BaseHandler {
         }
         // process.env.SECRET_TOKEN will be the code used to decode the token
         const token = jwt.sign({ exp: Math.floor(Date.now() / 1000) + this.getHours(12) } , process.env.SECRET_TOKEN);
-        res.json({ token: token });
+        res.json({organizationId: user.organizationId, userId: user._id, token: token });
       });
     });
   };

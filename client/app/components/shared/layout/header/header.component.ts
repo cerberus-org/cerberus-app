@@ -20,6 +20,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    localStorage.removeItem('organizationId');
+    localStorage.removeItem('userId');
     localStorage.removeItem('token');
     this.router.navigateByUrl('/login');
   }
@@ -30,7 +32,8 @@ export class HeaderComponent implements OnInit {
       this.text = 'Cerberus';
     };
     this.router.events.subscribe(() => {
-      switch (this.router.url) {
+      // Get the string after the first '/'
+      switch (this.router.url.split('/')[1]) {
         case '/start':
           this.previousUrl = '/login';
           this.icon = 'wb_sunny';

@@ -15,24 +15,20 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string;
 
-  constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private visitService: VisitService) {
+  constructor(private router: Router, private fb: FormBuilder, private userService: UserService) {
     this.createForm();
   }
 
   ngOnInit() {
   }
 
-  getVisitsByDate(daysToSubtract: number): void {
-    this.visitService.getByDateRx(new Date(new Date().getTime() - (daysToSubtract * 24 * 60 * 60 * 1000)));
-  }
-
   login() {
     this.userService.login(this.loginForm.value)
-      .subscribe(
-        response => {
-          localStorage.setItem('token', response.token);
+      .subscribe(res => {
+          localStorage.setItem('organizationId', res.organizationId);
+          localStorage.setItem('userId', res.userId);
+          localStorage.setItem('token', res.token);
           this.router.navigateByUrl('/organization-dashboard');
-          this.getVisitsByDate(7);
         },
         error => this.error = <any>error
       );
