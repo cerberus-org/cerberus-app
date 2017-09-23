@@ -8,7 +8,7 @@ export const MODIFY_ORGANIZATION = 'MODIFY_ORGANIZATION';
 export function organizationReducer(state: Organization[] = [], action: Action) {
   switch (action.type) {
     case 'LOAD_ORGANIZATIONS':
-      return action.payload.reverse();
+      return action.payload;
     case 'ADD_ORGANIZATION':
       return [action.payload, ...state];
     case 'MODIFY_ORGANIZATION':

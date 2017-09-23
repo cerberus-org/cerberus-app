@@ -17,9 +17,9 @@ export class VolunteerService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'volunteer';
     this.actionTypes = {
-      get: LOAD_VOLUNTEERS,
-      create: ADD_VOLUNTEER,
-      update: MODIFY_VOLUNTEER,
+      load: LOAD_VOLUNTEERS,
+      add: ADD_VOLUNTEER,
+      modify: MODIFY_VOLUNTEER,
     }
   }
 }

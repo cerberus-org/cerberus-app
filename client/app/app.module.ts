@@ -53,6 +53,7 @@ import { locationReducer } from './reducers/location';
 import { visitReducer } from './reducers/visit';
 import { volunteerReducer } from './reducers/volunteer';
 import { LocationService } from './services/location.service';
+import { organizationReducer } from './reducers/organization';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { LocationService } from './services/location.service';
     SignaturePadModule,
     StoreModule.provideStore({
       locations: locationReducer,
+      organizations: organizationReducer,
       visits: visitReducer,
       volunteers: volunteerReducer
     })

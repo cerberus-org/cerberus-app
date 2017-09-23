@@ -37,7 +37,7 @@ export class GettingStartedComponent implements OnInit {
   };
 
   /**
-   * On submit, create the following in order: Organization, Location, then User.
+   * On submit, add the following in order: Organization, Location, then User.
    */
   onSubmit(): void {
     this.createOrganization(this.organization, organization => {

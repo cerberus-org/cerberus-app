@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 
 import { Guard } from '../../../../guard';
+import { Organization } from '../../../../models/organization';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-header',
@@ -9,17 +11,33 @@ import { Guard } from '../../../../guard';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  error: string;
   icon: string;
   text: string;
   previousUrl: string;
+  organizationName: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private store: Store<Organization[]>) { }
 
   ngOnInit() {
     this.setHeader();
+    this.subscribeToOrganizations();
   }
 
-  logout() {
+  subscribeToOrganizations() {
+    this.store.select<Organization[]>('organizations').subscribe(organizations => {
+        if (organizations.length > 0) {
+          this.text = organizations[0].name;
+        }
+      },
+      error => this.error = <any>error);
+  }
+
+  onBack(): void {
+    this.router.navigateByUrl(this.previousUrl);
+  }
+
+  onLogout(): void {
     localStorage.removeItem('organizationId');
     localStorage.removeItem('userId');
     localStorage.removeItem('token');
@@ -27,27 +45,27 @@ export class HeaderComponent implements OnInit {
   }
 
   setHeader = (): void => {
-    const setToDefault = () => {
-      this.icon = 'group_work';
-      this.text = 'Cerberus';
-    };
     this.router.events.subscribe(() => {
       // Get the string after the first '/'
+      console.log(this.router.url.split('/')[1]);
       switch (this.router.url.split('/')[1]) {
-        case '/start':
+        case 'start':
           this.previousUrl = '/login';
           this.icon = 'wb_sunny';
           this.text = 'Getting Started';
           break;
-        case '/dashboard':
-          setToDefault();
+        case 'dashboard':
+          // Text set in subscribeToOrganizations()
+          this.icon = 'business';
           break;
-        case '/checkin':
+        case 'checkin':
+          // Text set in subscribeToOrganizations()
           this.previousUrl = '/dashboard';
-          setToDefault();
+          this.icon = 'business';
           break;
         default:
-          setToDefault();
+          this.icon = 'group_work';
+          this.text = 'Cerberus';
       }
     });
   };

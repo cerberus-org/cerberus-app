@@ -42,4 +42,8 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
   }
+
+  onNewOrganization() {
+    this.router.navigateByUrl('/start');
+  }
 }

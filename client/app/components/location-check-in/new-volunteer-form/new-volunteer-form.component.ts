@@ -57,7 +57,7 @@ export class NewVolunteerFormComponent implements OnInit {
       lastName: ['', validators],
       petName: ['', validators]
     });
-    // Allows using *ngFor to create forms
+    // Allows using *ngFor to add forms
     this.forms = [
       { placeholder: 'First', control: 'firstName' },
       { placeholder: 'Last', control: 'lastName' },
