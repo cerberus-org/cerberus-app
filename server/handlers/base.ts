@@ -6,12 +6,12 @@ abstract class BaseHandler {
    * Get all
    */
   getAll(req, res) {
-    this.model.find({}, (err, docs) => {
+    this.model.find({}, (err, results) => {
       if (err) {
         res.status(400).send(err);
         return console.error(err);
       }
-      res.json(docs);
+      res.json(results);
     });
   };
 
@@ -52,15 +52,15 @@ abstract class BaseHandler {
    * Get by ID
    */
   getById(req, res) {
-    this.model.findById(req.params.id, (err, obj) => {
-      if (err || !obj) {
+    this.model.findById(req.params.id, (err, result) => {
+      if (err || !``) {
         // Cast to ObjectId failed or object not found
         res.sendStatus(404);
         if (err) {
           return console.error(err);
         }
       } else {
-        res.json(obj);
+        res.json(result);
       }
     });
   };
@@ -69,8 +69,8 @@ abstract class BaseHandler {
    * Update by ID
    */
   update(req, res) {
-    this.model.findByIdAndUpdate(req.params.id, req.body, (err, obj) => {
-      if (err || !obj) {
+    this.model.findByIdAndUpdate(req.params.id, req.body, (err, result) => {
+      if (err || !result) {
         // 11000 is the code for duplicate key error
         if (err && err.code === 11000) {
           res.status(409).send(err);
@@ -82,7 +82,7 @@ abstract class BaseHandler {
           return console.error(err);
         }
       } else {
-        res.json(Object.assign(obj, req.body));
+        res.json(Object.assign(result, req.body));
       }
     });
   };
@@ -91,8 +91,8 @@ abstract class BaseHandler {
    * Delete by ID
    */
   delete(req, res) {
-    this.model.findByIdAndRemove(req.params.id, (err, obj) => {
-      if (err || !obj) {
+    this.model.findByIdAndRemove(req.params.id, (err, result) => {
+      if (err || !result) {
         // Cast to ObjectId failed or object not found
         res.sendStatus(404);
         if (err) {
