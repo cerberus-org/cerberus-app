@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { VisitService } from '../../services/visit.service';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,9 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string;
 
-  constructor(private router: Router, private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private router: Router,
+              private snackBar: MdSnackBar,
+              private userService: UserService) {
     this.createForm();
   }
 
@@ -25,10 +28,11 @@ export class LoginComponent implements OnInit {
   login() {
     this.userService.login(this.loginForm.value)
       .subscribe(res => {
-          localStorage.setItem('organizationId', res.organizationId);
-          localStorage.setItem('userId', res.userId);
           localStorage.setItem('token', res.token);
-          this.router.navigateByUrl('/organization-dashboard');
+          localStorage.setItem('organizationId', res.user.organizationId);
+          localStorage.setItem('userId', res.user.userId);
+          this.router.navigateByUrl('/dashboard');
+          this.snackBar.open(`Welcome back, ${res.user.firstName}.`, '', { duration: 3000 });
         },
         error => this.error = <any>error
       );

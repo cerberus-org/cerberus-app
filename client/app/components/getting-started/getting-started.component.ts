@@ -15,6 +15,7 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./getting-started.component.css']
 })
 export class GettingStartedComponent implements OnInit {
+  error: string;
   step: number;
   validOrganization: boolean;
   validUser: boolean;
@@ -94,12 +95,14 @@ export class GettingStartedComponent implements OnInit {
 
   login(user: User): void {
     this.userService.login(user)
-      .subscribe(
-        response => {
-          localStorage.setItem('token', response.token);
-          this.router.navigateByUrl('/organization-dashboard');
+      .subscribe(res => {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('organizationId', res.user.organizationId);
+          localStorage.setItem('userId', res.user.userId);
+          this.router.navigateByUrl('/dashboard');
+          this.snackBar.open(`Welcome to Cerberus, ${res.user.firstName}.`, '', { duration: 3000 });
         },
-        err => console.log(err)
+        error => this.error = <any>error
       );
   }
 }
