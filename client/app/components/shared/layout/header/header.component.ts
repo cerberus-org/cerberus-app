@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
   icon: string;
   text: string;
   previousUrl: string;
-  organizationName: string;
 
   constructor(private router: Router, private store: Store<Organization[]>) { }
 
@@ -47,8 +46,6 @@ export class HeaderComponent implements OnInit {
   setHeader = (): void => {
     this.router.events.subscribe(() => {
       // Get the string after the first '/'
-      switch (this.router.url.split('/')[1]) {
-      console.log(this.router.url.split('/')[1]);
       switch (this.router.url.split('/')[1]) {
         case 'start':
           this.previousUrl = '/login';

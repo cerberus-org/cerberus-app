@@ -1,9 +1,11 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
+import { StoreModule } from '@ngrx/store';
 
 import { OrganizationService } from './organization.service';
 import { testOrganizations } from '../models/organization';
+import { organizationReducer } from '../reducers/organization';
 import { ErrorService, MockErrorService } from './error.service';
 
 describe('OrganizationService', () => {
@@ -12,6 +14,9 @@ describe('OrganizationService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.provideStore({organizations: organizationReducer})
+      ],
       providers: [
         BaseRequestOptions,
         MockBackend,

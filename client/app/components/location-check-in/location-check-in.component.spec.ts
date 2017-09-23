@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
 import { LocationCheckInComponent } from './location-check-in.component';
+import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
 import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
 import { MockVisitService, VisitService } from '../../services/visit.service';
 
@@ -24,6 +25,7 @@ describe('LocationCheckInComponent', () => {
         NoopAnimationsModule
       ],
       providers: [
+        { provide: OrganizationService, useClass: MockOrganizationService },
         { provide: VisitService, useClass: MockVisitService },
         { provide: VolunteerService, useClass: MockVolunteerService }
       ]
