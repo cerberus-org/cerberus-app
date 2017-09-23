@@ -3,7 +3,9 @@ abstract class BaseHandler {
   abstract model: any;
 
   /**
-   * Get all
+   * Gets all documents and responds with the results (200) or an error (400).
+   * @param req - the request
+   * @param res - the response
    */
   getAll(req, res) {
     this.model.find({}, (err, results) => {
@@ -16,7 +18,9 @@ abstract class BaseHandler {
   };
 
   /**
-   * Count all
+   * Counts all documents and responds with the count (200) or an error (400).
+   * @param req - the request
+   * @param res - the response
    */
   count(req, res) {
     this.model.count((err, count) => {
@@ -29,7 +33,10 @@ abstract class BaseHandler {
   };
 
   /**
-   * Insert
+   * Inserts a document and responds with the inserted document (201), a validation error (400),
+   * or duplicate key error (409).
+   * @param req - the request with the body
+   * @param res - the response
    */
   insert(req, res) {
     const obj = new this.model(req.body);
@@ -49,7 +56,9 @@ abstract class BaseHandler {
   };
 
   /**
-   * Get by ID
+   * Gets a document by ID and responds with the result (200) or cast to ObjectId error/Not Found (404).
+   * @param req - the request with the id parameter
+   * @param res - the response
    */
   getById(req, res) {
     this.model.findById(req.params.id, (err, result) => {
@@ -66,7 +75,10 @@ abstract class BaseHandler {
   };
 
   /**
-   * Update by ID
+   * Finds a document by ID, updates it, and responds with the updated document (200),
+   * cast to ObjectId error/Not Found (404), or duplicate key error (409).
+   * @param req - the request with the id parameter and body
+   * @param res - the response
    */
   update(req, res) {
     this.model.findByIdAndUpdate(req.params.id, req.body, (err, result) => {
@@ -88,7 +100,9 @@ abstract class BaseHandler {
   };
 
   /**
-   * Delete by ID
+   * Deletes a document by ID and responds with No Content (204) or Not Found (404).
+   * @param req - the request with the id parameter
+   * @param res - the response
    */
   delete(req, res) {
     this.model.findByIdAndRemove(req.params.id, (err, result) => {

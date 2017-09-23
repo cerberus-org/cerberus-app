@@ -9,6 +9,11 @@ const jwt = require('jsonwebtoken');
 export default class UserHandler extends BaseHandler {
   model = User;
 
+  /**
+   * Logs a user in and responds with the user and token (200) or an authentication error (403).
+   * @param req - the request with the body containing email and password
+   * @param res - the response
+   */
   login(req, res) {
     this.model.findOne({ email: req.body.email }, (err, user) => {
       if (!user) {
