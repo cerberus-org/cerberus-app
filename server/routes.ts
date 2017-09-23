@@ -26,6 +26,8 @@ export default function setRoutes(app) {
   router.route('/location/:id').get(auth.ensureLoggedIn, locationHandler.getById);
   router.route('/location/:id').put(auth.ensureLoggedIn, locationHandler.update);
   router.route('/location/:id').delete(auth.ensureLoggedIn, locationHandler.delete);
+  router.route('/location/:id/visits').get(auth.ensureLoggedIn, visitHandler.getByLocationId);
+  router.route('/location/:id/volunteers').get(auth.ensureLoggedIn, volunteerHandler.getByLocationId);
 
   // Organizations
   router.route('/organizations').get(auth.ensureLoggedIn, organizationHandler.getAll);
@@ -34,6 +36,9 @@ export default function setRoutes(app) {
   router.route('/organization/:id').get(auth.ensureLoggedIn, organizationHandler.getById);
   router.route('/organization/:id').put(auth.ensureLoggedIn, organizationHandler.update);
   router.route('/organization/:id').delete(auth.ensureLoggedIn, organizationHandler.delete);
+  router.route('/organization/:id/locations').get(auth.ensureLoggedIn, locationHandler.getByOrganizationId);
+  router.route('/organization/:id/visits').get(auth.ensureLoggedIn, visitHandler.getByOrganizationId);
+  router.route('/organization/:id/volunteers').get(auth.ensureLoggedIn, volunteerHandler.getByOrganizationId);
 
   // Users
   router.route('/users').get(auth.ensureLoggedIn, userHandler.getAll);

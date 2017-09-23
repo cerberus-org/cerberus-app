@@ -27,18 +27,10 @@ handlers.forEach(handler => {
         body: {},
       };
       res = {
-        json: jasmine.createSpy('json').and.callFake(() => {
-          return res;
-        }),
-        status: jasmine.createSpy('status').and.callFake(() => {
-          return res;
-        }),
-        send: jasmine.createSpy('send').and.callFake(() => {
-          return res;
-        }),
-        sendStatus: jasmine.createSpy('sendStatus').and.callFake(() => {
-          return res;
-        })
+        json: jasmine.createSpy('json').and.callFake(() => res),
+        status: jasmine.createSpy('status').and.callFake(() => res),
+        send: jasmine.createSpy('send').and.callFake(() => res),
+        sendStatus: jasmine.createSpy('sendStatus').and.callFake(() => res)
       };
     });
 

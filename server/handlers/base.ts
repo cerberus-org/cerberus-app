@@ -53,7 +53,7 @@ abstract class BaseHandler {
    */
   getById(req, res) {
     this.model.findById(req.params.id, (err, result) => {
-      if (err || !``) {
+      if (err || !result) {
         // Cast to ObjectId failed or object not found
         res.sendStatus(404);
         if (err) {

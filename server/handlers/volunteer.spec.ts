@@ -1,9 +1,9 @@
-import VisitHandler from './visit';
+import VolunteerHandler from './volunteer';
 
-const handler = new VisitHandler;
+const handler = new VolunteerHandler;
 let req, res;
 
-describe(typeof VisitHandler, () => {
+describe(typeof VolunteerHandler, () => {
 
   beforeEach(() => {
     spyOn(console, 'error').and.stub();
@@ -75,37 +75,6 @@ describe(typeof VisitHandler, () => {
         cb(true);
       });
       handler.getAll(req, res);
-      expect(res.json.calls.count()).toEqual(0);
-      expect(res.send.calls.count()).toEqual(1);
-      expect(res.status.calls.count()).toEqual(1);
-      expect(res.status).toHaveBeenCalledWith(400);
-      expect(console.error).toHaveBeenCalled();
-      done();
-    });
-  });
-
-  describe('Get by date', () => {
-    afterEach(() => {
-      expect(handler.model.find.calls.count()).toEqual(1);
-    });
-
-    it('returns a JSON body', done => {
-      spyOn(handler.model, 'find').and.callFake((obj, cb) => {
-        cb();
-      });
-      handler.getByDate(req, res);
-      expect(res.json.calls.count()).toEqual(1);
-      expect(res.send.calls.count()).toEqual(0);
-      expect(res.status.calls.count()).toEqual(0);
-      expect(console.error).not.toHaveBeenCalled();
-      done();
-    });
-
-    it('returns status code 400 if there is an error', done => {
-      spyOn(handler.model, 'find').and.callFake((obj, cb) => {
-        cb(true);
-      });
-      handler.getByDate(req, res);
       expect(res.json.calls.count()).toEqual(0);
       expect(res.send.calls.count()).toEqual(1);
       expect(res.status.calls.count()).toEqual(1);
