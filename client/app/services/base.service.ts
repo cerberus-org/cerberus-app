@@ -9,7 +9,7 @@ import { ErrorService } from './error.service';
 abstract class BaseService {
   protected modelName: string;
   protected actionTypes: {
-    getAll: string;
+    get: string;
     create: string;
     update: string;
   };
@@ -28,7 +28,14 @@ abstract class BaseService {
   getAllRx(): void {
     this.http.get(`/api/${this.modelName}s`, this.options)
       .map(res => res.json().map(this.convert))
-      .map(payload => ({ type: this.actionTypes.getAll, payload: payload }))
+      .map(payload => ({ type: this.actionTypes.get, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
+  }
+
+  getByIdRx(id: string): void {
+    this.http.get(`/api/${this.modelName}/${id}`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: this.actionTypes.get, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
   }
 

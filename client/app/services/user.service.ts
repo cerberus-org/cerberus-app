@@ -33,6 +33,8 @@ export class MockUserService extends UserService {
 
   getAllRx(): void { }
 
+  getByIdRx(id: string): void { }
+
   createRx(obj: any): void { }
 
   updateRx(obj: any): void { }

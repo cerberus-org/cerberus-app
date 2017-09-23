@@ -17,7 +17,7 @@ export class VolunteerService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'volunteer';
     this.actionTypes = {
-      getAll: LOAD_VOLUNTEERS,
+      get: LOAD_VOLUNTEERS,
       create: ADD_VOLUNTEER,
       update: MODIFY_VOLUNTEER,
     }
@@ -31,6 +31,8 @@ export class MockVolunteerService extends VolunteerService {
   }
 
   getAllRx(): void { }
+
+  getByIdRx(id: string): void { }
 
   createRx(obj: any): void { }
 
