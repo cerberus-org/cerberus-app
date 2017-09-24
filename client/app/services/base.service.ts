@@ -36,7 +36,7 @@ abstract class BaseService {
 
   getByIdRx(id: string): void {
     this.http.get(`/api/${this.modelName}/${id}`, this.options)
-      .map(res => this.convert(res.json()))
+      .map(res => this.convertIn(res.json()))
       .map(payload => ({ type: this.actionTypes.add, payload: payload }))
       .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError);
   }
@@ -92,7 +92,7 @@ abstract class BaseService {
   delete(obj: any): Observable<any> {
     this.convertOut(obj);
     return this.http.delete(`/api/${this.modelName}/${obj._id}`, this.options)
-      .map(res => this.convertOut(res.json()))
+      .map(res => this.convertIn(res.json()))
       .catch(this.errorService.handleHttpError);
   }
 
