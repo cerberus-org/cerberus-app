@@ -315,7 +315,7 @@ export class CheckInFormComponent implements OnInit {
   }
 
   /**
-   * Assigns signature to existing signature passed in.
+   * Assigns signature to existing signature passed in. The signature will be displayed in the signature pad once set.
    * @param signature
    */
   setSignature(signature): void {

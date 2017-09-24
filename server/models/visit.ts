@@ -38,4 +38,12 @@ const visitSchema = new mongoose.Schema({
 // Hash signature index so there are not any limits placed on key length
 visitSchema.index({ startedAt: 1, endedAt: 1, volunterId: 1, signature: 'hashed' }, { unique: true });
 
+// Omit the signature when returning a visit
+visitSchema.set('toJSON', {
+  transform: function (doc, ret, options) {
+    delete ret.signature;
+    return ret;
+  }
+});
+
 export default mongoose.model('Visit', visitSchema);
