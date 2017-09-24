@@ -28,8 +28,7 @@ export class NewVolunteerFormComponent implements OnInit {
   onSubmit(): void {
     this.capitalize();
     this.createVolunteer(new Volunteer(
-      null,
-      this.route.snapshot.paramMap.get('id'),
+      localStorage.getItem('organizationId'),
       this.formGroup.value.firstName,
       this.formGroup.value.lastName,
       this.formGroup.value.petName));

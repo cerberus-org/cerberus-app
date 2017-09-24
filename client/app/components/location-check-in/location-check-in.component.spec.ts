@@ -7,6 +7,7 @@ import { LocationCheckInComponent } from './location-check-in.component';
 import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
 import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
 import { MockVisitService, VisitService } from '../../services/visit.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LocationCheckInComponent', () => {
   let component: LocationCheckInComponent;
@@ -22,7 +23,8 @@ describe('LocationCheckInComponent', () => {
       ],
       imports: [
         MdTabsModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        RouterTestingModule
       ],
       providers: [
         { provide: OrganizationService, useClass: MockOrganizationService },

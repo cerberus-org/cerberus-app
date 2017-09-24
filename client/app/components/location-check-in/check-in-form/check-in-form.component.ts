@@ -193,7 +193,7 @@ export class CheckInFormComponent implements OnInit {
       this.endVisit(this.activeVisitForVolunteer);
     } else if (this.selectedVolunteer) {
       this.startVisit(
-        null,
+        localStorage.getItem('organizationId'),
         this.route.snapshot.paramMap.get('id'),
         this.selectedVolunteer,
         this.signatures.first.signature);

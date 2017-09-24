@@ -18,9 +18,10 @@ export class OrganizationDashboardComponent implements OnInit {
               private visitService: VisitService) { }
 
   ngOnInit() {
-    this.locationService.getAllRx();
-    this.organizationService.getByIdRx(localStorage.getItem('organizationId'));
-    this.visitService.getByLastGivenDaysRx(7);
+    const organizationId = localStorage.getItem('organizationId');
+    this.organizationService.getByIdRx(organizationId);
+    this.locationService.getByOrganizationRx(organizationId);
+    this.visitService.getByOrganizationRx(organizationId);
   }
 
   public logout() {

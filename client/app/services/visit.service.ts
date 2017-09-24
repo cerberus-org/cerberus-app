@@ -23,6 +23,20 @@ export class VisitService extends BaseService {
     }
   }
 
+  getByLocationRx(locationId: string): void {
+    this.http.get(`/api/location/${locationId}/visits`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
+  }
+
+  getByOrganizationRx(organizationId: string): void {
+    this.http.get(`/api/organization/${organizationId}/visits`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
+  }
+
   /**
    * Get all dates that occur after the date provided.
    * @param days
@@ -56,6 +70,10 @@ export class MockVisitService extends VisitService {
   getAllRx(): void { }
 
   getByIdRx(id: string): void { }
+
+  getByLocationRx(): void { }
+
+  getByOrganizationRx(): void { }
 
   createRx(obj: any): void { }
 
