@@ -37,6 +37,8 @@ export class MockLocationService extends LocationService {
 
   getAllRx(): void { }
 
+  getByOrganizationRx(): void { }
+
   getByIdRx(id: string): void { }
 
   createRx(obj: any): void { }

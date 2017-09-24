@@ -41,6 +41,8 @@ export class MockVolunteerService extends VolunteerService {
 
   getByIdRx(id: string): void { }
 
+  getByOrganizationRx(): void { }
+
   createRx(obj: any): void { }
 
   updateRx(obj: any): void { }

@@ -71,6 +71,10 @@ export class MockVisitService extends VisitService {
 
   getByIdRx(id: string): void { }
 
+  getByLocationRx(): void { }
+
+  getByOrganizationRx(): void { }
+
   createRx(obj: any): void { }
 
   updateRx(obj: any): void { }
