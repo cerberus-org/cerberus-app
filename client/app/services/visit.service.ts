@@ -35,11 +35,13 @@ export class VisitService extends BaseService {
   }
 
   /**
-   * Override to stringify signature.
+   * Override to parse startedAt and endedAt Strings into Date objects and to stringify signature.
    * @param visit
    * @returns {any}
    */
   convertOut(visit) {
+    visit.startedAt = new Date(visit.startedAt);
+    visit.endedAt = visit.endedAt ? new Date(visit.endedAt) : null;
     // If the visit contains a signature
     if (visit.signature) {
       visit.signature = JSON.stringify(visit.signature);
