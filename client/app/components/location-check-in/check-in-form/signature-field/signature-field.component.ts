@@ -55,7 +55,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
       return;
     }
     this._signature = value;
-    this.signaturePad.fromDataURL(this.signature);
+    this.signaturePad.fromData(this.signature);
   }
 
   /**
@@ -85,11 +85,19 @@ export class SignatureFieldComponent implements ControlValueAccessor {
    * After the user has finished drawing, save the signature as an array of point groups.
    */
   public drawComplete(): void {
-    this.signature = this.signaturePad.toDataURL();
+    this.signature = this.signaturePad.toData();
   }
 
   public clear(): void {
     this.signaturePad.clear();
     this.signature = '';
+  }
+
+  /**
+   * Sets the signature to pre existing signature.
+   * @param signature - the signature
+   */
+  public setSignatureToExistingSignature(signature): void {
+    this.signature = this.signaturePad.fromData(signature);
   }
 }
