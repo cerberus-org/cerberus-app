@@ -19,9 +19,9 @@ export class LocationCheckInComponent implements OnInit {
     private volunteerService: VolunteerService) { }
 
   ngOnInit(): void {
-    this.organizationService.getByIdRx(localStorage.getItem('organizationId'));
-    const locationId = this.route.snapshot.paramMap.get('id');
-    this.visitService.getByLocationRx(locationId);
-    this.volunteerService.getByLocationRx(locationId);
+    const organizationId = localStorage.getItem('organizationId');
+    this.organizationService.getByIdRx(organizationId);
+    this.volunteerService.getByOrganizationRx(organizationId);
+    this.visitService.getByLocationRx(this.route.snapshot.paramMap.get('id'));
   }
 }

@@ -27,7 +27,6 @@ export default function setRoutes(app) {
   router.route('/location/:id').put(auth.ensureLoggedIn, locationHandler.update);
   router.route('/location/:id').delete(auth.ensureLoggedIn, locationHandler.delete);
   router.route('/location/:id/visits').get(auth.ensureLoggedIn, visitHandler.getByLocationId);
-  router.route('/location/:id/volunteers').get(auth.ensureLoggedIn, volunteerHandler.getByLocationId);
 
   // Organizations
   router.route('/organizations').get(auth.ensureLoggedIn, organizationHandler.getAll);

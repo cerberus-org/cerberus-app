@@ -23,13 +23,6 @@ export class VolunteerService extends BaseService {
     }
   }
 
-  getByLocationRx(locationId: string): void {
-    this.http.get(`/api/location/${locationId}/volunteers`, this.options)
-      .map(res => res.json().map(this.convert))
-      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
-      .subscribe(action => this.store.dispatch(action));
-  }
-
   getByOrganizationRx(organizationId: string): void {
     this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
       .map(res => res.json().map(this.convert))
