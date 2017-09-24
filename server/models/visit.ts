@@ -38,4 +38,18 @@ const visitSchema = new mongoose.Schema({
 // Hash signature index so there are not any limits placed on key length
 visitSchema.index({ startedAt: 1, endedAt: 1, volunterId: 1, signature: 'hashed' }, { unique: true });
 
+// Before saving, stringify signature
+visitSchema.pre('save', function(next) {
+  this.signature = JSON.stringify(this.signature);
+  next();
+});
+
+// Before returning the signature destringify
+visitSchema.set('toJSON', {
+  transform: function (doc, ret, options) {
+    ret.signature = JSON.parse(ret.signature);
+    return ret;
+  }
+});
+
 export default mongoose.model('Visit', visitSchema);
