@@ -15,9 +15,6 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         MockComponent({ selector: 'app-layout' })
-      ],
-      providers: [
-        { provide: VisitService, useClass: MockVisitService }
       ]
     }).compileComponents();
   }));

@@ -17,10 +17,17 @@ export class VolunteerService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'volunteer';
     this.actionTypes = {
-      getAll: LOAD_VOLUNTEERS,
-      create: ADD_VOLUNTEER,
-      update: MODIFY_VOLUNTEER,
+      load: LOAD_VOLUNTEERS,
+      add: ADD_VOLUNTEER,
+      modify: MODIFY_VOLUNTEER,
     }
+  }
+
+  getByOrganizationRx(organizationId: string): void {
+    this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 }
 
@@ -31,6 +38,10 @@ export class MockVolunteerService extends VolunteerService {
   }
 
   getAllRx(): void { }
+
+  getByIdRx(id: string): void { }
+
+  getByOrganizationRx(): void { }
 
   createRx(obj: any): void { }
 

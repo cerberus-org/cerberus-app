@@ -49,7 +49,7 @@ export class ErrorService {
   handleTokenExpiration(error: any | Response) {
     // If the token has expired
     if (error.status === 401) {
-      // Remove the token so login and logout buttons can be accurately displayed or hidden
+      // Remove the token so login and onLogout buttons can be accurately displayed or hidden
       localStorage.clear();
       this.router.navigateByUrl('/login');
     }

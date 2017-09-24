@@ -17,17 +17,32 @@ export class VisitService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'visit';
     this.actionTypes = {
-      getAll: LOAD_VISITS,
-      create: ADD_VISIT,
-      update: MODIFY_VISIT
+      load: LOAD_VISITS,
+      add: ADD_VISIT,
+      modify: MODIFY_VISIT
     }
+  }
+
+  getByLocationRx(locationId: string): void {
+    this.http.get(`/api/location/${locationId}/visits`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
+  }
+
+  getByOrganizationRx(organizationId: string): void {
+    this.http.get(`/api/organization/${organizationId}/visits`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
   /**
    * Get all dates that occur after the date provided.
-   * @param date
+   * @param days
    */
-  getByDateRx(date: Date): void {
+  getByLastGivenDaysRx(days: number): void {
+    const date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));
     this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
       .map(res => res.json().map(this.convertOut))
       .map(payload => ({ type: LOAD_VISITS, payload: payload }))
@@ -72,9 +87,17 @@ export class MockVisitService extends VisitService {
 
   getAllRx(): void { }
 
+  getByIdRx(id: string): void { }
+
+  getByLocationRx(): void { }
+
+  getByOrganizationRx(): void { }
+
   createRx(obj: any): void { }
 
   updateRx(obj: any): void { }
+
+  getByLastGivenDaysRx(days: number): void { };
 
   getAll(): Observable<Visit[]> {
     return Observable.of(testVisits);

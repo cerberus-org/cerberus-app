@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { VisitService } from '../../services/visit.service';
+import { MdSnackBar } from '@angular/material';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -15,27 +17,30 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string;
 
-  constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private visitService: VisitService) {
+  constructor(private fb: FormBuilder, private router: Router,
+              private snackBar: MdSnackBar,
+              private userService: UserService) {
     this.createForm();
   }
 
   ngOnInit() {
   }
 
-  getVisitsByDate(daysToSubtract: number): void {
-    this.visitService.getByDateRx(new Date(new Date().getTime() - (daysToSubtract * 24 * 60 * 60 * 1000)));
-  }
-
   login() {
     this.userService.login(this.loginForm.value)
-      .subscribe(
-        response => {
-          localStorage.setItem('token', response.token);
-          this.router.navigateByUrl('/organization-dashboard');
-          this.getVisitsByDate(7);
+      .subscribe(res => {
+          this.setLocalStorageItems(res.user, res.token);
+          this.router.navigateByUrl('/dashboard');
+          this.snackBar.open(`Welcome back, ${res.user.firstName}.`, '', { duration: 3000 });
         },
         error => this.error = <any>error
       );
+  }
+
+  setLocalStorageItems(user: User, token: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('userId', user._id);
+    localStorage.setItem('organizationId', user.organizationId);
   }
 
   // use FormBuilder to define FormGroup
@@ -45,5 +50,9 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required]
     });
+  }
+
+  onNewOrganization() {
+    this.router.navigateByUrl('/start');
   }
 }

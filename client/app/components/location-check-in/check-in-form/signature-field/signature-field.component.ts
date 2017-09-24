@@ -41,7 +41,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
 
   set signature(value: any) {
     this._signature = value;
-    // update form
+    // modify form
     this.propagateChange(this.signature);
   }
 

@@ -8,6 +8,7 @@ import { GettingStartedComponent } from './getting-started.component';
 import { LocationService, MockLocationService } from '../../services/location.service';
 import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
 import { MockUserService, UserService } from '../../services/user.service';
+import { testUsers } from '../../models/user';
 
 describe('GettingStartedComponent', () => {
   let component: GettingStartedComponent;
@@ -54,5 +55,12 @@ describe('GettingStartedComponent', () => {
 
   it('does not set step to the next step when backtracking', () => {
     expect(component.nextStep(2, 1)).toEqual(2);
+  });
+
+  it('sets the local storage items', () => {
+    component.setLocalStorageItems(testUsers[0], 'token');
+    expect(localStorage.getItem('token')).toBe('token');
+    expect(localStorage.getItem('userId')).toBe(testUsers[0]._id);
+    expect(localStorage.getItem('organizationId')).toBe(testUsers[0].organizationId);
   });
 });

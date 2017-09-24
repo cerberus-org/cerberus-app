@@ -3,33 +3,39 @@ import { MdTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
-import { VolunteerCheckInComponent } from './volunteer-check-in.component';
+import { LocationCheckInComponent } from './location-check-in.component';
+import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
 import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
+import { MockVisitService, VisitService } from '../../services/visit.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe('VolunteerCheckInComponent', () => {
-  let component: VolunteerCheckInComponent;
-  let fixture: ComponentFixture<VolunteerCheckInComponent>;
+describe('LocationCheckInComponent', () => {
+  let component: LocationCheckInComponent;
+  let fixture: ComponentFixture<LocationCheckInComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        VolunteerCheckInComponent,
+        LocationCheckInComponent,
         MockComponent({ selector: 'app-check-in-form' }),
         MockComponent({ selector: 'app-new-volunteer-form', inputs: ['changeTab'] }),
         MockComponent({ selector: 'app-side-margins' })
       ],
       imports: [
         MdTabsModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        RouterTestingModule
       ],
       providers: [
+        { provide: OrganizationService, useClass: MockOrganizationService },
+        { provide: VisitService, useClass: MockVisitService },
         { provide: VolunteerService, useClass: MockVolunteerService }
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VolunteerCheckInComponent);
+    fixture = TestBed.createComponent(LocationCheckInComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,16 +3,16 @@ import { MdTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
-import { VisitDataDisplayComponent } from './visit-data-display.component';
+import { DataDisplayComponent } from './data-display.component';
 
-describe('VisitDataDisplayComponent', () => {
-  let component: VisitDataDisplayComponent;
-  let fixture: ComponentFixture<VisitDataDisplayComponent>;
+describe('DataDisplayComponent', () => {
+  let component: DataDisplayComponent;
+  let fixture: ComponentFixture<DataDisplayComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        VisitDataDisplayComponent,
+        DataDisplayComponent,
         MockComponent({ selector: 'app-daily-hours-chart' }),
         MockComponent({ selector: 'app-visit-history-table' })
       ],
@@ -24,7 +24,7 @@ describe('VisitDataDisplayComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VisitDataDisplayComponent);
+    fixture = TestBed.createComponent(DataDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

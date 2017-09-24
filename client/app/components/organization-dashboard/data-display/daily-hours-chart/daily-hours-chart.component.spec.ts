@@ -3,8 +3,8 @@ import { StoreModule } from '@ngrx/store';
 import { ChartsModule } from 'ng2-charts';
 
 import { DailyHoursChartComponent } from './daily-hours-chart.component';
-import { testVisits } from '../../../models/visit';
-import { visitReducer } from '../../../reducers/visit';
+import { testVisits } from '../../../../models/visit';
+import { visitReducer } from '../../../../reducers/visit';
 
 describe('DailyHoursChartComponent', () => {
   let component: DailyHoursChartComponent;

@@ -15,10 +15,17 @@ export class LocationService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'location';
     this.actionTypes = {
-      getAll: LOAD_LOCATIONS,
-      create: ADD_LOCATION,
-      update: MODIFY_LOCATION
+      load: LOAD_LOCATIONS,
+      add: ADD_LOCATION,
+      modify: MODIFY_LOCATION
     };
+  }
+
+  getByOrganizationRx(organizationId: string): void {
+    this.http.get(`/api/organization/${organizationId}/locations`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 }
 
@@ -29,6 +36,10 @@ export class MockLocationService extends LocationService {
   }
 
   getAllRx(): void { }
+
+  getByOrganizationRx(): void { }
+
+  getByIdRx(id: string): void { }
 
   createRx(obj: any): void { }
 

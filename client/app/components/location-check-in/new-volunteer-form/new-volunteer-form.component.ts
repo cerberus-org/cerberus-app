@@ -28,8 +28,7 @@ export class NewVolunteerFormComponent implements OnInit {
   onSubmit(): void {
     this.capitalize();
     this.createVolunteer(new Volunteer(
-      null,
-      this.route.snapshot.paramMap.get('id'),
+      localStorage.getItem('organizationId'),
       this.formGroup.value.firstName,
       this.formGroup.value.lastName,
       this.formGroup.value.petName));
@@ -57,7 +56,7 @@ export class NewVolunteerFormComponent implements OnInit {
       lastName: ['', validators],
       petName: ['', validators]
     });
-    // Allows using *ngFor to create forms
+    // Allows using *ngFor to add forms
     this.forms = [
       { placeholder: 'First', control: 'firstName' },
       { placeholder: 'Last', control: 'lastName' },

@@ -10,10 +10,6 @@ const volunteerSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, ref: Organization,
     // required: [true, 'Organization ID is required']
   },
-  locationId: {
-    type: mongoose.Schema.Types.ObjectId, ref: Location,
-    required: [true, 'Location ID is required']
-  },
   firstName: {
     type: String,
     required: [true, 'First name is required'],

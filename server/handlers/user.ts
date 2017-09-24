@@ -2,12 +2,18 @@ import BaseHandler from './base';
 import User from '../models/user';
 import 'zone.js';
 import 'reflect-metadata';
+
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 export default class UserHandler extends BaseHandler {
   model = User;
 
+  /**
+   * Logs a user in and responds with the user and token (200) or an authentication error (403).
+   * @param req - the request with the body containing email and password
+   * @param res - the response
+   */
   login = (req, res) => {
     this.model.findOne({ email: req.body.email }, (err, user) => {
       if (!user) {
@@ -20,8 +26,8 @@ export default class UserHandler extends BaseHandler {
           return console.error(err)
         }
         // process.env.SECRET_TOKEN will be the code used to decode the token
-        const token = jwt.sign({ exp: Math.floor(Date.now() / 1000) + this.getHours(12) } , process.env.SECRET_TOKEN);
-        res.json({ token: token });
+        const token = jwt.sign({ exp: Math.floor(Date.now() / 1000) + this.getHours(12) }, process.env.SECRET_TOKEN);
+        res.json({ user: user, token: token });
       });
     });
   };
