@@ -14,7 +14,7 @@ export default class UserHandler extends BaseHandler {
    * @param req - the request with the body containing email and password
    * @param res - the response
    */
-  login(req, res) {
+  login = (req, res) => {
     this.model.findOne({ email: req.body.email }, (err, user) => {
       if (!user) {
         res.sendStatus(403);

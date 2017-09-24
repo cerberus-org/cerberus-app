@@ -9,7 +9,7 @@ export default class VolunteerHandler extends BaseHandler {
    * @param req - the request with the id parameter
    * @param res - the response
    */
-  getByLocationId(req, res) {
+  getByLocationId = (req, res) => {
     this.model.find({ 'locationId': req.params.id },
       (err, results) => {
         if (err) {
@@ -25,7 +25,7 @@ export default class VolunteerHandler extends BaseHandler {
    * @param req - the request with the id parameter
    * @param res - the response
    */
-  getByOrganizationId(req, res) {
+  getByOrganizationId = (req, res) => {
     this.model.find({ 'organizationId': req.params.id },
       (err, results) => {
         if (err) {

@@ -7,7 +7,7 @@ abstract class BaseHandler {
    * @param req - the request
    * @param res - the response
    */
-  getAll(req, res) {
+  getAll = (req, res) => {
     this.model.find({}, (err, results) => {
       if (err) {
         res.status(400).send(err);
@@ -22,7 +22,7 @@ abstract class BaseHandler {
    * @param req - the request
    * @param res - the response
    */
-  count(req, res) {
+  count = (req, res) => {
     this.model.count((err, count) => {
       if (err) {
         res.status(400).send(err);
@@ -38,7 +38,7 @@ abstract class BaseHandler {
    * @param req - the request with the body
    * @param res - the response
    */
-  insert(req, res) {
+  insert = (req, res) => {
     const obj = new this.model(req.body);
     obj.save((err, item) => {
       if (err) {
@@ -60,7 +60,7 @@ abstract class BaseHandler {
    * @param req - the request with the id parameter
    * @param res - the response
    */
-  getById(req, res) {
+  getById = (req, res) => {
     this.model.findById(req.params.id, (err, result) => {
       if (err || !result) {
         // Cast to ObjectId failed or object not found
@@ -80,7 +80,7 @@ abstract class BaseHandler {
    * @param req - the request with the id parameter and body
    * @param res - the response
    */
-  update(req, res) {
+  update = (req, res) => {
     this.model.findByIdAndUpdate(req.params.id, req.body, (err, result) => {
       if (err || !result) {
         // 11000 is the code for duplicate key error
@@ -104,7 +104,7 @@ abstract class BaseHandler {
    * @param req - the request with the id parameter
    * @param res - the response
    */
-  delete(req, res) {
+  delete = (req, res) => {
     this.model.findByIdAndRemove(req.params.id, (err, result) => {
       if (err || !result) {
         // Cast to ObjectId failed or object not found
