@@ -92,4 +92,12 @@ export class SignatureFieldComponent implements ControlValueAccessor {
     this.signaturePad.clear();
     this.signature = '';
   }
+
+  /**
+   * Sets the signature to pre existing signature.
+   * @param signature - the signature
+   */
+  public setSignatureToExistingSignature(signature): void {
+    this.signature = this.signaturePad.fromData(signature);
+  }
 }

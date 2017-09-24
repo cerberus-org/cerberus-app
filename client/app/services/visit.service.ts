@@ -40,8 +40,8 @@ export class VisitService extends BaseService {
    * @returns {any}
    */
   convertOut(visit) {
-    // If the signature has not been stringified
-    if (!(visit.signature instanceof String)) {
+    // If the visit contains a signature
+    if (visit.signature) {
       visit.signature = JSON.stringify(visit.signature);
     }
     return visit
@@ -54,7 +54,10 @@ export class VisitService extends BaseService {
   convertIn(visit) {
     visit.startedAt = new Date(visit.startedAt);
     visit.endedAt = visit.endedAt ? new Date(visit.endedAt) : null;
-    visit.signature = JSON.parse(visit.signature);
+    // If the visit contains a signature
+    if (visit.signature) {
+      visit.signature = JSON.parse(visit.signature);
+    }
     return visit;
   }
 }

@@ -315,6 +315,14 @@ export class CheckInFormComponent implements OnInit {
   }
 
   /**
+   * Assigns signature to existing signature passed in.
+   * @param signature
+   */
+  setSignature(signature): void {
+    this.signatures.first.signature.setSignatureToExistingSignature(signature);
+  }
+
+  /**
    * Formats the name of a volunteer as one string.
    * @param volunteer
    * @returns {string}
