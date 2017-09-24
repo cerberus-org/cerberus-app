@@ -18,5 +18,5 @@ export default class LocationHandler extends BaseHandler {
         }
         res.json(results);
       });
-  }
+  };
 }

@@ -18,7 +18,7 @@ export default class VolunteerHandler extends BaseHandler {
         }
         res.json(results);
       });
-  }
+  };
 
   /**
    * Get volunteers by organizationId and responds with the results (200) or an error (400).
@@ -34,5 +34,5 @@ export default class VolunteerHandler extends BaseHandler {
         }
         res.json(results);
       });
-  }
+  };
 }

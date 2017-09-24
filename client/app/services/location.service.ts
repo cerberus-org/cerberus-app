@@ -20,6 +20,13 @@ export class LocationService extends BaseService {
       modify: MODIFY_LOCATION
     };
   }
+
+  getByOrganizationRx(organizationId: string): void {
+    this.http.get(`/api/organization/${organizationId}/locations`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
+  }
 }
 
 export class MockLocationService extends LocationService {

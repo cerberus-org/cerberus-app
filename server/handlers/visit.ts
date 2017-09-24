@@ -19,7 +19,7 @@ export default class VisitHandler extends BaseHandler {
         }
         res.json(results);
       });
-  }
+  };
 
   /**
    * Get visits by organizationId and responds with the results (200) or an error (400).
@@ -35,24 +35,21 @@ export default class VisitHandler extends BaseHandler {
         }
         res.json(results);
       });
-  }
+  };
 
   /**
    * Get visits later than the given date and responds with the results (200) or an error (400).
    * @param req - the request with the date parameter
    * @param res - the response
    */
-  getByDate(req, res) {
+  getByDate = (req, res) => {
     const date = moment(req.params.date).format('YYYY-MM-DD h:mm:ss a');
-    this.model.find(
-      { 'startedAt': { '$gte': date, '$lt': Date.now() } },
-      (err, results) => {
-        if (err) {
-          res.status(400).send(err);
-          return console.error(err);
-        }
-        res.json(results);
+    this.model.find({ 'startedAt': { '$gte': date, '$lt': Date.now() } }, (err, results) => {
+      if (err) {
+        res.status(400).send(err);
+        return console.error(err);
       }
-    );
+      res.json(results);
+    });
   };
 }

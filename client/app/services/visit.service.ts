@@ -23,6 +23,13 @@ export class VisitService extends BaseService {
     }
   }
 
+  getByOrganizationRx(organizationId: string): void {
+    this.http.get(`/api/organization/${organizationId}/visits`, this.options)
+      .map(res => res.json().map(this.convert))
+      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .subscribe(action => this.store.dispatch(action));
+  }
+
   /**
    * Get all dates that occur after the date provided.
    * @param days
