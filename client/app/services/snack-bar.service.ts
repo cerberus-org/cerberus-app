@@ -6,33 +6,40 @@ export class SnackBarService {
 
   constructor(private snackBar: MdSnackBar) { }
 
-  emit(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 3000
-    });
+  open(message: string): void {
+    this.snackBar.open(message, '', { duration: 3000 });
   }
 
-  welcome(name: string) {
-    this.emit(`Welcome, ${name}.`);
+  welcome(name: string): void {
+    this.open(`Welcome, ${name}.`);
   }
 
-  welcomeBack(name: string) {
-    this.emit(`Welcome back, ${name}.`);
+  welcomeBack(name: string): void {
+    this.open(`Welcome back, ${name}.`);
   }
 
-  addOrganizationSuccess() {
-    this.emit('Your organization was successfully added.');
+  addOrganizationSuccess(): void {
+    this.open('Your organization was successfully added.');
   }
 
-  signUpSuccess() {
-    this.emit('Volunteer successfully signed up.')
+  signUpSuccess(): void {
+    this.open('Volunteer successfully signed up.')
   }
 
-  checKInSuccess() {
-    this.emit('Volunteer successfully checked in.')
+  checkInSuccess(): void {
+    this.open('Volunteer successfully checked in.')
   }
 
-  checKOutSuccess() {
-    this.emit('Volunteer successfully checked out.')
+  checkOutSuccess(): void {
+    this.open('Volunteer successfully checked out.')
   }
+}
+
+export class MockSnackBarService extends SnackBarService {
+
+  constructor() {
+    super(null);
+  }
+
+  open(message: string): void { }
 }

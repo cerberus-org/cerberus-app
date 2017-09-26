@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { MdSnackBar } from '@angular/material';
-import { User } from '../../models/user';
 import { Store } from '@ngrx/store';
+
+import { SnackBarService } from '../../services/snack-bar.service';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,11 @@ export class LoginComponent implements OnInit {
   error: string;
   users: User[];
 
-  constructor(private fb: FormBuilder, private router: Router,
-              private snackBar: MdSnackBar,
-              private userService: UserService,
-              private store: Store<any>) {
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private store: Store<any>,
+              private snackBarService: SnackBarService,
+              private userService: UserService) {
     this.createForm();
   }
 
@@ -30,8 +32,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.userService.login(this.loginForm.value, () => this.snackBar.open(`Welcome back, ${localStorage.getItem('userName')}.`,
-      '', { duration: 3000 }));
+    this.userService.login(this.loginForm.value,
+      () => this.snackBarService.welcomeBack(localStorage.getItem('userName')));
   }
 
   subscribeToUsers(): void {

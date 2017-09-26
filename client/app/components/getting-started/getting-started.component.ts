@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MdSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
 
 import { Location } from '../../models/location';
 import { Organization } from '../../models/organization';
 import { User } from '../../models/user';
 import { LocationService } from '../../services/location.service';
 import { OrganizationService } from '../../services/organization.service';
+import { SnackBarService } from '../../services/snack-bar.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -22,8 +21,10 @@ export class GettingStartedComponent implements OnInit {
   organization: Organization;
   user: User;
 
-  constructor(private router: Router, private snackBar: MdSnackBar, private locationService: LocationService,
-              private organizationService: OrganizationService, private userService: UserService) { }
+  constructor(private locationService: LocationService,
+              private organizationService: OrganizationService,
+              private snackBarService: SnackBarService,
+              private userService: UserService) { }
 
   ngOnInit() {
     this.step = 0;
@@ -46,9 +47,7 @@ export class GettingStartedComponent implements OnInit {
       userWithOrgId.organizationId = organization._id;
       this.createLocation(organization, () => {
         this.createUser(userWithOrgId, () => {
-          this.snackBar.open('Your organization was successfully added!', '', {
-            duration: 3000
-          });
+          this.snackBarService.addOrganizationSuccess();
           this.login(this.user);
         });
       });
@@ -84,7 +83,6 @@ export class GettingStartedComponent implements OnInit {
   }
 
   login(user: User) {
-    this.userService.login(user, () => this.snackBar.open(`Welcome, ${user.firstName}.`,
-      '', { duration: 3000 }));
+    this.userService.login(user, () => this.snackBarService.welcome(user.firstName));
   }
 }

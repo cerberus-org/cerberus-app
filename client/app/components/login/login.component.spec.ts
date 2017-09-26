@@ -1,12 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MdInputModule, MdListModule, MdSnackBarModule } from '@angular/material';
+import { MdInputModule, MdListModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import 'hammerjs';
 import { StoreModule } from '@ngrx/store';
 
 import { LoginComponent } from './login.component';
+import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
 import { MockUserService, UserService } from '../../services/user.service';
 import { MockVisitService, VisitService } from '../../services/visit.service';
 import { userReducer } from '../../reducers/user';
@@ -24,12 +25,12 @@ describe('LoginComponent', () => {
         ReactiveFormsModule,
         MdInputModule,
         MdListModule,
-        MdSnackBarModule,
         StoreModule.provideStore({ users: userReducer, volunteers: userReducer })
       ],
       providers: [
-        { provide: VisitService, useClass: MockVisitService },
+        { provide: SnackBarService, useClass: MockSnackBarService },
         { provide: UserService, useClass: MockUserService },
+        { provide: VisitService, useClass: MockVisitService },
       ]
     }).compileComponents();
   }));

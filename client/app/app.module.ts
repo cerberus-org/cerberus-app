@@ -43,12 +43,13 @@ import { CheckInFormComponent } from './components/location-check-in/check-in-fo
 import { SignatureFieldComponent } from './components/location-check-in/check-in-form/signature-field/signature-field.component';
 import { NewVolunteerFormComponent } from './components/location-check-in/new-volunteer-form/new-volunteer-form.component';
 
-import { OrganizationService } from './services/organization.service';
+import { ErrorService } from './services/error.service';
 import { LocationService } from './services/location.service';
-import { UserService } from './services/user.service';
+import { OrganizationService } from './services/organization.service';
+import { SnackBarService } from './services/snack-bar.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
-import { ErrorService } from './services/error.service';
+import { UserService } from './services/user.service';
 
 import { locationReducer } from './reducers/location';
 import { visitReducer } from './reducers/visit';
@@ -113,6 +114,7 @@ import { userReducer } from './reducers/user';
     Guard,
     LocationService,
     OrganizationService,
+    SnackBarService,
     UserService,
     VisitService,
     VolunteerService,
