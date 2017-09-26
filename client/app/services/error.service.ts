@@ -11,7 +11,7 @@ export class ErrorService {
     this.httpStatuses = new Map<number, string>([
       [401, 'Session expired!'],
       [504, 'Server error!'],
-      [403, 'Forbidden!']
+      [403, 'Invalid Credentials!']
     ]);
   }
 

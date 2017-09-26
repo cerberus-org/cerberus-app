@@ -94,7 +94,7 @@ export class GettingStartedComponent implements OnInit {
   }
 
   login(user: User) {
-    this.userService.login(user, () => this.snackBar.open(`Welcome back, ${user.firstName}.`,
+    this.userService.login(user, () => this.snackBar.open(`Welcome, ${user.firstName}.`,
       '', { duration: 3000 }));
   }
 }
