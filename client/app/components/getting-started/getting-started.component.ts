@@ -93,20 +93,8 @@ export class GettingStartedComponent implements OnInit {
       }));
   }
 
-  login(user: User): void {
-    this.userService.login(user)
-      .subscribe(res => {
-          this.setLocalStorageItems(res.user, res.token);
-          this.router.navigateByUrl('/dashboard');
-          this.snackBar.open(`Welcome to Cerberus, ${res.user.firstName}.`, '', { duration: 3000 });
-        },
-        error => this.error = <any>error
-      );
-  }
-
-  setLocalStorageItems(user: User, token: string) {
-    localStorage.setItem('token', token);
-    localStorage.setItem('userId', user._id);
-    localStorage.setItem('organizationId', user.organizationId);
+  login(user: User) {
+    this.userService.login(user, () => this.snackBar.open(`Welcome, ${user.firstName}.`,
+      '', { duration: 3000 }));
   }
 }
