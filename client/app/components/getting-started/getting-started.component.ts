@@ -61,12 +61,7 @@ export class GettingStartedComponent implements OnInit {
    * @param successCb
    */
   createOrganization(organization: Organization, successCb): void {
-    this.organizationService.create(organization).subscribe(successCb,
-      error => this.snackBar.open(error
-        ? `Error creating your organization: ${error}`
-        : 'Error creating your organization!', '', {
-        duration: 3000
-      }));
+    this.organizationService.createRx(organization, successCb);
   }
 
   /**
@@ -85,12 +80,7 @@ export class GettingStartedComponent implements OnInit {
    * @param successCb
    */
   createUser(user: User, successCb): void {
-    this.userService.create(user).subscribe(successCb,
-      error => this.snackBar.open(error
-        ? `Error creating your user account: ${error}`
-        : 'Error creating your user account!', '', {
-        duration: 3000
-      }));
+    this.userService.createRx(user, successCb);
   }
 
   login(user: User) {
