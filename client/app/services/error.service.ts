@@ -71,10 +71,6 @@ export class MockErrorService extends ErrorService {
     }
   }
 
-  handleTokenExpiration(error: any | Response) {
-    localStorage.clear();
-  }
-
   openSnackBar() {}
 }
 

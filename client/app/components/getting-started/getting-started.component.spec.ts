@@ -56,11 +56,4 @@ describe('GettingStartedComponent', () => {
   it('does not set step to the next step when backtracking', () => {
     expect(component.nextStep(2, 1)).toEqual(2);
   });
-
-  it('sets the local storage items', () => {
-    component.setLocalStorageItems(testUsers[0], 'token');
-    expect(localStorage.getItem('token')).toBe('token');
-    expect(localStorage.getItem('userId')).toBe(testUsers[0]._id);
-    expect(localStorage.getItem('organizationId')).toBe(testUsers[0].organizationId);
-  });
 });

@@ -6,9 +6,13 @@ import {
   Http
 } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
+import { StoreModule } from '@ngrx/store';
+
 import { UserService } from './user.service';
-import { testLoginCredentials, testUsers } from '../models/user';
+import { testUsers } from '../models/user';
 import { ErrorService, MockErrorService } from './error.service';
+import { userReducer } from '../reducers/user';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UserService', () => {
   let backend: MockBackend = null;
@@ -16,6 +20,10 @@ describe('UserService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.provideStore({ users: userReducer }),
+        RouterTestingModule
+      ],
       providers: [
         BaseRequestOptions,
         MockBackend,
@@ -48,12 +56,12 @@ describe('UserService', () => {
     });
   };
 
-  it('logs the user in', () => {
-    // Tell the connection what to return and the expected status code
-    setConnections({ token: 'token' });
-    service.login(testLoginCredentials[0]).subscribe(res => {
-      expect(res).toEqual({ token: 'token' });
-    });
+  it('sets the local storage items', () => {
+    service.setLocalStorageItems(testUsers[0], 'token');
+    expect(localStorage.getItem('token')).toBe('token');
+    expect(localStorage.getItem('userId')).toBe(testUsers[0]._id);
+    expect(localStorage.getItem('organizationId')).toBe(testUsers[0].organizationId);
+    expect(localStorage.getItem('userName')).toBe(testUsers[0].firstName);
   });
 
   it('gets all users', () => {
