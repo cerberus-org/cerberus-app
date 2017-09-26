@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { VisitService } from '../../services/visit.service';
 import { MdSnackBar } from '@angular/material';
 import { User } from '../../models/user';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -16,31 +16,28 @@ export class LoginComponent implements OnInit {
   // declare FormGroup
   loginForm: FormGroup;
   error: string;
+  users: User[];
 
   constructor(private fb: FormBuilder, private router: Router,
               private snackBar: MdSnackBar,
-              private userService: UserService) {
+              private userService: UserService,
+              private store: Store<any>) {
     this.createForm();
   }
 
   ngOnInit() {
+    this.subscribeToUsers();
   }
 
   login() {
-    this.userService.login(this.loginForm.value)
-      .subscribe(res => {
-          this.setLocalStorageItems(res.user, res.token);
-          this.router.navigateByUrl('/dashboard');
-          this.snackBar.open(`Welcome back, ${res.user.firstName}.`, '', { duration: 3000 });
-        },
-        error => this.error = <any>error
-      );
+    this.userService.login(this.loginForm.value, () => this.snackBar.open(`Welcome back, ${localStorage.getItem('userName')}.`,
+      '', { duration: 3000 }));
   }
 
-  setLocalStorageItems(user: User, token: string) {
-    localStorage.setItem('token', token);
-    localStorage.setItem('userId', user._id);
-    localStorage.setItem('organizationId', user.organizationId);
+  subscribeToUsers(): void {
+    this.store.select<User[]>('users').subscribe(
+      users => this.users = users,
+      error => this.error = <any>error);
   }
 
   // use FormBuilder to define FormGroup
