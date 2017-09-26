@@ -2,7 +2,9 @@ import { TestBed, inject, async, getTestBed, } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MdSnackBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ErrorService } from './error.service';
+import { SnackBarService, MockSnackBarService } from './snack-bar.service';
 
 describe('UserService', () => {
   let service: ErrorService = null;
@@ -16,7 +18,8 @@ describe('UserService', () => {
         BrowserAnimationsModule
       ],
       providers: [
-        ErrorService
+        ErrorService,
+        { provide: SnackBarService, useClass: MockSnackBarService },
       ]
     });
     const testbed = getTestBed();
