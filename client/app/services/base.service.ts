@@ -29,35 +29,37 @@ abstract class BaseService {
 
   getAllRx(): void {
     this.http.get(`/api/${this.modelName}s`, this.options)
-      .map(res => res.json().map(this.convert))
+      .map(res => res.json().map(this.convertIn))
       .map(payload => ({ type: this.actionTypes.load, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
   }
 
   getByIdRx(id: string): void {
     this.http.get(`/api/${this.modelName}/${id}`, this.options)
-      .map(res => this.convert(res.json()))
+      .map(res => this.convertIn(res.json()))
       .map(payload => ({ type: this.actionTypes.add, payload: payload }))
       .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError);
   }
 
   createRx(obj: any, successCb): void {
+    this.convertOut(obj);
     this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
-      .map(res => this.convert(res.json()))
+      .map(res => this.convertIn(res.json()))
       .map(payload => ({ type: this.actionTypes.add, payload: payload }))
       .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError, successCb);
   }
 
   updateRx(obj: any, successCb): void {
+    this.convertOut(obj);
     this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
-      .map(res => this.convert(res.json()))
+      .map(res => this.convertIn(res.json()))
       .map(payload => ({ type: this.actionTypes.modify, payload: payload }))
       .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError, successCb);
   }
 
   getAll(): Observable<any[]> {
     return this.http.get(`/api/${this.modelName}s`, this.options)
-      .map(res => res.json().map(this.convert))
+      .map(res => res.json().map(this.convertIn))
       .catch(this.errorService.handleHttpError);
   }
 
@@ -68,35 +70,47 @@ abstract class BaseService {
   }
 
   create(obj: any): Observable<any> {
+    this.convertOut(obj);
     return this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
-      .map(res => this.convert(res.json()))
+      .map(res => this.convertIn(res.json()))
       .catch(this.errorService.handleHttpError);
   }
 
   get (obj: any): Observable<any> {
     return this.http.get(`/api/${this.modelName}/${obj._id}`, this.options)
-      .map(res => this.convert(res.json()))
+      .map(res => this.convertIn(res.json()))
       .catch(this.errorService.handleHttpError);
   }
 
   update(obj: any): Observable<any> {
+    this.convertOut(obj);
     return this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
-      .map(res => this.convert(res.json()))
+      .map(res => this.convertIn(res.json()))
       .catch(this.errorService.handleHttpError);
   }
 
   delete(obj: any): Observable<any> {
+    this.convertOut(obj);
     return this.http.delete(`/api/${this.modelName}/${obj._id}`, this.options)
-      .map(res => this.convert(res.json()))
+      .map(res => this.convertIn(res.json()))
       .catch(this.errorService.handleHttpError);
   }
 
   /**
-   * Override this function to perform custom conversions to the data, e.g., converting date strings into Date objects (see VisitService).
+   * Override this function to perform custom conversions for http responses.
    * @param data
    * @returns {any}
    */
-  convert(data: any) {
+  convertIn(data: any) {
+    return data;
+  }
+
+  /**
+   * Override this funciton to perform custom converstions prior to http post, delete and put requests.
+   * @param data
+   * @return {any}
+   */
+  convertOut(data: any) {
     return data;
   }
 }

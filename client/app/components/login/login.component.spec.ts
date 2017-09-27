@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MdInputModule, MdListModule, MdSnackBarModule } from '@angular/material';
+import { MdInputModule, MdListModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import 'hammerjs';
+import { StoreModule } from '@ngrx/store';
 
 import { LoginComponent } from './login.component';
+import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
 import { MockUserService, UserService } from '../../services/user.service';
 import { MockVisitService, VisitService } from '../../services/visit.service';
-import { testUsers } from '../../models/user';
+import { userReducer } from '../../reducers/user';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -23,11 +25,12 @@ describe('LoginComponent', () => {
         ReactiveFormsModule,
         MdInputModule,
         MdListModule,
-        MdSnackBarModule
+        StoreModule.provideStore({ users: userReducer, volunteers: userReducer })
       ],
       providers: [
-        { provide: VisitService, useClass: MockVisitService },
+        { provide: SnackBarService, useClass: MockSnackBarService },
         { provide: UserService, useClass: MockUserService },
+        { provide: VisitService, useClass: MockVisitService },
       ]
     }).compileComponents();
   }));
@@ -49,13 +52,6 @@ describe('LoginComponent', () => {
 
   it('is created', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('sets the local storage items', () => {
-    component.setLocalStorageItems(testUsers[0], 'token');
-    expect(localStorage.getItem('token')).toBe('token');
-    expect(localStorage.getItem('userId')).toBe(testUsers[0]._id);
-    expect(localStorage.getItem('organizationId')).toBe(testUsers[0].organizationId);
   });
 
   describe('email control', () => {

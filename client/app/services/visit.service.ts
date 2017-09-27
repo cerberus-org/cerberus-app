@@ -25,14 +25,14 @@ export class VisitService extends BaseService {
 
   getByLocationRx(locationId: string): void {
     this.http.get(`/api/location/${locationId}/visits`, this.options)
-      .map(res => res.json().map(this.convert))
+      .map(res => res.json().map(this.convertIn))
       .map(payload => ({ type: this.actionTypes.load, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
   }
 
   getByOrganizationRx(organizationId: string): void {
     this.http.get(`/api/organization/${organizationId}/visits`, this.options)
-      .map(res => res.json().map(this.convert))
+      .map(res => res.json().map(this.convertIn))
       .map(payload => ({ type: this.actionTypes.load, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
   }
@@ -44,20 +44,38 @@ export class VisitService extends BaseService {
   getByLastGivenDaysRx(days: number): void {
     const date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));
     this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
-      .map(res => res.json().map(this.convert))
+      .map(res => res.json().map(this.convertIn))
       .map(payload => ({ type: LOAD_VISITS, payload: payload }))
       .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
   }
 
   /**
-   * Override convert to parse strings into Date objects.
+   * Override to parse startedAt and endedAt Strings into Date objects and to stringify signature.
    * @param visit
    * @returns {any}
    */
-  convert(visit) {
+  convertOut(visit) {
     visit.startedAt = new Date(visit.startedAt);
     visit.endedAt = visit.endedAt ? new Date(visit.endedAt) : null;
+    // If the visit contains a signature
+    if (visit.signature) {
+      visit.signature = JSON.stringify(visit.signature);
+    }
     return visit
+  }
+
+  /**
+   * Override to parse startedAt and endedAt Strings into Date objects and to destringify signature.
+   * @param visit
+   */
+  convertIn(visit) {
+    visit.startedAt = new Date(visit.startedAt);
+    visit.endedAt = visit.endedAt ? new Date(visit.endedAt) : null;
+    // If the visit contains a signature
+    if (visit.signature) {
+      visit.signature = JSON.parse(visit.signature);
+    }
+    return visit;
   }
 }
 

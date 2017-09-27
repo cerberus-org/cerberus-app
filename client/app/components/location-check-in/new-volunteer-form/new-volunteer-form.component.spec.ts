@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { MdAutocompleteModule, MdInputModule, MdSnackBarModule } from '@angular/material';
+import { MdAutocompleteModule, MdInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
+import { MockSnackBarService, SnackBarService } from '../../../services/snack-bar.service';
 import { MockVolunteerService, VolunteerService } from '../../../services/volunteer.service';
 import { volunteerReducer } from '../../../reducers/volunteer';
 
@@ -21,11 +22,13 @@ describe('NewVolunteerFormComponent', () => {
         ReactiveFormsModule,
         MdAutocompleteModule,
         MdInputModule,
-        MdSnackBarModule,
         RouterTestingModule,
         StoreModule.provideStore({ volunteers: volunteerReducer })
       ],
-      providers: [{ provide: VolunteerService, useClass: MockVolunteerService }]
+      providers: [
+        { provide: SnackBarService, useClass: MockSnackBarService },
+        { provide: VolunteerService, useClass: MockVolunteerService }
+      ]
     }).compileComponents();
   }));
 

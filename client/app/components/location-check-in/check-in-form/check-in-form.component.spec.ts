@@ -1,18 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdAutocompleteModule, MdInputModule, MdRadioModule, MdSnackBarModule } from '@angular/material';
+import { MdAutocompleteModule, MdInputModule, MdRadioModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { CheckInFormComponent } from './check-in-form.component';
+import { SignatureFieldComponent } from './signature-field/signature-field.component';
+import { MockSnackBarService, SnackBarService } from '../../../services/snack-bar.service';
 import { MockVisitService, VisitService } from '../../../services/visit.service';
 import { testVisits } from '../../../models/visit';
 import { testVolunteers } from '../../../models/volunteer';
-import { StoreModule } from '@ngrx/store';
 import { visitReducer } from '../../../reducers/visit';
 import { volunteerReducer } from '../../../reducers/volunteer';
-import { SignaturePadModule } from 'angular2-signaturepad';
-import { SignatureFieldComponent } from './signature-field/signature-field.component';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
@@ -28,7 +29,6 @@ describe('CheckInFormComponent', () => {
         MdAutocompleteModule,
         MdInputModule,
         MdRadioModule,
-        MdSnackBarModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
         RouterTestingModule,
@@ -36,6 +36,7 @@ describe('CheckInFormComponent', () => {
         StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
       ],
       providers: [
+        { provide: SnackBarService, useClass: MockSnackBarService },
         { provide: VisitService, useClass: MockVisitService }
       ]
     }).compileComponents();

@@ -1,17 +1,18 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable()
 export class ErrorService {
   public httpStatuses: Map<number, string>;
 
-  constructor(private router: Router, private snackBar: MdSnackBar) {
+  constructor(private router: Router, private snackBarService: SnackBarService) {
     this.httpStatuses = new Map<number, string>([
       [401, 'Session expired!'],
       [504, 'Server error!'],
-      [403, 'Forbidden!']
+      [403, 'Invalid Credentials!']
     ]);
   }
 
@@ -20,9 +21,9 @@ export class ErrorService {
    * @param error
    * @return {any}
    */
-  handleHttpError (error: any | Response) {
+  handleHttpError(error: any | Response) {
     // Display error
-    this.openSnackBar(error, this.httpStatuses.get(error.status) ? this.httpStatuses.get(error.status) : 'Error');
+    this.snackBarService.open(this.httpStatuses.get(error.status) ? this.httpStatuses.get(error.status) : 'Error');
     // Consider the special case that the token is expired
     this.handleTokenExpiration(error);
     // Handle error
@@ -31,15 +32,6 @@ export class ErrorService {
     } catch (Error) {
       console.error(error);
     }
-  }
-
-  /**
-   * Display the message in a snack bar for 3000 ms.
-   * @param error
-   * @param message
-   */
-  openSnackBar (error, message) {
-    this.snackBar.open(message, '', { duration: 3000 })
   }
 
   /**
@@ -70,11 +62,5 @@ export class MockErrorService extends ErrorService {
       console.error(error);
     }
   }
-
-  handleTokenExpiration(error: any | Response) {
-    localStorage.clear();
-  }
-
-  openSnackBar() {}
 }
 

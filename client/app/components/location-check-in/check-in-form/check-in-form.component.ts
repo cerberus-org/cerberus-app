@@ -2,13 +2,13 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
-import { state, style, trigger, transition, animate } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { Visit } from '../../../models/visit';
 import { Volunteer } from '../../../models/volunteer';
 import { VisitService } from '../../../services/visit.service';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 @Component({
   selector: 'app-check-in-form',
@@ -43,8 +43,12 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Creates the form group and subscribes on construction.
    */
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private store: Store<any>, private snackBar: MdSnackBar,
-              private visitService: VisitService, private router: Router) {
+  constructor(private route: ActivatedRoute,
+              private fb: FormBuilder,
+              private store: Store<any>,
+              private snackBarService: SnackBarService,
+              private visitService: VisitService,
+              private router: Router) {
     this.createForm();
     this.subscribeToForm();
   }
@@ -213,7 +217,7 @@ export class CheckInFormComponent implements OnInit {
     this.visitService.createRx(
       new Visit(organizationId, locationId, volunteer._id, new Date(), null, 'America/Chicago', signature),
       () => {
-        this.snackBar.open('Volunteer successfully checked in!', '', { duration: 3000 });
+        this.snackBarService.checkInSuccess();
         this.router.navigateByUrl('/dashboard');
       }
     );
@@ -225,7 +229,7 @@ export class CheckInFormComponent implements OnInit {
   endVisit(visit: Visit): void {
     this.visitService.updateRx(Object.assign({}, visit, { endedAt: new Date() }),
       () => {
-        this.snackBar.open('Volunteer successfully checked out!', '', { duration: 3000 });
+        this.snackBarService.checkOutSuccess();
         this.router.navigateByUrl('/dashboard');
       }
     );
@@ -312,6 +316,14 @@ export class CheckInFormComponent implements OnInit {
     if (this.signatures.first !== undefined) {
       this.signatures.first.clear();
     }
+  }
+
+  /**
+   * Assigns signature to existing signature passed in. The signature will be displayed in the signature pad once set.
+   * @param signature
+   */
+  setSignature(signature): void {
+    this.signatures.first.signature.setSignatureToExistingSignature(signature);
   }
 
   /**

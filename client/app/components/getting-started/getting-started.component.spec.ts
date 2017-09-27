@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MdButtonModule, MdSnackBarModule, MdTabsModule } from '@angular/material';
+import { MdButtonModule, MdTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
 import { GettingStartedComponent } from './getting-started.component';
 import { LocationService, MockLocationService } from '../../services/location.service';
 import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
+import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
 import { MockUserService, UserService } from '../../services/user.service';
-import { testUsers } from '../../models/user';
 
 describe('GettingStartedComponent', () => {
   let component: GettingStartedComponent;
@@ -26,7 +26,6 @@ describe('GettingStartedComponent', () => {
       ],
       imports: [
         MdButtonModule,
-        MdSnackBarModule,
         MdTabsModule,
         NoopAnimationsModule,
         RouterTestingModule
@@ -34,6 +33,7 @@ describe('GettingStartedComponent', () => {
       providers: [
         { provide: LocationService, useClass: MockLocationService },
         { provide: OrganizationService, useClass: MockOrganizationService },
+        { provide: SnackBarService, useClass: MockSnackBarService },
         { provide: UserService, useClass: MockUserService }
       ]
     }).compileComponents();
@@ -55,12 +55,5 @@ describe('GettingStartedComponent', () => {
 
   it('does not set step to the next step when backtracking', () => {
     expect(component.nextStep(2, 1)).toEqual(2);
-  });
-
-  it('sets the local storage items', () => {
-    component.setLocalStorageItems(testUsers[0], 'token');
-    expect(localStorage.getItem('token')).toBe('token');
-    expect(localStorage.getItem('userId')).toBe(testUsers[0]._id);
-    expect(localStorage.getItem('organizationId')).toBe(testUsers[0].organizationId);
   });
 });
