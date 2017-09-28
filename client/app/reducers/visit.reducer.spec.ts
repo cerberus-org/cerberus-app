@@ -1,6 +1,6 @@
 import 'hammerjs';
 
-import { visitReducer } from './visit';
+import { visitReducer } from './visit.reducer';
 import { testVisits, Visit } from '../models/visit';
 
 describe('visitReducer', () => {

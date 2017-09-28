@@ -1,6 +1,6 @@
 import 'hammerjs';
 
-import { organizationReducer } from './organization';
+import { organizationReducer } from './organization.reducer';
 import { testOrganizations, Organization } from '../models/organization';
 
 describe('organizationReducer', () => {

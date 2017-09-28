@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { OrganizationService } from './organization.service';
 import { testOrganizations } from '../models/organization';
-import { organizationReducer } from '../reducers/organization';
+import { organizationReducer } from '../reducers/organization.reducer';
 import { ErrorService, MockErrorService } from './error.service';
 
 describe('OrganizationService', () => {

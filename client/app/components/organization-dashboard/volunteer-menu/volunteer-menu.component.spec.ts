@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { VolunteerMenuComponent } from './volunteer-menu.component';
 import { LocationService, MockLocationService } from '../../../services/location.service';
-import { locationReducer } from '../../../reducers/location';
+import { locationReducer } from '../../../reducers/location.reducer';
 
 describe('VolunteerMenuComponent', () => {
   let component: VolunteerMenuComponent;

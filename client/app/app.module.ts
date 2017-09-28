@@ -51,11 +51,12 @@ import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
 
-import { locationReducer } from './reducers/location';
-import { visitReducer } from './reducers/visit';
-import { volunteerReducer } from './reducers/volunteer';
-import { organizationReducer } from './reducers/organization';
-import { userReducer } from './reducers/user';
+import { locationReducer } from './reducers/location.reducer';
+import { visitReducer } from './reducers/visit.reducer';
+import { volunteerReducer } from './reducers/volunteer.reducer';
+import { organizationReducer } from './reducers/organization.reducer';
+import { userReducer } from './reducers/user.reducer';
+import { reducers } from './reducers/index';
 
 @NgModule({
   declarations: [
@@ -102,13 +103,7 @@ import { userReducer } from './reducers/user';
     MdToolbarModule,
     ReactiveFormsModule,
     SignaturePadModule,
-    StoreModule.provideStore({
-      locations: locationReducer,
-      organizations: organizationReducer,
-      visits: visitReducer,
-      volunteers: volunteerReducer,
-      users: userReducer
-    })
+    StoreModule.forRoot(reducers)
   ],
   providers: [
     Guard,

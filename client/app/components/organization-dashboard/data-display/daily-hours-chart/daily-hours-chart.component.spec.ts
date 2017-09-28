@@ -4,7 +4,7 @@ import { ChartsModule } from 'ng2-charts';
 
 import { DailyHoursChartComponent } from './daily-hours-chart.component';
 import { testVisits } from '../../../../models/visit';
-import { visitReducer } from '../../../../reducers/visit';
+import { visitReducer } from '../../../../reducers/visit.reducer';
 
 describe('DailyHoursChartComponent', () => {
   let component: DailyHoursChartComponent;

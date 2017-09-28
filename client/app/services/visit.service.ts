@@ -6,7 +6,7 @@ import 'rxjs/add/observable/of';
 
 import BaseService from './base.service';
 import { testVisits, Visit } from '../models/visit';
-import { ADD_VISIT, LOAD_VISITS, MODIFY_VISIT } from '../reducers/visit';
+import { ADD_VISIT, LOAD_VISITS, MODIFY_VISIT } from '../reducers/visit.reducer';
 import { ErrorService } from './error.service';
 
 @Injectable()

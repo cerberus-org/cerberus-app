@@ -6,7 +6,7 @@ import { Http } from '@angular/http';
 import BaseService from './base.service';
 import { testUsers, User } from '../models/user';
 import { ErrorService } from './error.service';
-import { ADD_USER, LOAD_USERS, MODIFY_USER } from '../reducers/user';
+import { ADD_USER, LOAD_USERS, MODIFY_USER } from '../reducers/user.reducer';
 import { Router } from '@angular/router';
 
 @Injectable()

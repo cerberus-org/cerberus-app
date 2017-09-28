@@ -4,7 +4,7 @@ import { MdToolbarModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 
 import { HeaderComponent } from './header.component';
-import { organizationReducer } from '../../../../reducers/organization';
+import { organizationReducer } from '../../../../reducers/organization.reducer';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;

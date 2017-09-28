@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { VolunteerService } from './volunteer.service';
 import { testVolunteers } from '../models/volunteer';
-import { volunteerReducer } from '../reducers/volunteer';
+import { volunteerReducer } from '../reducers/volunteer.reducer';
 import { ErrorService, MockErrorService } from './error.service';
 
 describe('VolunteerService', () => {
