@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 import { testOrganizations, Organization } from '../models/organization';
-import { ADD_ORGANIZATION, LOAD_ORGANIZATIONS, MODIFY_ORGANIZATION } from '../reducers/organizations.reducer';
-import { Store } from '@ngrx/store';
+import * as OrganizationActions from '../actions/organizations.actions'
 
 @Injectable()
 export class OrganizationService extends BaseService {
@@ -16,11 +16,11 @@ export class OrganizationService extends BaseService {
               protected errorService: ErrorService) {
     super(http, null, errorService);
     this.modelName = 'organization';
-    this.actionTypes = {
-      load: LOAD_ORGANIZATIONS,
-      add: ADD_ORGANIZATION,
-      modify: MODIFY_ORGANIZATION
-    }
+    this.actions = {
+      load: OrganizationActions.Load,
+      add: OrganizationActions.Add,
+      modify: OrganizationActions.Modify
+    };
   }
 }
 

@@ -24,7 +24,7 @@ describe('locationReducer', () => {
 
   it('modifies a location', () => {
     const modified = Object.assign({}, locations[0]);
-    const result = fromLocations.reducer(fromLocations.initialState, new LocationActions.Modfiy(modified)).locations;
+    const result = fromLocations.reducer(fromLocations.initialState, new LocationActions.Modify(modified)).locations;
     expect(result[0]).toBe(modified);
   });
 });

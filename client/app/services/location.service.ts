@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 import { Location, testLocations } from '../models/location';
-import { ADD_LOCATION, LOAD_LOCATIONS, MODIFY_LOCATION } from '../reducers/locations.reducer';
+import * as LocationActions from '../actions/locations.actions'
 
 @Injectable()
 export class LocationService extends BaseService {
@@ -14,17 +14,17 @@ export class LocationService extends BaseService {
   constructor(protected http: Http, protected store: Store<Location[]>, protected errorService: ErrorService) {
     super(http, store, errorService);
     this.modelName = 'location';
-    this.actionTypes = {
-      load: LOAD_LOCATIONS,
-      add: ADD_LOCATION,
-      modify: MODIFY_LOCATION
+    this.actions = {
+      load: LocationActions.Load,
+      add: LocationActions.Add,
+      modify: LocationActions.Modify
     };
   }
 
   getByOrganizationRx(organizationId: string): void {
     this.http.get(`/api/organization/${organizationId}/locations`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .map(payload => new this.actions.load(payload))
       .subscribe(action => this.store.dispatch(action));
   }
 }

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { Store } from '@ngrx/store';
-import { ADD_VOLUNTEER, LOAD_VOLUNTEERS, MODIFY_VOLUNTEER } from '../reducers/volunteers.reducer';
 
-import { testVolunteers, Volunteer } from '../models/volunteer';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
+import { testVolunteers, Volunteer } from '../models/volunteer';
+import * as VolunteersActions from '../actions/volunteers.actions'
 
 @Injectable()
 export class VolunteerService extends BaseService {
@@ -16,17 +16,17 @@ export class VolunteerService extends BaseService {
   constructor(protected http: Http, protected store: Store<Volunteer[]>, protected errorService: ErrorService) {
     super(http, store, errorService);
     this.modelName = 'volunteer';
-    this.actionTypes = {
-      load: LOAD_VOLUNTEERS,
-      add: ADD_VOLUNTEER,
-      modify: MODIFY_VOLUNTEER,
-    }
+    this.actions = {
+      load: VolunteersActions.Load,
+      add: VolunteersActions.Add,
+      modify: VolunteersActions.Modify
+    };
   }
 
   getByOrganizationRx(organizationId: string): void {
     this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .map(payload => ({ type: this.actions.load, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
   }
 }

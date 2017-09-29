@@ -24,7 +24,7 @@ describe('userReducer', () => {
 
   it('modifies a user', () => {
     const modified = Object.assign({}, users[0]);
-    const result = fromUsers.reducer(fromUsers.initialState, new UserActions.Modfiy(modified)).users;
+    const result = fromUsers.reducer(fromUsers.initialState, new UserActions.Modify(modified)).users;
     expect(result[0]).toBe(modified);
   });
 });

@@ -24,7 +24,7 @@ describe('organizationReducer', () => {
 
   it('modifies a organization', () => {
     const modified = Object.assign({}, organizations[0]);
-    const result = fromOrganizations.reducer(fromOrganizations.initialState, new OrganizationActions.Modfiy(modified)).organizations;
+    const result = fromOrganizations.reducer(fromOrganizations.initialState, new OrganizationActions.Modify(modified)).organizations;
     expect(result[0]).toBe(modified);
   });
 });

@@ -5,9 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import BaseService from './base.service';
-import { testVisits, Visit } from '../models/visit';
-import { ADD_VISIT, LOAD_VISITS, MODIFY_VISIT } from '../reducers/visits.reducer';
 import { ErrorService } from './error.service';
+import { testVisits, Visit } from '../models/visit';
+import * as VisitsActions from '../actions/visits.actions'
 
 @Injectable()
 export class VisitService extends BaseService {
@@ -16,24 +16,24 @@ export class VisitService extends BaseService {
   constructor(protected http: Http, protected store: Store<Visit[]>, protected errorService: ErrorService) {
     super(http, store, errorService);
     this.modelName = 'visit';
-    this.actionTypes = {
-      load: LOAD_VISITS,
-      add: ADD_VISIT,
-      modify: MODIFY_VISIT
+    this.actions = {
+      load: VisitsActions.Load,
+      add: VisitsActions.Add,
+      modify: VisitsActions.Modify
     }
   }
 
   getByLocationRx(locationId: string): void {
     this.http.get(`/api/location/${locationId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .map(payload => ({ type: this.actions.load, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
   }
 
   getByOrganizationRx(organizationId: string): void {
     this.http.get(`/api/organization/${organizationId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .map(payload => ({ type: this.actions.load, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
   }
 

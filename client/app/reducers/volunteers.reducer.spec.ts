@@ -24,7 +24,7 @@ describe('volunteerReducer', () => {
 
   it('modifies a volunteer', () => {
     const modified = Object.assign({}, volunteers[0]);
-    const result = fromVolunteers.reducer(fromVolunteers.initialState, new VolunteerActions.Modfiy(modified)).volunteers;
+    const result = fromVolunteers.reducer(fromVolunteers.initialState, new VolunteerActions.Modify(modified)).volunteers;
     expect(result[0]).toBe(modified);
   });
 });

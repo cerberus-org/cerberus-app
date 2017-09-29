@@ -17,7 +17,7 @@ export class Add implements Action {
   constructor(public payload: User) {}
 }
 
-export class Modfiy implements Action {
+export class Modify implements Action {
   readonly type = MODIFY;
 
   constructor(public payload: User) {}
@@ -26,4 +26,4 @@ export class Modfiy implements Action {
 export type All
   = Load
   | Add
-  | Modfiy;
+  | Modify;

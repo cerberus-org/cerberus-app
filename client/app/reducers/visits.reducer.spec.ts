@@ -24,7 +24,7 @@ describe('visitReducer', () => {
 
   it('modifies a visit', () => {
     const modified = Object.assign({}, visits[0]);
-    const result = fromVisits.reducer(fromVisits.initialState, new VisitActions.Modfiy(modified)).visits;
+    const result = fromVisits.reducer(fromVisits.initialState, new VisitActions.Modify(modified)).visits;
     expect(result[0]).toBe(modified);
   });
 });
