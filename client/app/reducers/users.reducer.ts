@@ -1,5 +1,5 @@
 import { User } from '../models/user';
-import * as users from '../actions/users.actions'
+import * as UserActions from '../actions/users.actions'
 
 export interface State {
   users: User[];
@@ -9,21 +9,23 @@ export const initialState: State = {
   users: []
 };
 
-export function userReducer(state = initialState, action: users.Actions): State {
+export type Action = UserActions.All;
+
+export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
-    case users.LOAD: {
+    case UserActions.LOAD: {
       return {
         users: action.payload
       };
     }
 
-    case users.ADD: {
+    case UserActions.ADD: {
       return {
         users: [action.payload, ...state.users]
       };
     }
 
-    case users.MODIFY: {
+    case UserActions.MODIFY: {
       return {
         users: state.users.map(user => {
           return user._id === action.payload._id ? action.payload : user;

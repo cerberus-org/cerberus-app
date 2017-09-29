@@ -51,11 +51,6 @@ import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
 
-import { locationReducer } from './reducers/locations.reducer';
-import { visitReducer } from './reducers/visits.reducer';
-import { volunteerReducer } from './reducers/volunteers.reducer';
-import { organizationReducer } from './reducers/organizations.reducer';
-import { userReducer } from './reducers/users.reducer';
 import { reducers } from './reducers/index';
 
 @NgModule({

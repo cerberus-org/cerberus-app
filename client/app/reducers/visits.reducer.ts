@@ -1,5 +1,5 @@
 import { Visit } from '../models/visit';
-import * as visits from '../actions/visits.actions'
+import * as VisitActions from '../actions/visits.actions'
 
 export interface State {
   visits: Visit[];
@@ -9,21 +9,23 @@ export const initialState: State = {
   visits: []
 };
 
-export function visitReducer(state = initialState, action: visits.Actions): State {
+export type Action = VisitActions.All;
+
+export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
-    case visits.LOAD: {
+    case VisitActions.LOAD: {
       return {
         visits: filterInvalidVisits(action.payload, 8).reverse()
       };
     }
 
-    case visits.ADD: {
+    case VisitActions.ADD: {
       return {
         visits: [action.payload, ...state.visits]
       };
     }
 
-    case visits.MODIFY: {
+    case VisitActions.MODIFY: {
       return {
         visits: state.visits.map(visit => {
           return visit._id === action.payload._id ? action.payload : visit;

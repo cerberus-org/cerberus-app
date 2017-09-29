@@ -1,29 +1,31 @@
 import { Volunteer } from '../models/volunteer';
-import * as volunteers from '../actions/volunteers.actions'
+import * as VolunteerActions from '../actions/volunteers.actions'
 
 export interface State {
   volunteers: Volunteer[];
 }
 
-const initialState: State = {
+export const initialState: State = {
   volunteers: []
 };
 
-export function volunteerReducer(state = initialState, action: volunteers.Actions): State {
+export type Action = VolunteerActions.All;
+
+export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
-    case volunteers.LOAD: {
+    case VolunteerActions.LOAD: {
       return {
         volunteers: action.payload
       };
     }
 
-    case volunteers.ADD: {
+    case VolunteerActions.ADD: {
       return {
         volunteers: [action.payload, ...state.volunteers]
       };
     }
 
-    case volunteers.MODIFY: {
+    case VolunteerActions.MODIFY: {
       return {
         volunteers: state.volunteers.map(volunteer => {
           return volunteer._id === action.payload._id ? action.payload : volunteer;

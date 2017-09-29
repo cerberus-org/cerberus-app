@@ -47,6 +47,7 @@
     "moment-timezone": "^0.5.13",
     "mongoose": "^4.11.13",
     "ng2-charts": "^1.6.0",
+    "ngrx-store-freeze": "^0.2.0",
     "rxjs": "^5.4.3",
     "typescript": "^2.5.3",
     "validator": "^8.2.0",

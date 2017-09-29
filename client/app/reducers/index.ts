@@ -14,9 +14,9 @@ export interface State {
 }
 
 export const reducers: ActionReducerMap<State> = {
-  locations: fromLocation.locationReducer,
-  organizations: fromOrganization.organizationReducer,
-  visits: fromVisit.visitReducer,
-  volunteers: fromVolunteer.volunteerReducer,
-  users: fromUser.userReducer
+  locations: fromLocation.reducer,
+  organizations: fromOrganization.reducer,
+  visits: fromVisit.reducer,
+  volunteers: fromVolunteer.reducer,
+  users: fromUser.reducer
 };
