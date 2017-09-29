@@ -12,8 +12,7 @@ import { MockSnackBarService, SnackBarService } from '../../../services/snack-ba
 import { MockVisitService, VisitService } from '../../../services/visit.service';
 import { testVisits } from '../../../models/visit';
 import { testVolunteers } from '../../../models/volunteer';
-import { visitReducer } from '../../../reducers/visits.reducer';
-import { volunteerReducer } from '../../../reducers/volunteers.reducer';
+import { reducers } from '../../../reducers/index';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
@@ -33,7 +32,7 @@ describe('CheckInFormComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         SignaturePadModule,
-        StoreModule.provideStore({ visits: visitReducer, volunteers: volunteerReducer })
+        StoreModule.forRoot(reducers)
       ],
       providers: [
         { provide: SnackBarService, useClass: MockSnackBarService },

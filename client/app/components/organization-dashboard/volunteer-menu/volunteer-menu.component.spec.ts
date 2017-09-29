@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { VolunteerMenuComponent } from './volunteer-menu.component';
 import { SiteService, MockSiteService } from '../../../services/site.service';
-import { siteReducer } from '../../../reducers/sites.reducer';
+import { reducers } from '../../../reducers/index';
 
 describe('VolunteerMenuComponent', () => {
   let component: VolunteerMenuComponent;
@@ -19,7 +19,7 @@ describe('VolunteerMenuComponent', () => {
       imports: [
         MdCardModule,
         RouterTestingModule,
-        StoreModule.provideStore({ sites: siteReducer })
+        StoreModule.forRoot(reducers)
       ],
       providers: [
         { provide: SiteService, useClass: MockSiteService }

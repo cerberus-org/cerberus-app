@@ -3,14 +3,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MdInputModule, MdListModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
-import 'hammerjs';
-import { StoreModule } from '@ngrx/store';
 
 import { LoginComponent } from './login.component';
 import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
 import { MockUserService, UserService } from '../../services/user.service';
 import { MockVisitService, VisitService } from '../../services/visit.service';
-import { userReducer } from '../../reducers/users.reducer';
+import { reducers } from '../../reducers/index';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -24,8 +22,7 @@ describe('LoginComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule,
         MdInputModule,
-        MdListModule,
-        StoreModule.provideStore({ users: userReducer, volunteers: userReducer })
+        MdListModule
       ],
       providers: [
         { provide: SnackBarService, useClass: MockSnackBarService },

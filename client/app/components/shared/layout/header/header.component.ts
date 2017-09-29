@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Organization } from '../../../../models/organization';
+import { State } from '../../../../reducers/index';
 
 interface HeaderState {
   organizations: Organization[];
@@ -19,7 +20,7 @@ export class HeaderComponent implements OnInit {
   text: string;
   previousUrl: string;
 
-  constructor(private router: Router, private store: Store<HeaderState>) { }
+  constructor(private router: Router, private store: Store<State>) { }
 
   ngOnInit() {
     this.setHeader();
@@ -27,9 +28,9 @@ export class HeaderComponent implements OnInit {
   }
 
   subscribeToOrganizations() {
-    this.store.select('organizations').subscribe(organizations => {
-        if (organizations.length > 0) {
-          this.text = organizations[0].name;
+    this.store.select('organizations').subscribe(state => {
+        if (state.organizations.length > 0) {
+          this.text = state.organizations[0].name;
         }
       },
       error => this.error = <any>error);
