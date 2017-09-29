@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { Location } from '../../../models/location'
-import { LocationService } from '../../../services/location.service';
+import { Site } from '../../../models/site'
+import { SiteService } from '../../../services/site.service';
 import { State } from '../../../reducers/index';
 
 @Component({
@@ -12,25 +12,25 @@ import { State } from '../../../reducers/index';
   styleUrls: ['./volunteer-menu.component.css']
 })
 export class VolunteerMenuComponent implements OnInit {
-  locations: Location[];
+  sites: Site[];
   error: string;
 
-  constructor(private router: Router, private store: Store<State>, private locationService: LocationService) { }
+  constructor(private router: Router, private store: Store<State>, private siteService: SiteService) { }
 
   ngOnInit() {
-    this.subscribeToLocations();
+    this.subscribeToSites();
   }
 
   /**
-   * Subscribes locations in the store.
+   * Subscribes sites in the store.
    */
-  subscribeToLocations(): void {
-    this.store.select('locations').subscribe(
-      state => this.locations = state.locations,
+  subscribeToSites(): void {
+    this.store.select('sites').subscribe(
+      state => this.sites = state.sites,
       error => this.error = <any>error);
   }
 
-  onClick(location): void {
-    this.router.navigate(['/checkin', location._id]);
+  onClick(site): void {
+    this.router.navigate(['/checkin', site._id]);
   }
 }

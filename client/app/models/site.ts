@@ -1,4 +1,4 @@
-export class Location {
+export class Site {
   _id: string;
   organizationId: string;
   name: string;
@@ -11,7 +11,7 @@ export class Location {
   }
 }
 
-export const testLocations: Location[] = [
+export const testSites: Site[] = [
   {
     _id: '59a7055733bfe28af47cff40',
     organizationId: '59a7055733bfe28af47cff40',

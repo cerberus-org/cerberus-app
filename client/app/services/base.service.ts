@@ -41,7 +41,7 @@ abstract class BaseService {
       .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError);
   }
 
-  createRx(obj: any, successCb): void {
+  createRx(obj: any, successCb: () => void): void {
     this.convertOut(obj);
     this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
       .map(res => this.convertIn(res.json()))
@@ -49,7 +49,7 @@ abstract class BaseService {
       .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError, successCb);
   }
 
-  updateRx(obj: any, successCb): void {
+  updateRx(obj: any, successCb: () => void): void {
     this.convertOut(obj);
     this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
       .map(res => this.convertIn(res.json()))

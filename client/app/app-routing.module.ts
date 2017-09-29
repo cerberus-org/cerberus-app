@@ -4,13 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrganizationDashboardComponent } from './components/organization-dashboard/organization-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { Guard } from './guard';
-import { LocationCheckInComponent } from './components/location-check-in/location-check-in.component';
+import { CheckInComponent } from './components/check-in/check-in.component';
 import { GettingStartedComponent } from './components/getting-started/getting-started.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: OrganizationDashboardComponent, canActivate : [Guard] },
-  { path: 'checkin/:id', component: LocationCheckInComponent, canActivate : [Guard] },
+  { path: 'checkin/:id', component: CheckInComponent, canActivate : [Guard] },
   { path: 'start', component: GettingStartedComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];

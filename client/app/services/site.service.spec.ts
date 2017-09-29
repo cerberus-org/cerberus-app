@@ -3,14 +3,14 @@ import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/ht
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { StoreModule } from '@ngrx/store';
 
-import { LocationService } from './location.service';
+import { SiteService } from './site.service';
 import { ErrorService, MockErrorService } from './error.service';
-import { testLocations } from '../models/location';
+import { testSites } from '../models/site';
 import { reducers } from '../reducers/index';
 
-describe('LocationService', () => {
+describe('SiteService', () => {
   let backend: MockBackend = null;
-  let service: LocationService = null;
+  let service: SiteService = null;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,7 +20,7 @@ describe('LocationService', () => {
       providers: [
         BaseRequestOptions,
         MockBackend,
-        LocationService,
+        SiteService,
         { provide: ErrorService, useClass: MockErrorService },
         {
           provide: Http,
@@ -33,11 +33,11 @@ describe('LocationService', () => {
     });
     const testbed = getTestBed();
     backend = testbed.get(MockBackend);
-    service = testbed.get(LocationService);
+    service = testbed.get(SiteService);
   }));
 
-  it('is created', inject([LocationService], (locationService: LocationService) => {
-    expect(locationService).toBeTruthy();
+  it('is created', inject([SiteService], (siteService: SiteService) => {
+    expect(siteService).toBeTruthy();
   }));
 
   const setConnections = body => {
@@ -49,45 +49,45 @@ describe('LocationService', () => {
     });
   };
 
-  it('gets all locations', () => {
-    setConnections(testLocations);
+  it('gets all sites', () => {
+    setConnections(testSites);
     service.getAll().subscribe(res => {
-      expect(res).toEqual(testLocations);
+      expect(res).toEqual(testSites);
     });
   });
 
-  it('counts all locations', () => {
-    setConnections(testLocations.length);
+  it('counts all sites', () => {
+    setConnections(testSites.length);
     service.count().subscribe(res => {
-      expect(res).toEqual(testLocations.length);
+      expect(res).toEqual(testSites.length);
     });
   });
 
-  it('creates the location', () => {
-    setConnections(testLocations[0]);
-    service.create(testLocations[0]).subscribe(res => {
-      expect(res).toEqual(testLocations[0]);
+  it('creates the site', () => {
+    setConnections(testSites[0]);
+    service.create(testSites[0]).subscribe(res => {
+      expect(res).toEqual(testSites[0]);
     });
   });
 
-  it('gets the location', () => {
-    setConnections(testLocations[0]);
-    service.get(testLocations[0]).subscribe(res => {
-      expect(res).toEqual(testLocations[0]);
+  it('gets the site', () => {
+    setConnections(testSites[0]);
+    service.get(testSites[0]).subscribe(res => {
+      expect(res).toEqual(testSites[0]);
     });
   });
 
-  it('updates the location', () => {
-    setConnections(testLocations[0]);
-    service.update(testLocations[0]).subscribe(res => {
-      expect(res).toEqual(testLocations[0]);
+  it('updates the site', () => {
+    setConnections(testSites[0]);
+    service.update(testSites[0]).subscribe(res => {
+      expect(res).toEqual(testSites[0]);
     });
   });
 
-  it('deletes the location', () => {
-    setConnections(testLocations[0]);
-    service.delete(testLocations[0]).subscribe(res => {
-      expect(res).toEqual(testLocations[0]);
+  it('deletes the site', () => {
+    setConnections(testSites[0]);
+    service.delete(testSites[0]).subscribe(res => {
+      expect(res).toEqual(testSites[0]);
     });
   });
 });

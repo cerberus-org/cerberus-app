@@ -1,12 +1,12 @@
 import { ActionReducerMap } from '@ngrx/store';
-import * as fromLocation from './locations.reducer';
+import * as fromSite from './sites.reducer';
 import * as fromOrganization from './organizations.reducer';
 import * as fromVisit from './visits.reducer';
 import * as fromVolunteer from './volunteers.reducer';
 import * as fromUser from './users.reducer';
 
 export interface State {
-  locations: fromLocation.State;
+  sites: fromSite.State;
   organizations: fromOrganization.State;
   visits: fromVisit.State;
   volunteers: fromVolunteer.State;
@@ -14,7 +14,7 @@ export interface State {
 }
 
 export const reducers: ActionReducerMap<State> = {
-  locations: fromLocation.reducer,
+  sites: fromSite.reducer,
   organizations: fromOrganization.reducer,
   visits: fromVisit.reducer,
   volunteers: fromVolunteer.reducer,

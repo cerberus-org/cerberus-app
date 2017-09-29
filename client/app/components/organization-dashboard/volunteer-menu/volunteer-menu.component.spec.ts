@@ -4,8 +4,8 @@ import { MdCardModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 
 import { VolunteerMenuComponent } from './volunteer-menu.component';
-import { LocationService, MockLocationService } from '../../../services/location.service';
-import { locationReducer } from '../../../reducers/locations.reducer';
+import { SiteService, MockSiteService } from '../../../services/site.service';
+import { siteReducer } from '../../../reducers/sites.reducer';
 
 describe('VolunteerMenuComponent', () => {
   let component: VolunteerMenuComponent;
@@ -19,10 +19,10 @@ describe('VolunteerMenuComponent', () => {
       imports: [
         MdCardModule,
         RouterTestingModule,
-        StoreModule.provideStore({ locations: locationReducer })
+        StoreModule.provideStore({ sites: siteReducer })
       ],
       providers: [
-        { provide: LocationService, useClass: MockLocationService }
+        { provide: SiteService, useClass: MockSiteService }
       ]
     }).compileComponents();
   }));

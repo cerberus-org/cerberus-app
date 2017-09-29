@@ -1,4 +1,4 @@
-import LocationHandler from './location';
+import SiteHandler from './site';
 import OrganizationHandler from './organization';
 import UserHandler from './user';
 import VisitHandler from './visit';
@@ -8,7 +8,7 @@ let req, res;
 
 // Add each BaseHandler implementation here
 const handlers = [
-  new LocationHandler,
+  new SiteHandler,
   new OrganizationHandler,
   new UserHandler,
   new VisitHandler,

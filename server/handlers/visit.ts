@@ -6,12 +6,12 @@ export default class VisitHandler extends BaseHandler {
   model = Visit;
 
   /**
-   * Get visits by locationId and responds with the visits (200) or an error (400).
+   * Get visits by siteId and responds with the visits (200) or an error (400).
    * @param req - the request with the id parameter
    * @param res - the response
    */
-  getByLocationId = (req, res) => {
-    this.model.find({ 'locationId': req.params.id },
+  getBySiteId = (req, res) => {
+    this.model.find({ 'siteId': req.params.id },
       (err, results) => {
         if (err) {
           res.status(400).send(err);

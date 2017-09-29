@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
-import { Location } from '../models/location';
+import { Site } from '../models/site';
 
-export const LOAD   = '[Locations] Load';
-export const ADD    = '[Locations] Add';
-export const MODIFY = '[Locations] Modify';
+export const LOAD   = '[Sites] Load';
+export const ADD    = '[Sites] Add';
+export const MODIFY = '[Sites] Modify';
 
 /**
  * Every action is comprised of at least a type and an optional
@@ -13,19 +13,19 @@ export const MODIFY = '[Locations] Modify';
 export class Load implements Action {
   readonly type = LOAD;
 
-  constructor(public payload: Location[]) {}
+  constructor(public payload: Site[]) {}
 }
 
 export class Add implements Action {
   readonly type = ADD;
 
-  constructor(public payload: Location) {}
+  constructor(public payload: Site) {}
 }
 
 export class Modify implements Action {
   readonly type = MODIFY;
 
-  constructor(public payload: Location) {}
+  constructor(public payload: Site) {}
 }
 
 /**

@@ -33,7 +33,7 @@ export class UserService extends BaseService {
     localStorage.setItem('userName', user.firstName);
   }
 
-  login(user: User, successCb): void {
+  login(user: User, successCb: () => void): void {
     user.email = user.email.toLowerCase();
     this.http.post('/api/user/login', JSON.stringify(user), this.options)
     // Save user data and token to local storage

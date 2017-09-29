@@ -1,11 +1,11 @@
 import * as express from 'express';
 
 import OrganizationHandler from './handlers/organization';
+import SiteHandler from './handlers/site';
 import VolunteerHandler from './handlers/volunteer';
 import VisitHandler from './handlers/visit';
 import UserHandler from './handlers/user';
 import { Auth } from './middleware/auth';
-import LocationHandler from './handlers/location';
 
 export default function setRoutes(app) {
 
@@ -13,20 +13,20 @@ export default function setRoutes(app) {
 
   const auth = new Auth();
 
-  const locationHandler = new LocationHandler();
+  const siteHandler = new SiteHandler();
   const organizationHandler = new OrganizationHandler();
   const volunteerHandler = new VolunteerHandler();
   const visitHandler = new VisitHandler();
   const userHandler = new UserHandler();
 
-  // Locations
-  router.route('/locations').get(auth.ensureLoggedIn, locationHandler.getAll);
-  router.route('/locations/count').get(auth.ensureLoggedIn, locationHandler.count);
-  router.route('/location').post(locationHandler.insert);
-  router.route('/location/:id').get(auth.ensureLoggedIn, locationHandler.getById);
-  router.route('/location/:id').put(auth.ensureLoggedIn, locationHandler.update);
-  router.route('/location/:id').delete(auth.ensureLoggedIn, locationHandler.delete);
-  router.route('/location/:id/visits').get(auth.ensureLoggedIn, visitHandler.getByLocationId);
+  // Sites
+  router.route('/sites').get(auth.ensureLoggedIn, siteHandler.getAll);
+  router.route('/sites/count').get(auth.ensureLoggedIn, siteHandler.count);
+  router.route('/site').post(siteHandler.insert);
+  router.route('/site/:id').get(auth.ensureLoggedIn, siteHandler.getById);
+  router.route('/site/:id').put(auth.ensureLoggedIn, siteHandler.update);
+  router.route('/site/:id').delete(auth.ensureLoggedIn, siteHandler.delete);
+  router.route('/site/:id/visits').get(auth.ensureLoggedIn, visitHandler.getBySiteId);
 
   // Organizations
   router.route('/organizations').get(auth.ensureLoggedIn, organizationHandler.getAll);
@@ -35,7 +35,7 @@ export default function setRoutes(app) {
   router.route('/organization/:id').get(auth.ensureLoggedIn, organizationHandler.getById);
   router.route('/organization/:id').put(auth.ensureLoggedIn, organizationHandler.update);
   router.route('/organization/:id').delete(auth.ensureLoggedIn, organizationHandler.delete);
-  router.route('/organization/:id/locations').get(auth.ensureLoggedIn, locationHandler.getByOrganizationId);
+  router.route('/organization/:id/sites').get(auth.ensureLoggedIn, siteHandler.getByOrganizationId);
   router.route('/organization/:id/visits').get(auth.ensureLoggedIn, visitHandler.getByOrganizationId);
   router.route('/organization/:id/volunteers').get(auth.ensureLoggedIn, volunteerHandler.getByOrganizationId);
 

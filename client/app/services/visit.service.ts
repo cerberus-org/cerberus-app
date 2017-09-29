@@ -23,8 +23,8 @@ export class VisitService extends BaseService {
     }
   }
 
-  getByLocationRx(locationId: string): void {
-    this.http.get(`/api/location/${locationId}/visits`, this.options)
+  getBySiteRx(siteId: string): void {
+    this.http.get(`/api/site/${siteId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
       .map(payload => ({ type: this.actions.load, payload: payload }))
       .subscribe(action => this.store.dispatch(action));
@@ -89,7 +89,7 @@ export class MockVisitService extends VisitService {
 
   getByIdRx(id: string): void { }
 
-  getByLocationRx(): void { }
+  getBySiteRx(): void { }
 
   getByOrganizationRx(): void { }
 
