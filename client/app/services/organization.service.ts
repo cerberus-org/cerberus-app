@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 import { testOrganizations, Organization } from '../models/organization';
-import { ADD_ORGANIZATION, LOAD_ORGANIZATIONS, MODIFY_ORGANIZATION } from '../reducers/organization.reducer';
+import { ADD_ORGANIZATION, LOAD_ORGANIZATIONS, MODIFY_ORGANIZATION } from '../reducers/organizations.reducer';
 import { Store } from '@ngrx/store';
 
 @Injectable()

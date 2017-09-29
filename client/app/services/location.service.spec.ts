@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { LocationService } from './location.service';
 import { testLocations } from '../models/location';
-import { locationReducer } from '../reducers/location.reducer';
+import { locationReducer } from '../reducers/locations.reducer';
 import { ErrorService, MockErrorService } from './error.service';
 
 describe('LocationService', () => {

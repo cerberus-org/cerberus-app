@@ -12,8 +12,8 @@ import { MockSnackBarService, SnackBarService } from '../../../services/snack-ba
 import { MockVisitService, VisitService } from '../../../services/visit.service';
 import { testVisits } from '../../../models/visit';
 import { testVolunteers } from '../../../models/volunteer';
-import { visitReducer } from '../../../reducers/visit.reducer';
-import { volunteerReducer } from '../../../reducers/volunteer.reducer';
+import { visitReducer } from '../../../reducers/visits.reducer';
+import { volunteerReducer } from '../../../reducers/volunteers.reducer';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;

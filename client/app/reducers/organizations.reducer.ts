@@ -1,31 +1,29 @@
 import { Organization } from '../models/organization';
-import * as OrganizationActions from '../actions/organization.actions'
+import * as organizations from '../actions/organizations.actions'
 
 export interface State {
   organizations: Organization[];
 }
 
-const initialState: State = {
+export const initialState: State = {
   organizations: []
 };
 
-export type Action = OrganizationActions.All;
-
-export function organizationReducer(state = initialState, action: Action): State {
+export function organizationReducer(state = initialState, action: organizations.Actions): State {
   switch (action.type) {
-    case OrganizationActions.LOAD: {
+    case organizations.LOAD: {
       return {
         organizations: action.payload
       };
     }
 
-    case OrganizationActions.ADD: {
+    case organizations.ADD: {
       return {
         organizations: [action.payload, ...state.organizations]
       };
     }
 
-    case OrganizationActions.MODIFY: {
+    case organizations.MODIFY: {
       return {
         organizations: state.organizations.map(organization => {
           return organization._id === action.payload._id ? action.payload : organization;

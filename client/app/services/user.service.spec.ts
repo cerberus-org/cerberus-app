@@ -11,7 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { UserService } from './user.service';
 import { testUsers } from '../models/user';
 import { ErrorService, MockErrorService } from './error.service';
-import { userReducer } from '../reducers/user.reducer';
+import { userReducer } from '../reducers/users.reducer';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UserService', () => {

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 import { Location, testLocations } from '../models/location';
-import { ADD_LOCATION, LOAD_LOCATIONS, MODIFY_LOCATION } from '../reducers/location.reducer';
+import { ADD_LOCATION, LOAD_LOCATIONS, MODIFY_LOCATION } from '../reducers/locations.reducer';
 
 @Injectable()
 export class LocationService extends BaseService {

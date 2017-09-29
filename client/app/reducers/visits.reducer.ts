@@ -1,31 +1,29 @@
 import { Visit } from '../models/visit';
-import * as VisitActions from '../actions/visit.actions'
+import * as visits from '../actions/visits.actions'
 
 export interface State {
   visits: Visit[];
 }
 
-const initialState: State = {
+export const initialState: State = {
   visits: []
 };
 
-export type Action = VisitActions.All;
-
-export function visitReducer(state = initialState, action: Action): State {
+export function visitReducer(state = initialState, action: visits.Actions): State {
   switch (action.type) {
-    case VisitActions.LOAD: {
+    case visits.LOAD: {
       return {
-        visits: getValidVisits(action.payload, 8).reverse()
+        visits: filterInvalidVisits(action.payload, 8).reverse()
       };
     }
 
-    case VisitActions.ADD: {
+    case visits.ADD: {
       return {
         visits: [action.payload, ...state.visits]
       };
     }
 
-    case VisitActions.MODIFY: {
+    case visits.MODIFY: {
       return {
         visits: state.visits.map(visit => {
           return visit._id === action.payload._id ? action.payload : visit;
@@ -41,13 +39,13 @@ export function visitReducer(state = initialState, action: Action): State {
 
 /**
  * Filter out invalid visits. Any visits that have a visit greater than maxHours will be considered invalid.
- * @param visits
+ * @param visitsArr
  * @param maxHours
  * @return {Visit[]}
  */
-const getValidVisits = (visits: Visit[], maxHours: number): Visit[] => {
+const filterInvalidVisits = (visitsArr: Visit[], maxHours: number): Visit[] => {
   let hours = 0;
-  return visits.filter(visit => {
+  return visitsArr.filter(visit => {
     // if the visit is still ongoing
     hours = visit.endedAt === null
       // load current visit hours

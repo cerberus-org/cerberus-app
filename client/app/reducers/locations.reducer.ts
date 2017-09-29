@@ -1,31 +1,29 @@
 import { Location } from '../models/location';
-import * as LocationActions from '../actions/location.actions'
+import * as locations from '../actions/locations.actions'
 
 export interface State {
   locations: Location[];
 }
 
-const initialState: State = {
+export const initialState: State = {
   locations: []
 };
 
-export type Action = LocationActions.All;
-
-export function locationReducer(state = initialState, action: Action): State {
+export function locationReducer(state = initialState, action: locations.Actions): State {
   switch (action.type) {
-    case LocationActions.LOAD: {
+    case locations.LOAD: {
       return {
         locations: action.payload
       };
     }
 
-    case LocationActions.ADD: {
+    case locations.ADD: {
       return {
         locations: [action.payload, ...state.locations]
       };
     }
 
-    case LocationActions.MODIFY: {
+    case locations.MODIFY: {
       return {
         locations: state.locations.map(location => {
           return location._id === action.payload._id ? action.payload : location;

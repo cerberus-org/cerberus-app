@@ -1,9 +1,9 @@
 import { ActionReducerMap } from '@ngrx/store';
-import * as fromLocation from './location.reducer';
-import * as fromOrganization from './organization.reducer';
-import * as fromVisit from './visit.reducer';
-import * as fromVolunteer from './volunteer.reducer';
-import * as fromUser from './user.reducer';
+import * as fromLocation from './locations.reducer';
+import * as fromOrganization from './organizations.reducer';
+import * as fromVisit from './visits.reducer';
+import * as fromVolunteer from './volunteers.reducer';
+import * as fromUser from './users.reducer';
 
 export interface State {
   locations: fromLocation.State;

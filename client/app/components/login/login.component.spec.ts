@@ -10,7 +10,7 @@ import { LoginComponent } from './login.component';
 import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
 import { MockUserService, UserService } from '../../services/user.service';
 import { MockVisitService, VisitService } from '../../services/visit.service';
-import { userReducer } from '../../reducers/user.reducer';
+import { userReducer } from '../../reducers/users.reducer';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

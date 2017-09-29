@@ -5,22 +5,25 @@ export const LOAD   = '[Volunteers] Load';
 export const ADD    = '[Volunteers] Add';
 export const MODIFY = '[Volunteers] Modify';
 
-export class Load implements Action {
+export class LoadAction implements Action {
   readonly type = LOAD;
 
   constructor(public payload: Volunteer[]) {}
 }
 
-export class Add implements Action {
+export class AddAction implements Action {
   readonly type = ADD;
 
   constructor(public payload: Volunteer) {}
 }
 
-export class Modify implements Action {
+export class ModifyAction implements Action {
   readonly type = MODIFY;
 
   constructor(public payload: Volunteer) {}
 }
 
-export type All = Load | Add | Modify;
+export type Actions
+  = LoadAction
+  | AddAction
+  | ModifyAction;

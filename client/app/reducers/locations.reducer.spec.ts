@@ -1,6 +1,6 @@
 import 'hammerjs';
 
-import { locationReducer } from './location.reducer'
+import { locationReducer } from './locations.reducer'
 import { testLocations, Location } from '../models/location';
 import * as fromLocations from './books';
 

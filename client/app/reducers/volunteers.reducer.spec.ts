@@ -1,6 +1,6 @@
 import 'hammerjs';
 
-import { volunteerReducer } from './volunteer.reducer';
+import { volunteerReducer } from './volunteers.reducer';
 import { testVolunteers, Volunteer } from '../models/volunteer';
 
 describe('volunteerReducer', () => {

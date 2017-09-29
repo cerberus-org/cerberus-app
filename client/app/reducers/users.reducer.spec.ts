@@ -1,6 +1,6 @@
 import 'hammerjs';
 
-import { userReducer } from './user.reducer';
+import { userReducer } from './users.reducer';
 import { testUsers, User } from '../models/user';
 
 describe('userReducer', () => {
