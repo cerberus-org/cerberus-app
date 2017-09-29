@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
+import { Location } from '../../../models/location'
 import { LocationService } from '../../../services/location.service';
+import { State } from '../../../reducers/index';
 
 @Component({
   selector: 'app-volunteer-menu',
@@ -13,7 +15,7 @@ export class VolunteerMenuComponent implements OnInit {
   locations: Location[];
   error: string;
 
-  constructor(private router: Router, private store: Store<Location>, private locationService: LocationService) { }
+  constructor(private router: Router, private store: Store<State>, private locationService: LocationService) { }
 
   ngOnInit() {
     this.subscribeToLocations();
@@ -23,8 +25,8 @@ export class VolunteerMenuComponent implements OnInit {
    * Subscribes locations in the store.
    */
   subscribeToLocations(): void {
-    this.store.select<Location[]>('locations').subscribe(
-      locations => this.locations = locations,
+    this.store.select('locations').subscribe(
+      state => this.locations = state.locations,
       error => this.error = <any>error);
   }
 

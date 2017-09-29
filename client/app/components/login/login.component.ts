@@ -17,29 +17,20 @@ export class LoginComponent implements OnInit {
   // declare FormGroup
   loginForm: FormGroup;
   error: string;
-  users: User[];
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private store: Store<any>,
               private snackBarService: SnackBarService,
               private userService: UserService) {
     this.createForm();
   }
 
   ngOnInit() {
-    this.subscribeToUsers();
   }
 
   login() {
     this.userService.login(this.loginForm.value,
       () => this.snackBarService.welcomeBack(localStorage.getItem('userName')));
-  }
-
-  subscribeToUsers(): void {
-    this.store.select<User[]>('users').subscribe(
-      users => this.users = users,
-      error => this.error = <any>error);
   }
 
   // use FormBuilder to define FormGroup

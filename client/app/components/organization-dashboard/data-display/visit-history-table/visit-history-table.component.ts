@@ -7,6 +7,7 @@ import * as moment from 'moment-timezone';
 import 'rxjs/add/observable/merge'
 
 import { Visit } from '../../../../models/visit';
+import { State } from '../../../../reducers/index';
 
 @Component({
   selector: 'app-visit-history-table',
@@ -20,7 +21,7 @@ export class VisitHistoryTableComponent implements OnInit {
 
   @ViewChild(MdPaginator) paginator: MdPaginator;
 
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
     // Determine initial page size using inner height of window at component init
@@ -65,8 +66,8 @@ export class VisitDataSource extends DataSource<any> {
   }
 
   subscribeToVisits(): void {
-    this.store.select<Visit[]>('visits').subscribe(
-      visits => this.visits = visits,
+    this.store.select('visits').subscribe(
+      state => this.visits = state.visits,
       error => this.error = <any>error);
   }
 

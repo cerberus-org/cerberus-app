@@ -9,6 +9,7 @@ import { Volunteer } from '../../../models/volunteer';
 import { VisitService } from '../../../services/visit.service';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { State } from '../../../reducers/index';
 
 @Component({
   selector: 'app-check-in-form',
@@ -45,7 +46,7 @@ export class CheckInFormComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
-              private store: Store<any>,
+              private store: Store<State>,
               private snackBarService: SnackBarService,
               private visitService: VisitService,
               private router: Router) {
@@ -72,8 +73,8 @@ export class CheckInFormComponent implements OnInit {
    * Subscribes visits in the store. TODO: Only retrieve visits from last 24 hours
    */
   subscribeToVisits(): void {
-    this.store.select<Visit[]>('visits').subscribe(
-      visits => this.visits = visits,
+    this.store.select('visits').subscribe(
+      state => this.visits = state.visits,
       error => this.error = <any>error);
   }
 
@@ -81,8 +82,8 @@ export class CheckInFormComponent implements OnInit {
    * Subscribes volunteers in the store
    */
   subscribeToVolunteers(): void {
-    this.store.select<Volunteer[]>('volunteers').subscribe(
-      volunteers => this.volunteers = volunteers,
+    this.store.select('volunteers').subscribe(
+      state => this.volunteers = state.volunteers,
       error => this.error = <any>error);
   }
 

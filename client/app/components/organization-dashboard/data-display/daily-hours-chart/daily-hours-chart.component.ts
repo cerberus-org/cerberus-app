@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+
 import { Visit } from '../../../../models/visit';
+import { State } from '../../../../reducers/index';
 
 @Component({
   selector: 'app-daily-hours-chart',
@@ -15,7 +17,7 @@ export class DailyHoursChartComponent implements OnInit {
   lineChartType = 'line';
   error: string;
 
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
     this.lineChartLabels = [];
@@ -24,9 +26,9 @@ export class DailyHoursChartComponent implements OnInit {
   }
 
   subscribeToVisits(): void {
-    this.store.select<Visit[]>('visits').subscribe(
-      visits => {
-        this.visitsByDate = this.mapVisitsToDate(visits);
+    this.store.select('visits').subscribe(
+      state => {
+        this.visitsByDate = this.mapVisitsToDate(state.visits);
         this.lineChartLabels = this.setLineChartLabels();
         this.lineChartData = this.setLineChartData(this.lineChartLabels, this.visitsByDate);
       }, error => this.error = <any>error);

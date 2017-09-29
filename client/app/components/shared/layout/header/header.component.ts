@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Event, NavigationEnd, Router } from '@angular/router';
-
-import { Guard } from '../../../../guard';
-import { Organization } from '../../../../models/organization';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+
+import { Organization } from '../../../../models/organization';
+
+interface HeaderState {
+  organizations: Organization[];
+}
 
 @Component({
   selector: 'app-header',
@@ -16,7 +19,7 @@ export class HeaderComponent implements OnInit {
   text: string;
   previousUrl: string;
 
-  constructor(private router: Router, private store: Store<Organization[]>) { }
+  constructor(private router: Router, private store: Store<HeaderState>) { }
 
   ngOnInit() {
     this.setHeader();
@@ -24,7 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   subscribeToOrganizations() {
-    this.store.select<Organization[]>('organizations').subscribe(organizations => {
+    this.store.select('organizations').subscribe(organizations => {
         if (organizations.length > 0) {
           this.text = organizations[0].name;
         }
