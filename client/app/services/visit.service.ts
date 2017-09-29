@@ -45,7 +45,7 @@ export class VisitService extends BaseService {
     const date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));
     this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: LOAD_VISITS, payload: payload }))
+      .map(payload => ({ type: this.actions.load, payload: payload }))
       .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
   }
 

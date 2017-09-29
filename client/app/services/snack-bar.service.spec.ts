@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { MdSnackBarModule } from '@angular/material';
 
 import { SnackBarService } from './snack-bar.service';

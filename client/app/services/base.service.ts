@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Action, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { ErrorService } from './error.service';
 
 abstract class BaseService {

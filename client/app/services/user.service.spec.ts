@@ -1,18 +1,13 @@
-import { TestBed, inject, async, getTestBed, } from '@angular/core/testing';
-import {
-  ResponseOptions,
-  Response,
-  BaseRequestOptions,
-  Http
-} from '@angular/http';
+import { async, getTestBed, inject, TestBed, } from '@angular/core/testing';
+import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 
 import { UserService } from './user.service';
-import { testUsers } from '../models/user';
 import { ErrorService, MockErrorService } from './error.service';
-import { userReducer } from '../reducers/users.reducer';
-import { RouterTestingModule } from '@angular/router/testing';
+import { testUsers } from '../models/user';
+import { reducers } from '../reducers/index';
 
 describe('UserService', () => {
   let backend: MockBackend = null;
@@ -21,8 +16,8 @@ describe('UserService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.provideStore({ users: userReducer }),
-        RouterTestingModule
+        RouterTestingModule,
+        StoreModule.forRoot(reducers)
       ],
       providers: [
         BaseRequestOptions,

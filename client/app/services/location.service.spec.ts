@@ -4,9 +4,9 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 import { StoreModule } from '@ngrx/store';
 
 import { LocationService } from './location.service';
-import { testLocations } from '../models/location';
-import { locationReducer } from '../reducers/locations.reducer';
 import { ErrorService, MockErrorService } from './error.service';
+import { testLocations } from '../models/location';
+import { reducers } from '../reducers/index';
 
 describe('LocationService', () => {
   let backend: MockBackend = null;
@@ -15,7 +15,7 @@ describe('LocationService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.provideStore({locations: locationReducer})
+        StoreModule.forRoot(reducers)
       ],
       providers: [
         BaseRequestOptions,
@@ -36,8 +36,8 @@ describe('LocationService', () => {
     service = testbed.get(LocationService);
   }));
 
-  it('is created', inject([LocationService], (LocationService: LocationService) => {
-    expect(LocationService).toBeTruthy();
+  it('is created', inject([LocationService], (locationService: LocationService) => {
+    expect(locationService).toBeTruthy();
   }));
 
   const setConnections = body => {

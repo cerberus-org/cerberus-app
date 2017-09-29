@@ -4,9 +4,9 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 import { StoreModule } from '@ngrx/store';
 
 import { OrganizationService } from './organization.service';
-import { testOrganizations } from '../models/organization';
-import { organizationReducer } from '../reducers/organizations.reducer';
 import { ErrorService, MockErrorService } from './error.service';
+import { testOrganizations } from '../models/organization';
+import { reducers } from '../reducers/index';
 
 describe('OrganizationService', () => {
   let backend: MockBackend = null;
@@ -15,7 +15,7 @@ describe('OrganizationService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.provideStore({organizations: organizationReducer})
+        StoreModule.forRoot(reducers)
       ],
       providers: [
         BaseRequestOptions,
@@ -36,8 +36,8 @@ describe('OrganizationService', () => {
     service = testbed.get(OrganizationService);
   }));
 
-  it('is created', inject([OrganizationService], (OrganizationService: OrganizationService) => {
-    expect(OrganizationService).toBeTruthy();
+  it('is created', inject([OrganizationService], (organizationService: OrganizationService) => {
+    expect(organizationService).toBeTruthy();
   }));
 
   const setConnections = body => {
