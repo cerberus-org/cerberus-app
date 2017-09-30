@@ -26,7 +26,7 @@ export class VolunteerService extends BaseService {
   getByOrganizationRx(organizationId: string): void {
     this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: this.actions.load, payload: payload }))
+      .map(payload => new this.actions.load(payload))
       .subscribe(action => this.store.dispatch(action));
   }
 }

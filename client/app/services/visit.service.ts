@@ -26,14 +26,14 @@ export class VisitService extends BaseService {
   getBySiteRx(siteId: string): void {
     this.http.get(`/api/site/${siteId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: this.actions.load, payload: payload }))
+      .map(payload => new this.actions.load(payload))
       .subscribe(action => this.store.dispatch(action));
   }
 
   getByOrganizationRx(organizationId: string): void {
     this.http.get(`/api/organization/${organizationId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: this.actions.load, payload: payload }))
+      .map(payload => new this.actions.load(payload))
       .subscribe(action => this.store.dispatch(action));
   }
 
@@ -45,7 +45,7 @@ export class VisitService extends BaseService {
     const date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));
     this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: this.actions.load, payload: payload }))
+      .map(payload => new this.actions.load(payload))
       .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
   }
 
