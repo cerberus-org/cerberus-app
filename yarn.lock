@@ -1084,9 +1084,11 @@ codelyzer@^3.2.0:
     source-map "^0.5.6"
     sprintf-js "^1.0.3"
 
-coffee-script@>=1.0.1:
-  version "1.12.7"
-  resolved "https://registry.npmjs.org/coffee-script/-/coffee-script-1.12.7.tgz#c05dae0cb79591d05b3070a8433a98c9a89ccc53"
+coffee-script@~1.7.1:
+  version "1.7.1"
+  resolved "https://registry.npmjs.org/coffee-script/-/coffee-script-1.7.1.tgz#62996a861780c75e6d5069d13822723b73404bfc"
+  dependencies:
+    mkdirp "~0.3.5"
 
 color-convert@^0.5.3:
   version "0.5.3"
@@ -2180,13 +2182,6 @@ fileset@^2.0.2:
     glob "^7.0.3"
     minimatch "^3.0.3"
 
-fileset@~0.1.5:
-  version "0.1.8"
-  resolved "https://registry.npmjs.org/fileset/-/fileset-0.1.8.tgz#506b91a9396eaa7e32fb42a84077c7a0c736b741"
-  dependencies:
-    glob "3.x"
-    minimatch "0.x"
-
 fill-range@^2.1.0:
   version "2.2.3"
   resolved "https://registry.npmjs.org/fill-range/-/fill-range-2.2.3.tgz#50b77dfd7e469bc7492470963699fe7a8485a723"
@@ -2374,12 +2369,11 @@ gaze@^1.0.0:
   dependencies:
     globule "^1.0.0"
 
-gaze@~0.3.2:
-  version "0.3.4"
-  resolved "https://registry.npmjs.org/gaze/-/gaze-0.3.4.tgz#5f94bdda0afe53bc710969bcd6f282548d60c279"
+gaze@~0.5.1:
+  version "0.5.2"
+  resolved "https://registry.npmjs.org/gaze/-/gaze-0.5.2.tgz#40b709537d24d1d45767db5a908689dfe69ac44f"
   dependencies:
-    fileset "~0.1.5"
-    minimatch "~0.2.9"
+    globule "~0.1.0"
 
 get-caller-file@^1.0.1:
   version "1.0.2"
@@ -2412,13 +2406,6 @@ glob-parent@^2.0.0:
   dependencies:
     is-glob "^2.0.0"
 
-glob@3.x:
-  version "3.2.11"
-  resolved "https://registry.npmjs.org/glob/-/glob-3.2.11.tgz#4a973f635b9190f715d10987d5c00fd2815ebe3d"
-  dependencies:
-    inherits "2"
-    minimatch "0.3"
-
 glob@7.0.x:
   version "7.0.6"
   resolved "https://registry.npmjs.org/glob/-/glob-7.0.6.tgz#211bafaf49e525b8cd93260d14ab136152b3f57a"
@@ -2450,6 +2437,14 @@ glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.0.6, glob@^7.1.1, glob@~7.1.1:
     minimatch "^3.0.4"
     once "^1.3.0"
     path-is-absolute "^1.0.0"
+
+glob@~3.1.21:
+  version "3.1.21"
+  resolved "https://registry.npmjs.org/glob/-/glob-3.1.21.tgz#d29e0a055dea5138f4d07ed40e8982e83c2066cd"
+  dependencies:
+    graceful-fs "~1.2.0"
+    inherits "1"
+    minimatch "~0.2.11"
 
 globals@^9.18.0:
   version "9.18.0"
@@ -2484,6 +2479,14 @@ globule@^1.0.0:
     lodash "~4.17.4"
     minimatch "~3.0.2"
 
+globule@~0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/globule/-/globule-0.1.0.tgz#d9c8edde1da79d125a151b79533b978676346ae5"
+  dependencies:
+    glob "~3.1.21"
+    lodash "~1.0.1"
+    minimatch "~0.2.11"
+
 got@^6.7.1:
   version "6.7.1"
   resolved "https://registry.npmjs.org/got/-/got-6.7.1.tgz#240cd05785a9a18e561dc1b44b41c763ef1e8db0"
@@ -2503,6 +2506,10 @@ got@^6.7.1:
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "4.1.11"
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
+
+graceful-fs@~1.2.0:
+  version "1.2.3"
+  resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-1.2.3.tgz#15a4806a57547cb2d2dbf27f42e89a8c3451b364"
 
 growl@~1.7.0:
   version "1.7.0"
@@ -2838,6 +2845,10 @@ inflight@^1.0.4:
     once "^1.3.0"
     wrappy "1"
 
+inherits@1:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/inherits/-/inherits-1.0.2.tgz#ca4309dadee6b54cc0b8d247e8d7c7a0975bdc9b"
+
 inherits@2, inherits@2.0.3, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.0, inherits@~2.0.1, inherits@~2.0.3:
   version "2.0.3"
   resolved "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
@@ -3154,30 +3165,23 @@ jasmine-core@^2.8.0, jasmine-core@~2.8.0:
   version "2.8.0"
   resolved "https://registry.npmjs.org/jasmine-core/-/jasmine-core-2.8.0.tgz#bcc979ae1f9fd05701e45e52e65d3a5d63f1a24e"
 
-jasmine-growl-reporter@~0.0.2:
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/jasmine-growl-reporter/-/jasmine-growl-reporter-0.0.3.tgz#b87ae551e359d28ad5217765eaef6c07b763f6c8"
+jasmine-growl-reporter@~0.2.0:
+  version "0.2.1"
+  resolved "https://registry.npmjs.org/jasmine-growl-reporter/-/jasmine-growl-reporter-0.2.1.tgz#d5f0a37b92f6a83fd5c6482b809495c90a8b55fe"
   dependencies:
     growl "~1.7.0"
 
-jasmine-node@^1.14.5:
-  version "1.14.5"
-  resolved "https://registry.npmjs.org/jasmine-node/-/jasmine-node-1.14.5.tgz#18e8397b856924ee77003666c3731b5aea50c39d"
+jasmine-node@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/jasmine-node/-/jasmine-node-2.0.0.tgz#81751a72325f5497490b14181a55087f1b0371ff"
   dependencies:
-    coffee-script ">=1.0.1"
-    gaze "~0.3.2"
-    jasmine-growl-reporter "~0.0.2"
-    jasmine-reporters "~1.0.0"
+    coffee-script "~1.7.1"
+    gaze "~0.5.1"
+    jasmine-growl-reporter "~0.2.0"
+    minimist "0.0.8"
     mkdirp "~0.3.5"
-    requirejs ">=0.27.1"
-    underscore ">= 1.3.1"
-    walkdir ">= 0.0.1"
-
-jasmine-reporters@~1.0.0:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/jasmine-reporters/-/jasmine-reporters-1.0.2.tgz#ab613ed5977dc7487e85b3c12f6a8ea8db2ade31"
-  dependencies:
-    mkdirp "~0.3.5"
+    underscore "~1.6.0"
+    walkdir "~0.0.7"
 
 jasmine-spec-reporter@^4.2.1:
   version "4.2.1"
@@ -3638,6 +3642,10 @@ lodash@^4.0.0, lodash@^4.11.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, l
   version "4.17.4"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
+lodash@~1.0.1:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/lodash/-/lodash-1.0.2.tgz#8f57560c83b59fc270bd3d561b690043430e2551"
+
 log4js@^0.6.31:
   version "0.6.38"
   resolved "https://registry.npmjs.org/log4js/-/log4js-0.6.38.tgz#2c494116695d6fb25480943d3fc872e662a522fd"
@@ -3831,27 +3839,13 @@ minimalistic-crypto-utils@^1.0.0, minimalistic-crypto-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/minimalistic-crypto-utils/-/minimalistic-crypto-utils-1.0.1.tgz#f6c00c1c0b082246e5c4d99dfb8c7c083b2b582a"
 
-minimatch@0.3:
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/minimatch/-/minimatch-0.3.0.tgz#275d8edaac4f1bb3326472089e7949c8394699dd"
-  dependencies:
-    lru-cache "2"
-    sigmund "~1.0.0"
-
-minimatch@0.x:
-  version "0.4.0"
-  resolved "https://registry.npmjs.org/minimatch/-/minimatch-0.4.0.tgz#bd2c7d060d2c8c8fd7cde7f1f2ed2d5b270fdb1b"
-  dependencies:
-    lru-cache "2"
-    sigmund "~1.0.0"
-
 "minimatch@2 || 3", minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.3, minimatch@^3.0.4, minimatch@~3.0.2:
   version "3.0.4"
   resolved "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   dependencies:
     brace-expansion "^1.1.7"
 
-minimatch@~0.2.9:
+minimatch@~0.2.11:
   version "0.2.14"
   resolved "https://registry.npmjs.org/minimatch/-/minimatch-0.2.14.tgz#c74e780574f63c6f9a090e90efbe6ef53a6a756a"
   dependencies:
@@ -5216,10 +5210,6 @@ require_optional@~1.0.0:
     resolve-from "^2.0.0"
     semver "^5.1.0"
 
-requirejs@>=0.27.1:
-  version "2.3.5"
-  resolved "https://registry.npmjs.org/requirejs/-/requirejs-2.3.5.tgz#617b9acbbcb336540ef4914d790323a8d4b861b0"
-
 requires-port@1.0.x, requires-port@1.x.x:
   version "1.0.0"
   resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
@@ -6086,9 +6076,9 @@ undefsafe@0.0.3:
   version "0.0.3"
   resolved "https://registry.npmjs.org/undefsafe/-/undefsafe-0.0.3.tgz#ecca3a03e56b9af17385baac812ac83b994a962f"
 
-"underscore@>= 1.3.1":
-  version "1.8.3"
-  resolved "https://registry.npmjs.org/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
+underscore@~1.6.0:
+  version "1.6.0"
+  resolved "https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz#8b38b10cacdef63337b8b24e4ff86d45aea529a8"
 
 uniq@^1.0.1:
   version "1.0.1"
@@ -6255,7 +6245,7 @@ void-elements@^2.0.0:
   version "2.0.1"
   resolved "https://registry.npmjs.org/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-"walkdir@>= 0.0.1":
+walkdir@~0.0.7:
   version "0.0.12"
   resolved "https://registry.npmjs.org/walkdir/-/walkdir-0.0.12.tgz#2f24f1ade64aab1e458591d4442c8868356e9281"
 
