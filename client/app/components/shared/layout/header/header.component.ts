@@ -1,20 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
-import { Organization } from '../../../../models/organization';
 import { State } from '../../../../reducers/index';
-
-interface HeaderState {
-  organizations: Organization[];
-}
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+
+  organizationSubscription: Subscription;
+  routerEventsSubscription: Subscription;
   error: string;
   icon: string;
   text: string;
@@ -23,12 +22,17 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private store: Store<State>) { }
 
   ngOnInit() {
-    this.setHeader();
-    this.subscribeToOrganizations();
+    this.organizationSubscription = this.subscribeToOrganizations();
+    this.routerEventsSubscription = this.subscribeToRouterEvents();
   }
 
-  subscribeToOrganizations() {
-    this.store.select('organizations').subscribe(state => {
+  ngOnDestroy() {
+    this.organizationSubscription.unsubscribe();
+    this.routerEventsSubscription.unsubscribe();
+  }
+
+  subscribeToOrganizations(): Subscription {
+    return this.store.select('organizations').subscribe(state => {
         if (state.organizations.length > 0) {
           this.text = state.organizations[0].name;
         }
@@ -47,8 +51,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  setHeader = (): void => {
-    this.router.events.subscribe(() => {
+  subscribeToRouterEvents(): Subscription {
+    return this.router.events.subscribe(() => {
       // Get the string after the first '/'
       switch (this.router.url.split('/')[1]) {
         case 'start':

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Visit } from '../../../../models/visit';
 import { State } from '../../../../reducers/index';
@@ -9,7 +10,9 @@ import { State } from '../../../../reducers/index';
   templateUrl: './daily-hours-chart.component.html',
   styleUrls: ['./daily-hours-chart.component.css']
 })
-export class DailyHoursChartComponent implements OnInit {
+export class DailyHoursChartComponent implements OnInit, OnDestroy {
+
+  visitsSubscription: Subscription;
   visitsByDate: Map<string, Visit[]>;
   lineChartData: any[];
   lineChartLabels: string[];
@@ -22,11 +25,15 @@ export class DailyHoursChartComponent implements OnInit {
   ngOnInit() {
     this.lineChartLabels = [];
     this.lineChartData = [];
-    this.subscribeToVisits();
+    this.visitsSubscription = this.subscribeToVisits();
   }
 
-  subscribeToVisits(): void {
-    this.store.select('visits').subscribe(
+  ngOnDestroy(): void {
+    this.visitsSubscription.unsubscribe();
+  }
+
+  subscribeToVisits(): Subscription {
+    return this.store.select('visits').subscribe(
       state => {
         this.visitsByDate = this.mapVisitsToDate(state.visits);
         this.lineChartLabels = this.setLineChartLabels();
