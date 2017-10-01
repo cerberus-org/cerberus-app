@@ -1,9 +1,9 @@
-import VolunteerHandler from './volunteer';
+import SiteHandler from './site';
 
-const handler = new VolunteerHandler;
+const handler = new SiteHandler;
 let req, res;
 
-describe(typeof VolunteerHandler, () => {
+describe(typeof SiteHandler, () => {
 
   beforeEach(() => {
     spyOn(console, 'error').and.stub();

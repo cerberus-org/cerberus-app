@@ -8,7 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 import { MockSnackBarService, SnackBarService } from '../../../services/snack-bar.service';
 import { MockVolunteerService, VolunteerService } from '../../../services/volunteer.service';
-import { volunteerReducer } from '../../../reducers/volunteer';
+import { reducers } from '../../../reducers/index';
 
 describe('NewVolunteerFormComponent', () => {
   let component: NewVolunteerFormComponent,
@@ -23,7 +23,7 @@ describe('NewVolunteerFormComponent', () => {
         MdAutocompleteModule,
         MdInputModule,
         RouterTestingModule,
-        StoreModule.provideStore({ volunteers: volunteerReducer })
+        StoreModule.forRoot(reducers)
       ],
       providers: [
         { provide: SnackBarService, useClass: MockSnackBarService },

@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-import Location from './location';
+import Site from './site';
 import Organization from './organization';
 import Volunteer from './volunteer';
 
@@ -9,9 +9,9 @@ const visitSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, ref: Organization,
     // required: [true, 'Organization ID is required']
   },
-  locationId: {
-    type: mongoose.Schema.Types.ObjectId, ref: Location,
-    required: [true, 'Location ID is required']
+  siteId: {
+    type: mongoose.Schema.Types.ObjectId, ref: Site,
+    required: [true, 'Site ID is required']
   },
   volunteerId: {
     type: mongoose.Schema.Types.ObjectId, ref: Volunteer,

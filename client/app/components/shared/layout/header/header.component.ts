@@ -1,32 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { Event, NavigationEnd, Router } from '@angular/router';
-
-import { Guard } from '../../../../guard';
-import { Organization } from '../../../../models/organization';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
+
+import { State } from '../../../../reducers/index';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+
+  organizationSubscription: Subscription;
+  routerEventsSubscription: Subscription;
   error: string;
   icon: string;
   text: string;
   previousUrl: string;
 
-  constructor(private router: Router, private store: Store<Organization[]>) { }
+  constructor(private router: Router, private store: Store<State>) { }
 
   ngOnInit() {
-    this.setHeader();
-    this.subscribeToOrganizations();
+    this.organizationSubscription = this.subscribeToOrganizations();
+    this.routerEventsSubscription = this.subscribeToRouterEvents();
   }
 
-  subscribeToOrganizations() {
-    this.store.select<Organization[]>('organizations').subscribe(organizations => {
-        if (organizations.length > 0) {
-          this.text = organizations[0].name;
+  ngOnDestroy() {
+    this.organizationSubscription.unsubscribe();
+    this.routerEventsSubscription.unsubscribe();
+  }
+
+  subscribeToOrganizations(): Subscription {
+    return this.store.select('organizations').subscribe(state => {
+        if (state.organizations.length > 0) {
+          this.text = state.organizations[0].name;
         }
       },
       error => this.error = <any>error);
@@ -43,8 +51,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  setHeader = (): void => {
-    this.router.events.subscribe(() => {
+  subscribeToRouterEvents(): Subscription {
+    return this.router.events.subscribe(() => {
       // Get the string after the first '/'
       switch (this.router.url.split('/')[1]) {
         case 'start':

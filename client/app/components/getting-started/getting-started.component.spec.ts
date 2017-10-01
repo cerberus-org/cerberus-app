@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
 import { GettingStartedComponent } from './getting-started.component';
-import { LocationService, MockLocationService } from '../../services/location.service';
+import { SiteService, MockSiteService } from '../../services/site.service';
 import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
 import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
 import { MockUserService, UserService } from '../../services/user.service';
@@ -31,7 +31,7 @@ describe('GettingStartedComponent', () => {
         RouterTestingModule
       ],
       providers: [
-        { provide: LocationService, useClass: MockLocationService },
+        { provide: SiteService, useClass: MockSiteService },
         { provide: OrganizationService, useClass: MockOrganizationService },
         { provide: SnackBarService, useClass: MockSnackBarService },
         { provide: UserService, useClass: MockUserService }

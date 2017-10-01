@@ -5,9 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import BaseService from './base.service';
-import { testVisits, Visit } from '../models/visit';
-import { ADD_VISIT, LOAD_VISITS, MODIFY_VISIT } from '../reducers/visit';
 import { ErrorService } from './error.service';
+import { testVisits, Visit } from '../models/visit';
+import * as VisitsActions from '../actions/visits.actions'
 
 @Injectable()
 export class VisitService extends BaseService {
@@ -16,24 +16,24 @@ export class VisitService extends BaseService {
   constructor(protected http: Http, protected store: Store<Visit[]>, protected errorService: ErrorService) {
     super(http, store, errorService);
     this.modelName = 'visit';
-    this.actionTypes = {
-      load: LOAD_VISITS,
-      add: ADD_VISIT,
-      modify: MODIFY_VISIT
+    this.actions = {
+      load: VisitsActions.Load,
+      add: VisitsActions.Add,
+      modify: VisitsActions.Modify
     }
   }
 
-  getByLocationRx(locationId: string): void {
-    this.http.get(`/api/location/${locationId}/visits`, this.options)
+  getBySiteRx(siteId: string): void {
+    this.http.get(`/api/site/${siteId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .map(payload => new this.actions.load(payload))
       .subscribe(action => this.store.dispatch(action));
   }
 
   getByOrganizationRx(organizationId: string): void {
     this.http.get(`/api/organization/${organizationId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: this.actionTypes.load, payload: payload }))
+      .map(payload => new this.actions.load(payload))
       .subscribe(action => this.store.dispatch(action));
   }
 
@@ -45,7 +45,7 @@ export class VisitService extends BaseService {
     const date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));
     this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => ({ type: LOAD_VISITS, payload: payload }))
+      .map(payload => new this.actions.load(payload))
       .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
   }
 
@@ -89,7 +89,7 @@ export class MockVisitService extends VisitService {
 
   getByIdRx(id: string): void { }
 
-  getByLocationRx(): void { }
+  getBySiteRx(): void { }
 
   getByOrganizationRx(): void { }
 

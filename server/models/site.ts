@@ -4,7 +4,7 @@ import { isURL } from 'validator';
 import Organization from './organization';
 import { capitalize } from '../functions/capitalize';
 
-const locationSchema = new mongoose.Schema({
+const siteSchema = new mongoose.Schema({
   organizationId: {
     type: mongoose.Schema.Types.ObjectId, ref: Organization,
     required: [true, 'Organization ID is required']
@@ -25,12 +25,12 @@ const locationSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Before saving the organization, capitalize the name
-locationSchema.pre('save', function (next) {
+siteSchema.pre('save', function (next) {
   this.name = this.capitalize(this.name);
   this.address = this.capitalize(this.address);
   next();
 });
 
-locationSchema.methods.capitalize = capitalize;
+siteSchema.methods.capitalize = capitalize;
 
-export default mongoose.model('location', locationSchema);
+export default mongoose.model('site', siteSchema);

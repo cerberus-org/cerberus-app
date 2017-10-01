@@ -8,11 +8,11 @@
 	},
 	"item": [
 		{
-			"name": "location",
+			"name": "site",
 			"description": "",
 			"item": [
 				{
-					"name": "Insert location",
+					"name": "Insert site",
 					"event": [
 						{
 							"listen": "test",
@@ -38,7 +38,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:3000/api/location",
+						"url": "localhost:3000/api/site",
 						"method": "POST",
 						"header": [
 							{
@@ -61,7 +61,7 @@
 					"response": []
 				},
 				{
-					"name": "Get all locations",
+					"name": "Get all sites",
 					"event": [
 						{
 							"listen": "test",
@@ -85,7 +85,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:3000/api/locations",
+						"url": "localhost:3000/api/sites",
 						"method": "GET",
 						"header": [
 							{
@@ -100,7 +100,7 @@
 					"response": []
 				},
 				{
-					"name": "Get location by ID",
+					"name": "Get site by ID",
 					"event": [
 						{
 							"listen": "test",
@@ -126,7 +126,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:3000/api/location/59bc1e7ad92a6ac6f6252bfa",
+						"url": "localhost:3000/api/site/59bc1e7ad92a6ac6f6252bfa",
 						"method": "GET",
 						"header": [
 							{
@@ -141,7 +141,7 @@
 					"response": []
 				},
 				{
-					"name": "Count all locations",
+					"name": "Count all sites",
 					"event": [
 						{
 							"listen": "test",
@@ -158,7 +158,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:3000/api/locations/count",
+						"url": "localhost:3000/api/sites/count",
 						"method": "GET",
 						"header": [
 							{
@@ -176,7 +176,7 @@
 					"response": []
 				},
 				{
-					"name": "Update location by ID",
+					"name": "Update site by ID",
 					"event": [
 						{
 							"listen": "test",
@@ -204,7 +204,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:3000/api/location/59bc1e7ad92a6ac6f6252bfa",
+						"url": "localhost:3000/api/site/59bc1e7ad92a6ac6f6252bfa",
 						"method": "PUT",
 						"header": [
 							{
@@ -227,7 +227,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete location by ID",
+					"name": "Delete site by ID",
 					"event": [
 						{
 							"listen": "test",
@@ -242,7 +242,7 @@
 						}
 					],
 					"request": {
-						"url": "localhost:3000/api/location/59bc1e7ad92a6ac6f6252bfa",
+						"url": "localhost:3000/api/site/59bc1e7ad92a6ac6f6252bfa",
 						"method": "DELETE",
 						"header": [
 							{
@@ -527,7 +527,7 @@
 									"if (responseCode.code === 201) {",
 									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
 									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
-									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"siteId is correct\"] = jsonData.siteId === \"59bc1e7ad92a6ac6f6252bfa\";",
 									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
 									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
 									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
@@ -557,7 +557,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"_id\": \"674a861ace7ca574af9070c8\",\n\t\"organizationId\": \"59a7055733bfe28af47cff40\",\n\t\"locationId\": \"59bc1e7ad92a6ac6f6252bfa\",\n\t\"volunteerId\": \"594a861ace7ca574ae9070c8\",\n\t\"startedAt\": \"2017-07-17T21:20:31.814Z\",\n\t\"timezone\": \"America/Los_Angeles\"\n}"
+							"raw": "{\n\t\"_id\": \"674a861ace7ca574af9070c8\",\n\t\"organizationId\": \"59a7055733bfe28af47cff40\",\n\t\"siteId\": \"59bc1e7ad92a6ac6f6252bfa\",\n\t\"volunteerId\": \"594a861ace7ca574ae9070c8\",\n\t\"startedAt\": \"2017-07-17T21:20:31.814Z\",\n\t\"timezone\": \"America/Los_Angeles\"\n}"
 						},
 						"description": ""
 					},
@@ -578,7 +578,7 @@
 									"    tests[\"__v is correct\"] = jsonData[0].__v === 0;",
 									"    tests[\"_id is correct\"] = jsonData[0]._id === \"674a861ace7ca574af9070c8\";",
 									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
-									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"siteId is correct\"] = jsonData.siteId === \"59bc1e7ad92a6ac6f6252bfa\";",
 									"    tests[\"volunteerId is correct\"] = jsonData[0].volunteerId === \"594a861ace7ca574ae9070c8\";",
 									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
 									"    tests[\"timezone is correct\"] = jsonData[0].timezone === \"America/Los_Angeles\";",
@@ -621,7 +621,7 @@
 									"    var jsonData = JSON.parse(responseBody);",
 									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
 									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
-									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"siteId is correct\"] = jsonData.siteId === \"59bc1e7ad92a6ac6f6252bfa\";",
 									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
 									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
 									"} else if (responseCode.code === 404) {",
@@ -701,7 +701,7 @@
 									"    var jsonData = JSON.parse(responseBody);",
 									"    tests[\"_id is correct\"] = jsonData._id === \"674a861ace7ca574af9070c8\";",
 									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
-									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"siteId is correct\"] = jsonData.siteId === \"59bc1e7ad92a6ac6f6252bfa\";",
 									"    tests[\"volunteerId is correct\"] = jsonData.volunteerId === \"594a861ace7ca574ae9070c8\";",
 									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
 									"    tests[\"endedAt is correct\"] = jsonData.endedAt === \"2017-07-17T22:20:31.814Z\";",
@@ -755,7 +755,7 @@
 									"if (jsonData.length > 0) {",
 									"    tests[\"_id is correct\"] = jsonData[0]._id === \"674a861ace7ca574af9070c8\";",
 									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
-									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"siteId is correct\"] = jsonData.siteId === \"59bc1e7ad92a6ac6f6252bfa\";",
 									"    tests[\"volunteerId is correct\"] = jsonData[0].volunteerId === \"594a861ace7ca574ae9070c8\";",
 									"    tests[\"startedAt is correct\"] = jsonData.startedAt === \"2017-07-17T21:20:31.814Z\";",
 									"    tests[\"timezone is correct\"] = jsonData.timezone === \"America/Los_Angeles\";",
@@ -837,7 +837,7 @@
 									"if (responseCode.code === 201) {",
 									"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
 									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
-									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"siteId is correct\"] = jsonData.siteId === \"59bc1e7ad92a6ac6f6252bfa\";",
 									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
 									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
 									"    tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
@@ -867,7 +867,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"organizationId\": \"59a7055733bfe28af47cff40\",\n\t\"locationId\": \"59bc1e7ad92a6ac6f6252bfa\",\n\t\"_id\": \"594a861ace7ca574ae9070c8\",\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Mimi\"\n}\n"
+							"raw": "{\n\t\"organizationId\": \"59a7055733bfe28af47cff40\",\n\t\"siteId\": \"59bc1e7ad92a6ac6f6252bfa\",\n\t\"_id\": \"594a861ace7ca574ae9070c8\",\n\t\"firstName\": \"Ted\",\n\t\"lastName\": \"Mader\",\n\t\"petName\": \"Mimi\"\n}\n"
 						},
 						"description": "volunteer: {\n  firstName: String,\n  lastName: String,\n  petName: String\n}"
 					},
@@ -888,7 +888,7 @@
 									"    tests[\"__v is correct\"] = jsonData[0].__v === 0;",
 									"    tests[\"_id is correct\"] = jsonData[0]._id === \"594a861ace7ca574ae9070c8\";",
 									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
-									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"siteId is correct\"] = jsonData.siteId === \"59bc1e7ad92a6ac6f6252bfa\";",
 									"    tests[\"firstName is correct\"] = jsonData[0].firstName === \"Ted\";",
 									"    tests[\"lastName is correct\"] = jsonData[0].lastName === \"Mader\";",
 									"    tests[\"petName is correct\"] = jsonData[0].petName === \"Mimi\";",
@@ -933,7 +933,7 @@
 									"    tests[\"__v is correct\"] = jsonData[0].__v === 0;",
 									"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
 									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
-									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"siteId is correct\"] = jsonData.siteId === \"59bc1e7ad92a6ac6f6252bfa\";",
 									"    tests[\"firstName is correct\"] = jsonData.firstName === \"Ted\";",
 									"    tests[\"lastName is correct\"] = jsonData.lastName === \"Mader\";",
 									"    tests[\"petName is correct\"] = jsonData.petName === \"Mimi\";",
@@ -1017,7 +1017,7 @@
 									"    tests[\"__v is correct\"] = jsonData.__v === 0;",
 									"    tests[\"_id is correct\"] = jsonData._id === \"594a861ace7ca574ae9070c8\";",
 									"    tests[\"organizationId is correct\"] = jsonData.organizationId === \"59a7055733bfe28af47cff40\";",
-									"    tests[\"locationId is correct\"] = jsonData.locationId === \"59bc1e7ad92a6ac6f6252bfa\";",
+									"    tests[\"siteId is correct\"] = jsonData.siteId === \"59bc1e7ad92a6ac6f6252bfa\";",
 									"    tests[\"firstName is correct\"] = jsonData.firstName === \"EDIT-Ted\";",
 									"    tests[\"lastName is correct\"] = jsonData.lastName === \"EDIT-Mader\";",
 									"    tests[\"petName is correct\"] = jsonData.petName === \"EDIT-Mimi\";",

@@ -1,11 +1,11 @@
 import BaseHandler from './base';
-import Location from '../models/location';
+import Site from '../models/site';
 
-export default class LocationHandler extends BaseHandler {
-  model = Location;
+export default class SiteHandler extends BaseHandler {
+  model = Site;
 
   /**
-   * Gets locations by organizationId and responds with the results (200) or an error (400).
+   * Gets sites by organizationId and responds with the results (200) or an error (400).
    * @param req - the request with the id parameter
    * @param res - the response
    */

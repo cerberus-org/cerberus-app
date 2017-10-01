@@ -1,12 +1,12 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
+import { StoreModule } from '@ngrx/store';
 
 import { VisitService } from './visit.service';
-import { testVisits } from '../models/visit';
-import { StoreModule } from '@ngrx/store';
-import { visitReducer } from '../reducers/visit';
 import { ErrorService, MockErrorService } from './error.service';
+import { testVisits } from '../models/visit';
+import { reducers } from '../reducers/index';
 
 describe('VisitService', () => {
   let backend: MockBackend = null;
@@ -15,7 +15,7 @@ describe('VisitService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.provideStore({ visits: visitReducer })
+        StoreModule.forRoot(reducers)
       ],
       providers: [
         BaseRequestOptions,
@@ -36,58 +36,58 @@ describe('VisitService', () => {
     service = testbed.get(VisitService);
   }));
 
-it('is created', inject([VisitService], (VisitService: VisitService) => {
-  expect(VisitService).toBeTruthy();
-}));
+  it('is created', inject([VisitService], (visitService: VisitService) => {
+    expect(visitService).toBeTruthy();
+  }));
 
-const setConnections = body => {
-  backend.connections.subscribe(function (connection: MockConnection) {
-    const options = new ResponseOptions({
-      body: JSON.stringify(body)
+  const setConnections = body => {
+    backend.connections.subscribe(function (connection: MockConnection) {
+      const options = new ResponseOptions({
+        body: JSON.stringify(body)
+      });
+      connection.mockRespond(new Response(options));
     });
-    connection.mockRespond(new Response(options));
-  });
-};
+  };
 
-it('gets all visits', () => {
-  setConnections(testVisits);
-  service.getAll().subscribe(res => {
-    expect(res).toEqual(testVisits);
+  it('gets all visits', () => {
+    setConnections(testVisits);
+    service.getAll().subscribe(res => {
+      expect(res).toEqual(testVisits);
+    });
   });
-});
 
-it('counts all visits', () => {
-  setConnections(testVisits.length);
-  service.count().subscribe(res => {
-    expect(res).toEqual(testVisits.length);
+  it('counts all visits', () => {
+    setConnections(testVisits.length);
+    service.count().subscribe(res => {
+      expect(res).toEqual(testVisits.length);
+    });
   });
-});
 
-it('creates the visit', () => {
-  setConnections(testVisits[0]);
-  service.create(testVisits[0]).subscribe(res => {
-    expect(res).toEqual(testVisits[0]);
+  it('creates the visit', () => {
+    setConnections(testVisits[0]);
+    service.create(testVisits[0]).subscribe(res => {
+      expect(res).toEqual(testVisits[0]);
+    });
   });
-});
 
-it('gets the visit', () => {
-  setConnections(testVisits[0]);
-  service.get(testVisits[0]).subscribe(res => {
-    expect(res).toEqual(testVisits[0]);
+  it('gets the visit', () => {
+    setConnections(testVisits[0]);
+    service.get(testVisits[0]).subscribe(res => {
+      expect(res).toEqual(testVisits[0]);
+    });
   });
-});
 
-it('updates the visit', () => {
-  setConnections(testVisits[0]);
-  service.update(testVisits[0]).subscribe(res => {
-    expect(res).toEqual(testVisits[0]);
+  it('updates the visit', () => {
+    setConnections(testVisits[0]);
+    service.update(testVisits[0]).subscribe(res => {
+      expect(res).toEqual(testVisits[0]);
+    });
   });
-});
 
-it('deletes the visit', () => {
-  setConnections(testVisits[0]);
-  service.delete(testVisits[0]).subscribe(res => {
-    expect(res).toEqual(testVisits[0]);
+  it('deletes the visit', () => {
+    setConnections(testVisits[0]);
+    service.delete(testVisits[0]).subscribe(res => {
+      expect(res).toEqual(testVisits[0]);
+    });
   });
-});
 });

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { MdPaginator } from '@angular/material';
 import { Store } from '@ngrx/store';
@@ -7,6 +7,8 @@ import * as moment from 'moment-timezone';
 import 'rxjs/add/observable/merge'
 
 import { Visit } from '../../../../models/visit';
+import { State } from '../../../../reducers/index';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-visit-history-table',
@@ -20,7 +22,7 @@ export class VisitHistoryTableComponent implements OnInit {
 
   @ViewChild(MdPaginator) paginator: MdPaginator;
 
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
     // Determine initial page size using inner height of window at component init
@@ -55,18 +57,24 @@ export class VisitHistoryTableComponent implements OnInit {
  * any way. It is not the data source's responsibility to manage the underlying data. Instead, it only needs to take the
  * data and send the table exactly what should be rendered.
  */
-export class VisitDataSource extends DataSource<any> {
+export class VisitDataSource extends DataSource<any> implements OnDestroy {
+
+  visitsSubscription: Subscription;
   visits: Visit[];
   error: string;
 
   constructor(private store: Store<any>, private paginator: MdPaginator) {
     super();
-    this.subscribeToVisits();
+    this.visitsSubscription = this.subscribeToVisits();
   }
 
-  subscribeToVisits(): void {
-    this.store.select<Visit[]>('visits').subscribe(
-      visits => this.visits = visits,
+  ngOnDestroy(): void {
+    this.visitsSubscription.unsubscribe();
+  }
+
+  subscribeToVisits(): Subscription {
+    return this.store.select('visits').subscribe(
+      state => this.visits = state.visits,
       error => this.error = <any>error);
   }
 

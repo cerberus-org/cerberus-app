@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { Http } from '@angular/http';
 
 import BaseService from './base.service';
-import { testUsers, User } from '../models/user';
 import { ErrorService } from './error.service';
-import { ADD_USER, LOAD_USERS, MODIFY_USER } from '../reducers/user';
-import { Router } from '@angular/router';
+import { testUsers, User } from '../models/user';
+import * as UsersActions from '../actions/users.actions'
 
 @Injectable()
 export class UserService extends BaseService {
@@ -19,11 +19,11 @@ export class UserService extends BaseService {
               private router: Router) {
     super(http, store, errorService);
     this.modelName = 'user';
-    this.actionTypes = {
-      load: LOAD_USERS,
-      add: ADD_USER,
-      modify: MODIFY_USER
-    }
+    this.actions = {
+      load: UsersActions.Load,
+      add: UsersActions.Add,
+      modify: UsersActions.Modify
+    };
   }
 
   setLocalStorageItems(user: User, token: string) {
@@ -33,15 +33,16 @@ export class UserService extends BaseService {
     localStorage.setItem('userName', user.firstName);
   }
 
-  login(user: User, successCb): void {
+  login(user: User, successCb: () => void): void {
     user.email = user.email.toLowerCase();
     this.http.post('/api/user/login', JSON.stringify(user), this.options)
-      // Save user data and token to local storage
+    // Save user data and token to local storage
       .map(res => { this.convertIn(res.json()), this.setLocalStorageItems(res.json().user, res.json().token) })
-      .map(payload => ({ type: this.actionTypes.add, payload: payload }))
+      .map(payload => new this.actions.add(payload))
       .subscribe(action => {
-        // Route user to dashboard if login is successful.
-        this.store.dispatch(action), this.router.navigateByUrl('/dashboard') },
+          // Route user to dashboard if login is successful.
+          this.store.dispatch(action), this.router.navigateByUrl('/dashboard')
+        },
         err => this.errorService.handleHttpError(err), successCb);
   }
 }

@@ -20,7 +20,7 @@ describe(typeof VisitHandler, () => {
     };
   });
 
-  describe('Get by locationId', () => {
+  describe('Get by siteId', () => {
 
     afterEach(() => {
       expect(handler.model.find.calls.count()).toEqual(1);

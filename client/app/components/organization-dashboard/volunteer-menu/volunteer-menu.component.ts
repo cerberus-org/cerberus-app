@@ -1,34 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
-import { LocationService } from '../../../services/location.service';
+import { Site } from '../../../models/site'
+import { SiteService } from '../../../services/site.service';
+import { State } from '../../../reducers/index';
 
 @Component({
   selector: 'app-volunteer-menu',
   templateUrl: './volunteer-menu.component.html',
   styleUrls: ['./volunteer-menu.component.css']
 })
-export class VolunteerMenuComponent implements OnInit {
-  locations: Location[];
+export class VolunteerMenuComponent implements OnInit, OnDestroy {
+
+  sitesSubscription: Subscription;
+  sites: Site[];
   error: string;
 
-  constructor(private router: Router, private store: Store<Location>, private locationService: LocationService) { }
+  constructor(private router: Router, private store: Store<State>, private siteService: SiteService) { }
 
-  ngOnInit() {
-    this.subscribeToLocations();
+  ngOnInit(): void {
+    this.sitesSubscription = this.subscribeToSites();
+  }
+
+  ngOnDestroy(): void {
+    this.sitesSubscription.unsubscribe();
   }
 
   /**
-   * Subscribes locations in the store.
+   * Subscribes sites in the store.
    */
-  subscribeToLocations(): void {
-    this.store.select<Location[]>('locations').subscribe(
-      locations => this.locations = locations,
+  subscribeToSites(): Subscription {
+    return this.store.select('sites').subscribe(
+      state => this.sites = state.sites,
       error => this.error = <any>error);
   }
 
-  onClick(location): void {
-    this.router.navigate(['/checkin', location._id]);
+  onClick(site): void {
+    this.router.navigate(['/checkin', site._id]);
   }
 }

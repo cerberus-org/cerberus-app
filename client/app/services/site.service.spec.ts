@@ -3,14 +3,14 @@ import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/ht
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { StoreModule } from '@ngrx/store';
 
-import { OrganizationService } from './organization.service';
+import { SiteService } from './site.service';
 import { ErrorService, MockErrorService } from './error.service';
-import { testOrganizations } from '../models/organization';
+import { testSites } from '../models/site';
 import { reducers } from '../reducers/index';
 
-describe('OrganizationService', () => {
+describe('SiteService', () => {
   let backend: MockBackend = null;
-  let service: OrganizationService = null;
+  let service: SiteService = null;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,7 +20,7 @@ describe('OrganizationService', () => {
       providers: [
         BaseRequestOptions,
         MockBackend,
-        OrganizationService,
+        SiteService,
         { provide: ErrorService, useClass: MockErrorService },
         {
           provide: Http,
@@ -33,11 +33,11 @@ describe('OrganizationService', () => {
     });
     const testbed = getTestBed();
     backend = testbed.get(MockBackend);
-    service = testbed.get(OrganizationService);
+    service = testbed.get(SiteService);
   }));
 
-  it('is created', inject([OrganizationService], (organizationService: OrganizationService) => {
-    expect(organizationService).toBeTruthy();
+  it('is created', inject([SiteService], (siteService: SiteService) => {
+    expect(siteService).toBeTruthy();
   }));
 
   const setConnections = body => {
@@ -49,45 +49,45 @@ describe('OrganizationService', () => {
     });
   };
 
-  it('gets all organizations', () => {
-    setConnections(testOrganizations);
+  it('gets all sites', () => {
+    setConnections(testSites);
     service.getAll().subscribe(res => {
-      expect(res).toEqual(testOrganizations);
+      expect(res).toEqual(testSites);
     });
   });
 
-  it('counts all organizations', () => {
-    setConnections(testOrganizations.length);
+  it('counts all sites', () => {
+    setConnections(testSites.length);
     service.count().subscribe(res => {
-      expect(res).toEqual(testOrganizations.length);
+      expect(res).toEqual(testSites.length);
     });
   });
 
-  it('creates the organization', () => {
-    setConnections(testOrganizations[0]);
-    service.create(testOrganizations[0]).subscribe(res => {
-      expect(res).toEqual(testOrganizations[0]);
+  it('creates the site', () => {
+    setConnections(testSites[0]);
+    service.create(testSites[0]).subscribe(res => {
+      expect(res).toEqual(testSites[0]);
     });
   });
 
-  it('gets the organization', () => {
-    setConnections(testOrganizations[0]);
-    service.get(testOrganizations[0]).subscribe(res => {
-      expect(res).toEqual(testOrganizations[0]);
+  it('gets the site', () => {
+    setConnections(testSites[0]);
+    service.get(testSites[0]).subscribe(res => {
+      expect(res).toEqual(testSites[0]);
     });
   });
 
-  it('updates the organization', () => {
-    setConnections(testOrganizations[0]);
-    service.update(testOrganizations[0]).subscribe(res => {
-      expect(res).toEqual(testOrganizations[0]);
+  it('updates the site', () => {
+    setConnections(testSites[0]);
+    service.update(testSites[0]).subscribe(res => {
+      expect(res).toEqual(testSites[0]);
     });
   });
 
-  it('deletes the organization', () => {
-    setConnections(testOrganizations[0]);
-    service.delete(testOrganizations[0]).subscribe(res => {
-      expect(res).toEqual(testOrganizations[0]);
+  it('deletes the site', () => {
+    setConnections(testSites[0]);
+    service.delete(testSites[0]).subscribe(res => {
+      expect(res).toEqual(testSites[0]);
     });
   });
 });

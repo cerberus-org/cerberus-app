@@ -4,7 +4,7 @@ import { MdToolbarModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 
 import { HeaderComponent } from './header.component';
-import { organizationReducer } from '../../../../reducers/organization';
+import { reducers } from '../../../../reducers/index';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -15,7 +15,7 @@ describe('HeaderComponent', () => {
       imports: [
         RouterTestingModule,
         MdToolbarModule,
-        StoreModule.provideStore({ organizations: organizationReducer })
+        StoreModule.forRoot(reducers)
       ],
       declarations: [
         HeaderComponent

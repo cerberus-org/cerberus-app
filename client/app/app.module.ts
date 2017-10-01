@@ -38,24 +38,20 @@ import { DataDisplayComponent } from './components/organization-dashboard/data-d
 import { VisitHistoryTableComponent } from './components/organization-dashboard/data-display/visit-history-table/visit-history-table.component';
 import { DailyHoursChartComponent } from './components/organization-dashboard/data-display/daily-hours-chart/daily-hours-chart.component';
 
-import { LocationCheckInComponent } from './components/location-check-in/location-check-in.component';
-import { CheckInFormComponent } from './components/location-check-in/check-in-form/check-in-form.component';
-import { SignatureFieldComponent } from './components/location-check-in/check-in-form/signature-field/signature-field.component';
-import { NewVolunteerFormComponent } from './components/location-check-in/new-volunteer-form/new-volunteer-form.component';
+import { CheckInComponent } from './components/check-in/check-in.component';
+import { CheckInFormComponent } from './components/check-in/check-in-form/check-in-form.component';
+import { SignatureFieldComponent } from './components/check-in/check-in-form/signature-field/signature-field.component';
+import { NewVolunteerFormComponent } from './components/check-in/new-volunteer-form/new-volunteer-form.component';
 
 import { ErrorService } from './services/error.service';
-import { LocationService } from './services/location.service';
+import { SiteService } from './services/site.service';
 import { OrganizationService } from './services/organization.service';
 import { SnackBarService } from './services/snack-bar.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
 
-import { locationReducer } from './reducers/location';
-import { visitReducer } from './reducers/visit';
-import { volunteerReducer } from './reducers/volunteer';
-import { organizationReducer } from './reducers/organization';
-import { userReducer } from './reducers/user';
+import { reducers } from './reducers/index';
 
 @NgModule({
   declarations: [
@@ -77,7 +73,7 @@ import { userReducer } from './reducers/user';
     SignatureFieldComponent,
     DataDisplayComponent,
     VisitHistoryTableComponent,
-    LocationCheckInComponent,
+    CheckInComponent,
     VolunteerMenuComponent,
   ],
   imports: [
@@ -102,17 +98,11 @@ import { userReducer } from './reducers/user';
     MdToolbarModule,
     ReactiveFormsModule,
     SignaturePadModule,
-    StoreModule.provideStore({
-      locations: locationReducer,
-      organizations: organizationReducer,
-      visits: visitReducer,
-      volunteers: volunteerReducer,
-      users: userReducer
-    })
+    StoreModule.forRoot(reducers)
   ],
   providers: [
     Guard,
-    LocationService,
+    SiteService,
     OrganizationService,
     SnackBarService,
     UserService,

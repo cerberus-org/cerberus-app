@@ -6,11 +6,11 @@ import { OrganizationService } from '../../services/organization.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-location-check-in',
-  templateUrl: './location-check-in.component.html',
-  styleUrls: ['./location-check-in.component.css']
+  selector: 'app-check-in',
+  templateUrl: './check-in.component.html',
+  styleUrls: ['./check-in.component.css']
 })
-export class LocationCheckInComponent implements OnInit {
+export class CheckInComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +22,6 @@ export class LocationCheckInComponent implements OnInit {
     const organizationId = localStorage.getItem('organizationId');
     this.organizationService.getByIdRx(organizationId);
     this.volunteerService.getByOrganizationRx(organizationId);
-    this.visitService.getByLocationRx(this.route.snapshot.paramMap.get('id'));
+    this.visitService.getBySiteRx(this.route.snapshot.paramMap.get('id'));
   }
 }

@@ -1,14 +1,16 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, state as animationsState, style, transition, trigger } from '@angular/animations';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Visit } from '../../../models/visit';
 import { Volunteer } from '../../../models/volunteer';
 import { VisitService } from '../../../services/visit.service';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { State } from '../../../reducers/index';
 
 @Component({
   selector: 'app-check-in-form',
@@ -16,7 +18,7 @@ import { SnackBarService } from '../../../services/snack-bar.service';
   styleUrls: ['./check-in-form.component.css'],
   animations: [
     trigger('sigTrigger', [
-      state('fadeIn', style({
+      animationsState('fadeIn', style({
         opacity: '1',
       })),
       transition('void => *', [
@@ -26,8 +28,11 @@ import { SnackBarService } from '../../../services/snack-bar.service';
     ])
   ]
 })
-export class CheckInFormComponent implements OnInit {
+export class CheckInFormComponent implements OnInit, OnDestroy {
+
   @ViewChildren(SignatureFieldComponent) signatures: QueryList<SignatureFieldComponent>;
+  visitsSubscription: Subscription;
+  volunteersSubscription: Subscription;
   showPetNameForm: boolean;
   error: string;
   signatureState: string;
@@ -45,7 +50,7 @@ export class CheckInFormComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
-              private store: Store<any>,
+              private store: Store<State>,
               private snackBarService: SnackBarService,
               private visitService: VisitService,
               private router: Router) {
@@ -60,8 +65,13 @@ export class CheckInFormComponent implements OnInit {
     this.activeVisitForVolunteer = null;
     // Set selectedVolunteer to null so the signature box is hidden after a new volunteer is created
     this.selectedVolunteer = null;
-    this.subscribeToVisits();
-    this.subscribeToVolunteers();
+    this.visitsSubscription = this.subscribeToVisits();
+    this.volunteersSubscription = this.subscribeToVolunteers();
+  }
+
+  ngOnDestroy(): void {
+    this.visitsSubscription.unsubscribe();
+    this.volunteersSubscription.unsubscribe();
   }
 
   ngAfterView() {
@@ -71,18 +81,18 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Subscribes visits in the store. TODO: Only retrieve visits from last 24 hours
    */
-  subscribeToVisits(): void {
-    this.store.select<Visit[]>('visits').subscribe(
-      visits => this.visits = visits,
+  subscribeToVisits(): Subscription {
+    return this.store.select('visits').subscribe(
+      state => this.visits = state.visits,
       error => this.error = <any>error);
   }
 
   /**
    * Subscribes volunteers in the store
    */
-  subscribeToVolunteers(): void {
-    this.store.select<Volunteer[]>('volunteers').subscribe(
-      volunteers => this.volunteers = volunteers,
+  subscribeToVolunteers(): Subscription {
+    return this.store.select('volunteers').subscribe(
+      state => this.volunteers = state.volunteers,
       error => this.error = <any>error);
   }
 
@@ -213,9 +223,9 @@ export class CheckInFormComponent implements OnInit {
   /**
    * Creates a new visit with now as the start time and a null end time.
    */
-  startVisit(organizationId: string, locationId: string, volunteer: Volunteer, signature: any): void {
+  startVisit(organizationId: string, siteId: string, volunteer: Volunteer, signature: any): void {
     this.visitService.createRx(
-      new Visit(organizationId, locationId, volunteer._id, new Date(), null, 'America/Chicago', signature),
+      new Visit(organizationId, siteId, volunteer._id, new Date(), null, 'America/Chicago', signature),
       () => {
         this.snackBarService.checkInSuccess();
         this.router.navigateByUrl('/dashboard');

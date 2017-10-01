@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Location } from '../../models/location';
+import { Site } from '../../models/site';
 import { Organization } from '../../models/organization';
 import { User } from '../../models/user';
-import { LocationService } from '../../services/location.service';
+import { SiteService } from '../../services/site.service';
 import { OrganizationService } from '../../services/organization.service';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { UserService } from '../../services/user.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-getting-started',
@@ -21,7 +22,7 @@ export class GettingStartedComponent implements OnInit {
   organization: Organization;
   user: User;
 
-  constructor(private locationService: LocationService,
+  constructor(private siteService: SiteService,
               private organizationService: OrganizationService,
               private snackBarService: SnackBarService,
               private userService: UserService) { }
@@ -39,14 +40,15 @@ export class GettingStartedComponent implements OnInit {
   };
 
   /**
-   * On submit, add the following in order: Organization, Location, then User.
+   * On submit, add the following in order: Organization, Site, then User.
    */
   onSubmit(): void {
-    this.createOrganization(this.organization, organization => {
+    // TODO: Refactor with @ngrx/effects
+    this.createOrganization(this.organization).subscribe(organization => {
       const userWithOrgId = Object.assign({}, this.user);
       userWithOrgId.organizationId = organization._id;
-      this.createLocation(organization, () => {
-        this.createUser(userWithOrgId, () => {
+      this.createSite(organization).subscribe(() => {
+        this.createUser(userWithOrgId).subscribe(() => {
           this.snackBarService.addOrganizationSuccess();
           this.login(this.user);
         });
@@ -57,29 +59,26 @@ export class GettingStartedComponent implements OnInit {
   /**
    * Creates an Organization and executes a function on success.
    * @param {Organization} organization
-   * @param successCb
    */
-  createOrganization(organization: Organization, successCb): void {
-    this.organizationService.createRx(organization, successCb);
+  createOrganization(organization: Organization): Observable<Organization> {
+    return this.organizationService.create(organization);
   }
 
   /**
-   * Creates a Location and executes a function on success.
+   * Creates a Site and executes a function on success.
    * @param {Organization} organization
-   * @param successCb
    */
-  createLocation(organization: Organization, successCb): void {
-    // TODO: Get values from a new location form
-    this.locationService.createRx(new Location(organization._id, organization.name, null), successCb);
+  createSite(organization: Organization): Observable<Site> {
+    // TODO: Get values from a new site form
+    return this.siteService.create(new Site(organization._id, organization.name, null));
   }
 
   /**
    * Creates a User and executes a function on success.
    * @param user
-   * @param successCb
    */
-  createUser(user: User, successCb): void {
-    this.userService.createRx(user, successCb);
+  createUser(user: User): Observable<User> {
+    return this.userService.create(user);
   }
 
   login(user: User) {
