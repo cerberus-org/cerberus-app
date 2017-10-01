@@ -11,6 +11,8 @@ import { VisitService } from '../../../services/visit.service';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { State } from '../../../reducers/index';
+import { Observable } from 'rxjs/Observable';
+import { FilterByName, FilterByPetName } from '../../../actions/volunteers.actions';
 
 @Component({
   selector: 'app-check-in-form',
@@ -31,6 +33,7 @@ import { State } from '../../../reducers/index';
 export class CheckInFormComponent implements OnInit, OnDestroy {
 
   @ViewChildren(SignatureFieldComponent) signatures: QueryList<SignatureFieldComponent>;
+  volunteers$: Observable<State['volunteers']>;
   visitsSubscription: Subscription;
   volunteersSubscription: Subscription;
   showPetNameForm: boolean;
@@ -65,6 +68,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     this.activeVisitForVolunteer = null;
     // Set selectedVolunteer to null so the signature box is hidden after a new volunteer is created
     this.selectedVolunteer = null;
+    this.volunteers$ = this.store.select('volunteers');
     this.visitsSubscription = this.subscribeToVisits();
     this.volunteersSubscription = this.subscribeToVolunteers();
   }
@@ -92,30 +96,28 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   subscribeToVolunteers(): Subscription {
     return this.store.select('volunteers').subscribe(
-      state => this.volunteers = state.volunteers,
+      state => {
+        this.volunteers = state.volunteers;
+        this.selectedVolunteer = state.selected;
+        this.showPetNameForm = state.filteredHasManyWithSameName;
+      },
       error => this.error = <any>error);
   }
 
   /**
-   * Validates if a matching volunteer is found by name (control value).
+   * Validates if a matching volunteer is found by name (control.value).
    * @param {AbstractControl} control
    */
-  volunteerExistenceValidator = (control: AbstractControl): { [key: string]: any } => {
-    const name = control.value;
-    const match = this.volunteers
-      ? this.volunteers.find(volunteer => this.formatName(volunteer) === name)
-      : null;
-    return match ? null : { 'doesNotExist': { name } };
+  nameValidator = (control: AbstractControl): { [key: string]: any } => {
+    return this.selectedVolunteer ? null : { 'noMatchByName': { name } };
   };
 
   /**
-   * Validates if a matching volunteer is found by pet name (control value).
+   * Validates if a matching volunteer is found by pet name (control.value).
    * @param {AbstractControl} control
    */
-  volunteerUniqueValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !this.showPetNameForm || this.findVolunteerByPetName(this.filteredVolunteers, control.value)
-      ? null
-      : { 'notUnique': { name } };
+  petNameValidator = (control: AbstractControl): { [key: string]: any } => {
+    return !this.showPetNameForm || (this.showPetNameForm && this.selectedVolunteer) ? null : { 'noMatchByPetName': { name } };
   };
 
   /**
@@ -139,8 +141,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   createForm(): void {
     this.formGroup = this.fb.group({
-      name: ['', [Validators.required, this.volunteerExistenceValidator]],
-      petName: ['', this.volunteerUniqueValidator],
+      name: ['', [Validators.required, this.nameValidator]],
+      petName: ['', this.petNameValidator],
       signatureField: ['', this.signatureValidator]
     });
   }
@@ -153,50 +155,25 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   };
 
   /**
-   * Modifies client state based on name changes.
-   * @param changes
-   */
-  handleNameChanges = (changes): void => {
-    this.filteredVolunteers = this.filterVolunteersByName(this.volunteers, changes);
-    this.filteredNames = this.filterVolunteerNames(this.filteredVolunteers, changes);
-    this.showPetNameForm = this.checkIfSameNames(this.filteredVolunteers, changes);
-    if (!this.showPetNameForm) {
-      this.selectedVolunteer = changes && this.volunteers
-        ? this.volunteers.find(volunteer => this.formatName(volunteer).toLowerCase() === changes.toLowerCase())
-        : null;
-    }
-  };
-
-  /**
-   * Filters volunteers by pet name when petName value changes.
-   * @param changes
-   */
-  handlePetNameChanges = (changes): void => {
-    if (!this.showPetNameForm) {
-      return;
-    }
-    this.selectedVolunteer = this.findVolunteerByPetName(this.filteredVolunteers, changes);
-    this.filteredVolunteersByPetName = this.filterVolunteersByPetName(this.filteredVolunteers, changes);
-    this.clearSignature();
-  };
-
-  /**
    * Subscribes to value changes in the form.
    */
   subscribeToForm(): void {
     const nameControl = this.formGroup.controls['name'];
     const petNameControl = this.formGroup.controls['petName'];
-    this.formGroup.valueChanges.subscribe(() =>
+    this.formGroup.valueChanges.subscribe(() => {
       this.activeVisitForVolunteer = nameControl.invalid || petNameControl.invalid
         ? null
-        : this.checkForActiveVisit(this.visits, this.selectedVolunteer));
+        : this.checkForActiveVisit(this.visits, this.selectedVolunteer);
+      this.clearSignature();
+
+    });
     nameControl.valueChanges.subscribe(changes => {
-      this.handleNameChanges(changes);
+      this.store.dispatch(new FilterByName(changes));
       if (!this.showPetNameForm) {
         petNameControl.reset();
       }
     });
-    petNameControl.valueChanges.subscribe(this.handlePetNameChanges);
+    petNameControl.valueChanges.subscribe(changes => this.store.dispatch(new FilterByPetName(changes)));
   }
 
   /**
@@ -246,42 +223,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Filters volunteers names for autocomplete by comparing against first and last names and removing duplicates.
-   * @param volunteers
-   * @param name
-   */
-  filterVolunteerNames(volunteers: Volunteer[], name: string): string[] {
-    return name && volunteers
-      ? Array.from(new Set(volunteers
-        .filter(volunteer => this.formatName(volunteer).toLowerCase().includes(name.toLowerCase()))
-        .map(volunteer => this.formatName(volunteer))))
-      : null;
-  }
-
-  /**
-   * Filters volunteers by comparing against first and last names.
-   * @param volunteers
-   * @param name
-   */
-  filterVolunteersByName(volunteers: Volunteer[], name: string): Volunteer[] {
-    return name && volunteers
-      ? volunteers.filter(volunteer => this.formatName(volunteer).toLowerCase().includes(name.toLowerCase()))
-      : null;
-  }
-
-  /**
-   * Checks if the given pet name narrows the filtered volunteers to one.
-   * @param volunteers
-   * @param petName
-   * @returns {boolean}
-   */
-  filterVolunteersByPetName(volunteers: Volunteer[], petName: string): Volunteer[] {
-    return petName && volunteers
-      ? volunteers.filter(volunteer => volunteer.petName.toLowerCase().includes(petName.toLowerCase()))
-      : null;
-  }
-
-  /**
    * Finds an active visit for the selected volunteer if one exists.
    * @returns {undefined|Visit}
    */
@@ -289,28 +230,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     return visits && volunteer
       ? visits.find(visit => visit.endedAt === null && volunteer._id === visit.volunteerId)
       : null;
-  }
-
-  /**
-   * Finds a unique volunteer using a pet name (no two volunteers of the first and last names can have the same pet name).
-   * @param volunteers
-   * @param petName
-   * @returns {boolean}
-   */
-  findVolunteerByPetName(volunteers: Volunteer[], petName: string): Volunteer {
-    return volunteers ? volunteers.find(volunteer => volunteer.petName === petName) : null;
-  }
-
-  /**
-   * Checks if the remaining filtered volunteers all have the same name.
-   * @param volunteers
-   * @param name
-   * @returns {boolean}
-   */
-  checkIfSameNames(volunteers: Volunteer[], name: string): boolean {
-    return volunteers && volunteers.length > 1
-      ? volunteers.filter(volunteer => this.formatName(volunteer).toLowerCase() === name.toLowerCase()).length > 1
-      : false;
   }
 
   /**

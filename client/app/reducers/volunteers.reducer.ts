@@ -4,17 +4,17 @@ import * as VolunteerActions from '../actions/volunteers.actions'
 export interface State {
   volunteers: Volunteer[];
   filtered: Volunteer[];
-  filteredByPetName: Volunteer[];
   filteredUniqueNames: string[];
   filteredHasManyWithSameName: boolean;
+  selected: Volunteer,
 }
 
 export const initialState: State = {
   volunteers: [],
   filtered: [],
-  filteredByPetName: [],
   filteredUniqueNames: [],
-  filteredHasManyWithSameName: false
+  filteredHasManyWithSameName: false,
+  selected: null
 };
 
 export type Action = VolunteerActions.All;
@@ -46,14 +46,18 @@ export function reducer(state = initialState, action: Action): State {
      * action.payload is a string for name.
      */
     case VolunteerActions.FILTER_BY_NAME: {
-      const name: string = action.payload;
+      const name: string = action.payload.toLowerCase();
       const filtered: Volunteer[] = state.volunteers.filter(volunteer =>
-        this.formatName(volunteer).toLowerCase().includes(name.toLowerCase()));
+        this.formatName(volunteer).toLowerCase().includes(name));
       const uniqueNames: string[] = getUniqueNames(filtered);
+      const hasManyWithSameName: boolean = filtered.length > 1 && uniqueNames.length === 1;
       return Object.assign({}, state, {
         filtered: filtered,
         filteredUniqueNames: uniqueNames,
-        filteredHasManyWithSameName: filtered.length > 1 && uniqueNames.length === 1
+        filteredHasManyWithSameName: hasManyWithSameName,
+        selected: !hasManyWithSameName
+          ? state.filtered.find(volunteer => this.formatName(volunteer).toLowerCase() === name)
+          : null
       });
     }
 
@@ -62,9 +66,9 @@ export function reducer(state = initialState, action: Action): State {
      * action.payload is a string for petName.
      */
     case VolunteerActions.FILTER_BY_PET_NAME: {
-      const petName: string = action.payload;
+      const petName: string = action.payload.toLowerCase();
       return Object.assign({}, state, {
-        filteredByPetName: state.volunteers.find(volunteer => volunteer.petName === petName)
+        selected: state.volunteers.find(volunteer => volunteer.petName.toLowerCase() === petName)
       });
     }
 
