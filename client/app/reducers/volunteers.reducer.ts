@@ -22,7 +22,7 @@ export type Action = VolunteerActions.All;
 export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
     case VolunteerActions.LOAD: {
-      return Object.assign({}, state, {
+      return Object.assign({}, initialState, {
         volunteers: action.payload
       });
     }

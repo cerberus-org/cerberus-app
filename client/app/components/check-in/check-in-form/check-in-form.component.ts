@@ -13,6 +13,7 @@ import { SnackBarService } from '../../../services/snack-bar.service';
 import { State } from '../../../reducers/index';
 import { Observable } from 'rxjs/Observable';
 import { FilterAndSelectVolunteerByName, SelectVolunteerByPetName } from '../../../actions/volunteers.actions';
+import { SelectActiveVisitForVolunteer } from '../../../actions/visits.actions';
 
 @Component({
   selector: 'app-check-in-form',
@@ -47,7 +48,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
 
   visitsSubscription: Subscription;
   visits: Visit[];
-  activeVisitForVolunteer: Visit;
+  activeVisit: Visit;
   signatureState: string;
 
   /**
@@ -65,7 +66,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * Gets visit and volunteer data from services on initialization.
    */
   ngOnInit(): void {
-    this.activeVisitForVolunteer = null;
+    this.activeVisit = null;
     this.selectedVolunteer = null;
     this.volunteers$ = this.store.select('volunteers');
     this.visitsSubscription = this.subscribeToVisits();
@@ -92,7 +93,10 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   subscribeToVisits(): Subscription {
     return this.store.select('visits').subscribe(
-      state => this.visits = state.visits,
+      state => {
+        this.visits = state.visits;
+        this.activeVisit = state.selected;
+      },
       error => this.error = <any>error);
   }
 
@@ -144,7 +148,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   signatureValidator = (control: AbstractControl): { [key: string]: any } => {
     // If there is an active visit the signature pad is valid as is
-    if (this.activeVisitForVolunteer !== undefined) {
+    if (this.activeVisit) {
       return null;
     }
     const signature = control.value;
@@ -169,29 +173,16 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * Subscribes to value changes in the form.
    */
   subscribeToForm(): Subscription {
-    return this.formGroup.valueChanges.subscribe(() => {
-      this.activeVisitForVolunteer = this.nameControl.invalid || this.petNameControl.invalid
-        ? null
-        : this.findActiveVisitForVolunteer(this.visits, this.selectedVolunteer);
-    });
+    return this.formGroup.valueChanges.subscribe(() =>
+      this.store.dispatch(new SelectActiveVisitForVolunteer(this.selectedVolunteer)));
   }
-
-  /**
-   * Checks for an active visit
-   */
-  findActiveVisitForVolunteer = (visits: Visit[], volunteer: Volunteer) => {
-    return visits && volunteer
-      ? visits.find(visit => visit.endedAt === null && volunteer._id === visit.volunteerId)
-      : null
-
-  };
 
   /**
    * Starts or ends a visit and resets the form group on clicking the submit button.
    */
   onSubmit(): void {
-    if (this.activeVisitForVolunteer) {
-      this.endVisit(this.activeVisitForVolunteer);
+    if (this.activeVisit) {
+      this.endVisit(this.activeVisit);
     } else if (this.selectedVolunteer) {
       this.startVisit(
         localStorage.getItem('organizationId'),
@@ -200,10 +191,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
         this.signatures.first.signature);
     }
     this.formGroup.reset();
-    // Workaround for clearing error state
-    Object.keys(this.formGroup.controls).forEach(key => {
-      this.formGroup.controls[key].setErrors(null);
-    });
     this.clearSignature();
   }
 

@@ -6,7 +6,6 @@
       (ngSubmit)="onSubmit()">
   <md-input-container fxFlex="0 1 auto">
     <input mdInput
-           class="capitalize"
            placeholder="Name"
            [mdAutocomplete]="nameForm"
            formControlName="name">
@@ -23,7 +22,7 @@
       <i class="material-icons">pets</i> {{volunteer.petName}}
     </md-radio-button>
   </md-radio-group>
-  <div *ngIf="!!activeVisitForVolunteer; then showCheckOut else showCheckIn"></div>
+  <div *ngIf="activeVisit; then showCheckOut else showCheckIn"></div>
   <div fxFlex="0 1 auto">
     <ng-template #showCheckIn>
       <div *ngIf="!nameControl.invalid"

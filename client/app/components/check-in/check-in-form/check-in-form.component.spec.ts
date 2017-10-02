@@ -153,7 +153,7 @@ describe('CheckInFormComponent', () => {
 
     it('validates non-requirement on check out', (() => {
       const control = component.formGroup.controls['signatureField'];
-      component.activeVisitForVolunteer = testVisits[0];
+      component.activeVisit = testVisits[0];
       expect(control.valid).toBeTruthy();
       expect(control.errors).toBeFalsy();
     }));
