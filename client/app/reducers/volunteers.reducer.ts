@@ -20,6 +20,11 @@ export const initialState: State = {
 export type Action = VolunteerActions.All;
 
 export function reducer(state = initialState, action: Action): State {
+
+  if (!action.payload) {
+    return state;
+  }
+
   switch (action.type) {
     case VolunteerActions.LOAD: {
       return Object.assign({}, initialState, {
@@ -50,7 +55,9 @@ export function reducer(state = initialState, action: Action): State {
       const filtered: Volunteer[] = state.volunteers.filter(volunteer =>
         formatName(volunteer).toLowerCase().includes(name));
       const uniqueNames: string[] = getUniqueNames(filtered);
-      const hasManyWithSameName: boolean = filtered.length > 1 && uniqueNames.length === 1;
+      const hasManyWithSameName: boolean = filtered.length > 1
+        && uniqueNames.length === 1
+        && uniqueNames[0].toLowerCase() === name;
       const selected: Volunteer = !hasManyWithSameName
         ? filtered.find(volunteer => formatName(volunteer).toLowerCase() === name)
         : null;

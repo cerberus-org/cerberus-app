@@ -119,43 +119,26 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param {AbstractControl} control
    */
   nameValidator = (control: AbstractControl): { [key: string]: any } => {
-    const name: string = control.value;
-    if (!name) {
-      return null;
-    }
-    // Update state in validator since formControl.valueChanges is emitted after
-    this.store.dispatch(new FilterAndSelectVolunteerByName(name));
-    return this.selectedVolunteer || this.showPetNameForm ? null : { 'noMatchByName': { value: name } };
+    // Update state in validator since formControl.valueChanges calls next() after validation
+    // TODO: Find out how to update volunteers state outside validator
+    this.store.dispatch(new FilterAndSelectVolunteerByName(control.value));
+    return this.selectedVolunteer || this.showPetNameForm ? null : { 'noMatchByName': { value: control.value } };
   };
 
   /**
-   * Validates if a matching volunteer is found by pet name (control.value).
+   * Validates if a matching volunteer is found by pet name (control.value) if needed.
    * @param {AbstractControl} control
    */
   petNameValidator = (control: AbstractControl): { [key: string]: any } => {
-    const petName: string = control.value;
-    if (!petName || !this.showPetNameForm) {
-      return null;
-    }
-    // Update state in validator since formControl.valueChanges is emitted after
-    this.store.dispatch(new SelectVolunteerByPetName(petName));
-    return this.selectedVolunteer ? null : { 'noMatchByPetName': { value: petName } };
+    return !this.showPetNameForm || this.selectedVolunteer ? null : { 'noMatchByPetName': { value: control.value } };
   };
 
   /**
-   * Validates if a signature has been entered.
+   * Validates if a signature (control.value) has been entered if needed.
    * @param {AbstractControl} control
    */
   signatureValidator = (control: AbstractControl): { [key: string]: any } => {
-    // If there is an active visit the signature pad is valid as is
-    if (this.activeVisit) {
-      return null;
-    }
-    const signature = control.value;
-    // If signatures is defined and the signature pad has not been signed
-    if (signature !== undefined && signature === '') {
-      return { 'noSignature': { value: signature } };
-    }
+    return this.activeVisit || control.value ? null : { 'noSignature': { value: control.value } };
   };
 
   /**
@@ -175,6 +158,14 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   subscribeToForm(): Subscription {
     return this.formGroup.valueChanges.subscribe(() =>
       this.store.dispatch(new SelectActiveVisitForVolunteer(this.selectedVolunteer)));
+  }
+
+  /**
+   * Updates state when a pet name is selected.
+   * @param {string} petName
+   */
+  onPetNameClick(petName: string): void {
+    this.store.dispatch(new SelectVolunteerByPetName(petName));
   }
 
   /**
@@ -228,8 +219,11 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     this.signatures.first.signaturePad.clear(); // clearing is needed to set the background colour
   }
 
+  /**
+   * Clears the signature.
+   */
   clearSignature(): void {
-    if (this.signatures.first !== undefined) {
+    if (this.signatures.first) {
       this.signatures.first.clear();
     }
   }
