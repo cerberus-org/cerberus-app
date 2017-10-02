@@ -46,18 +46,20 @@ export function reducer(state = initialState, action: Action): State {
      * action.payload is a string for name.
      */
     case VolunteerActions.FILTER_BY_NAME: {
+      console.log(VolunteerActions.FILTER_BY_NAME);
       const name: string = action.payload.toLowerCase();
       const filtered: Volunteer[] = state.volunteers.filter(volunteer =>
-        this.formatName(volunteer).toLowerCase().includes(name));
+        formatName(volunteer).toLowerCase().includes(name));
       const uniqueNames: string[] = getUniqueNames(filtered);
       const hasManyWithSameName: boolean = filtered.length > 1 && uniqueNames.length === 1;
+      const selected: Volunteer = !hasManyWithSameName
+        ? filtered.find(volunteer => formatName(volunteer).toLowerCase() === name)
+        : null;
       return Object.assign({}, state, {
         filtered: filtered,
         filteredUniqueNames: uniqueNames,
         filteredHasManyWithSameName: hasManyWithSameName,
-        selected: !hasManyWithSameName
-          ? state.filtered.find(volunteer => this.formatName(volunteer).toLowerCase() === name)
-          : null
+        selected: selected
       });
     }
 
@@ -83,7 +85,7 @@ export function reducer(state = initialState, action: Action): State {
  * @param volunteers
  */
 const getUniqueNames = (volunteers: Volunteer[]): string[] => {
-  return Array.from(new Set(volunteers.map(volunteer => this.formatName(volunteer))))
+  return Array.from(new Set(volunteers.map(volunteer => formatName(volunteer))))
 };
 
 /**
