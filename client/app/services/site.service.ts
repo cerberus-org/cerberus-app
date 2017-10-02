@@ -15,9 +15,9 @@ export class SiteService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'site';
     this.actions = {
-      load: SiteActions.Load,
-      add: SiteActions.Add,
-      modify: SiteActions.Modify
+      load: SiteActions.LoadSites,
+      add: SiteActions.AddSite,
+      modify: SiteActions.ModifySite
     };
   }
 

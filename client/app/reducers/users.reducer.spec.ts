@@ -11,20 +11,20 @@ describe('userReducer', () => {
   });
 
   it('loads users', () => {
-    const result = fromUsers.reducer({ users: users }, new UserActions.Load(users)).users;
+    const result = fromUsers.reducer({ users: users }, new UserActions.LoadUsers(users)).users;
     expect(result).toBe(users);
   });
 
   it('adds a user', () => {
     const user = Object.assign({}, users[0]);
-    const result = fromUsers.reducer({ users: users }, new UserActions.Add(user)).users;
+    const result = fromUsers.reducer({ users: users }, new UserActions.AddUser(user)).users;
     expect(result[0]).toBe(user);
     expect(result.length).toBe(users.length + 1);
   });
 
   it('modifies a user', () => {
     const modified = Object.assign({}, users[0]);
-    const result = fromUsers.reducer({ users: users }, new UserActions.Modify(modified)).users;
+    const result = fromUsers.reducer({ users: users }, new UserActions.ModifyUser(modified)).users;
     expect(result[0]).toBe(modified);
   });
 });

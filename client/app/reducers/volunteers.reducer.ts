@@ -42,11 +42,10 @@ export function reducer(state = initialState, action: Action): State {
     }
 
     /**
-     * Filters volunteers by comparing against first and last names.
+     * Filters volunteers by comparing against first and last names and selects if one remains.
      * action.payload is a string for name.
      */
-    case VolunteerActions.FILTER_BY_NAME: {
-      console.log(VolunteerActions.FILTER_BY_NAME);
+    case VolunteerActions.FILTER_AND_SELECT_BY_NAME: {
       const name: string = action.payload.toLowerCase();
       const filtered: Volunteer[] = state.volunteers.filter(volunteer =>
         formatName(volunteer).toLowerCase().includes(name));
@@ -64,10 +63,10 @@ export function reducer(state = initialState, action: Action): State {
     }
 
     /**
-     * Filters volunteers by comparing against first and last names.
+     * Selects a volunteer by petName.
      * action.payload is a string for petName.
      */
-    case VolunteerActions.FILTER_BY_PET_NAME: {
+    case VolunteerActions.SELECT_BY_PET_NAME: {
       const petName: string = action.payload.toLowerCase();
       return Object.assign({}, state, {
         selected: state.volunteers.find(volunteer => volunteer.petName.toLowerCase() === petName)

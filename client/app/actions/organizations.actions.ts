@@ -1,29 +1,29 @@
 import { Action } from '@ngrx/store';
 import { Organization } from '../models/organization';
 
-export const LOAD   = '[Organizations] Load';
-export const ADD    = '[Organizations] Add';
+export const LOAD = '[Organizations] Load';
+export const ADD = '[Organizations] Add';
 export const MODIFY = '[Organizations] Modify';
 
-export class Load implements Action {
+export class LoadOrganizations implements Action {
   readonly type = LOAD;
 
   constructor(public payload: Organization[]) {}
 }
 
-export class Add implements Action {
+export class AddOrganization implements Action {
   readonly type = ADD;
 
   constructor(public payload: Organization) {}
 }
 
-export class Modify implements Action {
+export class ModifyOrganization implements Action {
   readonly type = MODIFY;
 
   constructor(public payload: Organization) {}
 }
 
 export type All
-  = Load
-  | Add
-  | Modify;
+  = LoadOrganizations
+  | AddOrganization
+  | ModifyOrganization;

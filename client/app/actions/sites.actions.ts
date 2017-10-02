@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 import { Site } from '../models/site';
 
-export const LOAD   = '[Sites] Load';
-export const ADD    = '[Sites] Add';
+export const LOAD = '[Sites] Load';
+export const ADD = '[Sites] Add';
 export const MODIFY = '[Sites] Modify';
 
 /**
@@ -10,19 +10,19 @@ export const MODIFY = '[Sites] Modify';
  * payload. Expressing actions as classes enables powerful
  * type checking in reducer functions.
  */
-export class Load implements Action {
+export class LoadSites implements Action {
   readonly type = LOAD;
 
   constructor(public payload: Site[]) {}
 }
 
-export class Add implements Action {
+export class AddSite implements Action {
   readonly type = ADD;
 
   constructor(public payload: Site) {}
 }
 
-export class Modify implements Action {
+export class ModifySite implements Action {
   readonly type = MODIFY;
 
   constructor(public payload: Site) {}
@@ -33,6 +33,6 @@ export class Modify implements Action {
  * so that reducers can easily compose action types.
  */
 export type All
-  = Load
-  | Add
-  | Modify;
+  = LoadSites
+  | AddSite
+  | ModifySite;

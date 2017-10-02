@@ -12,7 +12,7 @@ import { SignatureFieldComponent } from './signature-field/signature-field.compo
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { State } from '../../../reducers/index';
 import { Observable } from 'rxjs/Observable';
-import { FilterByName, FilterByPetName } from '../../../actions/volunteers.actions';
+import { FilterAndSelectVolunteerByName, SelectVolunteerByPetName } from '../../../actions/volunteers.actions';
 
 @Component({
   selector: 'app-check-in-form',
@@ -119,8 +119,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     if (!name) {
       return null;
     }
-    // Dispatch action in validator since formControl.valueChanges is emitted after
-    this.store.dispatch(new FilterByName(name));
+    // Update state in validator since formControl.valueChanges is emitted after
+    this.store.dispatch(new FilterAndSelectVolunteerByName(name));
     return this.selectedVolunteer || this.showPetNameForm ? null : { 'noMatchByName': { value: name } };
   };
 
@@ -133,8 +133,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     if (!petName || !this.showPetNameForm) {
       return null;
     }
-    // Dispatch action in validator since formControl.valueChanges is emitted after
-    this.store.dispatch(new FilterByPetName(petName));
+    // Update state in validator since formControl.valueChanges is emitted after
+    this.store.dispatch(new SelectVolunteerByPetName(petName));
     return this.selectedVolunteer ? null : { 'noMatchByPetName': { value: petName } };
   };
 

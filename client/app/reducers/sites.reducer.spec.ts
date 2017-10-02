@@ -11,20 +11,20 @@ describe('siteReducer', () => {
   });
 
   it('loads sites', () => {
-    const result = fromSites.reducer({ sites: sites }, new SiteActions.Load(sites)).sites;
+    const result = fromSites.reducer({ sites: sites }, new SiteActions.LoadSites(sites)).sites;
     expect(result).toBe(sites);
   });
 
   it('adds a site', () => {
     const site = Object.assign({}, sites[0]);
-    const result = fromSites.reducer({ sites: sites }, new SiteActions.Add(site)).sites;
+    const result = fromSites.reducer({ sites: sites }, new SiteActions.AddSite(site)).sites;
     expect(result[0]).toBe(site);
     expect(result.length).toBe(sites.length + 1);
   });
 
   it('modifies a site', () => {
     const modified = Object.assign({}, sites[0]);
-    const result = fromSites.reducer({ sites: sites }, new SiteActions.Modify(modified)).sites;
+    const result = fromSites.reducer({ sites: sites }, new SiteActions.ModifySite(modified)).sites;
     expect(result[0]).toBe(modified);
   });
 });

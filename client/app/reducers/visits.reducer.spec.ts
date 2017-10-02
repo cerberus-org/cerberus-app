@@ -11,20 +11,20 @@ describe('visitReducer', () => {
   });
 
   it('loads visits', () => {
-    const result = fromVisits.reducer({ visits: visits }, new VisitActions.Load(visits)).visits;
+    const result = fromVisits.reducer({ visits: visits }, new VisitActions.LoadVisits(visits)).visits;
     expect(result).toEqual(testVisits.slice(0, 3).reverse());
   });
 
   it('adds a visit', () => {
     const visit = Object.assign({}, visits[0]);
-    const result = fromVisits.reducer({ visits: visits }, new VisitActions.Add(visit)).visits;
+    const result = fromVisits.reducer({ visits: visits }, new VisitActions.AddVisit(visit)).visits;
     expect(result[0]).toBe(visit);
     expect(result.length).toBe(visits.length + 1);
   });
 
   it('modifies a visit', () => {
     const modified = Object.assign({}, visits[0]);
-    const result = fromVisits.reducer({ visits: visits }, new VisitActions.Modify(modified)).visits;
+    const result = fromVisits.reducer({ visits: visits }, new VisitActions.ModifyVisit(modified)).visits;
     expect(result[0]).toBe(modified);
   });
 });

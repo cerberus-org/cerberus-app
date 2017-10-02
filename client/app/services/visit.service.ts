@@ -17,9 +17,9 @@ export class VisitService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'visit';
     this.actions = {
-      load: VisitsActions.Load,
-      add: VisitsActions.Add,
-      modify: VisitsActions.Modify
+      load: VisitsActions.LoadVisits,
+      add: VisitsActions.AddVisit,
+      modify: VisitsActions.ModifyVisit
     }
   }
 
