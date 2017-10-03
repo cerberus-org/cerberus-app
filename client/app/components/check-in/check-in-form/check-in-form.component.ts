@@ -72,9 +72,9 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     this.visitsSubscription = this.subscribeToVisits();
     this.volunteersSubscription = this.subscribeToVolunteers();
     this.formGroup = this.createForm();
+    this.formGroupSubscription = this.subscribeToForm();
     this.nameControl = this.formGroup.controls['name'];
     this.petNameControl = this.formGroup.controls['petName'];
-    this.formGroupSubscription = this.subscribeToForm();
   }
 
   ngOnDestroy(): void {
@@ -88,7 +88,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Subscribes to visits state. TODO: Only retrieve visits from last 24 hours
+   * Subscribes to visits state.
    * @return {Subscription}
    */
   subscribeToVisits(): Subscription {
@@ -216,7 +216,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   setSignatureOptions(): void {
     this.signatures.first.signaturePad.set('penColor', 'rgb(0, 0, 0)');
     this.signatures.first.signaturePad.set('backgroundColor', 'rgb(255, 255, 255, 0)');
-    this.signatures.first.signaturePad.clear(); // clearing is needed to set the background colour
+    this.signatures.first.signaturePad.clear(); // clear() is needed to set the background color
   }
 
   /**

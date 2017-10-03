@@ -52,12 +52,16 @@ export function reducer(state = initialState, action: Action): State {
      */
     case VolunteerActions.FILTER_AND_SELECT_BY_NAME: {
       const name: string = action.payload.toLowerCase();
+      // Create the list of filtered volunteers by name
       const filtered: Volunteer[] = state.volunteers.filter(volunteer =>
         formatName(volunteer).toLowerCase().includes(name));
-      const uniqueNames: string[] = getUniqueNames(filtered);
+      // Create the set of names from the filtered volunteers
+      const uniqueNames: string[] = Array.from(new Set(filtered.map(volunteer => formatName(volunteer))));
+      // If the filtered volunteers all exactly match the name, set to true
       const hasManyWithSameName: boolean = filtered.length > 1
         && uniqueNames.length === 1
         && uniqueNames[0].toLowerCase() === name;
+      // If one volunteer remains, select the volunteer that exactly matches the name
       const selected: Volunteer = !hasManyWithSameName
         ? filtered.find(volunteer => formatName(volunteer).toLowerCase() === name)
         : null;
@@ -85,14 +89,6 @@ export function reducer(state = initialState, action: Action): State {
     }
   }
 }
-
-/**
- * Gets unique names from an array of volunteers.
- * @param volunteers
- */
-const getUniqueNames = (volunteers: Volunteer[]): string[] => {
-  return Array.from(new Set(volunteers.map(volunteer => formatName(volunteer))))
-};
 
 /**
  * Formats the name of a volunteer as one string.
