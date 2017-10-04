@@ -115,13 +115,21 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Dispatches a FilterAndSelectVolunteerByName action.
+   * @param {string} name
+   */
+  dispatchFilterAndSelectByName(name: string): void {
+    this.store.dispatch(new FilterAndSelectVolunteerByName(name));
+  }
+
+  /**
    * Validates if a matching volunteer is found by name (control.value).
    * @param {AbstractControl} control
    */
   nameValidator = (control: AbstractControl): { [key: string]: any } => {
     // Update state in validator since formControl.valueChanges calls next() after validation
     // TODO: Find out how to update volunteers state outside validator
-    this.store.dispatch(new FilterAndSelectVolunteerByName(control.value));
+    this.dispatchFilterAndSelectByName(control.value);
     return this.selectedVolunteer || this.showPetNameForm ? null : { 'noMatchByName': { value: control.value } };
   };
 
