@@ -26,7 +26,6 @@ export class NewVolunteerFormComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    this.capitalize();
     this.createVolunteer(new Volunteer(
       localStorage.getItem('organizationId'),
       this.formGroup.value.firstName,
@@ -59,12 +58,5 @@ export class NewVolunteerFormComponent implements OnInit {
       { placeholder: 'Last', control: 'lastName' },
       { placeholder: 'Favorite Pet Name', control: 'petName' }
     ];
-  }
-
-  capitalize(): void {
-    Object.keys(this.formGroup.controls).forEach(input => {
-      this.formGroup.controls[input].setValue(this.formGroup.controls[input].value.replace(/\b[\w']+\b/g,
-        (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())).trim());
-    })
   }
 }
