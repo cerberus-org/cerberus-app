@@ -109,7 +109,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
       state => {
         this.volunteerNames = state.filteredUniqueNames;
         this.selectedVolunteer = state.selected;
-        this.showPetNameForm = state.filteredHasManyWithSameName;
+        this.showPetNameForm = state.filteredAllMatchSameName;
       },
       error => this.error = <any>error);
   }

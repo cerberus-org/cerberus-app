@@ -5,7 +5,7 @@ export interface State {
   volunteers: Volunteer[];
   filtered: Volunteer[];
   filteredUniqueNames: string[];
-  filteredHasManyWithSameName: boolean;
+  filteredAllMatchSameName: boolean;
   selected: Volunteer,
 }
 
@@ -13,7 +13,7 @@ export const initialState: State = {
   volunteers: [],
   filtered: [],
   filteredUniqueNames: [],
-  filteredHasManyWithSameName: false,
+  filteredAllMatchSameName: false,
   selected: null
 };
 
@@ -58,17 +58,17 @@ export function reducer(state = initialState, action: Action): State {
       // Create the set of names from the filtered volunteers
       const uniqueNames: string[] = Array.from(new Set(filtered.map(volunteer => formatName(volunteer))));
       // If the filtered volunteers all exactly match the name, set to true
-      const hasManyWithSameName: boolean = filtered.length > 1
+      const allMatchSameName: boolean = filtered.length > 1
         && uniqueNames.length === 1
         && uniqueNames[0].toLowerCase() === name;
       // If one volunteer remains, select the volunteer that exactly matches the name
-      const selected: Volunteer = !hasManyWithSameName
+      const selected: Volunteer = !allMatchSameName
         ? filtered.find(volunteer => formatName(volunteer).toLowerCase() === name)
         : null;
       return Object.assign({}, state, {
         filtered: filtered,
         filteredUniqueNames: uniqueNames,
-        filteredHasManyWithSameName: hasManyWithSameName,
+        filteredAllMatchSameName: allMatchSameName,
         selected: selected
       });
     }

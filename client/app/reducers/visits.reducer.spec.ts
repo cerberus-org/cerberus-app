@@ -1,6 +1,7 @@
 import { testVisits, Visit } from '../models/visit';
 import * as fromVisits from './visits.reducer'
 import * as VisitActions from '../actions/visits.actions';
+import { testVolunteers } from '../models/volunteer';
 
 describe('visitReducer', () => {
   let visits: Visit[], initialState;
@@ -10,21 +11,39 @@ describe('visitReducer', () => {
     initialState = Object.assign({}, fromVisits.initialState, { visits: visits });
   });
 
-  it('loads visits', () => {
-    const result = fromVisits.reducer(initialState, new VisitActions.LoadVisits(visits)).visits;
-    expect(result).toEqual(testVisits.slice(0, 3).reverse());
+  describe('LOAD', () => {
+
+    it('loads visits', () => {
+      const result = fromVisits.reducer(initialState, new VisitActions.LoadVisits(visits)).visits;
+      expect(result).toEqual(testVisits.slice(0, 3).reverse());
+    });
   });
 
-  it('adds a visit', () => {
-    const visit = Object.assign({}, visits[0]);
-    const result = fromVisits.reducer(initialState, new VisitActions.AddVisit(visit)).visits;
-    expect(result[0]).toBe(visit);
-    expect(result.length).toBe(visits.length + 1);
+  describe('ADD', () => {
+
+    it('adds a visit', () => {
+      const visit = Object.assign({}, visits[0]);
+      const result = fromVisits.reducer(initialState, new VisitActions.AddVisit(visit)).visits;
+      expect(result[0]).toBe(visit);
+      expect(result.length).toBe(visits.length + 1);
+    });
   });
 
-  it('modifies a visit', () => {
-    const modified = Object.assign({}, visits[0]);
-    const result = fromVisits.reducer(initialState, new VisitActions.ModifyVisit(modified)).visits;
-    expect(result[0]).toBe(modified);
+  describe('MODIFY', () => {
+
+    it('modifies a visit', () => {
+      const modified = Object.assign({}, visits[0]);
+      const result = fromVisits.reducer(initialState, new VisitActions.ModifyVisit(modified)).visits;
+      expect(result[0]).toBe(modified);
+    });
+  });
+
+  describe('SELECT_ACTIVE_FOR_VOLUNTEER', () => {
+
+    it('selects an active visit for a volutneer', () => {
+      const volunteer = Object.assign({}, testVolunteers[0]);
+      const result = fromVisits.reducer(initialState, new VisitActions.SelectActiveVisitForVolunteer(volunteer));
+      expect(result.selected).toBe(testVisits[3]);
+    });
   });
 });
