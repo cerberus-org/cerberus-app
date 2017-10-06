@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 import { User } from '../models/user';
 
-export const LOAD   = '[Users] Load';
-export const ADD    = '[Users] Add';
+export const LOAD = '[Users] Load';
+export const ADD = '[Users] Add';
 export const MODIFY = '[Users] Modify';
 
 export class Load implements Action {

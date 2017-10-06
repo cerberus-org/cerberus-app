@@ -1,12 +1,15 @@
 import { Visit } from '../models/visit';
 import * as VisitActions from '../actions/visits.actions'
+import { Volunteer } from '../models/volunteer';
 
 export interface State {
   visits: Visit[];
+  selected: Visit;
 }
 
 export const initialState: State = {
-  visits: []
+  visits: [],
+  selected: null
 };
 
 export type Action = VisitActions.All;
@@ -14,23 +17,32 @@ export type Action = VisitActions.All;
 export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
     case VisitActions.LOAD: {
-      return {
+      return Object.assign({}, initialState, {
         visits: filterInvalidVisits(action.payload, 8).reverse()
-      };
+      });
     }
 
     case VisitActions.ADD: {
-      return {
+      return Object.assign({}, state, {
         visits: [action.payload, ...state.visits]
-      };
+      });
     }
 
     case VisitActions.MODIFY: {
-      return {
+      return Object.assign({}, state, {
         visits: state.visits.map(visit => {
           return visit._id === action.payload._id ? action.payload : visit;
         })
-      };
+      });
+    }
+
+    case VisitActions.SELECT_ACTIVE_FOR_VOLUNTEER: {
+      const volunteer: Volunteer = action.payload;
+      return Object.assign({}, state, {
+        selected: volunteer
+          ? state.visits.find(visit => visit.endedAt === null && volunteer._id === visit.volunteerId)
+          : null
+      });
     }
 
     default: {

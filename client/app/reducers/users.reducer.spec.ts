@@ -7,24 +7,32 @@ describe('userReducer', () => {
 
   beforeEach(() => {
     users = testUsers.slice(0);
-
   });
 
-  it('loads users', () => {
-    const result = fromUsers.reducer({ users: users }, new UserActions.Load(users)).users;
-    expect(result).toBe(users);
+  describe('LOAD', () => {
+
+    it('loads users', () => {
+      const result = fromUsers.reducer({ users: users }, new UserActions.Load(users)).users;
+      expect(result).toBe(users);
+    });
   });
 
-  it('adds a user', () => {
-    const user = Object.assign({}, users[0]);
-    const result = fromUsers.reducer({ users: users }, new UserActions.Add(user)).users;
-    expect(result[0]).toBe(user);
-    expect(result.length).toBe(users.length + 1);
+  describe('ADD', () => {
+
+    it('adds a user', () => {
+      const user = Object.assign({}, users[0]);
+      const result = fromUsers.reducer({ users: users }, new UserActions.Add(user)).users;
+      expect(result[0]).toBe(user);
+      expect(result.length).toBe(users.length + 1);
+    });
   });
 
-  it('modifies a user', () => {
-    const modified = Object.assign({}, users[0]);
-    const result = fromUsers.reducer({ users: users }, new UserActions.Modify(modified)).users;
-    expect(result[0]).toBe(modified);
+  describe('MODIFY', () => {
+
+    it('modifies a user', () => {
+      const modified = Object.assign({}, users[0]);
+      const result = fromUsers.reducer({ users: users }, new UserActions.Modify(modified)).users;
+      expect(result[0]).toBe(modified);
+    });
   });
 });

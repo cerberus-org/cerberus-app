@@ -58,58 +58,36 @@ describe('CheckInFormComponent', () => {
     expect(component.formGroup.controls['petName']).toBeTruthy();
   });
 
-  it('filters volunteers by first and last name', () => {
-    const filtered = component.filterVolunteersByName(testVolunteers, testVolunteers[0].firstName);
-    expect(filtered.length).toBe(2);
-    expect(filtered[0]).toBe(testVolunteers[0]);
-  });
-
-  it('filters volunteers by pet name', () => {
-    const filtered = component.filterVolunteersByPetName(testVolunteers, testVolunteers[0].petName);
-    expect(filtered.length).toBe(1);
-    expect(filtered[0]).toBe(testVolunteers[0]);
-  });
-
-  it('finds an active visit for a volunteer', () => {
-    const found = component.findActiveVisitForVolunteer(testVisits, testVolunteers[0]);
-    expect(found).toBe(testVisits[3]);
-  });
-
-  it('finds a volunteer by pet name', () => {
-    const found = component.findVolunteerByPetName(testVolunteers, testVolunteers[0].petName);
-    expect(found).toBe(testVolunteers[0]);
-  });
-
-  it('checks if there are many volunteers with the same name', () => {
-    const filtered = component.filterVolunteersByName(testVolunteers, testVolunteers[0].firstName);
-    const many = component.checkIfSameNames(filtered, `${testVolunteers[0].firstName} ${testVolunteers[0].lastName}`);
-    expect(many).toBeTruthy();
-  });
-
   describe('name control', () => {
 
-    it('validates requirement', (() => {
+    beforeEach(() => {
+      spyOn(component, 'dispatchFilterAndSelectByName').and.stub();
+    });
+
+    it('throws required error if value is not entered', (() => {
       const control = component.formGroup.controls['name'];
-      const errors = control.errors || {};
-      expect(control.valid).toBeFalsy();
-      expect(errors['required']).toBeTruthy();
+      expect(control.errors['required']).toBeTruthy();
     }));
 
-    it('validates existence', (() => {
-      this.volunteers = testVolunteers;
+    it('throws noMatchByName error if volunteer is not selected and petName form is not shown', (() => {
+      component.selectedVolunteer = null;
+      component.showPetNameForm = false;
+      const control = component.formGroup.controls['name'];
+      expect(control.errors['noMatchByName']).toBeTruthy();
+    }));
+
+    it('is valid if value is entered and volunteer is selected', (() => {
+      component.selectedVolunteer = testVolunteers[1];
       const control = component.formGroup.controls['name'];
       control.setValue('Cerberus');
-      const errors = control.errors || {};
-      expect(control.valid).toBeFalsy();
-      expect(errors['doesNotExist']).toBeTruthy();
+      expect(control.valid).toBeTruthy();
     }));
 
-    it('accepts an existing name', (() => {
-      component.volunteers = testVolunteers;
+    it('is valid (not required) if value is entered and petName form is shown', (() => {
+      component.showPetNameForm = true;
       const control = component.formGroup.controls['name'];
-      control.setValue('Ted Mader');
+      control.setValue('Cerberus');
       expect(control.valid).toBeTruthy();
-      expect(control.errors).toBeFalsy();
     }));
 
     it('clears the form on submit', (() => {
@@ -133,8 +111,8 @@ describe('CheckInFormComponent', () => {
       expect(control.value).toBeFalsy();
     }));
 
-    it('accepts a petName for a unique volunteer', (() => {
-      component.filteredVolunteers = component.filterVolunteersByName(testVolunteers, testVolunteers[0].firstName);
+    it('is valid if a volunteer is selected', (() => {
+      component.selectedVolunteer = testVolunteers[0];
       const control = component.formGroup.controls['petName'];
       control.setValue('Mimi');
       expect(control.valid).toBeTruthy();
@@ -144,18 +122,22 @@ describe('CheckInFormComponent', () => {
 
   describe('signatureField control', () => {
 
-    it('validates requirement on check in', (() => {
+    it('is valid if value is entered', (() => {
       const control = component.formGroup.controls['signatureField'];
       control.setValue('test');
       expect(control.valid).toBeTruthy();
-      expect(control.errors).toBeFalsy();
     }));
 
-    it('validates non-requirement on check out', (() => {
+    it('is valid (not required) if there is an active visit', (() => {
       const control = component.formGroup.controls['signatureField'];
-      component.activeVisitForVolunteer = testVisits[0];
+      control.setValue('test');
       expect(control.valid).toBeTruthy();
-      expect(control.errors).toBeFalsy();
+    }));
+
+    it('throws noSignature error if value is not entered', (() => {
+      const control = component.formGroup.controls['signatureField'];
+      component.activeVisit = testVisits[0];
+      expect(control.errors['noSignature']).toBeTruthy();
     }));
   });
 });

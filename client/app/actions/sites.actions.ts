@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 import { Site } from '../models/site';
 
-export const LOAD   = '[Sites] Load';
-export const ADD    = '[Sites] Add';
+export const LOAD = '[Sites] Load';
+export const ADD = '[Sites] Add';
 export const MODIFY = '[Sites] Modify';
 
 /**
