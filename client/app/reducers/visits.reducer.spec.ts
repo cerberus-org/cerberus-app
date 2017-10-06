@@ -14,7 +14,7 @@ describe('visitReducer', () => {
   describe('LOAD', () => {
 
     it('loads visits', () => {
-      const result = fromVisits.reducer(initialState, new VisitActions.LoadVisits(visits)).visits;
+      const result = fromVisits.reducer(initialState, new VisitActions.Load(visits)).visits;
       expect(result).toEqual(testVisits.slice(0, 3).reverse());
     });
   });
@@ -23,7 +23,7 @@ describe('visitReducer', () => {
 
     it('adds a visit', () => {
       const visit = Object.assign({}, visits[0]);
-      const result = fromVisits.reducer(initialState, new VisitActions.AddVisit(visit)).visits;
+      const result = fromVisits.reducer(initialState, new VisitActions.Add(visit)).visits;
       expect(result[0]).toBe(visit);
       expect(result.length).toBe(visits.length + 1);
     });
@@ -33,7 +33,7 @@ describe('visitReducer', () => {
 
     it('modifies a visit', () => {
       const modified = Object.assign({}, visits[0]);
-      const result = fromVisits.reducer(initialState, new VisitActions.ModifyVisit(modified)).visits;
+      const result = fromVisits.reducer(initialState, new VisitActions.Modify(modified)).visits;
       expect(result[0]).toBe(modified);
     });
   });
@@ -42,7 +42,7 @@ describe('visitReducer', () => {
 
     it('selects an active visit for a volutneer', () => {
       const volunteer = Object.assign({}, testVolunteers[0]);
-      const result = fromVisits.reducer(initialState, new VisitActions.SelectActiveVisitForVolunteer(volunteer));
+      const result = fromVisits.reducer(initialState, new VisitActions.SelectActiveForVolunteer(volunteer));
       expect(result.selected).toBe(testVisits[3]);
     });
   });

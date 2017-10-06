@@ -20,9 +20,9 @@ export class UserService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'user';
     this.actions = {
-      load: UsersActions.LoadUsers,
-      add: UsersActions.AddUser,
-      modify: UsersActions.ModifyUser
+      load: UsersActions.Load,
+      add: UsersActions.Add,
+      modify: UsersActions.Modify
     };
   }
 

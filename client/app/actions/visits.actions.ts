@@ -7,32 +7,32 @@ export const ADD = '[Visits] Add';
 export const MODIFY = '[Visits] Modify';
 export const SELECT_ACTIVE_FOR_VOLUNTEER = '[Visits] Select active for volunteer';
 
-export class LoadVisits implements Action {
+export class Load implements Action {
   readonly type = LOAD;
 
   constructor(public payload: Visit[]) {}
 }
 
-export class AddVisit implements Action {
+export class Add implements Action {
   readonly type = ADD;
 
   constructor(public payload: Visit) {}
 }
 
-export class ModifyVisit implements Action {
+export class Modify implements Action {
   readonly type = MODIFY;
 
   constructor(public payload: Visit) {}
 }
 
-export class SelectActiveVisitForVolunteer implements Action {
+export class SelectActiveForVolunteer implements Action {
   readonly type = SELECT_ACTIVE_FOR_VOLUNTEER;
 
   constructor(public payload: Volunteer) {}
 }
 
 export type All
-  = LoadVisits
-  | AddVisit
-  | ModifyVisit
-  | SelectActiveVisitForVolunteer;
+  = Load
+  | Add
+  | Modify
+  | SelectActiveForVolunteer;

@@ -10,19 +10,19 @@ export const MODIFY = '[Sites] Modify';
  * payload. Expressing actions as classes enables powerful
  * type checking in reducer functions.
  */
-export class LoadSites implements Action {
+export class Load implements Action {
   readonly type = LOAD;
 
   constructor(public payload: Site[]) {}
 }
 
-export class AddSite implements Action {
+export class Add implements Action {
   readonly type = ADD;
 
   constructor(public payload: Site) {}
 }
 
-export class ModifySite implements Action {
+export class Modify implements Action {
   readonly type = MODIFY;
 
   constructor(public payload: Site) {}
@@ -33,6 +33,6 @@ export class ModifySite implements Action {
  * so that reducers can easily compose action types.
  */
 export type All
-  = LoadSites
-  | AddSite
-  | ModifySite;
+  = Load
+  | Add
+  | Modify;

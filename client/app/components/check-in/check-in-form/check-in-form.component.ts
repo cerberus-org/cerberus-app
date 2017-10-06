@@ -12,8 +12,8 @@ import { SignatureFieldComponent } from './signature-field/signature-field.compo
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { State } from '../../../reducers/index';
 import { Observable } from 'rxjs/Observable';
-import { FilterAndSelectVolunteerByName, SelectVolunteerByPetName } from '../../../actions/volunteers.actions';
-import { SelectActiveVisitForVolunteer } from '../../../actions/visits.actions';
+import * as VolunteersActions from '../../../actions/volunteers.actions';
+import * as VisitsActions from '../../../actions/visits.actions';
 
 @Component({
   selector: 'app-check-in-form',
@@ -119,7 +119,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param {string} name
    */
   dispatchFilterAndSelectByName(name: string): void {
-    this.store.dispatch(new FilterAndSelectVolunteerByName(name));
+    this.store.dispatch(new VolunteersActions.FilterAndSelectByName(name));
   }
 
   /**
@@ -165,7 +165,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   subscribeToForm(): Subscription {
     return this.formGroup.valueChanges.subscribe(() =>
-      this.store.dispatch(new SelectActiveVisitForVolunteer(this.selectedVolunteer)));
+      this.store.dispatch(new VisitsActions.SelectActiveForVolunteer(this.selectedVolunteer)));
   }
 
   /**
@@ -173,7 +173,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param {string} petName
    */
   onPetNameClick(petName: string): void {
-    this.store.dispatch(new SelectVolunteerByPetName(petName));
+    this.store.dispatch(new VolunteersActions.SelectByPetName(petName));
   }
 
   /**

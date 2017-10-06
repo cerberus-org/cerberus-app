@@ -17,9 +17,9 @@ export class OrganizationService extends BaseService {
     super(http, null, errorService);
     this.modelName = 'organization';
     this.actions = {
-      load: OrganizationActions.LoadOrganizations,
-      add: OrganizationActions.AddOrganization,
-      modify: OrganizationActions.ModifyOrganization
+      load: OrganizationActions.Load,
+      add: OrganizationActions.Add,
+      modify: OrganizationActions.Modify
     };
   }
 }

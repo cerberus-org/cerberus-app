@@ -5,25 +5,25 @@ export const LOAD = '[Users] Load';
 export const ADD = '[Users] Add';
 export const MODIFY = '[Users] Modify';
 
-export class LoadUsers implements Action {
+export class Load implements Action {
   readonly type = LOAD;
 
   constructor(public payload: User[]) {}
 }
 
-export class AddUser implements Action {
+export class Add implements Action {
   readonly type = ADD;
 
   constructor(public payload: User) {}
 }
 
-export class ModifyUser implements Action {
+export class Modify implements Action {
   readonly type = MODIFY;
 
   constructor(public payload: User) {}
 }
 
 export type All
-  = LoadUsers
-  | AddUser
-  | ModifyUser;
+  = Load
+  | Add
+  | Modify;
