@@ -1,10 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
-import { Site } from '../../../models/site'
-import { SiteService } from '../../../services/site.service';
 import { State } from '../../../reducers/index';
 
 @Component({
@@ -12,29 +10,15 @@ import { State } from '../../../reducers/index';
   templateUrl: './volunteer-menu.component.html',
   styleUrls: ['./volunteer-menu.component.css']
 })
-export class VolunteerMenuComponent implements OnInit, OnDestroy {
+export class VolunteerMenuComponent implements OnInit {
 
-  sitesSubscription: Subscription;
-  sites: Site[];
+  sites$: Observable<State['sites']>;
   error: string;
 
-  constructor(private router: Router, private store: Store<State>, private siteService: SiteService) { }
+  constructor(private router: Router, private store: Store<State>) { }
 
   ngOnInit(): void {
-    this.sitesSubscription = this.subscribeToSites();
-  }
-
-  ngOnDestroy(): void {
-    this.sitesSubscription.unsubscribe();
-  }
-
-  /**
-   * Subscribes sites in the store.
-   */
-  subscribeToSites(): Subscription {
-    return this.store.select('sites').subscribe(
-      state => this.sites = state.sites,
-      error => this.error = <any>error);
+    this.sites$ = this.store.select('sites');
   }
 
   onClick(site): void {

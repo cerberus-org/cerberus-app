@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { MdPaginator } from '@angular/material';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment-timezone';
 import 'rxjs/add/observable/merge'
@@ -16,20 +15,21 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./visit-history-table.component.css']
 })
 export class VisitHistoryTableComponent implements OnInit {
+  @Input() visits$: Observable<State['visits']>;
   initialPageSize: number;
   displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
   dataSource: VisitDataSource | null;
 
   @ViewChild(MdPaginator) paginator: MdPaginator;
 
-  constructor(private store: Store<State>) { }
+  constructor() { }
 
   ngOnInit() {
     // Determine initial page size using inner height of window at component init
     const surroundingElementsPx = 281;
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
-    this.dataSource = new VisitDataSource(this.store, this.paginator);
+    this.dataSource = new VisitDataSource(this.visits$, this.paginator);
   }
 
   formatTime(date: Date, timezone: string): string {
@@ -58,12 +58,11 @@ export class VisitHistoryTableComponent implements OnInit {
  * data and send the table exactly what should be rendered.
  */
 export class VisitDataSource extends DataSource<any> implements OnDestroy {
-
   visitsSubscription: Subscription;
   visits: Visit[];
   error: string;
 
-  constructor(private store: Store<any>, private paginator: MdPaginator) {
+  constructor(private visits$: Observable<State['visits']>, private paginator: MdPaginator) {
     super();
     this.visitsSubscription = this.subscribeToVisits();
   }
@@ -73,7 +72,7 @@ export class VisitDataSource extends DataSource<any> implements OnDestroy {
   }
 
   subscribeToVisits(): Subscription {
-    return this.store.select('visits').subscribe(
+    return this.visits$.subscribe(
       state => this.visits = state.visits,
       error => this.error = <any>error);
   }
@@ -82,7 +81,7 @@ export class VisitDataSource extends DataSource<any> implements OnDestroy {
    * Connect function called by the table to retrieve one stream containing the data to render.
    */
   connect(): Observable<any[]> {
-    return Observable.merge(this.paginator.page, this.store).map(() => {
+    return Observable.merge(this.paginator.page, this.visits$).map(() => {
       return this.getPageData();
     });
   }

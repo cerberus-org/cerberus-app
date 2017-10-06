@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 import { Visit } from '../../../../models/visit';
 import { State } from '../../../../reducers/index';
@@ -11,7 +11,7 @@ import { State } from '../../../../reducers/index';
   styleUrls: ['./daily-hours-chart.component.css']
 })
 export class DailyHoursChartComponent implements OnInit, OnDestroy {
-
+  @Input() visits$: Observable<State['visits']>;
   visitsSubscription: Subscription;
   visitsByDate: Map<string, Visit[]>;
   lineChartData: any[];
@@ -20,7 +20,7 @@ export class DailyHoursChartComponent implements OnInit, OnDestroy {
   lineChartType = 'line';
   error: string;
 
-  constructor(private store: Store<State>) { }
+  constructor() { }
 
   ngOnInit() {
     this.lineChartLabels = [];
@@ -33,12 +33,11 @@ export class DailyHoursChartComponent implements OnInit, OnDestroy {
   }
 
   subscribeToVisits(): Subscription {
-    return this.store.select('visits').subscribe(
-      state => {
-        this.visitsByDate = this.mapVisitsToDate(state.visits);
-        this.lineChartLabels = this.setLineChartLabels();
-        this.lineChartData = this.setLineChartData(this.lineChartLabels, this.visitsByDate);
-      }, error => this.error = <any>error);
+    return this.visits$.subscribe(state => {
+      this.visitsByDate = this.mapVisitsToDate(state.visits);
+      this.lineChartLabels = this.setLineChartLabels();
+      this.lineChartData = this.setLineChartData(this.lineChartLabels, this.visitsByDate);
+    }, error => this.error = <any>error);
   }
 
   /**
