@@ -18,10 +18,23 @@ export function reducer(state = initialState, action: Action): State {
 
     /**
      * Maps visits from payload to dates and sets up data for the line chart.
-     * action.payload - the visits that will be used
+     * action.payload:
+     * visits - the visits that will be used
+     * latest - the latest date that will be used as the rightmost label
+     * count - the number of previous dates to use as labels, defaults to 7 for week view
      */
     case DataDisplayActions.SETUP_LINE_CHART: {
-      const visits = action.payload;
+      const visits: Visit[] = action.payload.visits;
+      const latest: Date = action.payload.latest || new Date();
+      const count: number = action.payload.count || 7;
+
+      // Construct line chart labels based on provided date and count
+      const labels = Array.from(Array(count), (_, i) => {
+        const date = new Date(latest.getTime());
+        date.setDate(date.getDate() - i);
+        return date.toDateString();
+      });
+      labels.reverse();
 
       // Map visits to dates
       const visitsByDate = new Map<string, Visit[]>();
@@ -34,14 +47,6 @@ export function reducer(state = initialState, action: Action): State {
           visitsByDate.get(date).push(visit);
         }
       });
-
-      // Construct line chart labels
-      const labels = Array.from(Array(7), (_, i) => {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        return date.toDateString();
-      });
-      labels.reverse();
 
       // Construct line chart data
       const data = [{

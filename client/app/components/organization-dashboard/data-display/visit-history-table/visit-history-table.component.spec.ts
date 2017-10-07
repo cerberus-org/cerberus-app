@@ -7,6 +7,8 @@ import { StoreModule } from '@ngrx/store';
 import { VisitHistoryTableComponent } from './visit-history-table.component';
 import { testVisits } from '../../../../models/visit';
 import { reducers } from '../../../../reducers/index';
+import { Observable } from 'rxjs/Observable';
+import { initialState } from '../../../../reducers/visits.reducer';
 
 describe('VisitHistoryTableComponent', () => {
   let component: VisitHistoryTableComponent;
@@ -14,7 +16,9 @@ describe('VisitHistoryTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [VisitHistoryTableComponent],
+      declarations: [
+        VisitHistoryTableComponent
+      ],
       imports: [
         NoopAnimationsModule,
         CdkTableModule,
@@ -29,7 +33,9 @@ describe('VisitHistoryTableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(VisitHistoryTableComponent);
     component = fixture.componentInstance;
+    component.visits$ = Observable.of(Object.assign({}, initialState, { visits: testVisits }));
     fixture.detectChanges();
+    spyOn(component.dataSource, 'subscribeToVisits').and.stub();
   });
 
   it('is created', () => {

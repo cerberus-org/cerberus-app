@@ -12,7 +12,7 @@ import * as DataDisplayActions from '../../../../actions/data-display.actions';
 })
 export class DailyHoursChartComponent implements OnInit, OnDestroy {
   @Input() visits$: Observable<State['visits']>;
-  @Input() dataDisplay$: Observable<State['dataDisplay']>;
+  dataDisplay$: Observable<State['dataDisplay']>;
   visitsSubscription: Subscription;
   lineChartData: any[];
   lineChartLabels: string[];
@@ -35,7 +35,10 @@ export class DailyHoursChartComponent implements OnInit, OnDestroy {
 
   subscribeToVisits(): Subscription {
     return this.visits$.subscribe(state => {
-      this.store.dispatch(new DataDisplayActions.SetupLineChart(state.visits))
+      this.store.dispatch(new DataDisplayActions.SetupLineChart({
+        visits: state.visits,
+        latest: null,
+        count: null }));
     }, error => this.error = <any>error);
   }
 }
