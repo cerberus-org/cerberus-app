@@ -1,5 +1,6 @@
 import { Visit } from '../models/visit';
 import * as DataDisplayActions from '../actions/data-display.actions'
+import * as moment from 'moment';
 
 export interface State {
   lineChartData: { data: number[], label: string }[];
@@ -52,7 +53,7 @@ export function reducer(state = initialState, action: Action): State {
       const data = [{
         data: labels.map(date => visitsByDate.has(date)
           ? Math.floor(visitsByDate.get(date)
-            .reduce((total, visit) => total + getDuration(visit), 0) / 3600000)
+            .reduce((total, visit) => total + getDuration(visit), 0))
           : 0),
         label: 'Hours'
       }];
@@ -71,7 +72,11 @@ export function reducer(state = initialState, action: Action): State {
 
 /**
  * Returns the duration of a visit in milliseconds.
+ * @param {Visit} visit - the visit to calculate the duration for
+ * @return {number} - the duration in milliseconds
  */
 const getDuration = (visit: Visit): number => {
-  return visit.endedAt.getTime() - visit.startedAt.getTime();
+  const start = moment(visit.startedAt);
+  const end = moment(visit.endedAt);
+  return moment.duration(end.diff(start)).milliseconds() / 3600000;
 };

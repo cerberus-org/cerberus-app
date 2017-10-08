@@ -34,12 +34,12 @@ export class VisitHistoryTableComponent implements OnInit {
 
   formatDate(date: Date, timezone: string): string {
     return moment(date).tz(timezone).calendar(null, {
-      lastDay: '[Yesterday,] MMMM D',
-      sameDay: '[Today,] MMMM D',
-      nextDay: '[Tomorrow,] MMMM D',
-      lastWeek: '[Last week,] MMMM D',
-      nextWeek: '[Next week,] MMMM D',
-      sameElse: 'MMMM D'
+      lastDay: '[Yesterday], MMMM D',
+      sameDay: '[Today], MMMM D',
+      nextDay: '[Tomorrow], MMMM D',
+      lastWeek: '[Last] dddd, MMMM D',
+      nextWeek: '[Next] dddd, MMMM D',
+      sameElse: 'dddd, MMMM D'
     });
   }
 
