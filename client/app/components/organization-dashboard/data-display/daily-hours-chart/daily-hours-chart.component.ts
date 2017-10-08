@@ -37,8 +37,10 @@ export class DailyHoursChartComponent implements OnInit, OnDestroy {
     return this.visits$.subscribe(state => {
       this.store.dispatch(new DataDisplayActions.SetupLineChart({
         visits: state.visits,
-        latest: null,
-        count: null }));
+        latest: new Date(),
+        count: 12,
+        unit: 'days',
+        format: 'ddd, MMM. D'}));
     }, error => this.error = <any>error);
   }
 }

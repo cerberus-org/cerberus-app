@@ -11,7 +11,9 @@ describe('dataDisplayReducer', () => {
       payload = {
         visits: testVisits,
         latest: new Date('2017-07-01T14:45:42.336Z'),
-        count: 3
+        count: 3,
+        unit: 'days',
+        format: 'ddd, MMM. D'
       }
     });
 
