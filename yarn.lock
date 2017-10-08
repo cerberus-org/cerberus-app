@@ -211,6 +211,12 @@
   version "2.6.0"
   resolved "https://registry.npmjs.org/@types/jasmine/-/jasmine-2.6.0.tgz#997b41a27752b4850af2683bc4a8d8222c25bd02"
 
+"@types/moment@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.npmjs.org/@types/moment/-/moment-2.13.0.tgz#604ebd189bc3bc34a1548689404e61a2a4aac896"
+  dependencies:
+    moment "*"
+
 "@types/node@^6.0.46":
   version "6.0.88"
   resolved "https://registry.npmjs.org/@types/node/-/node-6.0.88.tgz#f618f11a944f6a18d92b5c472028728a3e3d4b66"
@@ -3887,7 +3893,7 @@ moment-timezone@^0.5.13:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.18.1, moment@~2.18.0:
+moment@*, "moment@>= 2.9.0", moment@^2.18.1, moment@~2.18.0:
   version "2.18.1"
   resolved "https://registry.npmjs.org/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 

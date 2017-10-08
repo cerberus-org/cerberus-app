@@ -32,23 +32,25 @@ export class VisitHistoryTableComponent implements OnInit {
     this.dataSource = new VisitDataSource(this.visits$, this.paginator);
   }
 
+  formatDate(date: Date, timezone: string): string {
+    return moment(date).tz(timezone).calendar(null, {
+      lastDay: '[Yesterday,] MMMM D',
+      sameDay: '[Today,] MMMM D',
+      nextDay: '[Tomorrow,] MMMM D',
+      lastWeek: '[Last week,] MMMM D',
+      nextWeek: '[Next week,] MMMM D',
+      sameElse: 'MMMM D'
+    });
+  }
+
   formatTime(date: Date, timezone: string): string {
-    return date ? moment(date.getTime()).tz(timezone).format('h:mm a') : '-';
+    return date ? moment(date).tz(timezone).format('h:mm A') : 'Active!';
   }
 
   formatDuration(visit: Visit): string {
-    if (!visit.endedAt) {
-      return '-';
-    }
-    const duration = visit.endedAt.getTime() - visit.startedAt.getTime();
-    // Convert to seconds
-    let seconds = duration / 1000;
-    // Extract hours
-    const hours = Math.floor(seconds / 3600); // 3,600 seconds in 1 hour
-    seconds = seconds % 3600; // seconds remaining after extracting hours
-    // Extract minutes
-    const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
-    return `${hours} hours, ${minutes} minutes`;
+    return !visit.endedAt
+      ? moment(visit.startedAt).tz(visit.timezone).toNow(true)
+      : moment(visit.startedAt).tz(visit.timezone).to(visit.endedAt, true);
   }
 }
 

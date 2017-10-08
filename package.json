@@ -33,6 +33,7 @@
     "@angular/router": "^4.4.4",
     "@ngrx/store": "^4.0.3",
     "@types/angular-material": "^1.1.54",
+    "@types/moment": "^2.13.0",
     "@types/node": "^8.0.31",
     "angular2-signaturepad": "^2.6.1",
     "bcryptjs": "^2.4.3",
