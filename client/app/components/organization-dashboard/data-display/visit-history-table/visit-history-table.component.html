@@ -7,7 +7,7 @@
     <!-- ID Column -->
     <ng-container cdkColumnDef="date">
       <md-header-cell *cdkHeaderCellDef> Date</md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.startedAt.toDateString()}}</md-cell>
+      <md-cell *cdkCellDef="let row"> {{formatDate(row.startedAt, row.timezone)}}</md-cell>
     </ng-container>
 
     <!-- Progress Column -->
