@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MdTabGroup } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
 
 import { Site } from '../../models/site';
 import { Organization } from '../../models/organization';
@@ -7,7 +9,10 @@ import { SiteService } from '../../services/site.service';
 import { OrganizationService } from '../../services/organization.service';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { UserService } from '../../services/user.service';
-import { Observable } from 'rxjs/Observable';
+import { State } from '../../reducers/index';
+import { Store } from '@ngrx/store';
+import * as GettingStartedActions from '../../actions/getting-started.actions';
+
 
 @Component({
   selector: 'app-getting-started',
@@ -15,6 +20,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./getting-started.component.css']
 })
 export class GettingStartedComponent implements OnInit {
+  @ViewChild('tabGroup') tabGroup: MdTabGroup;
   error: string;
   step: number;
   validOrganization: boolean;
@@ -25,9 +31,11 @@ export class GettingStartedComponent implements OnInit {
   constructor(private siteService: SiteService,
               private organizationService: OrganizationService,
               private snackBarService: SnackBarService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private store: Store<State>) { }
 
   ngOnInit() {
+    this.store.dispatch(new GettingStartedActions.LoadTabGroup(this.tabGroup));
     this.step = 0;
   }
 
