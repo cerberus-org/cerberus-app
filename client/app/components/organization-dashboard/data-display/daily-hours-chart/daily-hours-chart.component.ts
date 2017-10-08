@@ -40,7 +40,7 @@ export class DailyHoursChartComponent implements OnInit, OnDestroy {
         latest: new Date(),
         count: 12,
         unit: 'days',
-        format: 'ddd, MMM. D'}));
+        format: 'ddd MMM D'}));
     }, error => this.error = <any>error);
   }
 }

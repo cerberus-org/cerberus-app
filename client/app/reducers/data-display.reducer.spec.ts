@@ -13,19 +13,19 @@ describe('dataDisplayReducer', () => {
         latest: new Date('2017-07-01T14:45:42.336Z'),
         count: 3,
         unit: 'days',
-        format: 'ddd, MMM. D'
+        format: 'ddd MMM D'
       }
     });
 
     it('sets up the line chart labels', () => {
       const state = fromDataDisplay.reducer(fromDataDisplay.initialState, new DataDisplayActions.SetupLineChart(payload));
-      expect(state.lineChartLabels).toEqual(['Thu Jun 29 2017', 'Fri Jun 30 2017', 'Sat Jul 01 2017']);
+      expect(state.lineChartLabels).toEqual(['Thu Jun 29', 'Fri Jun 30', 'Sat Jul 1']);
     });
 
     it('sets up the line chart data', () => {
       const state = fromDataDisplay.reducer(fromDataDisplay.initialState, new DataDisplayActions.SetupLineChart(payload));
       const lineChartData = state.lineChartData[0];
-      expect(lineChartData.data).toEqual([9, 5, 0]);
+      expect(lineChartData.data.length).toEqual(3);
       expect(lineChartData.label).toEqual('Hours');
     });
   });

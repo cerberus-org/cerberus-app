@@ -30,7 +30,7 @@ export function reducer(state = initialState, action: Action): State {
       const visits: Visit[] = action.payload.visits;
       const latest: Date = action.payload.latest || new Date();
       const count: number = action.payload.count || 7;
-      const format: string = action.payload.format || 'ddd, MMM. D';
+      const format: string = action.payload.format || 'ddd MMM D';
       const unit: moment.unitOfTime.DurationConstructor = action.payload.unit || 'days';
 
       // Construct line chart labels based on provided latest date, count, unit, and format

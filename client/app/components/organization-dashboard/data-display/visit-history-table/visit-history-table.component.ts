@@ -44,7 +44,7 @@ export class VisitHistoryTableComponent implements OnInit {
   }
 
   formatTime(date: Date, timezone: string): string {
-    return date ? moment(date).tz(timezone).format('h:mm A') : 'Active!';
+    return date ? moment(date).tz(timezone).format('h:mm a') : 'Active!';
   }
 
   formatDuration(visit: Visit): string {

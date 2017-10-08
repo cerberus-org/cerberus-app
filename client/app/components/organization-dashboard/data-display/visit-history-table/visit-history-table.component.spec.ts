@@ -49,7 +49,7 @@ describe('VisitHistoryTableComponent', () => {
 
   it('formats durations properly', () => {
     const formatted = component.formatDuration(testVisits[1]);
-    expect(formatted).toEqual('5 hours, 59 minutes')
+    expect(formatted).toEqual('6 hours')
   });
 
   it('it renders the correct page data', () => {
