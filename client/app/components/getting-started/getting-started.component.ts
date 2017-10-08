@@ -12,6 +12,7 @@ import { UserService } from '../../services/user.service';
 import { State } from '../../reducers/index';
 import { Store } from '@ngrx/store';
 import * as GettingStartedActions from '../../actions/getting-started.actions';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -22,6 +23,7 @@ import * as GettingStartedActions from '../../actions/getting-started.actions';
 export class GettingStartedComponent implements OnInit {
   @ViewChild('tabGroup') tabGroup: MdTabGroup;
   error: string;
+  gettingStarted$: Observable<State['gettingStarted']>
   step: number;
   validOrganization: boolean;
   validUser: boolean;
@@ -36,15 +38,11 @@ export class GettingStartedComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GettingStartedActions.LoadTabGroup(this.tabGroup));
-    this.step = 0;
+    this.gettingStarted$ = this.store.select('gettingStarted');
   }
 
-  onNext(value): void {
-    this.step = this.nextStep(this.step, value);
-  };
-
-  nextStep(previous, next): number {
-    return next > previous ? next : previous;
+  onNext(step): void {
+    this.store.dispatch(new GettingStartedActions.NextStep(step));
   };
 
   /**
