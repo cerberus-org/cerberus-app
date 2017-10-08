@@ -57,7 +57,7 @@ export function reducer(state = initialState, action: Action): State {
       const data = [{
         data: labels.map(date => visitsByDate.has(date)
           ? visitsByDate.get(date)
-            .reduce((total, visit) => total + getDuration(visit), 0).toFixed(2)
+            .reduce((total, visit) => total + getDuration(visit), 0).toFixed(3)
           : '0'),
         label: 'Hours'
       }];

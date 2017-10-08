@@ -16,6 +16,5 @@ export class DataDisplayComponent implements OnInit {
 
   ngOnInit() {
     this.visits$ = this.store.select('visits');
-
   }
 }
