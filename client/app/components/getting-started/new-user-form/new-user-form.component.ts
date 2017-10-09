@@ -1,7 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 import { User } from '../../../models/user';
+import { State } from '../../../reducers/index';
+import * as GettingStartedActions from '../../../actions/getting-started.actions';
 
 @Component({
   selector: 'app-new-user-form',
@@ -9,10 +12,9 @@ import { User } from '../../../models/user';
   styleUrls: ['./new-user-form.component.css']
 })
 export class NewUserFormComponent implements OnInit {
-  @Output() user = new EventEmitter<User>();
   formGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private store: Store<State>) { }
 
   ngOnInit() {
     this.formGroup = this.createForm();
@@ -34,9 +36,9 @@ export class NewUserFormComponent implements OnInit {
   subscribeToForm(group: FormGroup): void {
     group.valueChanges.subscribe(changes => {
       const value = this.formGroup.value;
-      this.user.emit(group.valid
+      this.store.dispatch(new GettingStartedActions.UpdateValidUser(group.valid
         ? new User(value.firstName, value.lastName, value.email, value.password)
-        : null);
+        : null));
     });
   }
 }

@@ -1,7 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 import { Organization } from '../../../models/organization';
+import { State } from '../../../reducers/index';
+import * as GettingStartedActions from '../../../actions/getting-started.actions';
 
 @Component({
   selector: 'app-new-organization-form',
@@ -9,10 +12,9 @@ import { Organization } from '../../../models/organization';
   styleUrls: ['./new-organization-form.component.css']
 })
 export class NewOrganizationFormComponent implements OnInit {
-  @Output() organization = new EventEmitter<Organization>();
   formGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private store: Store<State>) { }
 
   /**
    * Creates and subscribes to the form group.
@@ -42,9 +44,9 @@ export class NewOrganizationFormComponent implements OnInit {
   subscribeToForm(group: FormGroup): void {
     group.valueChanges.subscribe(() => {
       const value = this.formGroup.value;
-      this.organization.emit(group.valid
+      this.store.dispatch(new GettingStartedActions.UpdateValidOrganization(group.valid
         ? new Organization(value.name, value.description, value.website)
-        : null);
+        : null));
     });
   }
 }
