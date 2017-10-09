@@ -12,8 +12,7 @@
   </md-tab>
   <md-tab label="2. Your Organization" [disabled]="(gettingStarted$ | async)?.step < 1">
     <app-side-margins>
-      <app-new-organization-form (valid)="validOrganization = $event"
-                                 (organization)="organization = $event">
+      <app-new-organization-form (organization)="organization = $event">
       </app-new-organization-form>
     </app-side-margins>
     <div fxFlex="0 1 auto" fxLayout="row-reverse">
@@ -21,22 +20,22 @@
               fxFlex="0 1 auto"
               color="primary"
               (click)="onNext(2)"
-              [disabled]="!validOrganization">Next</button>
+              [disabled]="!organization">Next</button>
     </div>
   </md-tab>
-  <md-tab label="3. Your Account" [disabled]="(gettingStarted$ | async)?.step < 2 || !validOrganization">
+  <md-tab label="3. Your Account" [disabled]="(gettingStarted$ | async)?.step < 2 || !organization">
     <app-side-margins>
-      <app-new-user-form (valid)="validUser = $event" (user)="user = $event"></app-new-user-form>
+      <app-new-user-form (user)="user = $event"></app-new-user-form>
     </app-side-margins>
     <div fxFlex="0 1 auto" fxLayout="row-reverse">
       <button md-raised-button
               fxFlex="0 1 auto"
               color="primary"
               (click)="onNext(3)"
-              [disabled]="!validUser">Next</button>
+              [disabled]="!user">Next</button>
     </div>
   </md-tab>
-  <md-tab label="4. Confirm" [disabled]="(gettingStarted$ | async)?.step < 3 || !validOrganization || !validUser">
+  <md-tab label="4. Confirm" [disabled]="(gettingStarted$ | async)?.step < 3 || !organization || !user">
     <app-side-margins>
       <app-organization-confirm [organization]="organization" [user]="user"></app-organization-confirm>
     </app-side-margins>

@@ -24,9 +24,6 @@ export class GettingStartedComponent implements OnInit {
   @ViewChild('tabGroup') tabGroup: MdTabGroup;
   error: string;
   gettingStarted$: Observable<State['gettingStarted']>
-  step: number;
-  validOrganization: boolean;
-  validUser: boolean;
   organization: Organization;
   user: User;
 

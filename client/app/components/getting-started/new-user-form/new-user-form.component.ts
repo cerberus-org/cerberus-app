@@ -9,7 +9,6 @@ import { User } from '../../../models/user';
   styleUrls: ['./new-user-form.component.css']
 })
 export class NewUserFormComponent implements OnInit {
-  @Output() valid = new EventEmitter<boolean>();
   @Output() user = new EventEmitter<User>();
   formGroup: FormGroup;
 
@@ -18,9 +17,6 @@ export class NewUserFormComponent implements OnInit {
   ngOnInit() {
     this.formGroup = this.createForm();
     this.subscribeToForm(this.formGroup);
-  }
-
-  onSubmit() {
   }
 
   /**
@@ -37,11 +33,10 @@ export class NewUserFormComponent implements OnInit {
 
   subscribeToForm(group: FormGroup): void {
     group.valueChanges.subscribe(changes => {
-      this.valid.emit(group.valid);
-      if (group.valid) {
-        const value = this.formGroup.value;
-        this.user.emit(new User(value.firstName, value.lastName, value.email, value.password));
-      }
+      const value = this.formGroup.value;
+      this.user.emit(group.valid
+        ? new User(value.firstName, value.lastName, value.email, value.password)
+        : null);
     });
   }
 }

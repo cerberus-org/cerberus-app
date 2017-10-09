@@ -9,7 +9,6 @@ import { Organization } from '../../../models/organization';
   styleUrls: ['./new-organization-form.component.css']
 })
 export class NewOrganizationFormComponent implements OnInit {
-  @Output() valid = new EventEmitter<boolean>();
   @Output() organization = new EventEmitter<Organization>();
   formGroup: FormGroup;
 
@@ -41,12 +40,11 @@ export class NewOrganizationFormComponent implements OnInit {
    * @param {FormGroup} group
    */
   subscribeToForm(group: FormGroup): void {
-    group.valueChanges.subscribe(changes => {
-      this.valid.emit(group.valid);
-      if (group.valid) {
-        const value = this.formGroup.value;
-        this.organization.emit(new Organization(value.name, value.description, value.website));
-      }
+    group.valueChanges.subscribe(() => {
+      const value = this.formGroup.value;
+      this.organization.emit(group.valid
+        ? new Organization(value.name, value.description, value.website)
+        : null);
     });
   }
 }
