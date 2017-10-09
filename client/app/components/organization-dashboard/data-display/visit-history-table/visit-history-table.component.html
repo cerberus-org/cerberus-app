@@ -1,43 +1,43 @@
 <div fxFlex fxLayout="column">
-  <md-table fxFlex #table [dataSource]="dataSource">
+  <mat-table fxFlex #table [dataSource]="dataSource">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
     <!-- ID Column -->
     <ng-container cdkColumnDef="date">
-      <md-header-cell *cdkHeaderCellDef> Date</md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{formatDate(row.startedAt, row.timezone)}}</md-cell>
+      <mat-header-cell *cdkHeaderCellDef> Date</mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{formatDate(row.startedAt, row.timezone)}}</mat-cell>
     </ng-container>
 
     <!-- Progress Column -->
     <ng-container cdkColumnDef="startedAt">
-      <md-header-cell *cdkHeaderCellDef> Start</md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{formatTime(row.startedAt, row.timezone)}}</md-cell>
+      <mat-header-cell *cdkHeaderCellDef> Start</mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{formatTime(row.startedAt, row.timezone)}}</mat-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container cdkColumnDef="endedAt">
-      <md-header-cell *cdkHeaderCellDef> End</md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{formatTime(row.endedAt, row.timezone)}}</md-cell>
+      <mat-header-cell *cdkHeaderCellDef> End</mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{formatTime(row.endedAt, row.timezone)}}</mat-cell>
     </ng-container>
 
     <!-- Color Column -->
     <ng-container cdkColumnDef="duration">
-      <md-header-cell *cdkHeaderCellDef> Duration</md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{formatDuration(row)}}</md-cell>
+      <mat-header-cell *cdkHeaderCellDef> Duration</mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{formatDuration(row)}}</mat-cell>
     </ng-container>
 
-    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-  </md-table>
+    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 
   <!-- Spacer to keep paginator in bottom -->
   <div fxFlex="10 1 auto"></div>
-  <md-paginator fxFlex #paginator
+  <mat-paginator fxFlex #paginator
                 [length]="dataSource.visits.length"
                 [pageIndex]="0"
                 [pageSize]="initialPageSize"
                 [pageSizeOptions]="[initialPageSize, 25, 50, 100]">
-  </md-paginator>
+  </mat-paginator>
 </div>

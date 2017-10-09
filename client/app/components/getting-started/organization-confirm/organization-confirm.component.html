@@ -1,31 +1,31 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="start center">
   <h1 class="container" fxFlex="0 1 auto">Please confirm your details.</h1>
   <div fxFlex fxLayout="row" fxLayout.xs="column">
-    <md-list class="container column" *ngIf="organization">
-      <h1 md-subheader>Organization</h1>
-      <md-list-item>
-        <md-icon md-list-icon>business</md-icon>
-        <h3 md-line>{{organization.name}}</h3>
-      </md-list-item>
-      <md-list-item>
-        <md-icon md-list-icon>language</md-icon>
-        <h3 md-line>{{organization.website}}</h3>
-      </md-list-item>
-      <md-list-item>
-        <md-icon md-list-icon>sort</md-icon>
-        <h3 md-line>{{organization.description}}</h3>
-      </md-list-item>
-    </md-list>
-    <md-list class="container column" *ngIf="user">
-      <h1 md-subheader>User</h1>
-      <md-list-item>
-        <md-icon md-list-icon>perm_identity</md-icon>
-        <h3 md-line>{{user.firstName}} {{user.lastName}}</h3>
-      </md-list-item>
-      <md-list-item>
-        <md-icon md-list-icon>mail_outline</md-icon>
-        <h3 md-line>{{user.email}}</h3>
-      </md-list-item>
-    </md-list>
+    <mat-list class="container column" *ngIf="organization">
+      <h1 matSubheader>Organization</h1>
+      <mat-list-item>
+        <mat-icon mat-list-icon>business</mat-icon>
+        <h3 matLine>{{organization.name}}</h3>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>language</mat-icon>
+        <h3 matLine>{{organization.website}}</h3>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>sort</mat-icon>
+        <h3 matLine>{{organization.description}}</h3>
+      </mat-list-item>
+    </mat-list>
+    <mat-list class="container column" *ngIf="user">
+      <h1 matSubheader>User</h1>
+      <mat-list-item>
+        <mat-icon mat-list-icon>perm_identity</mat-icon>
+        <h3 matLine>{{user.firstName}} {{user.lastName}}</h3>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>mail_outline</mat-icon>
+        <h3 matLine>{{user.email}}</h3>
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>

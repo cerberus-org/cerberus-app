@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { MdTabGroup } from '@angular/material';
+import { MatTabGroup } from '@angular/material';
 
 import { Organization } from '../models/organization';
 import { User } from '../models/user';
@@ -12,7 +12,7 @@ export const UPDATE_VALID_USER = '[Getting Started] Update valid user';
 export class LoadTabGroup implements Action {
   readonly type = LOAD_TAB_GROUP;
 
-  constructor(public payload: MdTabGroup) {}
+  constructor(public payload: MatTabGroup) {}
 }
 
 export class NextStep implements Action {

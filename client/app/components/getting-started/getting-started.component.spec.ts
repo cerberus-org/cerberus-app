@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MdButtonModule, MdTabsModule } from '@angular/material';
+import { MatButtonModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
@@ -25,8 +25,8 @@ describe('GettingStartedComponent', () => {
         MockComponent({ selector: 'app-side-margins' })
       ],
       imports: [
-        MdButtonModule,
-        MdTabsModule,
+        MatButtonModule,
+        MatTabsModule,
         NoopAnimationsModule,
         RouterTestingModule
       ],

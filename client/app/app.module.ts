@@ -4,8 +4,8 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  MdAutocompleteModule, MdButtonModule, MdCardModule, MdIconModule, MdInputModule, MdListModule, MdPaginatorModule,
-  MdRadioModule, MdSnackBarModule, MdTableModule, MdTabsModule, MdToolbarModule
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule,
+  MatRadioModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -84,18 +84,18 @@ import { reducers } from './reducers/index';
     ChartsModule,
     FlexLayoutModule,
     HttpModule,
-    MdAutocompleteModule,
-    MdButtonModule,
-    MdCardModule,
-    MdIconModule,
-    MdInputModule,
-    MdListModule,
-    MdPaginatorModule,
-    MdRadioModule,
-    MdSnackBarModule,
-    MdTableModule,
-    MdTabsModule,
-    MdToolbarModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
     ReactiveFormsModule,
     SignaturePadModule,
     StoreModule.forRoot(reducers)

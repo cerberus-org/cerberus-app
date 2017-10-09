@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewUserFormComponent } from './new-user-form.component';
-import { MdInputModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -13,7 +13,7 @@ describe('NewUserFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NewUserFormComponent],
       imports: [
-        MdInputModule,
+        MatInputModule,
         NoopAnimationsModule,
         ReactiveFormsModule
       ]

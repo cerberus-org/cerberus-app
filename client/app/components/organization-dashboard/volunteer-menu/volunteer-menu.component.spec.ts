@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MdCardModule } from '@angular/material';
+import { MatCardModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 
 import { VolunteerMenuComponent } from './volunteer-menu.component';
@@ -17,7 +17,7 @@ describe('VolunteerMenuComponent', () => {
         VolunteerMenuComponent
       ],
       imports: [
-        MdCardModule,
+        MatCardModule,
         RouterTestingModule,
         StoreModule.forRoot(reducers)
       ],

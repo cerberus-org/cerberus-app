@@ -1,10 +1,10 @@
 import * as GettingStartedActions from '../actions/getting-started.actions'
-import { MdTabGroup } from '@angular/material';
+import { MatTabGroup } from '@angular/material';
 import { Organization } from '../models/organization';
 import { User } from '../models/user';
 
 export interface State {
-  tabGroup: MdTabGroup;
+  tabGroup: MatTabGroup;
   step: number;
   validOrganization: Organization
   validUser: User

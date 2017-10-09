@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MdTabGroup } from '@angular/material';
+import { MatTabGroup } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./getting-started.component.css']
 })
 export class GettingStartedComponent implements OnInit, OnDestroy {
-  @ViewChild('tabGroup') tabGroup: MdTabGroup;
+  @ViewChild('tabGroup') tabGroup: MatTabGroup;
   gettingStartedSubscription: Subscription;
   step: number;
   validOrganization: Organization;

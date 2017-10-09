@@ -8,7 +8,7 @@ form {
   margin-top: 2rem;
 }
 
-md-input-container {
+mat-form-field {
   width: 15rem;
 }
 
