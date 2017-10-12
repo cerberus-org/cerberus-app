@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Site } from '../../models/site';
 import { Organization } from '../../models/organization';
@@ -12,7 +13,6 @@ import { SnackBarService } from '../../services/snack-bar.service';
 import { UserService } from '../../services/user.service';
 import { State } from '../../reducers/index';
 import * as GettingStartedActions from '../../actions/getting-started.actions';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-getting-started',
@@ -33,7 +33,6 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
               private store: Store<State>) { }
 
   ngOnInit() {
-    this.store.dispatch(new GettingStartedActions.LoadTabGroup(this.tabGroup));
     this.gettingStartedSubscription = this.subscribeToGettingStarted();
   }
 
@@ -43,6 +42,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
 
   subscribeToGettingStarted(): Subscription {
     return this.store.select('gettingStarted').subscribe(state => {
+      this.tabGroup.selectedIndex = state.selectedIndex;
       this.step = state.step;
       this.validOrganization = state.validOrganization;
       this.validUser = state.validUser;

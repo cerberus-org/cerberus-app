@@ -18,12 +18,14 @@ describe('dataDisplayReducer', () => {
     });
 
     it('sets up the line chart labels', () => {
-      const state = fromDataDisplay.reducer(fromDataDisplay.initialState, new DataDisplayActions.SetupLineChart(payload));
+      const state = fromDataDisplay.reducer(fromDataDisplay.initialState,
+        new DataDisplayActions.SetupLineChart(payload));
       expect(state.lineChartLabels).toEqual(['Thu Jun 29', 'Fri Jun 30', 'Sat Jul 1']);
     });
 
     it('sets up the line chart data', () => {
-      const state = fromDataDisplay.reducer(fromDataDisplay.initialState, new DataDisplayActions.SetupLineChart(payload));
+      const state = fromDataDisplay.reducer(fromDataDisplay.initialState,
+        new DataDisplayActions.SetupLineChart(payload));
       const lineChartData = state.lineChartData[0];
       expect(lineChartData.data.length).toEqual(3);
       expect(lineChartData.label).toEqual('Hours');

@@ -14,8 +14,8 @@ describe('volunteerReducer', () => {
   describe('LOAD', () => {
 
     it('loads volunteers', () => {
-      const result = fromVolunteers.reducer(initialState, new VolunteerActions.Load(volunteers)).volunteers;
-      expect(result).toBe(volunteers);
+      const state = fromVolunteers.reducer(initialState, new VolunteerActions.Load(volunteers));
+      expect(state.volunteers).toBe(volunteers);
     });
   });
 
@@ -23,9 +23,9 @@ describe('volunteerReducer', () => {
 
     it('adds a volunteer', () => {
       const volunteer = Object.assign({}, volunteers[0]);
-      const result = fromVolunteers.reducer(initialState, new VolunteerActions.Add(volunteer)).volunteers;
-      expect(result[0]).toBe(volunteer);
-      expect(result.length).toBe(volunteers.length + 1);
+      const state = fromVolunteers.reducer(initialState, new VolunteerActions.Add(volunteer));
+      expect(state.volunteers[0]).toBe(volunteer);
+      expect(state.volunteers.length).toBe(volunteers.length + 1);
     });
   });
 
@@ -33,9 +33,9 @@ describe('volunteerReducer', () => {
 
     it('modifies a volunteer', () => {
       const modified = Object.assign({}, volunteers[0]);
-      const result = fromVolunteers.reducer(initialState, new VolunteerActions.Modify(modified)).volunteers;
-      expect(result[0]).toBe(modified);
-      expect(result.length).toBe(volunteers.length);
+      const state = fromVolunteers.reducer(initialState, new VolunteerActions.Modify(modified));
+      expect(state.volunteers[0]).toBe(modified);
+      expect(state.volunteers.length).toBe(volunteers.length);
     });
   });
 

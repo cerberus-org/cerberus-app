@@ -1,19 +1,11 @@
 import { Action } from '@ngrx/store';
-import { MatTabGroup } from '@angular/material';
 
 import { Organization } from '../models/organization';
 import { User } from '../models/user';
 
-export const LOAD_TAB_GROUP = '[Getting Started] Load tab group';
 export const NEXT_STEP = '[Getting Started] Next step';
 export const UPDATE_VALID_ORGANIZATION = '[Getting Started] Update valid organization';
 export const UPDATE_VALID_USER = '[Getting Started] Update valid user';
-
-export class LoadTabGroup implements Action {
-  readonly type = LOAD_TAB_GROUP;
-
-  constructor(public payload: MatTabGroup) {}
-}
 
 export class NextStep implements Action {
   readonly type = NEXT_STEP;
@@ -34,7 +26,6 @@ export class UpdateValidUser implements Action {
 }
 
 export type All
-  = LoadTabGroup
-  | NextStep
+  = NextStep
   | UpdateValidOrganization
   | UpdateValidUser;
