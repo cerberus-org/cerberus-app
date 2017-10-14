@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MdListModule, MdPaginatorModule, MdTableModule } from '@angular/material';
+import { MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk/table';
 import { StoreModule } from '@ngrx/store';
@@ -22,9 +22,9 @@ describe('VisitHistoryTableComponent', () => {
       imports: [
         NoopAnimationsModule,
         CdkTableModule,
-        MdListModule,
-        MdPaginatorModule,
-        MdTableModule,
+        MatListModule,
+        MatPaginatorModule,
+        MatTableModule,
         StoreModule.forRoot(reducers)
       ]
     }).compileComponents();

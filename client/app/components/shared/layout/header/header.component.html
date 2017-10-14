@@ -1,13 +1,13 @@
-<md-toolbar color="primary">
+<mat-toolbar color="primary">
   <i class="material-icons title-icon">{{icon}}</i>
   <span class="title-text">{{text}}</span>
-  <button md-button *ngIf="showBack" (click)="onBack()">
+  <button mat-button *ngIf="showBack" (click)="onBack()">
     <i class="material-icons" fxHide.lg fxHide.md fxHide.sm>keyboard_backspace</i>
     <span fxHide.xs>Back</span>
   </button>
   <span class="spacer"></span>
-  <button class="logout" *ngIf="showLogout" (click)="onLogout()" md-button>
+  <button class="logout" *ngIf="showLogout" (click)="onLogout()" mat-button>
     <i class="material-icons" fxHide.lg fxHide.md fxHide.sm>exit_to_app</i>
     <span fxHide.xs>Logout</span>
   </button>
-</md-toolbar>
+</mat-toolbar>

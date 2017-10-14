@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AboutUsComponent } from './about-us.component';
-import { MdIconModule } from '@angular/material';
+import { MatIconModule } from '@angular/material';
 
 describe('AboutUsComponent', () => {
   let component: AboutUsComponent;
@@ -10,7 +10,7 @@ describe('AboutUsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AboutUsComponent],
-      imports: [MdIconModule]
+      imports: [MatIconModule]
     }).compileComponents();
   }));
 

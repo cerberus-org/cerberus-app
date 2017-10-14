@@ -4,26 +4,26 @@
       fxLayoutGap="1rem"
       [formGroup]="formGroup"
       (ngSubmit)="onSubmit()">
-  <md-input-container fxFlex="0 1 auto">
-    <input mdInput
+  <mat-form-field fxFlex="0 1 auto">
+    <input matInput
            placeholder="Name"
-           [mdAutocomplete]="nameForm"
+           [matAutocomplete]="nameForm"
            formControlName="name">
-  </md-input-container>
-  <md-autocomplete #nameForm="mdAutocomplete">
-    <md-option *ngFor="let name of volunteerNames" [value]="name">{{name}}</md-option>
-  </md-autocomplete>
-  <md-radio-group *ngIf="showPetNameForm"
+  </mat-form-field>
+  <mat-autocomplete #nameForm="matAutocomplete">
+    <mat-option *ngFor="let name of volunteerNames" [value]="name">{{name}}</mat-option>
+  </mat-autocomplete>
+  <mat-radio-group *ngIf="showPetNameForm"
                   class="pets-container"
                   fxFlex="0 1 auto"
                   fxLayoutGap="1rem"
                   formControlName="petName">
-    <md-radio-button *ngFor="let volunteer of (volunteers$ | async)?.filtered"
+    <mat-radio-button *ngFor="let volunteer of (volunteers$ | async)?.filtered"
                      [value]="volunteer.petName"
                      (change)="onPetNameClick(volunteer.petName)">
       <i class="material-icons">pets</i> {{volunteer.petName}}
-    </md-radio-button>
-  </md-radio-group>
+    </mat-radio-button>
+  </mat-radio-group>
   <div *ngIf="activeVisit; then showCheckOut else showCheckIn"></div>
   <div fxFlex="0 1 auto">
     <ng-template #showCheckIn>
@@ -35,13 +35,13 @@
            [@sigTrigger]="signatureState">
         <app-signature-field class="signature-container" fxFlex formControlName="signatureField"></app-signature-field>
         <div fxFlex>
-          <button md-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">Clear</button>
-          <button md-raised-button color="primary" [disabled]="formGroup.invalid">Check In</button>
+          <button mat-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">Clear</button>
+          <button mat-raised-button color="primary" [disabled]="formGroup.invalid">Check In</button>
         </div>
       </div>
     </ng-template>
     <ng-template #showCheckOut>
-      <button md-raised-button color="primary">Check Out</button>
+      <button mat-raised-button color="primary">Check Out</button>
     </ng-template>
   </div>
 </form>

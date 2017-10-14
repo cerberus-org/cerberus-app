@@ -1,10 +1,10 @@
 <form fxLayout="column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-  <md-list fxFlexAlign="center">
-    <md-list-item *ngFor="let form of forms">
-      <md-input-container>
-        <input class="capitalize" mdInput formControlName={{form.control}} placeholder={{form.placeholder}}>
-      </md-input-container>
-    </md-list-item>
-  </md-list>
-  <button md-raised-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid">Submit</button>
+  <mat-list fxFlexAlign="center">
+    <mat-list-item *ngFor="let form of forms">
+      <mat-form-field>
+        <input class="capitalize" matInput formControlName={{form.control}} placeholder={{form.placeholder}}>
+      </mat-form-field>
+    </mat-list-item>
+  </mat-list>
+  <button mat-raised-button color="primary" fxFlexAlign="center" [disabled]="formGroup.invalid">Submit</button>
 </form>

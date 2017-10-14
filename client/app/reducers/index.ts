@@ -6,6 +6,7 @@ import * as fromVolunteer from './volunteers.reducer';
 import * as fromUser from './users.reducer';
 
 import * as fromDataDisplay from './data-display.reducer';
+import * as fromGettingStarted from './getting-started.reducer';
 
 export interface State {
   sites: fromSite.State;
@@ -14,6 +15,7 @@ export interface State {
   volunteers: fromVolunteer.State;
   users: fromUser.State;
   dataDisplay: fromDataDisplay.State;
+  gettingStarted: fromGettingStarted.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -25,4 +27,5 @@ export const reducers: ActionReducerMap<State> = {
   users: fromUser.reducer,
   // UI
   dataDisplay: fromDataDisplay.reducer,
+  gettingStarted: fromGettingStarted.reducer
 };

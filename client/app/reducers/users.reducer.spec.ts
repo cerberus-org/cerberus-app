@@ -12,8 +12,8 @@ describe('userReducer', () => {
   describe('LOAD', () => {
 
     it('loads users', () => {
-      const result = fromUsers.reducer({ users: users }, new UserActions.Load(users)).users;
-      expect(result).toBe(users);
+      const state = fromUsers.reducer({ users: users }, new UserActions.Load(users));
+      expect(state.users).toBe(users);
     });
   });
 
@@ -21,9 +21,9 @@ describe('userReducer', () => {
 
     it('adds a user', () => {
       const user = Object.assign({}, users[0]);
-      const result = fromUsers.reducer({ users: users }, new UserActions.Add(user)).users;
-      expect(result[0]).toBe(user);
-      expect(result.length).toBe(users.length + 1);
+      const state = fromUsers.reducer({ users: users }, new UserActions.Add(user));
+      expect(state.users[0]).toBe(user);
+      expect(state.users.length).toBe(users.length + 1);
     });
   });
 
@@ -31,8 +31,8 @@ describe('userReducer', () => {
 
     it('modifies a user', () => {
       const modified = Object.assign({}, users[0]);
-      const result = fromUsers.reducer({ users: users }, new UserActions.Modify(modified)).users;
-      expect(result[0]).toBe(modified);
+      const state = fromUsers.reducer({ users: users }, new UserActions.Modify(modified));
+      expect(state.users[0]).toBe(modified);
     });
   });
 });

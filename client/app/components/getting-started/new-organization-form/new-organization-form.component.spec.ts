@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MdInputModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
 
 import { NewOrganizationFormComponent } from './new-organization-form.component';
+import { reducers } from '../../../reducers/index';
 
 describe('NewOrganizationFormComponent', () => {
   let component: NewOrganizationFormComponent;
@@ -13,9 +15,10 @@ describe('NewOrganizationFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NewOrganizationFormComponent],
       imports: [
-        MdInputModule,
+        MatInputModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
+        StoreModule.forRoot(reducers)
       ]
     }).compileComponents();
   }));

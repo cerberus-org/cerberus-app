@@ -1,10 +1,10 @@
 <app-side-margins fxFlex fxLayout="column">
-  <md-tab-group class="container" fxLayout="column" md-stretch-tabs dynamicHeight #tabGroup>
-    <md-tab label="Check In">
+  <mat-tab-group class="container" fxLayout="column" mat-stretch-tabs dynamicHeight #tabGroup>
+    <mat-tab label="Check In">
       <app-check-in-form></app-check-in-form>
-    </md-tab>
-    <md-tab label="New Volunteer">
+    </mat-tab>
+    <mat-tab label="New Volunteer">
       <app-new-volunteer-form (changeTab)="tabGroup.selectedIndex = $event"></app-new-volunteer-form>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </app-side-margins>

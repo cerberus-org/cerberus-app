@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MdButtonModule, MdTabsModule } from '@angular/material';
+import { MatButtonModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
 import { GettingStartedComponent } from './getting-started.component';
-import { SiteService, MockSiteService } from '../../services/site.service';
+import { MockSiteService, SiteService } from '../../services/site.service';
 import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
 import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
 import { MockUserService, UserService } from '../../services/user.service';
+import { reducers } from '../../reducers/index';
 
 describe('GettingStartedComponent', () => {
   let component: GettingStartedComponent;
@@ -25,10 +27,11 @@ describe('GettingStartedComponent', () => {
         MockComponent({ selector: 'app-side-margins' })
       ],
       imports: [
-        MdButtonModule,
-        MdTabsModule,
+        MatButtonModule,
+        MatTabsModule,
         NoopAnimationsModule,
-        RouterTestingModule
+        RouterTestingModule,
+        StoreModule.forRoot(reducers)
       ],
       providers: [
         { provide: SiteService, useClass: MockSiteService },
@@ -47,13 +50,5 @@ describe('GettingStartedComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('sets step to the next step', () => {
-    expect(component.nextStep(0, 1)).toEqual(1);
-  });
-
-  it('does not set step to the next step when backtracking', () => {
-    expect(component.nextStep(2, 1)).toEqual(2);
   });
 });

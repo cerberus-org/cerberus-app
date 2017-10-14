@@ -4,14 +4,14 @@
       fxLayoutGap="1rem"
       [formGroup]="formGroup">
   <h1 class="text-container" fxFlex="0 1 auto">Tell us about your organization.</h1>
-  <md-form-field class="input-container" fxFlex="0 1 auto">
-    <input mdInput class="capitalize" maxlength="70" placeholder="Organization name" formControlName="name">
-  </md-form-field>
-  <md-form-field class="input-container" fxFlex="0 1 auto">
-    <input mdInput placeholder="Website" maxlength="255" formControlName="website">
-  </md-form-field>
-  <md-form-field class="input-container" fxFlex="0 1 auto">
-    <textarea mdInput #description maxlength="160" placeholder="Short description" formControlName="description"></textarea>
-    <md-hint align="end">{{description.value.length}} / 160</md-hint>
-  </md-form-field>
+  <mat-form-field class="input-container" fxFlex="0 1 auto">
+    <input matInput class="capitalize" maxlength="70" placeholder="Organization name" formControlName="name">
+  </mat-form-field>
+  <mat-form-field class="input-container" fxFlex="0 1 auto">
+    <input matInput placeholder="Website" maxlength="255" formControlName="website">
+  </mat-form-field>
+  <mat-form-field class="input-container" fxFlex="0 1 auto">
+    <textarea matInput #description maxlength="160" placeholder="Short description" formControlName="description"></textarea>
+    <mat-hint align="end">{{description.value.length}} / 160</mat-hint>
+  </mat-form-field>
 </form>

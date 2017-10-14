@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdAutocompleteModule, MdInputModule, MdRadioModule } from '@angular/material';
+import { MatAutocompleteModule, MatInputModule, MatRadioModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
@@ -25,9 +25,9 @@ describe('CheckInFormComponent', () => {
         SignatureFieldComponent
       ],
       imports: [
-        MdAutocompleteModule,
-        MdInputModule,
-        MdRadioModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatRadioModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
         RouterTestingModule,

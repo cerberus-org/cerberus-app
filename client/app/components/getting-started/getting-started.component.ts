@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatTabGroup } from '@angular/material';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Site } from '../../models/site';
 import { Organization } from '../../models/organization';
@@ -7,36 +11,46 @@ import { SiteService } from '../../services/site.service';
 import { OrganizationService } from '../../services/organization.service';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { UserService } from '../../services/user.service';
-import { Observable } from 'rxjs/Observable';
+import { State } from '../../reducers/index';
+import * as GettingStartedActions from '../../actions/getting-started.actions';
 
 @Component({
   selector: 'app-getting-started',
   templateUrl: './getting-started.component.html',
   styleUrls: ['./getting-started.component.css']
 })
-export class GettingStartedComponent implements OnInit {
-  error: string;
+export class GettingStartedComponent implements OnInit, OnDestroy {
+  @ViewChild('tabGroup') tabGroup: MatTabGroup;
+  gettingStartedSubscription: Subscription;
   step: number;
-  validOrganization: boolean;
-  validUser: boolean;
-  organization: Organization;
-  user: User;
+  validOrganization: Organization;
+  validUser: User;
 
   constructor(private siteService: SiteService,
               private organizationService: OrganizationService,
               private snackBarService: SnackBarService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private store: Store<State>) { }
 
   ngOnInit() {
-    this.step = 0;
+    this.gettingStartedSubscription = this.subscribeToGettingStarted();
   }
 
-  onNext(value): void {
-    this.step = this.nextStep(this.step, value);
-  };
+  ngOnDestroy() {
+    this.gettingStartedSubscription.unsubscribe();
+  }
 
-  nextStep(previous, next): number {
-    return next > previous ? next : previous;
+  subscribeToGettingStarted(): Subscription {
+    return this.store.select('gettingStarted').subscribe(state => {
+      this.tabGroup.selectedIndex = state.selectedIndex;
+      this.step = state.step;
+      this.validOrganization = state.validOrganization;
+      this.validUser = state.validUser;
+    });
+  }
+
+  onNext(step): void {
+    this.store.dispatch(new GettingStartedActions.NextStep(step));
   };
 
   /**
@@ -44,13 +58,13 @@ export class GettingStartedComponent implements OnInit {
    */
   onSubmit(): void {
     // TODO: Refactor with @ngrx/effects
-    this.createOrganization(this.organization).subscribe(organization => {
-      const userWithOrgId = Object.assign({}, this.user);
+    this.createOrganization(this.validOrganization).subscribe(organization => {
+      const userWithOrgId = Object.assign({}, this.validUser);
       userWithOrgId.organizationId = organization._id;
       this.createSite(organization).subscribe(() => {
         this.createUser(userWithOrgId).subscribe(() => {
           this.snackBarService.addOrganizationSuccess();
-          this.login(this.user);
+          this.login(this.validUser);
         });
       });
     });
@@ -81,6 +95,10 @@ export class GettingStartedComponent implements OnInit {
     return this.userService.create(user);
   }
 
+  /**
+   * Logs the user in.
+   * @param {User} user
+   */
   login(user: User) {
     this.userService.login(user, () => this.snackBarService.welcome(user.firstName));
   }

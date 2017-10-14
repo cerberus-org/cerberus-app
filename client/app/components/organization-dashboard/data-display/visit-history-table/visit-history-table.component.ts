@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
-import { MdPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment-timezone';
 import 'rxjs/add/observable/merge'
@@ -20,7 +20,7 @@ export class VisitHistoryTableComponent implements OnInit {
   displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
   dataSource: VisitDataSource | null;
 
-  @ViewChild(MdPaginator) paginator: MdPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor() { }
 
@@ -64,7 +64,7 @@ export class VisitDataSource extends DataSource<any> implements OnDestroy {
   visits: Visit[];
   error: string;
 
-  constructor(private visits$: Observable<State['visits']>, private paginator: MdPaginator) {
+  constructor(private visits$: Observable<State['visits']>, private paginator: MatPaginator) {
     super();
     this.visitsSubscription = this.subscribeToVisits();
   }

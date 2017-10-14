@@ -12,8 +12,8 @@ describe('organizationReducer', () => {
   describe('LOAD', () => {
 
     it('loads organizations', () => {
-      const result = fromOrganizations.reducer({ organizations: organizations }, new OrganizationActions.Load(organizations)).organizations;
-      expect(result).toBe(organizations);
+      const state = fromOrganizations.reducer({ organizations: organizations }, new OrganizationActions.Load(organizations));
+      expect(state.organizations).toBe(organizations);
     });
   });
 
@@ -21,9 +21,9 @@ describe('organizationReducer', () => {
 
     it('adds a organization', () => {
       const organization = Object.assign({}, organizations[0]);
-      const result = fromOrganizations.reducer({ organizations: organizations }, new OrganizationActions.Add(organization)).organizations;
-      expect(result[0]).toBe(organization);
-      expect(result.length).toBe(organizations.length + 1);
+      const state = fromOrganizations.reducer({ organizations: organizations }, new OrganizationActions.Add(organization));
+      expect(state.organizations[0]).toBe(organization);
+      expect(state.organizations.length).toBe(organizations.length + 1);
     });
   });
 
@@ -31,8 +31,8 @@ describe('organizationReducer', () => {
 
     it('modifies a organization', () => {
       const modified = Object.assign({}, organizations[0]);
-      const result = fromOrganizations.reducer({ organizations: organizations }, new OrganizationActions.Modify(modified)).organizations;
-      expect(result[0]).toBe(modified);
+      const state = fromOrganizations.reducer({ organizations: organizations }, new OrganizationActions.Modify(modified));
+      expect(state.organizations[0]).toBe(modified);
     });
   });
 });
