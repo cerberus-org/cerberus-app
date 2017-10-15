@@ -4,11 +4,12 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule,
-  MatRadioModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule,
+  MatPaginatorModule, MatRadioModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ChartsModule } from 'ng2-charts';
 import { SignaturePadModule } from 'angular2-signaturepad';
@@ -52,6 +53,7 @@ import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
 
 import { reducers } from './reducers/index';
+import { DataDisplayEffects } from './effects/data-display.effects';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,10 @@ import { reducers } from './reducers/index';
     MatToolbarModule,
     ReactiveFormsModule,
     SignaturePadModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([
+      DataDisplayEffects
+    ])
   ],
   providers: [
     Guard,
