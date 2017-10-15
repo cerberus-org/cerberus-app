@@ -79,9 +79,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     this.petNameControl = this.formGroup.controls['petName'];
 
     this.formGroupSubscription = this.formGroup.valueChanges
-      .subscribe(() => this.store.dispatch(
-        new CheckInActions.SelectActiveVisitForVolunteer(this.selectedVolunteer)
-      ));
+      .subscribe(() => this.store
+        .dispatch(new CheckInActions.SelectActiveVisitForVolunteer(this.selectedVolunteer)));
   }
 
   ngOnDestroy(): void {
@@ -168,13 +167,16 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * Creates a new visit with now as the start time and a null end time.
    */
   startVisit(organizationId: string, siteId: string, volunteer: Volunteer, signature: any): void {
-    this.visitService.createRx(
-      new Visit(organizationId, siteId, volunteer._id, new Date(), null, 'America/Chicago', signature),
-      () => {
-        this.snackBarService.checkInSuccess();
-        this.router.navigateByUrl('/dashboard');
-      }
+    const visit = new Visit(
+      organizationId,
+      siteId,
+      volunteer._id,
+      new Date(),
+      null,
+      'America/Chicago',
+      signature
     );
+    this.store.dispatch(new CheckInActions.CheckIn(visit));
   }
 
   /**

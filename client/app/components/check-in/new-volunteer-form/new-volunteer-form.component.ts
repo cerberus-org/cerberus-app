@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { Volunteer } from '../../../models/volunteer';
 import { VolunteerService } from '../../../services/volunteer.service';
+import * as CheckInActions from '../../../actions/check-in.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../reducers/index';
 
 @Component({
   selector: 'app-new-volunteer-form',
@@ -17,6 +20,7 @@ export class NewVolunteerFormComponent implements OnInit {
   public forms;
 
   constructor(private fb: FormBuilder,
+              private store: Store<AppState>,
               private snackBarService: SnackBarService,
               private volunteerService: VolunteerService) {
     this.changeTab = new EventEmitter<number>();
@@ -26,21 +30,20 @@ export class NewVolunteerFormComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    this.createVolunteer(new Volunteer(
+    const volunteer = new Volunteer(
       localStorage.getItem('organizationId'),
       this.formGroup.value.firstName,
       this.formGroup.value.lastName,
-      this.formGroup.value.petName));
+      this.formGroup.value.petName
+    );
+    this.store.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
+
     this.formGroup.reset();
     // Workaround for clearing error state
     Object.keys(this.formGroup.controls).forEach(key => {
       this.formGroup.controls[key].setErrors(null)
     });
     this.changeTab.emit(0);
-  }
-
-  createVolunteer(volunteer: Volunteer): void {
-    this.volunteerService.createRx(volunteer, () => this.snackBarService.signUpSuccess());
   }
 
   createForm(): void {

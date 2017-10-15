@@ -34,16 +34,25 @@ export class LoadDataSuccess implements Action {
 export class SubmitNewVolunteer implements Action {
   readonly type = SUBMIT_NEW_VOLUNTEER;
 
-  constructor(public payload: {
-    organizationId: string,
-    siteId: string
-  }) {}
+  constructor(public payload: Volunteer) {}
 }
 
 export class SubmitNewVolunteerSuccess implements Action {
   readonly type = SUBMIT_NEW_VOLUNTEER_SUCCESS;
 
   constructor(public payload: Volunteer) {}
+}
+
+export class CheckIn implements Action {
+  readonly type = CHECK_IN;
+
+  constructor(public payload: Visit) {}
+}
+
+  export class CheckOut implements Action {
+  readonly type = CHECK_OUT;
+
+  constructor(public payload: Visit) {}
 }
 
 export class FilterAndSelectVolunteersByName implements Action {
@@ -69,6 +78,8 @@ export type All
   | LoadDataSuccess
   | SubmitNewVolunteer
   | SubmitNewVolunteerSuccess
+  | CheckIn
+  | CheckOut
   | FilterAndSelectVolunteersByName
   | SelectVolunteerByPetName
   | SelectActiveVisitForVolunteer;

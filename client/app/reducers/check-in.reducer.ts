@@ -39,6 +39,12 @@ export function reducer(state = initialState, action: Action): State {
       });
     }
 
+    case CheckInActions.SUBMIT_NEW_VOLUNTEER_SUCCESS: {
+      return Object.assign({}, state, {
+        volunteers: [action.payload, ...state.volunteers]
+      });
+    }
+
     /**
      * Filters volunteers by comparing against first and last names and selects if one remains.
      * action.payload is a string for name.
