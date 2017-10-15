@@ -2,21 +2,13 @@ import { Action } from '@ngrx/store';
 
 import { Visit } from '../models/visit';
 
-export const LOAD_DATA = '[Data Display] Load data';
-export const LOAD_DATA_SUCCESS = '[Data Display] Load data success';
+export const SETUP_LINE_CHART = '[Data Display] Set line chart labels';
 
-export class LoadData implements Action {
-  readonly type = LOAD_DATA;
-
-  constructor(public payload: string) {}
-}
-
-export class LoadDataSuccess implements Action {
-  readonly type = LOAD_DATA_SUCCESS;
+export class SetupLineChart implements Action {
+  readonly type = SETUP_LINE_CHART;
 
   constructor(public payload: Visit[]) {}
 }
 
 export type All
-  = LoadData
-  | LoadDataSuccess;
+  = SetupLineChart;

@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { State } from '../../../../reducers/index';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
+
+import { State } from '../../../../reducers/index';
 import * as DataDisplayActions from '../../../../actions/data-display.actions';
 
 @Component({
@@ -11,36 +11,33 @@ import * as DataDisplayActions from '../../../../actions/data-display.actions';
   styleUrls: ['./daily-hours-chart.component.css']
 })
 export class DailyHoursChartComponent implements OnInit, OnDestroy {
-  @Input() visits$: Observable<State['visits']>;
-  dataDisplay$: Observable<State['dataDisplay']>;
+  dataDisplaySubscription: Subscription;
   visitsSubscription: Subscription;
-  lineChartData: any[];
-  lineChartLabels: string[];
-  lineChartOptions = { responsive: true, maintainAspectRatio: false };
-  lineChartType = 'line';
-  error: string;
+  data: { data: string[], label: string }[];
+  labels: string[];
+  options = { responsive: true, maintainAspectRatio: false };
+  type = 'line';
 
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.lineChartLabels = [];
-    this.lineChartData = [];
-    this.visitsSubscription = this.subscribeToVisits();
-    this.dataDisplay$ = this.store.select('dataDisplay');
+    this.data = [];
+    this.labels = [];
+
+    this.visitsSubscription = this.store.select('visits').subscribe(state =>
+      this.store.dispatch(new DataDisplayActions.SetupLineChart(state.visits)));
+
+    this.dataDisplaySubscription = this.store.select('dataDisplay').subscribe(state => {
+      this.data = state.lineChartData;
+      // This workaround updates the labels array while keeping its reference,
+      // since Chart.js does not support immutable changes for labels
+      this.labels.length = 0;
+      Array.prototype.push.apply(this.labels, state.lineChartLabels);
+    });
   }
 
   ngOnDestroy(): void {
     this.visitsSubscription.unsubscribe();
-  }
-
-  subscribeToVisits(): Subscription {
-    return this.visits$.subscribe(state => {
-      this.store.dispatch(new DataDisplayActions.SetupLineChart({
-        visits: state.visits,
-        latest: new Date(),
-        count: 12,
-        unit: 'days',
-        format: 'ddd MMM D'}));
-    }, error => this.error = <any>error);
+    this.dataDisplaySubscription.unsubscribe();
   }
 }

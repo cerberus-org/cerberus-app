@@ -1,9 +1,10 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { MatPaginator } from '@angular/material';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import * as moment from 'moment-timezone';
 import 'rxjs/add/observable/merge'
+import * as moment from 'moment-timezone';
 
 import { Visit } from '../../../../models/visit';
 import { State } from '../../../../reducers/index';
@@ -15,21 +16,20 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./visit-history-table.component.css']
 })
 export class VisitHistoryTableComponent implements OnInit {
-  @Input() visits$: Observable<State['visits']>;
   initialPageSize: number;
   displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
   dataSource: VisitDataSource | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
     // Determine initial page size using inner height of window at component init
     const surroundingElementsPx = 281;
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
-    this.dataSource = new VisitDataSource(this.visits$, this.paginator);
+    this.dataSource = new VisitDataSource(this.store.select('visits'), this.paginator);
   }
 
   formatDate(date: Date, timezone: string): string {

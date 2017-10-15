@@ -9,7 +9,6 @@ import {
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ChartsModule } from 'ng2-charts';
 import { SignaturePadModule } from 'angular2-signaturepad';
@@ -53,7 +52,6 @@ import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
 
 import { reducers } from './reducers/index';
-import { DataDisplayEffects } from './effects/data-display.effects';
 
 @NgModule({
   declarations: [
@@ -101,9 +99,9 @@ import { DataDisplayEffects } from './effects/data-display.effects';
     ReactiveFormsModule,
     SignaturePadModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([
-      DataDisplayEffects
-    ])
+    // EffectsModule.forRoot([
+    //   DataDisplayEffects
+    // ])
   ],
   providers: [
     Guard,

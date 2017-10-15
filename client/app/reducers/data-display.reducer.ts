@@ -3,13 +3,11 @@ import * as DataDisplayActions from '../actions/data-display.actions'
 import * as moment from 'moment';
 
 export interface State {
-  visits: Visit[],
   lineChartLabels: string[];
   lineChartData: { data: string[], label: string }[];
 }
 
 export const initialState: State = {
-  visits: [],
   lineChartLabels: [],
   lineChartData: []
 };
@@ -19,15 +17,14 @@ export type Action = DataDisplayActions.All;
 export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
 
-    case DataDisplayActions.LOAD_DATA_SUCCESS: {
+    case DataDisplayActions.SETUP_LINE_CHART: {
       const visits = action.payload;
       const labels = setupLineChartLabels();
       const data = setupLineChartData(visits, labels);
-      return Object.assign({}, initialState, {
-        visits: visits,
+      return {
         lineChartLabels: labels,
         lineChartData: data
-      });
+      };
     }
 
     default: {
@@ -43,8 +40,8 @@ export function reducer(state = initialState, action: Action): State {
 const setupLineChartLabels = () => {
   // The latest date that will be used as the rightmost label
   const latest: Date = new Date();
-  // The number of previous dates to use as labels, defaults to 7 for week view
-  const count = 7;
+  // The number of previous dates to use as labels
+  const count = 20;
   // How each date should be displayed (refer to Moment.js formats)
   const format = 'ddd MMM D';
   // The unit to use for mapping to dates (refer to Moment.js keys)
@@ -76,8 +73,6 @@ const setupLineChartData = (visits, labels) => {
     }
     visitsByDate.get(date).push(visit);
   });
-
-  console.log(visitsByDate);
 
   // Construct and return line chart data
   return [{
