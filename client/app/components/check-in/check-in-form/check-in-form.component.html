@@ -18,7 +18,7 @@
                   fxFlex="0 1 auto"
                   fxLayoutGap="1rem"
                   formControlName="petName">
-    <mat-radio-button *ngFor="let volunteer of (volunteers$ | async)?.filtered"
+    <mat-radio-button *ngFor="let volunteer of filteredVolunteers"
                      [value]="volunteer.petName"
                      (change)="onPetNameClick(volunteer.petName)">
       <i class="material-icons">pets</i> {{volunteer.petName}}

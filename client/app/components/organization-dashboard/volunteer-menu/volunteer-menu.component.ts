@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { State } from '../../../reducers/index';
+import { AppState } from '../../../reducers/index';
 
 @Component({
   selector: 'app-volunteer-menu',
@@ -12,10 +12,10 @@ import { State } from '../../../reducers/index';
 })
 export class VolunteerMenuComponent implements OnInit {
 
-  sites$: Observable<State['sites']>;
+  sites$: Observable<AppState['sites']>;
   error: string;
 
-  constructor(private router: Router, private store: Store<State>) { }
+  constructor(private router: Router, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.sites$ = this.store.select('sites');

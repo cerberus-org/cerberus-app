@@ -1,10 +1,10 @@
 import { testVolunteers, Volunteer } from '../models/volunteer';
 import * as fromVolunteers from './volunteers.reducer'
 import * as VolunteerActions from '../actions/volunteers.actions';
-import { State } from './index';
+import { AppState } from './index';
 
 describe('volunteerReducer', () => {
-  let volunteers: Volunteer[], initialState: State['volunteers'];
+  let volunteers: Volunteer[], initialState: AppState['volunteers'];
 
   beforeEach(() => {
     volunteers = testVolunteers.slice(0);

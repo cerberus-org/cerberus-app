@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { State } from '../../reducers/index';
+import { AppState } from '../../reducers/index';
 import * as CheckInActions from '../../actions/check-in.actions'
 import { OrganizationService } from '../../services/organization.service';
 
@@ -14,7 +14,7 @@ import { OrganizationService } from '../../services/organization.service';
 export class CheckInComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private store: Store<State>,
+              private store: Store<AppState>,
               private organizationService: OrganizationService) { }
 
   ngOnInit(): void {

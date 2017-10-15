@@ -25,6 +25,11 @@ export const initialState: State = {
 export type Action = CheckInActions.All;
 
 export function reducer(state = initialState, action: Action): State {
+
+  if (!action.payload) {
+    return state;
+  }
+
   switch (action.type) {
 
     case CheckInActions.LOAD_DATA_SUCCESS: {

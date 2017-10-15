@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { State } from '../../../../reducers/index';
+import { AppState } from '../../../../reducers/index';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   text: string;
   previousUrl: string;
 
-  constructor(private router: Router, private store: Store<State>) { }
+  constructor(private router: Router, private store: Store<AppState>) { }
 
   ngOnInit() {
     this.organizationSubscription = this.subscribeToOrganizations();

@@ -11,7 +11,7 @@ import { SiteService } from '../../services/site.service';
 import { OrganizationService } from '../../services/organization.service';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { UserService } from '../../services/user.service';
-import { State } from '../../reducers/index';
+import { AppState } from '../../reducers/index';
 import * as GettingStartedActions from '../../actions/getting-started.actions';
 
 @Component({
@@ -30,7 +30,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
               private organizationService: OrganizationService,
               private snackBarService: SnackBarService,
               private userService: UserService,
-              private store: Store<State>) { }
+              private store: Store<AppState>) { }
 
   ngOnInit() {
     this.gettingStartedSubscription = this.subscribeToGettingStarted();

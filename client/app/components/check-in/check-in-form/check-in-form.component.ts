@@ -10,10 +10,8 @@ import { Volunteer } from '../../../models/volunteer';
 import { VisitService } from '../../../services/visit.service';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
 import { SnackBarService } from '../../../services/snack-bar.service';
-import { State } from '../../../reducers/index';
-import { Observable } from 'rxjs/Observable';
-import * as VolunteersActions from '../../../actions/volunteers.actions';
-import * as VisitsActions from '../../../actions/visits.actions';
+import { AppState } from '../../../reducers/index';
+import * as CheckInActions from '../../../actions/check-in.actions';
 
 @Component({
   selector: 'app-check-in-form',
@@ -34,21 +32,20 @@ import * as VisitsActions from '../../../actions/visits.actions';
 export class CheckInFormComponent implements OnInit, OnDestroy {
 
   @ViewChildren(SignatureFieldComponent) signatures: QueryList<SignatureFieldComponent>;
-  formGroup: FormGroup;
+  checkInSubscription: Subscription;
   formGroupSubscription: Subscription;
+  formGroup: FormGroup;
   nameControl: AbstractControl;
   petNameControl: AbstractControl;
-  error: string;
 
-  volunteers$: Observable<State['volunteers']>;
-  volunteersSubscription: Subscription;
-  volunteerNames: string[];
-  selectedVolunteer: Volunteer;
-  showPetNameForm: boolean;
-
-  visitsSubscription: Subscription;
   visits: Visit[];
+  volunteers: Volunteer[];
+  filteredVolunteers: Volunteer[];
+  volunteerNames: string[];
+  showPetNameForm: boolean;
   activeVisit: Visit;
+  selectedVolunteer: Volunteer;
+
   signatureState: string;
 
   /**
@@ -56,30 +53,39 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
-              private store: Store<State>,
+              private store: Store<AppState>,
               private snackBarService: SnackBarService,
               private visitService: VisitService,
               private router: Router) {
   }
 
-  /**
-   * Gets visit and volunteer data from services on initialization.
-   */
   ngOnInit(): void {
     this.activeVisit = null;
     this.selectedVolunteer = null;
-    this.volunteers$ = this.store.select('volunteers');
-    this.visitsSubscription = this.subscribeToVisits();
-    this.volunteersSubscription = this.subscribeToVolunteers();
+
+    this.checkInSubscription = this.store.select('checkIn')
+      .subscribe(state => {
+        this.visits = state.visits;
+        this.volunteers = state.volunteers;
+        this.filteredVolunteers = state.filteredVolunteers;
+        this.volunteerNames = state.filteredUniqueNames;
+        this.showPetNameForm = state.filteredAllMatchSameName;
+        this.activeVisit = state.selectedVisit;
+        this.selectedVolunteer = state.selectedVolunteer;
+      });
+
     this.formGroup = this.createForm();
-    this.formGroupSubscription = this.subscribeToForm();
     this.nameControl = this.formGroup.controls['name'];
     this.petNameControl = this.formGroup.controls['petName'];
+
+    this.formGroupSubscription = this.formGroup.valueChanges
+      .subscribe(() => this.store.dispatch(
+        new CheckInActions.SelectActiveVisitForVolunteer(this.selectedVolunteer)
+      ));
   }
 
   ngOnDestroy(): void {
-    this.visitsSubscription.unsubscribe();
-    this.volunteersSubscription.unsubscribe();
+    this.checkInSubscription.unsubscribe();
     this.formGroupSubscription.unsubscribe();
   }
 
@@ -88,38 +94,11 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Subscribes to visits state.
-   * @return {Subscription}
-   */
-  subscribeToVisits(): Subscription {
-    return this.store.select('visits').subscribe(
-      state => {
-        this.visits = state.visits;
-        this.activeVisit = state.selected;
-      },
-      error => this.error = <any>error);
-  }
-
-  /**
-   * Subscribes to volunteers state.
-   * @return {Subscription}
-   */
-  subscribeToVolunteers(): Subscription {
-    return this.store.select('volunteers').subscribe(
-      state => {
-        this.volunteerNames = state.filteredUniqueNames;
-        this.selectedVolunteer = state.selected;
-        this.showPetNameForm = state.filteredAllMatchSameName;
-      },
-      error => this.error = <any>error);
-  }
-
-  /**
    * Dispatches a FilterAndSelectVolunteerByName action.
    * @param {string} name
    */
   dispatchFilterAndSelectByName(name: string): void {
-    this.store.dispatch(new VolunteersActions.FilterAndSelectByName(name));
+    this.store.dispatch(new CheckInActions.FilterAndSelectVolunteersByName(name));
   }
 
   /**
@@ -161,19 +140,11 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Subscribes to value changes in the form.
-   */
-  subscribeToForm(): Subscription {
-    return this.formGroup.valueChanges.subscribe(() =>
-      this.store.dispatch(new VisitsActions.SelectActiveForVolunteer(this.selectedVolunteer)));
-  }
-
-  /**
    * Updates state when a pet name is selected.
    * @param {string} petName
    */
   onPetNameClick(petName: string): void {
-    this.store.dispatch(new VolunteersActions.SelectByPetName(petName));
+    this.store.dispatch(new CheckInActions.SelectVolunteerByPetName(petName));
   }
 
   /**

@@ -13,10 +13,6 @@ export type Action = VolunteerActions.All;
 
 export function reducer(state = initialState, action: Action): State {
 
-  if (!action.payload) {
-    return state;
-  }
-
   switch (action.type) {
     case VolunteerActions.LOAD: {
       return Object.assign({}, initialState, {
