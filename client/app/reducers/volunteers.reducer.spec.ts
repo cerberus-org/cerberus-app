@@ -39,7 +39,7 @@ describe('volunteerReducer', () => {
     });
   });
 
-  describe('FILTER_AND_SELECT_BY_NAME', () => {
+  describe('FILTER_AND_SELECT_VOLUNTEERS_BY_NAME', () => {
 
     it('filters by name', () => {
       const name = volunteers[1].firstName;
@@ -73,7 +73,7 @@ describe('volunteerReducer', () => {
     });
   });
 
-  describe('SELECT_BY_PET_NAME', () => {
+  describe('SELECT_VOLUNTEER_BY_PET_NAME', () => {
 
     it('selects if the name exactly matches', () => {
       const petName = volunteers[2].petName;

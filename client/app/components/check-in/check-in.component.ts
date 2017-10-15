@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
-import { VisitService } from '../../services/visit.service';
-import { VolunteerService } from '../../services/volunteer.service';
-import { OrganizationService } from '../../services/organization.service';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import { State } from '../../reducers/index';
+import * as CheckInActions from '../../actions/check-in.actions'
+import { OrganizationService } from '../../services/organization.service';
 
 @Component({
   selector: 'app-check-in',
@@ -12,16 +13,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CheckInComponent implements OnInit {
 
-  constructor(
-    private route: ActivatedRoute,
-    private organizationService: OrganizationService,
-    private visitService: VisitService,
-    private volunteerService: VolunteerService) { }
+  constructor(private route: ActivatedRoute,
+              private store: Store<State>,
+              private organizationService: OrganizationService) { }
 
   ngOnInit(): void {
     const organizationId = localStorage.getItem('organizationId');
+    const siteId = this.route.snapshot.paramMap.get('id');
+    this.store.dispatch(new CheckInActions.LoadData({ organizationId, siteId }));
     this.organizationService.getByIdRx(organizationId);
-    this.volunteerService.getByOrganizationRx(organizationId);
-    this.visitService.getBySiteRx(this.route.snapshot.paramMap.get('id'));
   }
 }

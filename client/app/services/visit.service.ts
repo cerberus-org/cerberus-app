@@ -29,6 +29,12 @@ export class VisitService extends BaseService {
       .catch(this.errorService.handleHttpError);
   }
 
+  getBySite(siteId: string): Observable<Visit[]> {
+    return this.http.get(`/api/site/${siteId}/visits`, this.options)
+      .map(res => res.json().map(this.convertIn))
+      .catch(this.errorService.handleHttpError);
+  }
+
   getBySiteRx(siteId: string): void {
     this.http.get(`/api/site/${siteId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))

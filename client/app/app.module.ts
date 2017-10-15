@@ -53,6 +53,7 @@ import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
 
 import { reducers } from './reducers/index';
+import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
 
 @NgModule({
@@ -102,6 +103,7 @@ import { DataDisplayEffects } from './effects/data-display.effects';
     SignaturePadModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([
+      CheckInEffects,
       DataDisplayEffects
     ])
   ],

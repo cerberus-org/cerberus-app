@@ -4,12 +4,10 @@ import { Volunteer } from '../models/volunteer';
 
 export interface State {
   visits: Visit[];
-  selected: Visit;
 }
 
 export const initialState: State = {
-  visits: [],
-  selected: null
+  visits: []
 };
 
 export type Action = VisitActions.All;
@@ -33,15 +31,6 @@ export function reducer(state = initialState, action: Action): State {
         visits: state.visits.map(visit => {
           return visit._id === action.payload._id ? action.payload : visit;
         })
-      });
-    }
-
-    case VisitActions.SELECT_ACTIVE_FOR_VOLUNTEER: {
-      const volunteer: Volunteer = action.payload;
-      return Object.assign({}, state, {
-        selected: volunteer
-          ? state.visits.find(visit => visit.endedAt === null && volunteer._id === visit.volunteerId)
-          : null
       });
     }
 

@@ -23,6 +23,12 @@ export class VolunteerService extends BaseService {
     };
   }
 
+  getByOrganization(organizationId: string): Observable<Volunteer[]> {
+    return this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
+      .map(res => res.json().map(this.convertIn))
+      .catch(this.errorService.handleHttpError);
+  }
+
   getByOrganizationRx(organizationId: string): void {
     this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
       .map(res => res.json().map(this.convertIn))
@@ -59,7 +65,7 @@ export class MockVolunteerService extends VolunteerService {
     return Observable.of(testVolunteers[0]);
   }
 
-  get(obj: Volunteer): Observable<Volunteer> {
+  get (obj: Volunteer): Observable<Volunteer> {
     return Observable.of(testVolunteers[0]);
   }
 

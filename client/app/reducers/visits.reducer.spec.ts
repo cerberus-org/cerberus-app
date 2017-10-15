@@ -38,7 +38,7 @@ describe('visitReducer', () => {
     });
   });
 
-  describe('SELECT_ACTIVE_FOR_VOLUNTEER', () => {
+  describe('SELECT_ACTIVE_VISIT_FOR_VOLUNTEER', () => {
 
     it('selects an active visit for a volutneer', () => {
       const volunteer = Object.assign({}, testVolunteers[0]);

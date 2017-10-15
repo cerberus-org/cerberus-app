@@ -5,7 +5,6 @@ import { Volunteer } from '../models/volunteer';
 export const LOAD = '[Visits] Load';
 export const ADD = '[Visits] Add';
 export const MODIFY = '[Visits] Modify';
-export const SELECT_ACTIVE_FOR_VOLUNTEER = '[Visits] Select active for volunteer';
 
 export class Load implements Action {
   readonly type = LOAD;
@@ -25,14 +24,7 @@ export class Modify implements Action {
   constructor(public payload: Visit) {}
 }
 
-export class SelectActiveForVolunteer implements Action {
-  readonly type = SELECT_ACTIVE_FOR_VOLUNTEER;
-
-  constructor(public payload: Volunteer) {}
-}
-
 export type All
   = Load
   | Add
-  | Modify
-  | SelectActiveForVolunteer;
+  | Modify;
