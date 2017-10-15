@@ -10,6 +10,7 @@ import {
 import { CdkTableModule } from '@angular/cdk/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { ChartsModule } from 'ng2-charts';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import 'hammerjs';
@@ -52,6 +53,7 @@ import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
 
 import { reducers } from './reducers/index';
+import { VisitsEffects } from './effects/visits.effects';
 
 @NgModule({
   declarations: [
@@ -99,9 +101,9 @@ import { reducers } from './reducers/index';
     ReactiveFormsModule,
     SignaturePadModule,
     StoreModule.forRoot(reducers),
-    // EffectsModule.forRoot([
-    //   DataDisplayEffects
-    // ])
+    EffectsModule.forRoot([
+      VisitsEffects
+    ])
   ],
   providers: [
     Guard,

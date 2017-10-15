@@ -14,14 +14,12 @@ export class OrganizationDashboardComponent implements OnInit {
 
   constructor(private router: Router,
               private siteService: SiteService,
-              private organizationService: OrganizationService,
-              private visitService: VisitService) { }
+              private organizationService: OrganizationService) { }
 
   ngOnInit() {
     const organizationId = localStorage.getItem('organizationId');
     this.organizationService.getByIdRx(organizationId);
     this.siteService.getByOrganizationRx(organizationId);
-    this.visitService.getByOrganizationRx(organizationId);
   }
 
   public logout() {
