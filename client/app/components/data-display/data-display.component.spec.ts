@@ -5,7 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { DataDisplayComponent } from './data-display.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from '../../../reducers/index';
+import { reducers } from '../../reducers/index';
 
 describe('DataDisplayComponent', () => {
   let component: DataDisplayComponent;

@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { ChartsModule } from 'ng2-charts';
 
 import { DailyHoursChartComponent } from './daily-hours-chart.component';
-import { reducers } from '../../../../reducers/index';
-import { initialState } from '../../../../reducers/visits.reducer';
-import { testVisits } from '../../../../models/visit';
+import { reducers } from '../../../reducers/index';
+import { initialState } from '../../../reducers/visits.reducer';
+import { testVisits } from '../../../models/visit';
 
 describe('DailyHoursChartComponent', () => {
   let component: DailyHoursChartComponent;

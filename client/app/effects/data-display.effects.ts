@@ -9,7 +9,7 @@ import * as DataDisplayActions from '../actions/data-display.actions'
 import { VisitService } from '../services/visit.service';
 
 @Injectable()
-export class VisitsEffects {
+export class DataDisplayEffects {
 
   /**
    * Listen for the LoadData action, get the visits, then dispatch the success action.

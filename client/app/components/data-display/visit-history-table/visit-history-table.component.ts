@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge'
 import * as moment from 'moment-timezone';
 
-import { Visit } from '../../../../models/visit';
-import { State } from '../../../../reducers/index';
+import { Visit } from '../../../models/visit';
+import { State } from '../../../reducers/index';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { State } from '../../../../reducers/index';
+import { State } from '../../../reducers/index';
 
 @Component({
   selector: 'app-daily-hours-chart',

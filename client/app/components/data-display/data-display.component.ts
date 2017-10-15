@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { State } from '../../../reducers/index';
-import * as DataDisplayActions from '../../../actions/data-display.actions'
+import { State } from '../../reducers/index';
+import * as DataDisplayActions from '../../actions/data-display.actions'
 
 @Component({
   selector: 'app-data-display',

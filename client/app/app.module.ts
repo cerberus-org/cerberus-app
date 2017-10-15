@@ -35,9 +35,9 @@ import { OrganizationConfirmComponent } from './components/getting-started/organ
 
 import { OrganizationDashboardComponent } from './components/organization-dashboard/organization-dashboard.component';
 import { VolunteerMenuComponent } from './components/organization-dashboard/volunteer-menu/volunteer-menu.component';
-import { DataDisplayComponent } from './components/organization-dashboard/data-display/data-display.component';
-import { VisitHistoryTableComponent } from './components/organization-dashboard/data-display/visit-history-table/visit-history-table.component';
-import { DailyHoursChartComponent } from './components/organization-dashboard/data-display/daily-hours-chart/daily-hours-chart.component';
+import { DataDisplayComponent } from './components/data-display/data-display.component';
+import { VisitHistoryTableComponent } from './components/data-display/visit-history-table/visit-history-table.component';
+import { DailyHoursChartComponent } from './components/data-display/daily-hours-chart/daily-hours-chart.component';
 
 import { CheckInComponent } from './components/check-in/check-in.component';
 import { CheckInFormComponent } from './components/check-in/check-in-form/check-in-form.component';
@@ -53,7 +53,7 @@ import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
 
 import { reducers } from './reducers/index';
-import { VisitsEffects } from './effects/visits.effects';
+import { DataDisplayEffects } from './effects/data-display.effects';
 
 @NgModule({
   declarations: [
@@ -102,7 +102,7 @@ import { VisitsEffects } from './effects/visits.effects';
     SignaturePadModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([
-      VisitsEffects
+      DataDisplayEffects
     ])
   ],
   providers: [

@@ -5,10 +5,10 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { StoreModule } from '@ngrx/store';
 
 import { VisitHistoryTableComponent } from './visit-history-table.component';
-import { testVisits } from '../../../../models/visit';
-import { reducers } from '../../../../reducers/index';
+import { testVisits } from '../../../models/visit';
+import { reducers } from '../../../reducers/index';
 import { Observable } from 'rxjs/Observable';
-import { initialState } from '../../../../reducers/visits.reducer';
+import { initialState } from '../../../reducers/visits.reducer';
 
 describe('VisitHistoryTableComponent', () => {
   let component: VisitHistoryTableComponent;
