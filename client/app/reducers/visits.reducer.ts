@@ -16,7 +16,7 @@ export type Action = VisitActions.All;
 
 export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
-    case VisitActions.LOAD_SUCCESS: {
+    case VisitActions.LOAD: {
       return Object.assign({}, initialState, {
         visits: filterInvalidVisits(action.payload, 8).reverse()
       });

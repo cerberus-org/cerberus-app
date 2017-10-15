@@ -17,7 +17,7 @@ export class VisitService extends BaseService {
     super(http, store, errorService);
     this.modelName = 'visit';
     this.actions = {
-      load: VisitsActions.LoadSuccess,
+      load: VisitsActions.Load,
       add: VisitsActions.Add,
       modify: VisitsActions.Modify
     }
@@ -31,13 +31,6 @@ export class VisitService extends BaseService {
 
   getBySiteRx(siteId: string): void {
     this.http.get(`/api/site/${siteId}/visits`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .map(payload => new this.actions.load(payload))
-      .subscribe(action => this.store.dispatch(action));
-  }
-
-  getByOrganizationRx(organizationId: string): void {
-    this.http.get(`/api/organization/${organizationId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
       .map(payload => new this.actions.load(payload))
       .subscribe(action => this.store.dispatch(action));

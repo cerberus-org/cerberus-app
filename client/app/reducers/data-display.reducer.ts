@@ -3,13 +3,15 @@ import * as DataDisplayActions from '../actions/data-display.actions'
 import * as moment from 'moment';
 
 export interface State {
-  lineChartLabels: string[];
+  visits: Visit[]
   lineChartData: { data: string[], label: string }[];
+  lineChartLabels: string[];
 }
 
 export const initialState: State = {
-  lineChartLabels: [],
-  lineChartData: []
+  visits: [],
+  lineChartData: [{ data: [], label: '' }],
+  lineChartLabels: []
 };
 
 export type Action = DataDisplayActions.All;
@@ -17,11 +19,12 @@ export type Action = DataDisplayActions.All;
 export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
 
-    case DataDisplayActions.SETUP_LINE_CHART: {
-      const visits = action.payload;
+    case DataDisplayActions.LOAD_DATA_SUCCESS: {
+      const visits = action.payload.reverse();
       const labels = setupLineChartLabels();
       const data = setupLineChartData(visits, labels);
       return {
+        visits: visits,
         lineChartLabels: labels,
         lineChartData: data
       };

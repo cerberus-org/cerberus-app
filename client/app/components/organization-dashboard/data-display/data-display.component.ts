@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { State } from '../../../reducers/index';
-import * as VisitsActions from '../../../actions/visits.actions'
+import * as DataDisplayActions from '../../../actions/data-display.actions'
 
 @Component({
   selector: 'app-data-display',
@@ -16,6 +16,6 @@ export class DataDisplayComponent implements OnInit {
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.store.dispatch(new VisitsActions.LoadForOrganization(localStorage.getItem('organizationId')));
+    this.store.dispatch(new DataDisplayActions.LoadData(localStorage.getItem('organizationId')));
   }
 }

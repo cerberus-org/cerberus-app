@@ -29,7 +29,7 @@ export class VisitHistoryTableComponent implements OnInit {
     const surroundingElementsPx = 281;
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
-    this.dataSource = new VisitDataSource(this.store.select('visits'), this.paginator);
+    this.dataSource = new VisitDataSource(this.store.select('dataDisplay'), this.paginator);
   }
 
   formatDate(date: Date, timezone: string): string {
@@ -64,19 +64,14 @@ export class VisitDataSource extends DataSource<any> implements OnDestroy {
   visits: Visit[];
   error: string;
 
-  constructor(private visits$: Observable<State['visits']>, private paginator: MatPaginator) {
+  constructor(private visits$: Observable<State['dataDisplay']>, private paginator: MatPaginator) {
     super();
-    this.visitsSubscription = this.subscribeToVisits();
+    this.visitsSubscription = this.visits$
+      .subscribe(state => this.visits = state.visits);
   }
 
   ngOnDestroy(): void {
     this.visitsSubscription.unsubscribe();
-  }
-
-  subscribeToVisits(): Subscription {
-    return this.visits$.subscribe(
-      state => this.visits = state.visits,
-      error => this.error = <any>error);
   }
 
   /**
