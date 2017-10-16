@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -24,9 +24,10 @@ export class CheckInEffects {
   loadData: Observable<Action> = this.actions
     .ofType(CheckInActions.LOAD_DATA)
     .map((action: CheckInActions.LoadData) => action.payload)
-    .switchMap(payload => Observable.forkJoin(
-      this.visitService.getBySite(payload.siteId),
-      this.volunteerService.getByOrganization(payload.organizationId))
+    .switchMap(payload => Observable
+      .forkJoin(
+        this.visitService.getBySite(payload.siteId),
+        this.volunteerService.getByOrganization(payload.organizationId))
       .map(results => {
         return { visits: results[0], volunteers: results[1] }
       })
@@ -40,25 +41,25 @@ export class CheckInEffects {
   submitNewVolunteer: Observable<Action> = this.actions
     .ofType(CheckInActions.SUBMIT_NEW_VOLUNTEER)
     .map((action: CheckInActions.SubmitNewVolunteer) => action.payload)
-    .switchMap(volunteer => this.volunteerService.create(volunteer))
-    .map(created => {
-      this.snackBarService.signUpSuccess();
-      return new CheckInActions.SubmitNewVolunteerSuccess(created)
-    });
+    .switchMap(volunteer => this.volunteerService.create(volunteer)
+      .map(created => {
+        this.snackBarService.signUpSuccess();
+        return new CheckInActions.SubmitNewVolunteerSuccess(created)
+      }));
 
   /**
    * Listen for the CheckIn action, create the visit,
-   * then emit the snackbar and navigate back to the dashboard.
+   * then emit the success snack bar and navigate back to the dashboard.
    */
   @Effect({ dispatch: false })
   checkIn: Observable<Action> = this.actions
     .ofType(CheckInActions.CHECK_IN)
     .map((action: CheckInActions.CheckIn) => action.payload)
-    .switchMap(visit => this.visitService.create(visit))
-    .do(() => {
-      this.snackBarService.checkInSuccess();
-      this.router.navigateByUrl('/dashboard');
-    });
+    .switchMap(visit => this.visitService.create(visit)
+      .do(() => {
+        this.snackBarService.checkInSuccess();
+        this.router.navigateByUrl('/dashboard');
+      }));
 
   /**
    * Listen for the CheckOut action, update the visit,
@@ -68,11 +69,11 @@ export class CheckInEffects {
   checkOut: Observable<Action> = this.actions
     .ofType(CheckInActions.CHECK_OUT)
     .map((action: CheckInActions.CheckOut) => action.payload)
-    .switchMap(visit => this.visitService.update(visit))
-    .do(() => {
-      this.snackBarService.checkOutSuccess();
-      this.router.navigateByUrl('/dashboard');
-    });
+    .switchMap(visit => this.visitService.update(visit)
+      .do(() => {
+        this.snackBarService.checkOutSuccess();
+        this.router.navigateByUrl('/dashboard');
+      }));
 
   constructor(private actions: Actions,
               private router: Router,

@@ -64,9 +64,9 @@ export class VisitDataSource extends DataSource<any> implements OnDestroy {
   visits: Visit[];
   error: string;
 
-  constructor(private visits$: Observable<AppState['dataDisplay']>, private paginator: MatPaginator) {
+  constructor(private dataDisplay$: Observable<AppState['dataDisplay']>, private paginator: MatPaginator) {
     super();
-    this.visitsSubscription = this.visits$
+    this.visitsSubscription = this.dataDisplay$
       .subscribe(state => this.visits = state.visits);
   }
 
@@ -78,7 +78,7 @@ export class VisitDataSource extends DataSource<any> implements OnDestroy {
    * Connect function called by the table to retrieve one stream containing the data to render.
    */
   connect(): Observable<any[]> {
-    return Observable.merge(this.paginator.page, this.visits$).map(() => {
+    return Observable.merge(this.paginator.page, this.dataDisplay$).map(() => {
       return this.getPageData();
     });
   }

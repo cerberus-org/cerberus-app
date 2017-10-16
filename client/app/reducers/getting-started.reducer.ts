@@ -29,7 +29,7 @@ export function reducer(state = initialState, action: Action): State {
     case GettingStartedActions.NEXT_STEP: {
       const next = action.payload;
       return Object.assign({}, state, {
-        selectedIndex: next,
+        selectedTabIndex: next,
         step: Math.max(state.step, next)
       });
     }
