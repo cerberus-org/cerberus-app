@@ -56,6 +56,7 @@ import { reducers } from './reducers/index';
 import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
+import { LoginEffects } from './effects/login.effects';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { GettingStartedEffects } from './effects/getting-started.effects';
     EffectsModule.forRoot([
       CheckInEffects,
       DataDisplayEffects,
-      GettingStartedEffects
+      GettingStartedEffects,
+      LoginEffects
     ])
   ],
   providers: [

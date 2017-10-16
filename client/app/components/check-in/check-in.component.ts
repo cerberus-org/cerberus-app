@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AppState } from '../../reducers/index';
-import { OrganizationService } from '../../services/organization.service';
 import * as CheckInActions from '../../actions/check-in.actions'
 
 @Component({
@@ -18,14 +17,12 @@ export class CheckInComponent implements OnInit, OnDestroy {
   checkInSubscription: Subscription;
 
   constructor(private store: Store<AppState>,
-              private activatedRoute: ActivatedRoute,
-              private organizationService: OrganizationService) { }
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     const siteId = this.activatedRoute.snapshot.paramMap.get('id');
     const organizationId = localStorage.getItem('organizationId');
     this.store.dispatch(new CheckInActions.LoadData({ siteId, organizationId }));
-    this.organizationService.getByIdRx(organizationId);
 
     this.checkInSubscription = this.store
       .select('checkIn')

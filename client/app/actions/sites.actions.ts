@@ -5,11 +5,6 @@ export const LOAD = '[Sites] Load';
 export const ADD = '[Sites] Add';
 export const MODIFY = '[Sites] Modify';
 
-/**
- * Every action is comprised of at least a type and an optional
- * payload. Expressing actions as classes enables powerful
- * type checking in reducer functions.
- */
 export class Load implements Action {
   readonly type = LOAD;
 
@@ -28,10 +23,6 @@ export class Modify implements Action {
   constructor(public payload: Site) {}
 }
 
-/**
- * Export a type alias of all actions in this action group
- * so that reducers can easily compose action types.
- */
 export type All
   = Load
   | Add

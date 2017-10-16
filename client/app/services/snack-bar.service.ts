@@ -14,10 +14,6 @@ export class SnackBarService {
     this.open(`Welcome, ${name}.`);
   }
 
-  welcomeBack(name: string): void {
-    this.open(`Welcome back, ${name}.`);
-  }
-
   addOrganizationSuccess(): void {
     this.open('Your organization was successfully added.');
   }

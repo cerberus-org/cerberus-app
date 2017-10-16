@@ -49,7 +49,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   /**
    * Creates the form group and subscribes on construction.
    */
-  constructor(private route: ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute,
               private fb: FormBuilder,
               private store: Store<AppState>) {
   }
@@ -112,7 +112,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param {AbstractControl} control
    */
   petNameValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !this.showPetNameForm|| this.selectedVolunteer ? null : { 'noMatchByPetName': { value: control.value } };
+    return !this.showPetNameForm || this.selectedVolunteer ? null : { 'noMatchByPetName': { value: control.value } };
   };
 
   /**
@@ -162,7 +162,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   checkIn(): void {
     const visit = new Visit(
       localStorage.getItem('organizationId'),
-      this.route.snapshot.paramMap.get('id'),
+      this.activatedRoute.snapshot.paramMap.get('id'),
       this.selectedVolunteer._id,
       new Date(),
       null,

@@ -76,8 +76,8 @@ abstract class BaseService {
       .catch(this.errorService.handleHttpError);
   }
 
-  get (obj: any): Observable<any> {
-    return this.http.get(`/api/${this.modelName}/${obj._id}`, this.options)
+  getById(id: string): Observable<any> {
+    return this.http.get(`/api/${this.modelName}/${id}`, this.options)
       .map(res => this.convertIn(res.json()))
       .catch(this.errorService.handleHttpError);
   }

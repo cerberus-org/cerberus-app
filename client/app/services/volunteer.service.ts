@@ -65,7 +65,7 @@ export class MockVolunteerService extends VolunteerService {
     return Observable.of(testVolunteers[0]);
   }
 
-  get (obj: Volunteer): Observable<Volunteer> {
+  getById (id: string): Observable<Volunteer> {
     return Observable.of(testVolunteers[0]);
   }
 

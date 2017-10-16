@@ -50,7 +50,7 @@ export class MockOrganizationService extends OrganizationService {
     return Observable.of(testOrganizations[0]);
   }
 
-  get (obj: Organization): Observable<Organization> {
+  getById (id: string): Observable<Organization> {
     return Observable.of(testOrganizations[0]);
   }
 

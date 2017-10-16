@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SiteService } from '../../services/site.service';
-import { VisitService } from '../../services/visit.service';
-import { OrganizationService } from '../../services/organization.service';
 
 @Component({
   selector: 'app-organization-dashboard',
@@ -13,13 +11,10 @@ import { OrganizationService } from '../../services/organization.service';
 export class OrganizationDashboardComponent implements OnInit {
 
   constructor(private router: Router,
-              private siteService: SiteService,
-              private organizationService: OrganizationService) { }
+              private siteService: SiteService) { }
 
   ngOnInit() {
-    const organizationId = localStorage.getItem('organizationId');
-    this.organizationService.getByIdRx(organizationId);
-    this.siteService.getByOrganizationRx(organizationId);
+    this.siteService.getByOrganizationId(localStorage.getItem('organizationId'));
   }
 
   public logout() {

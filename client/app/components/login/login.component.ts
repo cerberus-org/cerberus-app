@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 
-import { SnackBarService } from '../../services/snack-bar.service';
-import { UserService } from '../../services/user.service';
+import { AppState } from '../../reducers/index';
+import { Store } from '@ngrx/store';
+import * as LoginActions from '../../actions/login.actions'
 
 @Component({
   selector: 'app-login',
@@ -18,29 +19,25 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private snackBarService: SnackBarService,
-              private userService: UserService) {
-    this.createForm();
+              private store: Store<AppState>) {
   }
 
   ngOnInit() {
+    this.loginForm = this.createForm();
   }
 
-  login() {
-    this.userService.login(this.loginForm.value,
-      () => this.snackBarService.welcomeBack(localStorage.getItem('userName')));
-  }
-
-  // use FormBuilder to define FormGroup
-  createForm() {
-    this.loginForm = this.fb.group({
-      // list form controls
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.required]
-    });
+  onLogin() {
+    this.store.dispatch(new LoginActions.Login(this.loginForm.value));
   }
 
   onNewOrganization() {
     this.router.navigateByUrl('/start');
+  }
+
+  createForm(): FormGroup {
+    return this.fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required]
+    });
   }
 }

@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { AppState } from '../../../../reducers/index';
+import { OrganizationService } from '../../../../services/organization.service';
 
 @Component({
   selector: 'app-header',
@@ -14,30 +13,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   organizationSubscription: Subscription;
   routerEventsSubscription: Subscription;
-  error: string;
   icon: string;
   text: string;
   previousUrl: string;
 
-  constructor(private router: Router, private store: Store<AppState>) { }
+  constructor(private router: Router,
+              private organizationService: OrganizationService) { }
 
   ngOnInit() {
-    this.organizationSubscription = this.subscribeToOrganizations();
+    this.organizationSubscription = this.organizationService
+      .getById(localStorage.getItem('organizationId'))
+      .subscribe(state => {
+        if (state.organizations.length > 0) {
+          this.text = state.organizations[0].name;
+        }
+      });
     this.routerEventsSubscription = this.subscribeToRouterEvents();
   }
 
   ngOnDestroy() {
     this.organizationSubscription.unsubscribe();
     this.routerEventsSubscription.unsubscribe();
-  }
-
-  subscribeToOrganizations(): Subscription {
-    return this.store.select('organizations').subscribe(state => {
-        if (state.organizations.length > 0) {
-          this.text = state.organizations[0].name;
-        }
-      },
-      error => this.error = <any>error);
   }
 
   onBack(): void {

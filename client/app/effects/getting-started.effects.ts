@@ -7,12 +7,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
 
-import * as GettingStartedActions from '../actions/getting-started.actions'
 import { SnackBarService } from '../services/snack-bar.service';
 import { SiteService } from '../services/site.service';
 import { OrganizationService } from '../services/organization.service';
 import { UserService } from '../services/user.service';
 import { Site } from '../models/site';
+import * as GettingStartedActions from '../actions/getting-started.actions'
+import * as LoginActions from '../actions/login.actions'
 
 @Injectable()
 export class GettingStartedEffects {
@@ -21,7 +22,7 @@ export class GettingStartedEffects {
    * Listen for the Submit action, create the organization, user, and site,
    * then emit the success snack bar and login with the created user.
    */
-  @Effect({ dispatch: false })
+  @Effect()
   loadData: Observable<Action> = this.actions
     .ofType(GettingStartedActions.SUBMIT)
     .map((action: GettingStartedActions.Submit) => action.payload)
@@ -36,13 +37,9 @@ export class GettingStartedEffects {
           .forkJoin(
             this.siteService.create(site),
             this.userService.create(user))
-          .map(results => null) // Results are not needed
-          .do(() => {
+          .map(() => {
             this.snackBarService.addOrganizationSuccess();
-            this.userService.login(
-              payload.user,
-              () => this.snackBarService.welcome(payload.user.firstName)
-            );
+            return new LoginActions.Login(payload.user);
           })
       }));
 

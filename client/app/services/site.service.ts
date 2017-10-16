@@ -21,11 +21,10 @@ export class SiteService extends BaseService {
     };
   }
 
-  getByOrganizationRx(organizationId: string): void {
-    this.http.get(`/api/organization/${organizationId}/sites`, this.options)
+  getByOrganizationId(organizationId: string): Observable<Site[]> {
+    return this.http.get(`/api/organization/${organizationId}/sites`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => new this.actions.load(payload))
-      .subscribe(action => this.store.dispatch(action));
+      .catch(this.errorService.handleHttpError);
   }
 }
 
@@ -37,13 +36,16 @@ export class MockSiteService extends SiteService {
 
   getAllRx(): void { }
 
-  getByOrganizationRx(): void { }
-
   getByIdRx(id: string): void { }
 
   createRx(obj: any): void { }
 
   updateRx(obj: any): void { }
+
+  getByOrganizationId(organizationId: string): Observable<Site[]> {
+    return Observable.of(testSites
+      .filter(site => site.organizationId === organizationId));
+  }
 
   getAll(): Observable<Site[]> {
     return Observable.of(testSites);
@@ -57,7 +59,7 @@ export class MockSiteService extends SiteService {
     return Observable.of(testSites[0]);
   }
 
-  get (obj: Site): Observable<Site> {
+  getById(id: string): Observable<Site> {
     return Observable.of(testSites[0]);
   }
 

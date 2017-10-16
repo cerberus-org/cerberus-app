@@ -119,7 +119,7 @@ export class MockVisitService extends VisitService {
     return Observable.of(testVisits[0]);
   }
 
-  get (obj: Visit): Observable<Visit> {
+  getById (id: string): Observable<Visit> {
     return Observable.of(testVisits[0]);
   }
 
