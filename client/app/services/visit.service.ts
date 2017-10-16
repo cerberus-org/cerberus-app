@@ -23,35 +23,38 @@ export class VisitService extends BaseService {
     }
   }
 
+  /**
+   * Gets visits by organizationId.
+   * @param {string} organizationId
+   * @return {Observable<Visit[]>}
+   */
   getByOrganization(organizationId: string): Observable<Visit[]> {
     return this.http.get(`/api/organization/${organizationId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
       .catch(this.errorService.handleHttpError);
   }
 
+  /**
+   * Gets visits by siteId.
+   * @param {string} siteId
+   * @return {Observable<Visit[]>}
+   */
   getBySite(siteId: string): Observable<Visit[]> {
     return this.http.get(`/api/site/${siteId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
       .catch(this.errorService.handleHttpError);
   }
 
-  getBySiteRx(siteId: string): void {
-    this.http.get(`/api/site/${siteId}/visits`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .map(payload => new this.actions.load(payload))
-      .subscribe(action => this.store.dispatch(action));
-  }
-
   /**
-   * Get all dates that occur after the date provided.
-   * @param days
+   * Get all dates that occur after the provided date.
+   * @param {number} days
+   * @return {Observable<Visit[]>}
    */
-  getByLastGivenDaysRx(days: number): void {
+  getByLastGivenDays(days: number): Observable<Visit[]> {
     const date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));
-    this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
+    return this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => new this.actions.load(payload))
-      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
+      .catch(this.errorService.handleHttpError);
   }
 
   /**
