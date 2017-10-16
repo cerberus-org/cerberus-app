@@ -14,7 +14,6 @@ export class OrganizationDashboardComponent implements OnInit {
               private siteService: SiteService) { }
 
   ngOnInit() {
-    this.siteService.getByOrganizationId(localStorage.getItem('organizationId'));
   }
 
   public logout() {

@@ -10,8 +10,12 @@ export class SnackBarService {
     this.snackBar.open(message, '', { duration: 3000 });
   }
 
-  welcome(name: string): void {
+  login(name: string): void {
     this.open(`Welcome, ${name}.`);
+  }
+
+  logout(): void {
+    this.open('You have been successfully logged out');
   }
 
   addOrganizationSuccess(): void {

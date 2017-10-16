@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from '../../../reducers/index';
+import { SiteService } from '../../../services/site.service';
+import { Site } from '../../../models/site';
 
 @Component({
   selector: 'app-volunteer-menu',
@@ -12,13 +14,15 @@ import { AppState } from '../../../reducers/index';
 })
 export class VolunteerMenuComponent implements OnInit {
 
-  sites$: Observable<AppState['sites']>;
+  sites$: Observable<Site[]>;
   error: string;
 
-  constructor(private router: Router, private store: Store<AppState>) { }
+  constructor(private router: Router,
+              private siteService: SiteService) { }
 
   ngOnInit(): void {
-    this.sites$ = this.store.select('sites');
+    this.sites$ = this.siteService
+      .getByOrganizationId(localStorage.getItem('organizationId'));
   }
 
   onClick(site): void {

@@ -2,7 +2,7 @@
          fxFlex
          fxLayout="column"
          fxLayoutAlign="center center">
-  <a *ngFor="let site of (sites$ | async)?.sites"
+  <a *ngFor="let site of sites$ | async"
           mat-raised-button
           class="check-in"
           color="primary"
