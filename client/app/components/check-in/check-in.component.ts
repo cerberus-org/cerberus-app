@@ -13,14 +13,14 @@ import { OrganizationService } from '../../services/organization.service';
 })
 export class CheckInComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,
-              private store: Store<AppState>,
+  constructor(private store: Store<AppState>,
+              private activatedRoute: ActivatedRoute,
               private organizationService: OrganizationService) { }
 
   ngOnInit(): void {
+    const siteId = this.activatedRoute.snapshot.paramMap.get('id');
     const organizationId = localStorage.getItem('organizationId');
-    const siteId = this.route.snapshot.paramMap.get('id');
-    this.store.dispatch(new CheckInActions.LoadData({ organizationId, siteId }));
+    this.store.dispatch(new CheckInActions.LoadData({ siteId, organizationId }));
     this.organizationService.getByIdRx(organizationId);
   }
 }

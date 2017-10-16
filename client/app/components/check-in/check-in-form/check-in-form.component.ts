@@ -53,10 +53,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
-              private store: Store<AppState>,
-              private snackBarService: SnackBarService,
-              private visitService: VisitService,
-              private router: Router) {
+              private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -150,45 +147,39 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * Starts or ends a visit and resets the form group on clicking the submit button.
    */
   onSubmit(): void {
-    if (this.activeVisit) {
-      this.endVisit(this.activeVisit);
-    } else if (this.selectedVolunteer) {
-      this.startVisit(
-        localStorage.getItem('organizationId'),
-        this.route.snapshot.paramMap.get('id'),
-        this.selectedVolunteer,
-        this.signatures.first.signature);
+    if (this.selectedVolunteer) {
+      this.checkIn();
+    } else if (this.activeVisit) {
+      this.checkOut();
     }
     this.formGroup.reset();
     this.clearSignature();
   }
 
   /**
-   * Creates a new visit with now as the start time and a null end time.
+   * Constructs the visit with startedAt as now and endedAt as null
+   * then dispatches the CheckIn action.
    */
-  startVisit(organizationId: string, siteId: string, volunteer: Volunteer, signature: any): void {
+  checkIn(): void {
     const visit = new Visit(
-      organizationId,
-      siteId,
-      volunteer._id,
+      localStorage.getItem('organizationId'),
+      this.route.snapshot.paramMap.get('id'),
+      this.selectedVolunteer._id,
       new Date(),
       null,
       'America/Chicago',
-      signature
+      this.signatures.first.signature
     );
     this.store.dispatch(new CheckInActions.CheckIn(visit));
   }
 
   /**
-   * Updates a visit with now as the end time.
+   * Constructs the visit with endedAt as null
+   * then dispatches the CheckOut action.
    */
-  endVisit(visit: Visit): void {
-    this.visitService.updateRx(Object.assign({}, visit, { endedAt: new Date() }),
-      () => {
-        this.snackBarService.checkOutSuccess();
-        this.router.navigateByUrl('/dashboard');
-      }
-    );
+  checkOut(): void {
+    const visit = Object.assign({}, this.activeVisit, { endedAt: new Date() });
+    this.store.dispatch(new CheckInActions.CheckOut(visit));
   }
 
   /**

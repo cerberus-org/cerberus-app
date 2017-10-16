@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
@@ -39,12 +41,41 @@ export class CheckInEffects {
     .ofType(CheckInActions.SUBMIT_NEW_VOLUNTEER)
     .map((action: CheckInActions.SubmitNewVolunteer) => action.payload)
     .switchMap(volunteer => this.volunteerService.create(volunteer))
-      .map(created => {
-        this.snackBarService.signUpSuccess();
-        return new CheckInActions.SubmitNewVolunteerSuccess(created)
-      });
+    .map(created => {
+      this.snackBarService.signUpSuccess();
+      return new CheckInActions.SubmitNewVolunteerSuccess(created)
+    });
+
+  /**
+   * Listen for the CheckIn action, create the visit,
+   * then emit the snackbar and navigate back to the dashboard.
+   */
+  @Effect({ dispatch: false })
+  checkIn: Observable<Action> = this.actions
+    .ofType(CheckInActions.CHECK_IN)
+    .map((action: CheckInActions.CheckIn) => action.payload)
+    .switchMap(visit => this.visitService.create(visit))
+    .do(() => {
+      this.snackBarService.checkInSuccess();
+      this.router.navigateByUrl('/dashboard');
+    });
+
+  /**
+   * Listen for the CheckOut action, update the visit,
+   * then emit the snackbar and navigate back to the dashboard.
+   */
+  @Effect({ dispatch: false })
+  checkOut: Observable<Action> = this.actions
+    .ofType(CheckInActions.CHECK_OUT)
+    .map((action: CheckInActions.CheckOut) => action.payload)
+    .switchMap(visit => this.visitService.update(visit))
+    .do(() => {
+      this.snackBarService.checkOutSuccess();
+      this.router.navigateByUrl('/dashboard');
+    });
 
   constructor(private actions: Actions,
+              private router: Router,
               private snackBarService: SnackBarService,
               private visitService: VisitService,
               private volunteerService: VolunteerService) {}
