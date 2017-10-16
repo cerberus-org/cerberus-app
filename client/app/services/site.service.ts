@@ -34,14 +34,6 @@ export class MockSiteService extends SiteService {
     super(null, null, null);
   }
 
-  getAllRx(): void { }
-
-  getByIdRx(id: string): void { }
-
-  createRx(obj: any): void { }
-
-  updateRx(obj: any): void { }
-
   getByOrganizationId(organizationId: string): Observable<Site[]> {
     return Observable.of(testSites
       .filter(site => site.organizationId === organizationId));

@@ -28,13 +28,6 @@ export class VolunteerService extends BaseService {
       .map(res => res.json().map(this.convertIn))
       .catch(this.errorService.handleHttpError);
   }
-
-  getByOrganizationRx(organizationId: string): void {
-    this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .map(payload => new this.actions.load(payload))
-      .subscribe(action => this.store.dispatch(action));
-  }
 }
 
 export class MockVolunteerService extends VolunteerService {
@@ -42,16 +35,6 @@ export class MockVolunteerService extends VolunteerService {
   constructor() {
     super(null, null, null);
   }
-
-  getAllRx(): void { }
-
-  getByIdRx(id: string): void { }
-
-  getByOrganizationRx(): void { }
-
-  createRx(obj: any): void { }
-
-  updateRx(obj: any): void { }
 
   getAll(): Observable<Volunteer[]> {
     return Observable.of(testVolunteers);

@@ -30,14 +30,6 @@ export class MockOrganizationService extends OrganizationService {
     super(null, null, null);
   }
 
-  getAllRx(): void { }
-
-  getByIdRx(id: string): void { }
-
-  createRx(obj: any): void { }
-
-  updateRx(obj: any): void { }
-
   getAll(): Observable<Organization[]> {
     return Observable.of(testOrganizations);
   }

@@ -93,20 +93,6 @@ export class MockVisitService extends VisitService {
     super(null, null, null);
   }
 
-  getAllRx(): void { }
-
-  getByIdRx(id: string): void { }
-
-  getBySiteRx(): void { }
-
-  getByOrganizationRx(): void { }
-
-  createRx(obj: any): void { }
-
-  updateRx(obj: any): void { }
-
-  getByLastGivenDaysRx(days: number): void { };
-
   getAll(): Observable<Visit[]> {
     return Observable.of(testVisits);
   }

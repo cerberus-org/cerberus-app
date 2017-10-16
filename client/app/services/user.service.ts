@@ -40,14 +40,6 @@ export class MockUserService extends UserService {
     super(null, null, null);
   }
 
-  getAllRx(): void { }
-
-  getByIdRx(id: string): void { }
-
-  createRx(obj: any): void { }
-
-  updateRx(obj: any): void { }
-
   getAll(): Observable<User[]> {
     return Observable.of(testUsers);
   }
