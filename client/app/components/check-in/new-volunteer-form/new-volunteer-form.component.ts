@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { Volunteer } from '../../../models/volunteer';
-import { AppState } from '../../../reducers/index';
 import * as CheckInActions from '../../../actions/check-in.actions';
+import { AppState } from '../../../reducers/index';
+import { Volunteer } from '../../../models/volunteer';
 
 @Component({
   selector: 'app-new-volunteer-form',

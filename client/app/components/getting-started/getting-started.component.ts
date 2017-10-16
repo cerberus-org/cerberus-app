@@ -3,10 +3,10 @@ import { MatTabGroup } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as GettingStartedActions from '../../actions/getting-started.actions';
+import { AppState } from '../../reducers/index';
 import { Organization } from '../../models/organization';
 import { User } from '../../models/user';
-import { AppState } from '../../reducers/index';
-import * as GettingStartedActions from '../../actions/getting-started.actions';
 
 @Component({
   selector: 'app-getting-started',

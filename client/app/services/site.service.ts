@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
+import { Site, testSites } from '../models/site';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
-import { Site, testSites } from '../models/site';
 
 @Injectable()
 export class SiteService extends BaseService {
 
-  constructor(protected http: Http, protected store: Store<Site[]>, protected errorService: ErrorService) {
-    super(http, store, errorService);
+  constructor(protected http: Http, protected errorService: ErrorService) {
+    super(http, errorService);
     this.modelName = 'site';
   }
 
@@ -25,7 +24,7 @@ export class SiteService extends BaseService {
 export class MockSiteService extends SiteService {
 
   constructor() {
-    super(null, null, null);
+    super(null, null);
   }
 
   getByOrganizationId(organizationId: string): Observable<Site[]> {

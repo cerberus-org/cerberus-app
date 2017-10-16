@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
-import { AppState } from '../../../../reducers/index';
+
 import * as LoginActions from '../../../../actions/login.actions'
+import { AppState } from '../../../../reducers/index';
 
 @Component({
   selector: 'app-header',

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
-
-import { AppState } from '../../reducers/index';
 import { Store } from '@ngrx/store';
+
 import * as LoginActions from '../../actions/login.actions'
+import { AppState } from '../../reducers/index';
 
 @Component({
   selector: 'app-login',

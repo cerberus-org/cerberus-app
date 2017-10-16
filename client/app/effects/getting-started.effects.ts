@@ -7,13 +7,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
 
-import { SnackBarService } from '../services/snack-bar.service';
-import { SiteService } from '../services/site.service';
-import { OrganizationService } from '../services/organization.service';
-import { UserService } from '../services/user.service';
-import { Site } from '../models/site';
 import * as GettingStartedActions from '../actions/getting-started.actions'
 import * as LoginActions from '../actions/login.actions'
+import { Site } from '../models/site';
+import { SiteService } from '../services/site.service';
+import { SnackBarService } from '../services/snack-bar.service';
+import { OrganizationService } from '../services/organization.service';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class GettingStartedEffects {
@@ -33,7 +33,7 @@ export class GettingStartedEffects {
         const site = new Site(createdOrganization._id, createdOrganization.name, null);
         const user = Object.assign({}, payload.user, { organizationId: createdOrganization._id });
         return Observable
-          // Concurrently create the user and site
+        // Concurrently create the user and site
           .forkJoin(
             this.siteService.create(site),
             this.userService.create(user))

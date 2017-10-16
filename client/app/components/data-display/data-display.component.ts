@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { AppState } from '../../reducers/index';
 import * as DataDisplayActions from '../../actions/data-display.actions'
+import { AppState } from '../../reducers/index';
 
 @Component({
   selector: 'app-data-display',

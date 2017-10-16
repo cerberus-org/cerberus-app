@@ -3,14 +3,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Store } from '@ngrx/store';
 import { ErrorService } from './error.service';
 
 abstract class BaseService {
   protected modelName: string;
 
   constructor(protected http: Http,
-              protected store: Store<any>,
               protected errorService: ErrorService) { }
 
   get options() {

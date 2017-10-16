@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { AppState } from '../../reducers/index';
 import * as CheckInActions from '../../actions/check-in.actions'
+import { AppState } from '../../reducers/index';
 
 @Component({
   selector: 'app-check-in',

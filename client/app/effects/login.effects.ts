@@ -8,9 +8,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 import * as LoginActions from '../actions/login.actions'
+import { User } from '../models/user';
 import { SnackBarService } from '../services/snack-bar.service';
 import { UserService } from '../services/user.service';
-import { User } from '../models/user';
 import { OrganizationService } from '../services/organization.service';
 
 @Injectable()

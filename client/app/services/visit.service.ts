@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
+import { testVisits, Visit } from '../models/visit';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
-import { testVisits, Visit } from '../models/visit';
 
 @Injectable()
 export class VisitService extends BaseService {
   model = Visit;
 
-  constructor(protected http: Http, protected store: Store<Visit[]>, protected errorService: ErrorService) {
-    super(http, store, errorService);
+  constructor(protected http: Http, protected errorService: ErrorService) {
+    super(http, errorService);
     this.modelName = 'visit';
   }
 
@@ -84,7 +83,7 @@ export class VisitService extends BaseService {
 export class MockVisitService extends VisitService {
 
   constructor() {
-    super(null, null, null);
+    super(null, null);
   }
 
   getAll(): Observable<Visit[]> {

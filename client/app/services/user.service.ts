@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { testUsers, User } from '../models/user';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
-import { testUsers, User } from '../models/user';
 
 @Injectable()
 export class UserService extends BaseService {
   model = User;
 
   constructor(protected http: Http,
-              protected store: Store<User[]>,
               protected errorService: ErrorService) {
-    super(http, store, errorService);
+    super(http, errorService);
     this.modelName = 'user';
   }
 
@@ -31,7 +29,7 @@ export class UserService extends BaseService {
 export class MockUserService extends UserService {
 
   constructor() {
-    super(null, null, null);
+    super(null, null);
   }
 
   getAll(): Observable<User[]> {

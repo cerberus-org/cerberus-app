@@ -1,14 +1,14 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { MatPaginator } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/merge'
 import * as moment from 'moment-timezone';
 
-import { Visit } from '../../../models/visit';
 import { AppState } from '../../../reducers/index';
-import { Subscription } from 'rxjs/Subscription';
+import { Visit } from '../../../models/visit';
 
 @Component({
   selector: 'app-visit-history-table',

@@ -3,9 +3,9 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Store } from '@ngrx/store';
 import { isURL } from 'validator';
 
-import { Organization } from '../../../models/organization';
-import { AppState } from '../../../reducers/index';
 import * as GettingStartedActions from '../../../actions/getting-started.actions';
+import { AppState } from '../../../reducers/index';
+import { Organization } from '../../../models/organization';
 
 @Component({
   selector: 'app-new-organization-form',

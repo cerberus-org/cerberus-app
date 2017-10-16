@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
+import { Organization, testOrganizations } from '../models/organization';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
-import { Organization, testOrganizations } from '../models/organization';
 
 @Injectable()
 export class OrganizationService extends BaseService {
 
   constructor(protected http: Http,
-              protected store: Store<Organization[]>,
               protected errorService: ErrorService) {
-    super(http, null, errorService);
+    super(http, errorService);
     this.modelName = 'organization';
   }
 }
@@ -21,7 +19,7 @@ export class OrganizationService extends BaseService {
 export class MockOrganizationService extends OrganizationService {
 
   constructor() {
-    super(null, null, null);
+    super(null, null);
   }
 
   getAll(): Observable<Organization[]> {

@@ -5,11 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as CheckInActions from '../../../actions/check-in.actions';
+import { AppState } from '../../../reducers/index';
 import { Visit } from '../../../models/visit';
 import { Volunteer } from '../../../models/volunteer';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
-import { AppState } from '../../../reducers/index';
-import * as CheckInActions from '../../../actions/check-in.actions';
 
 @Component({
   selector: 'app-check-in-form',
