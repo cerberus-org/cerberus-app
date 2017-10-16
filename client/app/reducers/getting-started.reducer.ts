@@ -3,14 +3,14 @@ import { Organization } from '../models/organization';
 import { User } from '../models/user';
 
 export interface State {
-  selectedIndex: number;
+  selectedTabIndex: number;
   step: number;
   validOrganization: Organization
   validUser: User
 }
 
 export const initialState: State = {
-  selectedIndex: 0,
+  selectedTabIndex: 0,
   step: 0,
   validOrganization: null,
   validUser: null

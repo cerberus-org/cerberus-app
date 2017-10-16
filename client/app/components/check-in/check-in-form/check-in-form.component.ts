@@ -1,15 +1,13 @@
+import { animate, state as animationsState, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ActivatedRoute, Router } from '@angular/router';
-import { animate, state as animationsState, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Visit } from '../../../models/visit';
 import { Volunteer } from '../../../models/volunteer';
-import { VisitService } from '../../../services/visit.service';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
-import { SnackBarService } from '../../../services/snack-bar.service';
 import { AppState } from '../../../reducers/index';
 import * as CheckInActions from '../../../actions/check-in.actions';
 

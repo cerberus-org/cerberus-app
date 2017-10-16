@@ -3,6 +3,7 @@ import { Volunteer } from '../models/volunteer';
 import * as CheckInActions from '../actions/check-in.actions'
 
 export interface State {
+  selectedTabIndex: number,
   visits: Visit[];
   volunteers: Volunteer[];
   filteredVolunteers: Volunteer[];
@@ -13,6 +14,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  selectedTabIndex: 0,
   visits: [],
   volunteers: [],
   filteredVolunteers: [],
@@ -41,7 +43,8 @@ export function reducer(state = initialState, action: Action): State {
 
     case CheckInActions.SUBMIT_NEW_VOLUNTEER_SUCCESS: {
       return Object.assign({}, state, {
-        volunteers: [action.payload, ...state.volunteers]
+        volunteers: [action.payload, ...state.volunteers],
+        selectedTabIndex: 0
       });
     }
 

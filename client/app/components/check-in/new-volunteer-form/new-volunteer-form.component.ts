@@ -1,12 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { SnackBarService } from '../../../services/snack-bar.service';
-import { Volunteer } from '../../../models/volunteer';
-import { VolunteerService } from '../../../services/volunteer.service';
-import * as CheckInActions from '../../../actions/check-in.actions';
 import { Store } from '@ngrx/store';
+
+import { Volunteer } from '../../../models/volunteer';
 import { AppState } from '../../../reducers/index';
+import * as CheckInActions from '../../../actions/check-in.actions';
 
 @Component({
   selector: 'app-new-volunteer-form',
@@ -14,16 +12,11 @@ import { AppState } from '../../../reducers/index';
   styleUrls: ['./new-volunteer-form.component.css']
 })
 export class NewVolunteerFormComponent implements OnInit {
-  @Output() changeTab: EventEmitter<number>;
   public error: string;
   public formGroup: FormGroup;
   public forms;
 
-  constructor(private fb: FormBuilder,
-              private store: Store<AppState>,
-              private snackBarService: SnackBarService,
-              private volunteerService: VolunteerService) {
-    this.changeTab = new EventEmitter<number>();
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {
     this.createForm();
   }
 
@@ -43,7 +36,6 @@ export class NewVolunteerFormComponent implements OnInit {
     Object.keys(this.formGroup.controls).forEach(key => {
       this.formGroup.controls[key].setErrors(null)
     });
-    this.changeTab.emit(0);
   }
 
   createForm(): void {
