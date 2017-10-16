@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { isURL } from 'validator';
 
 import { Organization } from '../../../models/organization';
 import { AppState } from '../../../reducers/index';
@@ -25,13 +26,21 @@ export class NewOrganizationFormComponent implements OnInit {
   }
 
   /**
+   * Validates if control.value is a URL.
+   * @param {AbstractControl} control
+   */
+  urlValidator = (control: AbstractControl): { [key: string]: any } => {
+    return isURL(control.value) ? null : { 'invalidURL': { value: control.value } };
+  };
+
+  /**
    * Creates the form group.
    */
   createForm(): FormGroup {
     const nameRegex = /^[a-z ,.'-]+$/i;
     return this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(70), Validators.pattern(nameRegex)]],
-      website: ['', [Validators.required, Validators.maxLength(255)]],
+      website: ['', [Validators.required, Validators.maxLength(255), this.urlValidator]],
       description: ['', [Validators.required, Validators.maxLength(160)]]
     });
   }
