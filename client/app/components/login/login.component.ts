@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 
 import { SnackBarService } from '../../services/snack-bar.service';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',

@@ -23,20 +23,18 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.gettingStartedSubscription = this.subscribeToGettingStarted();
+    this.gettingStartedSubscription = this.store
+      .select('gettingStarted')
+      .subscribe(state => {
+        this.tabGroup.selectedIndex = state.selectedTabIndex;
+        this.step = state.step;
+        this.validOrganization = state.validOrganization;
+        this.validUser = state.validUser;
+      });
   }
 
   ngOnDestroy() {
     this.gettingStartedSubscription.unsubscribe();
-  }
-
-  subscribeToGettingStarted(): Subscription {
-    return this.store.select('gettingStarted').subscribe(state => {
-      this.tabGroup.selectedIndex = state.selectedTabIndex;
-      this.step = state.step;
-      this.validOrganization = state.validOrganization;
-      this.validUser = state.validUser;
-    });
   }
 
   onNext(step): void {

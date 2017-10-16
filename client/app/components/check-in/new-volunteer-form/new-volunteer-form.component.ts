@@ -14,7 +14,7 @@ import * as CheckInActions from '../../../actions/check-in.actions';
 export class NewVolunteerFormComponent implements OnInit {
   public error: string;
   public formGroup: FormGroup;
-  public forms;
+  public forms: { placeholder: string, control: string }[];
 
   constructor(private fb: FormBuilder, private store: Store<AppState>) {
     this.createForm();

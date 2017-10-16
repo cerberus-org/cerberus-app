@@ -27,7 +27,8 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.store.dispatch(new CheckInActions.LoadData({ siteId, organizationId }));
     this.organizationService.getByIdRx(organizationId);
 
-    this.checkInSubscription = this.store.select('checkIn')
+    this.checkInSubscription = this.store
+      .select('checkIn')
       .subscribe(state => this.tabGroup.selectedIndex = state.selectedTabIndex);
   }
 

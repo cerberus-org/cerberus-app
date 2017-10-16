@@ -58,7 +58,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     this.activeVisit = null;
     this.selectedVolunteer = null;
 
-    this.checkInSubscription = this.store.select('checkIn')
+    this.checkInSubscription = this.store
+      .select('checkIn')
       .subscribe(state => {
         this.visits = state.visits;
         this.volunteers = state.volunteers;
@@ -111,7 +112,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param {AbstractControl} control
    */
   petNameValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !this.showPetNameForm || this.selectedVolunteer ? null : { 'noMatchByPetName': { value: control.value } };
+    return !this.showPetNameForm|| this.selectedVolunteer ? null : { 'noMatchByPetName': { value: control.value } };
   };
 
   /**

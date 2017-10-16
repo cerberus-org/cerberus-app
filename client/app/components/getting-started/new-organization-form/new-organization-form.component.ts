@@ -29,7 +29,6 @@ export class NewOrganizationFormComponent implements OnInit {
    */
   createForm(): FormGroup {
     const nameRegex = /^[a-z ,.'-]+$/i;
-    // const websiteRegex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     return this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(70), Validators.pattern(nameRegex)]],
       website: ['', [Validators.required, Validators.maxLength(255)]],
