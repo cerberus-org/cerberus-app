@@ -5,8 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
-import { testOrganizations, Organization } from '../models/organization';
-import * as OrganizationActions from '../actions/organizations.actions'
+import { Organization, testOrganizations } from '../models/organization';
 
 @Injectable()
 export class OrganizationService extends BaseService {
@@ -16,11 +15,6 @@ export class OrganizationService extends BaseService {
               protected errorService: ErrorService) {
     super(http, null, errorService);
     this.modelName = 'organization';
-    this.actions = {
-      load: OrganizationActions.Load,
-      add: OrganizationActions.Add,
-      modify: OrganizationActions.Modify
-    };
   }
 }
 
@@ -42,7 +36,7 @@ export class MockOrganizationService extends OrganizationService {
     return Observable.of(testOrganizations[0]);
   }
 
-  getById (id: string): Observable<Organization> {
+  getById(id: string): Observable<Organization> {
     return Observable.of(testOrganizations[0]);
   }
 

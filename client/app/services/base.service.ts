@@ -8,11 +8,6 @@ import { ErrorService } from './error.service';
 
 abstract class BaseService {
   protected modelName: string;
-  protected actions: {
-    load: any;
-    add: any;
-    modify: any;
-  };
 
   constructor(protected http: Http,
               protected store: Store<any>,

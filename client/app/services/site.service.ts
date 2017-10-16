@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 import { Site, testSites } from '../models/site';
-import * as SiteActions from '../actions/sites.actions'
 
 @Injectable()
 export class SiteService extends BaseService {
@@ -14,11 +13,6 @@ export class SiteService extends BaseService {
   constructor(protected http: Http, protected store: Store<Site[]>, protected errorService: ErrorService) {
     super(http, store, errorService);
     this.modelName = 'site';
-    this.actions = {
-      load: SiteActions.Load,
-      add: SiteActions.Add,
-      modify: SiteActions.Modify
-    };
   }
 
   getByOrganizationId(organizationId: string): Observable<Site[]> {

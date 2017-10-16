@@ -7,7 +7,6 @@ import 'rxjs/add/observable/of';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 import { testVisits, Visit } from '../models/visit';
-import * as VisitsActions from '../actions/visits.actions'
 
 @Injectable()
 export class VisitService extends BaseService {
@@ -16,11 +15,6 @@ export class VisitService extends BaseService {
   constructor(protected http: Http, protected store: Store<Visit[]>, protected errorService: ErrorService) {
     super(http, store, errorService);
     this.modelName = 'visit';
-    this.actions = {
-      load: VisitsActions.Load,
-      add: VisitsActions.Add,
-      modify: VisitsActions.Modify
-    }
   }
 
   /**
@@ -105,7 +99,7 @@ export class MockVisitService extends VisitService {
     return Observable.of(testVisits[0]);
   }
 
-  getById (id: string): Observable<Visit> {
+  getById(id: string): Observable<Visit> {
     return Observable.of(testVisits[0]);
   }
 

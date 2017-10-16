@@ -7,7 +7,6 @@ import 'rxjs/add/observable/of';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 import { testVolunteers, Volunteer } from '../models/volunteer';
-import * as VolunteersActions from '../actions/volunteers.actions'
 
 @Injectable()
 export class VolunteerService extends BaseService {
@@ -16,11 +15,6 @@ export class VolunteerService extends BaseService {
   constructor(protected http: Http, protected store: Store<Volunteer[]>, protected errorService: ErrorService) {
     super(http, store, errorService);
     this.modelName = 'volunteer';
-    this.actions = {
-      load: VolunteersActions.Load,
-      add: VolunteersActions.Add,
-      modify: VolunteersActions.Modify
-    };
   }
 
   getByOrganization(organizationId: string): Observable<Volunteer[]> {
@@ -48,7 +42,7 @@ export class MockVolunteerService extends VolunteerService {
     return Observable.of(testVolunteers[0]);
   }
 
-  getById (id: string): Observable<Volunteer> {
+  getById(id: string): Observable<Volunteer> {
     return Observable.of(testVolunteers[0]);
   }
 

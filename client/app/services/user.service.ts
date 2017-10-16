@@ -8,7 +8,6 @@ import 'rxjs/add/operator/catch';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 import { testUsers, User } from '../models/user';
-import * as UsersActions from '../actions/users.actions'
 
 @Injectable()
 export class UserService extends BaseService {
@@ -19,11 +18,6 @@ export class UserService extends BaseService {
               protected errorService: ErrorService) {
     super(http, store, errorService);
     this.modelName = 'user';
-    this.actions = {
-      load: UsersActions.Load,
-      add: UsersActions.Add,
-      modify: UsersActions.Modify
-    };
   }
 
   login(user: User): Observable<any> {
