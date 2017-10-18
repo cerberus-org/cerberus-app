@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { VisitService } from './services/visit.service';
 
 @Component({
   selector: 'app-root',

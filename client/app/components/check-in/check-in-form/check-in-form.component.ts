@@ -89,52 +89,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Dispatches a FilterAndSelectVolunteerByName action.
-   * @param {string} name
-   */
-  dispatchFilterAndSelectByName(name: string): void {
-    this.store.dispatch(new CheckInActions.FilterAndSelectVolunteersByName(name));
-  }
-
-  /**
-   * Validates if a matching volunteer is found by name (control.value).
-   * @param {AbstractControl} control
-   */
-  nameValidator = (control: AbstractControl): { [key: string]: any } => {
-    // Update state in validator since formControl.valueChanges calls next() after validation
-    // TODO: Find out how to update volunteers state outside validator
-    this.dispatchFilterAndSelectByName(control.value);
-    return this.selectedVolunteer || this.showPetNameForm ? null : { 'noMatchByName': { value: control.value } };
-  };
-
-  /**
-   * Validates if a matching volunteer is found by pet name (control.value) if needed.
-   * @param {AbstractControl} control
-   */
-  petNameValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !this.showPetNameForm || this.selectedVolunteer ? null : { 'noMatchByPetName': { value: control.value } };
-  };
-
-  /**
-   * Validates if a signature (control.value) has been entered if needed.
-   * @param {AbstractControl} control
-   */
-  signatureValidator = (control: AbstractControl): { [key: string]: any } => {
-    return this.activeVisit || control.value ? null : { 'noSignature': { value: control.value } };
-  };
-
-  /**
-   * Creates the form group.
-   */
-  createForm(): FormGroup {
-    return this.fb.group({
-      name: ['', [Validators.required, this.nameValidator]],
-      petName: ['', this.petNameValidator],
-      signatureField: ['', this.signatureValidator]
-    });
-  }
-
-  /**
    * Updates state when a pet name is selected.
    * @param {string} petName
    */
@@ -179,6 +133,52 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   checkOut(): void {
     const visit = Object.assign({}, this.activeVisit, { endedAt: new Date() });
     this.store.dispatch(new CheckInActions.CheckOut(visit));
+  }
+
+  /**
+   * Dispatches a FilterAndSelectVolunteerByName action.
+   * @param {string} name
+   */
+  dispatchFilterAndSelectByName(name: string): void {
+    this.store.dispatch(new CheckInActions.FilterAndSelectVolunteersByName(name));
+  }
+
+  /**
+   * Validates if a matching volunteer is found by name (control.value).
+   * @param {AbstractControl} control
+   */
+  nameValidator = (control: AbstractControl): { [key: string]: any } => {
+    // Update state in validator since formControl.valueChanges calls next() after validation
+    // TODO: Find out how to update volunteers state outside validator
+    this.dispatchFilterAndSelectByName(control.value);
+    return this.selectedVolunteer || this.showPetNameForm ? null : { 'noMatchByName': { value: control.value } };
+  };
+
+  /**
+   * Validates if a matching volunteer is found by pet name (control.value) if needed.
+   * @param {AbstractControl} control
+   */
+  petNameValidator = (control: AbstractControl): { [key: string]: any } => {
+    return !this.showPetNameForm || this.selectedVolunteer ? null : { 'noMatchByPetName': { value: control.value } };
+  };
+
+  /**
+   * Validates if a signature (control.value) has been entered if needed.
+   * @param {AbstractControl} control
+   */
+  signatureValidator = (control: AbstractControl): { [key: string]: any } => {
+    return this.activeVisit || control.value ? null : { 'noSignature': { value: control.value } };
+  };
+
+  /**
+   * Creates the form group.
+   */
+  createForm(): FormGroup {
+    return this.fb.group({
+      name: ['', [Validators.required, this.nameValidator]],
+      petName: ['', this.petNameValidator],
+      signatureField: ['', this.signatureValidator]
+    });
   }
 
   /**

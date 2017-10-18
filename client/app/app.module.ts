@@ -62,8 +62,10 @@ import { LoginEffects } from './effects/login.effects';
   declarations: [
     AboutUsComponent,
     AppComponent,
+    CheckInComponent,
     CheckInFormComponent,
     DailyHoursChartComponent,
+    DataDisplayComponent,
     FooterComponent,
     GettingStartedComponent,
     HeaderComponent,
@@ -76,10 +78,8 @@ import { LoginEffects } from './effects/login.effects';
     OrganizationDashboardComponent,
     SideMarginsComponent,
     SignatureFieldComponent,
-    DataDisplayComponent,
     VisitHistoryTableComponent,
-    CheckInComponent,
-    VolunteerMenuComponent,
+    VolunteerMenuComponent
   ],
   imports: [
     AppRoutingModule,
@@ -87,6 +87,12 @@ import { LoginEffects } from './effects/login.effects';
     BrowserModule,
     CdkTableModule,
     ChartsModule,
+    EffectsModule.forRoot([
+      CheckInEffects,
+      DataDisplayEffects,
+      GettingStartedEffects,
+      LoginEffects
+    ]),
     FlexLayoutModule,
     HttpModule,
     MatAutocompleteModule,
@@ -103,23 +109,17 @@ import { LoginEffects } from './effects/login.effects';
     MatToolbarModule,
     ReactiveFormsModule,
     SignaturePadModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([
-      CheckInEffects,
-      DataDisplayEffects,
-      GettingStartedEffects,
-      LoginEffects
-    ])
+    StoreModule.forRoot(reducers)
   ],
-  providers: [
+  providers: [,
+    ErrorService,
     Guard,
-    SiteService,
     OrganizationService,
+    SiteService,
     SnackBarService,
     UserService,
     VisitService,
-    VolunteerService,
-    ErrorService
+    VolunteerService
   ],
   bootstrap: [AppComponent]
 })

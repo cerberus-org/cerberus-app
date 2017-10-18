@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { AppState } from '../../../reducers/index';
-import { SiteService } from '../../../services/site.service';
 import { Site } from '../../../models/site';
+import { SiteService } from '../../../services/site.service';
 
 @Component({
   selector: 'app-volunteer-menu',

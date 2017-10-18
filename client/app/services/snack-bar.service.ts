@@ -15,7 +15,7 @@ export class SnackBarService {
   }
 
   logout(): void {
-    this.open('You have been successfully logged out');
+    this.open('You have been successfully logged out.');
   }
 
   addOrganizationSuccess(): void {

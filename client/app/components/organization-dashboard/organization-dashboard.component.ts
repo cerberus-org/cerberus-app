@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { SiteService } from '../../services/site.service';
 
 @Component({
   selector: 'app-organization-dashboard',
@@ -10,14 +7,8 @@ import { SiteService } from '../../services/site.service';
 })
 export class OrganizationDashboardComponent implements OnInit {
 
-  constructor(private router: Router,
-              private siteService: SiteService) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  public logout() {
-    localStorage.removeItem('token');
-    this.router.navigateByUrl('/login');
   }
 }
