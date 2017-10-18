@@ -111,7 +111,7 @@ import { LoginEffects } from './effects/login.effects';
     SignaturePadModule,
     StoreModule.forRoot(reducers)
   ],
-  providers: [,
+  providers: [
     ErrorService,
     Guard,
     OrganizationService,

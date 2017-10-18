@@ -6,10 +6,6 @@ import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
 import { GettingStartedComponent } from './getting-started.component';
-import { MockSiteService, SiteService } from '../../services/site.service';
-import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
-import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
-import { MockUserService, UserService } from '../../services/user.service';
 import { reducers } from '../../reducers/index';
 
 describe('GettingStartedComponent', () => {
@@ -32,12 +28,6 @@ describe('GettingStartedComponent', () => {
         NoopAnimationsModule,
         RouterTestingModule,
         StoreModule.forRoot(reducers)
-      ],
-      providers: [
-        { provide: SiteService, useClass: MockSiteService },
-        { provide: OrganizationService, useClass: MockOrganizationService },
-        { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: UserService, useClass: MockUserService }
       ]
     }).compileComponents();
   }));

@@ -8,8 +8,6 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { CheckInFormComponent } from './check-in-form.component';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
-import { MockSnackBarService, SnackBarService } from '../../../services/snack-bar.service';
-import { MockVisitService, VisitService } from '../../../services/visit.service';
 import { testVisits } from '../../../models/visit';
 import { testVolunteers } from '../../../models/volunteer';
 import { reducers } from '../../../reducers/index';
@@ -33,10 +31,6 @@ describe('CheckInFormComponent', () => {
         RouterTestingModule,
         SignaturePadModule,
         StoreModule.forRoot(reducers)
-      ],
-      providers: [
-        { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: VisitService, useClass: MockVisitService }
       ]
     }).compileComponents();
   }));

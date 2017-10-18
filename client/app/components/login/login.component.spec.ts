@@ -5,10 +5,6 @@ import { MatInputModule, MatListModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { LoginComponent } from './login.component';
-import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
-import { MockUserService, UserService } from '../../services/user.service';
-import { MockVisitService, VisitService } from '../../services/visit.service';
-import { reducers } from '../../reducers/index';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -23,11 +19,6 @@ describe('LoginComponent', () => {
         ReactiveFormsModule,
         MatInputModule,
         MatListModule
-      ],
-      providers: [
-        { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: UserService, useClass: MockUserService },
-        { provide: VisitService, useClass: MockVisitService },
       ]
     }).compileComponents();
   }));
@@ -41,9 +32,6 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    spyOn(component, 'login').and.callFake(() => {
-      return { token: 'token' };
-    });
     fixture.detectChanges();
   });
 
