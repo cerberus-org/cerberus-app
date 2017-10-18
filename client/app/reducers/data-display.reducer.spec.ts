@@ -9,20 +9,20 @@ describe('dataDisplayReducer', () => {
     it('loads visits in reverse', () => {
       const state = fromDataDisplay.reducer(fromDataDisplay.initialState,
         new DataDisplayActions.LoadDataSuccess(testVisits));
-      expect(state.visits).toEqual(testVisits.slice(0, 3).reverse());
+      expect(state.visits).toEqual(testVisits.slice().reverse());
     });
 
     it('sets up the line chart labels', () => {
       const state = fromDataDisplay.reducer(fromDataDisplay.initialState,
         new DataDisplayActions.LoadDataSuccess(testVisits));
-      expect(state.lineChartLabels).toEqual(['Thu Jun 29', 'Fri Jun 30', 'Sat Jul 1']);
+      expect(state.lineChartLabels.length).toEqual(7);
     });
 
     it('sets up the line chart data', () => {
       const state = fromDataDisplay.reducer(fromDataDisplay.initialState,
         new DataDisplayActions.LoadDataSuccess(testVisits));
       const lineChartData = state.lineChartData[0];
-      expect(lineChartData.data.length).toEqual(3);
+      expect(lineChartData.data.length).toEqual(7);
       expect(lineChartData.label).toEqual('Hours');
     });
   });

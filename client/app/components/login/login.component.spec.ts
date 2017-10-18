@@ -1,10 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule, MatListModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
 
 import { LoginComponent } from './login.component';
+import { reducers } from '../../reducers/index';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -18,7 +20,8 @@ describe('LoginComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule,
         MatInputModule,
-        MatListModule
+        MatListModule,
+        StoreModule.forRoot(reducers)
       ]
     }).compileComponents();
   }));

@@ -20,7 +20,7 @@ export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
 
     case DataDisplayActions.LOAD_DATA_SUCCESS: {
-      const visits = action.payload.reverse();
+      const visits = action.payload.slice().reverse();
       const labels = setupLineChartLabels();
       const data = setupLineChartData(visits, labels);
       return {
@@ -44,7 +44,7 @@ const setupLineChartLabels = () => {
   // The latest date that will be used as the rightmost label
   const latest: Date = new Date();
   // The number of previous dates to use as labels
-  const count = 20;
+  const count = 7;
   // How each date should be displayed (refer to Moment.js formats)
   const format = 'ddd MMM D';
   // The unit to use for mapping to dates (refer to Moment.js keys)
