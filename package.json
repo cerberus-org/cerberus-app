@@ -71,6 +71,7 @@
     "ng2-mock-component": "^0.1.0",
     "nodemon": "^1.12.1",
     "protractor": "^5.1.2",
-    "tslint": "^5.7.0"
+    "tslint": "^5.7.0",
+    "tslint-config-airbnb": "^5.3.0"
   }
 }

@@ -24,7 +24,7 @@ export function reducer(state = initialState, action: Action): State {
       const labels = setupLineChartLabels();
       const data = setupLineChartData(visits, labels);
       return {
-        visits: visits,
+        visits,
         lineChartLabels: labels,
         lineChartData: data
       };
