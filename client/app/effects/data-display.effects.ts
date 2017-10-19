@@ -15,7 +15,7 @@ export class DataDisplayEffects {
    * Listen for the LoadData action, get the visits, then dispatch the success action.
    */
   @Effect()
-  loadData: Observable<Action> = this.actions.ofType(DataDisplayActions.LOAD_DATA)
+  loadData$: Observable<Action> = this.actions.ofType(DataDisplayActions.LOAD_DATA)
     .map((action: DataDisplayActions.LoadData) => action.payload)
     .switchMap(organizationId => this.visitService.getByOrganization(organizationId)
       .map(visits => new DataDisplayActions.LoadDataSuccess(visits)));

@@ -45,7 +45,8 @@ export class MockUserService extends UserService {
   }
 
   getById(id: string): Observable<User> {
-    return Observable.of(testUsers[0]);
+    return Observable.of(testUsers
+      .find(user => user._id === id));
   }
 
   update(obj: User): Observable<User> {

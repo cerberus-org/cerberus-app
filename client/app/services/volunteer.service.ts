@@ -42,7 +42,8 @@ export class MockVolunteerService extends VolunteerService {
   }
 
   getById(id: string): Observable<Volunteer> {
-    return Observable.of(testVolunteers[0]);
+    return Observable.of(testVolunteers
+      .find(volunteer => volunteer._id === id));
   }
 
   update(obj: Volunteer): Observable<Volunteer> {

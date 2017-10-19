@@ -35,7 +35,8 @@ export class MockOrganizationService extends OrganizationService {
   }
 
   getById(id: string): Observable<Organization> {
-    return Observable.of(testOrganizations[0]);
+    return Observable.of(testOrganizations
+      .find(organization => organization._id === id));
   }
 
   update(obj: Organization): Observable<Organization> {

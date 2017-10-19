@@ -22,7 +22,7 @@ export class LoginEffects {
    * @type {Observable<any>}
    */
   @Effect({ dispatch: false })
-  login: Observable<Action> = this.actions
+  login$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGIN)
     .map((action: LoginActions.Login) => action.payload)
     .switchMap(user => this.userService.login(user)

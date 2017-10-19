@@ -45,7 +45,8 @@ export class MockSiteService extends SiteService {
   }
 
   getById(id: string): Observable<Site> {
-    return Observable.of(testSites[0]);
+    return Observable.of(testSites
+      .find(site => site._id === id));
   }
 
   update(obj: Site): Observable<Site> {

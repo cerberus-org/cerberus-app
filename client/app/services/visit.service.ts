@@ -99,7 +99,8 @@ export class MockVisitService extends VisitService {
   }
 
   getById(id: string): Observable<Visit> {
-    return Observable.of(testVisits[0]);
+    return Observable.of(testVisits
+      .find(visit => visit._id === id));
   }
 
   update(obj: Visit): Observable<Visit> {

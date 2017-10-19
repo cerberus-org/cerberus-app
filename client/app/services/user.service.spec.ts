@@ -43,7 +43,7 @@ describe('UserService', () => {
   }));
 
   const setConnections = body => {
-    backend.connections.subscribe(function (connection: MockConnection) {
+    backend.connections.subscribe(connection => {
       const options = new ResponseOptions({
         body: JSON.stringify(body)
       });

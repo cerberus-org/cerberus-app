@@ -3154,6 +3154,12 @@ jasmine-growl-reporter@~0.2.0:
   dependencies:
     growl "~1.7.0"
 
+jasmine-marbles@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/jasmine-marbles/-/jasmine-marbles-0.2.0.tgz#b893d8508b75790b634876d3a1bea1345d65c156"
+  dependencies:
+    lodash "^4.5.0"
+
 jasmine-node@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/jasmine-node/-/jasmine-node-2.0.0.tgz#81751a72325f5497490b14181a55087f1b0371ff"

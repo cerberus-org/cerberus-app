@@ -21,7 +21,7 @@ export class CheckInEffects {
    * then dispatch the LoadDataSuccess action with the data.
    */
   @Effect()
-  loadData: Observable<Action> = this.actions
+  loadData$: Observable<Action> = this.actions
     .ofType(CheckInActions.LOAD_DATA)
     .map((action: CheckInActions.LoadData) => action.payload)
     .switchMap(payload => Observable
@@ -38,7 +38,7 @@ export class CheckInEffects {
    * then dispatch the SubmitNewVolunteerSuccess action with the created volunteer.
    */
   @Effect()
-  submitNewVolunteer: Observable<Action> = this.actions
+  submitNewVolunteer$: Observable<Action> = this.actions
     .ofType(CheckInActions.SUBMIT_NEW_VOLUNTEER)
     .map((action: CheckInActions.SubmitNewVolunteer) => action.payload)
     .switchMap(volunteer => this.volunteerService.create(volunteer)
@@ -52,7 +52,7 @@ export class CheckInEffects {
    * then emit the success snack bar and navigate back to the dashboard.
    */
   @Effect({ dispatch: false })
-  checkIn: Observable<Action> = this.actions
+  checkIn$: Observable<Action> = this.actions
     .ofType(CheckInActions.CHECK_IN)
     .map((action: CheckInActions.CheckIn) => action.payload)
     .switchMap(visit => this.visitService.create(visit)
@@ -66,7 +66,7 @@ export class CheckInEffects {
    * then emit the snackbar and navigate back to the dashboard.
    */
   @Effect({ dispatch: false })
-  checkOut: Observable<Action> = this.actions
+  checkOut$: Observable<Action> = this.actions
     .ofType(CheckInActions.CHECK_OUT)
     .map((action: CheckInActions.CheckOut) => action.payload)
     .switchMap(visit => this.visitService.update(visit)

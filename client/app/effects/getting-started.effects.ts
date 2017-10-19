@@ -23,7 +23,7 @@ export class GettingStartedEffects {
    * then emit the success snack bar and login with the created user.
    */
   @Effect()
-  loadData: Observable<Action> = this.actions
+  loadData$: Observable<Action> = this.actions
     .ofType(GettingStartedActions.SUBMIT)
     .map((action: GettingStartedActions.Submit) => action.payload)
     // Create the organization
