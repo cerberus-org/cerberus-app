@@ -36,7 +36,7 @@ export class LoginEffects {
           .do(organization => {
             localStorage.setItem('organizationName', organization.name);
             this.router.navigateByUrl('/dashboard');
-            this.snackBarService.login(results.user.firstName);
+            this.snackBarService.loginSuccess(results.user.firstName);
           })
       }));
 
@@ -46,16 +46,12 @@ export class LoginEffects {
    * @type {Observable<any>}
    */
   @Effect({ dispatch: false })
-  logout: Observable<Action> = this.actions
+  logout$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGOUT)
     .do(() => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('userId');
-      localStorage.removeItem('userName');
-      localStorage.removeItem('organizationId');
-      localStorage.removeItem('organizationName');
+      localStorage.clear();
       this.router.navigateByUrl('/login');
-      this.snackBarService.logout();
+      this.snackBarService.logoutSuccess();
     });
 
   constructor(private actions: Actions,
