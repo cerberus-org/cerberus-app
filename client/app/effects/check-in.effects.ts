@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
 
-import * as CheckInActions from '../actions/check-in.actions'
+import * as CheckInActions from '../actions/check-in.actions';
 import { VisitService } from '../services/visit.service';
 import { VolunteerService } from '../services/volunteer.service';
 import { SnackBarService } from '../services/snack-bar.service';

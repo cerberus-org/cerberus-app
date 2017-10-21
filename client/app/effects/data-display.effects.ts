@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
-import * as DataDisplayActions from '../actions/data-display.actions'
+import * as DataDisplayActions from '../actions/data-display.actions';
 import { VisitService } from '../services/visit.service';
 
 @Injectable()

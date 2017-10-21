@@ -7,8 +7,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
 
-import * as GettingStartedActions from '../actions/getting-started.actions'
-import * as LoginActions from '../actions/login.actions'
+import * as GettingStartedActions from '../actions/getting-started.actions';
+import * as LoginActions from '../actions/login.actions';
 import { Site } from '../models/site';
 import { SiteService } from '../services/site.service';
 import { SnackBarService } from '../services/snack-bar.service';
@@ -20,7 +20,7 @@ export class GettingStartedEffects {
 
   /**
    * Listen for the Submit action, create the organization, user, and site,
-   * then emit the success snack bar and login with the created user.
+   * then emit the success snack bar and loginSuccess with the created user.
    */
   @Effect()
   submit$: Observable<Action> = this.actions

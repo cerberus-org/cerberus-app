@@ -12,7 +12,6 @@ import { MockSnackBarService, SnackBarService } from '../services/snack-bar.serv
 import { MockUserService, UserService } from '../services/user.service';
 import { testOrganizations } from '../models/organization';
 import { testUsers } from '../models/user';
-import { Site } from '../models/site';
 
 describe('GettingStartedEffects', () => {
   let effects: GettingStartedEffects;
@@ -32,29 +31,21 @@ describe('GettingStartedEffects', () => {
     effects = TestBed.get(GettingStartedEffects);
   }));
 
-  afterEach(async(() => {
-    localStorage.clear();
-  }));
-
   describe('gettingStarted$', () => {
 
-    it('sets localStorage, navigates to the dashboard, and displays the snackbar, on success', async(() => {
+    it('creates the organization, site, and user, displays the addOrganizationSuccess snackbar, returns a LOGIN action, on success', async(() => {
       const organization = testOrganizations[0];
       const user = testUsers[0];
       const submit = new Submit({ organization, user });
       const login = new Login(user);
-      const createSiteSpy = spyOn(TestBed.get(SiteService), 'create');
       const addOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'addOrganizationSuccess');
 
       actions = hot('a', { a: submit });
       const expected = cold('b', { b: login });
 
-      // effects.submit$.subscribe(() => {
-      //   expect(createSiteSpy).toHaveBeenCalledWith(
-      //     new Site(organization._id, organization.name, null)
-      //   );
-      //   expect(addOrganizationSuccessSpy).toHaveBeenCalled();
-      // });
+      effects.submit$.subscribe(() => {
+        expect(addOrganizationSuccessSpy).toHaveBeenCalled();
+      });
       expect(effects.submit$).toBeObservable(expected);
     }));
   });
