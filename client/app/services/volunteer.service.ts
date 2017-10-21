@@ -16,7 +16,7 @@ export class VolunteerService extends BaseService {
     this.modelName = 'volunteer';
   }
 
-  getByOrganization(organizationId: string): Observable<Volunteer[]> {
+  getByOrganizationId(organizationId: string): Observable<Volunteer[]> {
     return this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
       .map(res => res.json().map(this.convertIn))
       .catch(this.errorService.handleHttpError);
@@ -29,16 +29,15 @@ export class MockVolunteerService extends VolunteerService {
     super(null, null);
   }
 
+  getByOrganizationId(organizationId): Observable<Volunteer[]> {
+    return Observable.of(testVolunteers
+      .filter(visit => visit.organizationId === organizationId));
+  }
+
+  // Base functions
+
   getAll(): Observable<Volunteer[]> {
     return Observable.of(testVolunteers);
-  }
-
-  count(): Observable<number> {
-    return Observable.of(testVolunteers.length);
-  }
-
-  create(obj: Volunteer): Observable<Volunteer> {
-    return Observable.of(testVolunteers[0]);
   }
 
   getById(id: string): Observable<Volunteer> {
@@ -46,11 +45,19 @@ export class MockVolunteerService extends VolunteerService {
       .find(volunteer => volunteer._id === id));
   }
 
-  update(obj: Volunteer): Observable<Volunteer> {
-    return Observable.of(testVolunteers[0]);
+  count(): Observable<number> {
+    return Observable.of(testVolunteers.length);
   }
 
-  delete(obj: Volunteer): Observable<Volunteer> {
-    return Observable.of(testVolunteers[0]);
+  create(volunteer: Volunteer): Observable<Volunteer> {
+    return Observable.of(volunteer);
+  }
+
+  update(volunteer: Volunteer): Observable<Volunteer> {
+    return Observable.of(volunteer);
+  }
+
+  delete(volunteer: Volunteer): Observable<Volunteer> {
+    return Observable.of(volunteer);
   }
 }

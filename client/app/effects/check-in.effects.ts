@@ -26,8 +26,8 @@ export class CheckInEffects {
     .map((action: CheckInActions.LoadData) => action.payload)
     .switchMap(payload => Observable
       .forkJoin(
-        this.visitService.getBySite(payload.siteId),
-        this.volunteerService.getByOrganization(payload.organizationId))
+        this.visitService.getBySiteId(payload.siteId),
+        this.volunteerService.getByOrganizationId(payload.organizationId))
       .map(results => {
         return { visits: results[0], volunteers: results[1] }
       })

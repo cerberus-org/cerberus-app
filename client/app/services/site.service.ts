@@ -32,16 +32,10 @@ export class MockSiteService extends SiteService {
       .filter(site => site.organizationId === organizationId));
   }
 
+  // Base functions
+
   getAll(): Observable<Site[]> {
     return Observable.of(testSites);
-  }
-
-  count(): Observable<number> {
-    return Observable.of(testSites.length);
-  }
-
-  create(obj: Site): Observable<Site> {
-    return Observable.of(testSites[0]);
   }
 
   getById(id: string): Observable<Site> {
@@ -49,11 +43,19 @@ export class MockSiteService extends SiteService {
       .find(site => site._id === id));
   }
 
-  update(obj: Site): Observable<Site> {
-    return Observable.of(testSites[0]);
+  count(): Observable<number> {
+    return Observable.of(testSites.length);
   }
 
-  delete(obj: Site): Observable<Site> {
-    return Observable.of(testSites[0]);
+  create(site: Site): Observable<Site> {
+    return Observable.of(site);
+  }
+
+  update(site: Site): Observable<Site> {
+    return Observable.of(site);
+  }
+
+  delete(site: Site): Observable<Site> {
+    return Observable.of(site);
   }
 }

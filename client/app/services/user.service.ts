@@ -36,28 +36,28 @@ export class MockUserService extends UserService {
     return Observable.of(testUsers);
   }
 
-  count(): Observable<number> {
-    return Observable.of(testUsers.length);
-  }
-
-  create(obj: User): Observable<User> {
-    return Observable.of(testUsers[0]);
-  }
-
   getById(id: string): Observable<User> {
     return Observable.of(testUsers
       .find(user => user._id === id));
   }
 
-  update(obj: User): Observable<User> {
-    return Observable.of(testUsers[0]);
+  count(): Observable<number> {
+    return Observable.of(testUsers.length);
   }
 
-  delete(obj: User): Observable<User> {
-    return Observable.of(testUsers[0]);
+  create(user: User): Observable<User> {
+    return Observable.of(user);
   }
 
-  login(): Observable<any> {
+  update(user: User): Observable<User> {
+    return Observable.of(user);
+  }
+
+  delete(user: User): Observable<User> {
+    return Observable.of(user);
+  }
+
+  login(user: User): Observable<any> {
     return Observable.of({ token: 'token' });
   }
 }

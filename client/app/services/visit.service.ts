@@ -21,7 +21,7 @@ export class VisitService extends BaseService {
    * @param {string} organizationId
    * @return {Observable<Visit[]>}
    */
-  getByOrganization(organizationId: string): Observable<Visit[]> {
+  getByOrganizationId(organizationId: string): Observable<Visit[]> {
     return this.http.get(`/api/organization/${organizationId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
       .catch(this.errorService.handleHttpError);
@@ -32,7 +32,7 @@ export class VisitService extends BaseService {
    * @param {string} siteId
    * @return {Observable<Visit[]>}
    */
-  getBySite(siteId: string): Observable<Visit[]> {
+  getBySiteId(siteId: string): Observable<Visit[]> {
     return this.http.get(`/api/site/${siteId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
       .catch(this.errorService.handleHttpError);
@@ -86,16 +86,20 @@ export class MockVisitService extends VisitService {
     super(null, null);
   }
 
+  getByOrganizationId(organizationId): Observable<Visit[]> {
+    return Observable.of(testVisits
+      .filter(visit => visit.organizationId === organizationId));
+  }
+
+  getBySiteId(siteId): Observable<Visit[]> {
+    return Observable.of(testVisits
+      .filter(visit => visit.siteId === siteId));
+  }
+
+  // Base functions
+
   getAll(): Observable<Visit[]> {
     return Observable.of(testVisits);
-  }
-
-  count(): Observable<number> {
-    return Observable.of(testVisits.length);
-  }
-
-  create(obj: Visit): Observable<Visit> {
-    return Observable.of(testVisits[0]);
   }
 
   getById(id: string): Observable<Visit> {
@@ -103,11 +107,19 @@ export class MockVisitService extends VisitService {
       .find(visit => visit._id === id));
   }
 
-  update(obj: Visit): Observable<Visit> {
-    return Observable.of(testVisits[0]);
+  count(): Observable<number> {
+    return Observable.of(testVisits.length);
   }
 
-  delete(obj: Visit): Observable<Visit> {
-    return Observable.of(testVisits[0]);
+  create(visit: Visit): Observable<Visit> {
+    return Observable.of(visit);
+  }
+
+  update(visit: Visit): Observable<Visit> {
+    return Observable.of(visit);
+  }
+
+  delete(visit: Visit): Observable<Visit> {
+    return Observable.of(visit);
   }
 }

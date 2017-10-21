@@ -22,16 +22,10 @@ export class MockOrganizationService extends OrganizationService {
     super(null, null);
   }
 
+  // Base functions
+
   getAll(): Observable<Organization[]> {
     return Observable.of(testOrganizations);
-  }
-
-  count(): Observable<number> {
-    return Observable.of(testOrganizations.length);
-  }
-
-  create(obj: Organization): Observable<Organization> {
-    return Observable.of(testOrganizations[0]);
   }
 
   getById(id: string): Observable<Organization> {
@@ -39,11 +33,19 @@ export class MockOrganizationService extends OrganizationService {
       .find(organization => organization._id === id));
   }
 
-  update(obj: Organization): Observable<Organization> {
-    return Observable.of(testOrganizations[0]);
+  count(): Observable<number> {
+    return Observable.of(testOrganizations.length);
   }
 
-  delete(obj: Organization): Observable<Organization> {
-    return Observable.of(testOrganizations[0]);
+  create(organization: Organization): Observable<Organization> {
+    return Observable.of(organization);
+  }
+
+  update(organization: Organization): Observable<Organization> {
+    return Observable.of(organization);
+  }
+
+  delete(organization: Organization): Observable<Organization> {
+    return Observable.of(organization);
   }
 }
