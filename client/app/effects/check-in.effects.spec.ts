@@ -20,7 +20,7 @@ describe('CheckInEffects', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([]),
+        RouterTestingModule,
       ],
       providers: [
         CheckInEffects,
