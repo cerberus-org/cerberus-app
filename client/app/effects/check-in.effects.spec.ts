@@ -5,12 +5,13 @@ import { Observable } from 'rxjs/Observable';
 import { cold, hot } from 'jasmine-marbles';
 
 import { CheckInEffects } from './check-in.effects';
-import { LoadData, LoadDataSuccess, SubmitNewVolunteer, SubmitNewVolunteerSuccess } from '../actions/check-in.actions';
+import { CheckIn, CheckOut, LoadData, LoadDataSuccess, SubmitNewVolunteer, SubmitNewVolunteerSuccess } from '../actions/check-in.actions';
 import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
 import { MockVisitService, VisitService } from '../services/visit.service';
 import { MockVolunteerService, VolunteerService } from '../services/volunteer.service';
 import { testVisits } from '../models/visit';
 import { testVolunteers } from '../models/volunteer';
+import { Router } from '@angular/router';
 
 describe('CheckInEffects', () => {
   let effects: CheckInEffects;
@@ -19,7 +20,7 @@ describe('CheckInEffects', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([]),
       ],
       providers: [
         CheckInEffects,
@@ -34,7 +35,7 @@ describe('CheckInEffects', () => {
 
   describe('loadData$', () => {
 
-    it('return a LOAD_DATA_SUCCESS action, with the visits and volunteers, on success', () => {
+    it('returns a LOAD_DATA_SUCCESS action, with the visits and volunteers, on success', () => {
       const loadData = new LoadData({
         siteId: testVisits[0].siteId,
         organizationId: testVolunteers[0].organizationId
@@ -49,18 +50,50 @@ describe('CheckInEffects', () => {
 
       expect(effects.loadData$).toBeObservable(expected);
     });
+  });
 
-    it('return a LOAD_DATA_SUCCESS action, with the visits and volunteers, on success', () => {
-      const sub = new SubmitNewVolunteer(testVolunteers[0]);
-      const loadDataSuccess = ({
-        visits: testVisits,
-        volunteers: testVolunteers
-      });
+  describe('submitNewVolunteer$', () => {
 
-      actions = hot('a', { a: new SubmitNewVolunteer(testVolunteers[0]) });
-      const expected = cold('b', { b: new SubmitNewVolunteerSuccess(testVolunteers[0]) });
+    it('returns a SUBMIT_NEW_VOLUNTEER_SUCCESS action, with the visits and volunteers, on success', () => {
+      const submitNewVolunteer = new SubmitNewVolunteer(testVolunteers[0]);
+      const submitNewVolunteerSuccess = new SubmitNewVolunteerSuccess(testVolunteers[0]);
+
+      actions = hot('a', { a: submitNewVolunteer });
+      const expected = cold('b', { b: submitNewVolunteerSuccess });
 
       expect(effects.submitNewVolunteer$).toBeObservable(expected);
+    });
+  });
+
+  describe('checkIn$', () => {
+
+    it('displays the snackbar and navigates to the dashboard, on success', () => {
+      const checkIn = new CheckIn(testVisits[0]);
+      const checkInSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkInSuccess');
+      const navigateByUrlSpy = spyOn(TestBed.get(Router), 'navigateByUrl');
+
+      actions = hot('a', { a: checkIn });
+
+      effects.checkOut$.subscribe(() => {
+        expect(checkInSuccessSpy).toHaveBeenCalled();
+        expect(navigateByUrlSpy).toHaveBeenCalledWith('/dashboard');
+      });
+    });
+  });
+
+  describe('checkOut$', () => {
+
+    it('displays the snackbar and navigates to the dashboard, on success', () => {
+      const checkOut = new CheckOut(testVisits[0]);
+      const checkOutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkOutSuccess');
+      const navigateByUrlSpy = spyOn(TestBed.get(Router), 'navigateByUrl');
+
+      actions = hot('a', { a: checkOut });
+
+      effects.checkOut$.subscribe(() => {
+        expect(checkOutSuccessSpy).toHaveBeenCalled();
+        expect(navigateByUrlSpy).toHaveBeenCalledWith('/dashboard');
+      });
     });
   });
 });

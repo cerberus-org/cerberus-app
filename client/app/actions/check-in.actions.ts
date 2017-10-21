@@ -49,7 +49,7 @@ export class CheckIn implements Action {
   constructor(public payload: Visit) {}
 }
 
-  export class CheckOut implements Action {
+export class CheckOut implements Action {
   readonly type = CHECK_OUT;
 
   constructor(public payload: Visit) {}
