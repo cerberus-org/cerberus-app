@@ -57,8 +57,8 @@ export class CheckInEffects {
     .map((action: CheckInActions.CheckIn) => action.payload)
     .switchMap(visit => this.visitService.create(visit)
       .do(() => {
-        this.snackBarService.checkInSuccess();
         this.router.navigateByUrl('/dashboard');
+        this.snackBarService.checkInSuccess();
       }));
 
   /**
@@ -71,8 +71,8 @@ export class CheckInEffects {
     .map((action: CheckInActions.CheckOut) => action.payload)
     .switchMap(visit => this.visitService.update(visit)
       .do(() => {
-        this.snackBarService.checkOutSuccess();
         this.router.navigateByUrl('/dashboard');
+        this.snackBarService.checkOutSuccess();
       }));
 
   constructor(private actions: Actions,

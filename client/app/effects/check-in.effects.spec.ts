@@ -67,32 +67,32 @@ describe('CheckInEffects', () => {
 
   describe('checkIn$', () => {
 
-    it('displays the snackbar and navigates to the dashboard, on success', () => {
+    it('navigates to the dashboard and displays the snackbar, on success', () => {
       const checkIn = new CheckIn(testVisits[0]);
-      const checkInSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkInSuccess');
       const navigateByUrlSpy = spyOn(TestBed.get(Router), 'navigateByUrl');
+      const checkInSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkInSuccess');
 
       actions = hot('a', { a: checkIn });
 
       effects.checkOut$.subscribe(() => {
-        expect(checkInSuccessSpy).toHaveBeenCalled();
         expect(navigateByUrlSpy).toHaveBeenCalledWith('/dashboard');
+        expect(checkInSuccessSpy).toHaveBeenCalled();
       });
     });
   });
 
   describe('checkOut$', () => {
 
-    it('displays the snackbar and navigates to the dashboard, on success', () => {
+    it('navigates to the dashboard and displays the snackbar, on success', () => {
       const checkOut = new CheckOut(testVisits[0]);
-      const checkOutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkOutSuccess');
       const navigateByUrlSpy = spyOn(TestBed.get(Router), 'navigateByUrl');
+      const checkOutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkOutSuccess');
 
       actions = hot('a', { a: checkOut });
 
       effects.checkOut$.subscribe(() => {
-        expect(checkOutSuccessSpy).toHaveBeenCalled();
         expect(navigateByUrlSpy).toHaveBeenCalledWith('/dashboard');
+        expect(checkOutSuccessSpy).toHaveBeenCalled();
       });
     });
   });

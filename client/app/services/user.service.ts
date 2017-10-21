@@ -58,6 +58,6 @@ export class MockUserService extends UserService {
   }
 
   login(user: User): Observable<any> {
-    return Observable.of({ token: 'token' });
+    return Observable.of({ user, token: 'token' });
   }
 }
