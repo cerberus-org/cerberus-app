@@ -25,7 +25,7 @@ export class VisitService extends BaseService {
    * @return {Observable<Visit[]>}
    */
   getByOrganizationId(organizationId: string): Observable<Visit[]> {
-    return this.db.collection('visits').valueChanges()
+    return this.db.collection<Visit>('visits').valueChanges();
   }
 
   /**

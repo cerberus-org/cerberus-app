@@ -4,12 +4,17 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { ErrorService } from './error.service';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
-abstract class BaseService {
+abstract class BaseService<T> {
   protected modelName: string;
+  private collection: AngularFirestoreCollection<T>;
 
-  constructor(protected http: Http,
-              protected errorService: ErrorService) { }
+  constructor(protected db: AngularFirestore,
+              protected http: Http,
+              protected errorService: ErrorService) {
+    this.collection = db.collection<T>(`${this.modelName}s`);
+  }
 
   get options() {
     const headers = new Headers({
@@ -20,42 +25,45 @@ abstract class BaseService {
     return new RequestOptions({ headers: headers });
   }
 
-  getAll(): Observable<any[]> {
-    return this.http.get(`/api/${this.modelName}s`, this.options)
-      .map(res => res.json().map(this.convertIn))
+  getAll(): Observable<T[]> {
+    return this.collection.valueChanges()
       .catch(this.errorService.handleHttpError);
   }
 
-  count(): Observable<number> {
-    return this.http.get(`/api/${this.modelName}s/count`, this.options)
-      .map(res => res.json())
+  getAllSnapshots(): Observable<T[]> {
+    return this.collection.snapshotChanges()
       .catch(this.errorService.handleHttpError);
   }
 
-  create(obj: any): Observable<any> {
-    this.convertOut(obj);
-    return this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
-      .map(res => this.convertIn(res.json()))
+  getByKey(key: string, value: string): Observable<T[]> {
+    return this.db.collection<T>(`${this.modelName}s`, ref => ref
+      .where(key, '==', value)).valueChanges();
+  }
+
+  getSnapshotsByKey(key: string, value: string): Observable<T[]> {
+    return this.db.collection<T>(`${this.modelName}s`, ref => ref
+      .where(key, '==', value)).snapshotChanges()
+      .map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as T;
+          const id = a.payload.doc.id;
+          return Object.assign(data, id);
+        });
+      });
+  }
+
+  add(item: any): void {
+    this.collection.add(item)
       .catch(this.errorService.handleHttpError);
   }
 
-  getById(id: string): Observable<any> {
-    return this.http.get(`/api/${this.modelName}/${id}`, this.options)
-      .map(res => this.convertIn(res.json()))
+  update(item: any): void {
+    this.db.doc<T>(`${this.modelName}s/${item.id}`).update(item)
       .catch(this.errorService.handleHttpError);
   }
 
-  update(obj: any): Observable<any> {
-    this.convertOut(obj);
-    return this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
-      .map(res => this.convertIn(res.json()))
-      .catch(this.errorService.handleHttpError);
-  }
-
-  delete(obj: any): Observable<any> {
-    this.convertOut(obj);
-    return this.http.delete(`/api/${this.modelName}/${obj._id}`, this.options)
-      .map(res => this.convertIn(res.json()))
+  delete(item: any): void {
+    this.db.doc<T>(`${this.modelName}s/${item.id}`).delete()
       .catch(this.errorService.handleHttpError);
   }
 
