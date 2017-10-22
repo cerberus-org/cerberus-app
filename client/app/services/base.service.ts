@@ -24,31 +24,28 @@ abstract class BaseService<T> {
     return new RequestOptions({ headers: headers });
   }
 
-  getAll(): Observable<T[]> {
-    return this.collection.valueChanges()
-      .catch(this.errorService.handleHttpError);
+  getAll(key: string, value: string, snapshot?: boolean): Observable<T[]> {
+    return snapshot
+      ? this.collection.snapshotChanges()
+        .catch(this.errorService.handleHttpError)
+      : this.collection.valueChanges()
+        .catch(this.errorService.handleHttpError);
   }
 
-  getAllSnapshots(): Observable<T[]> {
-    return this.collection.snapshotChanges()
-      .catch(this.errorService.handleHttpError);
-  }
-
-  getByKey(key: string, value: string): Observable<T[]> {
-    return this.db.collection<T>(`${this.model}s`, ref => ref
-      .where(key, '==', value)).valueChanges();
-  }
-
-  getSnapshotsByKey(key: string, value: string): Observable<T[]> {
-    return this.db.collection<T>(`${this.model}s`, ref => ref
-      .where(key, '==', value)).snapshotChanges()
-      .map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as T;
-          const id = a.payload.doc.id;
-          return Object.assign(data, id);
-        });
-      });
+  getByKey(key: string, value: string, snapshot?: boolean): Observable<T[]> {
+    const collection = this.db.collection<T>(`${this.model}s`, ref => ref
+      .where(key, '==', value));
+    return snapshot
+      ? collection.snapshotChanges()
+        .map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as T;
+            const id = a.payload.doc.id;
+            return Object.assign(data, id);
+          });
+        })
+      : collection.valueChanges()
+        .catch(this.errorService.handleHttpError);
   }
 
   add(item: any): void {
