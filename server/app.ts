@@ -15,7 +15,7 @@ app.use('/', express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI || 'localhost');
 const db = mongoose.connection;
 (<any>mongoose).Promise = global.Promise;
 

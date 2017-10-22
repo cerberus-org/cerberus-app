@@ -6,12 +6,15 @@ import 'rxjs/add/observable/of';
 import { testVisits, Visit } from '../models/visit';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
 export class VisitService extends BaseService {
   model = Visit;
 
-  constructor(protected http: Http, protected errorService: ErrorService) {
+  constructor(protected db: AngularFirestore,
+              protected http: Http,
+              protected errorService: ErrorService) {
     super(http, errorService);
     this.modelName = 'visit';
   }
@@ -22,9 +25,7 @@ export class VisitService extends BaseService {
    * @return {Observable<Visit[]>}
    */
   getByOrganizationId(organizationId: string): Observable<Visit[]> {
-    return this.http.get(`/api/organization/${organizationId}/visits`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .catch(this.errorService.handleHttpError);
+    return this.db.collection('visits').valueChanges()
   }
 
   /**
@@ -83,7 +84,7 @@ export class VisitService extends BaseService {
 export class MockVisitService extends VisitService {
 
   constructor() {
-    super(null, null);
+    super(null, null, null);
   }
 
   getByOrganizationId(organizationId): Observable<Visit[]> {
