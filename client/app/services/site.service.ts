@@ -1,23 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
-import { Site, testSites } from '../models/site';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
+import { Site, testSites } from '../models/site';
 
 @Injectable()
-export class SiteService extends BaseService {
+export class SiteService extends BaseService<Site> {
 
-  constructor(protected http: Http, protected errorService: ErrorService) {
-    super(http, errorService);
-    this.modelName = 'site';
-  }
-
-  getByOrganizationId(organizationId: string): Observable<Site[]> {
-    return this.http.get(`/api/organization/${organizationId}/sites`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .catch(this.errorService.handleHttpError);
+  constructor(protected db: AngularFirestore,
+              protected errorService: ErrorService) {
+    super(db, errorService,);
+    this.model = 'site';
   }
 }
 
@@ -25,11 +20,6 @@ export class MockSiteService extends SiteService {
 
   constructor() {
     super(null, null);
-  }
-
-  getByOrganizationId(organizationId: string): Observable<Site[]> {
-    return Observable.of(testSites
-      .filter(site => site.organizationId === organizationId));
   }
 
   // Base functions

@@ -1,54 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { testVisits, Visit } from '../models/visit';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { testVisits, Visit } from '../models/visit';
 
 @Injectable()
-export class VisitService extends BaseService {
-  model = Visit;
+export class VisitService extends BaseService<Visit> {
 
   constructor(protected db: AngularFirestore,
-              protected http: Http,
               protected errorService: ErrorService) {
-    super(http, errorService);
-    this.modelName = 'visit';
-  }
-
-  /**
-   * Gets visits by organizationId.
-   * @param {string} organizationId
-   * @return {Observable<Visit[]>}
-   */
-  getByOrganizationId(organizationId: string): Observable<Visit[]> {
-    return this.db.collection<Visit>('visits').valueChanges();
-  }
-
-  /**
-   * Gets visits by siteId.
-   * @param {string} siteId
-   * @return {Observable<Visit[]>}
-   */
-  getBySiteId(siteId: string): Observable<Visit[]> {
-    return this.http.get(`/api/site/${siteId}/visits`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .catch(this.errorService.handleHttpError);
-  }
-
-  /**
-   * Get all dates that occur after the provided date.
-   * @param {number} days
-   * @return {Observable<Visit[]>}
-   */
-  getByLastGivenDays(days: number): Observable<Visit[]> {
-    const date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));
-    return this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .catch(this.errorService.handleHttpError);
+    super(db, errorService);
+    this.model = 'visit';
   }
 
   /**
@@ -84,17 +49,7 @@ export class VisitService extends BaseService {
 export class MockVisitService extends VisitService {
 
   constructor() {
-    super(null, null, null);
-  }
-
-  getByOrganizationId(organizationId): Observable<Visit[]> {
-    return Observable.of(testVisits
-      .filter(visit => visit.organizationId === organizationId));
-  }
-
-  getBySiteId(siteId): Observable<Visit[]> {
-    return Observable.of(testVisits
-      .filter(visit => visit.siteId === siteId));
+    super(null, null);
   }
 
   // Base functions
