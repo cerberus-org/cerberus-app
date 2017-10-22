@@ -1,25 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { testVolunteers, Volunteer } from '../models/volunteer';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
-export class VolunteerService extends BaseService {
-  model = Volunteer;
+export class VolunteerService extends BaseService<Volunteer> {
 
-  constructor(protected http: Http, protected errorService: ErrorService) {
-    super(http, errorService);
-    this.modelName = 'volunteer';
-  }
-
-  getByOrganizationId(organizationId: string): Observable<Volunteer[]> {
-    return this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .catch(this.errorService.handleHttpError);
+  constructor(protected db: AngularFirestore, protected errorService: ErrorService) {
+    super(db, errorService);
+    this.model = 'volunteer';
   }
 }
 
@@ -27,11 +20,6 @@ export class MockVolunteerService extends VolunteerService {
 
   constructor() {
     super(null, null);
-  }
-
-  getByOrganizationId(organizationId): Observable<Volunteer[]> {
-    return Observable.of(testVolunteers
-      .filter(visit => visit.organizationId === organizationId));
   }
 
   // Base functions

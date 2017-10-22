@@ -1,28 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { testUsers, User } from '../models/user';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
+import { testUsers, User } from '../models/user';
 
 @Injectable()
-export class UserService extends BaseService {
-  model = User;
+export class UserService extends BaseService<User> {
 
-  constructor(protected http: Http,
+  constructor(protected db: AngularFirestore,
               protected errorService: ErrorService) {
-    super(http, errorService);
-    this.modelName = 'user';
-  }
-
-  login(user: User): Observable<any> {
-    user.email = user.email.toLowerCase();
-    return this.http.post('/api/user/login', JSON.stringify(user), this.options)
-      .map(res => this.convertIn(res.json()))
-      .catch(this.errorService.handleHttpError);
+    super(db, errorService);
+    this.model = 'user';
   }
 }
 

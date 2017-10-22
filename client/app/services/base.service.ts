@@ -1,19 +1,18 @@
-import { Headers, Http, RequestOptions } from '@angular/http';
+import { Headers, RequestOptions } from '@angular/http';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { ErrorService } from './error.service';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 abstract class BaseService<T> {
-  protected modelName: string;
+  protected model: string;
   private collection: AngularFirestoreCollection<T>;
 
   constructor(protected db: AngularFirestore,
-              protected http: Http,
               protected errorService: ErrorService) {
-    this.collection = db.collection<T>(`${this.modelName}s`);
+    this.collection = db.collection<T>(`${this.model}s`);
   }
 
   get options() {
@@ -36,12 +35,12 @@ abstract class BaseService<T> {
   }
 
   getByKey(key: string, value: string): Observable<T[]> {
-    return this.db.collection<T>(`${this.modelName}s`, ref => ref
+    return this.db.collection<T>(`${this.model}s`, ref => ref
       .where(key, '==', value)).valueChanges();
   }
 
   getSnapshotsByKey(key: string, value: string): Observable<T[]> {
-    return this.db.collection<T>(`${this.modelName}s`, ref => ref
+    return this.db.collection<T>(`${this.model}s`, ref => ref
       .where(key, '==', value)).snapshotChanges()
       .map(actions => {
         return actions.map(a => {
@@ -58,12 +57,12 @@ abstract class BaseService<T> {
   }
 
   update(item: any): void {
-    this.db.doc<T>(`${this.modelName}s/${item.id}`).update(item)
+    this.db.doc<T>(`${this.model}s/${item.id}`).update(item)
       .catch(this.errorService.handleHttpError);
   }
 
   delete(item: any): void {
-    this.db.doc<T>(`${this.modelName}s/${item.id}`).delete()
+    this.db.doc<T>(`${this.model}s/${item.id}`).delete()
       .catch(this.errorService.handleHttpError);
   }
 

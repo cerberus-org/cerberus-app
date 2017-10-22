@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
-import { Organization, testOrganizations } from '../models/organization';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
+import { Organization, testOrganizations } from '../models/organization';
 
 @Injectable()
-export class OrganizationService extends BaseService {
+export class OrganizationService extends BaseService<Organization> {
 
-  constructor(protected http: Http,
+  constructor(protected db: AngularFirestore,
               protected errorService: ErrorService) {
-    super(http, errorService);
-    this.modelName = 'organization';
+    super(db, errorService);
+    this.model = 'organization';
   }
 }
 
