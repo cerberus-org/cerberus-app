@@ -8,7 +8,7 @@ import { CheckInComponent } from './components/check-in/check-in.component';
 import { GettingStartedComponent } from './components/getting-started/getting-started.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  // { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: OrganizationDashboardComponent, canActivate : [Guard] },
   { path: 'checkin/:id', component: CheckInComponent, canActivate : [Guard] },
   { path: 'start', component: GettingStartedComponent },

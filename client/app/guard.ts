@@ -7,9 +7,10 @@ export class Guard implements CanActivate {
   constructor(public router: Router) {}
 
   canActivate() {
-    if (localStorage.getItem('token') === null) {
-      this.router.navigateByUrl('/login');
-    }
-    return (localStorage.getItem('token') === null) ? false : true;
+    // if (localStorage.getItem('token') === null) {
+    //   this.router.navigateByUrl('/login');
+    // }
+    // return (localStorage.getItem('token') === null) ? false : true;
+    return true;
   }
 }
