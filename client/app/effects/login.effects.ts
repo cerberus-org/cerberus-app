@@ -32,7 +32,7 @@ export class LoginEffects {
         localStorage.setItem('userName', results.user.firstName);
         localStorage.setItem('organizationId', results.user.organizationId);
         // Get organization to store name in localStorage for use with header text
-        return this.organizationService.getById(results.user.organizationId)
+        return this.organizationService.get(results.user.organizationId)
           .do(organization => {
             localStorage.setItem('organizationName', organization.name);
             this.router.navigateByUrl('/dashboard');
