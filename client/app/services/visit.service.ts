@@ -1,52 +1,53 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
+import { testVisits, Visit } from '../models/visit';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
-import { testVisits, Visit } from '../models/visit';
-import * as VisitsActions from '../actions/visits.actions'
 
 @Injectable()
 export class VisitService extends BaseService {
   model = Visit;
 
-  constructor(protected http: Http, protected store: Store<Visit[]>, protected errorService: ErrorService) {
-    super(http, store, errorService);
+  constructor(protected http: Http, protected errorService: ErrorService) {
+    super(http, errorService);
     this.modelName = 'visit';
-    this.actions = {
-      load: VisitsActions.Load,
-      add: VisitsActions.Add,
-      modify: VisitsActions.Modify
-    }
-  }
-
-  getBySiteRx(siteId: string): void {
-    this.http.get(`/api/site/${siteId}/visits`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .map(payload => new this.actions.load(payload))
-      .subscribe(action => this.store.dispatch(action));
-  }
-
-  getByOrganizationRx(organizationId: string): void {
-    this.http.get(`/api/organization/${organizationId}/visits`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .map(payload => new this.actions.load(payload))
-      .subscribe(action => this.store.dispatch(action));
   }
 
   /**
-   * Get all dates that occur after the date provided.
-   * @param days
+   * Gets visits by organizationId.
+   * @param {string} organizationId
+   * @return {Observable<Visit[]>}
    */
-  getByLastGivenDaysRx(days: number): void {
-    const date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));
-    this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
+  getByOrganizationId(organizationId: string): Observable<Visit[]> {
+    return this.http.get(`/api/organization/${organizationId}/visits`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => new this.actions.load(payload))
-      .subscribe(action => this.store.dispatch(action), err => this.errorService.handleHttpError(err));
+      .catch(this.errorService.handleHttpError);
+  }
+
+  /**
+   * Gets visits by siteId.
+   * @param {string} siteId
+   * @return {Observable<Visit[]>}
+   */
+  getBySiteId(siteId: string): Observable<Visit[]> {
+    return this.http.get(`/api/site/${siteId}/visits`, this.options)
+      .map(res => res.json().map(this.convertIn))
+      .catch(this.errorService.handleHttpError);
+  }
+
+  /**
+   * Get all dates that occur after the provided date.
+   * @param {number} days
+   * @return {Observable<Visit[]>}
+   */
+  getByLastGivenDays(days: number): Observable<Visit[]> {
+    const date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));
+    return this.http.get(`/api/${this.modelName}s/${ date }`, this.options)
+      .map(res => res.json().map(this.convertIn))
+      .catch(this.errorService.handleHttpError);
   }
 
   /**
@@ -82,44 +83,43 @@ export class VisitService extends BaseService {
 export class MockVisitService extends VisitService {
 
   constructor() {
-    super(null, null, null);
+    super(null, null);
   }
 
-  getAllRx(): void { }
+  getByOrganizationId(organizationId): Observable<Visit[]> {
+    return Observable.of(testVisits
+      .filter(visit => visit.organizationId === organizationId));
+  }
 
-  getByIdRx(id: string): void { }
+  getBySiteId(siteId): Observable<Visit[]> {
+    return Observable.of(testVisits
+      .filter(visit => visit.siteId === siteId));
+  }
 
-  getBySiteRx(): void { }
-
-  getByOrganizationRx(): void { }
-
-  createRx(obj: any): void { }
-
-  updateRx(obj: any): void { }
-
-  getByLastGivenDaysRx(days: number): void { };
+  // Base functions
 
   getAll(): Observable<Visit[]> {
     return Observable.of(testVisits);
+  }
+
+  getById(id: string): Observable<Visit> {
+    return Observable.of(testVisits
+      .find(visit => visit._id === id));
   }
 
   count(): Observable<number> {
     return Observable.of(testVisits.length);
   }
 
-  create(obj: Visit): Observable<Visit> {
-    return Observable.of(testVisits[0]);
+  create(visit: Visit): Observable<Visit> {
+    return Observable.of(visit);
   }
 
-  get (obj: Visit): Observable<Visit> {
-    return Observable.of(testVisits[0]);
+  update(visit: Visit): Observable<Visit> {
+    return Observable.of(visit);
   }
 
-  update(obj: Visit): Observable<Visit> {
-    return Observable.of(testVisits[0]);
-  }
-
-  delete(obj: Visit): Observable<Visit> {
-    return Observable.of(testVisits[0]);
+  delete(visit: Visit): Observable<Visit> {
+    return Observable.of(visit);
   }
 }

@@ -1,9 +1,0 @@
-<div fxFlex fxLayoutAlign="center center">
-  <canvas class="graph" fxFlex fxFlex.sm="80%"
-          baseChart height="500"
-          [datasets]="(dataDisplay$ | async)?.lineChartData"
-          [labels]="(dataDisplay$ | async)?.lineChartLabels"
-          [options]="lineChartOptions"
-          [chartType]="lineChartType">
-  </canvas>
-</div>

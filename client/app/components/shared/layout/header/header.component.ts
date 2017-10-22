@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { State } from '../../../../reducers/index';
+import * as LoginActions from '../../../../actions/login.actions'
+import { AppState } from '../../../../reducers/index';
 
 @Component({
   selector: 'app-header',
@@ -12,32 +13,20 @@ import { State } from '../../../../reducers/index';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  organizationSubscription: Subscription;
   routerEventsSubscription: Subscription;
-  error: string;
   icon: string;
   text: string;
   previousUrl: string;
 
-  constructor(private router: Router, private store: Store<State>) { }
+  constructor(private router: Router,
+              private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.organizationSubscription = this.subscribeToOrganizations();
     this.routerEventsSubscription = this.subscribeToRouterEvents();
   }
 
   ngOnDestroy() {
-    this.organizationSubscription.unsubscribe();
     this.routerEventsSubscription.unsubscribe();
-  }
-
-  subscribeToOrganizations(): Subscription {
-    return this.store.select('organizations').subscribe(state => {
-        if (state.organizations.length > 0) {
-          this.text = state.organizations[0].name;
-        }
-      },
-      error => this.error = <any>error);
   }
 
   onBack(): void {
@@ -45,10 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout(): void {
-    localStorage.removeItem('organizationId');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('token');
-    this.router.navigateByUrl('/login');
+    this.store.dispatch(new LoginActions.Logout({}))
   }
 
   subscribeToRouterEvents(): Subscription {
@@ -63,11 +49,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         case 'dashboard':
           // Text set in subscribeToOrganizations()
           this.icon = 'business';
+          this.text = localStorage.getItem('organizationName');
           break;
         case 'checkin':
           // Text set in subscribeToOrganizations()
           this.previousUrl = '/dashboard';
           this.icon = 'business';
+          this.text = localStorage.getItem('organizationName');
           break;
         default:
           this.icon = 'group_work';

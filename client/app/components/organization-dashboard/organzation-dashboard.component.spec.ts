@@ -37,9 +37,4 @@ describe('OrganizationDashboardComponent', () => {
   it('is created', () => {
     expect(component).toBeTruthy();
   });
-
-  it('local storage should be cleared', () => {
-    component.logout();
-    expect(localStorage.token).toBe(undefined);
-  });
 });

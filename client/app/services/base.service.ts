@@ -3,19 +3,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Store } from '@ngrx/store';
 import { ErrorService } from './error.service';
 
 abstract class BaseService {
   protected modelName: string;
-  protected actions: {
-    load: any;
-    add: any;
-    modify: any;
-  };
 
   constructor(protected http: Http,
-              protected store: Store<any>,
               protected errorService: ErrorService) { }
 
   get options() {
@@ -25,36 +18,6 @@ abstract class BaseService {
       'Authorization': localStorage.token
     });
     return new RequestOptions({ headers: headers });
-  }
-
-  getAllRx(): void {
-    this.http.get(`/api/${this.modelName}s`, this.options)
-      .map(res => res.json().map(this.convertIn))
-      .map(payload => new this.actions.load(payload))
-      .subscribe(action => this.store.dispatch(action));
-  }
-
-  getByIdRx(id: string): void {
-    this.http.get(`/api/${this.modelName}/${id}`, this.options)
-      .map(res => this.convertIn(res.json()))
-      .map(payload => new this.actions.add(payload))
-      .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError);
-  }
-
-  createRx(obj: any, successCb: () => void): void {
-    this.convertOut(obj);
-    this.http.post(`/api/${this.modelName}`, JSON.stringify(obj), this.options)
-      .map(res => this.convertIn(res.json()))
-      .map(payload => new this.actions.add(payload))
-      .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError, successCb);
-  }
-
-  updateRx(obj: any, successCb: () => void): void {
-    this.convertOut(obj);
-    this.http.put(`/api/${this.modelName}/${obj._id}`, JSON.stringify(obj), this.options)
-      .map(res => this.convertIn(res.json()))
-      .map(payload => new this.actions.modify(payload))
-      .subscribe(action => this.store.dispatch(action), this.errorService.handleHttpError, successCb);
   }
 
   getAll(): Observable<any[]> {
@@ -76,8 +39,8 @@ abstract class BaseService {
       .catch(this.errorService.handleHttpError);
   }
 
-  get (obj: any): Observable<any> {
-    return this.http.get(`/api/${this.modelName}/${obj._id}`, this.options)
+  getById(id: string): Observable<any> {
+    return this.http.get(`/api/${this.modelName}/${id}`, this.options)
       .map(res => this.convertIn(res.json()))
       .catch(this.errorService.handleHttpError);
   }

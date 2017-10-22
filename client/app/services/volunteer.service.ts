@@ -1,73 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
+import { testVolunteers, Volunteer } from '../models/volunteer';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
-import { testVolunteers, Volunteer } from '../models/volunteer';
-import * as VolunteersActions from '../actions/volunteers.actions'
 
 @Injectable()
 export class VolunteerService extends BaseService {
   model = Volunteer;
 
-  constructor(protected http: Http, protected store: Store<Volunteer[]>, protected errorService: ErrorService) {
-    super(http, store, errorService);
+  constructor(protected http: Http, protected errorService: ErrorService) {
+    super(http, errorService);
     this.modelName = 'volunteer';
-    this.actions = {
-      load: VolunteersActions.Load,
-      add: VolunteersActions.Add,
-      modify: VolunteersActions.Modify
-    };
   }
 
-  getByOrganizationRx(organizationId: string): void {
-    this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
+  getByOrganizationId(organizationId: string): Observable<Volunteer[]> {
+    return this.http.get(`/api/organization/${organizationId}/volunteers`, this.options)
       .map(res => res.json().map(this.convertIn))
-      .map(payload => new this.actions.load(payload))
-      .subscribe(action => this.store.dispatch(action));
+      .catch(this.errorService.handleHttpError);
   }
 }
 
 export class MockVolunteerService extends VolunteerService {
 
   constructor() {
-    super(null, null, null);
+    super(null, null);
   }
 
-  getAllRx(): void { }
+  getByOrganizationId(organizationId): Observable<Volunteer[]> {
+    return Observable.of(testVolunteers
+      .filter(visit => visit.organizationId === organizationId));
+  }
 
-  getByIdRx(id: string): void { }
-
-  getByOrganizationRx(): void { }
-
-  createRx(obj: any): void { }
-
-  updateRx(obj: any): void { }
+  // Base functions
 
   getAll(): Observable<Volunteer[]> {
     return Observable.of(testVolunteers);
+  }
+
+  getById(id: string): Observable<Volunteer> {
+    return Observable.of(testVolunteers
+      .find(volunteer => volunteer._id === id));
   }
 
   count(): Observable<number> {
     return Observable.of(testVolunteers.length);
   }
 
-  create(obj: Volunteer): Observable<Volunteer> {
-    return Observable.of(testVolunteers[0]);
+  create(volunteer: Volunteer): Observable<Volunteer> {
+    return Observable.of(volunteer);
   }
 
-  get(obj: Volunteer): Observable<Volunteer> {
-    return Observable.of(testVolunteers[0]);
+  update(volunteer: Volunteer): Observable<Volunteer> {
+    return Observable.of(volunteer);
   }
 
-  update(obj: Volunteer): Observable<Volunteer> {
-    return Observable.of(testVolunteers[0]);
-  }
-
-  delete(obj: Volunteer): Observable<Volunteer> {
-    return Observable.of(testVolunteers[0]);
+  delete(volunteer: Volunteer): Observable<Volunteer> {
+    return Observable.of(volunteer);
   }
 }

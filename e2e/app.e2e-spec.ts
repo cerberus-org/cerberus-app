@@ -7,7 +7,7 @@ describe('cerberus-app App', () => {
     page = new CerberusAppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display login message', () => {
     page.navigateTo();
     expect(page.getParagraphText()).toEqual('Welcome to app!!');
   });

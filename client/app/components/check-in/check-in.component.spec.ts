@@ -1,13 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTabsModule } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
 import { CheckInComponent } from './check-in.component';
-import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
-import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
-import { MockVisitService, VisitService } from '../../services/visit.service';
-import { RouterTestingModule } from '@angular/router/testing';
+import { reducers } from '../../reducers/index';
 
 describe('CheckInComponent', () => {
   let component: CheckInComponent;
@@ -24,12 +23,8 @@ describe('CheckInComponent', () => {
       imports: [
         MatTabsModule,
         NoopAnimationsModule,
-        RouterTestingModule
-      ],
-      providers: [
-        { provide: OrganizationService, useClass: MockOrganizationService },
-        { provide: VisitService, useClass: MockVisitService },
-        { provide: VolunteerService, useClass: MockVolunteerService }
+        RouterTestingModule,
+        StoreModule.forRoot(reducers)
       ]
     }).compileComponents();
   }));

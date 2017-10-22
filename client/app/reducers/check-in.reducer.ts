@@ -1,23 +1,30 @@
+import { Visit } from '../models/visit';
 import { Volunteer } from '../models/volunteer';
-import * as VolunteerActions from '../actions/volunteers.actions'
+import * as CheckInActions from '../actions/check-in.actions'
 
 export interface State {
+  selectedTabIndex: number,
+  visits: Visit[];
   volunteers: Volunteer[];
-  filtered: Volunteer[];
+  filteredVolunteers: Volunteer[];
   filteredUniqueNames: string[];
   filteredAllMatchSameName: boolean;
-  selected: Volunteer,
+  selectedVisit: Visit;
+  selectedVolunteer: Volunteer;
 }
 
 export const initialState: State = {
+  selectedTabIndex: 0,
+  visits: [],
   volunteers: [],
-  filtered: [],
+  filteredVolunteers: [],
   filteredUniqueNames: [],
   filteredAllMatchSameName: false,
-  selected: null
+  selectedVisit: null,
+  selectedVolunteer: null
 };
 
-export type Action = VolunteerActions.All;
+export type Action = CheckInActions.All;
 
 export function reducer(state = initialState, action: Action): State {
 
@@ -26,23 +33,18 @@ export function reducer(state = initialState, action: Action): State {
   }
 
   switch (action.type) {
-    case VolunteerActions.LOAD: {
-      return Object.assign({}, initialState, {
-        volunteers: action.payload
+
+    case CheckInActions.LOAD_DATA_SUCCESS: {
+      return Object.assign({}, state, {
+        visits: action.payload.visits,
+        volunteers: action.payload.volunteers
       });
     }
 
-    case VolunteerActions.ADD: {
+    case CheckInActions.SUBMIT_NEW_VOLUNTEER_SUCCESS: {
       return Object.assign({}, state, {
-        volunteers: [action.payload, ...state.volunteers]
-      });
-    }
-
-    case VolunteerActions.MODIFY: {
-      return Object.assign({}, state, {
-        volunteers: state.volunteers.map(volunteer => {
-          return volunteer._id === action.payload._id ? action.payload : volunteer;
-        })
+        volunteers: [action.payload, ...state.volunteers],
+        selectedTabIndex: 0
       });
     }
 
@@ -50,7 +52,7 @@ export function reducer(state = initialState, action: Action): State {
      * Filters volunteers by comparing against first and last names and selects if one remains.
      * action.payload is a string for name.
      */
-    case VolunteerActions.FILTER_AND_SELECT_BY_NAME: {
+    case CheckInActions.FILTER_AND_SELECT_VOLUNTEERS_BY_NAME: {
       const name: string = action.payload.toLowerCase();
       // Create the list of filtered volunteers by name
       const filtered: Volunteer[] = state.volunteers.filter(volunteer =>
@@ -66,10 +68,10 @@ export function reducer(state = initialState, action: Action): State {
         ? filtered.find(volunteer => formatName(volunteer).toLowerCase() === name)
         : null;
       return Object.assign({}, state, {
-        filtered: filtered,
+        filteredVolunteers: filtered,
         filteredUniqueNames: uniqueNames,
         filteredAllMatchSameName: allMatchSameName,
-        selected: selected
+        selectedVolunteer: selected
       });
     }
 
@@ -77,10 +79,19 @@ export function reducer(state = initialState, action: Action): State {
      * Selects a volunteer by petName.
      * action.payload is a string for petName.
      */
-    case VolunteerActions.SELECT_BY_PET_NAME: {
+    case CheckInActions.SELECT_VOLUNTEER_BY_PET_NAME: {
       const petName: string = action.payload.toLowerCase();
       return Object.assign({}, state, {
-        selected: state.volunteers.find(volunteer => volunteer.petName.toLowerCase() === petName)
+        selectedVolunteer: state.volunteers.find(volunteer => volunteer.petName.toLowerCase() === petName)
+      });
+    }
+
+    case CheckInActions.SELECT_ACTIVE_VISIT_FOR_VOLUNTEER: {
+      const volunteer: Volunteer = action.payload;
+      return Object.assign({}, state, {
+        selectedVisit: volunteer
+          ? state.visits.find(visit => visit.endedAt === null && volunteer._id === visit.volunteerId)
+          : null
       });
     }
 

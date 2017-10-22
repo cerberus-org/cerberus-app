@@ -70,9 +70,9 @@ describe('OrganizationService', () => {
     });
   });
 
-  it('gets the organization', () => {
+  it('gets the organization by ID', () => {
     setConnections(testOrganizations[0]);
-    service.get(testOrganizations[0]).subscribe(res => {
+    service.getById(testOrganizations[0]._id).subscribe(res => {
       expect(res).toEqual(testOrganizations[0]);
     });
   });

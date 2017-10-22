@@ -72,7 +72,7 @@ describe('VolunteerService', () => {
 
   it('gets the volunteer', () => {
     setConnections(testVolunteers[0]);
-    service.get(testVolunteers[0]).subscribe(res => {
+    service.getById(testVolunteers[0]._id).subscribe(res => {
       expect(res).toEqual(testVolunteers[0]);
     });
   });

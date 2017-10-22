@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 
-import { State } from '../../../reducers/index';
+import * as DataDisplayActions from '../../actions/data-display.actions'
+import { AppState } from '../../reducers/index';
 
 @Component({
   selector: 'app-data-display',
@@ -10,11 +10,10 @@ import { State } from '../../../reducers/index';
   styleUrls: ['./data-display.component.css']
 })
 export class DataDisplayComponent implements OnInit {
-  visits$: Observable<State['visits']>;
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.visits$ = this.store.select('visits');
+    this.store.dispatch(new DataDisplayActions.LoadData(localStorage.getItem('organizationId')));
   }
 }

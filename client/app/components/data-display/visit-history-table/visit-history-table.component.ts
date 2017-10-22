@@ -1,13 +1,14 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { MatPaginator } from '@angular/material';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import * as moment from 'moment-timezone';
-import 'rxjs/add/observable/merge'
-
-import { Visit } from '../../../../models/visit';
-import { State } from '../../../../reducers/index';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/observable/merge'
+import * as moment from 'moment-timezone';
+
+import { AppState } from '../../../reducers/index';
+import { Visit } from '../../../models/visit';
 
 @Component({
   selector: 'app-visit-history-table',
@@ -15,21 +16,20 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./visit-history-table.component.css']
 })
 export class VisitHistoryTableComponent implements OnInit {
-  @Input() visits$: Observable<State['visits']>;
   initialPageSize: number;
   displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
   dataSource: VisitDataSource | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     // Determine initial page size using inner height of window at component init
     const surroundingElementsPx = 281;
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
-    this.dataSource = new VisitDataSource(this.visits$, this.paginator);
+    this.dataSource = new VisitDataSource(this.store.select('dataDisplay'), this.paginator);
   }
 
   formatDate(date: Date, timezone: string): string {
@@ -64,26 +64,21 @@ export class VisitDataSource extends DataSource<any> implements OnDestroy {
   visits: Visit[];
   error: string;
 
-  constructor(private visits$: Observable<State['visits']>, private paginator: MatPaginator) {
+  constructor(private dataDisplay$: Observable<AppState['dataDisplay']>, private paginator: MatPaginator) {
     super();
-    this.visitsSubscription = this.subscribeToVisits();
+    this.visitsSubscription = this.dataDisplay$
+      .subscribe(state => this.visits = state.visits);
   }
 
   ngOnDestroy(): void {
     this.visitsSubscription.unsubscribe();
   }
 
-  subscribeToVisits(): Subscription {
-    return this.visits$.subscribe(
-      state => this.visits = state.visits,
-      error => this.error = <any>error);
-  }
-
   /**
    * Connect function called by the table to retrieve one stream containing the data to render.
    */
   connect(): Observable<any[]> {
-    return Observable.merge(this.paginator.page, this.visits$).map(() => {
+    return Observable.merge(this.paginator.page, this.dataDisplay$).map(() => {
       return this.getPageData();
     });
   }

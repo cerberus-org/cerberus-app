@@ -1,91 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
+import { testUsers, User } from '../models/user';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
-import { testUsers, User } from '../models/user';
-import * as UsersActions from '../actions/users.actions'
 
 @Injectable()
 export class UserService extends BaseService {
   model = User;
 
   constructor(protected http: Http,
-              protected store: Store<User[]>,
-              protected errorService: ErrorService,
-              private router: Router) {
-    super(http, store, errorService);
+              protected errorService: ErrorService) {
+    super(http, errorService);
     this.modelName = 'user';
-    this.actions = {
-      load: UsersActions.Load,
-      add: UsersActions.Add,
-      modify: UsersActions.Modify
-    };
   }
 
-  setLocalStorageItems(user: User, token: string) {
-    localStorage.setItem('token', token);
-    localStorage.setItem('userId', user._id);
-    localStorage.setItem('organizationId', user.organizationId);
-    localStorage.setItem('userName', user.firstName);
-  }
-
-  login(user: User, successCb: () => void): void {
+  login(user: User): Observable<any> {
     user.email = user.email.toLowerCase();
-    this.http.post('/api/user/login', JSON.stringify(user), this.options)
-    // Save user data and token to local storage
-      .map(res => { this.convertIn(res.json()), this.setLocalStorageItems(res.json().user, res.json().token) })
-      .map(payload => new this.actions.add(payload))
-      .subscribe(action => {
-          // Route user to dashboard if login is successful.
-          this.store.dispatch(action), this.router.navigateByUrl('/dashboard')
-        },
-        err => this.errorService.handleHttpError(err), successCb);
+    return this.http.post('/api/user/login', JSON.stringify(user), this.options)
+      .map(res => this.convertIn(res.json()))
+      .catch(this.errorService.handleHttpError);
   }
 }
 
 export class MockUserService extends UserService {
 
   constructor() {
-    super(null, null, null, null);
+    super(null, null);
   }
-
-  getAllRx(): void { }
-
-  getByIdRx(id: string): void { }
-
-  createRx(obj: any): void { }
-
-  updateRx(obj: any): void { }
 
   getAll(): Observable<User[]> {
     return Observable.of(testUsers);
+  }
+
+  getById(id: string): Observable<User> {
+    return Observable.of(testUsers
+      .find(user => user._id === id));
   }
 
   count(): Observable<number> {
     return Observable.of(testUsers.length);
   }
 
-  create(obj: User): Observable<User> {
-    return Observable.of(testUsers[0]);
+  create(user: User): Observable<User> {
+    return Observable.of(user);
   }
 
-  get (obj: User): Observable<User> {
-    return Observable.of(testUsers[0]);
+  update(user: User): Observable<User> {
+    return Observable.of(user);
   }
 
-  update(obj: User): Observable<User> {
-    return Observable.of(testUsers[0]);
+  delete(user: User): Observable<User> {
+    return Observable.of(user);
   }
 
-  delete(obj: User): Observable<User> {
-    return Observable.of(testUsers[0]);
-  }
-
-  login(): Observable<any> {
-    return Observable.of({ token: 'token' });
+  login(user: User): Observable<any> {
+    return Observable.of({ user, token: 'token' });
   }
 }

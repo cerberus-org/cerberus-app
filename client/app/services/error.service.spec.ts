@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorService } from './error.service';
 import { MockSnackBarService, SnackBarService } from './snack-bar.service';
 
-describe('UserService', () => {
+describe('ErrorService', () => {
   let service: ErrorService = null;
   let error: Response = null;
 
@@ -33,6 +33,6 @@ describe('UserService', () => {
   it('401 error', () => {
     error = new Response(401);
     service.handleHttpError(error);
-    expect(localStorage.token).toBeUndefined();
+    expect(localStorage.token).toBeFalsy();
   });
 });

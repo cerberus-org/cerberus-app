@@ -43,21 +43,13 @@ describe('UserService', () => {
   }));
 
   const setConnections = body => {
-    backend.connections.subscribe(function (connection: MockConnection) {
+    backend.connections.subscribe(connection => {
       const options = new ResponseOptions({
         body: JSON.stringify(body)
       });
       connection.mockRespond(new Response(options));
     });
   };
-
-  it('sets the local storage items', () => {
-    service.setLocalStorageItems(testUsers[0], 'token');
-    expect(localStorage.getItem('token')).toBe('token');
-    expect(localStorage.getItem('userId')).toBe(testUsers[0]._id);
-    expect(localStorage.getItem('organizationId')).toBe(testUsers[0].organizationId);
-    expect(localStorage.getItem('userName')).toBe(testUsers[0].firstName);
-  });
 
   it('gets all users', () => {
     setConnections(testUsers);
@@ -82,7 +74,7 @@ describe('UserService', () => {
 
   it('gets the user', () => {
     setConnections(testUsers[0]);
-    service.get(testUsers[0]).subscribe(res => {
+    service.getById(testUsers[0]._id).subscribe(res => {
       expect(res).toEqual(testUsers[0]);
     });
   });

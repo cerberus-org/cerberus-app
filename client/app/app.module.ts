@@ -4,12 +4,13 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule,
-  MatRadioModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule,
+  MatPaginatorModule, MatRadioModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { ChartsModule } from 'ng2-charts';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import 'hammerjs';
@@ -34,9 +35,9 @@ import { OrganizationConfirmComponent } from './components/getting-started/organ
 
 import { OrganizationDashboardComponent } from './components/organization-dashboard/organization-dashboard.component';
 import { VolunteerMenuComponent } from './components/organization-dashboard/volunteer-menu/volunteer-menu.component';
-import { DataDisplayComponent } from './components/organization-dashboard/data-display/data-display.component';
-import { VisitHistoryTableComponent } from './components/organization-dashboard/data-display/visit-history-table/visit-history-table.component';
-import { DailyHoursChartComponent } from './components/organization-dashboard/data-display/daily-hours-chart/daily-hours-chart.component';
+import { DataDisplayComponent } from './components/data-display/data-display.component';
+import { VisitHistoryTableComponent } from './components/data-display/visit-history-table/visit-history-table.component';
+import { DailyHoursChartComponent } from './components/data-display/daily-hours-chart/daily-hours-chart.component';
 
 import { CheckInComponent } from './components/check-in/check-in.component';
 import { CheckInFormComponent } from './components/check-in/check-in-form/check-in-form.component';
@@ -52,13 +53,19 @@ import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
 
 import { reducers } from './reducers/index';
+import { CheckInEffects } from './effects/check-in.effects';
+import { DataDisplayEffects } from './effects/data-display.effects';
+import { GettingStartedEffects } from './effects/getting-started.effects';
+import { LoginEffects } from './effects/login.effects';
 
 @NgModule({
   declarations: [
     AboutUsComponent,
     AppComponent,
+    CheckInComponent,
     CheckInFormComponent,
     DailyHoursChartComponent,
+    DataDisplayComponent,
     FooterComponent,
     GettingStartedComponent,
     HeaderComponent,
@@ -71,10 +78,8 @@ import { reducers } from './reducers/index';
     OrganizationDashboardComponent,
     SideMarginsComponent,
     SignatureFieldComponent,
-    DataDisplayComponent,
     VisitHistoryTableComponent,
-    CheckInComponent,
-    VolunteerMenuComponent,
+    VolunteerMenuComponent
   ],
   imports: [
     AppRoutingModule,
@@ -82,6 +87,12 @@ import { reducers } from './reducers/index';
     BrowserModule,
     CdkTableModule,
     ChartsModule,
+    EffectsModule.forRoot([
+      CheckInEffects,
+      DataDisplayEffects,
+      GettingStartedEffects,
+      LoginEffects
+    ]),
     FlexLayoutModule,
     HttpModule,
     MatAutocompleteModule,
@@ -101,14 +112,14 @@ import { reducers } from './reducers/index';
     StoreModule.forRoot(reducers)
   ],
   providers: [
+    ErrorService,
     Guard,
-    SiteService,
     OrganizationService,
+    SiteService,
     SnackBarService,
     UserService,
     VisitService,
-    VolunteerService,
-    ErrorService
+    VolunteerService
   ],
   bootstrap: [AppComponent]
 })
