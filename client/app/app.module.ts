@@ -57,6 +57,8 @@ import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
 import { LoginEffects } from './effects/login.effects';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,7 @@ import { LoginEffects } from './effects/login.effects';
     VolunteerMenuComponent
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
