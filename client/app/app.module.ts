@@ -59,6 +59,7 @@ import { GettingStartedEffects } from './effects/getting-started.effects';
 import { LoginEffects } from './effects/login.effects';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { environment } from '../environments/environment';
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
