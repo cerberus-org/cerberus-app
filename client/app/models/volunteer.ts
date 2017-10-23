@@ -1,5 +1,5 @@
 export class Volunteer {
-  _id: string;
+  id: string;
   organizationId: string;
   firstName: string;
   lastName: string;
@@ -14,19 +14,19 @@ export class Volunteer {
 }
 
 export const testVolunteers: Volunteer[] = [{
-  _id: '5961327dfba1ca1b64b8945a',
+  id: '5961327dfba1ca1b64b8945a',
   organizationId: '59a7055733bfe28af47cff40',
   firstName: 'Ted',
   lastName: 'Mader',
   petName: 'Mimi'
 }, {
-  _id: '5961327dfba1ca1b64b8945b',
+  id: '5961327dfba1ca1b64b8945b',
   organizationId: '59a7055733bfe28af47cff40',
   firstName: 'Hillary',
   lastName: 'Arurang',
   petName: 'Bandit'
 }, {
-  _id: '5961327dfba1ca1b64b8945c',
+  id: '5961327dfba1ca1b64b8945c',
   organizationId: '59a7055733bfe28af47cff40',
   firstName: 'Ted',
   lastName: 'Mader',

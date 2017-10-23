@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/empty';
 
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
@@ -30,7 +31,7 @@ export class MockOrganizationService extends OrganizationService {
 
   getById(id: string): Observable<Organization> {
     return Observable.of(testOrganizations
-      .find(organization => organization._id === id));
+      .find(organization => organization.id === id));
   }
 
   count(): Observable<number> {
@@ -41,11 +42,11 @@ export class MockOrganizationService extends OrganizationService {
     return Observable.of(organization);
   }
 
-  update(organization: Organization): Observable<Organization> {
-    return Observable.of(organization);
+  update(organization: Organization): Observable<void> {
+    return Observable.empty<void>();
   }
 
-  delete(organization: Organization): Observable<Organization> {
-    return Observable.of(organization);
+  delete(organization: Organization): Observable<void> {
+    return Observable.empty<void>();
   }
 }

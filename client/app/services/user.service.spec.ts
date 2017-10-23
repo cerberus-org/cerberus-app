@@ -74,7 +74,7 @@ describe('UserService', () => {
 
   it('gets the user', () => {
     setConnections(testUsers[0]);
-    service.getById(testUsers[0]._id).subscribe(res => {
+    service.getById(testUsers[0].id).subscribe(res => {
       expect(res).toEqual(testUsers[0]);
     });
   });

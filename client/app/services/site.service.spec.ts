@@ -72,7 +72,7 @@ describe('SiteService', () => {
 
   it('gets the site', () => {
     setConnections(testSites[0]);
-    service.getById(testSites[0]._id).subscribe(res => {
+    service.getById(testSites[0].id).subscribe(res => {
       expect(res).toEqual(testSites[0]);
     });
   });

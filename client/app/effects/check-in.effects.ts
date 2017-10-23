@@ -26,8 +26,8 @@ export class CheckInEffects {
     .map((action: CheckInActions.LoadData) => action.payload)
     .switchMap(payload => Observable
       .forkJoin(
-        this.visitService.getBySiteId(payload.siteId),
-        this.volunteerService.getByOrganizationId(payload.organizationId))
+        this.visitService.getByKey('siteId', payload.siteId, true),
+        this.volunteerService.getByKey('organizationId', payload.organizationId, true))
       .map(results => {
         return { visits: results[0], volunteers: results[1] }
       })
@@ -41,7 +41,7 @@ export class CheckInEffects {
   submitNewVolunteer$: Observable<Action> = this.actions
     .ofType(CheckInActions.SUBMIT_NEW_VOLUNTEER)
     .map((action: CheckInActions.SubmitNewVolunteer) => action.payload)
-    .switchMap(volunteer => this.volunteerService.create(volunteer)
+    .switchMap(volunteer => this.volunteerService.add(volunteer)
       .map(created => {
         this.snackBarService.signUpSuccess();
         return new CheckInActions.SubmitNewVolunteerSuccess(created)
@@ -55,10 +55,11 @@ export class CheckInEffects {
   checkIn$: Observable<Action> = this.actions
     .ofType(CheckInActions.CHECK_IN)
     .map((action: CheckInActions.CheckIn) => action.payload)
-    .switchMap(visit => this.visitService.create(visit)
-      .do(() => {
+    .switchMap(visit => this.visitService.add(visit)
+      .switchMap(() => {
         this.router.navigateByUrl('/dashboard');
         this.snackBarService.checkInSuccess();
+        return null;
       }));
 
   /**
@@ -70,9 +71,10 @@ export class CheckInEffects {
     .ofType(CheckInActions.CHECK_OUT)
     .map((action: CheckInActions.CheckOut) => action.payload)
     .switchMap(visit => this.visitService.update(visit)
-      .do(() => {
+      .switchMap(() => {
         this.router.navigateByUrl('/dashboard');
         this.snackBarService.checkOutSuccess();
+        return null;
       }));
 
   constructor(private actions: Actions,

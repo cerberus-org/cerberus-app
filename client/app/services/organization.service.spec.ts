@@ -72,7 +72,7 @@ describe('OrganizationService', () => {
 
   it('gets the organization by ID', () => {
     setConnections(testOrganizations[0]);
-    service.getById(testOrganizations[0]._id).subscribe(res => {
+    service.getById(testOrganizations[0].id).subscribe(res => {
       expect(res).toEqual(testOrganizations[0]);
     });
   });

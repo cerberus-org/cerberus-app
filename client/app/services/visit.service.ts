@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/empty';
 
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
@@ -60,7 +61,7 @@ export class MockVisitService extends VisitService {
 
   getById(id: string): Observable<Visit> {
     return Observable.of(testVisits
-      .find(visit => visit._id === id));
+      .find(visit => visit.id === id));
   }
 
   count(): Observable<number> {
@@ -71,11 +72,11 @@ export class MockVisitService extends VisitService {
     return Observable.of(visit);
   }
 
-  update(visit: Visit): Observable<Visit> {
-    return Observable.of(visit);
+  update(visit: Visit): Observable<void> {
+    return Observable.empty<void>();
   }
 
-  delete(visit: Visit): Observable<Visit> {
-    return Observable.of(visit);
+  delete(visit: Visit): Observable<void> {
+    return Observable.empty<void>();
   }
 }

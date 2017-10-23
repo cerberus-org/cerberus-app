@@ -117,7 +117,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     const visit = new Visit(
       localStorage.getItem('organizationId'),
       this.activatedRoute.snapshot.paramMap.get('id'),
-      this.selectedVolunteer._id,
+      this.selectedVolunteer.id,
       new Date(),
       null,
       'America/Chicago',

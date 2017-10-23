@@ -1,5 +1,5 @@
 export class Site {
-  _id: string;
+  id: string;
   organizationId: string;
   name: string;
   address: string;
@@ -13,13 +13,13 @@ export class Site {
 
 export const testSites: Site[] = [
   {
-    _id: '59a7055733bfe28af47cff40',
+    id: '59a7055733bfe28af47cff40',
     organizationId: '59a7055733bfe28af47cff40',
     name: 'Jefferson Parish Eastbank Animal Shelter',
     address: '1 Humane Way, New Orleans, LA 70123'
   },
   {
-    _id: '59a7055733bfe28af47cff41',
+    id: '59a7055733bfe28af47cff41',
     organizationId: '59a7055733bfe28af47cff40',
     name: 'Jefferson Parish Animal Shelter',
     address: '2701 Lapalco Blvd, Harvey, LA 70058'

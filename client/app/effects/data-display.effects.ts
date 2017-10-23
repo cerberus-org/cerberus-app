@@ -17,7 +17,7 @@ export class DataDisplayEffects {
   @Effect()
   loadData$: Observable<Action> = this.actions.ofType(DataDisplayActions.LOAD_DATA)
     .map((action: DataDisplayActions.LoadData) => action.payload)
-    .switchMap(organizationId => this.visitService.getByOrganizationId(organizationId)
+    .switchMap(organizationId => this.visitService.getAll()
       .map(visits => new DataDisplayActions.LoadDataSuccess(visits)));
 
   constructor(private actions: Actions,
