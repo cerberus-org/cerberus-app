@@ -1,5 +1,5 @@
 export class Visit {
-  _id: string;
+  id: string;
   organizationId: string;
   siteId: string;
   volunteerId: string;
@@ -22,7 +22,7 @@ export class Visit {
 
 export const testVisits: Visit[] = [
   {
-    _id: '674a861ace7ca574af9070c0',
+    id: '674a861ace7ca574af9070c0',
     organizationId: '59a7055733bfe28af47cff40',
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945a',
@@ -32,7 +32,7 @@ export const testVisits: Visit[] = [
     signature: null
   },
   {
-    _id: '674a861ace7ca574af9070c1',
+    id: '674a861ace7ca574af9070c1',
     organizationId: '59a7055733bfe28af47cff40',
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945b',
@@ -42,7 +42,7 @@ export const testVisits: Visit[] = [
     signature: null
   },
   {
-    _id: '674a861ace7ca574af9070c2',
+    id: '674a861ace7ca574af9070c2',
     organizationId: '59a7055733bfe28af47cff40',
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945c',
@@ -52,7 +52,7 @@ export const testVisits: Visit[] = [
     signature: null
   },
   {
-    _id: '674a861ace7ca574af9070c3',
+    id: '674a861ace7ca574af9070c3',
     organizationId: '59a7055733bfe28af47cff40',
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945a',
@@ -62,7 +62,7 @@ export const testVisits: Visit[] = [
     signature: null
   },
   {
-    _id: '674a861ace7ca574af9070c4',
+    id: '674a861ace7ca574af9070c4',
     organizationId: '59a7055733bfe28af47cff40',
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945z',

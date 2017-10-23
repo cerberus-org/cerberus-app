@@ -1,5 +1,5 @@
 export class User {
-  _id: string;
+  id: string;
   organizationId: string;
   firstName: string;
   lastName: string;
@@ -18,7 +18,7 @@ export class User {
 
 export const testUsers: User[] = [
   {
-    _id: '5961327dfba1ca1b64b8945a',
+    id: '5961327dfba1ca1b64b8945a',
     organizationId: '59a7055733bfe28af47cff40',
     firstName: 'Ted',
     lastName: 'Mader',
@@ -26,7 +26,7 @@ export const testUsers: User[] = [
     password: null,
     role: 'admin'
   }, {
-    _id: '5961327dfba1ca1b64b8945b',
+    id: '5961327dfba1ca1b64b8945b',
     organizationId: '59a7055733bfe28af47cff40',
     firstName: 'Hillary',
     lastName: 'Lynn',

@@ -90,7 +90,7 @@ export function reducer(state = initialState, action: Action): State {
       const volunteer: Volunteer = action.payload;
       return Object.assign({}, state, {
         selectedVisit: volunteer
-          ? state.visits.find(visit => visit.endedAt === null && volunteer._id === visit.volunteerId)
+          ? state.visits.find(visit => visit.endedAt === null && volunteer.id === visit.volunteerId)
           : null
       });
     }

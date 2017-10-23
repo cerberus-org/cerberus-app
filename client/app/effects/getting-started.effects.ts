@@ -27,16 +27,16 @@ export class GettingStartedEffects {
     .ofType(GettingStartedActions.SUBMIT)
     .map((action: GettingStartedActions.Submit) => action.payload)
     // Create the organization
-    .switchMap(payload => this.organizationService.create(payload.organization)
+    .switchMap(payload => this.organizationService.add(payload.organization)
       .switchMap(createdOrganization => {
         // Use the ID from the created organization for the site and user
-        const site = new Site(createdOrganization._id, createdOrganization.name, null);
-        const user = Object.assign({}, payload.user, { organizationId: createdOrganization._id });
+        const site = new Site(createdOrganization.id, createdOrganization.name, null);
+        const user = Object.assign({}, payload.user, { organizationId: createdOrganization.id });
         return Observable
         // Concurrently create the user and site
           .forkJoin(
-            this.siteService.create(site),
-            this.userService.create(user))
+            this.siteService.add(site),
+            this.userService.add(user))
           .map(() => {
             this.snackBarService.addOrganizationSuccess();
             return new LoginActions.Login(payload.user);

@@ -3,6 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/empty';
 
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
@@ -30,7 +31,7 @@ export class MockUserService extends UserService {
 
   getById(id: string): Observable<User> {
     return Observable.of(testUsers
-      .find(user => user._id === id));
+      .find(user => user.id === id));
   }
 
   count(): Observable<number> {
@@ -41,12 +42,12 @@ export class MockUserService extends UserService {
     return Observable.of(user);
   }
 
-  update(user: User): Observable<User> {
-    return Observable.of(user);
+  update(user: User): Observable<void> {
+    return Observable.empty<void>();
   }
 
-  delete(user: User): Observable<User> {
-    return Observable.of(user);
+  delete(user: User): Observable<void> {
+    return Observable.empty<void>();
   }
 
   login(user: User): Observable<any> {

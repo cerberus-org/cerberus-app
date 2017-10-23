@@ -72,7 +72,7 @@ describe('VisitService', () => {
 
   it('gets the visit', () => {
     setConnections(testVisits[0]);
-    service.getById(testVisits[0]._id).subscribe(res => {
+    service.getById(testVisits[0].id).subscribe(res => {
       expect(res).toEqual(testVisits[0]);
     });
   });

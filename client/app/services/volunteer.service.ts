@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 
 import { testVolunteers, Volunteer } from '../models/volunteer';
@@ -30,7 +31,7 @@ export class MockVolunteerService extends VolunteerService {
 
   getById(id: string): Observable<Volunteer> {
     return Observable.of(testVolunteers
-      .find(volunteer => volunteer._id === id));
+      .find(volunteer => volunteer.id === id));
   }
 
   count(): Observable<number> {
@@ -41,11 +42,11 @@ export class MockVolunteerService extends VolunteerService {
     return Observable.of(volunteer);
   }
 
-  update(volunteer: Volunteer): Observable<Volunteer> {
-    return Observable.of(volunteer);
+  update(volunteer: Volunteer): Observable<void> {
+    return Observable.empty<void>();
   }
 
-  delete(volunteer: Volunteer): Observable<Volunteer> {
-    return Observable.of(volunteer);
+  delete(volunteer: Volunteer): Observable<void> {
+    return Observable.empty<void>();
   }
 }

@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { ErrorService } from './error.service';
+import 'rxjs/add/observable/fromPromise';
 
 abstract class BaseService<T> {
   protected model: string;
@@ -24,7 +25,7 @@ abstract class BaseService<T> {
     return new RequestOptions({ headers: headers });
   }
 
-  getAll(key: string, value: string, snapshot?: boolean): Observable<T[]> {
+  getAll(snapshot?: boolean): Observable<T[]> {
     return snapshot
       ? this.collection.snapshotChanges()
         .catch(this.errorService.handleHttpError)
@@ -48,18 +49,20 @@ abstract class BaseService<T> {
         .catch(this.errorService.handleHttpError);
   }
 
-  add(item: any): void {
-    this.collection.add(item)
+  add(item: any): Observable<T> {
+    return Observable.fromPromise(this.collection.add(item)
+      .then(ref => ref.get()
+        .then(snapshot => snapshot.data())))
       .catch(this.errorService.handleHttpError);
   }
 
-  update(item: any): void {
-    this.db.doc<T>(`${this.model}s/${item.id}`).update(item)
+  update(item: any): Observable<void> {
+    return Observable.fromPromise(this.db.doc<T>(`${this.model}s/${item.id}`).update(item))
       .catch(this.errorService.handleHttpError);
   }
 
-  delete(item: any): void {
-    this.db.doc<T>(`${this.model}s/${item.id}`).delete()
+  delete(item: any): Observable<void> {
+    return Observable.fromPromise(this.db.doc<T>(`${this.model}s/${item.id}`).delete())
       .catch(this.errorService.handleHttpError);
   }
 

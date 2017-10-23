@@ -49,7 +49,7 @@ describe('LoginEffects', () => {
 
       effects.login$.subscribe(() => {
         expect(localStorage.token).toEqual('token');
-        expect(localStorage.userId).toEqual(user._id);
+        expect(localStorage.userId).toEqual(user.id);
         expect(localStorage.userName).toEqual(user.firstName);
         expect(localStorage.organizationId).toEqual(user.organizationId);
         expect(localStorage.organizationName).toEqual(testOrganizations[0].name);
