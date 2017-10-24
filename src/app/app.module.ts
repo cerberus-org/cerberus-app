@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import {
   MatAutocompleteModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule, MatRadioModule,
@@ -62,7 +63,6 @@ import { SnackBarService } from './services/snack-bar.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
-import { AngularFireAuthModule } from 'angularfire2/auth';
 
 @NgModule({
   declarations: [
