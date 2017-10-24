@@ -13,8 +13,7 @@ export class VisitService extends BaseService<Visit> {
 
   constructor(protected db: AngularFirestore,
               protected errorService: ErrorService) {
-    super(db, errorService);
-    this.model = 'visit';
+    super(db, errorService, 'visits');
   }
 
   /**

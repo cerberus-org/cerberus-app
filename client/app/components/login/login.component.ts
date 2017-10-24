@@ -27,7 +27,10 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    this.store.dispatch(new LoginActions.Login(this.loginForm.value));
+    this.store.dispatch(new LoginActions.Login({
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    }));
   }
 
   onNewOrganization() {

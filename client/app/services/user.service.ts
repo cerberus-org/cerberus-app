@@ -14,8 +14,7 @@ export class UserService extends BaseService<User> {
 
   constructor(protected db: AngularFirestore,
               protected errorService: ErrorService) {
-    super(db, errorService);
-    this.model = 'user';
+    super(db, errorService, 'users');
   }
 }
 

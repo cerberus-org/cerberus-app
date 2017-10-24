@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule,
-  MatPaginatorModule, MatRadioModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule, MatRadioModule,
+  MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -13,7 +15,9 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ChartsModule } from 'ng2-charts';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import 'hammerjs';
+import 'hammerjs'
+
+import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { Guard } from './guard';
@@ -44,6 +48,13 @@ import { CheckInFormComponent } from './components/check-in/check-in-form/check-
 import { SignatureFieldComponent } from './components/check-in/check-in-form/signature-field/signature-field.component';
 import { NewVolunteerFormComponent } from './components/check-in/new-volunteer-form/new-volunteer-form.component';
 
+import { reducers } from './reducers/index';
+import { CheckInEffects } from './effects/check-in.effects';
+import { DataDisplayEffects } from './effects/data-display.effects';
+import { GettingStartedEffects } from './effects/getting-started.effects';
+import { LoginEffects } from './effects/login.effects';
+
+import { AuthService } from './services/auth.service';
 import { ErrorService } from './services/error.service';
 import { SiteService } from './services/site.service';
 import { OrganizationService } from './services/organization.service';
@@ -51,15 +62,7 @@ import { SnackBarService } from './services/snack-bar.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 import { UserService } from './services/user.service';
-
-import { reducers } from './reducers/index';
-import { CheckInEffects } from './effects/check-in.effects';
-import { DataDisplayEffects } from './effects/data-display.effects';
-import { GettingStartedEffects } from './effects/getting-started.effects';
-import { LoginEffects } from './effects/login.effects';
-import { AngularFireModule } from 'angularfire2';
-import { environment } from '../environments/environment';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 @NgModule({
   declarations: [
@@ -85,6 +88,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     VolunteerMenuComponent
   ],
   imports: [
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AppRoutingModule,
@@ -117,6 +121,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     StoreModule.forRoot(reducers)
   ],
   providers: [
+    AuthService,
     ErrorService,
     Guard,
     OrganizationService,

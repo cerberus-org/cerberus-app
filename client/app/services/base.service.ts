@@ -7,12 +7,12 @@ import 'rxjs/add/operator/map';
 import { ErrorService } from './error.service';
 
 abstract class BaseService<T> {
-  protected model: string;
   private collection: AngularFirestoreCollection<T>;
 
   constructor(protected db: AngularFirestore,
-              protected errorService: ErrorService) {
-    this.collection = db.collection<T>(`${this.model}s`);
+              protected errorService: ErrorService,
+              protected collectionName: string) {
+    this.collection = db.collection<T>(collectionName);
   }
 
   /**
@@ -36,7 +36,7 @@ abstract class BaseService<T> {
    * @returns {Observable<R|T>} - the Observable of data as an array of objects
    */
   getByKey(key: string, value: string, snapshot?: boolean): Observable<T[]> {
-    const collection = this.db.collection<T>(`${this.model}s`, ref => ref
+    const collection = this.db.collection<T>(this.collectionName, ref => ref
       .where(key, '==', value));
     return snapshot
       ? collection.snapshotChanges()
@@ -50,6 +50,17 @@ abstract class BaseService<T> {
         .catch(this.errorService.handleHttpError)
       : collection.valueChanges()
         .catch(this.errorService.handleHttpError);
+  }
+
+  /**
+   * Gets a document's data from a collection by ID.
+   * @param id - the ID for the document.
+   * @returns {any} - an observable containing the data.
+   */
+  getById(id: string): Observable<T> {
+    return Observable.fromPromise(this.collection.doc(id).ref.get()
+      .then(snapshot => snapshot.data()))
+      .catch(this.errorService.handleHttpError);
   }
 
   /**
@@ -70,7 +81,7 @@ abstract class BaseService<T> {
    * @returns {Observable<R|T>} - an empty Observable that emits when completed.
    */
   update(item: any): Observable<void> {
-    return Observable.fromPromise(this.db.doc<T>(`${this.model}s/${item.id}`).update(item))
+    return Observable.fromPromise(this.collection.doc(item.id).update(item))
       .catch(this.errorService.handleHttpError);
   }
 
@@ -80,7 +91,7 @@ abstract class BaseService<T> {
    * @returns {Observable<R|T>} - an empty Observable that emits when completed.
    */
   delete(item: any): Observable<void> {
-    return Observable.fromPromise(this.db.doc<T>(`${this.model}s/${item.id}`).delete())
+    return Observable.fromPromise(this.collection.doc(item.id).delete())
       .catch(this.errorService.handleHttpError);
   }
 
