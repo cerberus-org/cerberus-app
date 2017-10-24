@@ -12,8 +12,7 @@ export class SiteService extends BaseService<Site> {
 
   constructor(protected db: AngularFirestore,
               protected errorService: ErrorService) {
-    super(db, errorService,);
-    this.model = 'site';
+    super(db, errorService, 'sites');
   }
 }
 

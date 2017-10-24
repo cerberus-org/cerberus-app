@@ -12,8 +12,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 export class VolunteerService extends BaseService<Volunteer> {
 
   constructor(protected db: AngularFirestore, protected errorService: ErrorService) {
-    super(db, errorService);
-    this.model = 'volunteer';
+    super(db, errorService, 'volunteers');
   }
 }
 

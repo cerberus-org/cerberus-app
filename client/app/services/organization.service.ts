@@ -12,8 +12,7 @@ export class OrganizationService extends BaseService<Organization> {
 
   constructor(protected db: AngularFirestore,
               protected errorService: ErrorService) {
-    super(db, errorService);
-    this.model = 'organization';
+    super(db, errorService, 'organizations');
   }
 }
 
