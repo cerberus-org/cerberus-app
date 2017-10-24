@@ -41,12 +41,12 @@ export class MockUserService extends UserService {
     return Observable.of(user);
   }
 
-  update(user: User): Observable<void> {
-    return Observable.empty<void>();
+  update(user: User): Observable<any> {
+    return Observable.empty<any>();
   }
 
-  delete(user: User): Observable<void> {
-    return Observable.empty<void>();
+  delete(user: User): Observable<any> {
+    return Observable.empty<any>();
   }
 
   login(user: User): Observable<any> {

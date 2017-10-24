@@ -54,13 +54,13 @@ export class CheckInEffects {
   @Effect({ dispatch: false })
   checkIn$: Observable<Action> = this.actions
     .ofType(CheckInActions.CHECK_IN)
-    .map((action: CheckInActions.CheckIn) => action.payload)
-    .switchMap(visit => this.visitService.add(visit)
-      .switchMap(() => {
-        this.router.navigateByUrl('/dashboard');
-        this.snackBarService.checkInSuccess();
-        return null;
-      }));
+    .do((action: CheckInActions.CheckIn) => {
+      this.visitService.add(action.payload)
+        .do(() => {
+          this.router.navigateByUrl('/dashboard');
+          this.snackBarService.checkInSuccess();
+        });
+    });
 
   /**
    * Listen for the CheckOut action, update the visit,
@@ -69,13 +69,13 @@ export class CheckInEffects {
   @Effect({ dispatch: false })
   checkOut$: Observable<Action> = this.actions
     .ofType(CheckInActions.CHECK_OUT)
-    .map((action: CheckInActions.CheckOut) => action.payload)
-    .switchMap(visit => this.visitService.update(visit)
-      .switchMap(() => {
-        this.router.navigateByUrl('/dashboard');
-        this.snackBarService.checkOutSuccess();
-        return null;
-      }));
+    .do((action: CheckInActions.CheckOut) => {
+      this.visitService.update(action.payload)
+        .do(() => {
+          this.router.navigateByUrl('/dashboard');
+          this.snackBarService.checkOutSuccess();
+        })
+    });
 
   constructor(private actions: Actions,
               private router: Router,

@@ -41,11 +41,11 @@ export class MockOrganizationService extends OrganizationService {
     return Observable.of(organization);
   }
 
-  update(organization: Organization): Observable<void> {
-    return Observable.empty<void>();
+  update(organization: Organization): Observable<any> {
+    return Observable.empty<any>();
   }
 
-  delete(organization: Organization): Observable<void> {
-    return Observable.empty<void>();
+  delete(organization: Organization): Observable<any> {
+    return Observable.empty<any>();
   }
 }

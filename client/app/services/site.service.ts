@@ -41,11 +41,11 @@ export class MockSiteService extends SiteService {
     return Observable.of(site);
   }
 
-  update(site: Site): Observable<void> {
-    return Observable.empty<void>();
+  update(site: Site): Observable<any> {
+    return Observable.empty<any>();
   }
 
-  delete(site: Site): Observable<void> {
-    return Observable.empty<void>();
+  delete(site: Site): Observable<any> {
+    return Observable.empty<any>();
   }
 }

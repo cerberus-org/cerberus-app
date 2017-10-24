@@ -41,11 +41,11 @@ export class MockVolunteerService extends VolunteerService {
     return Observable.of(volunteer);
   }
 
-  update(volunteer: Volunteer): Observable<void> {
-    return Observable.empty<void>();
+  update(volunteer: Volunteer): Observable<any> {
+    return Observable.empty<any>();
   }
 
-  delete(volunteer: Volunteer): Observable<void> {
-    return Observable.empty<void>();
+  delete(volunteer: Volunteer): Observable<any> {
+    return Observable.empty<any>();
   }
 }

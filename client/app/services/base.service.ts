@@ -80,7 +80,7 @@ abstract class BaseService<T> {
    * @param item - the item to be updated
    * @returns {Observable<R|T>} - an empty Observable that emits when completed.
    */
-  update(item: any): Observable<void> {
+  update(item: any): Observable<any> {
     return Observable.fromPromise(this.collection.doc(item.id).update(item))
       .catch(this.errorService.handleHttpError);
   }
@@ -90,7 +90,7 @@ abstract class BaseService<T> {
    * @param item - the item to be deleted
    * @returns {Observable<R|T>} - an empty Observable that emits when completed.
    */
-  delete(item: any): Observable<void> {
+  delete(item: any): Observable<any> {
     return Observable.fromPromise(this.collection.doc(item.id).delete())
       .catch(this.errorService.handleHttpError);
   }
