@@ -1,8 +1,5 @@
 import * as mongoose from 'mongoose';
-
-import Site from './site';
 import Organization from './organization';
-import Volunteer from './volunteer';
 import { capitalizeWithNameCase } from '../functions/capitalize';
 
 const volunteerSchema = new mongoose.Schema({
@@ -39,7 +36,7 @@ const volunteerSchema = new mongoose.Schema({
 volunteerSchema.index({ firstName: 1, lastName: 1, petName: 1 }, { unique: true });
 
 // Before saving the user, capitalize name fields
-volunteerSchema.pre('save', function(next) {
+volunteerSchema.pre('save', function (next) {
   this.firstName = this.capitalize(this.firstName);
   this.lastName = this.capitalize(this.lastName);
   this.petName = this.capitalize(this.petName);
