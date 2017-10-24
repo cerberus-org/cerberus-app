@@ -22,8 +22,8 @@ export class LoginEffects {
   @Effect({ dispatch: false })
   login$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGIN)
-    .switchMap((action: LoginActions.Login) => {
-      const payload = action.payload;
+    .map((action: LoginActions.Login) => action.payload)
+    .switchMap(payload => {
       return this.authService.signIn(payload.email, payload.password)
         .switchMap(user => {
           this.router.navigateByUrl('/dashboard');
