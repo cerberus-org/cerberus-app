@@ -23,14 +23,12 @@ export class LoginEffects {
   login$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGIN)
     .map((action: LoginActions.Login) => action.payload)
-    .switchMap(payload => {
-      return this.authService.signIn(payload.email, payload.password)
-        .switchMap(user => {
-          this.router.navigateByUrl('/dashboard');
-          this.snackBarService.loginSuccess(user.firstName);
-          return Observable.empty();
-        });
-    });
+    .switchMap(payload => this.authService.signIn(payload.email, payload.password)
+      .switchMap(user => {
+        this.router.navigateByUrl('/dashboard');
+        this.snackBarService.loginSuccess(user.firstName);
+        return Observable.empty();
+      }));
 
   /**
    * Listen for the Logout action, log the user out,

@@ -28,10 +28,6 @@ export type Action = CheckInActions.All;
 
 export function reducer(state = initialState, action: Action): State {
 
-  if (!action.payload) {
-    return state;
-  }
-
   switch (action.type) {
 
     case CheckInActions.LOAD_DATA_SUCCESS: {
@@ -53,6 +49,9 @@ export function reducer(state = initialState, action: Action): State {
      * action.payload is a string for name.
      */
     case CheckInActions.FILTER_AND_SELECT_VOLUNTEERS_BY_NAME: {
+      if (!action.payload) {
+        return state;
+      }
       const name: string = action.payload.toLowerCase();
       // Create the list of filtered volunteers by name
       const filtered: Volunteer[] = state.volunteers.filter(volunteer =>
@@ -80,6 +79,9 @@ export function reducer(state = initialState, action: Action): State {
      * action.payload is a string for petName.
      */
     case CheckInActions.SELECT_VOLUNTEER_BY_PET_NAME: {
+      if (!action.payload) {
+        return state;
+      }
       const petName: string = action.payload.toLowerCase();
       return Object.assign({}, state, {
         selectedVolunteer: state.volunteers.find(volunteer => volunteer.petName.toLowerCase() === petName)
