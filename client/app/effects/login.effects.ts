@@ -8,8 +8,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 import * as LoginActions from '../actions/login.actions';
-import { SnackBarService } from '../services/snack-bar.service';
 import { AuthService } from '../services/auth.service';
+import { SnackBarService } from '../services/snack-bar.service';
 
 @Injectable()
 export class LoginEffects {
@@ -22,12 +22,14 @@ export class LoginEffects {
   @Effect({ dispatch: false })
   login$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGIN)
-    .map((action: LoginActions.Login) => action.payload)
-    .switchMap(payload => this.authService.signIn(payload.email, payload.password)
-      .switchMap(() => {
-        this.router.navigateByUrl('/dashboard');
-        return null;
-      }));
+    .do((action: LoginActions.Login) => {
+      const payload = action.payload;
+      this.authService.signIn(payload.email, payload.password)
+        .do(user => {
+          this.router.navigateByUrl('/dashboard');
+          this.snackBarService.loginSuccess(user.firstName);
+        });
+    });
 
   /**
    * Listen for the Logout action, log the user out,
@@ -37,11 +39,13 @@ export class LoginEffects {
   @Effect({ dispatch: false })
   logout$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGOUT)
-    .switchMap(payload => this.authService.signOut()
-      .switchMap(() => {
-        this.router.navigateByUrl('/login');
-        return null;
-      }));
+    .do(() => {
+      this.authService.signOut()
+        .do(() => {
+          this.router.navigateByUrl('/login');
+          this.snackBarService.logoutSuccess();
+        });
+    });
 
   constructor(private actions: Actions,
               private router: Router,

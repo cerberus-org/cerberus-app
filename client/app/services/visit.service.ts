@@ -71,11 +71,11 @@ export class MockVisitService extends VisitService {
     return Observable.of(visit);
   }
 
-  update(visit: Visit): Observable<void> {
-    return Observable.empty<void>();
+  update(visit: Visit): Observable<any> {
+    return Observable.empty<any>();
   }
 
-  delete(visit: Visit): Observable<void> {
-    return Observable.empty<void>();
+  delete(visit: Visit): Observable<any> {
+    return Observable.empty<any>();
   }
 }
