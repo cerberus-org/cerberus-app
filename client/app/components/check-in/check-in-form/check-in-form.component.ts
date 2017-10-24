@@ -105,7 +105,9 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     } else if (this.selectedVolunteer) {
       this.checkIn();
     }
-    this.formGroup.reset();
+    this.formGroup.markAsPristine();
+    this.formGroup.markAsUntouched();
+    this.formGroup.updateValueAndValidity();
     this.clearSignature();
   }
 

@@ -68,7 +68,7 @@ export class CheckInEffects {
    * Listen for the CheckOut action, update the visit,
    * then emit the snackbar and navigate back to the dashboard.
    */
-  @Effect({ dispatch: false })
+  @Effect()
   checkOut$: Observable<Action> = this.actions
     .ofType(CheckInActions.CHECK_OUT)
     .map((action: CheckInActions.CheckOut) => action.payload)
