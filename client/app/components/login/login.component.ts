@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 
 import * as LoginActions from '../../actions/login.actions'
 import { AppState } from '../../reducers/index';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,16 +13,12 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  // declare FormGroup
   loginForm: FormGroup;
   error: string;
 
-  constructor(private authService: AuthService,
-              private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
               private router: Router,
-              private store: Store<AppState>) {
-    this.authService.signOut();
-  }
+              private store: Store<AppState>) {}
 
   ngOnInit() {
     this.loginForm = this.createForm();

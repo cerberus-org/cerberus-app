@@ -20,7 +20,6 @@ export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
 
     case DataDisplayActions.LOAD_DATA_SUCCESS: {
-      console.log(action.payload);
       const visits = action.payload.slice().reverse();
       const labels = setupLineChartLabels();
       const data = setupLineChartData(visits, labels);

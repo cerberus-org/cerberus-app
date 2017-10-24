@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "node --optimize_for_size --max_old_space_size=460 --gc_interval=100 dist/server/app.js",
     "build": "ng build && tsc -p server/tsconfig.app.json",
-    "dev": "concurrently \"mongod\" \"ng serve -pc proxy.conf.json --open\" \"tsc -w -p server/tsconfig.app.json\" \"nodemon dist/server/app.js\"",
+    "dev": "ng serve",
     "test": "rm -rf out-tsc && tsc -p server/tsconfig.spec.json && jasmine-node out-tsc && ng test --single-run",
     "test-client": "ng test",
     "test-server": "rm -rf out-tsc && tsc -p server/tsconfig.spec.json && jasmine-node out-tsc",
