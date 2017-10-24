@@ -22,12 +22,13 @@ export class LoginEffects {
   @Effect({ dispatch: false })
   login$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGIN)
-    .do((action: LoginActions.Login) => {
+    .switchMap((action: LoginActions.Login) => {
       const payload = action.payload;
-      this.authService.signIn(payload.email, payload.password)
-        .do(user => {
+      return this.authService.signIn(payload.email, payload.password)
+        .switchMap(user => {
           this.router.navigateByUrl('/dashboard');
           this.snackBarService.loginSuccess(user.firstName);
+          return Observable.empty();
         });
     });
 
@@ -39,13 +40,12 @@ export class LoginEffects {
   @Effect({ dispatch: false })
   logout$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGOUT)
-    .do(() => {
-      this.authService.signOut()
-        .do(() => {
-          this.router.navigateByUrl('/login');
-          this.snackBarService.logoutSuccess();
-        });
-    });
+    .switchMap(() => this.authService.signOut()
+      .switchMap(() => {
+        this.router.navigateByUrl('/login');
+        this.snackBarService.logoutSuccess();
+        return Observable.empty();
+      }));
 
   constructor(private actions: Actions,
               private router: Router,
