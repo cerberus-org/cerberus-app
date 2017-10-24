@@ -58,10 +58,10 @@ export class CheckInEffects {
     .ofType(CheckInActions.CHECK_IN)
     .map((action: CheckInActions.CheckIn) => action.payload)
     .switchMap(visit => this.visitService.add(visit)
-      .switchMap(() => {
+      .map(() => {
         this.router.navigateByUrl('/dashboard');
         this.snackBarService.checkInSuccess();
-        return Observable.empty();
+        return new CheckInActions.CheckInOrOutSuccess({});
       }));
 
   /**
@@ -73,10 +73,10 @@ export class CheckInEffects {
     .ofType(CheckInActions.CHECK_OUT)
     .map((action: CheckInActions.CheckOut) => action.payload)
     .switchMap(visit => this.visitService.update(visit)
-      .switchMap(() => {
+      .map(() => {
         this.router.navigateByUrl('/dashboard');
         this.snackBarService.checkOutSuccess();
-        return Observable.empty();
+        return new CheckInActions.CheckInOrOutSuccess({});
       }));
 
   constructor(private actions: Actions,

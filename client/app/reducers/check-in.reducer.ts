@@ -95,6 +95,16 @@ export function reducer(state = initialState, action: Action): State {
       });
     }
 
+    case CheckInActions.CHECK_IN_OR_OUT_SUCCESS: {
+      return Object.assign({}, state, {
+        filteredVolunteers: initialState.filteredVolunteers,
+        filteredUniqueNames: initialState.filteredUniqueNames,
+        filteredAllMatchSameName: initialState.filteredAllMatchSameName,
+        selectedVisit: initialState.selectedVisit,
+        selectedVolunteer: initialState.selectedVisit
+      });
+    }
+
     default: {
       return state;
     }
