@@ -100,10 +100,10 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * Starts or ends a visit and resets the form group on clicking the submit button.
    */
   onSubmit(): void {
-    if (this.selectedVolunteer) {
-      this.checkIn();
-    } else if (this.activeVisit) {
+    if (this.activeVisit) {
       this.checkOut();
+    } else if (this.selectedVolunteer) {
+      this.checkIn();
     }
     this.formGroup.reset();
     this.clearSignature();
