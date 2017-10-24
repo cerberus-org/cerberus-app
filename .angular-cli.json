@@ -5,8 +5,8 @@
   },
   "apps": [
     {
-      "root": "client",
-      "outDir": "dist/public",
+      "root": "src",
+      "outDir": "dist",
       "assets": [
         "assets",
         "favicon.ico"
@@ -36,13 +36,16 @@
   },
   "lint": [
     {
-      "project": "clietn/tsconfig.app.json"
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
     },
     {
-      "project": "client/tsconfig.spec.json"
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
     },
     {
-      "project": "e2e/tsconfig.e2e.json"
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
     }
   ],
   "test": {
@@ -52,6 +55,9 @@
   },
   "defaults": {
     "styleExt": "css",
+    "class": {
+      "spec": false
+    },
     "component": {}
   }
 }
