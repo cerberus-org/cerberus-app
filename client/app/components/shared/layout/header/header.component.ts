@@ -69,6 +69,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   get showLogout() {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('uid');
   }
 }

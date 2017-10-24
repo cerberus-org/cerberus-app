@@ -19,7 +19,7 @@ export class VolunteerMenuComponent implements OnInit {
               private siteService: SiteService) { }
 
   ngOnInit(): void {
-    this.sites$ = this.siteService.getByKey('organizationId', localStorage.organizationId);
+    this.sites$ = this.siteService.getByKey('organizationId', localStorage.organizationId, true);
   }
 
   onClick(site): void {
