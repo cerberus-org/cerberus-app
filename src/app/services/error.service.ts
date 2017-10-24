@@ -8,7 +8,8 @@ import { SnackBarService } from './snack-bar.service';
 export class ErrorService {
   public httpStatuses: Map<number, string>;
 
-  constructor(private router: Router, private snackBarService: SnackBarService) {
+  constructor(private router: Router,
+              private snackBarService: SnackBarService) {
     this.httpStatuses = new Map<number, string>([
       [401, 'Session expired!'],
       [504, 'Server error!'],
@@ -23,7 +24,7 @@ export class ErrorService {
    */
   handleHttpError(error: any | Response) {
     // Display error
-    this.snackBarService.open(this.httpStatuses.get(error.status) ? this.httpStatuses.get(error.status) : 'Error');
+    this.snackBarService.open(error.status ? this.httpStatuses.get(error.status) : 'Error');
     // Consider the special case that the token is expired
     this.handleTokenExpiration(error);
     // Handle error
