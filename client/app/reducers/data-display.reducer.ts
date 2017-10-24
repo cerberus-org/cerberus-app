@@ -20,7 +20,8 @@ export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
 
     case DataDisplayActions.LOAD_DATA_SUCCESS: {
-      const visits = action.payload.slice().reverse();
+      // Sort visits by startedAt descending
+      const visits = action.payload.slice().sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime());
       const labels = setupLineChartLabels();
       const data = setupLineChartData(visits, labels);
       return {
