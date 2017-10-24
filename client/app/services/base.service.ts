@@ -23,8 +23,10 @@ abstract class BaseService<T> {
   getAll(snapshot?: boolean): Observable<T[]> {
     return snapshot
       ? this.collection.snapshotChanges()
+        .map(item => this.convertIn(item))
         .catch(this.errorService.handleHttpError)
       : this.collection.valueChanges()
+        .map(item => this.convertIn(item))
         .catch(this.errorService.handleHttpError);
   }
 
@@ -44,7 +46,7 @@ abstract class BaseService<T> {
           return actions.map(a => {
             const data = a.payload.doc.data() as T;
             const id = a.payload.doc.id;
-            return Object.assign(data, { id });
+            return Object.assign(this.convertIn(data), { id });
           });
         })
         .catch(this.errorService.handleHttpError)
@@ -59,7 +61,7 @@ abstract class BaseService<T> {
    */
   getById(id: string): Observable<T> {
     return Observable.fromPromise(this.collection.doc(id).ref.get()
-      .then(snapshot => snapshot.data()))
+      .then(snapshot => this.convertIn(snapshot.data())))
       .catch(this.errorService.handleHttpError);
   }
 
@@ -68,10 +70,10 @@ abstract class BaseService<T> {
    * @param item - the item to be added
    * @returns {Observable<R|T>} - the Observable of the snapshot of the added object
    */
-  add(item: any): Observable<T> {
-    return Observable.fromPromise(this.collection.add(item)
+  add(item: T): Observable<T> {
+    return Observable.fromPromise(this.collection.add(Object.assign({}, this.convertOut(item)))
       .then(ref => ref.get()
-        .then(snapshot => snapshot.data())))
+        .then(snapshot => this.convertIn(snapshot.data()))))
       .catch(this.errorService.handleHttpError);
   }
 
@@ -81,7 +83,7 @@ abstract class BaseService<T> {
    * @returns {Observable<R|T>} - an empty Observable that emits when completed.
    */
   update(item: any): Observable<any> {
-    return Observable.fromPromise(this.collection.doc(item.id).update(item))
+    return Observable.fromPromise(this.collection.doc(item.id).update(this.convertOut(item)))
       .catch(this.errorService.handleHttpError);
   }
 
