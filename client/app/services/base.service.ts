@@ -44,7 +44,7 @@ abstract class BaseService<T> {
           return actions.map(a => {
             const data = a.payload.doc.data() as T;
             const id = a.payload.doc.id;
-            return Object.assign(data, id);
+            return Object.assign(data, { id });
           });
         })
         .catch(this.errorService.handleHttpError)
