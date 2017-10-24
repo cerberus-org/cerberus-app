@@ -12,6 +12,7 @@ import * as CheckInActions from '../actions/check-in.actions';
 import { VisitService } from '../services/visit.service';
 import { VolunteerService } from '../services/volunteer.service';
 import { SnackBarService } from '../services/snack-bar.service';
+import 'rxjs/add/operator/first';
 
 @Injectable()
 export class CheckInEffects {
@@ -26,9 +27,10 @@ export class CheckInEffects {
     .map((action: CheckInActions.LoadData) => action.payload)
     .switchMap(payload => Observable
       .forkJoin(
-        this.visitService.getByKey('siteId', payload.siteId, true),
-        this.volunteerService.getByKey('organizationId', payload.organizationId, true))
+        this.visitService.getByKey('siteId', payload.siteId, true).first(),
+        this.volunteerService.getByKey('organizationId', payload.organizationId, true).first())
       .map(results => {
+        console.log(results);
         return { visits: results[0], volunteers: results[1] }
       })
       .map(data => new CheckInActions.LoadDataSuccess(data)));
