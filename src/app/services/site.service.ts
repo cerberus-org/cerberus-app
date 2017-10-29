@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/empty';
-import * as _ from 'lodash';
 
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 import { Site, testSites } from '../models/site';
+import { upperAllFirst } from '../functions/capitalize';
 
 @Injectable()
 export class SiteService extends BaseService<Site> {
@@ -40,8 +40,8 @@ export class SiteService extends BaseService<Site> {
    * @returns {any}
    */
   private capitalize(site) {
-    site.name = _.startCase(site.name);
-    site.address = _.startCase(site.address);
+    site.name = upperAllFirst(site.name);
+    site.address = upperAllFirst(site.address);
     return site
   }
 }
@@ -52,10 +52,13 @@ export class MockSiteService extends SiteService {
     super(null, null);
   }
 
-  // Base functions
-
   getAll(): Observable<Site[]> {
     return Observable.of(testSites);
+  }
+
+  getByKey(key: string, value: string): Observable<Site[]> {
+    return Observable.of(testSites
+      .filter(site => site[key] === value));
   }
 
   getById(id: string): Observable<Site> {
@@ -63,11 +66,7 @@ export class MockSiteService extends SiteService {
       .find(site => site.id === id));
   }
 
-  count(): Observable<number> {
-    return Observable.of(testSites.length);
-  }
-
-  create(site: Site): Observable<Site> {
+  add(site: Site): Observable<Site> {
     return Observable.of(site);
   }
 

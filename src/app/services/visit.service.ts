@@ -52,10 +52,13 @@ export class MockVisitService extends VisitService {
     super(null, null);
   }
 
-  // Base functions
-
   getAll(): Observable<Visit[]> {
     return Observable.of(testVisits);
+  }
+
+  getByKey(key: string, value: string): Observable<Visit[]> {
+    return Observable.of(testVisits
+      .filter(visit => visit[key] === value));
   }
 
   getById(id: string): Observable<Visit> {
@@ -63,11 +66,7 @@ export class MockVisitService extends VisitService {
       .find(visit => visit.id === id));
   }
 
-  count(): Observable<number> {
-    return Observable.of(testVisits.length);
-  }
-
-  create(visit: Visit): Observable<Visit> {
+  add(visit: Visit): Observable<Visit> {
     return Observable.of(visit);
   }
 

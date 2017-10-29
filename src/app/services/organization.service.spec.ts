@@ -13,27 +13,27 @@ describe('OrganizationService', () => {
     TestBed.configureTestingModule({
       providers: [
         OrganizationService,
-        { provide: ErrorService, useClass: MockErrorService },
-        { provide: AngularFirestore, useValue: null }
+        { provide: AngularFirestore, useValue: null },
+        { provide: ErrorService, useClass: MockErrorService }
       ]
     });
     const testbed = getTestBed();
     service = testbed.get(OrganizationService);
     organization = Object.assign({}, testOrganizations[0]);
-    organization.name = 'jefferson sPCA animal shelter';
-    organization.description = '2701 lapalco blvd, harvey, lA 70058.';
+    organization.name = 'jefferson sPCA';
+    organization.description = 'the Jefferson SPCA exists to support the Jefferson Parish Animal Shelter.';
   }));
 
   it('is created', inject([OrganizationService], (organizationService: OrganizationService) => {
     expect(organizationService).toBeTruthy();
   }));
 
-  it('converts data going to the database', () => {
+  it('converts coming from the database', () => {
     const converted = service.convertIn(organization);
     expect(converted).toEqual(testOrganizations[0]);
   });
 
-  it('converts coming from the database', () => {
+  it('converts data going to the database', () => {
     const converted = service.convertOut(organization);
     expect(converted).toEqual(testOrganizations[0]);
   });

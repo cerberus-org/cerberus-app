@@ -58,16 +58,17 @@ export class MockUserService extends UserService {
     return Observable.of(testUsers);
   }
 
+  getByKey(key: string, value: string): Observable<User[]> {
+    return Observable.of(testUsers
+      .filter(user => user[key] === value));
+  }
+
   getById(id: string): Observable<User> {
     return Observable.of(testUsers
       .find(user => user.id === id));
   }
 
-  count(): Observable<number> {
-    return Observable.of(testUsers.length);
-  }
-
-  create(user: User): Observable<User> {
+  add(user: User): Observable<User> {
     return Observable.of(user);
   }
 

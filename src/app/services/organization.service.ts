@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
 import { Organization, testOrganizations } from '../models/organization';
+import { upperAllFirst } from '../functions/capitalize';
 
 @Injectable()
 export class OrganizationService extends BaseService<Organization> {
@@ -22,7 +23,7 @@ export class OrganizationService extends BaseService<Organization> {
    * @returns {any}
    */
   private capitalize(organization: Organization): Organization {
-    organization.name = organization.name.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1)));
+    organization.name = upperAllFirst(organization.name);
     organization.description = _.upperFirst(organization.description);
     return organization
   }
@@ -52,10 +53,13 @@ export class MockOrganizationService extends OrganizationService {
     super(null, null);
   }
 
-  // Base functions
-
   getAll(): Observable<Organization[]> {
     return Observable.of(testOrganizations);
+  }
+
+  getByKey(key: string, value: string): Observable<Organization[]> {
+    return Observable.of(testOrganizations
+      .filter(organization => organization[key] === value));
   }
 
   getById(id: string): Observable<Organization> {
@@ -63,11 +67,7 @@ export class MockOrganizationService extends OrganizationService {
       .find(organization => organization.id === id));
   }
 
-  count(): Observable<number> {
-    return Observable.of(testOrganizations.length);
-  }
-
-  create(organization: Organization): Observable<Organization> {
+  add(organization: Organization): Observable<Organization> {
     return Observable.of(organization);
   }
 
