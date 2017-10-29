@@ -21,7 +21,7 @@ export class VisitService extends BaseService<Visit> {
    * @param visit
    * @returns {any}
    */
-  convertOut(visit) {
+  convertOut(visit: Visit): Visit {
     visit.startedAt = new Date(visit.startedAt);
     visit.endedAt = visit.endedAt ? new Date(visit.endedAt) : null;
     // If the visit contains a signature
@@ -35,7 +35,7 @@ export class VisitService extends BaseService<Visit> {
    * Override to parse startedAt and endedAt Strings into Date objects and to destringify signature.
    * @param visit
    */
-  convertIn(visit) {
+  convertIn(visit: Visit): Visit {
     visit.startedAt = new Date(visit.startedAt);
     visit.endedAt = visit.endedAt ? new Date(visit.endedAt) : null;
     // If the visit contains a signature
@@ -71,11 +71,11 @@ export class MockVisitService extends VisitService {
     return Observable.of(visit);
   }
 
-  update(visit: Visit): Observable<any> {
+  update(visit: any): Observable<any> {
     return Observable.empty<any>();
   }
 
-  delete(visit: Visit): Observable<any> {
+  delete(visit: any): Observable<any> {
     return Observable.empty<any>();
   }
 }

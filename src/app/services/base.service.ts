@@ -51,6 +51,7 @@ abstract class BaseService<T> {
         })
         .catch(this.errorService.handleHttpError)
       : collection.valueChanges()
+        .map(item => this.convertIn(item))
         .catch(this.errorService.handleHttpError);
   }
 
@@ -98,20 +99,20 @@ abstract class BaseService<T> {
   }
 
   /**
-   * Override this function to perform custom conversions for http responses.
+   * Override this function to perform conversions for data received from the database.
    * @param data
    * @returns {any}
    */
-  convertIn(data: any) {
+  convertIn(data) {
     return data;
   }
 
   /**
-   * Override this function to perform custom converstions prior to http post, delete and put requests.
+   * Override this function to perform conversions for data to be sent to the database.
    * @param data
    * @return {any}
    */
-  convertOut(data: any) {
+  convertOut(data) {
     return data;
   }
 }

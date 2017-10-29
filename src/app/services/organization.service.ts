@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/empty';
+import * as _ from 'lodash';
 
 import BaseService from './base.service';
 import { ErrorService } from './error.service';
@@ -13,6 +14,35 @@ export class OrganizationService extends BaseService<Organization> {
   constructor(protected db: AngularFirestore,
               protected errorService: ErrorService) {
     super(db, errorService, 'organizations');
+  }
+
+  /**
+   * Handles capitalization logic for organizations.
+   * @param organization
+   * @returns {any}
+   */
+  private capitalize(organization: Organization): Organization {
+    organization.name = _.startCase(organization.name);
+    organization.description = _.capitalize(organization.description);
+    return organization
+  }
+
+  /**
+   * Capitalize the name and description of the organization going to the database.
+   * @param organization
+   * @returns {any}
+   */
+  convertOut(organization: Organization): Organization {
+    return this.capitalize(organization);
+  }
+
+  /**
+   * Capitalize the name and description of the organization coming from the database.
+   * @param organization
+   * @returns {any}
+   */
+  convertIn(organization: Organization): Organization {
+    return this.capitalize(organization);
   }
 }
 
@@ -41,11 +71,11 @@ export class MockOrganizationService extends OrganizationService {
     return Observable.of(organization);
   }
 
-  update(organization: Organization): Observable<any> {
+  update(organization: any): Observable<any> {
     return Observable.empty<any>();
   }
 
-  delete(organization: Organization): Observable<any> {
+  delete(organization: any): Observable<any> {
     return Observable.empty<any>();
   }
 }
