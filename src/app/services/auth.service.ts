@@ -6,7 +6,7 @@ import 'rxjs/add/observable/fromPromise';
 
 import { OrganizationService } from './organization.service';
 import { UserService } from './user.service';
-import { User } from '../models/user';
+import { testUsers, User } from '../models/user';
 
 @Injectable()
 export class AuthService {
@@ -25,10 +25,6 @@ export class AuthService {
       .switchMap(afUser => this.setItems(afUser))
   }
 
-  signOut(): Observable<any> {
-    return Observable.fromPromise(this.afAuth.auth.signOut());
-  }
-
   setItems(afUser: any): Observable<User> {
     localStorage.setItem('uid', afUser.uid);
     localStorage.setItem('email', afUser.email);
@@ -43,6 +39,11 @@ export class AuthService {
       });
   }
 
+
+  signOut(): Observable<any> {
+    return Observable.fromPromise(this.afAuth.auth.signOut());
+  }
+
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
@@ -51,5 +52,21 @@ export class AuthService {
         localStorage.clear();
       }
     });
+  }
+}
+
+export class MockAuthService extends AuthService {
+
+  constructor() {
+    super(null, null, null);
+  }
+
+  signIn(email: string, password: string): Observable<User> {
+    return Observable.of(testUsers
+      .filter(user => user.email === email));
+  }
+
+  signOut(key: string, value: string): Observable<any> {
+    return Observable.empty();
   }
 }

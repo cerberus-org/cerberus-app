@@ -12,6 +12,7 @@ import { testOrganizations } from '../models/organization';
 import { testUsers } from '../models/user';
 import { MockOrganizationService, OrganizationService } from '../services/organization.service';
 import { MockUserService, UserService } from '../services/user.service';
+import { AuthService, MockAuthService } from '../services/auth.service';
 
 describe('LoginEffects', () => {
   let effects: LoginEffects;
@@ -25,6 +26,7 @@ describe('LoginEffects', () => {
       providers: [
         LoginEffects,
         provideMockActions(() => actions),
+        { provide: AuthService, useClass: MockAuthService },
         { provide: OrganizationService, useClass: MockOrganizationService },
         { provide: SnackBarService, useClass: MockSnackBarService },
         { provide: UserService, useClass: MockUserService },
