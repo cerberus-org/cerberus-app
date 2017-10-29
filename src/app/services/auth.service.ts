@@ -19,9 +19,18 @@ export class AuthService {
     }
   }
 
-  signIn(email: string, password: string): Observable<any> {
-    return Observable
-      .fromPromise(this.afAuth.auth.signInWithEmailAndPassword(email, password))
+  createUser(user: User, email: string, password: string): Observable<User> {
+    return Observable.fromPromise(this.afAuth.auth
+      .createUserWithEmailAndPassword(email, password))
+      .switchMap(afUser => {
+        user.id = afUser.uid;
+        return this.userService.add(user);
+      })
+  }
+
+  signIn(email: string, password: string): Observable<User> {
+    return Observable.fromPromise(this.afAuth.auth
+      .signInWithEmailAndPassword(email, password))
       .switchMap(afUser => this.setItems(afUser))
   }
 
@@ -59,6 +68,11 @@ export class MockAuthService extends AuthService {
 
   constructor() {
     super(null, null, null);
+  }
+
+  createUser(user: User, email: string, password: string): Observable<User> {
+    return Observable.of(testUsers
+      .find(user => user.email === email));
   }
 
   signIn(email: string, password: string): Observable<User> {

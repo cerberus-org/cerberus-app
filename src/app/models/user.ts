@@ -3,16 +3,13 @@ export class User {
   organizationId: string;
   firstName: string;
   lastName: string;
-  email: string;
-  password: string;
-  role: string;
 
-  constructor(firstName: string, lastName: string, email: string, password: string) {
+  constructor(organizationId: string,
+              firstName: string,
+              lastName: string) {
+    this.organizationId = organizationId;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.email = email;
-    this.password = password;
-    this.role = 'admin'; // TODO: Implement user roles
   }
 }
 
@@ -22,17 +19,11 @@ export const testUsers: User[] = [
     organizationId: 'Y9oY2YPuxeWxB7x69Ayr',
     firstName: 'Ted',
     lastName: 'Mader',
-    email: 'tlmader.dev@gmail.com',
-    password: null,
-    role: 'admin'
   }, {
     id: '5961327dfba1ca1b64b8945b',
     organizationId: '59a7055733bfe28af47cff40',
     firstName: 'Hillary',
-    lastName: 'Lynn',
-    email: 'harurang@gmail.com',
-    password: null,
-    role: 'admin'
+    lastName: 'Lynn'
   },
 ];
 
