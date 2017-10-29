@@ -32,10 +32,9 @@ export class NewVolunteerFormComponent implements OnInit {
     this.store.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
 
     this.formGroup.reset();
-    // Workaround for clearing error state
-    Object.keys(this.formGroup.controls).forEach(key => {
-      this.formGroup.controls[key].setErrors(null)
-    });
+    this.formGroup.markAsPristine();
+    this.formGroup.markAsUntouched();
+    this.formGroup.updateValueAndValidity();
   }
 
   createForm(): void {

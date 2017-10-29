@@ -63,10 +63,10 @@ export class MockAuthService extends AuthService {
 
   signIn(email: string, password: string): Observable<User> {
     return Observable.of(testUsers
-      .filter(user => user.email === email));
+      .find(user => user.email === email));
   }
 
-  signOut(key: string, value: string): Observable<any> {
+  signOut(): Observable<any> {
     return Observable.empty();
   }
 }
