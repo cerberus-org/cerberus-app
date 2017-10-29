@@ -1,86 +1,40 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
-import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { StoreModule } from '@ngrx/store';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 import { OrganizationService } from './organization.service';
 import { ErrorService, MockErrorService } from './error.service';
-import { testOrganizations } from '../models/organization';
-import { reducers } from '../reducers/index';
+import { Organization, testOrganizations } from '../models/organization';
 
 describe('OrganizationService', () => {
-  let backend: MockBackend = null;
-  let service: OrganizationService = null;
+  let service: OrganizationService;
+  let organization: Organization;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot(reducers)
-      ],
       providers: [
-        BaseRequestOptions,
-        MockBackend,
         OrganizationService,
         { provide: ErrorService, useClass: MockErrorService },
-        {
-          provide: Http,
-          useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
-            return new Http(backendInstance, defaultOptions);
-          },
-          deps: [MockBackend, BaseRequestOptions]
-        }
+        { provide: AngularFirestore, useValue: null }
       ]
     });
     const testbed = getTestBed();
-    backend = testbed.get(MockBackend);
     service = testbed.get(OrganizationService);
+    organization = Object.assign({}, testOrganizations[0]);
+    organization.name = 'jefferson sPCA animal shelter';
+    organization.description = '2701 lapalco blvd, harvey, lA 70058.';
   }));
 
   it('is created', inject([OrganizationService], (organizationService: OrganizationService) => {
     expect(organizationService).toBeTruthy();
   }));
 
-  const setConnections = body => {
-    backend.connections.subscribe(function (connection: MockConnection) {
-      const options = new ResponseOptions({
-        body: JSON.stringify(body)
-      });
-      connection.mockRespond(new Response(options));
-    });
-  };
-
-  it('gets all organizations', () => {
-    setConnections(testOrganizations);
-    service.getAll().subscribe(res => {
-      expect(res).toEqual(testOrganizations);
-    });
+  it('converts data going to the database', () => {
+    const converted = service.convertIn(organization);
+    expect(converted).toEqual(testOrganizations[0]);
   });
 
-  it('gets the organization by ID', () => {
-    setConnections(testOrganizations[0]);
-    service.getById(testOrganizations[0].id).subscribe(res => {
-      expect(res).toEqual(testOrganizations[0]);
-    });
-  });
-
-  it('adds the organization', () => {
-    setConnections(testOrganizations[0]);
-    service.add(testOrganizations[0]).subscribe(res => {
-      expect(res).toEqual(testOrganizations[0]);
-    });
-  });
-
-  it('updates the organization', () => {
-    setConnections(testOrganizations[0]);
-    service.update(testOrganizations[0]).subscribe(res => {
-      expect(res).toEqual(testOrganizations[0]);
-    });
-  });
-
-  it('deletes the organization', () => {
-    setConnections(testOrganizations[0]);
-    service.delete(testOrganizations[0]).subscribe(res => {
-      expect(res).toEqual(testOrganizations[0]);
-    });
+  it('converts coming from the database', () => {
+    const converted = service.convertOut(organization);
+    expect(converted).toEqual(testOrganizations[0]);
   });
 });

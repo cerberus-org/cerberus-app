@@ -22,8 +22,8 @@ export class OrganizationService extends BaseService<Organization> {
    * @returns {any}
    */
   private capitalize(organization: Organization): Organization {
-    organization.name = _.startCase(organization.name);
-    organization.description = _.capitalize(organization.description);
+    organization.name = organization.name.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1)));
+    organization.description = _.upperFirst(organization.description);
     return organization
   }
 

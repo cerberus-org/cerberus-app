@@ -12,7 +12,9 @@ abstract class BaseService<T> {
   constructor(protected db: AngularFirestore,
               protected errorService: ErrorService,
               protected collectionName: string) {
-    this.collection = db.collection<T>(collectionName);
+    if (db) {
+      this.collection = db.collection<T>(collectionName);
+    }
   }
 
   /**

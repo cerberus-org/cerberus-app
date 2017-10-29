@@ -1,12 +1,11 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
-import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { StoreModule } from '@ngrx/store';
+import { BaseRequestOptions } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { SiteService } from './site.service';
 import { ErrorService, MockErrorService } from './error.service';
 import { testSites } from '../models/site';
-import { reducers } from '../reducers/index';
 
 describe('SiteService', () => {
   let backend: MockBackend = null;
@@ -15,72 +14,34 @@ describe('SiteService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(reducers)
+        AngularFirestoreModule
       ],
       providers: [
         BaseRequestOptions,
         MockBackend,
         SiteService,
-        { provide: ErrorService, useClass: MockErrorService },
-        {
-          provide: Http,
-          useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
-            return new Http(backendInstance, defaultOptions);
-          },
-          deps: [MockBackend, BaseRequestOptions]
-        }
+        { provide: ErrorService, useClass: MockErrorService }
       ]
     });
     const testbed = getTestBed();
     backend = testbed.get(MockBackend);
     service = testbed.get(SiteService);
+    site = Object.assign({}, testSites[0]);
+    site.name = 'jefferson sPCA';
+    site.address = 'the Jefferson SPCA exists to support the Jefferson Parish Animal Shelter.';
   }));
 
   it('is created', inject([SiteService], (siteService: SiteService) => {
     expect(siteService).toBeTruthy();
   }));
 
-  const setConnections = body => {
-    backend.connections.subscribe(function (connection: MockConnection) {
-      const options = new ResponseOptions({
-        body: JSON.stringify(body)
-      });
-      connection.mockRespond(new Response(options));
-    });
-  };
-
-  it('gets all sites', () => {
-    setConnections(testSites);
-    service.getAll().subscribe(res => {
-      expect(res).toEqual(testSites);
-    });
+  it('converts data going to the database', () => {
+    const converted = service.convertIn(site);
+    expect(converted).toEqual(testSites[0]);
   });
 
-  it('gets the site by ID', () => {
-    setConnections(testSites[0]);
-    service.getById(testSites[0].id).subscribe(res => {
-      expect(res).toEqual(testSites[0]);
-    });
-  });
-
-  it('adds the site', () => {
-    setConnections(testSites[0]);
-    service.add(testSites[0]).subscribe(res => {
-      expect(res).toEqual(testSites[0]);
-    });
-  });
-
-  it('updates the site', () => {
-    setConnections(testSites[0]);
-    service.update(testSites[0]).subscribe(res => {
-      expect(res).toEqual(testSites[0]);
-    });
-  });
-
-  it('deletes the site', () => {
-    setConnections(testSites[0]);
-    service.delete(testSites[0]).subscribe(res => {
-      expect(res).toEqual(testSites[0]);
-    });
+  it('converts coming from the database', () => {
+    const converted = service.convertOut(organization);
+    expect(converted).toEqual(testSites[0]);
   });
 });

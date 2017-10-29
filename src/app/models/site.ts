@@ -21,7 +21,7 @@ export const testSites: Site[] = [
   {
     id: '59a7055733bfe28af47cff41',
     organizationId: '59a7055733bfe28af47cff40',
-    name: 'Jefferson Parish Animal Shelter',
+    name: 'Jefferson SPCA Animal Shelter',
     address: '2701 Lapalco Blvd, Harvey, LA 70058'
   }
 ];
