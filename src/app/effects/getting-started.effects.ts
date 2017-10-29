@@ -13,7 +13,7 @@ import { Site } from '../models/site';
 import { SiteService } from '../services/site.service';
 import { SnackBarService } from '../services/snack-bar.service';
 import { OrganizationService } from '../services/organization.service';
-import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class GettingStartedEffects {
@@ -36,7 +36,7 @@ export class GettingStartedEffects {
         // Concurrently create the user and site
           .forkJoin(
             this.siteService.add(site),
-            this.userService.add(user))
+            this.authService.createUser(user))
           .map(() => {
             this.snackBarService.addOrganizationSuccess();
             return new LoginActions.Login(payload.user);
@@ -44,8 +44,8 @@ export class GettingStartedEffects {
       }));
 
   constructor(private actions: Actions,
+              private authService: AuthService,
               private organizationService: OrganizationService,
               private siteService: SiteService,
-              private snackBarService: SnackBarService,
-              private userService: UserService) {}
+              private snackBarService: SnackBarService) {}
 }

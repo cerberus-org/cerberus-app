@@ -8,7 +8,7 @@ export class Guard implements CanActivate {
   constructor(public router: Router) {}
 
   canActivate() {
-    if (!getLocalStorageObject('user.id')) {
+    if (!getLocalStorageObjectProperty('user', 'id')) {
       this.router.navigateByUrl('/login');
     }
     return !!getLocalStorageObjectProperty('user', 'id');

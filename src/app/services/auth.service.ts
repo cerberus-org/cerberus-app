@@ -23,10 +23,7 @@ export class AuthService {
   createUser(user: User): Observable<User> {
     return Observable.fromPromise(this.afAuth.auth
       .createUserWithEmailAndPassword(user.email, user.password))
-      .switchMap(afUser => {
-        user.id = afUser.uid;
-        return this.userService.add(user);
-      })
+      .switchMap(afUser => this.userService.add(user, afUser.uid));
   }
 
   signIn(email: string, password: string): Observable<User> {
@@ -38,11 +35,17 @@ export class AuthService {
   setItems(afUser: any): Observable<User> {
     return this.userService.getById(afUser.uid)
       .switchMap(user => {
-        Object.assign(user, afUser);
+        user = Object.assign({}, user, {
+          id: afUser.uid,
+          email: afUser.email
+        });
         setLocalStorageObject('user', user);
         return this.organizationService.getById(user.organizationId)
           .map(organization => {
-            setLocalStorageObject('organization', organization);
+            setLocalStorageObject(
+              'organization',
+              Object.assign({}, organization, { id: user.organizationId })
+            );
             return user;
           })
       });

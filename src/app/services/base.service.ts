@@ -48,7 +48,7 @@ abstract class BaseService<T> {
           return actions.map(a => {
             const data = a.payload.doc.data() as T;
             const id = a.payload.doc.id;
-            return Object.assign(this.convertIn(data), { id });
+            return this.convertIn(Object.assign(data, { id }));
           });
         })
         .catch(this.errorService.handleHttpError)
@@ -71,13 +71,22 @@ abstract class BaseService<T> {
   /**
    * Adds a new document to a collection.
    * @param item - the item to be added
+   * @param id - specify an ID, otherwise an auto-generated ID will be used
    * @returns {Observable<R|T>} - the Observable of the snapshot of the added object
    */
-  add(item: T): Observable<T> {
-    return Observable.fromPromise(this.collection.add(Object.assign({}, this.convertOut(item)))
-      .then(ref => ref.get()
-        .then(snapshot => this.convertIn(snapshot.data()))))
-      .catch(this.errorService.handleHttpError);
+  add(item: T, id?: string): Observable<T> {
+    return id ?
+      Observable.fromPromise(this.collection.doc(id).set(Object.assign({}, this.convertOut(item)))
+        .then(() => this.convertIn(Object.assign({}, item, { id }))))
+        .catch(this.errorService.handleHttpError)
+      : Observable.fromPromise(this.collection.add(Object.assign({}, this.convertOut(item)))
+        .then(ref => ref.get()
+          .then(snapshot => {
+            const data = snapshot.data();
+            const id = snapshot.id;
+            return this.convertIn(Object.assign(data, { id }))
+          })))
+        .catch(this.errorService.handleHttpError);
   }
 
   /**
