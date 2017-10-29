@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as LoginActions from '../../../../actions/login.actions'
 import { AppState } from '../../../../reducers/index';
+import { getLocalStorageObjectProperty } from '../../../../functions/localStorageObject';
 
 @Component({
   selector: 'app-header',
@@ -49,13 +50,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         case 'dashboard':
           // Text set in subscribeToOrganizations()
           this.icon = 'business';
-          this.text = localStorage.getItem('organizationName');
+          this.text = getLocalStorageObjectProperty('organization', 'name');
           break;
         case 'checkin':
           // Text set in subscribeToOrganizations()
           this.previousUrl = '/dashboard';
           this.icon = 'business';
-          this.text = localStorage.getItem('organizationName');
+          this.text = getLocalStorageObjectProperty('organization', 'name');
           break;
         default:
           this.icon = 'group_work';
@@ -69,6 +70,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   get showLogout() {
-    return !!localStorage.getItem('uid');
+    return !!getLocalStorageObjectProperty('user', 'id');
   }
 }

@@ -50,12 +50,6 @@ describe('LoginEffects', () => {
       actions = hot('a', { a: login });
 
       effects.login$.subscribe(() => {
-        expect(localStorage.token).toEqual('token');
-        expect(localStorage.userId).toEqual(user.id);
-        expect(localStorage.userName).toEqual(user.firstName);
-        expect(localStorage.organizationId).toEqual(user.organizationId);
-        expect(localStorage.organizationName).toEqual(testOrganizations[0].name);
-
         expect(navigateByUrlSpy).toHaveBeenCalledWith('/dashboard');
         expect(loginSuccessSpy).toHaveBeenCalledWith(testUsers[0].firstName);
       });
@@ -72,12 +66,6 @@ describe('LoginEffects', () => {
       actions = hot('a', { a: logout });
 
       effects.login$.subscribe(() => {
-        expect(localStorage.token).toBeFalsy();
-        expect(localStorage.userId).toBeFalsy();
-        expect(localStorage.userName).toBeFalsy();
-        expect(localStorage.organizationId).toBeFalsy();
-        expect(localStorage.organizationName).toBeFalsy();
-
         expect(navigateByUrlSpy).toHaveBeenCalledWith('/login');
         expect(logoutSuccessSpy).toHaveBeenCalled();
       });

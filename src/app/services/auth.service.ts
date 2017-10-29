@@ -7,6 +7,7 @@ import 'rxjs/add/observable/fromPromise';
 import { OrganizationService } from './organization.service';
 import { UserService } from './user.service';
 import { testUsers, User } from '../models/user';
+import { getLocalStorageObject, setLocalStorageObject } from '../functions/localStorageObject';
 
 @Injectable()
 export class AuthService {
@@ -19,9 +20,9 @@ export class AuthService {
     }
   }
 
-  createUser(user: User, email: string, password: string): Observable<User> {
+  createUser(user: User): Observable<User> {
     return Observable.fromPromise(this.afAuth.auth
-      .createUserWithEmailAndPassword(email, password))
+      .createUserWithEmailAndPassword(user.email, user.password))
       .switchMap(afUser => {
         user.id = afUser.uid;
         return this.userService.add(user);
@@ -35,19 +36,17 @@ export class AuthService {
   }
 
   setItems(afUser: any): Observable<User> {
-    localStorage.setItem('uid', afUser.uid);
-    localStorage.setItem('email', afUser.email);
     return this.userService.getById(afUser.uid)
       .switchMap(user => {
-        localStorage.setItem('organizationId', user.organizationId);
+        Object.assign(user, afUser);
+        setLocalStorageObject('user', user);
         return this.organizationService.getById(user.organizationId)
           .map(organization => {
-            localStorage.setItem('organizationName', organization.name);
+            setLocalStorageObject('organization', organization);
             return user;
           })
       });
   }
-
 
   signOut(): Observable<any> {
     return Observable.fromPromise(this.afAuth.auth.signOut());
@@ -70,9 +69,8 @@ export class MockAuthService extends AuthService {
     super(null, null, null);
   }
 
-  createUser(user: User, email: string, password: string): Observable<User> {
-    return Observable.of(testUsers
-      .find(user => user.email === email));
+  createUser(user: User): Observable<User> {
+    return Observable.of(user);
   }
 
   signIn(email: string, password: string): Observable<User> {

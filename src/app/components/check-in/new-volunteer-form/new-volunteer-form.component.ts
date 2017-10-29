@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as CheckInActions from '../../../actions/check-in.actions';
 import { AppState } from '../../../reducers/index';
 import { Volunteer } from '../../../models/volunteer';
+import { getLocalStorageObjectProperty } from '../../../functions/localStorageObject';
 
 @Component({
   selector: 'app-new-volunteer-form',
@@ -24,7 +25,7 @@ export class NewVolunteerFormComponent implements OnInit {
 
   onSubmit(): void {
     const volunteer = new Volunteer(
-      localStorage.getItem('organizationId'),
+      getLocalStorageObjectProperty('organization', 'id'),
       this.formGroup.value.firstName,
       this.formGroup.value.lastName,
       this.formGroup.value.petName

@@ -10,6 +10,7 @@ import { AppState } from '../../../reducers/index';
 import { Visit } from '../../../models/visit';
 import { Volunteer } from '../../../models/volunteer';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
+import { getLocalStorageObjectProperty } from '../../../functions/localStorageObject';
 
 @Component({
   selector: 'app-check-in-form',
@@ -118,7 +119,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   checkIn(): void {
     const visit = new Visit(
-      localStorage.getItem('organizationId'),
+      getLocalStorageObjectProperty('organization', 'id'),
       this.activatedRoute.snapshot.paramMap.get('id'),
       this.selectedVolunteer.id,
       new Date(),

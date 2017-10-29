@@ -33,6 +33,5 @@ describe('ErrorService', () => {
   it('401 error', () => {
     error = new Response(401);
     service.handleHttpError(error);
-    expect(localStorage.token).toBeFalsy();
   });
 });

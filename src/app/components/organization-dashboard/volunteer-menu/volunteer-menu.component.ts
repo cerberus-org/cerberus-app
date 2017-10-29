@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Site } from '../../../models/site';
 import { SiteService } from '../../../services/site.service';
+import { getLocalStorageObjectProperty } from '../../../functions/localStorageObject';
 
 @Component({
   selector: 'app-volunteer-menu',
@@ -19,7 +20,10 @@ export class VolunteerMenuComponent implements OnInit {
               private siteService: SiteService) { }
 
   ngOnInit(): void {
-    this.sites$ = this.siteService.getByKey('organizationId', localStorage.organizationId, true);
+    this.sites$ = this.siteService.getByKey(
+      'organizationId',
+      getLocalStorageObjectProperty('organization', 'id'),
+      true);
   }
 
   onClick(site): void {

@@ -3,13 +3,17 @@ export class User {
   organizationId: string;
   firstName: string;
   lastName: string;
+  email: string;
+  password: string;
 
-  constructor(organizationId: string,
-              firstName: string,
-              lastName: string) {
-    this.organizationId = organizationId;
+  constructor(firstName: string,
+              lastName: string,
+              email: string,
+              password: string) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.email = email;
+    this.password = password;
   }
 }
 
@@ -19,11 +23,15 @@ export const testUsers: User[] = [
     organizationId: 'Y9oY2YPuxeWxB7x69Ayr',
     firstName: 'Ted',
     lastName: 'Mader',
+    email: 'tlmader.dev@gmail.com',
+    password: null,
   }, {
     id: '5961327dfba1ca1b64b8945b',
     organizationId: '59a7055733bfe28af47cff40',
     firstName: 'Hillary',
-    lastName: 'Lynn'
+    lastName: 'Lynn',
+    email: 'harurang@gmail.com',
+    password: null,
   },
 ];
 
