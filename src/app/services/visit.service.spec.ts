@@ -56,23 +56,16 @@ describe('VisitService', () => {
     });
   });
 
-  it('counts all visits', () => {
-    setConnections(testVisits.length);
-    service.count().subscribe(res => {
-      expect(res).toEqual(testVisits.length);
-    });
-  });
-
-  it('creates the visit', () => {
+  it('gets the visit by ID', () => {
     setConnections(testVisits[0]);
-    service.create(testVisits[0]).subscribe(res => {
+    service.getById(testVisits[0].id).subscribe(res => {
       expect(res).toEqual(testVisits[0]);
     });
   });
 
-  it('gets the visit', () => {
+  it('adds the visit', () => {
     setConnections(testVisits[0]);
-    service.getById(testVisits[0].id).subscribe(res => {
+    service.add(testVisits[0]).subscribe(res => {
       expect(res).toEqual(testVisits[0]);
     });
   });

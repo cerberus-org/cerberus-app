@@ -56,23 +56,16 @@ describe('OrganizationService', () => {
     });
   });
 
-  it('counts all organizations', () => {
-    setConnections(testOrganizations.length);
-    service.count().subscribe(res => {
-      expect(res).toEqual(testOrganizations.length);
-    });
-  });
-
-  it('creates the organization', () => {
+  it('gets the organization by ID', () => {
     setConnections(testOrganizations[0]);
-    service.create(testOrganizations[0]).subscribe(res => {
+    service.getById(testOrganizations[0].id).subscribe(res => {
       expect(res).toEqual(testOrganizations[0]);
     });
   });
 
-  it('gets the organization by ID', () => {
+  it('adds the organization', () => {
     setConnections(testOrganizations[0]);
-    service.getById(testOrganizations[0].id).subscribe(res => {
+    service.add(testOrganizations[0]).subscribe(res => {
       expect(res).toEqual(testOrganizations[0]);
     });
   });

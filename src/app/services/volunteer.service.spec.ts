@@ -56,23 +56,16 @@ describe('VolunteerService', () => {
     });
   });
 
-  it('counts all volunteers', () => {
-    setConnections(testVolunteers.length);
-    service.count().subscribe(res => {
-      expect(res).toEqual(testVolunteers.length);
-    });
-  });
-
-  it('creates the volunteer', () => {
+  it('gets the volunteer by ID', () => {
     setConnections(testVolunteers[0]);
-    service.create(testVolunteers[0]).subscribe(res => {
+    service.getById(testVolunteers[0].id).subscribe(res => {
       expect(res).toEqual(testVolunteers[0]);
     });
   });
 
-  it('gets the volunteer', () => {
+  it('adds the volunteer', () => {
     setConnections(testVolunteers[0]);
-    service.getById(testVolunteers[0].id).subscribe(res => {
+    service.add(testVolunteers[0]).subscribe(res => {
       expect(res).toEqual(testVolunteers[0]);
     });
   });

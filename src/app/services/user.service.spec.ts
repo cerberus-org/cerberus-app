@@ -58,23 +58,16 @@ describe('UserService', () => {
     });
   });
 
-  it('counts all users', () => {
-    setConnections(testUsers.length);
-    service.count().subscribe(res => {
-      expect(res).toEqual(testUsers.length);
-    });
-  });
-
-  it('creates the user', () => {
+  it('gets the user by ID', () => {
     setConnections(testUsers[0]);
-    service.create(testUsers[0]).subscribe(res => {
+    service.getById(testUsers[0].id).subscribe(res => {
       expect(res).toEqual(testUsers[0]);
     });
   });
 
-  it('gets the user', () => {
+  it('adds the user', () => {
     setConnections(testUsers[0]);
-    service.getById(testUsers[0].id).subscribe(res => {
+    service.add(testUsers[0]).subscribe(res => {
       expect(res).toEqual(testUsers[0]);
     });
   });

@@ -56,23 +56,16 @@ describe('SiteService', () => {
     });
   });
 
-  it('counts all sites', () => {
-    setConnections(testSites.length);
-    service.count().subscribe(res => {
-      expect(res).toEqual(testSites.length);
-    });
-  });
-
-  it('creates the site', () => {
+  it('gets the site by ID', () => {
     setConnections(testSites[0]);
-    service.create(testSites[0]).subscribe(res => {
+    service.getById(testSites[0].id).subscribe(res => {
       expect(res).toEqual(testSites[0]);
     });
   });
 
-  it('gets the site', () => {
+  it('adds the site', () => {
     setConnections(testSites[0]);
-    service.getById(testSites[0].id).subscribe(res => {
+    service.add(testSites[0]).subscribe(res => {
       expect(res).toEqual(testSites[0]);
     });
   });
