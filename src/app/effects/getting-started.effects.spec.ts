@@ -6,6 +6,7 @@ import { cold, hot } from 'jasmine-marbles';
 import { GettingStartedEffects } from './getting-started.effects';
 import { Submit } from '../actions/getting-started.actions';
 import { Login } from '../actions/login.actions';
+import { AuthService, MockAuthService } from '../services/auth.service';
 import { MockOrganizationService, OrganizationService } from '../services/organization.service';
 import { MockSiteService, SiteService } from '../services/site.service';
 import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
@@ -22,6 +23,7 @@ describe('GettingStartedEffects', () => {
       providers: [
         GettingStartedEffects,
         provideMockActions(() => actions),
+        { provide: AuthService, useClass: MockAuthService },
         { provide: OrganizationService, useClass: MockOrganizationService },
         { provide: SiteService, useClass: MockSiteService },
         { provide: SnackBarService, useClass: MockSnackBarService },

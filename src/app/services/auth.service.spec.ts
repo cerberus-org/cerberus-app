@@ -39,7 +39,7 @@ describe('AuthService', () => {
 
   it('sets localStorage items and returns the user', () => {
     service.setItems(afUser).subscribe(user => {
-      expect(user).toEqual(Object.assign(testUsers[0], afUser));
+      expect(user).toEqual(testUsers[0]);
       expect(localStorage.getItem('user')).toBeTruthy();
       expect(localStorage.getItem('organization')).toBeTruthy();
     });

@@ -30,7 +30,6 @@ export class CheckInEffects {
         this.visitService.getByKey('siteId', payload.siteId, true).first(),
         this.volunteerService.getByKey('organizationId', payload.organizationId, true).first())
       .map(results => {
-        console.log(results);
         return { visits: results[0], volunteers: results[1] }
       })
       .map(data => new CheckInActions.LoadDataSuccess(data)));
