@@ -28,4 +28,4 @@ before_script:
 - yarn install
 - ng build --prod
 
-script: npm test
+script: ng test --watch=false
