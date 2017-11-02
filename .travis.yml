@@ -31,6 +31,9 @@ script:
   - ng build --prod
   - ng test --watch=false
 
+before_deploy:
+  - ng build --prod
+
 deploy:
   provider: firebase
   token:
