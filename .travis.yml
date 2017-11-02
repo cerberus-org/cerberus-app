@@ -1,8 +1,8 @@
-sudo: required
-dist: trusty
 language: node_js
 node_js:
-  - "node"
+- 8.9.0
+sudo: required
+dist: trusty
 
 cache:
   yarn: true
@@ -13,10 +13,10 @@ notifications:
 addons:
 apt:
   sources:
-    - google-chrome
+  - google-chrome
   packages:
-    - google-chrome-stable
-    - google-chrome-beta
+  - google-chrome-stable
+  - google-chrome-beta
 
 before_install:
   - export CHROME_BIN=chromium-browser
@@ -24,8 +24,20 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 before_script:
-- yarn global add @angular/cli
-- yarn install
-- ng build --prod
+  - yarn global add @angular/cli
+  - yarn install
 
-script: ng test --watch=false
+script:
+  - ng build --prod
+  - ng test --watch=false
+
+deploy:
+  provider: firebase
+  token:
+    secure: "1/FKYRvpjAxdoFD22fBiuexo8OKyIfKPDJQn1Klc3TbZw"
+  project: "cerberus-develop"
+  message: "App successfully deployed to Firebase."
+
+env:
+  global:
+    secure: DkCW5nDZh7NOR9reiFb3vLjj3mKJA0EtfGzQPntCSU5f9JQM3Ax+eUbsZ7xeI9YNwhCV4CQLcfWd8lSz0Ic4K4IdyHmL5fLvJh3X/uuomQvbLOczeEQw+ONOXiXJJxWqY+lPZBW301K6+xW2DESmk9QxpMX9Fr+bMgqhZI1lg2pCs/K7YgaHwbjygC77rqzJqaVU130VKyPbSUcUQ4c/TAjj1laUB8n6tQ7Hap3j2XtK1vGAlzpdWyqPw5ppFD8X6jhxA8n29XRXWIXCCv7xqqXbIr76fQLVZEOUxozUHi9Fieos4OUNlUrVOkMOs7VvnmvZRQaDfrrj9TS+pkrm34e9mU7wovPYGKmA2l7DOop5qFT6qlQFE41LMWagnJ29+kddcPS9M/2XiOeSifNwdCjxalGwJdOFSdmiNFKL0T4/ftbS/+N0nDxrmgRM9FBSk3UWEuo8lZxXzSzNeqiviKslaAAsMQgL1jwa77H7B4r3K2R0OPqiA5tYU6/WWfU499EcMa/zDZahdSWjKO45rIOZlx23D96eUy4v74g25QcJfvIlDotyKIROKLfZODXynDiuGWq5INkUKrR5geeiw3EhENLOCzJzX+/oDFgQk47/9Ftu98S2xAXP3PU3/pQrqLp2sgyNr4hIw7Rez41G+4PSVPHtrQY/F9oCgAJYFNI=
