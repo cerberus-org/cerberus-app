@@ -10,6 +10,6 @@ export class AppComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('Deployed to Firebase!')
+    console.log('Deployed to Firebase! (2)')
   }
 }
