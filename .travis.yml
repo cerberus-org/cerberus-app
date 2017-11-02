@@ -36,7 +36,9 @@ deploy:
   token:
     secure: "1/FKYRvpjAxdoFD22fBiuexo8OKyIfKPDJQn1Klc3TbZw"
   project: "cerberus-develop"
-  message: "App successfully deployed to Firebase."
+  message: "App successfully deployed to cerberus-develop."
+  on:
+    branch: dev
 
 env:
   global:
