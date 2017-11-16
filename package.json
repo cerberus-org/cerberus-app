@@ -6,10 +6,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build:dev": "ng build --dev",
-    "build:staging": "ng build --prod -e=staging",
+    "build:staging": "ng build --prod --environment=staging",
     "build:prod": "ng build --prod",
     "test": "ng test",
-    "test:ci": "ng test --watch=false; ng build --prod",
+    "test:ci": "ng test --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
