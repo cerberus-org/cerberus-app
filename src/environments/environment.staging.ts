@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: "AIzaSyCWBfsX_m0r_0LJ8QOAJv6xKkMODSfoTc4",
+    apiKey: process.env.CERBERUS_STAGING_API_KEY,
     authDomain: "cerberus-staging.firebaseapp.com",
     databaseURL: "https://cerberus-staging.firebaseio.com",
     projectId: "cerberus-staging",
