@@ -5,9 +5,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "build:prod": "ng build",
+    "build:dev": "ng build --dev",
+    "build:staging": "ng build --prod -e=staging",
+    "build:prod": "ng build --prod",
     "test": "ng test",
+    "test:ci": "ng test --watch=false; ng build --prod",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
