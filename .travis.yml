@@ -29,9 +29,16 @@ before_script:
   - yarn install
 
 script:
-  - ng build --prod
   - ng test --watch=false
 
-after_success:
-   - ng build --prod --aot
-   - firebase deploy --token $FIREBASE_TOKEN
+before_deploy:
+  - ng build --prod --aot
+
+deploy:
+  provider: firebase
+  token:
+    secure: $FIREBASE_TOKEN
+  project: cerberus-develop
+  message: App successfully deployed to cerberus-develop.
+  on:
+    branch: dev
