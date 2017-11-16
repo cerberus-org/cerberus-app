@@ -27,6 +27,7 @@ script:
 before_deploy:
 - ng build --prod --aot
 deploy:
+  skip_cleanup: true
   provider: firebase
   token:
     secure: "$FIREBASE_TOKEN"
