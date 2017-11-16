@@ -26,6 +26,7 @@ script:
 - ng test --watch=false
 before_deploy:
 - ng build --prod --aot
+- ls
 deploy:
   provider: firebase
   token:
