@@ -11,7 +11,7 @@ import { User } from '../../models/user';
 @Component({
   selector: 'app-getting-started',
   templateUrl: './getting-started.component.html',
-  styleUrls: ['./getting-started.component.css']
+  styleUrls: ['./getting-started.component.scss']
 })
 export class GettingStartedComponent implements OnInit, OnDestroy {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;

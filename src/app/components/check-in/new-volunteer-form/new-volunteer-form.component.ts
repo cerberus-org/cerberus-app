@@ -10,7 +10,7 @@ import { getLocalStorageObjectProperty } from '../../../functions/localStorageOb
 @Component({
   selector: 'app-new-volunteer-form',
   templateUrl: './new-volunteer-form.component.html',
-  styleUrls: ['./new-volunteer-form.component.css']
+  styleUrls: ['./new-volunteer-form.component.scss']
 })
 export class NewVolunteerFormComponent implements OnInit {
   public error: string;

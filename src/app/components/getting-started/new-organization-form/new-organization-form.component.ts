@@ -10,7 +10,7 @@ import { Organization } from '../../../models/organization';
 @Component({
   selector: 'app-new-organization-form',
   templateUrl: './new-organization-form.component.html',
-  styleUrls: ['./new-organization-form.component.css']
+  styleUrls: ['./new-organization-form.component.scss']
 })
 export class NewOrganizationFormComponent implements OnInit {
   formGroup: FormGroup;

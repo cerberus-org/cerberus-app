@@ -11,7 +11,7 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
 @Component({
   selector: 'app-check-in',
   templateUrl: './check-in.component.html',
-  styleUrls: ['./check-in.component.css']
+  styleUrls: ['./check-in.component.scss']
 })
 export class CheckInComponent implements OnInit, OnDestroy {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;

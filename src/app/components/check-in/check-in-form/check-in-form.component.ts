@@ -15,7 +15,7 @@ import { getLocalStorageObjectProperty } from '../../../functions/localStorageOb
 @Component({
   selector: 'app-check-in-form',
   templateUrl: './check-in-form.component.html',
-  styleUrls: ['./check-in-form.component.css'],
+  styleUrls: ['./check-in-form.component.scss'],
   animations: [
     trigger('sigTrigger', [
       animationsState('fadeIn', style({
