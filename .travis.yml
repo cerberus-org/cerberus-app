@@ -1,8 +1,11 @@
-sudo: required
-dist: trusty
 language: node_js
+
 node_js:
-  - "node"
+  - 8.9.0
+
+sudo: required
+
+dist: trusty
 
 cache:
   yarn: true
@@ -11,21 +14,50 @@ notifications:
   slack: tlmader:TCHb5sywLfnNrFRdTvmfdYTQ
 
 addons:
-apt:
-  sources:
-    - google-chrome
-  packages:
-    - google-chrome-stable
-    - google-chrome-beta
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+      - google-chrome-beta
 
 before_install:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
-before_script:
-- yarn global add @angular/cli
-- yarn install
-- ng build --prod
+install:
+  - yarn global add @angular/cli
+  - yarn global add firebase-tools
+  - yarn install
 
-script: ng test --watch=false
+script:
+  - yarn run test:ci
+
+before_deploy:
+  - if [[ "$TRAVIS_BRANCH" = "master" ]]; then yarn run build:dev; fi
+  - if [[ -n "$TRAVIS_TAG" ]]; then yarn run build:staging; fi
+
+deploy:
+  # Deploy master to the develop environment
+  - provider: firebase
+    skip_cleanup: true
+    token:
+      secure: "$FIREBASE_TOKEN"
+    project: cerberus-develop
+    message: App successfully deployed to cerberus-develop.
+    on:
+      branch: master
+  # Deploy tags to the staging environment
+  - provider: firebase
+    skip_cleanup: true
+    token:
+      secure: "$FIREBASE_TOKEN"
+    project: cerberus-staging
+    message: App successfully deployed to cerberus-staging.
+    on:
+      tags: true
+
+env:
+  global:
+    secure: VcrSJ6FrObyICocTKMVsMOLaU12tCIRvVhKzZlB780AYV9NajdZ0hUBJfFAIFMAPl6msQzEMMQHxoI+IgihZt17qcFsn2iJ82G4JrFdV+1jKpbaqV2Z5RCm/qw7ui8422ZKO8UL0+RasUe5C2w8psUTG4H+qimW2Y9kpzi4It8Ux/goNAif844FaH2gWFpfZNBtn3TLRl9xvRMt9FaQ3LF2AWnJ+mUpo7TFkzBz5nkIRXwGIbq6uD4vLUjhv8MXMB3Nkv2pVIbBHBZ0Um/r/RzAWk5uxW+UIpa7MBHA9G37Ila+kUXhSZl+y4sC2lvx7JAoepm5CiqlMP/G4ZdB10TqTj9zN6sseILw3n1HP0AuBr2cbyhyCI7SI9/OFg9RxU8/uIgqrxSaTjYV1JHC14zFGiXUnN3kKLWWmamOfhOjidujCy9qjZn+G28kA/5K0+HRNgT9UKv4gqdS0CXxCSfrPsKdpcaVZShy3gArAy9xnWTDI/IHOQktSYNbqT5YEbWoNib3fKre6QGBWpU8kYieYKMz04rfAT/3Pdnkqa7N1RKeZhO84IHcJMkTG8ohfvjdoQ/rHkqkKd3zqmr1p6QnpoSkk7AybO10ydhKie+T3oO2sQ1si5rp3WjzeI/uj0ybOaLldMi+2U0XzY+t/SEutsnOJTxTkZmtNt9HNn3M=
