@@ -7,7 +7,7 @@ import { AppState } from '../../../reducers/index';
 @Component({
   selector: 'app-daily-hours-chart',
   templateUrl: './daily-hours-chart.component.html',
-  styleUrls: ['./daily-hours-chart.component.css']
+  styleUrls: ['./daily-hours-chart.component.scss']
 })
 export class DailyHoursChartComponent implements OnInit, OnDestroy {
   dataDisplaySubscription: Subscription;

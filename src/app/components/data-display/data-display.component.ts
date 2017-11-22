@@ -8,7 +8,7 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
 @Component({
   selector: 'app-data-display',
   templateUrl: './data-display.component.html',
-  styleUrls: ['./data-display.component.css']
+  styleUrls: ['./data-display.component.scss']
 })
 export class DataDisplayComponent implements OnInit {
 

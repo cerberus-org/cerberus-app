@@ -13,7 +13,7 @@ import { Visit } from '../../../models/visit';
 @Component({
   selector: 'app-visit-history-table',
   templateUrl: './visit-history-table.component.html',
-  styleUrls: ['./visit-history-table.component.css']
+  styleUrls: ['./visit-history-table.component.scss']
 })
 export class VisitHistoryTableComponent implements OnInit {
   initialPageSize: number;

@@ -9,7 +9,7 @@ import { getLocalStorageObjectProperty } from '../../../functions/localStorageOb
 @Component({
   selector: 'app-volunteer-menu',
   templateUrl: './volunteer-menu.component.html',
-  styleUrls: ['./volunteer-menu.component.css']
+  styleUrls: ['./volunteer-menu.component.scss']
 })
 export class VolunteerMenuComponent implements OnInit {
 
