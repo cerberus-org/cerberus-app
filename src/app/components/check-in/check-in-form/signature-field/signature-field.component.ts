@@ -5,7 +5,7 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 @Component({
   selector: 'app-signature-field',
   templateUrl: './signature-field.component.html',
-  styleUrls: ['./signature-field.component.css'],
+  styleUrls: ['./signature-field.component.scss'],
   providers: [
     {
       // Since SignatureFieldComponent implements the ControlValueAccessor it is registered as a provider.

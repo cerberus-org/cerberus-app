@@ -9,7 +9,7 @@ import { User } from '../../../models/user';
 @Component({
   selector: 'app-new-user-form',
   templateUrl: './new-user-form.component.html',
-  styleUrls: ['./new-user-form.component.css']
+  styleUrls: ['./new-user-form.component.scss']
 })
 export class NewUserFormComponent implements OnInit {
   formGroup: FormGroup;
