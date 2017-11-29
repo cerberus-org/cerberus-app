@@ -1,8 +1,12 @@
-.gray-menu {
-  background-color: lightgray;
-}
 
-.check-in {
-  width: 12rem;
-  max-width: 100%;
+.container {
+  height: 100%;
+  display: grid;
+
+  .menu {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    background-color: lightgray;
+  }
 }

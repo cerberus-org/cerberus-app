@@ -1,12 +1,12 @@
-<mat-card class="gray-menu"
-         fxFlex
-         fxLayout="column"
-         fxLayoutAlign="center center">
-  <a *ngFor="let site of sites$ | async"
-          mat-raised-button
-          class="check-in"
-          color="primary"
-          (click)="onClick(site)">
-    <i class="material-icons">check_circle</i> Check In
-  </a>
-</mat-card>
+<div class="container">
+  <mat-card class="menu">
+    <div>
+      <a *ngFor="let site of sites$ | async"
+         mat-raised-button
+         color="primary"
+         (click)="onClick(site)">
+        <i class="material-icons">check_circle</i> Check In
+      </a>
+    </div>
+  </mat-card>
+</div>
