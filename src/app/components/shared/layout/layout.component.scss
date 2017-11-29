@@ -1,0 +1,11 @@
+@import '~@angular/material/_theming.scss';
+
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 64px auto 64px;
+
+  @media only screen and ($mat-xsmall) {
+    grid-template-rows: 48px auto 48px;
+  }
+}
