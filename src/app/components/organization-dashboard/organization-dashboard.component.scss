@@ -3,10 +3,10 @@
 .container {
   height: 100%;
   display: grid;
-  grid-template-columns: 20% auto;
+  grid-template-columns: 17.5% auto;
 
   @media only screen and ($mat-small) {
     grid-template-columns: auto;
-    grid-template-rows: 4rem auto;
+    grid-template-rows: 84px auto;
   }
 }

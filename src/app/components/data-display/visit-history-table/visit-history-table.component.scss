@@ -1,6 +1,5 @@
-/* Makes host element a flex container */
-:host {
-  display: flex;
-  flex: 1;
-  overflow-y: scroll;
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 56px;
 }
