@@ -1,5 +1,7 @@
+@import '~styles.scss';
+
 .container {
   height: 100%;
   display: grid;
-  grid-template-rows: auto 56px;
+  grid-template-rows: auto $mat-paginator-height;
 }

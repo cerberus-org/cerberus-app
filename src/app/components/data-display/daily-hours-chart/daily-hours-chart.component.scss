@@ -1,18 +1,19 @@
 @import '~@angular/material/_theming.scss';
+@import '~styles.scss';
 
 .container {
   height: 100%;
 }
 
 .graph {
-  max-height: calc(99.9vh - 128px - 48px);
+  max-height: calc(99.9vh - #{$mat-toolbars-height-desktop} - #{$mat-tab-bar-height});
   max-width: 100%;
 
   @media only screen and ($mat-small) {
-    max-height: calc(99.9vh - 128px - 48px - 84px);
+    max-height: calc(99.9vh - #{$mat-toolbars-height-desktop} - #{$mat-tab-bar-height} - 84px);
   }
 
   @media only screen and ($mat-xsmall) {
-    max-height: calc(99.9vh - 112px - 48px - 84px);
+    max-height: calc(99.9vh - #{$mat-toolbars-height-mobile} - #{$mat-tab-bar-height} - 84px);
   }
 }

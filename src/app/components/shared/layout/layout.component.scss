@@ -1,11 +1,12 @@
 @import '~@angular/material/_theming.scss';
+@import '~styles.scss';
 
 .container {
   height: 100%;
   display: grid;
-  grid-template-rows: 64px auto 64px;
+  grid-template-rows: $mat-toolbar-height-desktop auto $mat-toolbar-height-desktop;
 
-  @media only screen and ($mat-xsmall) {
-    grid-template-rows: 56px auto 56px;
+  @media ($mat-xsmall) {
+    grid-template-rows: $mat-toolbar-height-mobile auto $mat-toolbar-height-mobile;
   }
 }

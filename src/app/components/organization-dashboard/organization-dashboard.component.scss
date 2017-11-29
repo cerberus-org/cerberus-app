@@ -5,7 +5,7 @@
   display: grid;
   grid-template-columns: 17.5% auto;
 
-  @media only screen and ($mat-small) {
+  @media ($mat-small) {
     grid-template-columns: auto;
     grid-template-rows: 84px auto;
   }

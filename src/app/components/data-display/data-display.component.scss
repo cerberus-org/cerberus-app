@@ -1,8 +1,14 @@
 /deep/ {
+
   .mat-tab-group {
     height: 100%;
   }
+
   .mat-tab-body-wrapper {
     height: 100%;
+  }
+
+  .mat-tab-header-pagination-controls-enabled.mat-tab-header-pagination {
+    display: none !important;
   }
 }

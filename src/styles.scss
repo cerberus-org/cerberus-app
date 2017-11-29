@@ -1,5 +1,12 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+$mat-paginator-height: 56px;
+$mat-tab-bar-height: 48px;
+$mat-toolbar-height-desktop: 64px;
+$mat-toolbar-height-mobile: 56px;
+$mat-toolbars-height-desktop: calc(#{$mat-toolbar-height-desktop} * 2);
+$mat-toolbars-height-mobile: calc(#{$mat-toolbar-height-mobile} * 2);
+
 html, body {
   box-sizing: border-box;
   height: 100%;
