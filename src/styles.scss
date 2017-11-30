@@ -9,6 +9,7 @@ $mat-toolbars-height-mobile: calc(#{$mat-toolbar-height-mobile} * 2);
 
 html, body {
   box-sizing: border-box;
+  overflow: hidden;
   height: 100%;
   margin: 0;
   font-family: Roboto, sans-serif;

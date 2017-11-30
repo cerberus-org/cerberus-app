@@ -1,7 +1,5 @@
-/* Makes host element a flex container */
-:host {
-  display: flex;
-  flex: 1;
+.container {
+  justify-content: center;
 }
 
 form {
@@ -18,13 +16,6 @@ input {
 
 .pets-container {
   margin-bottom: 1rem;
-}
-
-.signature-container {
-  max-height: 200px;
-  max-width: 100vw;
-  border-style: dashed;
-  border-width: .07rem;
 }
 
 button {

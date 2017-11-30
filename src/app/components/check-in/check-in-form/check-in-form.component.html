@@ -1,10 +1,7 @@
-<form fxFlex
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="1rem"
+<form class="container"
       [formGroup]="formGroup"
       (ngSubmit)="onSubmit()">
-  <mat-form-field fxFlex="0 1 auto">
+  <mat-form-field>
     <input matInput
            placeholder="Name"
            [matAutocomplete]="nameForm"
@@ -15,8 +12,6 @@
   </mat-autocomplete>
   <mat-radio-group *ngIf="showPetNameForm"
                    class="pets-container"
-                   fxFlex="0 1 auto"
-                   fxLayoutGap="1rem"
                    formControlName="petName">
     <mat-radio-button *ngFor="let volunteer of filteredVolunteers"
                       [value]="volunteer.petName"
@@ -25,19 +20,18 @@
     </mat-radio-button>
   </mat-radio-group>
   <div *ngIf="activeVisit; then showCheckOut else showCheckIn"></div>
-  <div fxFlex="0 1 auto">
+  <div>
     <ng-template #showCheckIn>
       <div *ngIf="!nameControl.invalid"
-           fxFlex
-           fxLayout="column"
-           fxLayoutAlign="center center"
-           fxLayoutGap="2rem"
            [@sigTrigger]="signatureState">
-        <app-signature-field class="signature-container" fxFlex formControlName="signatureField"></app-signature-field>
-        <div fxFlex>
-          <button mat-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">Clear
+        <app-signature-field formControlName="signatureField"></app-signature-field>
+        <div>
+          <button mat-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">
+            Clear
           </button>
-          <button mat-raised-button color="primary" [disabled]="formGroup.invalid">Check In</button>
+          <button mat-raised-button color="primary" [disabled]="formGroup.invalid">
+            Check In
+          </button>
         </div>
       </div>
     </ng-template>
@@ -46,4 +40,3 @@
     </ng-template>
   </div>
 </form>
-
