@@ -1,5 +1,18 @@
 .container {
+  display: grid;
   justify-content: center;
+}
+
+.container--pets {
+  margin-bottom: 1rem;
+
+  .pets-button {
+    margin: 0 1rem;
+  }
+}
+
+.container--buttons {
+  grid-template-columns: auto auto;
 }
 
 form {
@@ -12,10 +25,6 @@ mat-form-field {
 
 input {
   text-transform: capitalize;
-}
-
-.pets-container {
-  margin-bottom: 1rem;
 }
 
 button {
