@@ -28,3 +28,8 @@ h2, h3, h4 {
 input.capitalize {
   text-transform: capitalize;
 }
+
+.center {
+  display: grid;
+  justify-content: center;
+}

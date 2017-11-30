@@ -1,30 +1,24 @@
-.container {
-  display: grid;
-  justify-content: center;
+.form-container {
+  margin-top: 2rem;
 }
 
-.container--pets {
+.field-container {
+
+  input {
+    text-transform: capitalize;
+  }
+}
+
+.pets-container {
   margin-bottom: 1rem;
 
-  .pets-button {
+  mat-radio-button {
     margin: 0 1rem;
   }
 }
 
-.container--buttons {
+.actions-container {
   grid-template-columns: auto auto;
-}
-
-form {
-  margin-top: 2rem;
-}
-
-mat-form-field {
-  width: 15rem;
-}
-
-input {
-  text-transform: capitalize;
 }
 
 button {
