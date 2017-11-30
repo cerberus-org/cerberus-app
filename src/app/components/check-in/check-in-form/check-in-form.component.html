@@ -1,7 +1,7 @@
-<form class="center form-container"
+<form class="container-center loose"
       [formGroup]="formGroup"
       (ngSubmit)="onSubmit()">
-  <div class="center field-container">
+  <div class="container-center field-container">
     <mat-form-field>
       <input matInput
              placeholder="Name"
@@ -13,7 +13,7 @@
     </mat-autocomplete>
   </div>
   <!--Show the pet name selection if multiple volunteers have the same name-->
-  <div *ngIf="showPetNameForm" class="center pets-container" [@fadeInTrigger]="fadeInState">
+  <div *ngIf="showPetNameForm" class="container-center pets-container" [@fadeInTrigger]="fadeInState">
     <mat-radio-group formControlName="petName">
       <mat-radio-button class="pets-button"
                         *ngFor="let volunteer of filteredVolunteers"
@@ -30,7 +30,7 @@
       <div [@fadeInTrigger]="fadeInState">
         <app-signature-field formControlName="signatureField"></app-signature-field>
       </div>
-      <div class="center actions-container" [@fadeInTrigger]="fadeInState">
+      <div class="container-center actions-container" [@fadeInTrigger]="fadeInState">
         <button mat-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">
           Clear
         </button>
@@ -41,7 +41,7 @@
     </ng-container>
     <!--Show the check out button if there is currently an active visit-->
     <ng-template #checkOut>
-      <div class="center check-out-container" [@fadeInTrigger]="fadeInState">
+      <div class="container-center check-out-container" [@fadeInTrigger]="fadeInState">
         <button mat-raised-button color="primary">Check Out</button>
       </div>
     </ng-template>

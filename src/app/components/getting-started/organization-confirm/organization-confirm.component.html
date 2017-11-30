@@ -1,7 +1,7 @@
-<div fxFlex fxLayout="column" fxLayoutAlign="start center">
-  <h1 class="container" fxFlex="0 1 auto">Please confirm your details.</h1>
-  <div fxFlex fxLayout="row" fxLayout.xs="column">
-    <mat-list class="container column" *ngIf="organization">
+<div class="container-center loose">
+  <h1>Please confirm your details.</h1>
+  <div class="container-inline">
+    <mat-list *ngIf="organization">
       <h1 matSubheader>Organization</h1>
       <mat-list-item>
         <mat-icon mat-list-icon>business</mat-icon>
@@ -16,7 +16,7 @@
         <h3 matLine>{{organization.description}}</h3>
       </mat-list-item>
     </mat-list>
-    <mat-list class="container column" *ngIf="user">
+    <mat-list *ngIf="user">
       <h1 matSubheader>User</h1>
       <mat-list-item>
         <mat-icon mat-list-icon>perm_identity</mat-icon>

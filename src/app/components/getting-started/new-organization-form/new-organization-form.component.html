@@ -1,16 +1,12 @@
-<form fxFlex
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="1rem"
-      [formGroup]="formGroup">
-  <h1 class="text-container" fxFlex="0 1 auto">Tell us about your organization.</h1>
-  <mat-form-field class="input-container" fxFlex="0 1 auto">
+<form class="container-center loose" [formGroup]="formGroup">
+  <h1>Tell us about your organization.</h1>
+  <mat-form-field class="input-row">
     <input matInput class="capitalize" maxlength="70" placeholder="Organization name" formControlName="name">
   </mat-form-field>
-  <mat-form-field class="input-container" fxFlex="0 1 auto">
+  <mat-form-field class="input-row">
     <input matInput placeholder="Website" maxlength="255" formControlName="website">
   </mat-form-field>
-  <mat-form-field class="input-container" fxFlex="0 1 auto">
+  <mat-form-field class="input-row">
     <textarea matInput #description maxlength="160" placeholder="Short description" formControlName="description"></textarea>
     <mat-hint align="end">{{description.value.length}} / 160</mat-hint>
   </mat-form-field>

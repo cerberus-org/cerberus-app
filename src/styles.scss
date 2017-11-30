@@ -25,19 +25,28 @@ h2, h3, h4 {
   letter-spacing: 1px;
 }
 
+.loose {
+  margin-top: 2rem;
+  grid-row-gap: 1rem;
+}
+
 input.capitalize {
   text-transform: capitalize;
 }
 
-.center {
+.container-center {
   display: grid;
   justify-content: center;
+}
+
+.text-center {
   text-align: center;
 }
 
-.inline {
+.container-inline {
   display: grid;
   grid-auto-flow: column;
+  grid-gap: 0.5rem;
 }
 
 /deep/ {

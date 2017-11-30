@@ -1,4 +1,4 @@
-<form class="center container" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+<form class="container-center loose" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <mat-list>
     <mat-list-item *ngFor="let form of forms">
       <mat-form-field>
@@ -6,7 +6,7 @@
       </mat-form-field>
     </mat-list-item>
   </mat-list>
-  <div class="center">
+  <div class="container-center">
     <button mat-raised-button color="primary" [disabled]="formGroup.invalid">Submit</button>
   </div>
 </form>

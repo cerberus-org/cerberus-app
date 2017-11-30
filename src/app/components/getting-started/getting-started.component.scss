@@ -3,7 +3,8 @@ mat-tab-group {
   max-width: 100vw
 }
 
-button {
-  float: right;
+.container-button {
+  display: grid;
+  justify-items: end;
   margin: 2rem;
 }
