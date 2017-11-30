@@ -32,4 +32,25 @@ input.capitalize {
 .center {
   display: grid;
   justify-content: center;
+  text-align: center;
+}
+
+.inline {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+/deep/ {
+
+  .mat-tab-group {
+    height: 100%;
+  }
+
+  .mat-tab-body-wrapper {
+    height: 100%;
+  }
+
+  .mat-tab-header-pagination-controls-enabled.mat-tab-header-pagination {
+    display: none !important;
+  }
 }
