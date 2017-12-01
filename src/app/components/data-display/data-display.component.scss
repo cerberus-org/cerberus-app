@@ -1,21 +1,14 @@
-/* Makes host element a flex container */
-:host {
-  display: flex;
-  flex: 1;
-}
+/deep/ {
 
-/* Adjust content of a tab to 100% of height of parent container by making all the child tab body containers flex */
-/deep/ .mat-tab-body-wrapper {
-  flex-grow: 1;
-}
+  .mat-tab-group {
+    height: 100%;
+  }
 
-/deep/ .mat-tab-body {
-  display: flex !important;
-  flex-direction: column;
-}
+  .mat-tab-body-wrapper {
+    height: 100%;
+  }
 
-/deep/ .mat-tab-body-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  .mat-tab-header-pagination-controls-enabled.mat-tab-header-pagination {
+    display: none !important;
+  }
 }

@@ -1,7 +1,15 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+$mat-paginator-height: 56px;
+$mat-tab-bar-height: 48px;
+$mat-toolbar-height-desktop: 64px;
+$mat-toolbar-height-mobile: 56px;
+$mat-toolbars-height-desktop: calc(#{$mat-toolbar-height-desktop} * 2);
+$mat-toolbars-height-mobile: calc(#{$mat-toolbar-height-mobile} * 2);
+
 html, body {
   box-sizing: border-box;
+  overflow: hidden;
   height: 100%;
   margin: 0;
   font-family: Roboto, sans-serif;
@@ -17,6 +25,42 @@ h2, h3, h4 {
   letter-spacing: 1px;
 }
 
+.loose {
+  margin-top: 2rem;
+  grid-row-gap: 1rem;
+}
+
 input.capitalize {
   text-transform: capitalize;
+}
+
+.container-center {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container-inline {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 0.5rem;
+}
+
+/deep/ {
+
+  .mat-tab-group {
+    height: 100%;
+  }
+
+  .mat-tab-body-wrapper {
+    height: 100%;
+  }
+
+  .mat-tab-header-pagination-controls-enabled.mat-tab-header-pagination {
+    display: none !important;
+  }
 }

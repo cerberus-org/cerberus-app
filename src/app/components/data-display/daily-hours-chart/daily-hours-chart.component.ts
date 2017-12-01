@@ -13,7 +13,16 @@ export class DailyHoursChartComponent implements OnInit, OnDestroy {
   dataDisplaySubscription: Subscription;
   data: { data: string[], label: string }[];
   labels: string[];
-  options = { responsive: true, maintainAspectRatio: false };
+  options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        bottom: 10
+      }
+    }
+  };
   type = 'line';
 
   constructor(private store: Store<AppState>) { }

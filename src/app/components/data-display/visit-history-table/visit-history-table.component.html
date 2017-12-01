@@ -1,5 +1,5 @@
-<div fxFlex fxLayout="column">
-  <mat-table fxFlex #table [dataSource]="dataSource">
+<div class="container">
+  <mat-table #table [dataSource]="dataSource">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -31,10 +31,8 @@
     <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-
   <!-- Spacer to keep paginator in bottom -->
-  <div fxFlex="10 1 auto"></div>
-  <mat-paginator fxFlex #paginator
+  <mat-paginator #paginator
                 [length]="dataSource.visits.length"
                 [pageIndex]="0"
                 [pageSize]="initialPageSize"

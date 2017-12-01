@@ -1,21 +1,12 @@
-/* Makes host element a flex container */
-:host {
-  display: flex;
-  flex: 1;
-}
+@import '~@angular/material/_theming.scss';
 
-/* Adjust content of a tab to 100% of height of parent container by making all the child tab body containers flex */
-/deep/ .mat-tab-body-wrapper {
-  flex-grow: 1;
-}
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 17.5% auto;
 
-/deep/ .mat-tab-body {
-  display: flex !important;
-  flex-direction: column;
-}
-
-/deep/ .mat-tab-body-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  @media ($mat-small) {
+    grid-template-columns: auto;
+    grid-template-rows: 84px auto;
+  }
 }

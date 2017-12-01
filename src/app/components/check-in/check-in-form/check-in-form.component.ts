@@ -17,7 +17,7 @@ import { getLocalStorageObjectProperty } from '../../../functions/localStorageOb
   templateUrl: './check-in-form.component.html',
   styleUrls: ['./check-in-form.component.scss'],
   animations: [
-    trigger('sigTrigger', [
+    trigger('fadeInTrigger', [
       animationsState('fadeIn', style({
         opacity: '1',
       })),
@@ -45,7 +45,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   activeVisit: Visit;
   selectedVolunteer: Volunteer;
 
-  signatureState: string;
+  fadeInState: string;
 
   /**
    * Creates the form group and subscribes on construction.

@@ -22,7 +22,6 @@
     "@angular/compiler": "^4.4.4",
     "@angular/compiler-cli": "^4.4.4",
     "@angular/core": "^4.4.4",
-    "@angular/flex-layout": "^2.0.0-beta.9",
     "@angular/forms": "^4.4.4",
     "@angular/http": "^4.4.4",
     "@angular/material": "^2.0.0-beta.11",

@@ -1,6 +1,10 @@
-/* Makes host element a flex container */
-:host {
-  display: flex;
-  flex: 1;
-  overflow-y: scroll;
+@import '~styles.scss';
+
+.container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  display: grid;
+  grid-template-rows: auto $mat-paginator-height;
 }

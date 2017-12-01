@@ -2,12 +2,12 @@
   <i class="material-icons title-icon">{{icon}}</i>
   <span class="title-text">{{text}}</span>
   <button mat-button *ngIf="showBack" (click)="onBack()">
-    <i class="material-icons" fxHide.lg fxHide.md fxHide.sm>keyboard_backspace</i>
-    <span fxHide.xs>Back</span>
+    <i class="material-icons">keyboard_backspace</i>
+    <span>Back</span>
   </button>
   <span class="spacer"></span>
   <button class="logout" *ngIf="showLogout" (click)="onLogout()" mat-button>
-    <i class="material-icons" fxHide.lg fxHide.md fxHide.sm>exit_to_app</i>
-    <span fxHide.xs>Logout</span>
+    <i class="material-icons">exit_to_app</i>
+    <span>Logout</span>
   </button>
 </mat-toolbar>
