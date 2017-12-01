@@ -11,12 +11,11 @@ import {
   MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ChartsModule } from 'ng2-charts';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import 'hammerjs'
+import 'hammerjs';
 
 import { environment } from '../environments/environment';
 
@@ -25,10 +24,9 @@ import { Guard } from './guard';
 
 import { AppComponent } from './app.component';
 
-import { LayoutComponent } from './components/shared/layout/layout.component';
-import { HeaderComponent } from './components/shared/layout/header/header.component';
-import { FooterComponent } from './components/shared/layout/footer/footer.component';
-import { SideMarginsComponent } from './components/shared/side-margins/side-margins.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 import { LoginComponent } from './components/login/login.component';
 
@@ -82,7 +80,6 @@ import { UserService } from './services/user.service';
     NewVolunteerFormComponent,
     OrganizationConfirmComponent,
     OrganizationDashboardComponent,
-    SideMarginsComponent,
     SignatureFieldComponent,
     VisitHistoryTableComponent,
     VolunteerMenuComponent
@@ -102,7 +99,6 @@ import { UserService } from './services/user.service';
       GettingStartedEffects,
       LoginEffects
     ]),
-    FlexLayoutModule,
     HttpModule,
     MatAutocompleteModule,
     MatButtonModule,

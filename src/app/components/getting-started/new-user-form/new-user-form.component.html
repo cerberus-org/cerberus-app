@@ -1,23 +1,23 @@
-<form fxFlex
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="1rem"
-      [formGroup]="formGroup">
-  <h1 class="text-container" fxFlex="0 1 auto">Create an account to access your organization.</h1>
-  <div class="input-container" fxFlex="0 1 auto" fxLayout="row">
-    <mat-form-field fxFlex>
-      <input matInput class="capitalize" placeholder="First name" formControlName="firstName">
-    </mat-form-field>
-    <div fxFlex="0.5rem"></div>
-    <mat-form-field fxFlex>
-      <input matInput class="capitalize" placeholder="Last name" formControlName="lastName">
+<form class="container-center loose" [formGroup]="formGroup">
+  <h1>Create an account to access your organization.</h1>
+  <div class="container-center">
+    <div class="inline input-row">
+      <mat-form-field>
+        <input matInput class="capitalize" placeholder="First name" formControlName="firstName">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput class="capitalize" placeholder="Last name" formControlName="lastName">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="container-center">
+    <mat-form-field class="input-row">
+      <input type="email" matInput placeholder="Email" formControlName="email">
     </mat-form-field>
   </div>
-  <mat-form-field class="input-container" fxFlex="0 1 auto">
-    <input type="email" matInput placeholder="Email" formControlName="email">
-  </mat-form-field>
-  <mat-form-field class="input-container" fxFlex="0 1 auto">
-    <input type="password" matInput placeholder="Password" formControlName="password">
-  </mat-form-field>
-  <div fxFlex="2"></div>
+  <div class="container-center">
+    <mat-form-field class="input-row">
+      <input type="password" matInput placeholder="Password" formControlName="password">
+    </mat-form-field>
+  </div>
 </form>
