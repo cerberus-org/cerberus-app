@@ -34,6 +34,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(this.previousUrl);
   }
 
+  onSettings(): void {}
+
   onLogout(): void {
     this.store.dispatch(new LoginActions.Logout({}))
   }

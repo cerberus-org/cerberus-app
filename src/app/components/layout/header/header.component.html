@@ -6,8 +6,12 @@
     <span class="button-text">Back</span>
   </button>
   <span class="spacer"></span>
+  <button *ngIf="showLogout" (click)="onSettings()" mat-button>
+    <i class="material-icons">settings</i>
+    <span class="button-text">Settings</span>
+  </button>
   <button *ngIf="showLogout" (click)="onLogout()" mat-button>
     <i class="material-icons">exit_to_app</i>
-    <span class="button-text">Logout</span>
+    <span class="button-text">Log Out</span>
   </button>
 </mat-toolbar>
