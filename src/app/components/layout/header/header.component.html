@@ -3,11 +3,11 @@
   <span class="title-text">{{text}}</span>
   <button mat-button *ngIf="showBack" (click)="onBack()">
     <i class="material-icons">keyboard_backspace</i>
-    <span>Back</span>
+    <span class="button-text">Back</span>
   </button>
   <span class="spacer"></span>
-  <button class="logout" *ngIf="showLogout" (click)="onLogout()" mat-button>
+  <button *ngIf="showLogout" (click)="onLogout()" mat-button>
     <i class="material-icons">exit_to_app</i>
-    <span>Logout</span>
+    <span class="button-text">Logout</span>
   </button>
 </mat-toolbar>
