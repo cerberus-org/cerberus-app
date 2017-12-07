@@ -1,13 +1,13 @@
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
 
 import * as LoginActions from '../actions/login.actions';
-import * as RouterActions from '../actions/router.actions';
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
 
@@ -19,14 +19,15 @@ export class LoginEffects {
    * then store the results in localStorage.
    * @type {Observable<any>}
    */
-  @Effect()
+  @Effect({ dispatch: false })
   login$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGIN)
     .map((action: LoginActions.Login) => action.payload)
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
-      .map(user => {
+      .switchMap(user => {
+        this.router.navigateByUrl('/dashboard');
         this.snackBarService.loginSuccess(user.firstName);
-        return new RouterActions.Go({ path: ['/dashboard'] });
+        return Observable.empty();
       }));
 
   /**
@@ -34,16 +35,18 @@ export class LoginEffects {
    * then remove the items from localStorage.
    * @type {Observable<any>}
    */
-  @Effect()
+  @Effect({ dispatch: false })
   logout$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGOUT)
     .switchMap(() => this.authService.signOut()
-      .map(() => {
+      .switchMap(() => {
+        this.router.navigateByUrl('/login');
         this.snackBarService.logoutSuccess();
-        return new RouterActions.Go({ path: ['/login'] });
+        return Observable.empty();
       }));
 
   constructor(private actions: Actions,
+              private router: Router,
               private authService: AuthService,
               private snackBarService: SnackBarService) {}
 }

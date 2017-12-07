@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as CheckInActions from '../../actions/check-in.actions'
-import { State } from '../../reducers/index';
+import { AppState } from '../../reducers/index';
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 
 @Component({
@@ -17,7 +17,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
   checkInSubscription: Subscription;
 
-  constructor(private store: Store<State>,
+  constructor(private store: Store<AppState>,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {

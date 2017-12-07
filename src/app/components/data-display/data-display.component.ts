@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as DataDisplayActions from '../../actions/data-display.actions'
-import { State } from '../../reducers/index';
+import { AppState } from '../../reducers/index';
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 
 @Component({
@@ -12,7 +12,7 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
 })
 export class DataDisplayComponent implements OnInit {
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.store.dispatch(new DataDisplayActions.LoadData(

@@ -222,10 +222,6 @@
   version "4.1.0"
   resolved "https://registry.npmjs.org/@ngrx/effects/-/effects-4.1.0.tgz#a67f5abb71bdb2fea1fa9b751a4f38435674a6a8"
 
-"@ngrx/router-store@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.npmjs.org/@ngrx/router-store/-/router-store-4.1.1.tgz#17fac7c0f5ffddef8b75e9a74ed2cb09074f3bca"
-
 "@ngrx/store@^4.0.3":
   version "4.1.0"
   resolved "https://registry.npmjs.org/@ngrx/store/-/store-4.1.0.tgz#8c074cbc6197e259cd9492e85a76c3c67dbea173"
