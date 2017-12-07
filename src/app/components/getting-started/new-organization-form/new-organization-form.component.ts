@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { isURL } from 'validator';
 
 import * as GettingStartedActions from '../../../actions/getting-started.actions';
-import { AppState } from '../../../reducers/index';
+import { State } from '../../../reducers/index';
 import { Organization } from '../../../models/organization';
 
 @Component({
@@ -15,7 +15,7 @@ import { Organization } from '../../../models/organization';
 export class NewOrganizationFormComponent implements OnInit {
   formGroup: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) { }
+  constructor(private fb: FormBuilder, private store: Store<State>) { }
 
   /**
    * Creates and subscribes to the form group.

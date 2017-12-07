@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { AppState } from '../../../reducers/index';
+import { State } from '../../../reducers/index';
 
 @Component({
   selector: 'app-daily-hours-chart',
@@ -25,7 +25,7 @@ export class DailyHoursChartComponent implements OnInit, OnDestroy {
   };
   type = 'line';
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
     this.data = [];

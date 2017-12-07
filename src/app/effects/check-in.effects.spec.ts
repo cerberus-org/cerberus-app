@@ -69,13 +69,11 @@ describe('CheckInEffects', () => {
 
     it('navigates to the dashboard and displays the checkInSuccess snackbar, on success', async(() => {
       const checkIn = new CheckIn(testVisits[0]);
-      const navigateByUrlSpy = spyOn(TestBed.get(Router), 'navigateByUrl');
       const checkInSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkInSuccess');
 
       actions = hot('a', { a: checkIn });
 
       effects.checkOut$.subscribe(() => {
-        expect(navigateByUrlSpy).toHaveBeenCalledWith('/dashboard');
         expect(checkInSuccessSpy).toHaveBeenCalled();
       });
     }));
@@ -85,13 +83,11 @@ describe('CheckInEffects', () => {
 
     it('navigates to the dashboard and displays the checkOutSuccess snackbar, on success', async(() => {
       const checkOut = new CheckOut(testVisits[0]);
-      const navigateByUrlSpy = spyOn(TestBed.get(Router), 'navigateByUrl');
       const checkOutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkOutSuccess');
 
       actions = hot('a', { a: checkOut });
 
       effects.checkOut$.subscribe(() => {
-        expect(navigateByUrlSpy).toHaveBeenCalledWith('/dashboard');
         expect(checkOutSuccessSpy).toHaveBeenCalled();
       });
     }));

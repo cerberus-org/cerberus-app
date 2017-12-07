@@ -4,7 +4,7 @@ import { MatToolbarModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 
 import { HeaderComponent } from './header.component';
-import { reducers } from '../../../../reducers/index';
+import { reducers } from '../../../reducers/index';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;

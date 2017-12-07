@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
+import * as RouterActions from '../../../actions/router.actions';
+import { State } from '../../../reducers/index';
 import { Site } from '../../../models/site';
 import { SiteService } from '../../../services/site.service';
 import { getLocalStorageObjectProperty } from '../../../functions/localStorageObject';
@@ -16,7 +18,7 @@ export class VolunteerMenuComponent implements OnInit {
   sites$: Observable<Site[]>;
   error: string;
 
-  constructor(private router: Router,
+  constructor(private store: Store<State>,
               private siteService: SiteService) { }
 
   ngOnInit(): void {
@@ -27,6 +29,8 @@ export class VolunteerMenuComponent implements OnInit {
   }
 
   onClick(site): void {
-    this.router.navigate(['/checkin', site.id]);
+    this.store.dispatch(
+      new RouterActions.Go({ path: ['/checkin', { routeParam: site.id }] })
+    );
   }
 }
