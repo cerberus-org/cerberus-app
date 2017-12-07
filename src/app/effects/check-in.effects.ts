@@ -1,19 +1,18 @@
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/forkJoin';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/forkJoin';
 
 import * as CheckInActions from '../actions/check-in.actions';
-import * as RouterActions from '../actions/router.actions';
 import { VisitService } from '../services/visit.service';
 import { VolunteerService } from '../services/volunteer.service';
 import { SnackBarService } from '../services/snack-bar.service';
+import 'rxjs/add/operator/first';
 
 @Injectable()
 export class CheckInEffects {
@@ -53,17 +52,15 @@ export class CheckInEffects {
    * Listen for the CheckIn action, create the visit,
    * then emit the success snack bar and navigate back to the dashboard.
    */
-  @Effect()
+  @Effect({ dispatch: false })
   checkIn$: Observable<Action> = this.actions
     .ofType(CheckInActions.CHECK_IN)
     .map((action: CheckInActions.CheckIn) => action.payload)
     .switchMap(visit => this.visitService.add(visit)
-      .mergeMap(() => {
+      .map(() => {
+        this.router.navigateByUrl('/dashboard');
         this.snackBarService.checkInSuccess();
-        return [
-          new RouterActions.Go({ path: ['/dashboard'] }),
-          new CheckInActions.CheckInOrOutSuccess({})
-        ]
+        return new CheckInActions.CheckInOrOutSuccess({});
       }));
 
   /**
@@ -75,15 +72,14 @@ export class CheckInEffects {
     .ofType(CheckInActions.CHECK_OUT)
     .map((action: CheckInActions.CheckOut) => action.payload)
     .switchMap(visit => this.visitService.update(visit)
-      .mergeMap(() => {
+      .map(() => {
+        this.router.navigateByUrl('/dashboard');
         this.snackBarService.checkOutSuccess();
-        return [
-          new RouterActions.Go({ path: ['/dashboard'] }),
-          new CheckInActions.CheckInOrOutSuccess({})
-        ];
+        return new CheckInActions.CheckInOrOutSuccess({});
       }));
 
   constructor(private actions: Actions,
+              private router: Router,
               private snackBarService: SnackBarService,
               private visitService: VisitService,
               private volunteerService: VolunteerService) {}
