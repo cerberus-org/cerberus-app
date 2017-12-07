@@ -1,10 +1,20 @@
+@import '~@angular/material/_theming.scss';
+
 .title-icon {
-  padding: 0 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .title-text {
   font-weight: lighter;
   margin-right: 1em;
+}
+
+.button-text {
+  font-weight: lighter;
+
+  @media ($mat-xsmall) {
+    display: none;
+  }
 }
 
 .spacer {

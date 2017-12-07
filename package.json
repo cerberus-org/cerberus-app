@@ -29,6 +29,7 @@
     "@angular/platform-browser-dynamic": "^4.4.4",
     "@angular/router": "^4.4.4",
     "@ngrx/effects": "^4.0.5",
+    "@ngrx/router-store": "^4.1.1",
     "@ngrx/store": "^4.0.3",
     "@types/angular-material": "^1.1.54",
     "angular2-signaturepad": "^2.6.1",

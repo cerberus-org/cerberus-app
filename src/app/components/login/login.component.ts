@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as LoginActions from '../../actions/login.actions'
-import { AppState } from '../../reducers/index';
+import { State } from '../../reducers/index';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private store: Store<AppState>) {}
+              private store: Store<State>) {}
 
   ngOnInit() {
     this.loginForm = this.createForm();
