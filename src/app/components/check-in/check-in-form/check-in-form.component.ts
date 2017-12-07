@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as CheckInActions from '../../../actions/check-in.actions';
-import { AppState } from '../../../reducers/index';
+import { State } from '../../../reducers/index';
 import { Visit } from '../../../models/visit';
 import { Volunteer } from '../../../models/volunteer';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
@@ -53,7 +53,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   constructor(private activatedRoute: ActivatedRoute,
               private fb: FormBuilder,
-              private store: Store<AppState>) {
+              private store: Store<State>) {
   }
 
   ngOnInit(): void {
