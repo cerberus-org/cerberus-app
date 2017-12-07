@@ -3,12 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CdkTableModule } from '@angular/cdk/table';
-
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -16,7 +10,9 @@ import {
   MatAutocompleteModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule, MatRadioModule,
   MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
-
+import { CdkTableModule } from '@angular/cdk/table';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { ChartsModule } from 'ng2-charts';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import 'hammerjs';
@@ -61,7 +57,6 @@ import { AuthService } from './services/auth.service';
 import { ErrorService } from './services/error.service';
 import { SiteService } from './services/site.service';
 import { OrganizationService } from './services/organization.service';
-import { RouterEffects } from './effects/router.effects';
 import { SnackBarService } from './services/snack-bar.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
@@ -102,8 +97,7 @@ import { UserService } from './services/user.service';
       CheckInEffects,
       DataDisplayEffects,
       GettingStartedEffects,
-      LoginEffects,
-      RouterEffects
+      LoginEffects
     ]),
     HttpModule,
     MatAutocompleteModule,
@@ -120,8 +114,7 @@ import { UserService } from './services/user.service';
     MatToolbarModule,
     ReactiveFormsModule,
     SignaturePadModule,
-    StoreModule.forRoot(reducers),
-    StoreRouterConnectingModule
+    StoreModule.forRoot(reducers)
   ],
   providers: [
     AuthService,

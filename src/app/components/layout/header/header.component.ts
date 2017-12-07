@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as LoginActions from '../../../actions/login.actions'
-import { State } from '../../../reducers/index';
+import { AppState } from '../../../reducers/index';
 import { getLocalStorageObjectProperty } from '../../../functions/localStorageObject';
 
 @Component({
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   previousUrl: string;
 
   constructor(private router: Router,
-              private store: Store<State>) { }
+              private store: Store<AppState>) { }
 
   ngOnInit() {
     this.routerEventsSubscription = this.subscribeToRouterEvents();
@@ -33,8 +33,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onBack(): void {
     this.router.navigateByUrl(this.previousUrl);
   }
-
-  onSettings(): void {}
 
   onLogout(): void {
     this.store.dispatch(new LoginActions.Logout({}))

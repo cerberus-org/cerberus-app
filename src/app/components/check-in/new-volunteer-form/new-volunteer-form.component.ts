@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular
 import { Store } from '@ngrx/store';
 
 import * as CheckInActions from '../../../actions/check-in.actions';
-import { State } from '../../../reducers/index';
+import { AppState } from '../../../reducers/index';
 import { Volunteer } from '../../../models/volunteer';
 import { getLocalStorageObjectProperty } from '../../../functions/localStorageObject';
 
@@ -17,7 +17,7 @@ export class NewVolunteerFormComponent implements OnInit {
   formGroup: FormGroup;
   forms: { placeholder: string, control: string }[];
 
-  constructor(private fb: FormBuilder, private store: Store<State>) {
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {
     this.createForm();
   }
 

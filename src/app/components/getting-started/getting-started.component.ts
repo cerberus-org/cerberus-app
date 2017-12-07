@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as GettingStartedActions from '../../actions/getting-started.actions';
-import { State } from '../../reducers/index';
+import { AppState } from '../../reducers/index';
 import { Organization } from '../../models/organization';
 import { User } from '../../models/user';
 
@@ -20,7 +20,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   validOrganization: Organization;
   validUser: User;
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.gettingStartedSubscription = this.store

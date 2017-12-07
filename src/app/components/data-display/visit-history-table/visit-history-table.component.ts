@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/merge'
 import * as moment from 'moment-timezone';
 
-import { State } from '../../../reducers/index';
+import { AppState } from '../../../reducers/index';
 import { Visit } from '../../../models/visit';
 
 @Component({
@@ -22,7 +22,7 @@ export class VisitHistoryTableComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     // Determine initial page size using inner height of window at component init
@@ -64,7 +64,7 @@ export class VisitDataSource extends DataSource<any> implements OnDestroy {
   visits: Visit[];
   error: string;
 
-  constructor(private dataDisplay$: Observable<State['dataDisplay']>, private paginator: MatPaginator) {
+  constructor(private dataDisplay$: Observable<AppState['dataDisplay']>, private paginator: MatPaginator) {
     super();
     this.visitsSubscription = this.dataDisplay$
       .subscribe(state => this.visits = state.visits);
