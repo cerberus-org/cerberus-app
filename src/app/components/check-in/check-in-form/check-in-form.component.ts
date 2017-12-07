@@ -1,6 +1,6 @@
 import { animate, state as animationsState, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
@@ -29,8 +29,9 @@ import { getLocalStorageObjectProperty } from '../../../functions/localStorageOb
   ]
 })
 export class CheckInFormComponent implements OnInit, OnDestroy {
-
+  @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
   @ViewChildren(SignatureFieldComponent) signatures: QueryList<SignatureFieldComponent>;
+
   checkInSubscription: Subscription;
   formGroupSubscription: Subscription;
   formGroup: FormGroup;
@@ -106,11 +107,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     } else if (this.selectedVolunteer) {
       this.checkIn();
     }
-    this.formGroup.reset();
-    this.formGroup.markAsPristine();
-    this.formGroup.markAsUntouched();
-    this.formGroup.updateValueAndValidity();
-    this.clearSignature();
+    this.ngForm.resetForm();
   }
 
   /**
