@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Actions, Effect } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import { Injectable } from '@angular/core';
+import { Actions, Effect } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 import * as LoginActions from '../actions/login.actions';
+import * as RouterActions from '../actions/router.actions';
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
 
@@ -19,15 +19,14 @@ export class LoginEffects {
    * then store the results in localStorage.
    * @type {Observable<any>}
    */
-  @Effect({ dispatch: false })
+  @Effect()
   login$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGIN)
     .map((action: LoginActions.Login) => action.payload)
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
-      .switchMap(user => {
-        this.router.navigateByUrl('/dashboard');
+      .map(user => {
         this.snackBarService.loginSuccess(user.firstName);
-        return Observable.empty();
+        return new RouterActions.Go({ path: ['/dashboard'] });
       }));
 
   /**
@@ -35,18 +34,16 @@ export class LoginEffects {
    * then remove the items from localStorage.
    * @type {Observable<any>}
    */
-  @Effect({ dispatch: false })
+  @Effect()
   logout$: Observable<Action> = this.actions
     .ofType(LoginActions.LOGOUT)
     .switchMap(() => this.authService.signOut()
-      .switchMap(() => {
-        this.router.navigateByUrl('/login');
+      .map(() => {
         this.snackBarService.logoutSuccess();
-        return Observable.empty();
+        return new RouterActions.Go({ path: ['/login'] });
       }));
 
   constructor(private actions: Actions,
-              private router: Router,
               private authService: AuthService,
               private snackBarService: SnackBarService) {}
 }
