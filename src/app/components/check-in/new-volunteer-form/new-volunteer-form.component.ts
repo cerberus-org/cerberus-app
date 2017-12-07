@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 import * as CheckInActions from '../../../actions/check-in.actions';
@@ -13,9 +13,9 @@ import { getLocalStorageObjectProperty } from '../../../functions/localStorageOb
   styleUrls: ['./new-volunteer-form.component.scss']
 })
 export class NewVolunteerFormComponent implements OnInit {
-  public error: string;
-  public formGroup: FormGroup;
-  public forms: { placeholder: string, control: string }[];
+  @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
+  formGroup: FormGroup;
+  forms: { placeholder: string, control: string }[];
 
   constructor(private fb: FormBuilder, private store: Store<AppState>) {
     this.createForm();
@@ -31,11 +31,7 @@ export class NewVolunteerFormComponent implements OnInit {
       this.formGroup.value.petName
     );
     this.store.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
-
-    this.formGroup.reset();
-    this.formGroup.markAsPristine();
-    this.formGroup.markAsUntouched();
-    this.formGroup.updateValueAndValidity();
+    this.ngForm.resetForm();
   }
 
   createForm(): void {
