@@ -8,10 +8,12 @@ export interface State {
   checkIn: fromCheckIn.State;
   dataDisplay: fromDataDisplay.State;
   gettingStarted: fromGettingStarted.State;
+  router: fromRouter.RouterReducerState;
 }
 
 export const reducers: ActionReducerMap<State> = {
   checkIn: fromCheckIn.reducer,
   dataDisplay: fromDataDisplay.reducer,
-  gettingStarted: fromGettingStarted.reducer
+  gettingStarted: fromGettingStarted.reducer,
+  router: fromRouter.routerReducer
 };
