@@ -2,10 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
 
 import { NewUserFormComponent } from './new-user-form.component';
-import { reducers } from '../../reducers/index';
 
 describe('NewUserFormComponent', () => {
   let component: NewUserFormComponent;
@@ -17,8 +15,7 @@ describe('NewUserFormComponent', () => {
       imports: [
         MatInputModule,
         NoopAnimationsModule,
-        ReactiveFormsModule,
-        StoreModule.forRoot(reducers)
+        ReactiveFormsModule
       ]
     }).compileComponents();
   }));

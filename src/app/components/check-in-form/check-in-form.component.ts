@@ -74,7 +74,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param petName - the selected petName
    */
   onPetNameClick(petName: string): void {
-    this.selectedVolunteer = this.selectVolunteerByPetName(petName);
+    this.selectedVolunteer = this.selectVolunteerByPetName(this.filteredVolunteers, petName);
   }
 
   /**
@@ -217,12 +217,13 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
 
   /**
    * Selects a volunteer by petName (case-insensitive).
+   * @param volunteers - the list of volunteers
    * @param petName - string used to search by petName
    * @returns {undefined|Volunteer} - the volunteer or undefined if not found
    */
-  selectVolunteerByPetName(petName: string): Volunteer {
+  selectVolunteerByPetName(volunteers: Volunteer[], petName: string): Volunteer {
     petName = petName.toLowerCase();
-    return this.volunteers.find(volunteer => volunteer.petName.toLowerCase() === petName);
+    return volunteers.find(volunteer => volunteer.petName.toLowerCase() === petName);
   }
 
   /**
