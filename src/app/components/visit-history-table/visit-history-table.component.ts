@@ -7,8 +7,8 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/merge'
 import * as moment from 'moment-timezone';
 
-import { State } from '../../../reducers/index';
-import { Visit } from '../../../models/visit';
+import { State } from '../../reducers/index';
+import { Visit } from '../../models/visit';
 
 @Component({
   selector: 'app-visit-history-table',

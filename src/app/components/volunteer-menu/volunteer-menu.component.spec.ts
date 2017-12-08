@@ -4,8 +4,8 @@ import { MatCardModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 
 import { VolunteerMenuComponent } from './volunteer-menu.component';
-import { SiteService, MockSiteService } from '../../../services/site.service';
-import { reducers } from '../../../reducers/index';
+import { SiteService, MockSiteService } from '../../services/site.service';
+import { reducers } from '../../reducers/index';
 
 describe('VolunteerMenuComponent', () => {
   let component: VolunteerMenuComponent;

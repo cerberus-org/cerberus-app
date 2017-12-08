@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import * as CheckInActions from '../../../actions/check-in.actions';
-import { State } from '../../../reducers/index';
-import { Volunteer } from '../../../models/volunteer';
-import { getLocalStorageObjectProperty } from '../../../functions/localStorageObject';
+import * as CheckInActions from '../../actions/check-in.actions';
+import { State } from '../../reducers/index';
+import { Volunteer } from '../../models/volunteer';
+import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 
 @Component({
   selector: 'app-new-volunteer-form',

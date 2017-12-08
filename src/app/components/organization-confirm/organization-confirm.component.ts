@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Organization } from '../../../models/organization';
-import { User } from '../../../models/user';
+import { Organization } from '../../models/organization';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-organization-confirm',

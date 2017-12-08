@@ -5,12 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import * as CheckInActions from '../../../actions/check-in.actions';
-import { State } from '../../../reducers/index';
-import { Visit } from '../../../models/visit';
-import { Volunteer } from '../../../models/volunteer';
+import * as CheckInActions from '../../actions/check-in.actions';
+import { State } from '../../reducers/index';
+import { Visit } from '../../models/visit';
+import { Volunteer } from '../../models/volunteer';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
-import { getLocalStorageObjectProperty } from '../../../functions/localStorageObject';
+import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 
 @Component({
   selector: 'app-check-in-form',

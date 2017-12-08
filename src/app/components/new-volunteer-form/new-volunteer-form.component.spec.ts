@@ -6,9 +6,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
-import { MockSnackBarService, SnackBarService } from '../../../services/snack-bar.service';
-import { MockVolunteerService, VolunteerService } from '../../../services/volunteer.service';
-import { reducers } from '../../../reducers/index';
+import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
+import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
+import { reducers } from '../../reducers/index';
 
 describe('NewVolunteerFormComponent', () => {
   let component: NewVolunteerFormComponent,

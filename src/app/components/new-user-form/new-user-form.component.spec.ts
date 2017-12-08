@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 
 import { NewUserFormComponent } from './new-user-form.component';
-import { reducers } from '../../../reducers/index';
+import { reducers } from '../../reducers/index';
 
 describe('NewUserFormComponent', () => {
   let component: NewUserFormComponent;

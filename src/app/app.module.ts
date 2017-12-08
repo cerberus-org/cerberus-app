@@ -32,24 +32,24 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './containers/login/login.component';
 
-import { GettingStartedComponent } from './components/getting-started/getting-started.component';
-import { AboutUsComponent } from './components/getting-started/about-us/about-us.component';
-import { NewOrganizationFormComponent } from './components/getting-started/new-organization-form/new-organization-form.component';
-import { NewUserFormComponent } from './components/getting-started/new-user-form/new-user-form.component';
-import { OrganizationConfirmComponent } from './components/getting-started/organization-confirm/organization-confirm.component';
+import { GettingStartedComponent } from './containers/getting-started/getting-started.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { NewOrganizationFormComponent } from './components/new-organization-form/new-organization-form.component';
+import { NewUserFormComponent } from './components/new-user-form/new-user-form.component';
+import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
 
-import { OrganizationDashboardComponent } from './components/organization-dashboard/organization-dashboard.component';
-import { VolunteerMenuComponent } from './components/organization-dashboard/volunteer-menu/volunteer-menu.component';
-import { DataDisplayComponent } from './components/data-display/data-display.component';
-import { VisitHistoryTableComponent } from './components/data-display/visit-history-table/visit-history-table.component';
-import { DailyHoursChartComponent } from './components/data-display/daily-hours-chart/daily-hours-chart.component';
+import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
+import { VolunteerMenuComponent } from './components/volunteer-menu/volunteer-menu.component';
+import { DataDisplayComponent } from './containers/data-display/data-display.component';
+import { VisitHistoryTableComponent } from './components/visit-history-table/visit-history-table.component';
+import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-hours-chart.component';
 
-import { CheckInComponent } from './components/check-in/check-in.component';
-import { CheckInFormComponent } from './components/check-in/check-in-form/check-in-form.component';
-import { SignatureFieldComponent } from './components/check-in/check-in-form/signature-field/signature-field.component';
-import { NewVolunteerFormComponent } from './components/check-in/new-volunteer-form/new-volunteer-form.component';
+import { CheckInComponent } from './containers/check-in/check-in.component';
+import { CheckInFormComponent } from './components/check-in-form/check-in-form.component';
+import { SignatureFieldComponent } from './components/check-in-form/signature-field/signature-field.component';
+import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 
 import { reducers } from './reducers/index';
 import { CheckInEffects } from './effects/check-in.effects';

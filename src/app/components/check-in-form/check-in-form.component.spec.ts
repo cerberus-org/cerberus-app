@@ -8,9 +8,9 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { CheckInFormComponent } from './check-in-form.component';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
-import { testVisits } from '../../../models/visit';
-import { testVolunteers } from '../../../models/volunteer';
-import { reducers } from '../../../reducers/index';
+import { testVisits } from '../../models/visit';
+import { testVolunteers } from '../../models/volunteer';
+import { reducers } from '../../reducers/index';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;

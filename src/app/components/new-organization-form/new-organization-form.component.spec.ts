@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 
 import { NewOrganizationFormComponent } from './new-organization-form.component';
-import { reducers } from '../../../reducers/index';
+import { reducers } from '../../reducers/index';
 
 describe('NewOrganizationFormComponent', () => {
   let component: NewOrganizationFormComponent;
