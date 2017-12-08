@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
-import * as GettingStartedActions from '../../actions/getting-started.actions';
-import { State } from '../../reducers/index';
 import { User } from '../../models/user';
 
 @Component({
@@ -11,14 +9,20 @@ import { User } from '../../models/user';
   templateUrl: './new-user-form.component.html',
   styleUrls: ['./new-user-form.component.scss']
 })
-export class NewUserFormComponent implements OnInit {
+export class NewUserFormComponent implements OnInit, OnDestroy {
+  @Output() onValidUser = new EventEmitter();
   formGroup: FormGroup;
+  formSubscription: Subscription;
 
-  constructor(private fb: FormBuilder, private store: Store<State>) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.formGroup = this.createForm();
-    this.subscribeToForm(this.formGroup);
+    this.formSubscription = this.subscribeToForm();
+  }
+
+  ngOnDestroy() {
+    this.formSubscription.unsubscribe();
   }
 
   /**
@@ -33,12 +37,14 @@ export class NewUserFormComponent implements OnInit {
     });
   }
 
-  subscribeToForm(group: FormGroup): void {
-    group.valueChanges.subscribe(changes => {
-      const value = this.formGroup.value;
-      this.store.dispatch(new GettingStartedActions.UpdateValidUser(group.valid
-        ? new User(value.firstName, value.lastName, value.email, value.password)
-        : null));
+  subscribeToForm(): Subscription {
+    return this.formGroup.valueChanges.subscribe(() => {
+      if (this.formGroup.valid) {
+        const value = this.formGroup.value;
+        this.onValidUser.emit(
+          new User(value.firstName, value.lastName, value.email, value.password)
+        );
+      }
     });
   }
 }

@@ -6,13 +6,13 @@
     </div>
   </mat-tab>
   <mat-tab label="2. Your Organization" [disabled]="step < 1">
-    <app-new-organization-form></app-new-organization-form>
+    <app-new-organization-form (onValidOrganization)="onValidOrganization($event)"></app-new-organization-form>
     <div class="container-button">
       <button mat-raised-button color="primary" (click)="onNext(2)" [disabled]="!validOrganization">Next</button>
     </div>
   </mat-tab>
   <mat-tab label="3. Your Account" [disabled]="step < 2 || !validOrganization">
-    <app-new-user-form></app-new-user-form>
+    <app-new-user-form (onValidUser)="onValidUser($event)"></app-new-user-form>
     <div class="container-button">
       <button mat-raised-button color="primary" (click)="onNext(3)" [disabled]="!validUser">Next</button>
     </div>

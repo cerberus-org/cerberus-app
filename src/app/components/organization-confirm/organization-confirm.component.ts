@@ -14,7 +14,6 @@ export class OrganizationConfirmComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

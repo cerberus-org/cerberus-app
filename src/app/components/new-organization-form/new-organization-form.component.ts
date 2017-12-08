@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 import { isURL } from 'validator';
 
-import * as GettingStartedActions from '../../actions/getting-started.actions';
-import { State } from '../../reducers/index';
 import { Organization } from '../../models/organization';
 
 @Component({
@@ -12,17 +10,23 @@ import { Organization } from '../../models/organization';
   templateUrl: './new-organization-form.component.html',
   styleUrls: ['./new-organization-form.component.scss']
 })
-export class NewOrganizationFormComponent implements OnInit {
+export class NewOrganizationFormComponent implements OnInit, OnDestroy {
+  @Output() onValidOrganization = new EventEmitter();
   formGroup: FormGroup;
+  formSubscription: Subscription;
 
-  constructor(private fb: FormBuilder, private store: Store<State>) { }
+  constructor(private fb: FormBuilder) { }
 
   /**
    * Creates and subscribes to the form group.
    */
   ngOnInit() {
     this.formGroup = this.createForm();
-    this.subscribeToForm(this.formGroup);
+    this.formSubscription = this.subscribeToForm();
+  }
+
+  ngOnDestroy() {
+    this.formSubscription.unsubscribe();
   }
 
   /**
@@ -47,14 +51,15 @@ export class NewOrganizationFormComponent implements OnInit {
 
   /**
    * Subscribes to the form group and outputs the current validity and a new Organization object if valid.
-   * @param {FormGroup} group
    */
-  subscribeToForm(group: FormGroup): void {
-    group.valueChanges.subscribe(() => {
-      const value = this.formGroup.value;
-      this.store.dispatch(new GettingStartedActions.UpdateValidOrganization(group.valid
-        ? new Organization(value.name, value.description, value.website)
-        : null));
+  subscribeToForm(): Subscription {
+    return this.formGroup.valueChanges.subscribe(() => {
+      if (this.formGroup.valid) {
+        const value = this.formGroup.value;
+        this.onValidOrganization.emit(
+          new Organization(value.name, value.description, value.website)
+        );
+      }
     });
   }
 }

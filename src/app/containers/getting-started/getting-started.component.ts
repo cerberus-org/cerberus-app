@@ -37,6 +37,14 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
     this.gettingStartedSubscription.unsubscribe();
   }
 
+  onValidOrganization(organization: Organization): void {
+    this.store.dispatch(new GettingStartedActions.UpdateValidOrganization(organization))
+  }
+
+  onValidUser(user: User): void {
+    this.store.dispatch(new GettingStartedActions.UpdateValidUser(user))
+  }
+
   onNext(step): void {
     this.store.dispatch(new GettingStartedActions.NextStep(step));
   };
