@@ -12,7 +12,6 @@ import { State } from '../../reducers/index';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   loginForm: FormGroup;
   error: string;
 

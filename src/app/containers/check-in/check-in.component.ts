@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import * as CheckInActions from '../../actions/check-in.actions'
+import * as CheckInActions from '../../actions/check-in.actions';
 import { State } from '../../reducers/index';
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 import { Visit } from '../../models/visit';
@@ -32,7 +32,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.checkInSubscription = this.store
       .select('checkIn')
       .subscribe(state => {
-        this.tabGroup.selectedIndex = state.selectedTabIndex
+        this.tabGroup.selectedIndex = state.selectedTabIndex;
         this.visits = state.visits;
         this.volunteers = state.volunteers;
       });

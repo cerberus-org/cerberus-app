@@ -1,12 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-
-import * as RouterActions from '../../actions/router.actions';
-import { State } from '../../reducers/index';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Site } from '../../models/site';
-import { SiteService } from '../../services/site.service';
-import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 
 @Component({
   selector: 'app-volunteer-menu',
@@ -14,23 +7,14 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
   styleUrls: ['./volunteer-menu.component.scss']
 })
 export class VolunteerMenuComponent implements OnInit {
+  @Input() sites: Site[];
+  @Output() onSiteClick = new EventEmitter<Site>();
 
-  sites$: Observable<Site[]>;
-  error: string;
+  constructor() { }
 
-  constructor(private store: Store<State>,
-              private siteService: SiteService) { }
+  ngOnInit(): void { }
 
-  ngOnInit(): void {
-    this.sites$ = this.siteService.getByKey(
-      'organizationId',
-      getLocalStorageObjectProperty('organization', 'id'),
-      true);
-  }
-
-  onClick(site): void {
-    this.store.dispatch(
-      new RouterActions.Go({ path: [`/checkin${site.id}`] })
-    );
+  click(site: Site): void {
+    this.onSiteClick.emit(site);
   }
 }

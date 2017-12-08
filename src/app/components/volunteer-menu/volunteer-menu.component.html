@@ -1,10 +1,10 @@
 <div class="container">
   <mat-card class="menu">
     <div>
-      <a *ngFor="let site of sites$ | async"
+      <a *ngFor="let site of sites"
          mat-raised-button
          color="primary"
-         (click)="onClick(site)">
+         (click)="click(site)">
         <i class="material-icons">check_circle</i> Check In
       </a>
     </div>
