@@ -9,7 +9,7 @@
              formControlName="name">
     </mat-form-field>
     <mat-autocomplete #nameForm="matAutocomplete">
-      <mat-option *ngFor="let name of volunteerNames" [value]="name">{{name}}</mat-option>
+      <mat-option *ngFor="let name of autocompleteNames" [value]="name">{{name}}</mat-option>
     </mat-autocomplete>
   </div>
   <!--Show the pet name selection if multiple volunteers have the same name-->

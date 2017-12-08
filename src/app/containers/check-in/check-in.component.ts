@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs/Subscription';
 import * as CheckInActions from '../../actions/check-in.actions'
 import { State } from '../../reducers/index';
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
+import { Visit } from '../../models/visit';
+import { Volunteer } from '../../models/volunteer';
 
 @Component({
   selector: 'app-check-in',
@@ -16,6 +18,8 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
 export class CheckInComponent implements OnInit, OnDestroy {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
   checkInSubscription: Subscription;
+  visits: Visit[];
+  volunteers: Volunteer[];
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute) { }
@@ -27,10 +31,22 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
     this.checkInSubscription = this.store
       .select('checkIn')
-      .subscribe(state => this.tabGroup.selectedIndex = state.selectedTabIndex);
+      .subscribe(state => {
+        this.tabGroup.selectedIndex = state.selectedTabIndex
+        this.visits = state.visits;
+        this.volunteers = state.volunteers;
+      });
   }
 
   ngOnDestroy(): void {
     this.checkInSubscription.unsubscribe();
+  }
+
+  onCheckIn(visit: Visit): void {
+    this.store.dispatch(new CheckInActions.CheckIn(visit));
+  }
+
+  onCheckOut(visit: Visit): void {
+    this.store.dispatch(new CheckInActions.CheckIn(visit));
   }
 }

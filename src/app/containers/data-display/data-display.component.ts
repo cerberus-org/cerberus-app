@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 import { Visit } from '../../models/visit';
-import * as DataDisplayActions from '../../actions/data-display.actions'
+import * as DataDisplayActions from '../../actions/data-display.actions';
 import { State } from '../../reducers/index';
 
 @Component({
@@ -22,6 +22,8 @@ export class DataDisplayComponent implements OnInit {
     this.store.dispatch(new DataDisplayActions.LoadData(
       getLocalStorageObjectProperty('organization', 'id')
     ));
-    this.visits$ = this.store.select('dataDisplay').map(state => state.visits);
+    this.visits$ = this.store
+      .select('dataDisplay')
+      .map(state => state.visits);
   }
 }

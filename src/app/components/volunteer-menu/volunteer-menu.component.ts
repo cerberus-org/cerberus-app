@@ -30,7 +30,7 @@ export class VolunteerMenuComponent implements OnInit {
 
   onClick(site): void {
     this.store.dispatch(
-      new RouterActions.Go({ path: [`/checkin/${site.id}`] })
+      new RouterActions.Go({ path: [`/checkin${site.id}`] })
     );
   }
 }

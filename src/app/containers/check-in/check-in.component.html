@@ -1,7 +1,11 @@
 <div class="container">
   <mat-tab-group mat-stretch-tabs dynamicHeight #tabGroup>
     <mat-tab label="Check In">
-      <app-check-in-form></app-check-in-form>
+      <app-check-in-form [visits]="visits"
+                         [volunteers]="volunteers"
+                         (onCheckIn)="onCheckIn($event)"
+                         (onCheckOut)="onCheckOut($event)">
+      </app-check-in-form>
     </mat-tab>
     <mat-tab label="New Volunteer">
       <app-new-volunteer-form></app-new-volunteer-form>
