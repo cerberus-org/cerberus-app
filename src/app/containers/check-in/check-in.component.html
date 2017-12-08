@@ -8,7 +8,7 @@
       </app-check-in-form>
     </mat-tab>
     <mat-tab label="New Volunteer">
-      <app-new-volunteer-form></app-new-volunteer-form>
+      <app-new-volunteer-form (onSubmitNewVolunteer)="onSubmitNewVolunteer($event)"></app-new-volunteer-form>
     </mat-tab>
   </mat-tab-group>
 </div>

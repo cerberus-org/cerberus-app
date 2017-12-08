@@ -85,7 +85,7 @@ describe('NewVolunteerFormComponent', () => {
 
       it('clears the form on submit', (() => {
         control.setValue('Cerberus');
-        component.onSubmit();
+        component.submit();
         expect(control.value).toBeFalsy();
       }));
     });

@@ -42,6 +42,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   showPetNameForm: boolean;
   activeVisit: Visit;
   selectedVolunteer: Volunteer;
+  selectedPetName: string;
 
   fadeInState: string;
 
@@ -122,7 +123,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   nameValidator = (control: AbstractControl): { [key: string]: any } => {
     // Update state in validator since formControl.valueChanges calls next() after validation
-    // TODO: Find out how to update volunteers state outside validator
+    // TODO: Find out how to update form outside validator
     if (control.value) {
       this.updateForm(control.value);
     }
@@ -235,16 +236,26 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Resets the form state.
+   */
+  resetForm(): void {
+    this.selectedVolunteer = null;
+    this.selectedPetName = null;
+    this.clearSignature();
+  }
+
+  /**
    * Updates filtered lists and selected data.
    * @param name - string used to filter volunteers by name
    */
   updateForm(name: string): void {
+    this.resetForm();
     // Create the list of filtered volunteers by name
     this.filteredVolunteers = this.filterVolunteersByName(this.volunteers, name);
     // Create the set of names from the filtered volunteers
     this.autocompleteNames = this.getUniqueNames(this.filteredVolunteers);
-    // If the filtered volunteers all exactly match the name, set to true
-    this.showPetNameForm = this.allMatchName(this.filteredVolunteers, name);
+    // If multiple volunteers all match the name, set to true
+    this.showPetNameForm = this.filteredVolunteers.length > 1 && this.allMatchName(this.filteredVolunteers, name);
     // If one volunteer remains, select the volunteer that exactly matches the name
     if (!this.showPetNameForm) {
       this.selectedVolunteer = this.selectVolunteerByName(this.filteredVolunteers, name);

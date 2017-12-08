@@ -14,7 +14,7 @@
   </div>
   <!--Show the pet name selection if multiple volunteers have the same name-->
   <div *ngIf="showPetNameForm" class="container-center pets-container" [@fadeInTrigger]="fadeInState">
-    <mat-radio-group formControlName="petName">
+    <mat-radio-group formControlName="petName" [(ngModel)]="selectedPetName">
       <mat-radio-button class="pets-button"
                         *ngFor="let volunteer of filteredVolunteers"
                         [value]="volunteer.petName"

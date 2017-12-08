@@ -49,4 +49,8 @@ export class CheckInComponent implements OnInit, OnDestroy {
   onCheckOut(visit: Visit): void {
     this.store.dispatch(new CheckInActions.CheckIn(visit));
   }
+
+  onSubmitNewVolunteer(volunteer: Volunteer): void {
+    this.store.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
+  }
 }

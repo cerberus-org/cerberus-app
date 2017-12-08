@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { Volunteer } from '../../models/volunteer';
 import * as CheckInActions from '../../actions/check-in.actions';
 import { State } from '../../reducers/index';
+import { Volunteer } from '../../models/volunteer';
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 
 @Component({
@@ -13,6 +13,7 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
   styleUrls: ['./new-volunteer-form.component.scss']
 })
 export class NewVolunteerFormComponent implements OnInit {
+  @Output() onSubmitNewVolunteer = new EventEmitter<Volunteer>();
   @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
   formGroup: FormGroup;
   forms: { placeholder: string, control: string }[];
@@ -23,15 +24,15 @@ export class NewVolunteerFormComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onSubmit(): void {
+  submit(): void {
     const volunteer = new Volunteer(
       getLocalStorageObjectProperty('organization', 'id'),
       this.formGroup.value.firstName,
       this.formGroup.value.lastName,
       this.formGroup.value.petName
     );
-    this.store.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
     this.ngForm.resetForm();
+    this.onSubmitNewVolunteer.emit(volunteer);
   }
 
   createForm(): void {
