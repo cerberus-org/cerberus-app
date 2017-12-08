@@ -1,5 +1,5 @@
-import { Visit } from '../models/visit';
 import * as DataDisplayActions from '../actions/data-display.actions';
+import { Visit } from '../models/visit';
 
 export interface State {
   visits: Visit[]

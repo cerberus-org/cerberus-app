@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment-timezone';
+
 import { Visit } from '../../models/visit';
 
 @Component({

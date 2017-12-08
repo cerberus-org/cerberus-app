@@ -1,6 +1,6 @@
+import * as CheckInActions from '../actions/check-in.actions';
 import { Visit } from '../models/visit';
 import { Volunteer } from '../models/volunteer';
-import * as CheckInActions from '../actions/check-in.actions'
 
 export interface State {
   selectedTabIndex: number,
