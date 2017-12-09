@@ -30,4 +30,18 @@ describe('DailyHoursChartComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('sets up the line chart labels', () => {
+    const state = fromDataDisplay.reducer(fromDataDisplay.initialState,
+      new DataDisplayActions.LoadDataSuccess(testVisits));
+    expect(state.lineChartLabels.length).toEqual(7);
+  });
+
+  it('sets up the line chart data', () => {
+    const state = fromDataDisplay.reducer(fromDataDisplay.initialState,
+      new DataDisplayActions.LoadDataSuccess(testVisits));
+    const lineChartData = state.lineChartData[0];
+    expect(lineChartData.data.length).toEqual(7);
+    expect(lineChartData.label).toEqual('Hours');
+  });
 });

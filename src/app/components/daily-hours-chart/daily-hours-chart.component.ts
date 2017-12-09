@@ -8,10 +8,11 @@ import { Visit } from '../../models/visit';
   templateUrl: './daily-hours-chart.component.html',
   styleUrls: ['./daily-hours-chart.component.scss']
 })
-export class DailyHoursChartComponent implements OnInit, OnChanges   {
+export class DailyHoursChartComponent implements OnInit, OnChanges {
   @Input() visits: Visit[];
   data: LineChartData[];
   labels: string[];
+  type = 'line';
   options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -22,7 +23,6 @@ export class DailyHoursChartComponent implements OnInit, OnChanges   {
       }
     }
   };
-  type = 'line';
 
   constructor() { }
 
@@ -37,18 +37,16 @@ export class DailyHoursChartComponent implements OnInit, OnChanges   {
 
   /**
    * Constructs line chart labels based on latest date, count, unit, and format.
+   * @param latest - the latest date that will be used as the rightmost label
+   * @param count - the number of previous dates to use as labels
+   * @param format - how each date should be displayed (refer to Moment.js formats)
+   * @param unit - the unit to use for mapping to dates (refer to Moment.js keys)
    * @return {Array<string>} - the array of chart labels
    */
-  setupLineChartLabels(): string[] {
-    // The latest date that will be used as the rightmost label
-    const latest: Date = new Date();
-    // The number of previous dates to use as labels
-    const count = 7;
-    // How each date should be displayed (refer to Moment.js formats)
-    const format = 'ddd MMM D';
-    // The unit to use for mapping to dates (refer to Moment.js keys)
-    const unit: moment.unitOfTime.DurationConstructor = 'days';
-
+  setupLineChartLabels(latest: Date = new Date(),
+                       count: number = 7,
+                       format: string = 'ddd MMM D',
+                       unit: moment.unitOfTime.DurationConstructor = 'days'): string[] {
     const labels = Array.from(Array(count), (_, i) => {
       const date = moment(latest.getTime());
       date.subtract(i, unit);
@@ -59,29 +57,25 @@ export class DailyHoursChartComponent implements OnInit, OnChanges   {
   };
 
   /**
-   * Maps visits to dates and returns the labels and data for the lineChart.
+   * Calculates the total hours for each day used in labels
+   * and returns the data used for the lineChart.
    * @param visits - the visits that will be used
    * @param labels - the array of chart labels
+   * @param format - how each date should be displayed (refer to Moment.js formats)
+   * @returns {[{data: number[], label: string}]} - the line chart data
    */
-  setupLineChartData(visits: Visit[], labels: string[]): LineChartData[] {
-    const format = 'ddd MMM D';
-
-    // Map visits to their start dates
-    const visitsByDate = new Map<string, Visit[]>();
-    visits.forEach(visit => {
-      const date = moment(visit.startedAt).format(format);
-      if (!visitsByDate.has(date)) {
-        visitsByDate.set(date, []);
-      }
-      visitsByDate.get(date).push(visit);
-    });
-
-    // Construct and return line chart data
+  setupLineChartData(visits: Visit[], labels: string[], format: string = 'ddd MMM D'): LineChartData[] {
     return [{
-      data: labels.map(date => visitsByDate.has(date)
-        ? visitsByDate.get(date)
-          .reduce((total, visit) => total + this.getDuration(visit), 0).toFixed(3)
-        : '0'),
+      data: visits
+        .reduce((data, visit) => {
+          const date = moment(visit.startedAt).format(format);
+          const index = labels.indexOf(date);
+          if (index) {
+            data[index] += this.getDuration(visit);
+          }
+          return data;
+        }, new Array(labels.length).fill(0))
+        .map(value => value.toFixed(3)),
       label: 'Hours'
     }];
   };
@@ -93,15 +87,15 @@ export class DailyHoursChartComponent implements OnInit, OnChanges   {
    */
   private getDuration(visit: Visit): number {
     return visit.endedAt
-      ? (visit.endedAt.getTime() - visit.startedAt.getTime()) / 3600000
-      : (new Date().getTime() - visit.startedAt.getTime()) / 3600000;
+      ? ((visit.endedAt.getTime() - visit.startedAt.getTime()) / 3600000)
+      : ((new Date().getTime() - visit.startedAt.getTime()) / 3600000);
   };
 }
 
 /**
  * Interface used
  */
-class LineChartData {
+export class LineChartData {
   data: any[];
   label: string;
 }
