@@ -48,7 +48,7 @@ export const testVisits: Visit[] = [
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945b',
     startedAt: new Date('2017-06-29T12:45:42.336Z'),
-    endedAt: new Date('2017-06-29T18:45:01.336Z'),
+    endedAt: new Date('2017-06-29T18:45:42.336Z'),
     timezone: 'America/New_York',
     signature: null
   },

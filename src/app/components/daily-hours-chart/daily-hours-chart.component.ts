@@ -36,7 +36,7 @@ export class DailyHoursChartComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Constructs line chart labels based on latest date, count, unit, and format.
+   * Constructs list of dates that will be used based on latest date, count, unit, and format.
    * @param latest - the latest date that will be used as the rightmost label
    * @param count - the number of previous dates to use as labels
    * @param format - how each date should be displayed (refer to Moment.js formats)
@@ -60,11 +60,13 @@ export class DailyHoursChartComponent implements OnInit, OnChanges {
    * Calculates the total hours for each day used in labels
    * and returns the data used for the lineChart.
    * @param visits - the visits that will be used
-   * @param labels - the array of chart labels
+   * @param labels - the labels that durations will be totaled for
    * @param format - how each date should be displayed (refer to Moment.js formats)
    * @returns {[{data: number[], label: string}]} - the line chart data
    */
-  setupLineChartData(visits: Visit[], labels: string[], format: string = 'ddd MMM D'): LineChartData[] {
+  setupLineChartData(visits: Visit[],
+                     labels: string[],
+                     format: string = 'ddd MMM D'): LineChartData[] {
     return [{
       data: visits
         .reduce((data, visit) => {
@@ -93,7 +95,7 @@ export class DailyHoursChartComponent implements OnInit, OnChanges {
 }
 
 /**
- * Interface used
+ * Used for chart.js line chart data.
  */
 export class LineChartData {
   data: any[];
