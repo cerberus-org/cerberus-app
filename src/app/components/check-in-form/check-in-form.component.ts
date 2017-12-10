@@ -115,7 +115,50 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     this.onCheckOut.emit(visit);
   }
 
-  // FormGroup and Validators
+  // Form update flow
+
+
+  /**
+   * Resets the form state.
+   */
+  resetForm(): void {
+    this.selectedVolunteer = null;
+    this.selectedPetName = null;
+    this.clearSignature();
+  }
+
+  /**
+   * Updates filtered lists and selected data.
+   * Called in nameValidator because validator executes before formGroup value changes.
+   * @param name - string used to filter volunteers by name
+   */
+  updateForm(name: string): void {
+    this.resetForm();
+    // Create the list of filtered volunteers by name
+    this.filteredVolunteers = this.filterVolunteersByName(this.volunteers, name);
+    // If multiple volunteers all match the name, set to true
+    this.showPetNameForm = this.filteredVolunteers.length > 1 && this.allMatchName(this.filteredVolunteers, name);
+    // If one volunteer remains, select the volunteer that exactly matches the name
+    if (!this.showPetNameForm) {
+      this.selectedVolunteer = this.selectVolunteerByName(this.filteredVolunteers, name);
+    }
+  }
+
+  /**
+   * Subscribes to the form group and attempts to select an active visit if a volunteer is selected.
+   */
+  subscribeToForm(): Subscription {
+    return this.formGroup.valueChanges
+      .subscribe(() => {
+        // Uses values set in filterAndSelect invoked by nameValidator
+        this.autocompleteNames = this.getUniqueNames(this.filteredVolunteers);
+        this.activeVisit = this.selectedVolunteer
+          ? this.selectActiveVisit(this.visits, this.selectedVolunteer)
+          : null
+      });
+  }
+
+  // FormGroup and validators
 
   /**
    * Validates if a matching volunteer is found by name (control.value).
@@ -158,17 +201,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Subscribes to the form group and attempts to select an active visit if a volunteer is selected.
-   */
-  subscribeToForm(): Subscription {
-    return this.formGroup.valueChanges
-      .subscribe(() => this.activeVisit = this.selectedVolunteer
-        ? this.selectActiveVisit(this.visits, this.selectedVolunteer)
-        : null);
-  }
-
-  // Filtering and Selection
+  // Filtering and selection
 
   /**
    * Filters the volunteers by name (case-insensitive).
@@ -234,33 +267,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   selectActiveVisit(visits: Visit[], volunteer: Volunteer): Visit {
     return visits.find(visit => visit.endedAt === null && volunteer.id === visit.volunteerId);
-  }
-
-  /**
-   * Resets the form state.
-   */
-  resetForm(): void {
-    this.selectedVolunteer = null;
-    this.selectedPetName = null;
-    this.clearSignature();
-  }
-
-  /**
-   * Updates filtered lists and selected data.
-   * @param name - string used to filter volunteers by name
-   */
-  updateForm(name: string): void {
-    this.resetForm();
-    // Create the list of filtered volunteers by name
-    this.filteredVolunteers = this.filterVolunteersByName(this.volunteers, name);
-    // Create the set of names from the filtered volunteers
-    this.autocompleteNames = this.getUniqueNames(this.filteredVolunteers);
-    // If multiple volunteers all match the name, set to true
-    this.showPetNameForm = this.filteredVolunteers.length > 1 && this.allMatchName(this.filteredVolunteers, name);
-    // If one volunteer remains, select the volunteer that exactly matches the name
-    if (!this.showPetNameForm) {
-      this.selectedVolunteer = this.selectVolunteerByName(this.filteredVolunteers, name);
-    }
   }
 
   // Signature Field

@@ -47,9 +47,9 @@ export class DailyHoursChartComponent implements OnInit, OnChanges {
                        count: number = 7,
                        format: string = 'ddd MMM D',
                        unit: moment.unitOfTime.DurationConstructor = 'days'): string[] {
-    const labels = Array.from(Array(count), (_, i) => {
+    const labels = Array.from(Array(count), (_, index) => {
       const date = moment(latest.getTime());
-      date.subtract(i, unit);
+      date.subtract(index, unit);
       return date.format(format);
     });
     labels.reverse();

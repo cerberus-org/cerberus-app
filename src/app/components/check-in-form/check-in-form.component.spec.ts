@@ -38,6 +38,8 @@ describe('CheckInFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CheckInFormComponent);
     component = fixture.componentInstance;
+    spyOn(component, 'subscribeToForm').and.stub();
+    spyOn(component, 'updateForm').and.stub();
     fixture.detectChanges();
   });
 
@@ -91,7 +93,7 @@ describe('CheckInFormComponent', () => {
     expect(selected).toBe(testVolunteers[2]);
   });
 
-  it('selects an active visit for a volutneer', () => {
+  it('selects an active visit for a voluntneer', () => {
     const volunteer = Object.assign({}, testVolunteers[0]);
     const selected = component.selectActiveVisit(testVisits, volunteer);
     expect(selected).toBe(testVisits[3]);
@@ -134,10 +136,6 @@ describe('CheckInFormComponent', () => {
   });
 
   describe('petName control', () => {
-
-    beforeEach(() => {
-      component.showPetNameForm = true;
-    });
 
     it('clears the form on submit', (() => {
       const control = component.formGroup.controls['petName'];

@@ -33,7 +33,7 @@ describe('DailyHoursChartComponent', () => {
 
   it('sets up the line chart labels', () => {
     const latest = testVisits[4].startedAt;
-    const labels = component.setupLineChartLabels(latest, 5, 'days');
+    const labels = component.setupLineChartLabels(latest, 5, 'ddd MMM D', 'days');
     expect(labels.length).toEqual(5);
     labels.forEach((label, index) =>
       expect(label).toEqual(testLabels[index]));
