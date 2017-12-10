@@ -29,6 +29,7 @@ describe('VisitHistoryTableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(VisitHistoryTableComponent);
     component = fixture.componentInstance;
+    component.visits$ = Observable.of(testVisits);
     fixture.detectChanges();
   });
 
@@ -47,7 +48,7 @@ describe('VisitHistoryTableComponent', () => {
   });
 
   it('it renders the correct page data', () => {
-    component.dataSource = new VisitDataSource(Observable.of(testVisits), this.paginator);
+    component.dataSource = new VisitDataSource(component.visits$, this.paginator);
     component.paginator.pageIndex = 1;
     component.paginator.pageSize = 2;
     const pageData = component.dataSource.getPageData();
