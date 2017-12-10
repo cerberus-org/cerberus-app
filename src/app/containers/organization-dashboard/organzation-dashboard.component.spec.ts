@@ -1,11 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
 import { OrganizationDashboardComponent } from './organization-dashboard.component';
 import { SiteService, MockSiteService } from '../../services/site.service';
 import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
 import { MockVisitService, VisitService } from '../../services/visit.service';
+import { reducers } from '../../reducers/index';
 
 describe('OrganizationDashboardComponent', () => {
   let component: OrganizationDashboardComponent;
@@ -14,11 +16,13 @@ describe('OrganizationDashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        StoreModule.forRoot(reducers)
       ],
-      declarations: [OrganizationDashboardComponent,
+      declarations: [
+        OrganizationDashboardComponent,
         MockComponent({ selector: 'app-data-display' }),
-        MockComponent({ selector: 'app-volunteer-menu' })
+        MockComponent({ selector: 'app-volunteer-menu', inputs: ['sites'] })
       ],
       providers: [
         { provide: SiteService, useClass: MockSiteService },

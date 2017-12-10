@@ -15,8 +15,8 @@ describe('DataDisplayComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         DataDisplayComponent,
-        MockComponent({ selector: 'app-daily-hours-chart' }),
-        MockComponent({ selector: 'app-visit-history-table' })
+        MockComponent({ selector: 'app-daily-hours-chart', inputs: ['visits'] }),
+        MockComponent({ selector: 'app-visit-history-table', inputs: ['visits$'] })
       ],
       imports: [
         NoopAnimationsModule,
