@@ -29,8 +29,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   @Input() siteId: string;
   @Input() visits: Visit[];
   @Input() volunteers: Volunteer[];
-  @Output() onCheckIn = new EventEmitter<Visit>();
-  @Output() onCheckOut = new EventEmitter<Visit>();
+  @Output() checkIn = new EventEmitter<Visit>();
+  @Output() checkOut = new EventEmitter<Visit>();
 
   @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
@@ -73,50 +73,34 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * Updates state when a pet name is selected.
    * @param petName - the selected petName
    */
-  onPetNameClick(petName: string): void {
+  onPetNameChange(petName: string): void {
     this.selectedVolunteer = this.selectVolunteerByPetName(this.filteredVolunteers, petName);
   }
 
   /**
-   * Starts or ends a visit and resets the form group on clicking the submit button.
+   * Constructs the visit with startedAt as no, and endedAt as null,
+   * emits the onCheckIn or onCheckOut events, then resets the form.
    */
-  onSubmit(): void {
+  submit(): void {
     if (this.activeVisit) {
-      this.checkOut();
+      const visit = Object.assign({}, this.activeVisit, { endedAt: new Date() });
+      this.checkOut.emit(visit);
     } else if (this.selectedVolunteer) {
-      this.checkIn();
+      const visit = new Visit(
+        this.organizationId,
+        this.siteId,
+        this.selectedVolunteer.id,
+        new Date(),
+        null,
+        'America/Chicago',
+        this.signatures.first.signature
+      );
+      this.checkIn.emit(visit);
     }
     this.ngForm.resetForm();
   }
 
-  /**
-   * Constructs the visit with startedAt as now and endedAt as null
-   * then emits the onCheckIn event.
-   */
-  checkIn(): void {
-    const visit = new Visit(
-      this.organizationId,
-      this.siteId,
-      this.selectedVolunteer.id,
-      new Date(),
-      null,
-      'America/Chicago',
-      this.signatures.first.signature
-    );
-    this.onCheckIn.emit(visit);
-  }
-
-  /**
-   * Constructs the visit with endedAt as null
-   * then emits the onCheckOut event.
-   */
-  checkOut(): void {
-    const visit = Object.assign({}, this.activeVisit, { endedAt: new Date() });
-    this.onCheckOut.emit(visit);
-  }
-
   // Form update flow
-
 
   /**
    * Resets the form state.
@@ -138,14 +122,14 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     this.filteredVolunteers = this.filterVolunteersByName(this.volunteers, name);
     // If multiple volunteers all match the name, set to true
     this.showPetNameForm = this.filteredVolunteers.length > 1 && this.allMatchName(this.filteredVolunteers, name);
-    // If one volunteer remains, select the volunteer that exactly matches the name
+    // If one newVolunteer remains, select the newVolunteer that exactly matches the name
     if (!this.showPetNameForm) {
       this.selectedVolunteer = this.selectVolunteerByName(this.filteredVolunteers, name);
     }
   }
 
   /**
-   * Subscribes to the form group and attempts to select an active visit if a volunteer is selected.
+   * Subscribes to the form group and attempts to select an active visit if a newVolunteer is selected.
    */
   subscribeToForm(): Subscription {
     return this.formGroup.valueChanges
@@ -161,7 +145,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   // FormGroup and validators
 
   /**
-   * Validates if a matching volunteer is found by name (control.value).
+   * Validates if a matching newVolunteer is found by name (control.value).
    * @param control
    */
   nameValidator = (control: AbstractControl): { [key: string]: any } => {
@@ -174,7 +158,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   };
 
   /**
-   * Validates if a matching volunteer is found by pet name (control.value) if needed.
+   * Validates if a matching newVolunteer is found by pet name (control.value) if needed.
    * @param control
    */
   petNameValidator = (control: AbstractControl): { [key: string]: any } => {
@@ -216,7 +200,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Creates the list of unique volunteer names to be displayed on the autocomplete menu.
+   * Creates the list of unique newVolunteer names to be displayed on the autocomplete menu.
    * @param volunteers - the list of volunteers
    * @returns {Array<T>} - the list of unique names
    */
@@ -238,10 +222,10 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Selects a volunteer by name (case-insensitive).
+   * Selects a newVolunteer by name (case-insensitive).
    * @param volunteers - the list of volunteers
    * @param name - string used to search by name
-   * @returns {undefined|Volunteer} - the volunteer or undefined if not found
+   * @returns {undefined|Volunteer} - the newVolunteer or undefined if not found
    */
   selectVolunteerByName(volunteers: Volunteer[], name: string): Volunteer {
     const nameLowerCase = name.toLowerCase();
@@ -249,10 +233,10 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Selects a volunteer by petName (case-insensitive).
+   * Selects a newVolunteer by petName (case-insensitive).
    * @param volunteers - the list of volunteers
    * @param petName - string used to search by petName
-   * @returns {undefined|Volunteer} - the volunteer or undefined if not found
+   * @returns {undefined|Volunteer} - the newVolunteer or undefined if not found
    */
   selectVolunteerByPetName(volunteers: Volunteer[], petName: string): Volunteer {
     const petNameLowerCase = petName.toLowerCase();
@@ -260,9 +244,9 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Selects an active visit for the given volunteer.
+   * Selects an active visit for the given newVolunteer.
    * @param visits - the list of visits
-   * @param volunteer - the volunteer search by
+   * @param volunteer - the newVolunteer search by
    * @returns {undefined|Visit} - the active visit or undefined if not found
    */
   selectActiveVisit(visits: Visit[], volunteer: Volunteer): Visit {
@@ -298,8 +282,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Formats the name of a volunteer as one string.
-   * @param volunteer - the volunteer to use
+   * Formats the name of a newVolunteer as one string.
+   * @param volunteer - the newVolunteer to use
    * @returns {string} - the full name as a string
    */
   private formatName(volunteer: Volunteer): string {

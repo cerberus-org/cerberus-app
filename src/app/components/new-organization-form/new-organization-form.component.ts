@@ -11,7 +11,7 @@ import { Organization } from '../../models/organization';
   styleUrls: ['./new-organization-form.component.scss']
 })
 export class NewOrganizationFormComponent implements OnInit, OnDestroy {
-  @Output() onValidOrganization = new EventEmitter();
+  @Output() validOrganization = new EventEmitter();
   formGroup: FormGroup;
   formSubscription: Subscription;
 
@@ -56,7 +56,7 @@ export class NewOrganizationFormComponent implements OnInit, OnDestroy {
     return this.formGroup.valueChanges.subscribe(() => {
       if (this.formGroup.valid) {
         const value = this.formGroup.value;
-        this.onValidOrganization.emit(
+        this.validOrganization.emit(
           new Organization(value.name, value.description, value.website)
         );
       }

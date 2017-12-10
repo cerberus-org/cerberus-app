@@ -68,19 +68,19 @@ describe('CheckInFormComponent', () => {
     expect(allMatch).toBeTruthy();
   });
 
-  it('selects a volunteer by name', () => {
+  it('selects a newVolunteer by name', () => {
     const name = `${testVolunteers[1].firstName} ${testVolunteers[1].lastName}`;
     const selected = component.selectVolunteerByName(testVolunteers, name);
     expect(selected).toBe(testVolunteers[1]);
   });
 
-  it('does not select a volunteer if the name does not exactly match', () => {
+  it('does not select a newVolunteer if the name does not exactly match', () => {
     const name = testVolunteers[1].firstName;
     const selected = component.selectVolunteerByName(testVolunteers, name);
     expect(selected).toBeFalsy();
   });
 
-  it('selects a volunteer by petName', () => {
+  it('selects a newVolunteer by petName', () => {
     const petName = testVolunteers[2].petName;
     const selected = component.selectVolunteerByPetName(testVolunteers, petName);
     expect(selected).toBe(testVolunteers[2]);
@@ -99,14 +99,14 @@ describe('CheckInFormComponent', () => {
       expect(control.errors['required']).toBeTruthy();
     }));
 
-    it('throws noMatchByName error if volunteer is not selected and petName form is not shown', (() => {
+    it('throws noMatchByName error if newVolunteer is not selected and petName form is not shown', (() => {
       component.selectedVolunteer = null;
       component.showPetNameForm = false;
       const control = component.formGroup.controls['name'];
       expect(control.errors['noMatchByName']).toBeTruthy();
     }));
 
-    it('is valid if value is entered and volunteer is selected', (() => {
+    it('is valid if value is entered and newVolunteer is selected', (() => {
       component.selectedVolunteer = testVolunteers[1];
       const control = component.formGroup.controls['name'];
       control.setValue('Cerberus');
@@ -123,7 +123,7 @@ describe('CheckInFormComponent', () => {
     it('clears the form on submit', (() => {
       const control = component.formGroup.controls['name'];
       control.setValue('Cerberus');
-      component.onSubmit();
+      component.submit();
       expect(control.value).toBeFalsy();
     }));
   });
@@ -133,11 +133,11 @@ describe('CheckInFormComponent', () => {
     it('clears the form on submit', (() => {
       const control = component.formGroup.controls['petName'];
       control.setValue('Cerberus');
-      component.onSubmit();
+      component.submit();
       expect(control.value).toBeFalsy();
     }));
 
-    it('is valid if a volunteer is selected', (() => {
+    it('is valid if a newVolunteer is selected', (() => {
       component.selectedVolunteer = testVolunteers[0];
       const control = component.formGroup.controls['petName'];
       control.setValue('Mimi');
