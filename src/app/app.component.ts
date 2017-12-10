@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as LoginActions from './actions/login.actions';
+import * as RouterActions from './actions/router.actions';
 import { getLocalStorageObjectProperty } from './functions/localStorageObject';
 import { State } from './reducers/index';
 
@@ -69,7 +71,7 @@ export class AppComponent implements OnInit, OnDestroy {
   onButtonClick(action: string): void {
     switch (action) {
       case 'back':
-        this.router.navigateByUrl(this.previousUrl);
+        this.store.dispatch(new RouterActions.Back());
         break;
       case 'settings':
         break;

@@ -9,7 +9,7 @@ export class HeaderComponent {
   @Input() icon: string;
   @Input() text: string;
   @Input() showBack: boolean;
-  @Input() showLogout: boolean;
+  @Input() showLogOut: boolean;
   @Output() buttonClick = new EventEmitter<string>();
 
   back(): void {
