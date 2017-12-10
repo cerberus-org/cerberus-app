@@ -1,16 +1,16 @@
 import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs/Observable';
 import { hot } from 'jasmine-marbles';
+import { Observable } from 'rxjs/Observable';
 
 import { LogIn, LogOut } from '../actions/login.actions';
-import { LoginEffects } from './login.effects';
-import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
 import { testUsers } from '../models/user';
-import { MockOrganizationService, OrganizationService } from '../services/organization.service';
-import { MockUserService, UserService } from '../services/user.service';
 import { AuthService, MockAuthService } from '../services/auth.service';
+import { MockOrganizationService, OrganizationService } from '../services/organization.service';
+import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
+import { MockUserService, UserService } from '../services/user.service';
+import { LoginEffects } from './login.effects';
 
 describe('LoginEffects', () => {
   let effects: LoginEffects;

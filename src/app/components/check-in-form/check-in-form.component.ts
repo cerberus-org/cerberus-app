@@ -2,6 +2,7 @@ import { animate, state as animationsState, style, transition, trigger } from '@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+
 import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';

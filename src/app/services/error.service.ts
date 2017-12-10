@@ -1,5 +1,5 @@
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { SnackBarService } from './snack-bar.service';

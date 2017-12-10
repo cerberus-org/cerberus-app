@@ -1,7 +1,7 @@
-import * as fromGettingStarted from './getting-started.reducer'
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import { testOrganizations } from '../models/organization';
 import { testUsers } from '../models/user';
+import * as fromGettingStarted from './getting-started.reducer'
 
 describe('dataDisplayReducer', () => {
 

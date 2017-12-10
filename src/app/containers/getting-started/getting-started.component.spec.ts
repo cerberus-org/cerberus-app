@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { MatButtonModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
-import { GettingStartedComponent } from './getting-started.component';
 import { reducers } from '../../reducers/index';
+import { GettingStartedComponent } from './getting-started.component';
 
 describe('GettingStartedComponent', () => {
   let component: GettingStartedComponent;

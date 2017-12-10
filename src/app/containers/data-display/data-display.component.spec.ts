@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
-import { DataDisplayComponent } from './data-display.component';
-import { StoreModule } from '@ngrx/store';
 import { reducers } from '../../reducers/index';
+import { DataDisplayComponent } from './data-display.component';
 
 describe('DataDisplayComponent', () => {
   let component: DataDisplayComponent;

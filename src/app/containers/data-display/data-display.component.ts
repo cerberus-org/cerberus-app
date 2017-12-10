@@ -1,12 +1,11 @@
-import 'rxjs/add/operator/map';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as DataDisplayActions from '../../actions/data-display.actions';
-import { State } from '../../reducers/index';
-import { Visit } from '../../models/visit';
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
+import { Visit } from '../../models/visit';
+import { State } from '../../reducers/index';
 
 @Component({
   selector: 'app-data-display',

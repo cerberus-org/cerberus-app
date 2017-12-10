@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/do';
+import { Observable } from 'rxjs/Observable';
 
+import { setLocalStorageObject } from '../functions/localStorageObject';
+import { testUsers, User } from '../models/user';
 import { OrganizationService } from './organization.service';
 import { UserService } from './user.service';
-import { testUsers, User } from '../models/user';
-import { getLocalStorageObject, setLocalStorageObject } from '../functions/localStorageObject';
 
 @Injectable()
 export class AuthService {

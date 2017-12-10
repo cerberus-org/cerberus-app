@@ -3,11 +3,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
-import { OrganizationDashboardComponent } from './organization-dashboard.component';
-import { SiteService, MockSiteService } from '../../services/site.service';
-import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
-import { MockVisitService, VisitService } from '../../services/visit.service';
 import { reducers } from '../../reducers/index';
+import { MockOrganizationService, OrganizationService } from '../../services/organization.service';
+import { MockSiteService, SiteService } from '../../services/site.service';
+import { MockVisitService, VisitService } from '../../services/visit.service';
+import { OrganizationDashboardComponent } from './organization-dashboard.component';
 
 describe('OrganizationDashboardComponent', () => {
   let component: OrganizationDashboardComponent;

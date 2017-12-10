@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTabsModule } from '@angular/material';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
-import { CheckInComponent } from './check-in.component';
 import { reducers } from '../../reducers/index';
+import { CheckInComponent } from './check-in.component';
 
 describe('CheckInComponent', () => {
   let component: CheckInComponent;

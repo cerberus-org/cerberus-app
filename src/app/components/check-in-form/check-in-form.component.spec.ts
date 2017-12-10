@@ -4,9 +4,9 @@ import { MatAutocompleteModule, MatInputModule, MatRadioModule } from '@angular/
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
-import { CheckInFormComponent } from './check-in-form.component';
 import { testVisits } from '../../models/visit';
 import { testVolunteers } from '../../models/volunteer';
+import { CheckInFormComponent } from './check-in-form.component';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;

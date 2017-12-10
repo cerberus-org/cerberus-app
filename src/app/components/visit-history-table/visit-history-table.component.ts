@@ -1,10 +1,10 @@
-import 'rxjs/add/observable/merge';
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material';
+import * as moment from 'moment-timezone';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import * as moment from 'moment-timezone';
+import 'rxjs/add/observable/merge';
 
 import { Visit } from '../../models/visit';
 

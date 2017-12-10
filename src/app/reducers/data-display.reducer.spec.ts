@@ -1,6 +1,6 @@
+import * as DataDisplayActions from '../actions/data-display.actions';
 import { testVisits } from '../models/visit';
 import * as fromDataDisplay from './data-display.reducer'
-import * as DataDisplayActions from '../actions/data-display.actions';
 
 describe('dataDisplayReducer', () => {
 

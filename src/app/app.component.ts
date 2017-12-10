@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { State } from './reducers/index';
 import { getLocalStorageObjectProperty } from './functions/localStorageObject';
+import { State } from './reducers/index';
 
 @Component({
   selector: 'app-root',

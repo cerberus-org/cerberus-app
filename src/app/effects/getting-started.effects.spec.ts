@@ -1,18 +1,18 @@
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs/Observable';
 import { cold, hot } from 'jasmine-marbles';
+import { Observable } from 'rxjs/Observable';
 
-import { GettingStartedEffects } from './getting-started.effects';
 import { Submit } from '../actions/getting-started.actions';
 import { LogIn } from '../actions/login.actions';
+import { testOrganizations } from '../models/organization';
+import { testUsers } from '../models/user';
 import { AuthService, MockAuthService } from '../services/auth.service';
 import { MockOrganizationService, OrganizationService } from '../services/organization.service';
 import { MockSiteService, SiteService } from '../services/site.service';
 import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
 import { MockUserService, UserService } from '../services/user.service';
-import { testOrganizations } from '../models/organization';
-import { testUsers } from '../models/user';
+import { GettingStartedEffects } from './getting-started.effects';
 
 describe('GettingStartedEffects', () => {
   let effects: GettingStartedEffects;

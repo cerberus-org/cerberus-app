@@ -1,12 +1,12 @@
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 import { ErrorService } from './error.service';
 
-abstract class BaseService<T> {
+export abstract class BaseService<T> {
   private collection: AngularFirestoreCollection<T>;
 
   constructor(protected db: AngularFirestore,
@@ -127,5 +127,3 @@ abstract class BaseService<T> {
     return data;
   }
 }
-
-export default BaseService

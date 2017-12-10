@@ -1,11 +1,10 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import { testUsers } from '../models/user';
 import { AuthService } from './auth.service';
 import { MockOrganizationService, OrganizationService } from './organization.service';
 import { MockUserService, UserService } from './user.service';
-import { testOrganizations } from '../models/organization';
-import { testUsers } from '../models/user';
 
 describe('AuthService', () => {
   let service: AuthService;

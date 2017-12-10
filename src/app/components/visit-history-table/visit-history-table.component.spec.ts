@@ -4,8 +4,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
 
-import { VisitDataSource, VisitHistoryTableComponent } from './visit-history-table.component';
 import { testVisits } from '../../models/visit';
+import { VisitDataSource, VisitHistoryTableComponent } from './visit-history-table.component';
 
 describe('VisitHistoryTableComponent', () => {
   let component: VisitHistoryTableComponent;

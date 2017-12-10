@@ -3,11 +3,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as RouterActions from '../../actions/router.actions';
-import { State } from '../../reducers/index';
-import { Site } from '../../models/site';
-import { SiteService } from '../../services/site.service';
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
-
+import { Site } from '../../models/site';
+import { State } from '../../reducers/index';
+import { SiteService } from '../../services/site.service';
 
 @Component({
   selector: 'app-organization-dashboard',

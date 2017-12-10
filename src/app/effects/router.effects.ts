@@ -1,9 +1,10 @@
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Actions, Effect } from '@ngrx/effects';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+
 import * as RouterActions from '../actions/router.actions';
 
 @Injectable()

@@ -1,7 +1,7 @@
-import * as fromCheckIn from './check-in.reducer';
 import * as CheckInActions from '../actions/check-in.actions';
 import { testVisits } from '../models/visit';
 import { testVolunteers } from '../models/volunteer';
+import * as fromCheckIn from './check-in.reducer';
 
 describe('checkInReducer', () => {
   let testState;

@@ -5,10 +5,10 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as CheckInActions from '../../actions/check-in.actions';
-import { State } from '../../reducers/index';
+import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
-import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
+import { State } from '../../reducers/index';
 
 @Component({
   selector: 'app-check-in',

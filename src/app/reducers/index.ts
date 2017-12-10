@@ -1,8 +1,9 @@
+import * as fromRouter from '@ngrx/router-store';
 import { ActionReducerMap } from '@ngrx/store';
+
 import * as fromCheckIn from './check-in.reducer';
 import * as fromDataDisplay from './data-display.reducer';
 import * as fromGettingStarted from './getting-started.reducer';
-import * as fromRouter from '@ngrx/router-store';
 
 export interface State {
   checkIn: fromCheckIn.State;

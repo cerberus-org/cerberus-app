@@ -1,12 +1,12 @@
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs/Observable';
 import { cold, hot } from 'jasmine-marbles';
+import { Observable } from 'rxjs/Observable';
 
-import { DataDisplayEffects } from './data-display.effects';
 import { LoadData, LoadDataSuccess } from '../actions/data-display.actions';
-import { MockVisitService, VisitService } from '../services/visit.service';
 import { testVisits } from '../models/visit';
+import { MockVisitService, VisitService } from '../services/visit.service';
+import { DataDisplayEffects } from './data-display.effects';
 
 describe('DataDisplayEffects', () => {
   let effects: DataDisplayEffects;
