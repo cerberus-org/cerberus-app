@@ -15,14 +15,14 @@ import { SnackBarService } from '../services/snack-bar.service';
 export class LoginEffects {
 
   /**
-   * Listen for the Login action, log the user in, retrieve the user's organization,
+   * Listen for the LogIn action, log the user in, retrieve the user's organization,
    * then store the results in localStorage.
    * @type {Observable<any>}
    */
   @Effect()
   login$: Observable<Action> = this.actions
-    .ofType(LoginActions.LOGIN)
-    .map((action: LoginActions.Login) => action.payload)
+    .ofType(LoginActions.LOG_IN)
+    .map((action: LoginActions.LogIn) => action.payload)
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
       .map(user => {
         this.snackBarService.loginSuccess(user.firstName);
@@ -30,13 +30,13 @@ export class LoginEffects {
       }));
 
   /**
-   * Listen for the Logout action, log the user out,
+   * Listen for the LogOut action, log the user out,
    * then remove the items from localStorage.
    * @type {Observable<any>}
    */
   @Effect()
   logout$: Observable<Action> = this.actions
-    .ofType(LoginActions.LOGOUT)
+    .ofType(LoginActions.LOG_OUT)
     .switchMap(() => this.authService.signOut()
       .map(() => {
         this.snackBarService.logoutSuccess();

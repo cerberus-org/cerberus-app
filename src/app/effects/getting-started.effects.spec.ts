@@ -5,7 +5,7 @@ import { cold, hot } from 'jasmine-marbles';
 
 import { GettingStartedEffects } from './getting-started.effects';
 import { Submit } from '../actions/getting-started.actions';
-import { Login } from '../actions/login.actions';
+import { LogIn } from '../actions/login.actions';
 import { AuthService, MockAuthService } from '../services/auth.service';
 import { MockOrganizationService, OrganizationService } from '../services/organization.service';
 import { MockSiteService, SiteService } from '../services/site.service';
@@ -35,11 +35,11 @@ describe('GettingStartedEffects', () => {
 
   describe('gettingStarted$', () => {
 
-    it('creates the organization, site, and user, displays the addOrganizationSuccess snackbar, returns a LOGIN action, on success', async(() => {
+    it('creates the organization, site, and user, displays the addOrganizationSuccess snackbar, returns a LOG_IN action, on success', async(() => {
       const organization = testOrganizations[0];
       const user = testUsers[0];
       const submit = new Submit({ organization, user });
-      const login = new Login(user);
+      const login = new LogIn(user);
       const addOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'addOrganizationSuccess');
 
       actions = hot('a', { a: submit });

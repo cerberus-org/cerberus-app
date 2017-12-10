@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
@@ -36,8 +36,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSettings(): void {}
 
-  onLogout(): void {
-    this.store.dispatch(new LoginActions.Logout({}))
+  onLogOut(): void {
+    this.store.dispatch(new LoginActions.LogOut({}))
   }
 
   subscribeToRouterEvents(): Subscription {

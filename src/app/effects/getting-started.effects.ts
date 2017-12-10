@@ -39,7 +39,7 @@ export class GettingStartedEffects {
             this.authService.createUser(user))
           .map(() => {
             this.snackBarService.addOrganizationSuccess();
-            return new LoginActions.Login(payload.user);
+            return new LoginActions.LogIn(payload.user);
           })
       }));
 
