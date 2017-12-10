@@ -1,6 +1,6 @@
 <form class="container-center loose"
       [formGroup]="formGroup"
-      (ngSubmit)="onSubmit()">
+      (ngSubmit)="submit()">
   <div class="container-center field-container">
     <mat-form-field>
       <input matInput
@@ -18,14 +18,14 @@
       <mat-radio-button class="pets-button"
                         *ngFor="let volunteer of filteredVolunteers"
                         [value]="volunteer.petName"
-                        (change)="onPetNameClick(volunteer.petName)">
+                        (change)="onPetNameChange(volunteer.petName)">
         <i class="material-icons">pets</i> {{volunteer.petName}}
       </mat-radio-button>
     </mat-radio-group>
   </div>
-  <!--Show the next step when a unique volunteer has been selected-->
+  <!--Show the next step when a unisubmitVolunteerteer has been selected-->
   <ng-container *ngIf="selectedVolunteer">
-    <!--If a volunteer has been selected, show the signature and button group-->
+    <!--IsubmitVolunteerteer has been selected, show the signature and button group-->
     <ng-container *ngIf="!activeVisit; else checkOut">
       <div [@fadeInTrigger]="fadeInState">
         <app-signature-field formControlName="signatureField"></app-signature-field>

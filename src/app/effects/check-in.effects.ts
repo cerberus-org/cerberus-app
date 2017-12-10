@@ -36,8 +36,8 @@ export class CheckInEffects {
       .map(data => new CheckInActions.LoadDataSuccess(data)));
 
   /**
-   * Listen for the SubmitNewVolunteer action, create the volunteer, emit the snackbar,
-   * then dispatch the SubmitNewVolunteerSuccess action with the created volunteer.
+   * Listen for the SubmitNewVolunteer action, create the newVolunteer, emit the snackbar,
+   * then dispatch the SubmitNewVolunteerSuccess action with the created newVolunteer.
    */
   @Effect()
   submitNewVolunteer$: Observable<Action> = this.actions

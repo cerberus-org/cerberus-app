@@ -17,7 +17,7 @@ export class VolunteerService extends BaseService<Volunteer> {
   }
 
   /**
-   * Capitalize the firstName, lastName, and petName of the volunteer going to the database.
+   * Capitalize the firstName, lastName, and petName of the newVolunteer going to the database.
    * @param volunteer
    * @returns {any}
    */
@@ -26,7 +26,7 @@ export class VolunteerService extends BaseService<Volunteer> {
   }
 
   /**
-   * Capitalize the firstName, lastName, and petName of the volunteer coming from the database.
+   * Capitalize the firstName, lastName, and petName of the newVolunteer coming from the database.
    * @param volunteer
    * @returns {any}
    */

@@ -10,7 +10,7 @@ import { User } from '../../models/user';
   styleUrls: ['./new-user-form.component.scss']
 })
 export class NewUserFormComponent implements OnInit, OnDestroy {
-  @Output() onValidUser = new EventEmitter();
+  @Output() validUser = new EventEmitter();
   formGroup: FormGroup;
   formSubscription: Subscription;
 
@@ -41,7 +41,7 @@ export class NewUserFormComponent implements OnInit, OnDestroy {
     return this.formGroup.valueChanges.subscribe(() => {
       if (this.formGroup.valid) {
         const value = this.formGroup.value;
-        this.onValidUser.emit(
+        this.validUser.emit(
           new User(value.firstName, value.lastName, value.email, value.password)
         );
       }
