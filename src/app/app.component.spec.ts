@@ -13,7 +13,8 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        MockComponent({ selector: 'app-layout' })
+        MockComponent({ selector: 'app-footer' }),
+        MockComponent({ selector: 'app-header' })
       ]
     }).compileComponents();
   }));

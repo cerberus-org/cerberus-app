@@ -34,9 +34,8 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CheckInFormComponent } from './components/check-in-form/check-in-form.component';
 import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-hours-chart.component';
 import { DataDisplayComponent } from './containers/data-display/data-display.component';
-import { FooterComponent } from './components/layout/footer/footer.component';
-import { HeaderComponent } from './components/layout/header/header.component';
-import { LayoutComponent } from './components/layout/layout.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 import { NewOrganizationFormComponent } from './components/new-organization-form/new-organization-form.component';
 import { NewUserFormComponent } from './components/new-user-form/new-user-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
@@ -72,7 +71,6 @@ import { LoginEffects } from './effects/login.effects';
     FooterComponent,
     GettingStartedComponent,
     HeaderComponent,
-    LayoutComponent,
     LoginComponent,
     NewOrganizationFormComponent,
     NewUserFormComponent,
