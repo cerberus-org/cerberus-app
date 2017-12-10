@@ -17,7 +17,7 @@ export class VisitHistoryTableComponent implements OnInit {
   @Input() visits$: Observable<Visit[]>;
   initialPageSize: number;
   displayedColumns = ['date', 'startedAt', 'endedAt', 'duration'];
-  dataSource: VisitDataSource | null;
+  dataSource: VisitDataSource;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

@@ -2,8 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk/table';
+import { Observable } from 'rxjs/Observable';
 
-import { VisitHistoryTableComponent } from './visit-history-table.component';
+import { VisitDataSource, VisitHistoryTableComponent } from './visit-history-table.component';
 import { testVisits } from '../../models/visit';
 
 describe('VisitHistoryTableComponent', () => {
@@ -46,8 +47,7 @@ describe('VisitHistoryTableComponent', () => {
   });
 
   it('it renders the correct page data', () => {
-    component.ngOnInit();
-    component.dataSource.visits = testVisits;
+    component.dataSource = new VisitDataSource(Observable.of(testVisits), this.paginator);
     component.paginator.pageIndex = 1;
     component.paginator.pageSize = 2;
     const pageData = component.dataSource.getPageData();

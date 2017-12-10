@@ -16,8 +16,8 @@ describe('CheckInComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         CheckInComponent,
-        MockComponent({ selector: 'app-check-in-form' }),
-        MockComponent({ selector: 'app-new-volunteer-form', inputs: ['changeTab'] })
+        MockComponent({ selector: 'app-check-in-form', inputs: ['organizationId', 'siteId', 'visits', 'volunteers'] }),
+        MockComponent({ selector: 'app-new-volunteer-form', inputs: ['organizationId', 'changeTab'] })
       ],
       imports: [
         MatTabsModule,

@@ -19,7 +19,7 @@ export class NewVolunteerFormComponent implements OnInit {
   formGroup: FormGroup;
   forms: { placeholder: string, control: string }[];
 
-  constructor(private fb: FormBuilder, private store: Store<State>) {
+  constructor(private fb: FormBuilder) {
     this.createForm();
   }
 

@@ -49,8 +49,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   /**
    * Creates the form group and subscribes on construction.
    */
-  constructor(private activatedRoute: ActivatedRoute,
-              private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit(): void {

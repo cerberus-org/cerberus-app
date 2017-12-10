@@ -52,8 +52,7 @@ export class DailyHoursChartComponent implements OnInit, OnChanges {
       date.subtract(index, unit);
       return date.format(format);
     });
-    labels.reverse();
-    return labels;
+    return labels.reverse();
   };
 
   /**
