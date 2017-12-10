@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
-import { LoginComponent } from './containers/login/login.component';
-import { Guard } from './guard';
 import { CheckInComponent } from './containers/check-in/check-in.component';
 import { GettingStartedComponent } from './containers/getting-started/getting-started.component';
+import { LoginComponent } from './containers/login/login.component';
+import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
+import { Guard } from './guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

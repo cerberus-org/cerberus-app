@@ -1,6 +1,7 @@
 import { animate, state as animationsState, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { MatAutocomplete } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Visit } from '../../models/visit';
@@ -32,6 +33,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   @Output() onCheckOut = new EventEmitter<Visit>();
 
   @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
+  @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
   @ViewChildren(SignatureFieldComponent) signatures: QueryList<SignatureFieldComponent>;
 
   formGroupSubscription: Subscription;
@@ -168,7 +170,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     if (control.value) {
       this.updateForm(control.value);
     }
-    return this.selectedVolunteer || this.showPetNameForm ? null : { 'noMatchByName': { value: control.value } };
+    return this.selectedVolunteer || this.showPetNameForm ? null : { noMatchByName: { value: control.value } };
   };
 
   /**
@@ -176,7 +178,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param control
    */
   petNameValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !this.showPetNameForm || this.selectedVolunteer ? null : { 'noMatchByPetName': { value: control.value } };
+    return !this.showPetNameForm || this.selectedVolunteer ? null : { noMatchByPetName: { value: control.value } };
   };
 
   /**
@@ -184,7 +186,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param control
    */
   signatureValidator = (control: AbstractControl): { [key: string]: any } => {
-    return this.activeVisit || control.value ? null : { 'noSignature': { value: control.value } };
+    return this.activeVisit || control.value ? null : { noSignature: { value: control.value } };
   };
 
   /**
@@ -208,9 +210,9 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @returns {Volunteer[]} - the filtered list of volunteers
    */
   filterVolunteersByName(volunteers: Volunteer[], name: string): Volunteer[] {
-    name = name.toLowerCase();
+    const nameLowerCase = name.toLowerCase();
     return volunteers
-      .filter(volunteer => this.formatName(volunteer).toLowerCase().includes(name));
+      .filter(volunteer => this.formatName(volunteer).toLowerCase().includes(nameLowerCase));
   }
 
   /**
@@ -231,8 +233,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @returns {boolean} - true if all volunteers match the name
    */
   allMatchName(volunteers: Volunteer[], name: string): boolean {
-    name = name.toLowerCase();
-    return volunteers.every(volunteer => this.formatName(volunteer).toLowerCase() === name)
+    const nameLowerCase = name.toLowerCase();
+    return volunteers.every(volunteer => this.formatName(volunteer).toLowerCase() === nameLowerCase)
   }
 
   /**
@@ -242,8 +244,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @returns {undefined|Volunteer} - the volunteer or undefined if not found
    */
   selectVolunteerByName(volunteers: Volunteer[], name: string): Volunteer {
-    name = name.toLowerCase();
-    return volunteers.find(volunteer => this.formatName(volunteer).toLowerCase() === name);
+    const nameLowerCase = name.toLowerCase();
+    return volunteers.find(volunteer => this.formatName(volunteer).toLowerCase() === nameLowerCase);
   }
 
   /**
@@ -253,8 +255,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @returns {undefined|Volunteer} - the volunteer or undefined if not found
    */
   selectVolunteerByPetName(volunteers: Volunteer[], petName: string): Volunteer {
-    petName = petName.toLowerCase();
-    return volunteers.find(volunteer => volunteer.petName.toLowerCase() === petName);
+    const petNameLowerCase = petName.toLowerCase();
+    return volunteers.find(volunteer => volunteer.petName.toLowerCase() === petNameLowerCase);
   }
 
   /**

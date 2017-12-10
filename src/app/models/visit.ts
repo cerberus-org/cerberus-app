@@ -31,14 +31,14 @@ export const testVisits: Visit[] = [
     timezone: 'America/Chicago',
     signature: [
       [
-        { 'x': 246, 'y': 152, 'time': 1509295638022, 'color': 'black' },
-        { 'x': 245, 'y': 150, 'time': 1509295638024, 'color': 'black' },
-        { 'x': 245, 'y': 150, 'time': 1509295638076, 'color': 'black' },
-        { 'x': 256, 'y': 146, 'time': 1509295638092, 'color': 'black' },
-        { 'x': 283, 'y': 134, 'time': 1509295638108, 'color': 'black' },
-        { 'x': 350, 'y': 103, 'time': 1509295638124, 'color': 'black' },
-        { 'x': 433, 'y': 72, 'time': 1509295638140, 'color': 'black' },
-        { 'x': 545, 'y': 41, 'time': 1509295638156, 'color': 'black' }
+        { x: 246, y: 152, time: 1509295638022, color: 'black' },
+        { x: 245, y: 150, time: 1509295638024, color: 'black' },
+        { x: 245, y: 150, time: 1509295638076, color: 'black' },
+        { x: 256, y: 146, time: 1509295638092, color: 'black' },
+        { x: 283, y: 134, time: 1509295638108, color: 'black' },
+        { x: 350, y: 103, time: 1509295638124, color: 'black' },
+        { x: 433, y: 72, time: 1509295638140, color: 'black' },
+        { x: 545, y: 41, time: 1509295638156, color: 'black' }
       ]
     ]
   },

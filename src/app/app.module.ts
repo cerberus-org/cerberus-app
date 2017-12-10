@@ -40,8 +40,8 @@ import { NewOrganizationFormComponent } from './components/new-organization-form
 import { NewUserFormComponent } from './components/new-user-form/new-user-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
-import { VolunteerMenuComponent } from './components/volunteer-menu/volunteer-menu.component';
 import { VisitHistoryTableComponent } from './components/visit-history-table/visit-history-table.component';
+import { VolunteerMenuComponent } from './components/volunteer-menu/volunteer-menu.component';
 
 import { AuthService } from './services/auth.service';
 import { ErrorService } from './services/error.service';

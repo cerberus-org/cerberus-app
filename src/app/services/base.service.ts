@@ -75,16 +75,16 @@ export abstract class BaseService<T> {
    * @returns {Observable<R|T>} - the Observable of the snapshot of the added object
    */
   add(item: T, id?: string): Observable<T> {
-    return id ?
-      Observable.fromPromise(this.collection.doc(id).set(Object.assign({}, this.convertOut(item)))
+    return id
+      ? Observable.fromPromise(this.collection.doc(id).set(Object.assign({}, this.convertOut(item)))
         .then(() => this.convertIn(Object.assign({}, item, { id }))))
         .catch(this.errorService.handleHttpError)
       : Observable.fromPromise(this.collection.add(Object.assign({}, this.convertOut(item)))
         .then(ref => ref.get()
           .then(snapshot => {
             const data = snapshot.data();
-            const id = snapshot.id;
-            return this.convertIn(Object.assign(data, { id }))
+            const snapshotId = snapshot.id;
+            return this.convertIn(Object.assign(data, { snapshotId }))
           })))
         .catch(this.errorService.handleHttpError);
   }

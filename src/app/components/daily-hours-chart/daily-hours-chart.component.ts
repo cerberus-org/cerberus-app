@@ -64,14 +64,17 @@ export class DailyHoursChartComponent implements OnChanges {
                      format: string = 'ddd MMM D'): LineChartData[] {
     return [{
       data: visits
-        .reduce((data, visit) => {
-          const date = moment(visit.startedAt).format(format);
-          const index = labels.indexOf(date);
-          if (index) {
-            data[index] += this.getDuration(visit);
-          }
-          return data;
-        }, new Array(labels.length).fill(0))
+        .reduce(
+          (data, visit) => {
+            const date = moment(visit.startedAt).format(format);
+            const index = labels.indexOf(date);
+            if (index) {
+              data[index] += this.getDuration(visit);
+            }
+            return data;
+          },
+          Array(labels.length).fill(0)
+        )
         .map(value => value.toFixed(3)),
       label: 'Hours'
     }];

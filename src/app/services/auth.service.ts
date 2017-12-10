@@ -35,7 +35,7 @@ export class AuthService {
   setItems(afUser: any): Observable<User> {
     return this.userService.getById(afUser.uid)
       .switchMap(user => {
-        user = Object.assign({}, user, {
+        Object.assign(user, {
           id: afUser.uid,
           email: afUser.email
         });

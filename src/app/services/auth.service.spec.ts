@@ -32,8 +32,8 @@ describe('AuthService', () => {
     localStorage.clear();
   });
 
-  it('should be created', inject([AuthService], (service: AuthService) => {
-    expect(service).toBeTruthy();
+  it('should be created', inject([AuthService], (authService: AuthService) => {
+    expect(authService).toBeTruthy();
   }));
 
   it('sets localStorage items and returns the user', () => {

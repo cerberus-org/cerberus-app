@@ -1,7 +1,7 @@
+import { CdkTableModule } from '@angular/cdk/table';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CdkTableModule } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
 
 import { testVisits } from '../../models/visit';

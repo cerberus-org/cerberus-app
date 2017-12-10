@@ -2,9 +2,9 @@ import { DataSource } from '@angular/cdk/table';
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import * as moment from 'moment-timezone';
+import 'rxjs/add/observable/merge';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/observable/merge';
 
 import { Visit } from '../../models/visit';
 

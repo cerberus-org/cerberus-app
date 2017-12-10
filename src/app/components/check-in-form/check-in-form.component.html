@@ -5,10 +5,10 @@
     <mat-form-field>
       <input matInput
              placeholder="Name"
-             [matAutocomplete]="nameForm"
+             [matAutocomplete]="autocomplete"
              formControlName="name">
     </mat-form-field>
-    <mat-autocomplete #nameForm="matAutocomplete">
+    <mat-autocomplete>
       <mat-option *ngFor="let name of autocompleteNames" [value]="name">{{name}}</mat-option>
     </mat-autocomplete>
   </div>

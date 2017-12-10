@@ -7,8 +7,10 @@ describe('dataDisplayReducer', () => {
   describe('LOAD_DATA_SUCCESS', () => {
 
     it('loads visits in reverse', () => {
-      const state = fromDataDisplay.reducer(fromDataDisplay.initialState,
-        new DataDisplayActions.LoadDataSuccess(testVisits));
+      const state = fromDataDisplay.reducer(
+        fromDataDisplay.initialState,
+        new DataDisplayActions.LoadDataSuccess(testVisits)
+      );
       expect(state.visits).toEqual(testVisits.slice().reverse());
     });
   });

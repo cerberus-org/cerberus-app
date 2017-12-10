@@ -6,8 +6,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 
 describe('NewVolunteerFormComponent', () => {
-  let component: NewVolunteerFormComponent,
-    fixture: ComponentFixture<NewVolunteerFormComponent>;
+  let component: NewVolunteerFormComponent;
+  let fixture: ComponentFixture<NewVolunteerFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

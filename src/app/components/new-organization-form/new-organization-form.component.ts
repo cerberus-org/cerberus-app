@@ -34,7 +34,7 @@ export class NewOrganizationFormComponent implements OnInit, OnDestroy {
    * @param {AbstractControl} control
    */
   urlValidator = (control: AbstractControl): { [key: string]: any } => {
-    return isURL(control.value) ? null : { 'invalidURL': { value: control.value } };
+    return isURL(control.value) ? null : { invalidURL: { value: control.value } };
   };
 
   /**
