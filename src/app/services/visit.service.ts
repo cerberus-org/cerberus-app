@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
+import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs/Observable';
 
-import BaseService from './base.service';
-import { ErrorService } from './error.service';
 import { testVisits, Visit } from '../models/visit';
+import { BaseService } from './base.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class VisitService extends BaseService<Visit> {

@@ -1,5 +1,5 @@
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { SnackBarService } from './snack-bar.service';
@@ -42,7 +42,7 @@ export class ErrorService {
   handleTokenExpiration(error: any | Response) {
     // If the token has expired
     if (error.status === 401) {
-      // Remove the token so login and onLogout buttons can be accurately displayed or hidden
+      // Remove the token so login and onLogOut buttons can be accurately displayed or hidden
       localStorage.clear();
       this.router.navigateByUrl('/login');
     }

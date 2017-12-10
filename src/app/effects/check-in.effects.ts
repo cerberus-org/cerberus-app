@@ -1,19 +1,19 @@
+import { Injectable } from '@angular/core';
+import { Actions, Effect } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/forkJoin';
-import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as CheckInActions from '../actions/check-in.actions';
 import * as RouterActions from '../actions/router.actions';
+import { SnackBarService } from '../services/snack-bar.service';
 import { VisitService } from '../services/visit.service';
 import { VolunteerService } from '../services/volunteer.service';
-import { SnackBarService } from '../services/snack-bar.service';
 
 @Injectable()
 export class CheckInEffects {

@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/forkJoin';
+import { Observable } from 'rxjs/Observable';
 
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';
 import { Site } from '../models/site';
+import { AuthService } from '../services/auth.service';
+import { OrganizationService } from '../services/organization.service';
 import { SiteService } from '../services/site.service';
 import { SnackBarService } from '../services/snack-bar.service';
-import { OrganizationService } from '../services/organization.service';
-import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class GettingStartedEffects {
@@ -39,7 +39,7 @@ export class GettingStartedEffects {
             this.authService.createUser(user))
           .map(() => {
             this.snackBarService.addOrganizationSuccess();
-            return new LoginActions.Login(payload.user);
+            return new LoginActions.LogIn(payload.user);
           })
       }));
 

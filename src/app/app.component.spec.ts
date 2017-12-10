@@ -1,20 +1,22 @@
 import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import 'hammerjs';
 
 import { AppComponent } from './app.component';
-import { MockVisitService, VisitService } from './services/visit.service';
+import { reducers } from './reducers/index';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        StoreModule.forRoot(reducers)
       ],
       declarations: [
         AppComponent,
-        MockComponent({ selector: 'app-layout' })
+        MockComponent({ selector: 'app-footer' }),
+        MockComponent({ selector: 'app-header', inputs: ['icon', 'text', 'showBack', 'showLogOut'] })
       ]
     }).compileComponents();
   }));

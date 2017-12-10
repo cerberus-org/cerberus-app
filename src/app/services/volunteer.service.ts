@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { AngularFirestore } from 'angularfire2/firestore';
+import * as _ from 'lodash';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
-import * as _ from 'lodash';
+import { Observable } from 'rxjs/Observable';
 
 import { testVolunteers, Volunteer } from '../models/volunteer';
-import BaseService from './base.service';
+import { BaseService } from './base.service';
 import { ErrorService } from './error.service';
-import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
 export class VolunteerService extends BaseService<Volunteer> {

@@ -1,4 +1,4 @@
-import { upperAllFirst, titleCase } from './capitalize';
+import { titleCase, upperAllFirst } from './capitalize';
 
 describe('upperAllFirst()', () => {
 
