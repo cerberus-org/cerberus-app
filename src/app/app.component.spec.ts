@@ -4,7 +4,6 @@ import { MockComponent } from 'ng2-mock-component';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
-import { MockVisitService, VisitService } from './services/visit.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

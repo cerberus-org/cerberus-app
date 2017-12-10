@@ -40,11 +40,10 @@ describe('DailyHoursChartComponent', () => {
   });
 
   it('sets up the line chart data', () => {
-    const labels = [];
-    const lineChartData = component.setupLineChartData(testVisits, labels)[0];
+    const lineChartData = component.setupLineChartData(testVisits, testLabels)[0];
     expect(lineChartData.data.length).toEqual(5);
-    expect(lineChartData.data[0]).toEqual(0);
-    expect(lineChartData.data[1]).toEqual(10);
+    expect(lineChartData.data[0]).toEqual('0.000');
+    expect(lineChartData.data[1]).toEqual('10.000');
     expect(lineChartData.label).toEqual('Hours');
   });
 });

@@ -97,6 +97,6 @@ export class DailyHoursChartComponent implements OnInit, OnChanges {
  * Used for chart.js line chart data.
  */
 export class LineChartData {
-  data: any[];
+  data: string[];
   label: string;
 }
