@@ -1,5 +1,9 @@
 <div class="container">
-  <app-header>
+  <app-header [icon]="icon"
+              [text]="text"
+              [showBack]="!!previousUrl"
+              [showLogout]="isLoggedIn"
+              (buttonClick)="onButtonClick($event)">
   </app-header>
   <div>
     <router-outlet></router-outlet>
