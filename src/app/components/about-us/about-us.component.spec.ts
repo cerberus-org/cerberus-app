@@ -9,8 +9,12 @@ describe('AboutUsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AboutUsComponent],
-      imports: [MatIconModule]
+      declarations: [
+        AboutUsComponent
+      ],
+      imports: [
+        MatIconModule
+      ]
     }).compileComponents();
   }));
 

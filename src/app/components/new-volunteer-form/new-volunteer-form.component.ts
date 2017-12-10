@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
@@ -13,6 +13,7 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
   styleUrls: ['./new-volunteer-form.component.scss']
 })
 export class NewVolunteerFormComponent implements OnInit {
+  @Input() organizationId: string;
   @Output() onSubmitNewVolunteer = new EventEmitter<Volunteer>();
   @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
   formGroup: FormGroup;
@@ -26,7 +27,7 @@ export class NewVolunteerFormComponent implements OnInit {
 
   submit(): void {
     const volunteer = new Volunteer(
-      getLocalStorageObjectProperty('organization', 'id'),
+      this.organizationId,
       this.formGroup.value.firstName,
       this.formGroup.value.lastName,
       this.formGroup.value.petName

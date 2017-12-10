@@ -2,15 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatInputModule, MatRadioModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { StoreModule } from '@ngrx/store';
-import { SignaturePadModule } from 'angular2-signaturepad';
+import { MockComponent } from 'ng2-mock-component';
 
 import { CheckInFormComponent } from './check-in-form.component';
-import { SignatureFieldComponent } from './signature-field/signature-field.component';
 import { testVisits } from '../../models/visit';
 import { testVolunteers } from '../../models/volunteer';
-import { reducers } from '../../reducers/index';
 
 describe('CheckInFormComponent', () => {
   let component: CheckInFormComponent;
@@ -20,17 +16,14 @@ describe('CheckInFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         CheckInFormComponent,
-        SignatureFieldComponent
+        MockComponent({ selector: 'app-signature-field' })
       ],
       imports: [
         MatAutocompleteModule,
         MatInputModule,
         MatRadioModule,
         NoopAnimationsModule,
-        ReactiveFormsModule,
-        RouterTestingModule,
-        SignaturePadModule,
-        StoreModule.forRoot(reducers)
+        ReactiveFormsModule
       ]
     }).compileComponents();
   }));

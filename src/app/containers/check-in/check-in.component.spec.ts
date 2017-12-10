@@ -17,8 +17,7 @@ describe('CheckInComponent', () => {
       declarations: [
         CheckInComponent,
         MockComponent({ selector: 'app-check-in-form' }),
-        MockComponent({ selector: 'app-new-volunteer-form', inputs: ['changeTab'] }),
-        MockComponent({ selector: 'app-side-margins' })
+        MockComponent({ selector: 'app-new-volunteer-form', inputs: ['changeTab'] })
       ],
       imports: [
         MatTabsModule,

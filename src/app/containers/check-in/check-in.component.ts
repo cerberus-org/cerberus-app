@@ -18,6 +18,8 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
 export class CheckInComponent implements OnInit, OnDestroy {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
   checkInSubscription: Subscription;
+  organizationId: string;
+  siteId: string;
   visits: Visit[];
   volunteers: Volunteer[];
 
@@ -25,9 +27,11 @@ export class CheckInComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const siteId = this.activatedRoute.snapshot.paramMap.get('id');
-    const organizationId = getLocalStorageObjectProperty('organization', 'id');
-    this.store.dispatch(new CheckInActions.LoadData({ siteId, organizationId }));
+    this.organizationId = getLocalStorageObjectProperty('organization', 'id');
+    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.store.dispatch(
+      new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId })
+    );
 
     this.checkInSubscription = this.store
       .select('checkIn')

@@ -2,11 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk/table';
-import { StoreModule } from '@ngrx/store';
 
 import { VisitHistoryTableComponent } from './visit-history-table.component';
 import { testVisits } from '../../models/visit';
-import { reducers } from '../../reducers/index';
 
 describe('VisitHistoryTableComponent', () => {
   let component: VisitHistoryTableComponent;
@@ -18,12 +16,11 @@ describe('VisitHistoryTableComponent', () => {
         VisitHistoryTableComponent
       ],
       imports: [
-        NoopAnimationsModule,
         CdkTableModule,
         MatListModule,
         MatPaginatorModule,
         MatTableModule,
-        StoreModule.forRoot(reducers)
+        NoopAnimationsModule
       ]
     }).compileComponents();
   }));

@@ -14,8 +14,7 @@ describe('LayoutComponent', () => {
         MockComponent({ selector: 'app-footer' }),
         MockComponent({ selector: 'app-header' })
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

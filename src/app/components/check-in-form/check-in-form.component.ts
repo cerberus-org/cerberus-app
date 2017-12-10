@@ -3,8 +3,6 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, V
 import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-
-import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
@@ -26,6 +24,8 @@ import { SignatureFieldComponent } from './signature-field/signature-field.compo
   ]
 })
 export class CheckInFormComponent implements OnInit, OnDestroy {
+  @Input() organizationId: string;
+  @Input() siteId: string;
   @Input() visits: Visit[];
   @Input() volunteers: Volunteer[];
   @Output() onCheckIn = new EventEmitter<Visit>();
@@ -95,8 +95,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   checkIn(): void {
     const visit = new Visit(
-      getLocalStorageObjectProperty('organization', 'id'),
-      this.activatedRoute.snapshot.paramMap.get('id'),
+      this.organizationId,
+      this.siteId,
       this.selectedVolunteer.id,
       new Date(),
       null,

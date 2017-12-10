@@ -2,13 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { StoreModule } from '@ngrx/store';
 
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
-import { MockSnackBarService, SnackBarService } from '../../services/snack-bar.service';
-import { MockVolunteerService, VolunteerService } from '../../services/volunteer.service';
-import { reducers } from '../../reducers/index';
 
 describe('NewVolunteerFormComponent', () => {
   let component: NewVolunteerFormComponent,
@@ -22,12 +17,6 @@ describe('NewVolunteerFormComponent', () => {
         ReactiveFormsModule,
         MatAutocompleteModule,
         MatInputModule,
-        RouterTestingModule,
-        StoreModule.forRoot(reducers)
-      ],
-      providers: [
-        { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: VolunteerService, useClass: MockVolunteerService }
       ]
     }).compileComponents();
   }));
