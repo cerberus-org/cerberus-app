@@ -1,10 +1,10 @@
 import { Action } from '@ngrx/store';
 
-export const LOGIN = '[login] Login';
-export const LOGOUT = '[login] Logout';
+export const LOG_IN = '[login] Log in';
+export const LOG_OUT = '[login] Log out';
 
-export class Login implements Action {
-  readonly type = LOGIN;
+export class LogIn implements Action {
+  readonly type = LOG_IN;
 
   constructor(public payload: {
     email: string,
@@ -12,12 +12,12 @@ export class Login implements Action {
   }) {}
 }
 
-export class Logout implements Action {
-  readonly type = LOGOUT;
+export class LogOut implements Action {
+  readonly type = LOG_OUT;
 
   constructor(public payload: any) {}
 }
 
 export type All
-  = Login
-  | Logout;
+  = LogIn
+  | LogOut;

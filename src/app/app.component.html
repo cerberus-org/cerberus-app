@@ -1,3 +1,12 @@
-<app-layout>
-  <router-outlet></router-outlet>
-</app-layout>
+<div class="container">
+  <app-header [icon]="icon"
+              [text]="text"
+              [showBack]="!!previousUrl"
+              [showLogOut]="isLoggedIn"
+              (buttonClick)="onButtonClick($event)">
+  </app-header>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
+</div>

@@ -1,4 +1,4 @@
-import * as GettingStartedActions from '../actions/getting-started.actions'
+import * as GettingStartedActions from '../actions/getting-started.actions';
 import { Organization } from '../models/organization';
 import { User } from '../models/user';
 

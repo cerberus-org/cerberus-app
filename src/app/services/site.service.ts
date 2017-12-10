@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/empty';
+import { Observable } from 'rxjs/Observable';
 
-import BaseService from './base.service';
-import { ErrorService } from './error.service';
-import { Site, testSites } from '../models/site';
 import { upperAllFirst } from '../functions/capitalize';
+import { Site, testSites } from '../models/site';
+import { BaseService } from './base.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class SiteService extends BaseService<Site> {

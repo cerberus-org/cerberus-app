@@ -1,11 +1,10 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import { testUsers } from '../models/user';
 import { AuthService } from './auth.service';
 import { MockOrganizationService, OrganizationService } from './organization.service';
 import { MockUserService, UserService } from './user.service';
-import { testOrganizations } from '../models/organization';
-import { testUsers } from '../models/user';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -33,8 +32,8 @@ describe('AuthService', () => {
     localStorage.clear();
   });
 
-  it('should be created', inject([AuthService], (service: AuthService) => {
-    expect(service).toBeTruthy();
+  it('should be created', inject([AuthService], (authService: AuthService) => {
+    expect(authService).toBeTruthy();
   }));
 
   it('sets localStorage items and returns the user', () => {

@@ -1,17 +1,16 @@
 import { async, TestBed } from '@angular/core/testing';
-import { provideMockActions } from '@ngrx/effects/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs/Observable';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
+import { Observable } from 'rxjs/Observable';
 
-import { CheckInEffects } from './check-in.effects';
-import { CheckIn, CheckOut, LoadData, LoadDataSuccess, SubmitNewVolunteer, SubmitNewVolunteerSuccess } from '../actions/check-in.actions';
+import * as CheckInActions from '../actions/check-in.actions';
+import { testVisits } from '../models/visit';
+import { testVolunteers } from '../models/volunteer';
 import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
 import { MockVisitService, VisitService } from '../services/visit.service';
 import { MockVolunteerService, VolunteerService } from '../services/volunteer.service';
-import { testVisits } from '../models/visit';
-import { testVolunteers } from '../models/volunteer';
-import { Router } from '@angular/router';
+import { CheckInEffects } from './check-in.effects';
 
 describe('CheckInEffects', () => {
   let effects: CheckInEffects;
@@ -36,11 +35,11 @@ describe('CheckInEffects', () => {
   describe('loadData$', () => {
 
     it('returns a LOAD_DATA_SUCCESS action, with the visits and volunteers, on success', async(() => {
-      const loadData = new LoadData({
+      const loadData = new CheckInActions.LoadData({
         siteId: testVisits[0].siteId,
         organizationId: testVolunteers[0].organizationId
       });
-      const loadDataSuccess = new LoadDataSuccess({
+      const loadDataSuccess = new CheckInActions.LoadDataSuccess({
         visits: testVisits,
         volunteers: testVolunteers
       });
@@ -55,8 +54,8 @@ describe('CheckInEffects', () => {
   describe('submitNewVolunteer$', () => {
 
     it('returns a SUBMIT_NEW_VOLUNTEER_SUCCESS action, with the visits and volunteers, on success', async(() => {
-      const submitNewVolunteer = new SubmitNewVolunteer(testVolunteers[0]);
-      const submitNewVolunteerSuccess = new SubmitNewVolunteerSuccess(testVolunteers[0]);
+      const submitNewVolunteer = new CheckInActions.SubmitNewVolunteer(testVolunteers[0]);
+      const submitNewVolunteerSuccess = new CheckInActions.SubmitNewVolunteerSuccess(testVolunteers[0]);
 
       actions = hot('a', { a: submitNewVolunteer });
       const expected = cold('b', { b: submitNewVolunteerSuccess });
@@ -68,7 +67,7 @@ describe('CheckInEffects', () => {
   describe('checkIn$', () => {
 
     it('navigates to the dashboard and displays the checkInSuccess snackbar, on success', async(() => {
-      const checkIn = new CheckIn(testVisits[0]);
+      const checkIn = new CheckInActions.CheckIn(testVisits[0]);
       const checkInSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkInSuccess');
 
       actions = hot('a', { a: checkIn });
@@ -82,7 +81,7 @@ describe('CheckInEffects', () => {
   describe('checkOut$', () => {
 
     it('navigates to the dashboard and displays the checkOutSuccess snackbar, on success', async(() => {
-      const checkOut = new CheckOut(testVisits[0]);
+      const checkOut = new CheckInActions.CheckOut(testVisits[0]);
       const checkOutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkOutSuccess');
 
       actions = hot('a', { a: checkOut });

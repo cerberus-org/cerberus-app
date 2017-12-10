@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/empty';
 import * as _ from 'lodash';
+import 'rxjs/add/observable/empty';
+import { Observable } from 'rxjs/Observable';
 
-import BaseService from './base.service';
-import { ErrorService } from './error.service';
-import { Organization, testOrganizations } from '../models/organization';
 import { upperAllFirst } from '../functions/capitalize';
+import { Organization, testOrganizations } from '../models/organization';
+import { BaseService } from './base.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class OrganizationService extends BaseService<Organization> {

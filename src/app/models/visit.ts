@@ -31,14 +31,14 @@ export const testVisits: Visit[] = [
     timezone: 'America/Chicago',
     signature: [
       [
-        { 'x': 246, 'y': 152, 'time': 1509295638022, 'color': 'black' },
-        { 'x': 245, 'y': 150, 'time': 1509295638024, 'color': 'black' },
-        { 'x': 245, 'y': 150, 'time': 1509295638076, 'color': 'black' },
-        { 'x': 256, 'y': 146, 'time': 1509295638092, 'color': 'black' },
-        { 'x': 283, 'y': 134, 'time': 1509295638108, 'color': 'black' },
-        { 'x': 350, 'y': 103, 'time': 1509295638124, 'color': 'black' },
-        { 'x': 433, 'y': 72, 'time': 1509295638140, 'color': 'black' },
-        { 'x': 545, 'y': 41, 'time': 1509295638156, 'color': 'black' }
+        { x: 246, y: 152, time: 1509295638022, color: 'black' },
+        { x: 245, y: 150, time: 1509295638024, color: 'black' },
+        { x: 245, y: 150, time: 1509295638076, color: 'black' },
+        { x: 256, y: 146, time: 1509295638092, color: 'black' },
+        { x: 283, y: 134, time: 1509295638108, color: 'black' },
+        { x: 350, y: 103, time: 1509295638124, color: 'black' },
+        { x: 433, y: 72, time: 1509295638140, color: 'black' },
+        { x: 545, y: 41, time: 1509295638156, color: 'black' }
       ]
     ]
   },
@@ -48,7 +48,7 @@ export const testVisits: Visit[] = [
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945b',
     startedAt: new Date('2017-06-29T12:45:42.336Z'),
-    endedAt: new Date('2017-06-29T18:45:01.336Z'),
+    endedAt: new Date('2017-06-29T18:45:42.336Z'),
     timezone: 'America/New_York',
     signature: null
   },

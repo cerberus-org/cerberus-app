@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/empty';
 import * as _ from 'lodash';
+import 'rxjs/add/observable/empty';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
-import BaseService from './base.service';
-import { ErrorService } from './error.service';
 import { testUsers, User } from '../models/user';
+import { BaseService } from './base.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class UserService extends BaseService<User> {
