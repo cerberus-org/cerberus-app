@@ -9,7 +9,7 @@ import { Volunteer } from '../../models/volunteer';
 })
 export class NewVolunteerFormComponent {
   @Input() organizationId: string;
-  @Output() onSubmitNewVolunteer = new EventEmitter<Volunteer>();
+  @Output() newVolunteer = new EventEmitter<Volunteer>();
   @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
   formGroup: FormGroup;
   forms: { placeholder: string, control: string }[];
@@ -26,7 +26,7 @@ export class NewVolunteerFormComponent {
       this.formGroup.value.petName
     );
     this.ngForm.resetForm();
-    this.onSubmitNewVolunteer.emit(volunteer);
+    this.newVolunteer.emit(volunteer);
   }
 
   createForm(): void {
