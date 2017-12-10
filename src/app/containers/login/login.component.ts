@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import * as LoginActions from '../../actions/login.actions'
+import * as LoginActions from '../../actions/login.actions';
 import { State } from '../../reducers/index';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Organization } from '../../models/organization';
 import { User } from '../../models/user';
@@ -8,12 +8,7 @@ import { User } from '../../models/user';
   templateUrl: './organization-confirm.component.html',
   styleUrls: ['./organization-confirm.component.scss']
 })
-export class OrganizationConfirmComponent implements OnInit {
+export class OrganizationConfirmComponent {
   @Input() organization: Organization;
   @Input() user: User;
-
-  constructor() { }
-
-  ngOnInit() { }
-
 }

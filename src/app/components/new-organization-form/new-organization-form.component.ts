@@ -20,12 +20,12 @@ export class NewOrganizationFormComponent implements OnInit, OnDestroy {
   /**
    * Creates and subscribes to the form group.
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.formGroup = this.createForm();
     this.formSubscription = this.subscribeToForm();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.formSubscription.unsubscribe();
   }
 

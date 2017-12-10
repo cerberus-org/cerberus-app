@@ -18,7 +18,7 @@ export class DataDisplayComponent implements OnInit {
 
   constructor(private store: Store<State>) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.store.dispatch(new DataDisplayActions.LoadData(
       getLocalStorageObjectProperty('organization', 'id')
     ));

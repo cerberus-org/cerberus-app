@@ -16,12 +16,12 @@ export class NewUserFormComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.formGroup = this.createForm();
     this.formSubscription = this.subscribeToForm();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.formSubscription.unsubscribe();
   }
 

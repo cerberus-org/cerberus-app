@@ -22,7 +22,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<State>) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.gettingStartedSubscription = this.store
       .select('gettingStarted')
       .subscribe(state => {
@@ -33,7 +33,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.gettingStartedSubscription.unsubscribe();
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as moment from 'moment';
 
 import { Visit } from '../../models/visit';
@@ -8,7 +8,7 @@ import { Visit } from '../../models/visit';
   templateUrl: './daily-hours-chart.component.html',
   styleUrls: ['./daily-hours-chart.component.scss']
 })
-export class DailyHoursChartComponent implements OnInit, OnChanges {
+export class DailyHoursChartComponent implements OnChanges {
   @Input() visits: Visit[];
   data: LineChartData[];
   labels: string[];
@@ -23,10 +23,6 @@ export class DailyHoursChartComponent implements OnInit, OnChanges {
       }
     }
   };
-
-  constructor() { }
-
-  ngOnInit() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['visits']) {

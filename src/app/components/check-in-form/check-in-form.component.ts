@@ -1,7 +1,6 @@
 import { animate, state as animationsState, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
@@ -49,8 +48,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   /**
    * Creates the form group and subscribes on construction.
    */
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.activeVisit = null;
@@ -64,7 +62,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     this.formGroupSubscription.unsubscribe();
   }
 
-  ngAfterView() {
+  ngAfterView(): void {
     this.setSignatureOptions();
   }
 

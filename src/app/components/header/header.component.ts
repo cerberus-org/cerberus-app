@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +11,6 @@ export class HeaderComponent {
   @Input() showBack: boolean;
   @Input() showLogout: boolean;
   @Output() buttonClick = new EventEmitter<string>();
-
-  constructor() { }
 
   back(): void {
     this.buttonClick.emit('back');

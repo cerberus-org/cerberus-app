@@ -21,9 +21,7 @@ export class VisitHistoryTableComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit(): void {
     // Determine initial page size using inner height of window at component init
     const surroundingElementsPx = 281;
     const cellPx = 49;

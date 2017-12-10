@@ -1,18 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-
-import * as CheckInActions from '../../actions/check-in.actions';
-import { State } from '../../reducers/index';
 import { Volunteer } from '../../models/volunteer';
-import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 
 @Component({
   selector: 'app-new-volunteer-form',
   templateUrl: './new-volunteer-form.component.html',
   styleUrls: ['./new-volunteer-form.component.scss']
 })
-export class NewVolunteerFormComponent implements OnInit {
+export class NewVolunteerFormComponent {
   @Input() organizationId: string;
   @Output() onSubmitNewVolunteer = new EventEmitter<Volunteer>();
   @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
@@ -22,8 +17,6 @@ export class NewVolunteerFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.createForm();
   }
-
-  ngOnInit(): void { }
 
   submit(): void {
     const volunteer = new Volunteer(
