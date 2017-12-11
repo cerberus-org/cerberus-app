@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Verification</h1>
+
+<mat-dialog-content>
+  <input type="password" placeholder='password' [(ngModel)]="pwd">
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="confirmSelection()" color="primary">
+    Submit
+  </button>
+  <button mat-button (click)="dialogRef.close()">
+    Cancel
+  </button>
+</div>
