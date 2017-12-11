@@ -3,6 +3,8 @@ import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { testOrganizations } from '../../models/organization';
+import { testVolunteers, Volunteer } from '../../models/volunteer';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 
 describe('NewVolunteerFormComponent', () => {
@@ -29,6 +31,21 @@ describe('NewVolunteerFormComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit a new volunteer on submit', () => {
+    spyOn(component.newVolunteer, 'emit');
+    const organizationId = testOrganizations[0].id;
+    const firstName = testVolunteers[0].firstName;
+    const lastName = testVolunteers[0].lastName;
+    const petName = testVolunteers[0].petName;
+    component.organizationId = organizationId;
+    component.formGroup.controls['firstName'].setValue(firstName);
+    component.formGroup.controls['lastName'].setValue(lastName);
+    component.formGroup.controls['petName'].setValue(petName);
+    component.submit();
+    expect(component.newVolunteer.emit)
+      .toHaveBeenCalledWith(new Volunteer(organizationId, firstName, lastName, petName));
   });
 
   ['firstName', 'lastName', 'petName'].forEach(form => {

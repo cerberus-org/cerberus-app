@@ -3,8 +3,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NewUserFormComponent } from './new-user-form.component';
 import { testUsers, User } from '../../models/user';
+import { NewUserFormComponent } from './new-user-form.component';
 
 describe('NewUserFormComponent', () => {
   let component: NewUserFormComponent;
