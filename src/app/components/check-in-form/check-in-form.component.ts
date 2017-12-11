@@ -62,7 +62,9 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.formGroupSubscription.unsubscribe();
+    if (this.formGroupSubscription) {
+      this.formGroupSubscription.unsubscribe();
+    }
   }
 
   ngAfterView(): void {
