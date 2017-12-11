@@ -4,6 +4,7 @@ import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NewUserFormComponent } from './new-user-form.component';
+import { testUsers, User } from '../../models/user';
 
 describe('NewUserFormComponent', () => {
   let component: NewUserFormComponent;
@@ -28,6 +29,19 @@ describe('NewUserFormComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit a validUser event on valid form values', () => {
+    spyOn(component.validUser, 'emit');
+    const firstName = testUsers[0].firstName;
+    const lastName = testUsers[0].lastName;
+    const email = testUsers[0].email;
+    const password = testUsers[0].password;
+    component.formGroup.controls['firstName'].setValue(firstName);
+    component.formGroup.controls['lastName'].setValue(lastName);
+    component.formGroup.controls['email'].setValue(email);
+    component.formGroup.controls['password'].setValue(password);
+    expect(component.validUser.emit).toHaveBeenCalledWith(new User(firstName, lastName, email, password));
   });
 
   describe('firstName control', () => {

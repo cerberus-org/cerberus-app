@@ -4,7 +4,7 @@ import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NewOrganizationFormComponent } from './new-organization-form.component';
-import { Organization } from '../../models/organization';
+import { Organization, testOrganizations } from '../../models/organization';
 import { cold, hot } from 'jasmine-marbles';
 
 describe('NewOrganizationFormComponent', () => {
@@ -34,9 +34,9 @@ describe('NewOrganizationFormComponent', () => {
 
   it('should emit a validOrganization event on valid form values', () => {
     spyOn(component.validOrganization, 'emit');
-    const name = 'Cerberus';
-    const website = 'website.com';
-    const description = 'This is a test.';
+    const name = testOrganizations[0].name;
+    const website = testOrganizations[0].website;
+    const description = testOrganizations[0].description;
     component.formGroup.controls['name'].setValue(name);
     component.formGroup.controls['website'].setValue(website);
     component.formGroup.controls['description'].setValue(description);

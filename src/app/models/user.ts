@@ -24,7 +24,7 @@ export const testUsers: User[] = [
     firstName: 'Ted',
     lastName: 'Mader',
     email: 'tlmader.dev@gmail.com',
-    password: null,
+    password: 'password',
   }, {
     id: '5961327dfba1ca1b64b8945b',
     organizationId: '59a7055733bfe28af47cff40',
