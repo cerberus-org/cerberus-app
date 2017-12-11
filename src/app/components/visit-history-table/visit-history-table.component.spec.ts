@@ -33,21 +33,21 @@ describe('VisitHistoryTableComponent', () => {
     fixture.detectChanges();
   });
 
-  it('is created', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
-  it('formats times properly', () => {
+  it('should format times properly', () => {
     const formatted = component.formatTime(testVisits[0].startedAt, testVisits[0].timezone);
     expect(formatted).toEqual('5:45 am')
   });
 
-  it('formats durations properly', () => {
+  it('should format the durations properly', () => {
     const formatted = component.formatDuration(testVisits[1]);
     expect(formatted).toEqual('6 hours')
   });
 
-  it('it renders the correct page data', () => {
+  it('should render the visits for a specific page', () => {
     component.dataSource = new VisitDataSource(component.visits$, component.paginator);
     component.paginator.pageIndex = 1;
     component.paginator.pageSize = 2;

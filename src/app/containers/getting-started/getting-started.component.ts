@@ -34,7 +34,9 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.gettingStartedSubscription.unsubscribe();
+    if (this.gettingStartedSubscription) {
+      this.gettingStartedSubscription.unsubscribe();
+    }
   }
 
   onValidOrganization(organization: Organization): void {

@@ -39,7 +39,7 @@ describe('LoginEffects', () => {
 
   describe('login$', () => {
 
-    it('sets localStorage, navigates to the dashboard, and displays the loginSuccess snackbar, on success', () => {
+    it('should set localStorage, navigates to the dashboard, and displays the loginSuccess snackbar, on success', () => {
       const user = testUsers[0];
       const login = new LogIn(user);
       const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'loginSuccess');
@@ -54,7 +54,7 @@ describe('LoginEffects', () => {
 
   describe('logout$', () => {
 
-    it('removes items from localStorage, navigates to the login page, and displays the logoutSuccess snackbar, on success', async(() => {
+    it('should remove items from localStorage, navigates to the login page, and displays the logoutSuccess snackbar, on success', async(() => {
       const logout = new LogOut({});
       const logoutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'logoutSuccess');
 

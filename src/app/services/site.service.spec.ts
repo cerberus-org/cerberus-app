@@ -28,12 +28,12 @@ describe('SiteService', () => {
     expect(siteService).toBeTruthy();
   }));
 
-  it('converts coming from the database', () => {
+  it('should convert coming from the database', () => {
     const converted = service.convertIn(site);
     expect(converted).toEqual(testSites[0]);
   });
 
-  it('converts data going to the database', () => {
+  it('should convert data going to the database', () => {
     const converted = service.convertOut(site);
     expect(converted).toEqual(testSites[0]);
   });

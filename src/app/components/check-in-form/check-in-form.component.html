@@ -25,7 +25,7 @@
   </div>
   <!--Show the next step when a unisubmitVolunteerteer has been selected-->
   <ng-container *ngIf="selectedVolunteer">
-    <!--IsubmitVolunteerteer has been selected, show the signature and button group-->
+    <!--If submitVolunteerteer has been selected, show the signature and button group-->
     <ng-container *ngIf="!activeVisit; else checkOut">
       <div class="container-center" [@fadeInTrigger]="fadeInState">
         <app-signature-field formControlName="signatureField"></app-signature-field>

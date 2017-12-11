@@ -34,7 +34,7 @@ describe('CheckInEffects', () => {
 
   describe('loadData$', () => {
 
-    it('returns a LOAD_DATA_SUCCESS action, with the visits and volunteers, on success', async(() => {
+    it('should return a LOAD_DATA_SUCCESS action, with the visits and volunteers, on success', async(() => {
       const loadData = new CheckInActions.LoadData({
         siteId: testVisits[0].siteId,
         organizationId: testVolunteers[0].organizationId
@@ -53,7 +53,7 @@ describe('CheckInEffects', () => {
 
   describe('submitNewVolunteer$', () => {
 
-    it('returns a SUBMIT_NEW_VOLUNTEER_SUCCESS action, with the visits and volunteers, on success', async(() => {
+    it('should return a SUBMIT_NEW_VOLUNTEER_SUCCESS action, with the visits and volunteers, on success', async(() => {
       const submitNewVolunteer = new CheckInActions.SubmitNewVolunteer(testVolunteers[0]);
       const submitNewVolunteerSuccess = new CheckInActions.SubmitNewVolunteerSuccess(testVolunteers[0]);
 
@@ -66,7 +66,7 @@ describe('CheckInEffects', () => {
 
   describe('checkIn$', () => {
 
-    it('navigates to the dashboard and displays the checkInSuccess snackbar, on success', async(() => {
+    it('should navigate to the dashboard and displays the checkInSuccess snackbar, on success', async(() => {
       const checkIn = new CheckInActions.CheckIn(testVisits[0]);
       const checkInSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkInSuccess');
 
@@ -80,7 +80,7 @@ describe('CheckInEffects', () => {
 
   describe('checkOut$', () => {
 
-    it('navigates to the dashboard and displays the checkOutSuccess snackbar, on success', async(() => {
+    it('should navigate to the dashboard and displays the checkOutSuccess snackbar, on success', async(() => {
       const checkOut = new CheckInActions.CheckOut(testVisits[0]);
       const checkOutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkOutSuccess');
 

@@ -8,7 +8,7 @@
     "build:dev": "ng build --dev",
     "build:staging": "ng build --prod -e=staging",
     "build:prod": "ng build --prod",
-    "test": "ng test",
+    "test": "ng test --code-coverage",
     "test:ci": "ng test --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"

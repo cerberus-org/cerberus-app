@@ -62,7 +62,9 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.formGroupSubscription.unsubscribe();
+    if (this.formGroupSubscription) {
+      this.formGroupSubscription.unsubscribe();
+    }
   }
 
   ngAfterView(): void {
@@ -70,22 +72,17 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Updates state when a pet name is selected.
-   * @param petName - the selected petName
-   */
-  onPetNameChange(petName: string): void {
-    this.selectedVolunteer = this.selectVolunteerByPetName(this.filteredVolunteers, petName);
-  }
-
-  /**
    * Constructs the visit with startedAt as no, and endedAt as null,
    * emits the onCheckIn or onCheckOut events, then resets the form.
    */
   submit(): void {
+    if (!this.selectedVolunteer) {
+      return;
+    }
     if (this.activeVisit) {
       const visit = Object.assign({}, this.activeVisit, { endedAt: new Date() });
       this.checkOut.emit(visit);
-    } else if (this.selectedVolunteer) {
+    } else {
       const visit = new Visit(
         this.organizationId,
         this.siteId,
@@ -93,7 +90,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
         new Date(),
         null,
         'America/Chicago',
-        this.signatures.first.signature
+        this.signatures.first ? this.signatures.first.signature : null
       );
       this.checkIn.emit(visit);
     }
@@ -140,6 +137,14 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
           ? this.selectActiveVisit(this.visits, this.selectedVolunteer)
           : null
       });
+  }
+
+  /**
+   * Updates state when a pet name is selected.
+   * @param petName - the selected petName
+   */
+  onPetNameChange(petName: string): void {
+    this.selectedVolunteer = this.selectVolunteerByPetName(this.filteredVolunteers, petName);
   }
 
   // FormGroup and validators

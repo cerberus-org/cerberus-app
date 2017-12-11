@@ -24,16 +24,16 @@ describe('UserService', () => {
     user.lastName = 'mAdEr';
   }));
 
-  it('is created', inject([UserService], (userService: UserService) => {
+  it('should be created', inject([UserService], (userService: UserService) => {
     expect(userService).toBeTruthy();
   }));
 
-  it('converts coming from the database', () => {
+  it('should convert data coming from the database', () => {
     const converted = service.convertIn(user);
     expect(converted).toEqual(testUsers[0]);
   });
 
-  it('converts data going to the database', () => {
+  it('should convert data going to the database', () => {
     const converted = service.convertOut(user);
     expect(converted).toEqual(testUsers[0]);
   });

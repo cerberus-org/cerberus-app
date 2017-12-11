@@ -9,9 +9,9 @@ import { Site } from '../../models/site';
 })
 export class VolunteerMenuComponent {
   @Input() sites: Site[];
-  @Output() onSiteClick = new EventEmitter<Site>();
+  @Output() siteClick = new EventEmitter<Site>();
 
-  click(site: Site): void {
-    this.onSiteClick.emit(site);
+  onClick(site: Site): void {
+    this.siteClick.emit(site);
   }
 }
