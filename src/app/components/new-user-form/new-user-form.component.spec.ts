@@ -68,6 +68,12 @@ describe('NewUserFormComponent', () => {
       expect(control.valid).toBeFalsy();
       expect(errors['maxlength']).toBeTruthy();
     }));
+
+    it('should accept a valid first name', (() => {
+      const control = component.formGroup.controls['firstName'];
+      control.setValue('Ted');
+      expect(control.valid).toBeTruthy();
+    }));
   });
 
   describe('lastName control', () => {
@@ -94,6 +100,12 @@ describe('NewUserFormComponent', () => {
       expect(control.valid).toBeFalsy();
       expect(errors['maxlength']).toBeTruthy();
     }));
+
+    it('should accept a valid last name', (() => {
+      const control = component.formGroup.controls['lastName'];
+      control.setValue('Mader');
+      expect(control.valid).toBeTruthy();
+    }));
   });
 
   describe('website control', () => {
@@ -115,13 +127,13 @@ describe('NewUserFormComponent', () => {
       expect(errors['maxlength']).toBeTruthy();
     }));
 
-    it('accepts valid emails', (() => {
+    it('accepts a valid email', (() => {
       const control = component.formGroup.controls['email'];
       control.setValue('test@gmail.com');
       expect(control.valid).toBeTruthy();
     }));
 
-    it('does not accept invalid websites', (() => {
+    it('should not accept an invalid email', (() => {
       const control = component.formGroup.controls['email'];
       control.setValue('notAnEmail');
       const errors = control.errors || {};
@@ -154,6 +166,12 @@ describe('NewUserFormComponent', () => {
       const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
       expect(errors['maxlength']).toBeTruthy();
+    }));
+
+    it('should accept a valid password', (() => {
+      const control = component.formGroup.controls['password'];
+      control.setValue('password');
+      expect(control.valid).toBeTruthy();
     }));
   });
 });

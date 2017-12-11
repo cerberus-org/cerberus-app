@@ -67,6 +67,12 @@ describe('NewOrganizationFormComponent', () => {
       expect(control.valid).toBeFalsy();
       expect(errors['maxlength']).toBeTruthy();
     }));
+
+    it('should accept a valid name', (() => {
+      const control = component.formGroup.controls['name'];
+      control.setValue('Cerberus');
+      expect(control.valid).toBeTruthy();
+    }));
   });
 
   describe('website control', () => {
@@ -88,18 +94,18 @@ describe('NewOrganizationFormComponent', () => {
       expect(errors['maxlength']).toBeTruthy();
     }));
 
-    it('accepts valid websites', (() => {
-      const control = component.formGroup.controls['website'];
-      control.setValue('website.com');
-      expect(control.valid).toBeTruthy();
-    }));
-
-    xit('does not accept invalid websites', (() => {
+    it('should validate the url', (() => {
       const control = component.formGroup.controls['website'];
       control.setValue('notAWebsite');
       const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
       expect(errors['pattern']).toBeTruthy();
+    }));
+
+    it('should accept a valid website', (() => {
+      const control = component.formGroup.controls['website'];
+      control.setValue('website.com');
+      expect(control.valid).toBeTruthy();
     }));
   });
 
@@ -119,6 +125,12 @@ describe('NewOrganizationFormComponent', () => {
       const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
       expect(errors['maxlength']).toBeTruthy();
+    }));
+
+    it('should accept a valid description', (() => {
+      const control = component.formGroup.controls['description'];
+      control.setValue('This is a test.');
+      expect(control.valid).toBeTruthy();
     }));
   });
 });
