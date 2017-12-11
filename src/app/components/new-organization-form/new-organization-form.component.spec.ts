@@ -5,6 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NewOrganizationFormComponent } from './new-organization-form.component';
 import { Organization } from '../../models/organization';
+import { cold, hot } from 'jasmine-marbles';
 
 describe('NewOrganizationFormComponent', () => {
   let component: NewOrganizationFormComponent;
@@ -29,6 +30,17 @@ describe('NewOrganizationFormComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit a validOrganization event on valid form values', () => {
+    spyOn(component.validOrganization, 'emit');
+    const name = 'Cerberus';
+    const website = 'website.com';
+    const description = 'This is a test.';
+    component.formGroup.controls['name'].setValue(name);
+    component.formGroup.controls['website'].setValue(website);
+    component.formGroup.controls['description'].setValue(description);
+    expect(component.validOrganization.emit).toHaveBeenCalledWith(new Organization(name, description, website));
   });
 
   describe('name control', () => {

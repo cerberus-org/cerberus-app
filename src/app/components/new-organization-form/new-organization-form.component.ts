@@ -26,7 +26,9 @@ export class NewOrganizationFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.formSubscription.unsubscribe();
+    if (this.formSubscription) {
+      this.formSubscription.unsubscribe();
+    }
   }
 
   /**
@@ -50,7 +52,7 @@ export class NewOrganizationFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Subscribes to the form group and outputs the current validity and a new Organization object if valid.
+   * Subscribes to the form group to emit a new Organization object on value changes if valid.
    */
   subscribeToForm(): Subscription {
     return this.formGroup.valueChanges.subscribe(() => {
