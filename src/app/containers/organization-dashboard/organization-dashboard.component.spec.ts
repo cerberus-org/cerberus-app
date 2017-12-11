@@ -38,7 +38,7 @@ describe('OrganizationDashboardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('is created', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

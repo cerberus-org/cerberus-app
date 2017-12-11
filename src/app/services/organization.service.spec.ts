@@ -24,16 +24,16 @@ describe('OrganizationService', () => {
     organization.description = 'the Jefferson SPCA exists to support the Jefferson Parish Animal Shelter.';
   }));
 
-  it('is created', inject([OrganizationService], (organizationService: OrganizationService) => {
+  it('should be created', inject([OrganizationService], (organizationService: OrganizationService) => {
     expect(organizationService).toBeTruthy();
   }));
 
-  it('converts coming from the database', () => {
+  it('should convert data coming from the database', () => {
     const converted = service.convertIn(organization);
     expect(converted).toEqual(testOrganizations[0]);
   });
 
-  it('converts data going to the database', () => {
+  it('should convert data going to the database', () => {
     const converted = service.convertOut(organization);
     expect(converted).toEqual(testOrganizations[0]);
   });

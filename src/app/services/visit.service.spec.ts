@@ -22,11 +22,11 @@ describe('VisitService', () => {
     visit = Object.assign({}, testVisits[0]);
   }));
 
-  it('is created', inject([VisitService], (visitService: VisitService) => {
+  it('should be created', inject([VisitService], (visitService: VisitService) => {
     expect(visitService).toBeTruthy();
   }));
 
-  it('converts coming from the database', () => {
+  it('should convert coming from the database', () => {
     visit.signature = JSON.stringify(visit.signature);
     const converted = service.convertIn(visit);
     expect(converted.startedAt).toEqual(jasmine.any(Date));
@@ -34,7 +34,7 @@ describe('VisitService', () => {
     expect(converted.signature).toEqual(jasmine.any(Array));
   });
 
-  it('converts data going to the database', () => {
+  it('should convert data going to the database', () => {
     const converted = service.convertOut(visit);
     expect(converted.startedAt).toEqual(jasmine.any(Date));
     expect(converted.endedAt).toEqual(jasmine.any(Date));

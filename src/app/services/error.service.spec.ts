@@ -26,11 +26,11 @@ describe('ErrorService', () => {
     service = testbed.get(ErrorService);
   }));
 
-  it('is created', inject([ErrorService], (errorService: ErrorService) => {
+  it('should be created', inject([ErrorService], (errorService: ErrorService) => {
     expect(errorService).toBeTruthy();
   }));
 
-  it('401 error', () => {
+  it('should handle a 401 error', () => {
     error = new Response(401);
     service.handleHttpError(error);
   });

@@ -27,7 +27,7 @@ describe('NewVolunteerFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('is created', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
@@ -39,40 +39,36 @@ describe('NewVolunteerFormComponent', () => {
         control = component.formGroup.controls[form];
       }));
 
-      it('validates requirement', (() => {
-        const errors = control.errors || {};
+      it('should validate requirement', (() => {
         expect(control.valid).toBeFalsy();
-        expect(errors['required']).toBeTruthy();
+        expect(control.errors['required']).toBeTruthy();
       }));
 
-      it('validates min length', (() => {
+      it('should validate min length', (() => {
         control.setValue('C');
-        const errors = control.errors || {};
-        expect(errors['required']).toBeFalsy();
-        expect(errors['minlength']).toBeTruthy();
+        expect(control.errors['required']).toBeFalsy();
+        expect(control.errors['minlength']).toBeTruthy();
       }));
 
-      it('validates max length', (() => {
+      it('should validate max length', (() => {
         control.setValue('Quinquagintaquadringentilliards');
-        const errors = control.errors || {};
-        expect(errors['required']).toBeFalsy();
-        expect(errors['maxlength']).toBeTruthy();
+        expect(control.errors['required']).toBeFalsy();
+        expect(control.errors['maxlength']).toBeTruthy();
       }));
 
-      it('validates pattern', (() => {
+      it('should validate the pattern', (() => {
         control.setValue('!@#$%^&*()_+');
-        const errors = control.errors || {};
-        expect(errors['required']).toBeFalsy();
-        expect(errors['pattern']).toBeTruthy();
+        expect(control.errors['required']).toBeFalsy();
+        expect(control.errors['pattern']).toBeTruthy();
       }));
 
-      it('accepts a valid name', (() => {
+      it('should accept a valid name', (() => {
         control.setValue('Cerberus');
         expect(control.valid).toBeTruthy();
         expect(control.errors).toBeFalsy();
       }));
 
-      it('clears the form on submit', (() => {
+      it('should clear the form on submit', (() => {
         control.setValue('Cerberus');
         component.submit();
         expect(control.value).toBeFalsy();

@@ -38,32 +38,32 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('is created', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
   describe('email control', () => {
-    it('validates requirement', () => {
+    it('should validate requirement', () => {
       const control = component.loginForm.controls['email'];
       expect(control.valid).toBeFalsy();
       expect(control.errors).toBeTruthy();
     });
 
-    it('validates valid email', () => {
+    it('should validate valid email', () => {
       const control = component.loginForm.controls['email'];
       control.setValue('test@gmail.com');
       expect(control.valid).toBeTruthy();
       expect(control.errors).toBeFalsy();
     });
 
-    it('validates email without an @ is invalid', () => {
+    it('should validate email without an @ is invalid', () => {
       const control = component.loginForm.controls['email'];
       control.setValue('test');
       expect(control.valid).toBeFalsy();
       expect(control.errors).toBeTruthy();
     });
 
-    it('validates email that ends in a period is invalid', () => {
+    it('should validate email that ends in a period is invalid', () => {
       const control = component.loginForm.controls['email'];
       control.setValue('test@gmail.com.');
       expect(control.valid).toBeFalsy();
@@ -72,7 +72,7 @@ describe('LoginComponent', () => {
   });
 
   describe('password control', () => {
-    it('validates requirement', () => {
+    it('should validate requirement', () => {
       const control = component.loginForm.controls['password'];
       expect(control.valid).toBeFalsy();
       expect(control.errors).toBeTruthy();

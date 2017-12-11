@@ -29,12 +29,12 @@ describe('VolunteerService', () => {
     expect(volunteerService).toBeTruthy();
   }));
 
-  it('converts data going to the database', () => {
+  it('should convert data coming from the database', () => {
     const converted = service.convertIn(volunteer);
     expect(converted).toEqual(testVolunteers[0]);
   });
 
-  it('converts coming from the database', () => {
+  it('should convert data going to the database', () => {
     const converted = service.convertOut(volunteer);
     expect(converted).toEqual(testVolunteers[0]);
   });

@@ -45,27 +45,24 @@ describe('NewOrganizationFormComponent', () => {
 
   describe('name control', () => {
 
-    it('validates requirement', (() => {
+    it('should validate requirement', (() => {
       const control = component.formGroup.controls['name'];
-      const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
-      expect(errors['required']).toBeTruthy();
+      expect(control.errors['required']).toBeTruthy();
     }));
 
-    it('validates min length', (() => {
+    it('should validate min length', (() => {
       const control = component.formGroup.controls['name'];
       control.setValue('ABC');
-      const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
-      expect(errors['minlength']).toBeTruthy();
+      expect(control.errors['minlength']).toBeTruthy();
     }));
 
-    it('validates max length', (() => {
+    it('should validate max length', (() => {
       const control = component.formGroup.controls['name'];
       control.setValue('Lorem Ipsum Dolor Sit Amet Consectetuer Adipiscing Elit Aenean Commodo Li');
-      const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
-      expect(errors['maxlength']).toBeTruthy();
+      expect(control.errors['maxlength']).toBeTruthy();
     }));
 
     it('should accept a valid name', (() => {
@@ -77,29 +74,26 @@ describe('NewOrganizationFormComponent', () => {
 
   describe('website control', () => {
 
-    it('validates requirement', (() => {
+    it('should validate requirement', (() => {
       const control = component.formGroup.controls['website'];
-      const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
-      expect(errors['required']).toBeTruthy();
+      expect(control.errors['required']).toBeTruthy();
     }));
 
-    it('validates max length', (() => {
+    it('should validate max length', (() => {
       const control = component.formGroup.controls['website'];
       control.setValue('Lorem.ipsum.dolor.sit.amet.consectetuer.adipiscing.elit.Aenean.commodo.ligula.eget.dolor' +
         '.Aenean.massa.Cum.sociis.natoque.penatibus.et.magnis.dis.parturient.montes.nascetur.ridiculus.mus.Donec.quam' +
         '.felis.ultricies.nec.pellentesque.eu.pretium.quis.Lorem.ipsum.com');
-      const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
-      expect(errors['maxlength']).toBeTruthy();
+      expect(control.errors['maxlength']).toBeTruthy();
     }));
 
     it('should validate the url', (() => {
       const control = component.formGroup.controls['website'];
       control.setValue('notAWebsite');
-      const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
-      expect(errors['pattern']).toBeTruthy();
+      expect(control.errors['invalidURL']).toBeTruthy();
     }));
 
     it('should accept a valid website', (() => {
@@ -111,20 +105,18 @@ describe('NewOrganizationFormComponent', () => {
 
   describe('description control', () => {
 
-    it('validates requirement', (() => {
+    it('should validate requirement', (() => {
       const control = component.formGroup.controls['description'];
-      const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
-      expect(errors['required']).toBeTruthy();
+      expect(control.errors['required']).toBeTruthy();
     }));
 
-    it('validates max length', (() => {
+    it('should validate max length', (() => {
       const control = component.formGroup.controls['description'];
       control.setValue('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.' +
         'Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis');
-      const errors = control.errors || {};
       expect(control.valid).toBeFalsy();
-      expect(errors['maxlength']).toBeTruthy();
+      expect(control.errors['maxlength']).toBeTruthy();
     }));
 
     it('should accept a valid description', (() => {
