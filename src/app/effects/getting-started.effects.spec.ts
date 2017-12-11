@@ -35,7 +35,7 @@ describe('GettingStartedEffects', () => {
 
   describe('gettingStarted$', () => {
 
-    it('creates the organization, site, and user, displays the addOrganizationSuccess snackbar, returns a LOG_IN action, on success', async(() => {
+    it('should create the organization, site, and user, displays the addOrganizationSuccess snackbar, returns a LOG_IN action, on success', async(() => {
       const organization = testOrganizations[0];
       const user = testUsers[0];
       const submit = new Submit({ organization, user });

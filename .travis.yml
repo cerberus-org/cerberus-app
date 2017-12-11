@@ -33,6 +33,7 @@ install:
 
 script:
   - yarn run test:ci
+  - yarn run lint
 
 before_deploy:
   - if [[ "$TRAVIS_BRANCH" = "master" ]]; then yarn run build:dev; fi

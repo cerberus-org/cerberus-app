@@ -3,6 +3,8 @@ import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { testOrganizations } from '../../models/organization';
+import { testVolunteers, Volunteer } from '../../models/volunteer';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 
 describe('NewVolunteerFormComponent', () => {
@@ -27,8 +29,23 @@ describe('NewVolunteerFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('is created', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit a new volunteer on submit', () => {
+    spyOn(component.newVolunteer, 'emit');
+    const organizationId = testOrganizations[0].id;
+    const firstName = testVolunteers[0].firstName;
+    const lastName = testVolunteers[0].lastName;
+    const petName = testVolunteers[0].petName;
+    component.organizationId = organizationId;
+    component.formGroup.controls['firstName'].setValue(firstName);
+    component.formGroup.controls['lastName'].setValue(lastName);
+    component.formGroup.controls['petName'].setValue(petName);
+    component.submit();
+    expect(component.newVolunteer.emit)
+      .toHaveBeenCalledWith(new Volunteer(organizationId, firstName, lastName, petName));
   });
 
   ['firstName', 'lastName', 'petName'].forEach(form => {
@@ -39,40 +56,36 @@ describe('NewVolunteerFormComponent', () => {
         control = component.formGroup.controls[form];
       }));
 
-      it('validates requirement', (() => {
-        const errors = control.errors || {};
+      it('should validate requirement', (() => {
         expect(control.valid).toBeFalsy();
-        expect(errors['required']).toBeTruthy();
+        expect(control.errors['required']).toBeTruthy();
       }));
 
-      it('validates min length', (() => {
+      it('should validate min length', (() => {
         control.setValue('C');
-        const errors = control.errors || {};
-        expect(errors['required']).toBeFalsy();
-        expect(errors['minlength']).toBeTruthy();
+        expect(control.errors['required']).toBeFalsy();
+        expect(control.errors['minlength']).toBeTruthy();
       }));
 
-      it('validates max length', (() => {
+      it('should validate max length', (() => {
         control.setValue('Quinquagintaquadringentilliards');
-        const errors = control.errors || {};
-        expect(errors['required']).toBeFalsy();
-        expect(errors['maxlength']).toBeTruthy();
+        expect(control.errors['required']).toBeFalsy();
+        expect(control.errors['maxlength']).toBeTruthy();
       }));
 
-      it('validates pattern', (() => {
+      it('should validate the pattern', (() => {
         control.setValue('!@#$%^&*()_+');
-        const errors = control.errors || {};
-        expect(errors['required']).toBeFalsy();
-        expect(errors['pattern']).toBeTruthy();
+        expect(control.errors['required']).toBeFalsy();
+        expect(control.errors['pattern']).toBeTruthy();
       }));
 
-      it('accepts a valid name', (() => {
+      it('should accept a valid name', (() => {
         control.setValue('Cerberus');
         expect(control.valid).toBeTruthy();
         expect(control.errors).toBeFalsy();
       }));
 
-      it('clears the form on submit', (() => {
+      it('should clear the form on submit', (() => {
         control.setValue('Cerberus');
         component.submit();
         expect(control.value).toBeFalsy();

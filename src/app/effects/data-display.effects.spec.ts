@@ -25,7 +25,7 @@ describe('DataDisplayEffects', () => {
 
   describe('loadData$', () => {
 
-    it('returns a LOAD_DATA_SUCCESS action, with the visits and volunteers, on success', async(() => {
+    it('should return a LOAD_DATA_SUCCESS action, with the visits and volunteers, on success', async(() => {
       const loadData = new LoadData(testVisits[0].organizationId);
       const loadDataSuccess = new LoadDataSuccess(testVisits);
 
