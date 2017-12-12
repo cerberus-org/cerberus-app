@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { FirebaseError } from 'firebase';
+import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Observable';
 
 import { SnackBarService } from './snack-bar.service';
@@ -9,17 +11,16 @@ export class ErrorService {
   constructor(private snackBarService: SnackBarService) { }
 
   /**
-   * Display the error using a snack bar and then log the error.
-   * @param error
-   * @return {any}
+   * Displays the error via snack bar and stops any Observable pipeline.
+   * @param error - the error from Firebase
+   * @return {Observable<any>} an Observable that stops a pipeline
    */
-  handleFirebaseError(error: any | Response) {
-    console.log('CAUGHT!');
+  handleFirebaseError(error: FirebaseError): Observable<any> {
     this.snackBarService.open(error.message);
-    return Observable.throw(new Error(error.code))
+    // Stop the pipeline after a caught error
+    return Observable.of(null).filter(e => !!e);
   }
 }
-
 
 export class MockErrorService extends ErrorService {
 
@@ -27,12 +28,8 @@ export class MockErrorService extends ErrorService {
     super(null);
   }
 
-  handleFirebaseError(error: any | Response) {
-    try {
-      return Observable.throw(error);
-    } catch (Error) {
-      console.error(error);
-    }
+  handleFirebaseError(error: FirebaseError) {
+    return Observable.of(null).filter(e => !!e);
   }
 }
 
