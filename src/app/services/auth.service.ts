@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 
 import { setLocalStorageObject } from '../functions/localStorageObject';
 import { testUsers, User } from '../models/user';
+import { ErrorService } from './error.service';
 import { OrganizationService } from './organization.service';
 import { UserService } from './user.service';
 
@@ -13,6 +15,7 @@ import { UserService } from './user.service';
 export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
+              private errorService: ErrorService,
               private organizationService: OrganizationService,
               private userService: UserService) {
     if (afAuth) {
@@ -23,13 +26,15 @@ export class AuthService {
   createUser(user: User): Observable<User> {
     return Observable.fromPromise(this.afAuth.auth
       .createUserWithEmailAndPassword(user.email, user.password))
-      .switchMap(afUser => this.userService.add(user, afUser.uid));
+      .switchMap(afUser => this.userService.add(user, afUser.uid))
+      .catch(error => this.errorService.handleFirebaseError(error));
   }
 
   signIn(email: string, password: string): Observable<User> {
     return Observable.fromPromise(this.afAuth.auth
       .signInWithEmailAndPassword(email, password))
       .switchMap(afUser => this.setLocalStorage(afUser))
+      .catch(error => this.errorService.handleFirebaseError(error));
   }
 
   setLocalStorage(afUser: any): Observable<User> {
@@ -69,7 +74,7 @@ export class AuthService {
 export class MockAuthService extends AuthService {
 
   constructor() {
-    super(null, null, null);
+    super(null, null, null, null);
   }
 
   createUser(user: User): Observable<User> {

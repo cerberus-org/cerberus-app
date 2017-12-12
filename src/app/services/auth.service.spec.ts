@@ -3,6 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { testUsers } from '../models/user';
 import { AuthService } from './auth.service';
+import { ErrorService, MockErrorService } from './error.service';
 import { MockOrganizationService, OrganizationService } from './organization.service';
 import { MockUserService, UserService } from './user.service';
 
@@ -15,6 +16,7 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         { provide: AngularFireAuth, useValue: null },
+        { provide: ErrorService, useClass: MockErrorService },
         { provide: OrganizationService, useClass: MockOrganizationService },
         { provide: UserService, useClass: MockUserService }
       ]
