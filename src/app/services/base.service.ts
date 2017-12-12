@@ -26,10 +26,10 @@ export abstract class BaseService<T> {
     return snapshot
       ? this.collection.snapshotChanges()
         .map(item => this.convertIn(item))
-        .catch(this.errorService.handleHttpError)
+        .catch(this.errorService.handleFirebaseError)
       : this.collection.valueChanges()
         .map(item => this.convertIn(item))
-        .catch(this.errorService.handleHttpError);
+        .catch(error => this.errorService.handleFirebaseError(error));
   }
 
   /**
@@ -51,10 +51,10 @@ export abstract class BaseService<T> {
             return this.convertIn(Object.assign(data, { id }));
           });
         })
-        .catch(this.errorService.handleHttpError)
+        .catch(error => this.errorService.handleFirebaseError(error))
       : collection.valueChanges()
         .map(item => this.convertIn(item))
-        .catch(this.errorService.handleHttpError);
+        .catch(error => this.errorService.handleFirebaseError(error));
   }
 
   /**
@@ -63,9 +63,11 @@ export abstract class BaseService<T> {
    * @returns {any} - an observable containing the data.
    */
   getById(id: string): Observable<T> {
-    return Observable.fromPromise(this.collection.doc(id).ref.get()
-      .then(snapshot => this.convertIn(snapshot.data())))
-      .catch(this.errorService.handleHttpError);
+    return Observable.fromPromise(
+      this.collection.doc(id).ref.get()
+        .then(snapshot => this.convertIn(snapshot.data()))
+    )
+      .catch(error => this.errorService.handleFirebaseError(error));
   }
 
   /**
@@ -76,12 +78,16 @@ export abstract class BaseService<T> {
    */
   add(item: T, id?: string): Observable<T> {
     return Observable.fromPromise(id
-      ? this.collection.doc(id).set(Object.assign({}, this.convertOut(item)))
+      ? this.collection.doc(id)
+        .set(Object.assign({}, this.convertOut(item)))
         .then(() => this.convertIn(Object.assign({}, item, { id })))
       : this.collection.add(Object.assign({}, this.convertOut(item)))
-        .then(ref => ref.get()
-          .then(snapshot => this.convertIn(Object.assign({}, snapshot.data(), { id: snapshot.id })))))
-      .catch(this.errorService.handleHttpError);
+        .then(
+          ref => ref.get()
+            .then(snapshot => this.convertIn(Object.assign({}, snapshot.data(), { id: snapshot.id })))
+        )
+    )
+      .catch(error => this.errorService.handleFirebaseError(error));
   }
 
   /**
@@ -90,8 +96,10 @@ export abstract class BaseService<T> {
    * @returns {Observable<R|T>} - an empty Observable that emits when completed.
    */
   update(item: any): Observable<any> {
-    return Observable.fromPromise(this.collection.doc(item.id).update(this.convertOut(item)))
-      .catch(this.errorService.handleHttpError);
+    return Observable.fromPromise(
+      this.collection.doc(item.id).update(this.convertOut(item))
+    )
+      .catch(error => this.errorService.handleFirebaseError(error));
   }
 
   /**
@@ -101,7 +109,7 @@ export abstract class BaseService<T> {
    */
   delete(item: any): Observable<any> {
     return Observable.fromPromise(this.collection.doc(item.id).delete())
-      .catch(this.errorService.handleHttpError);
+      .catch(error => this.errorService.handleFirebaseError(error));
   }
 
   /**

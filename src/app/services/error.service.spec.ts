@@ -32,6 +32,6 @@ describe('ErrorService', () => {
 
   it('should handle a 401 error', () => {
     error = new Response(401);
-    service.handleHttpError(error);
+    service.handleFirebaseError(error);
   });
 });
