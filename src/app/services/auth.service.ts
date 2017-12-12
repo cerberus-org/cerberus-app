@@ -29,13 +29,13 @@ export class AuthService {
   signIn(email: string, password: string): Observable<User> {
     return Observable.fromPromise(this.afAuth.auth
       .signInWithEmailAndPassword(email, password))
-      .switchMap(afUser => this.setItems(afUser))
+      .switchMap(afUser => this.setLocalStorage(afUser))
   }
 
-  setItems(afUser: any): Observable<User> {
+  setLocalStorage(afUser: any): Observable<User> {
     return this.userService.getById(afUser.uid)
-      .switchMap(user => {
-        Object.assign(user, {
+      .switchMap(res => {
+        const user = Object.assign({}, res, {
           id: afUser.uid,
           email: afUser.email
         });
