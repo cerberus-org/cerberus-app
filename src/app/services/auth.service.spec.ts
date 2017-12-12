@@ -37,7 +37,7 @@ describe('AuthService', () => {
   }));
 
   it('should set localStorage items and returns the user', () => {
-    service.setItems(afUser).subscribe(user => {
+    service.setLocalStorage(afUser).subscribe(user => {
       expect(user).toEqual(testUsers[0]);
       expect(localStorage.getItem('user')).toBeTruthy();
       expect(localStorage.getItem('organization')).toBeTruthy();
