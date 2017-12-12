@@ -14,13 +14,24 @@ import { UserService } from './user.service';
 @Injectable()
 export class AuthService {
 
+  pwdVerification: boolean;
+
   constructor(private afAuth: AngularFireAuth,
               private errorService: ErrorService,
               private organizationService: OrganizationService,
               private userService: UserService) {
+    this.pwdVerification = false;
     if (afAuth) {
       this.observeStateChanges();
     }
+  }
+
+  setPwdVerification(val: boolean) {
+    this.pwdVerification = val;
+  }
+
+  isPwdValid(): boolean {
+    return this.pwdVerification;
   }
 
   createUser(user: User): Observable<User> {
