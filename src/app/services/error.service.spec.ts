@@ -1,22 +1,13 @@
-import { async, getTestBed, inject, TestBed, } from '@angular/core/testing';
-import { MatSnackBarModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 
 import { ErrorService } from './error.service';
 import { MockSnackBarService, SnackBarService } from './snack-bar.service';
 
 describe('ErrorService', () => {
   let service: ErrorService = null;
-  let error: Response = null;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        MatSnackBarModule,
-        BrowserAnimationsModule
-      ],
       providers: [
         ErrorService,
         { provide: SnackBarService, useClass: MockSnackBarService },
@@ -30,8 +21,11 @@ describe('ErrorService', () => {
     expect(errorService).toBeTruthy();
   }));
 
-  it('should handle a 401 error', () => {
-    error = new Response(401);
-    service.handleFirebaseError(error);
+  it('should handle a Firebase error', () => {
+    spyOn(service.snackBarService, 'open');
+    const error = { code: '404', message: 'This is a test.', name: '', stack: undefined };
+    const obs = service.handleFirebaseError(error);
+    expect(service.snackBarService.open).toHaveBeenCalledWith(error.message);
+    expect(obs).toBeTruthy();
   });
 });

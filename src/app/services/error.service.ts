@@ -8,7 +8,7 @@ import { SnackBarService } from './snack-bar.service';
 @Injectable()
 export class ErrorService {
 
-  constructor(private snackBarService: SnackBarService) { }
+  constructor(public snackBarService: SnackBarService) { }
 
   /**
    * Displays the error via snack bar and stops any Observable pipeline.
