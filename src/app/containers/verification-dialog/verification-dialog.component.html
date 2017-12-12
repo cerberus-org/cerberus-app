@@ -1,7 +1,7 @@
-<h1 mat-dialog-title>Verification</h1>
-
 <mat-dialog-content>
-  <input type="password" placeholder='password' [(ngModel)]="pwd">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter your password" type="password" required [(ngModel)]="pwd">
+  </mat-form-field>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
