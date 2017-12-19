@@ -9,10 +9,12 @@ import { MatDialogRef } from '@angular/material';
 export class VerificationDialogComponent implements OnInit {
 
   pwd: string;
+  hidePwd: boolean;
 
   constructor(public dialogRef: MatDialogRef<VerificationDialogComponent>) { }
 
   ngOnInit() {
+    this.hidePwd = true;
   }
 
   /**

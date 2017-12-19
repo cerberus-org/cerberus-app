@@ -1,6 +1,7 @@
 <mat-dialog-content>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Enter your password" type="password" required [(ngModel)]="pwd">
+    <input matInput placeholder="Enter your password" [type]="hidePwd ? 'password' : 'text'" [(ngModel)]="pwd">
+    <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{hidePwd ? 'visibility' : 'visibility_off'}}</mat-icon>
   </mat-form-field>
 </mat-dialog-content>
 
