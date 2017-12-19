@@ -31,7 +31,7 @@ export class LoginEffects {
       }));
 
   /**
-   * Listen for a Verify action, verify password,
+   * Listen for the Verify action, verify password,
    * navigate to settings page on success.
    * @type {Observable<any>}
    */

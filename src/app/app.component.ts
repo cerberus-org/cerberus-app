@@ -6,9 +6,9 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as LoginActions from './actions/login.actions';
 import * as RouterActions from './actions/router.actions';
+import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
 import { getLocalStorageObjectProperty } from './functions/localStorageObject';
 import { State } from './reducers/index';
-import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.store.dispatch(new RouterActions.Back());
         break;
       case 'settings':
-        this.openDialog();
+        this.openAndSubscribeToDialog();
         break;
       case 'logOut':
         this.store.dispatch(new LoginActions.LogOut({}));
@@ -88,27 +88,18 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Open the dialog and subscribe to the observable that is returned on closed
-   * to extract the data.
+   * Open the dialog and subscribe to the observable that is returned on close
+   * to extract the password. Once password is obtained dispatch the verify effect.
    */
-  public openDialog() {
+  public openAndSubscribeToDialog() {
     const dialog = this.dialog.open(VerificationDialogComponent);
-
     dialog.afterClosed()
       .subscribe(
         pwd => {
           // Once the Observable is returned dispatch an effect
-          this.onPwdVerification(pwd);
+          this.store.dispatch(new LoginActions.Verify(pwd));
         }
       );
-  }
-
-  /**
-   * Verify the password is correct.
-   * @param {string} pwd
-   */
-  onPwdVerification(pwd: string): void {
-    this.store.dispatch(new LoginActions.Verify(pwd));
   }
 
   /**
