@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule, MatDialogRef } from '@angular/material';
 import { VerificationDialogComponent } from './verification-dialog.component';
 
 describe('VerificationDialogComponent', () => {
@@ -8,7 +10,14 @@ describe('VerificationDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VerificationDialogComponent ]
+      imports: [
+        FormsModule,
+        MatDialogModule
+      ],
+      declarations: [VerificationDialogComponent],
+      providers: [
+        { provide: MatDialogRef, useClass: MatDialogRefMock }
+      ]
     })
     .compileComponents();
   }));
@@ -23,3 +32,6 @@ describe('VerificationDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+class MatDialogRefMock {
+}

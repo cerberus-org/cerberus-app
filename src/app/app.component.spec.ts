@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
+import { MatDialogModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { reducers } from './reducers/index';
 
@@ -11,7 +12,8 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        StoreModule.forRoot(reducers)
+        StoreModule.forRoot(reducers),
+        MatDialogModule
       ],
       declarations: [
         AppComponent,

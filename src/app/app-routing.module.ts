@@ -5,8 +5,8 @@ import { CheckInComponent } from './containers/check-in/check-in.component';
 import { GettingStartedComponent } from './containers/getting-started/getting-started.component';
 import { LoginComponent } from './containers/login/login.component';
 import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
+import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
 import { Guard } from './guard';
-import {SettingsPageComponent} from './containers/settings-page/settings-page.component';
 import { VerificationGuard } from './verificationGuard';
 
 const routes: Routes = [
