@@ -36,7 +36,7 @@ export class LoginEffects {
    * @type {Observable<any>}
    */
   @Effect()
-  pwdVerification$: Observable<Action> = this.actions
+  verify$: Observable<Action> = this.actions
     .ofType(LoginActions.VERIFY)
     .map((action: LoginActions.Verify) => action.payload)
     .switchMap(payload => this.authService.signIn(getLocalStorageObjectProperty('user', 'email'), payload)

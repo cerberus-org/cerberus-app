@@ -98,6 +98,6 @@ export class MockAuthService extends AuthService {
   }
 
   signOut(): Observable<any> {
-    return Observable.empty();
+    return Observable.of(null);
   }
 }

@@ -31,7 +31,14 @@ describe('VerificationDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should close the dialog when confirmSelection is called', () => {
+    spyOn(component.dialogRef, 'close');
+    component.confirmSelection();
+    expect(component.dialogRef.close).toHaveBeenCalled();
+  });
 });
 
 class MatDialogRefMock {
+  close() { }
 }
