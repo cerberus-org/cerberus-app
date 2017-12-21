@@ -5,7 +5,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs/Observable';
 
 import { testVisits } from '../../models/visit';
-import { VisitDataSource, VisitHistoryTableComponent } from './visit-history-table.component';
+import { VisitDataSource } from './visit-data-source';
+import { VisitHistoryTableComponent } from './visit-history-table.component';
 
 describe('VisitHistoryTableComponent', () => {
   let component: VisitHistoryTableComponent;
