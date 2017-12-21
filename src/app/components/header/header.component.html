@@ -1,16 +1,19 @@
 <mat-toolbar color="primary">
+  <button mat-icon-button (click)="onMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
   <i class="material-icons title-icon">{{icon}}</i>
   <span class="title-text">{{text}}</span>
-  <button mat-button *ngIf="showBack" (click)="back()">
+  <button mat-button *ngIf="showBack" (click)="onBack()">
     <i class="material-icons">keyboard_backspace</i>
     <span class="button-text">Back</span>
   </button>
   <span class="spacer"></span>
-  <button *ngIf="showLogOut" (click)="settings()" mat-button>
+  <button *ngIf="showLogOut" (click)="onSettings()" mat-button>
     <i class="material-icons">settings</i>
     <span class="button-text">Settings</span>
   </button>
-  <button *ngIf="showLogOut" (click)="logOut()" mat-button>
+  <button *ngIf="showLogOut" (click)="onLogOut()" mat-button>
     <i class="material-icons">exit_to_app</i>
     <span class="button-text">Log Out</span>
   </button>

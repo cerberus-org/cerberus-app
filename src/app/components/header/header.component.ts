@@ -12,15 +12,19 @@ export class HeaderComponent {
   @Input() showLogOut: boolean;
   @Output() buttonClick = new EventEmitter<string>();
 
-  back(): void {
+  onMenu(): void {
+    this.buttonClick.emit('menu');
+  }
+
+  onBack(): void {
     this.buttonClick.emit('back');
   }
 
-  settings(): void {
+  onSettings(): void {
     this.buttonClick.emit('settings');
   }
 
-  logOut(): void {
+  onLogOut(): void {
     this.buttonClick.emit('logOut');
   }
 }

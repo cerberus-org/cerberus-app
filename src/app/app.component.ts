@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -9,6 +9,7 @@ import * as RouterActions from './actions/router.actions';
 import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
 import { getLocalStorageObjectProperty } from './functions/localStorageObject';
 import { State } from './reducers/index';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { State } from './reducers/index';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
+  @ViewChild(SidenavComponent) sidenav: SidenavComponent;
   routerEventsSubscription: Subscription;
   previousUrl: string;
   icon: string;
@@ -75,6 +77,9 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   onButtonClick(action: string): void {
     switch (action) {
+      case 'menu':
+        this.sidenav.toggle();
+        break;
       case 'back':
         this.store.dispatch(new RouterActions.Back());
         break;
