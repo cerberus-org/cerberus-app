@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule, MatListModule } from '@angular/material';
+import { MatIconModule, MatInputModule, MatListModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
@@ -19,6 +19,7 @@ describe('LoginComponent', () => {
         NoopAnimationsModule,
         RouterTestingModule,
         ReactiveFormsModule,
+        MatIconModule,
         MatInputModule,
         MatListModule,
         StoreModule.forRoot(reducers)

@@ -2,8 +2,8 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule, MatRadioModule,
-  MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule,
+  MatRadioModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -101,6 +101,7 @@ import { VerificationGuard } from './verificationGuard';
       LoginEffects,
       RouterEffects
     ]),
+    FormsModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
@@ -117,8 +118,7 @@ import { VerificationGuard } from './verificationGuard';
     ReactiveFormsModule,
     SignaturePadModule,
     StoreModule.forRoot(reducers),
-    StoreRouterConnectingModule,
-    FormsModule
+    StoreRouterConnectingModule
   ],
   providers: [
     AuthService,
