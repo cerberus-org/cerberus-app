@@ -5,6 +5,10 @@ import { MatDialogModule, MatDialogRef, MatFormFieldModule, MatIconModule, MatIn
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { VerificationDialogComponent } from './verification-dialog.component';
 
+class MatDialogRefMock {
+  close() { }
+}
+
 describe('VerificationDialogComponent', () => {
   let component: VerificationDialogComponent;
   let fixture: ComponentFixture<VerificationDialogComponent>;
@@ -43,7 +47,3 @@ describe('VerificationDialogComponent', () => {
     expect(component.dialogRef.close).toHaveBeenCalled();
   });
 });
-
-class MatDialogRefMock {
-  close() { }
-}
