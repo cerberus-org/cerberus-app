@@ -1,8 +1,8 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule, MatRadioModule,
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule, MatRadioModule,
   MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,6 +29,7 @@ import { DataDisplayComponent } from './containers/data-display/data-display.com
 import { GettingStartedComponent } from './containers/getting-started/getting-started.component';
 import { LoginComponent } from './containers/login/login.component';
 import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
+import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
 
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CheckInFormComponent } from './components/check-in-form/check-in-form.component';
@@ -42,6 +43,7 @@ import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-v
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
 import { VisitHistoryTableComponent } from './components/visit-history-table/visit-history-table.component';
 import { VolunteerMenuComponent } from './components/volunteer-menu/volunteer-menu.component';
+import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
 
 import { AuthService } from './services/auth.service';
 import { ErrorService } from './services/error.service';
@@ -58,6 +60,7 @@ import { GettingStartedEffects } from './effects/getting-started.effects';
 import { LoginEffects } from './effects/login.effects';
 import { RouterEffects } from './effects/router.effects';
 import { reducers } from './reducers/index';
+import { VerificationGuard } from './verificationGuard';
 
 @NgModule({
   declarations: [
@@ -76,9 +79,11 @@ import { reducers } from './reducers/index';
     NewVolunteerFormComponent,
     OrganizationConfirmComponent,
     OrganizationDashboardComponent,
+    SettingsPageComponent,
     SignatureFieldComponent,
     VisitHistoryTableComponent,
-    VolunteerMenuComponent
+    VolunteerMenuComponent,
+    VerificationDialogComponent
   ],
   imports: [
     AngularFireAuthModule,
@@ -99,6 +104,7 @@ import { reducers } from './reducers/index';
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
@@ -111,7 +117,8 @@ import { reducers } from './reducers/index';
     ReactiveFormsModule,
     SignaturePadModule,
     StoreModule.forRoot(reducers),
-    StoreRouterConnectingModule
+    StoreRouterConnectingModule,
+    FormsModule
   ],
   providers: [
     AuthService,
@@ -121,10 +128,12 @@ import { reducers } from './reducers/index';
     SiteService,
     SnackBarService,
     UserService,
+    VerificationGuard,
     VisitService,
     VolunteerService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [VerificationDialogComponent]
 })
 export class AppModule {
 }

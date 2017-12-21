@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as LoginActions from './actions/login.actions';
 import * as RouterActions from './actions/router.actions';
+import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
 import { getLocalStorageObjectProperty } from './functions/localStorageObject';
 import { State } from './reducers/index';
 
@@ -20,7 +22,8 @@ export class AppComponent implements OnInit, OnDestroy {
   text: string;
 
   constructor(private router: Router,
-              private store: Store<State>) { }
+              private store: Store<State>,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.routerEventsSubscription = this.subscribeToRouterEvents();
@@ -76,11 +79,27 @@ export class AppComponent implements OnInit, OnDestroy {
         this.store.dispatch(new RouterActions.Back());
         break;
       case 'settings':
+        this.openAndSubscribeToDialog();
         break;
       case 'logOut':
         this.store.dispatch(new LoginActions.LogOut({}));
         break;
     }
+  }
+
+  /**
+   * Open the dialog and subscribe to the observable that is returned on close
+   * to extract the password. Once password is obtained dispatch the verify effect.
+   */
+  public openAndSubscribeToDialog() {
+    const dialog = this.dialog.open(VerificationDialogComponent);
+    dialog.afterClosed()
+      .subscribe(
+        pwd => {
+          // Once the Observable is returned dispatch an effect
+          this.store.dispatch(new LoginActions.Verify(pwd));
+        }
+      );
   }
 
   /**

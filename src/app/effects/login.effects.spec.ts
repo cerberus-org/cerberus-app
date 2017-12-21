@@ -1,10 +1,12 @@
 import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { hot } from 'jasmine-marbles';
+import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs/Observable';
 
-import { LogIn, LogOut } from '../actions/login.actions';
+import * as LogInActions from '../actions/login.actions';
+import * as RouterActions from '../actions/router.actions';
+import { SettingsPageComponent } from '../containers/settings-page/settings-page.component';
 import { testUsers } from '../models/user';
 import { AuthService, MockAuthService } from '../services/auth.service';
 import { MockOrganizationService, OrganizationService } from '../services/organization.service';
@@ -39,30 +41,49 @@ describe('LoginEffects', () => {
 
   describe('login$', () => {
 
-    it('should set localStorage, navigates to the dashboard, and displays the loginSuccess snackbar, on success', () => {
+    it('should emit the loginSuccess snackbar and dispatch LogInActions.LogIn', (() => {
       const user = testUsers[0];
-      const login = new LogIn(user);
+      const login = new LogInActions.LogIn(user);
+      const go = new RouterActions.Go({ path: ['/dashboard'] });
       const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'loginSuccess');
 
       actions = hot('a', { a: login });
+      const expected = cold('b', { b: go });
 
       effects.login$.subscribe(() => {
         expect(loginSuccessSpy).toHaveBeenCalledWith(testUsers[0].firstName);
       });
+      expect(effects.login$).toBeObservable(expected);
+    }));
+  });
+
+  describe('verify$', () => {
+
+    it('should dispatch RouterActions.Go', () => {
+      const verify = new LogInActions.Verify({});
+      const go = new RouterActions.Go({ path: ['/settings'] });
+
+      actions = hot('a', { a: verify });
+      const expected = cold('b', { b: go });
+
+      expect(effects.verify$).toBeObservable(expected);
     });
   });
 
   describe('logout$', () => {
 
-    it('should remove items from localStorage, navigates to the login page, and displays the logoutSuccess snackbar, on success', async(() => {
-      const logout = new LogOut({});
+    it('should emit the logoutSuccess snackbar and dispatch RouterActions.Go', (() => {
+      const logout = new LogInActions.LogOut({});
+      const go = new RouterActions.Go({ path: ['/login'] });
       const logoutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'logoutSuccess');
 
       actions = hot('a', { a: logout });
+      const expected = cold('b', { b: go });
 
-      effects.login$.subscribe(() => {
+      effects.logout$.subscribe(() => {
         expect(logoutSuccessSpy).toHaveBeenCalled();
       });
+      expect(effects.logout$).toBeObservable(expected);
     }));
   });
 });
