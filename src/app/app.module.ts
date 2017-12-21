@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule, MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule,
-  MatRadioModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatRadioModule, MatSidenavModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -61,6 +61,7 @@ import { LoginEffects } from './effects/login.effects';
 import { RouterEffects } from './effects/router.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verificationGuard';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { VerificationGuard } from './verificationGuard';
     SignatureFieldComponent,
     VisitHistoryTableComponent,
     VolunteerMenuComponent,
-    VerificationDialogComponent
+    VerificationDialogComponent,
+    SidenavComponent
   ],
   imports: [
     AngularFireAuthModule,
@@ -111,6 +113,7 @@ import { VerificationGuard } from './verificationGuard';
     MatListModule,
     MatPaginatorModule,
     MatRadioModule,
+    MatSidenavModule,
     MatSnackBarModule,
     MatTableModule,
     MatTabsModule,

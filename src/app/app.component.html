@@ -5,8 +5,8 @@
               [showLogOut]="isLoggedIn"
               (buttonClick)="onButtonClick($event)">
   </app-header>
-  <div>
+  <app-sidenav>
     <router-outlet></router-outlet>
-  </div>
+  </app-sidenav>
   <app-footer></app-footer>
 </div>
