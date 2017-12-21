@@ -1,8 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsModule } from '@angular/forms';
-import { MatDialogModule, MatDialogRef } from '@angular/material';
+import { MatDialogModule, MatDialogRef, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { VerificationDialogComponent } from './verification-dialog.component';
+
+class MatDialogRefMock {
+  close() { }
+}
 
 describe('VerificationDialogComponent', () => {
   let component: VerificationDialogComponent;
@@ -12,14 +17,18 @@ describe('VerificationDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        MatDialogModule
+        MatDialogModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        NoopAnimationsModule
       ],
       declarations: [VerificationDialogComponent],
       providers: [
         { provide: MatDialogRef, useClass: MatDialogRefMock }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -38,7 +47,3 @@ describe('VerificationDialogComponent', () => {
     expect(component.dialogRef.close).toHaveBeenCalled();
   });
 });
-
-class MatDialogRefMock {
-  close() { }
-}
