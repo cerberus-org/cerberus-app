@@ -1,12 +1,15 @@
 import { Action } from '@ngrx/store';
 
-export const SET_MENU = '[set_menu] Set menu';
+export const SET_PAGE_CONFIG = '[set_page_config] Set page config';
 
-export class SetMenu implements Action {
-  readonly type = SET_MENU;
+/**
+ * Includes side nav options and header options.
+ */
+export class SetPageConfig implements Action {
+  readonly type = SET_PAGE_CONFIG;
 
   constructor(public payload: any) {}
 }
 
 export type All
-  = SetMenu;
+  = SetPageConfig;
