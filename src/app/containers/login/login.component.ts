@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 
 import * as LoginActions from '../../actions/login.actions';
 import { State } from '../../reducers/index';
+import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
+import * as AppActions from '../../actions/app.actions';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,16 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.createForm();
     this.hidePwd = true;
+    this.store.dispatch(
+      new AppActions.SetPageConfig({
+        sideNavOptions: {},
+        headerOptions: {
+          previousUrl: null,
+          icon: 'group_work',
+          title: 'Cerberus'
+        }
+      })
+    );
   }
 
   onLogin() {

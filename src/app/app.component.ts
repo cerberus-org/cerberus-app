@@ -17,16 +17,27 @@ import { State } from './reducers/index';
 })
 export class AppComponent implements OnInit, OnDestroy {
   routerEventsSubscription: Subscription;
+  appSubscription: Subscription;
   previousUrl: string;
   icon: string;
   text: string;
+  title: string;
 
   constructor(private router: Router,
               private store: Store<State>,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog) {
+  }
 
   ngOnInit() {
-    this.routerEventsSubscription = this.subscribeToRouterEvents();
+    this.appSubscription = this.store
+      .select('app')
+      .subscribe(state => {
+        if (state.headerOptions) {
+          this.previousUrl = state.headerOptions.previousUrl;
+          this.icon = state.headerOptions.icon;
+          this.title = state.headerOptions.title;
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -34,40 +45,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.routerEventsSubscription.unsubscribe();
     }
   }
-
-  /**
-   * Watches for router events to update previousUrl and header display.
-   * @returns {Subscription} - the subscription to router.events
-   */
-  subscribeToRouterEvents(): Subscription {
-    return this.router.events.subscribe(() => {
-      // Trim leading '/' and routeParams
-      switch (this.router.url.split('/')[1]) {
-        case 'start':
-          this.previousUrl = '/login';
-          this.icon = 'wb_sunny';
-          this.text = 'Getting Started';
-          break;
-        case 'dashboard':
-          // Text set in subscribeToOrganizations()
-          this.previousUrl = null;
-          this.icon = 'business';
-          this.text = getLocalStorageObjectProperty('organization', 'name');
-          break;
-        case 'checkin':
-          // Text set in subscribeToOrganizations()
-          this.previousUrl = '/dashboard';
-          this.icon = 'business';
-          this.text = getLocalStorageObjectProperty('organization', 'name');
-          break;
-        default: {
-          this.previousUrl = null;
-          this.icon = 'group_work';
-          this.text = 'Cerberus';
-        }
-      }
-    });
-  };
 
   /**
    * Handles header buttonClick events.

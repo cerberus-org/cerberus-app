@@ -7,6 +7,7 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
 import { Site } from '../../models/site';
 import { State } from '../../reducers/index';
 import { SiteService } from '../../services/site.service';
+import * as AppActions from '../../actions/app.actions';
 
 @Component({
   selector: 'app-organization-dashboard',
@@ -23,7 +24,18 @@ export class OrganizationDashboardComponent implements OnInit {
     this.sites$ = this.siteService.getByKey(
       'organizationId',
       getLocalStorageObjectProperty('organization', 'id'),
-      true);
+      true
+    );
+    this.store.dispatch(
+      new AppActions.SetPageConfig({
+        sideNavOptions: {},
+        headerOptions: {
+          previousUrl: null,
+          icon: 'business',
+          title: getLocalStorageObjectProperty('organization', 'name')
+        }
+      })
+    );
   }
 
   onSiteClick(site: Site): void {

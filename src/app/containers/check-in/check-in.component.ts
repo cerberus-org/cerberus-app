@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as AppActions from '../../actions/app.actions';
 import * as CheckInActions from '../../actions/check-in.actions';
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 import { Visit } from '../../models/visit';
@@ -30,9 +31,18 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.organizationId = getLocalStorageObjectProperty('organization', 'id');
     this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
     this.store.dispatch(
-      new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId })
+      new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId }),
+      );
+    this.store.dispatch(
+      new AppActions.SetPageConfig({
+        sideNavOptions: {},
+        headerOptions: {
+          previousUrl: '/dashboard',
+          icon: 'business',
+          title: getLocalStorageObjectProperty('organization', 'name')
+        }
+      })
     );
-
     this.checkInSubscription = this.store
       .select('checkIn')
       .subscribe(state => {

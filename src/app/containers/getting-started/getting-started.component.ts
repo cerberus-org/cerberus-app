@@ -7,6 +7,8 @@ import * as GettingStartedActions from '../../actions/getting-started.actions';
 import { Organization } from '../../models/organization';
 import { User } from '../../models/user';
 import { State } from '../../reducers/index';
+import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
+import * as AppActions from '../../actions/app.actions';
 
 @Component({
   selector: 'app-getting-started',
@@ -31,6 +33,16 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
         this.validOrganization = state.validOrganization;
         this.validUser = state.validUser;
       });
+    this.store.dispatch(
+      new AppActions.SetPageConfig({
+        sideNavOptions: {},
+        headerOptions: {
+          previousUrl: '/login',
+          icon: 'wb_sunny',
+          title: 'Getting Started'
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {
