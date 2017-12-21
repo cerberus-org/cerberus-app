@@ -14,6 +14,7 @@ import { State } from '../../reducers/index';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string;
+  hidePwd: boolean;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.createForm();
+    this.hidePwd = true;
   }
 
   onLogin() {
