@@ -77,7 +77,7 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   onButtonClick(action: string): void {
     switch (action) {
-      case 'menu':
+      case 'sidenav_toggle':
         this.sidenav.toggle();
         break;
       case 'back':

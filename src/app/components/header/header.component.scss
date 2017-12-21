@@ -1,5 +1,3 @@
-@import '../../../../node_modules/@angular/material/theming';
-
 .title-icon {
   padding-right: 0.5rem;
 }
@@ -11,10 +9,7 @@
 
 .button-text {
   font-weight: lighter;
-
-  @media ($mat-xsmall) {
-    display: none;
-  }
+  font-size: small;
 }
 
 .spacer {
