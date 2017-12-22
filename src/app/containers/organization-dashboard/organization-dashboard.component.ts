@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
+import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 import { Site } from '../../models/site';
 import { State } from '../../reducers/index';
 import { SiteService } from '../../services/site.service';
-import * as AppActions from '../../actions/app.actions';
 
 @Component({
   selector: 'app-organization-dashboard',

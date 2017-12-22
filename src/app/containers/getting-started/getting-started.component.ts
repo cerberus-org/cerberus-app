@@ -3,12 +3,11 @@ import { MatTabGroup } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as AppActions from '../../actions/app.actions';
 import * as GettingStartedActions from '../../actions/getting-started.actions';
 import { Organization } from '../../models/organization';
 import { User } from '../../models/user';
 import { State } from '../../reducers/index';
-import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
-import * as AppActions from '../../actions/app.actions';
 
 @Component({
   selector: 'app-getting-started',

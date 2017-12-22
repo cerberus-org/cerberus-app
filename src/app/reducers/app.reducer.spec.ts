@@ -1,6 +1,5 @@
 import * as AppActions from '../actions/app.actions';
 import { testHeaderOptions } from '../models/header-options';
-import { testSideNavOptions } from '../models/side-nav-options';
 import * as fromApp from './app.reducer';
 
 describe('appReducer', () => {
@@ -8,7 +7,7 @@ describe('appReducer', () => {
 
   beforeEach(() => {
     testState = Object.assign({}, fromApp.initialState, {
-      sideNavOptions: testSideNavOptions[0],
+      sideNavOptions: ['a', 'b'],
       headerOptions: testHeaderOptions[0]
     });
   });
@@ -19,10 +18,10 @@ describe('appReducer', () => {
       const state = fromApp.reducer(
         fromApp.initialState,
         new AppActions.SetPageConfig({
-          sideNavOptions: testSideNavOptions[0],
+          sideNavOptions: ['a', 'b'],
           headerOptions: testHeaderOptions[0]
         }));
-      expect(state.sideNavOptions).toEqual(testSideNavOptions[0]);
+      expect(state.sideNavOptions).toEqual(['a', 'b']);
       expect(state.headerOptions).toEqual(testHeaderOptions[0]);
     });
   });

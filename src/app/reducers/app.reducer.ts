@@ -1,9 +1,8 @@
 import * as AppActions from '../actions/app.actions';
 import { HeaderOptions } from '../models/header-options';
-import { SideNavOptions } from '../models/side-nav-options';
 
 export interface State {
-  sideNavOptions: SideNavOptions;
+  sideNavOptions: string[];
   headerOptions: HeaderOptions;
 }
 

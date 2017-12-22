@@ -20,7 +20,6 @@ export class AppComponent implements OnInit, OnDestroy {
   appSubscription: Subscription;
   previousUrl: string;
   icon: string;
-  text: string;
   title: string;
 
   constructor(private router: Router,
