@@ -15,17 +15,14 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   private mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.mobileQueryListener = query => {
-      changeDetectorRef.detectChanges();
-      this.setForScreen(query);
-    };
+    this.mobileQueryListener = () => this.setForScreen();
     this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
   ngOnInit(): void {
-    this.setForScreen(this.mobileQuery);
+    this.setForScreen();
   }
 
   ngOnDestroy(): void {
@@ -36,8 +33,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
     this.selectIndex.emit(index);
   }
 
-  setForScreen(query): void {
-    if (!query.matches) {
+  setForScreen(): void {
+    if (!this.mobileQuery.matches) {
       this.sidenav.disableClose = true;
       this.sidenav.open();
     } else {

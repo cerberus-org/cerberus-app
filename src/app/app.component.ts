@@ -6,10 +6,10 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as LoginActions from './actions/login.actions';
 import * as RouterActions from './actions/router.actions';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
 import { getLocalStorageObjectProperty } from './functions/localStorageObject';
 import { State } from './reducers/index';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @Component({
   selector: 'app-root',
