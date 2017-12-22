@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 
 @Component({
@@ -9,6 +9,8 @@ import { MatSidenav } from '@angular/material';
 })
 export class SidenavComponent implements OnInit, OnDestroy {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
+  @Input() options: string[];
+  @Output() selectIndex = new EventEmitter<number>();
   mobileQuery: MediaQueryList;
 
   private mobileQueryListener: () => void;
@@ -28,6 +30,10 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this.mobileQueryListener);
+  }
+
+  onClick(index: number): void {
+    this.selectIndex.emit(index);
   }
 
   setForScreen(query): void {

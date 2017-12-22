@@ -37,6 +37,10 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  onSelectIndex(index: number) {
+    console.log(index);
+  }
+
   /**
    * Watches for router events to update previousUrl and header display.
    * @returns {Subscription} - the subscription to router.events
