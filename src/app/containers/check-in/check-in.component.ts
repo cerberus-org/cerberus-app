@@ -35,7 +35,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
       );
     this.store.dispatch(
       new AppActions.SetPageConfig({
-        sideNavOptions: {},
+        sidenavOptions: {},
         headerOptions: {
           previousUrl: '/dashboard',
           icon: 'business',

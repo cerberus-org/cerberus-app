@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.hidePwd = true;
     this.store.dispatch(
       new AppActions.SetPageConfig({
-        sideNavOptions: {},
+        sidenavOptions: {},
         headerOptions: {
           previousUrl: null,
           icon: 'group_work',

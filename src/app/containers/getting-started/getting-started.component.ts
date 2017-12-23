@@ -34,7 +34,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
       });
     this.store.dispatch(
       new AppActions.SetPageConfig({
-        sideNavOptions: {},
+        sidenavOptions: {},
         headerOptions: {
           previousUrl: '/login',
           icon: 'wb_sunny',

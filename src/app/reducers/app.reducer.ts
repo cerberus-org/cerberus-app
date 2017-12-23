@@ -2,12 +2,12 @@ import * as AppActions from '../actions/app.actions';
 import { HeaderOptions } from '../models/header-options';
 
 export interface State {
-  sideNavOptions: string[];
+  sidenavOptions: string[];
   headerOptions: HeaderOptions;
 }
 
 export const initialState: State = {
-  sideNavOptions: null,
+  sidenavOptions: null,
   headerOptions: null
 };
 
@@ -19,7 +19,7 @@ export function reducer(state = initialState, action: Action): State {
 
     case AppActions.SET_PAGE_CONFIG: {
       return Object.assign({}, state, {
-        sideNavOptions: action.payload.sideNavOptions,
+        sidenavOptions: action.payload.sidenavOptions,
         headerOptions: action.payload.headerOptions
       });
     }

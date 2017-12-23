@@ -7,7 +7,7 @@ describe('appReducer', () => {
 
   beforeEach(() => {
     testState = Object.assign({}, fromApp.initialState, {
-      sideNavOptions: ['a', 'b'],
+      sidenavOptions: ['a', 'b'],
       headerOptions: testHeaderOptions[0]
     });
   });
@@ -18,10 +18,10 @@ describe('appReducer', () => {
       const state = fromApp.reducer(
         fromApp.initialState,
         new AppActions.SetPageConfig({
-          sideNavOptions: ['a', 'b'],
+          sidenavOptions: ['a', 'b'],
           headerOptions: testHeaderOptions[0]
         }));
-      expect(state.sideNavOptions).toEqual(['a', 'b']);
+      expect(state.sidenavOptions).toEqual(['a', 'b']);
       expect(state.headerOptions).toEqual(testHeaderOptions[0]);
     });
   });

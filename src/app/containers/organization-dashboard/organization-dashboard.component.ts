@@ -28,7 +28,7 @@ export class OrganizationDashboardComponent implements OnInit {
     );
     this.store.dispatch(
       new AppActions.SetPageConfig({
-        sideNavOptions: {},
+        sidenavOptions: {},
         headerOptions: {
           previousUrl: null,
           icon: 'business',
