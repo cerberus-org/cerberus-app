@@ -1,9 +1,11 @@
 <div class="container">
-  <app-header [icon]="icon"
-              [text]="title"
-              [showBack]="!!previousUrl"
-              [showLogOut]="isLoggedIn"
-              (buttonClick)="onButtonClick($event)">
+  <app-header
+    *ngIf="headerOptions"
+    [icon]="headerOptions.icon"
+    [text]="headerOptions.title"
+    [showBack]="!!headerOptions.previousUrl"
+    [showLogOut]="isLoggedIn"
+    (buttonClick)="onButtonClick($event)">
   </app-header>
   <div>
     <router-outlet></router-outlet>

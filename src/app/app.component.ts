@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,7 @@ import * as LoginActions from './actions/login.actions';
 import * as RouterActions from './actions/router.actions';
 import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
 import { getLocalStorageObjectProperty } from './functions/localStorageObject';
+import { HeaderOptions } from './models/header-options';
 import { State } from './reducers/index';
 
 @Component({
@@ -18,11 +19,10 @@ import { State } from './reducers/index';
 export class AppComponent implements OnInit, OnDestroy {
   routerEventsSubscription: Subscription;
   appSubscription: Subscription;
-  previousUrl: string;
-  icon: string;
-  title: string;
+  headerOptions: HeaderOptions;
 
-  constructor(private router: Router,
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+              private router: Router,
               private store: Store<State>,
               private dialog: MatDialog) {
   }
@@ -31,11 +31,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.appSubscription = this.store
       .select('app')
       .subscribe(state => {
-        if (state.headerOptions) {
-          this.previousUrl = state.headerOptions.previousUrl;
-          this.icon = state.headerOptions.icon;
-          this.title = state.headerOptions.title;
-        }
+        this.headerOptions = state.headerOptions;
+        /**
+         * TODO:
+         * ExpressionChangedAfterItHasBeenCheckedError generates if the following line is
+         * not present. Find alternate solution.
+         */
+        this.changeDetectorRef.detectChanges();
       });
   }
 
