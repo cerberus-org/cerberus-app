@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -16,13 +15,11 @@ import { State } from './reducers/index';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
-  routerEventsSubscription: Subscription;
+export class AppComponent implements OnInit {
   appSubscription: Subscription;
   headerOptions: HeaderOptions;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private router: Router,
               private store: Store<State>,
               private dialog: MatDialog) {
   }
@@ -39,12 +36,6 @@ export class AppComponent implements OnInit, OnDestroy {
          */
         this.changeDetectorRef.detectChanges();
       });
-  }
-
-  ngOnDestroy() {
-    if (this.routerEventsSubscription) {
-      this.routerEventsSubscription.unsubscribe();
-    }
   }
 
   /**
