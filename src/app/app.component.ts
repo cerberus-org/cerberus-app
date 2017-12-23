@@ -65,8 +65,10 @@ export class AppComponent implements OnInit {
     dialog.afterClosed()
       .subscribe(
         pwd => {
-          // Once the Observable is returned dispatch an effect
-          this.store.dispatch(new LoginActions.Verify(pwd));
+          if (pwd) {
+            // Once the Observable is returned dispatch an effect
+            this.store.dispatch(new LoginActions.Verify(pwd));
+          }
         }
       );
   }
