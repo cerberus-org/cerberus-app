@@ -6,7 +6,9 @@
               [showSidenavToggle]="true"
               (buttonClick)="onButtonClick($event)">
   </app-header>
-  <app-sidenav [options]="['User Settings', 'Organization Settings']" (selectIndex)="onSelectIndex($event)">
+  <app-sidenav
+    [options]="['User Settings', 'Organization Settings']"
+    (selectIndex)="onSelectIndex($event)">
     <router-outlet></router-outlet>
   </app-sidenav>
   <app-footer class="hide-xs"></app-footer>

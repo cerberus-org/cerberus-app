@@ -1,7 +1,11 @@
 <mat-sidenav-container class="container">
-  <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'">
+  <mat-sidenav [mode]="mode">
     <mat-nav-list>
-      <mat-list-item *ngFor="let option of options; let i = index" (click)="onClick(i)">{{option}}</mat-list-item>
+      <mat-list-item
+        *ngFor="let option of options; let i = index"
+        (click)="onClick(i)">
+        {{option}}
+      </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
