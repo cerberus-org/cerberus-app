@@ -3,3 +3,10 @@
   max-width: calc(100vw - 2rem);
   margin: 1rem;
 }
+
+.container-button {
+  display: grid;
+  justify-items: end;
+  margin: 2rem;
+}
+

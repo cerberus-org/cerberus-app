@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-settings-page',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPageComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+  userFormTitle: string;
+
+  constructor() {
+    this.userFormTitle = 'Update user data.'
+  }
 
   ngOnInit() {
   }
 
+  /**
+   * Once the new-user-form emits an event,
+   * set user.
+   * @param $event
+   */
+  setUser($event) {
+    this.user = $event;
+  }
 }

@@ -12,7 +12,10 @@
     </div>
   </mat-tab>
   <mat-tab label="3. Your Account" [disabled]="step < 2 || !validOrganization">
-    <app-new-user-form (validUser)="onValidUser($event)"></app-new-user-form>
+    <app-new-user-form
+      (validUser)="onValidUser($event)"
+      [title]="userFormTitle">
+    </app-new-user-form>
     <div class="container-button">
       <button mat-raised-button color="primary" (click)="onNext(3)" [disabled]="!validUser">Next</button>
     </div>

@@ -1,3 +1,5 @@
-<p>
-  settings-page works!
-</p>
+<app-new-user-form
+  [showSubmitButton]="true"
+  [title]="userFormTitle"
+  (validUser)="setUser($event)">
+</app-new-user-form>

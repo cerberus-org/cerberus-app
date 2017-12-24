@@ -1,5 +1,5 @@
 <form class="container-center loose" [formGroup]="formGroup">
-  <h1>Create an account to access your organization.</h1>
+  <h1>{{title}}</h1>
   <div class="container-center">
     <div class="inline input-row">
       <mat-form-field>
@@ -21,3 +21,7 @@
     </mat-form-field>
   </div>
 </form>
+<!--showSubmitButton is currently set true for the settings page-->
+<div class="container-button" *ngIf="showSubmitButton">
+  <button mat-raised-button [disabled]="formGroup.invalid" color="primary" (click)="emitUser()">Submit</button>
+</div>
