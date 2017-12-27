@@ -16,8 +16,11 @@ export class NewUserFormComponent implements OnInit, OnDestroy {
   @Output() updatedUser = new EventEmitter();
   formGroup: FormGroup;
   formSubscription: Subscription;
+  hidePwd: boolean;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {
+    this.hidePwd = true;
+  }
 
   ngOnInit(): void {
     this.formGroup = this.createForm();
