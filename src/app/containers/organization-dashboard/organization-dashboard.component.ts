@@ -1,16 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
 import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
+import { HeaderOptions } from '../../models/header-options';
+import { SidenavOptions } from '../../models/sidenav-options';
 import { Site } from '../../models/site';
 import { State } from '../../reducers/index';
 import { SiteService } from '../../services/site.service';
-import { Subscription } from 'rxjs/Subscription';
-import { SidenavOptions } from '../../models/sidenav-options';
-import { HeaderOptions } from '../../models/header-options';
 
 @Component({
   selector: 'app-organization-dashboard',
