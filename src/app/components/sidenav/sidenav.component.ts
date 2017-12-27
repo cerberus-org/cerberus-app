@@ -1,6 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
+import { SidenavOptions } from '../../models/sidenav-options';
 
 @Component({
   selector: 'app-sidenav',
@@ -9,7 +10,7 @@ import { MatSidenav } from '@angular/material';
 })
 export class SidenavComponent implements OnInit, OnDestroy {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
-  @Input() options: string[];
+  @Input() options: SidenavOptions[];
   @Output() selectIndex = new EventEmitter<number>();
   mobileQuery: MediaQueryList;
   mode: string;

@@ -5,11 +5,11 @@
     [text]="headerOptions.title"
     [showBack]="!!headerOptions.previousUrl"
     [showLogOut]="isLoggedIn"
-    [showSidenavToggle]="true"
+    [showSidenavToggle]="sidenavOptions.length > 0"
     (buttonClick)="onButtonClick($event)">
   </app-header>
   <app-sidenav
-    [options]="['User Settings', 'Organization Settings']"
+    [options]="sidenavOptions"
     (selectIndex)="onSelectIndex($event)">
     <router-outlet></router-outlet>
   </app-sidenav>

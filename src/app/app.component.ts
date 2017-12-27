@@ -10,6 +10,7 @@ import { VerificationDialogComponent } from './containers/verification-dialog/ve
 import { getLocalStorageObjectProperty } from './functions/localStorageObject';
 import { HeaderOptions } from './models/header-options';
 import { State } from './reducers/index';
+import { SidenavOptions } from './models/sidenav-options';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +19,9 @@ import { State } from './reducers/index';
 })
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild(SidenavComponent) sidenav: SidenavComponent;
-  routerEventsSubscription: Subscription;
   appSubscription: Subscription;
   headerOptions: HeaderOptions;
+  sidenavOptions: SidenavOptions[];
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private store: Store<State>,
@@ -32,17 +33,24 @@ export class AppComponent implements OnInit, OnDestroy {
       .select('app')
       .subscribe(state => {
         this.headerOptions = state.headerOptions;
+        this.sidenavOptions = state.sidenavOptions;
         /**
          * TODO:
-         * ExpressionChangedAfterItHasBeenCheckedError generates if the following line is
+         * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is
          * not present. Find alternate solution.
          */
         this.changeDetectorRef.detectChanges();
       });
   }
 
+  ngOnDestroy() {
+    if (this.appSubscription) {
+      this.appSubscription.unsubscribe();
+    }
+  }
+
   onSelectIndex(index: number) {
-    console.log(index);
+    this.store.dispatch(this.sidenavOptions[index].action);
   }
 
   /**
