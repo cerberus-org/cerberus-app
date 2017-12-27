@@ -1,10 +1,12 @@
 <div class="container">
-  <app-header [icon]="icon"
-              [text]="text"
-              [showBack]="!!previousUrl"
-              [showLogOut]="isLoggedIn"
-              [showSidenavToggle]="true"
-              (buttonClick)="onButtonClick($event)">
+  <app-header
+    *ngIf="headerOptions"
+    [icon]="headerOptions.icon"
+    [text]="headerOptions.title"
+    [showBack]="!!headerOptions.previousUrl"
+    [showLogOut]="isLoggedIn"
+    [showSidenavToggle]="true"
+    (buttonClick)="onButtonClick($event)">
   </app-header>
   <app-sidenav
     [options]="['User Settings', 'Organization Settings']"

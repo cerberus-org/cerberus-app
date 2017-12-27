@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -9,6 +8,7 @@ import * as RouterActions from './actions/router.actions';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
 import { getLocalStorageObjectProperty } from './functions/localStorageObject';
+import { HeaderOptions } from './models/header-options';
 import { State } from './reducers/index';
 
 @Component({
@@ -19,61 +19,31 @@ import { State } from './reducers/index';
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild(SidenavComponent) sidenav: SidenavComponent;
   routerEventsSubscription: Subscription;
-  previousUrl: string;
-  icon: string;
-  text: string;
+  appSubscription: Subscription;
+  headerOptions: HeaderOptions;
 
-  constructor(private router: Router,
+  constructor(private changeDetectorRef: ChangeDetectorRef,
               private store: Store<State>,
-              private dialog: MatDialog) { }
-
-  ngOnInit() {
-    this.routerEventsSubscription = this.subscribeToRouterEvents();
+              private dialog: MatDialog) {
   }
 
-  ngOnDestroy() {
-    if (this.routerEventsSubscription) {
-      this.routerEventsSubscription.unsubscribe();
-    }
+  ngOnInit() {
+    this.appSubscription = this.store
+      .select('app')
+      .subscribe(state => {
+        this.headerOptions = state.headerOptions;
+        /**
+         * TODO:
+         * ExpressionChangedAfterItHasBeenCheckedError generates if the following line is
+         * not present. Find alternate solution.
+         */
+        this.changeDetectorRef.detectChanges();
+      });
   }
 
   onSelectIndex(index: number) {
     console.log(index);
   }
-
-  /**
-   * Watches for router events to update previousUrl and header display.
-   * @returns {Subscription} - the subscription to router.events
-   */
-  subscribeToRouterEvents(): Subscription {
-    return this.router.events.subscribe(() => {
-      // Trim leading '/' and routeParams
-      switch (this.router.url.split('/')[1]) {
-        case 'start':
-          this.previousUrl = '/login';
-          this.icon = 'wb_sunny';
-          this.text = 'Getting Started';
-          break;
-        case 'dashboard':
-          // Text set in subscribeToOrganizations()
-          this.previousUrl = null;
-          this.icon = 'business';
-          this.text = getLocalStorageObjectProperty('organization', 'name');
-          break;
-        case 'checkin':
-          // Text set in subscribeToOrganizations()
-          this.previousUrl = '/dashboard';
-          this.icon = 'business';
-          this.text = getLocalStorageObjectProperty('organization', 'name');
-          break;
-        default: {
-          this.previousUrl = null;
-          this.icon = 'group_work';
-          this.text = 'Cerberus';
-        }
-      }
-    });
-  };
 
   /**
    * Handles header buttonClick events.
@@ -105,8 +75,10 @@ export class AppComponent implements OnInit, OnDestroy {
     dialog.afterClosed()
       .subscribe(
         pwd => {
-          // Once the Observable is returned dispatch an effect
-          this.store.dispatch(new LoginActions.Verify(pwd));
+          if (pwd) {
+            // Once the Observable is returned dispatch an effect
+            this.store.dispatch(new LoginActions.Verify(pwd));
+          }
         }
       );
   }
