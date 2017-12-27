@@ -25,24 +25,25 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
               private siteService: SiteService) { }
 
   ngOnInit(): void {
+    this.store.dispatch(new AppActions.SetHeaderOptions(
+      new HeaderOptions(
+        getLocalStorageObjectProperty('organization', 'name'),
+        'business',
+        null
+      )
+    ));
     this.sitesSubscription = this.siteService
       .getByKey(
         'organizationId',
         getLocalStorageObjectProperty('organization', 'id'),
         true
       )
-      .subscribe(sites =>
-        this.store.dispatch(new AppActions.SetSidenavOptions(
-          sites.map(site => new SidenavOptions('Check In', site.id))
+      .subscribe(sites => this.store.dispatch(new AppActions.SetSidenavOptions(
+        sites.map(site => new SidenavOptions(
+          'Check In',
+          new RouterActions.Go({ path: [`/checkin/${site.id}`] })
         ))
-      );
-    this.store.dispatch(new AppActions.SetHeaderOptions(
-      new HeaderOptions(
-        null,
-        'business',
-        getLocalStorageObjectProperty('organization', 'name')
-      )
-    ));
+      )));
   }
 
   ngOnDestroy(): void {

@@ -5,7 +5,7 @@
     [text]="headerOptions.title"
     [showBack]="!!headerOptions.previousUrl"
     [showLogOut]="isLoggedIn"
-    [showSidenavToggle]="sidenavOptions.length > 0"
+    [showSidenavToggle]="!!sidenavOptions"
     (buttonClick)="onButtonClick($event)">
   </app-header>
   <app-sidenav

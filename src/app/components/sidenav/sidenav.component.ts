@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { SidenavOptions } from '../../models/sidenav-options';
 
@@ -8,7 +8,7 @@ import { SidenavOptions } from '../../models/sidenav-options';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit, OnDestroy {
+export class SidenavComponent implements OnChanges, OnInit, OnDestroy {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
   @Input() options: SidenavOptions[];
   @Output() selectIndex = new EventEmitter<number>();
@@ -22,8 +22,18 @@ export class SidenavComponent implements OnInit, OnDestroy {
     this.mobileQuery.addListener(() => this.setForScreen(this.mobileQuery.matches));
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['options']) {
+      if (changes['options'].currentValue) {
+        this.setForScreen(this.mobileQuery.matches);
+      } else {
+        this.sidenav.close();
+      }
+      console.log('change!');
+    }
+  }
+
   ngOnInit(): void {
-    this.setForScreen(this.mobileQuery.matches);
   }
 
   ngOnDestroy(): void {

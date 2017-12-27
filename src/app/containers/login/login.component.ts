@@ -7,6 +7,7 @@ import * as AppActions from '../../actions/app.actions';
 import * as LoginActions from '../../actions/login.actions';
 import { State } from '../../reducers/index';
 import { HeaderOptions } from '../../models/header-options';
+import { SidenavOptions } from '../../models/sidenav-options';
 
 @Component({
   selector: 'app-login',
@@ -27,11 +28,12 @@ export class LoginComponent implements OnInit {
     this.hidePwd = true;
     this.store.dispatch(new AppActions.SetHeaderOptions(
       new HeaderOptions(
-        null,
+        'Cerberus',
         'group_work',
-        'Cerberus'
+        null
       )
     ));
+    this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   onLogin() {
