@@ -13,7 +13,6 @@ import * as RouterActions from '../actions/router.actions';
 import * as SettingsActions from '../actions/settings.actions';
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
-import { UserService } from '../services/user.service';
 
 @Injectable()
 export class SettingsEffects {
@@ -29,7 +28,7 @@ export class SettingsEffects {
     .switchMap(user => this.authService.updateUser(user)
       .map(() => {
         this.snackBarService.updateUserSuccess();
-        return new RouterActions.Go({ path: ['/settings'] });
+        return new RouterActions.Go({ path: ['/dashboard'] });
       }));
 
   constructor(private actions: Actions,
