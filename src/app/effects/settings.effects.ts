@@ -9,7 +9,6 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
-import * as RouterActions from '../actions/router.actions';
 import * as SettingsActions from '../actions/settings.actions';
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
@@ -28,7 +27,7 @@ export class SettingsEffects {
     .switchMap(user => this.authService.updateUser(user)
       .map(() => {
         this.snackBarService.updateUserSuccess();
-        return new RouterActions.Go({ path: ['/settings'] });
+        return new SettingsActions.UpdateUserSuccess()
       }));
 
   constructor(private actions: Actions,
