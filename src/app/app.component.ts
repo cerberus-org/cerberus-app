@@ -9,8 +9,8 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
 import { getLocalStorageObjectProperty } from './functions/localStorageObject';
 import { HeaderOptions } from './models/header-options';
-import { State } from './reducers/index';
 import { SidenavOptions } from './models/sidenav-options';
+import { State } from './reducers/index';
 
 @Component({
   selector: 'app-root',

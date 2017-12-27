@@ -5,9 +5,8 @@ import { Store } from '@ngrx/store';
 
 import * as AppActions from '../../actions/app.actions';
 import * as LoginActions from '../../actions/login.actions';
-import { State } from '../../reducers/index';
 import { HeaderOptions } from '../../models/header-options';
-import { SidenavOptions } from '../../models/sidenav-options';
+import { State } from '../../reducers/index';
 
 @Component({
   selector: 'app-login',
