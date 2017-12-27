@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/user';
+import { Store } from '@ngrx/store';
+import * as SettingsActions from '../../actions/settings.actions';
+import { State } from '../../reducers';
 
 @Component({
   selector: 'app-settings-page',
@@ -8,10 +10,9 @@ import { User } from '../../models/user';
 })
 export class SettingsPageComponent implements OnInit {
 
-  user: User;
   userFormTitle: string;
 
-  constructor() {
+  constructor(private store: Store<State>) {
     this.userFormTitle = 'Update user data.'
   }
 
@@ -24,6 +25,6 @@ export class SettingsPageComponent implements OnInit {
    * @param $event
    */
   setUser($event) {
-    this.user = $event;
+    this.store.dispatch(new SettingsActions.UpdateUser($event));
   }
 }

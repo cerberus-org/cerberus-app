@@ -59,6 +59,7 @@ import { DataDisplayEffects } from './effects/data-display.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
 import { LoginEffects } from './effects/login.effects';
 import { RouterEffects } from './effects/router.effects';
+import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verificationGuard';
 
@@ -99,6 +100,7 @@ import { VerificationGuard } from './verificationGuard';
       DataDisplayEffects,
       GettingStartedEffects,
       LoginEffects,
+      SettingsEffects,
       RouterEffects
     ]),
     FormsModule,
