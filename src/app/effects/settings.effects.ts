@@ -28,7 +28,7 @@ export class SettingsEffects {
     .switchMap(user => this.authService.updateUser(user)
       .map(() => {
         this.snackBarService.updateUserSuccess();
-        return new RouterActions.Go({ path: ['/dashboard'] });
+        return new RouterActions.Go({ path: ['/settings'] });
       }));
 
   constructor(private actions: Actions,
