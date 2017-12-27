@@ -8,6 +8,7 @@ import * as GettingStartedActions from '../../actions/getting-started.actions';
 import { Organization } from '../../models/organization';
 import { User } from '../../models/user';
 import { State } from '../../reducers/index';
+import { HeaderOptions } from '../../models/header-options';
 
 @Component({
   selector: 'app-getting-started',
@@ -32,16 +33,13 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
         this.validOrganization = state.validOrganization;
         this.validUser = state.validUser;
       });
-    this.store.dispatch(
-      new AppActions.SetPageConfig({
-        sidenavOptions: {},
-        headerOptions: {
-          previousUrl: '/login',
-          icon: 'wb_sunny',
-          title: 'Getting Started'
-        }
-      })
-    );
+    this.store.dispatch(new AppActions.SET_HEADER_OPTIONS(
+      new HeaderOptions(
+        '/login',
+        'wb_sunny',
+        'Getting Started'
+      )
+    ));
   }
 
   ngOnDestroy(): void {

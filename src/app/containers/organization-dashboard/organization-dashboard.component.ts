@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -8,39 +8,46 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
 import { Site } from '../../models/site';
 import { State } from '../../reducers/index';
 import { SiteService } from '../../services/site.service';
+import { Subscription } from 'rxjs/Subscription';
+import { SidenavOptions } from '../../models/sidenav-options';
+import { HeaderOptions } from '../../models/header-options';
 
 @Component({
   selector: 'app-organization-dashboard',
   templateUrl: './organization-dashboard.component.html',
   styleUrls: ['./organization-dashboard.component.scss']
 })
-export class OrganizationDashboardComponent implements OnInit {
-  sites$: Observable<Site[]>;
+export class OrganizationDashboardComponent implements OnInit, OnDestroy {
+  sitesSubscription: Subscription;
+  sites: Site[];
 
   constructor(private store: Store<State>,
               private siteService: SiteService) { }
 
   ngOnInit(): void {
-    this.sites$ = this.siteService.getByKey(
-      'organizationId',
-      getLocalStorageObjectProperty('organization', 'id'),
-      true
-    );
-    this.store.dispatch(
-      new AppActions.SetPageConfig({
-        sidenavOptions: {},
-        headerOptions: {
-          previousUrl: null,
-          icon: 'business',
-          title: getLocalStorageObjectProperty('organization', 'name')
-        }
-      })
-    );
+    this.sitesSubscription = this.siteService
+      .getByKey(
+        'organizationId',
+        getLocalStorageObjectProperty('organization', 'id'),
+        true
+      )
+      .subscribe(sites =>
+        this.store.dispatch(new AppActions.SetSidenavOptions(
+          sites.map(site => new SidenavOptions('Check In', site.id))
+        ))
+      );
+    this.store.dispatch(new AppActions.SetHeaderOptions(
+      new HeaderOptions(
+        null,
+        'business',
+        getLocalStorageObjectProperty('organization', 'name')
+      )
+    ));
   }
 
-  onSiteClick(site: Site): void {
-    this.store.dispatch(
-      new RouterActions.Go({ path: [`/checkin/${site.id}`] })
-    );
+  ngOnDestroy(): void {
+    if (this.sitesSubscription) {
+      this.sitesSubscription.unsubscribe();
+    }
   }
 }

@@ -10,6 +10,7 @@ import { getLocalStorageObjectProperty } from '../../functions/localStorageObjec
 import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
 import { State } from '../../reducers/index';
+import { HeaderOptions } from '../../models/header-options';
 
 @Component({
   selector: 'app-check-in',
@@ -34,14 +35,11 @@ export class CheckInComponent implements OnInit, OnDestroy {
       new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId }),
       );
     this.store.dispatch(
-      new AppActions.SetPageConfig({
-        sidenavOptions: {},
-        headerOptions: {
-          previousUrl: '/dashboard',
-          icon: 'business',
-          title: getLocalStorageObjectProperty('organization', 'name')
-        }
-      })
+      new AppActions.SetHeaderOptions(new HeaderOptions(
+        '/dashboard',
+        'business',
+        getLocalStorageObjectProperty('organization', 'name')
+      ))
     );
     this.checkInSubscription = this.store
       .select('checkIn')
