@@ -22,7 +22,3 @@
     </mat-form-field>
   </div>
 </form>
-<!--showSubmitButton is currently set true for the settings page-->
-<div class="container-button" *ngIf="showSubmitButton">
-  <button mat-raised-button [disabled]="formGroup.invalid" color="primary" (click)="emitUser()">Submit</button>
-</div>

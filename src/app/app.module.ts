@@ -38,7 +38,6 @@ import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-h
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NewOrganizationFormComponent } from './components/new-organization-form/new-organization-form.component';
-import { NewUserFormComponent } from './components/new-user-form/new-user-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
 import { VisitHistoryTableComponent } from './components/visit-history-table/visit-history-table.component';
@@ -62,6 +61,7 @@ import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verificationGuard';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +76,7 @@ import { VerificationGuard } from './verificationGuard';
     HeaderComponent,
     LoginComponent,
     NewOrganizationFormComponent,
-    NewUserFormComponent,
+    UserFormComponent,
     NewVolunteerFormComponent,
     OrganizationConfirmComponent,
     OrganizationDashboardComponent,

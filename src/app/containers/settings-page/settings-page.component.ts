@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as SettingsActions from '../../actions/settings.actions';
+import { User } from '../../models/user';
 import { State } from '../../reducers';
 
 @Component({
@@ -11,6 +12,7 @@ import { State } from '../../reducers';
 export class SettingsPageComponent implements OnInit {
 
   userFormTitle: string;
+  validUser: User;
 
   constructor(private store: Store<State>) {
     this.userFormTitle = 'Update user data.'
@@ -20,11 +22,15 @@ export class SettingsPageComponent implements OnInit {
   }
 
   /**
-   * Once the new-user-form emits an event,
+   * Once the user-form emits an event,
    * set user.
    * @param $event
    */
   setUser($event) {
-    this.store.dispatch(new SettingsActions.UpdateUser($event));
+    this.validUser = $event;
+  }
+
+  onSubmit() {
+    this.store.dispatch(new SettingsActions.UpdateUser(this.validUser));
   }
 }

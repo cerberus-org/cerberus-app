@@ -1,5 +1,7 @@
-<app-new-user-form
-  [showSubmitButton]="true"
+<app-user-form
   [title]="userFormTitle"
-  (updatedUser)="setUser($event)">
-</app-new-user-form>
+  (validUser)="setUser($event)">
+</app-user-form>
+<div class="container-button">
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!validUser">Submit</button>
+</div>

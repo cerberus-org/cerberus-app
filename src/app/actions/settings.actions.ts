@@ -6,9 +6,7 @@ export const UPDATE_USER = '[update user] Update user';
 export class UpdateUser implements Action {
   readonly type = UPDATE_USER;
 
-  constructor(public payload: {
-    user: User;
-  }) {}
+  constructor(public payload: User) {}
 }
 
 export type All

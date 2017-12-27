@@ -5,15 +5,13 @@ import { Subscription } from 'rxjs/Subscription';
 import { User } from '../../models/user';
 
 @Component({
-  selector: 'app-new-user-form',
-  templateUrl: './new-user-form.component.html',
-  styleUrls: ['./new-user-form.component.scss']
+  selector: 'app-user-form',
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.scss']
 })
-export class NewUserFormComponent implements OnInit, OnDestroy {
+export class UserFormComponent implements OnInit, OnDestroy {
   @Input() title: string;
-  @Input() showSubmitButton: boolean;
   @Output() validUser = new EventEmitter();
-  @Output() updatedUser = new EventEmitter();
   formGroup: FormGroup;
   formSubscription: Subscription;
   hidePwd: boolean;
@@ -43,14 +41,9 @@ export class NewUserFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  emitUser(): void {
-    const value = this.formGroup.value;
-    this.updatedUser.emit(new User(value.firstName, value.lastName, value.email, value.password))
-  }
-
   subscribeToForm(): Subscription {
-    const value = this.formGroup.value;
     return this.formGroup.valueChanges.subscribe(() => {
+      const value = this.formGroup.value;
       if (this.formGroup.valid) {
         this.validUser.emit(new User(value.firstName, value.lastName, value.email, value.password))
       }

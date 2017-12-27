@@ -4,15 +4,15 @@ import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { testUsers, User } from '../../models/user';
-import { NewUserFormComponent } from './new-user-form.component';
+import { UserFormComponent } from './user-form.component';
 
-describe('NewUserFormComponent', () => {
-  let component: NewUserFormComponent;
-  let fixture: ComponentFixture<NewUserFormComponent>;
+describe('UserFormComponent', () => {
+  let component: UserFormComponent;
+  let fixture: ComponentFixture<UserFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NewUserFormComponent],
+      declarations: [UserFormComponent],
       imports: [
         MatInputModule,
         NoopAnimationsModule,
@@ -22,7 +22,7 @@ describe('NewUserFormComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewUserFormComponent);
+    fixture = TestBed.createComponent(UserFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
