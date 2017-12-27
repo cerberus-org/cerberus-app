@@ -18,7 +18,7 @@ describe('GettingStartedComponent', () => {
         GettingStartedComponent,
         MockComponent({ selector: 'app-about-us' }),
         MockComponent({ selector: 'app-new-organization-form' }),
-        MockComponent({ selector: 'app-new-user-form' }),
+        MockComponent({ selector: 'app-user-form' }),
         MockComponent({ selector: 'app-organization-confirm', inputs: ['organization', 'user'] })
       ],
       imports: [

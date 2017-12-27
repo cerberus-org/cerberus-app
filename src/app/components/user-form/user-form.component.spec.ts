@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material';
+import { MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { testUsers, User } from '../../models/user';
@@ -16,7 +16,8 @@ describe('UserFormComponent', () => {
       imports: [
         MatInputModule,
         NoopAnimationsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatIconModule,
       ]
     }).compileComponents();
   }));
