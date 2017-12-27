@@ -49,10 +49,17 @@ export class AuthService {
    */
   updateUser(user: any): Observable<any> {
     const currentUser = firebase.auth().currentUser;
+    const newUser = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password,
+      id: currentUser.uid
+    };
     return Observable.fromPromise(currentUser
       .updatePassword(user.password))
       .switchMap(afUser => currentUser.updateEmail(user.email))
-      .switchMap(afUser => this.userService.add(new User (user.firstName, user.lastName, user.email, user.password)))
+      .switchMap(afUser => this.userService.update(newUser))
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
@@ -66,15 +73,18 @@ export class AuthService {
   setLocalStorage(afUser: any): Observable<User> {
     return this.userService.getById(afUser.uid)
       .switchMap(res => {
+        // Add Firebase uid and email to base user object
         const user = Object.assign({}, res, {
           id: afUser.uid,
           email: afUser.email
         });
         setLocalStorageObject('user', user);
+        // Get organization id associated with user
         return this.organizationService.getById(user.organizationId)
           .map(organization => {
             setLocalStorageObject(
               'organization',
+              // Add organization id to base user object
               Object.assign({}, organization, { id: user.organizationId })
             );
             return user;
