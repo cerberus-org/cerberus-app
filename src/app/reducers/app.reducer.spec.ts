@@ -1,7 +1,7 @@
 import * as AppActions from '../actions/app.actions';
 import { testHeaderOptions } from '../models/header-options';
-import * as fromApp from './app.reducer';
 import { testSidenavOptions } from '../models/sidenav-options';
+import * as fromApp from './app.reducer';
 
 describe('appReducer', () => {
   let testState;
@@ -13,20 +13,23 @@ describe('appReducer', () => {
     });
   });
 
-  describe('SET_PAGE_CONFIG', () => {
+  describe('SET_HEADER_OPTIONS', () => {
 
     it('sets the header options', () => {
       const state = fromApp.reducer(
         fromApp.initialState,
-        new AppActions.SET_HEADER_OPTIONS(testHeaderOptions[0])
+        new AppActions.SetHeaderOptions(testHeaderOptions[0])
       );
       expect(state.headerOptions).toEqual(testHeaderOptions[0]);
     });
+  });
+
+  describe('SET_SIDENAV_OPTIONS', () => {
 
     it('sets the sidenav options', () => {
       const state = fromApp.reducer(
         fromApp.initialState,
-        new AppActions.SET_SIDENAV_OPTIONS(testSidenavOptions)
+        new AppActions.SetSidenavOptions(testSidenavOptions)
       );
       expect(state.sidenavOptions).toEqual(testSidenavOptions);
     });
