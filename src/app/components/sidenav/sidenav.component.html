@@ -4,6 +4,7 @@
       <mat-list-item
         *ngFor="let option of options; let i = index"
         (click)="onClick(i)">
+        <i class="material-icons" *ngIf="option.icon">{{option.icon}}</i>
         {{option.label}}
       </mat-list-item>
     </mat-nav-list>

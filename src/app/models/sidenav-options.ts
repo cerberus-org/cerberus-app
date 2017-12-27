@@ -2,10 +2,12 @@ import { Action } from '@ngrx/store';
 
 export class SidenavOptions {
   label: string;
+  icon: string;
   action: Action;
 
-  constructor(label: string, action: Action) {
+  constructor(label: string, icon: string, action: Action) {
     this.label = label;
+    this.icon = icon;
     this.action = action;
   }
 }
@@ -13,6 +15,7 @@ export class SidenavOptions {
 export const testSidenavOptions: SidenavOptions[] = [
   {
     label: 'Go',
-    action: null,
+    icon: 'forward',
+    action: null
   }
 ];
