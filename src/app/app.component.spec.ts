@@ -18,7 +18,11 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         MockComponent({ selector: 'app-footer' }),
-        MockComponent({ selector: 'app-header', inputs: ['icon', 'text', 'showBack', 'showLogOut'] })
+        MockComponent({
+          selector: 'app-header',
+          inputs: ['icon', 'text', 'showBack', 'showLogOut', 'showSidenavToggle']
+        }),
+        MockComponent({ selector: 'app-sidenav', inputs: ['options'] })
       ]
     }).compileComponents();
   }));

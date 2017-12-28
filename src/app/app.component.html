@@ -5,10 +5,13 @@
     [text]="headerOptions.title"
     [showBack]="!!headerOptions.previousUrl"
     [showLogOut]="isLoggedIn"
+    [showSidenavToggle]="!!sidenavOptions"
     (buttonClick)="onButtonClick($event)">
   </app-header>
-  <div>
+  <app-sidenav
+    [options]="sidenavOptions"
+    (selectIndex)="onSelectIndex($event)">
     <router-outlet></router-outlet>
-  </div>
-  <app-footer></app-footer>
+  </app-sidenav>
+  <app-footer class="hide-xs"></app-footer>
 </div>

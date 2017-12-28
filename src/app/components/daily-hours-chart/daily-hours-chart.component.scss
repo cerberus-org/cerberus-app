@@ -9,11 +9,7 @@
   max-height: calc(99.9vh - #{$mat-toolbars-height-desktop} - #{$mat-tab-bar-height});
   max-width: 100%;
 
-  @media only screen and ($mat-small) {
-    max-height: calc(99.9vh - #{$mat-toolbars-height-desktop} - #{$mat-tab-bar-height} - 84px);
-  }
-
-  @media only screen and ($mat-xsmall) {
-    max-height: calc(99.9vh - #{$mat-toolbars-height-mobile} - #{$mat-tab-bar-height} - 84px);
+  @media ($mat-xsmall) {
+    max-height: inherit;
   }
 }

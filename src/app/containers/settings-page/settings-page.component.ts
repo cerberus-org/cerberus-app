@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+
 import * as SettingsActions from '../../actions/settings.actions';
 import { User } from '../../models/user';
 import { State } from '../../reducers';
+import * as AppActions from '../../actions/app.actions';
+import { HeaderOptions } from '../../models/header-options';
 
 @Component({
   selector: 'app-settings-page',
@@ -19,6 +22,14 @@ export class SettingsPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new AppActions.SetHeaderOptions(
+      new HeaderOptions(
+        'Settings',
+        'settings',
+        '/dashboard'
+      )
+    ));
+    this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   /**

@@ -1,3 +1,4 @@
+@import '~@angular/material/theming';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 $mat-paginator-height: 56px;
@@ -48,6 +49,19 @@ input.capitalize {
   display: grid;
   grid-auto-flow: column;
   grid-gap: 0.5rem;
+}
+
+.hide-xs {
+  @media ($mat-xsmall) {
+    display: none !important;
+  }
+}
+
+.show-xs {
+  display: none !important;
+  @media ($mat-xsmall) {
+    display: block !important;
+  }
 }
 
 /deep/ {

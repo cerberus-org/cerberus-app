@@ -3,10 +3,5 @@
 .container {
   height: 100%;
   display: grid;
-  grid-template-columns: 17.5% auto;
-
-  @media ($mat-small) {
-    grid-template-columns: auto;
-    grid-template-rows: 84px auto;
-  }
+  grid-template-rows: auto;
 }

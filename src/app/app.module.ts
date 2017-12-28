@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule, MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule,
-  MatRadioModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatRadioModule, MatSidenavModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,7 @@ import { DataDisplayComponent } from './containers/data-display/data-display.com
 import { GettingStartedComponent } from './containers/getting-started/getting-started.component';
 import { LoginComponent } from './containers/login/login.component';
 import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
+import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
 import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
 
 import { AboutUsComponent } from './components/about-us/about-us.component';
@@ -40,9 +41,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { NewOrganizationFormComponent } from './components/new-organization-form/new-organization-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { VisitHistoryTableComponent } from './components/visit-history-table/visit-history-table.component';
 import { VolunteerMenuComponent } from './components/volunteer-menu/volunteer-menu.component';
-import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
 
 import { AuthService } from './services/auth.service';
 import { ErrorService } from './services/error.service';
@@ -84,7 +85,8 @@ import { VerificationGuard } from './verificationGuard';
     SignatureFieldComponent,
     VisitHistoryTableComponent,
     VolunteerMenuComponent,
-    VerificationDialogComponent
+    VerificationDialogComponent,
+    SidenavComponent
   ],
   imports: [
     AngularFireAuthModule,
@@ -113,6 +115,7 @@ import { VerificationGuard } from './verificationGuard';
     MatListModule,
     MatPaginatorModule,
     MatRadioModule,
+    MatSidenavModule,
     MatSnackBarModule,
     MatTableModule,
     MatTabsModule,

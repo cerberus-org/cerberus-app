@@ -8,6 +8,6 @@
   grid-template-rows: $mat-toolbar-height-desktop auto $mat-toolbar-height-desktop;
 
   @media ($mat-xsmall) {
-    grid-template-rows: $mat-toolbar-height-mobile auto $mat-toolbar-height-mobile;
+    grid-template-rows: $mat-toolbar-height-mobile auto;
   }
 }

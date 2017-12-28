@@ -10,17 +10,22 @@ export class HeaderComponent {
   @Input() text: string;
   @Input() showBack: boolean;
   @Input() showLogOut: boolean;
+  @Input() showSidenavToggle: boolean;
   @Output() buttonClick = new EventEmitter<string>();
 
-  back(): void {
+  onSidenavToggle(): void {
+    this.buttonClick.emit('sidenav_toggle');
+  }
+
+  onBack(): void {
     this.buttonClick.emit('back');
   }
 
-  settings(): void {
+  onSettings(): void {
     this.buttonClick.emit('settings');
   }
 
-  logOut(): void {
+  onLogOut(): void {
     this.buttonClick.emit('logOut');
   }
 }
