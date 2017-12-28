@@ -53,6 +53,7 @@ import { UserService } from './services/user.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 
+import { UserFormComponent } from './components/user-form/user-form.component';
 import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
@@ -61,7 +62,6 @@ import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verificationGuard';
-import { UserFormComponent } from './components/user-form/user-form.component';
 
 @NgModule({
   declarations: [
