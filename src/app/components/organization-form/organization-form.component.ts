@@ -25,6 +25,17 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formGroup = this.createForm();
     this.formSubscription = this.subscribeToForm();
+    // Emit Organization if form is valid after creation
+    this.emitOrganizationIfValid();
+  }
+
+  emitOrganizationIfValid(): void {
+    if (this.formGroup.valid) {
+      const value = this.formGroup.value;
+      this.validOrganization.emit(new Organization(value.name, value.description, value.website));
+    } else {
+      this.validOrganization.emit(null);
+    }
   }
 
   ngOnDestroy(): void {
@@ -56,16 +67,11 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Subscribes to the form group to emit a new Organization object on value changes if valid.
+   * Subscribes to the form group and emit a new Organization object if Organization is valid.
    */
   subscribeToForm(): Subscription {
     return this.formGroup.valueChanges.subscribe(() => {
-      if (this.formGroup.valid) {
-        const value = this.formGroup.value;
-        this.validOrganization.emit(
-          new Organization(value.name, value.description, value.website)
-        );
-      }
+      this.emitOrganizationIfValid();
     });
   }
 }
