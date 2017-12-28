@@ -6,8 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { testColumnOptions } from '../../models/column-options';
 import { testVisits } from '../../models/visit';
-import { DataTableSource } from './data-table-source';
-import { DataTableComponent } from './data-table.component';
+import { DataTableComponent, DataTableSource } from './data-table.component';
 
 describe('DataTableComponent', () => {
   let component: DataTableComponent;
