@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { HeaderOptions } from '../../models/header-options';
@@ -16,8 +17,12 @@ import { State } from '../../reducers';
 })
 export class SettingsPageComponent implements OnInit {
 
+  settingsSubscription: Subscription;
+  sidenavSelection: string;
+
   userFormTitle: string;
   validUser: User;
+
   organizationFormTitle: string;
   validOrganization: Organization;
 
@@ -35,9 +40,14 @@ export class SettingsPageComponent implements OnInit {
       )
     ));
     this.store.dispatch(new AppActions.SetSidenavOptions([
-      new SidenavOptions('User', 'face', null),
-      new SidenavOptions('Organization', 'domain', null)
+      new SidenavOptions('User', 'face', new SettingsActions.SetSidenavSelection('User')),
+      new SidenavOptions('Organization', 'domain', new SettingsActions.SetSidenavSelection('Organization'))
     ]));
+    this.settingsSubscription = this.store
+      .select('settings')
+      .subscribe(state => {
+        this.sidenavSelection = state.sidenavSelection;
+    });
   }
 
   /**

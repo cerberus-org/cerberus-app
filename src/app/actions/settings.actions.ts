@@ -6,6 +6,7 @@ export const UPDATE_USER = '[update user] Update user';
 export const UPDATE_USER_SUCCESS = '[update user succes] Update user success';
 export const UPDATE_ORGANIZATION = '[update organization] Update organization';
 export const UPDATE_ORGANIZATION_SUCCESS = '[update organization success] Update organization success';
+export const SET_SIDENAV_SELECTION = '[set sidenav selection] Set sidenav selection';
 
 export class UpdateUser implements Action {
   readonly type = UPDATE_USER;
@@ -31,8 +32,15 @@ export class UpdateOrganizationSuccess implements Action {
   constructor() {}
 }
 
+export class SetSidenavSelection implements Action {
+  readonly type = SET_SIDENAV_SELECTION;
+
+  constructor(public payload: string) {}
+}
+
 export type All
   = UpdateUser
   | UpdateUserSuccess
   | UpdateOrganization
-  | UpdateOrganizationSuccess;
+  | UpdateOrganizationSuccess
+  | SetSidenavSelection;
