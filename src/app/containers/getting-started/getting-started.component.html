@@ -6,7 +6,7 @@
     </div>
   </mat-tab>
   <mat-tab label="2. Your Organization" [disabled]="step < 1">
-    <app-new-organization-form (validOrganization)="onValidOrganization($event)"></app-new-organization-form>
+    <app-organization-form (validOrganization)="onValidOrganization($event)"></app-organization-form>
     <div class="container-button">
       <button mat-raised-button color="primary" (click)="onNext(2)" [disabled]="!validOrganization">Next</button>
     </div>

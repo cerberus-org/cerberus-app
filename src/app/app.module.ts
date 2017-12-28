@@ -39,7 +39,6 @@ import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-h
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { NewOrganizationFormComponent } from './components/new-organization-form/new-organization-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -54,6 +53,7 @@ import { UserService } from './services/user.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 
+import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
@@ -77,7 +77,7 @@ import { VerificationGuard } from './verificationGuard';
     GettingStartedComponent,
     HeaderComponent,
     LoginComponent,
-    NewOrganizationFormComponent,
+    OrganizationFormComponent,
     UserFormComponent,
     NewVolunteerFormComponent,
     OrganizationConfirmComponent,

@@ -6,11 +6,11 @@ import { isURL } from 'validator';
 import { Organization } from '../../models/organization';
 
 @Component({
-  selector: 'app-new-organization-form',
-  templateUrl: './new-organization-form.component.html',
-  styleUrls: ['./new-organization-form.component.scss']
+  selector: 'app-organization-form',
+  templateUrl: './organization-form.component.html',
+  styleUrls: ['./organization-form.component.scss']
 })
-export class NewOrganizationFormComponent implements OnInit, OnDestroy {
+export class OrganizationFormComponent implements OnInit, OnDestroy {
   @Output() validOrganization = new EventEmitter();
   formGroup: FormGroup;
   formSubscription: Subscription;
