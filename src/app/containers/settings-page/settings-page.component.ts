@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as AppActions from '../../actions/app.actions';
+import * as RouterActions from '../../actions/router.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { HeaderOptions } from '../../models/header-options';
+import { SidenavOptions } from '../../models/sidenav-options';
 import { User } from '../../models/user';
 import { State } from '../../reducers';
 
@@ -29,7 +31,10 @@ export class SettingsPageComponent implements OnInit {
         '/dashboard'
       )
     ));
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store.dispatch(new AppActions.SetSidenavOptions([
+      new SidenavOptions('User', 'face', null),
+      new SidenavOptions('Organization', 'domain', null)
+    ]));
   }
 
   /**
