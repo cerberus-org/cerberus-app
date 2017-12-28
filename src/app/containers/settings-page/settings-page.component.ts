@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as AppActions from '../../actions/app.actions';
-import * as RouterActions from '../../actions/router.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { HeaderOptions } from '../../models/header-options';
+import { Organization } from '../../models/organization';
 import { SidenavOptions } from '../../models/sidenav-options';
 import { User } from '../../models/user';
 import { State } from '../../reducers';
@@ -19,6 +19,7 @@ export class SettingsPageComponent implements OnInit {
   userFormTitle: string;
   validUser: User;
   organizationFormTitle: string;
+  validOrganization: Organization;
 
   constructor(private store: Store<State>) {
     this.userFormTitle = 'Update user data.';
@@ -48,7 +49,20 @@ export class SettingsPageComponent implements OnInit {
     this.validUser = $event;
   }
 
-  onSubmit() {
+  /**
+   * Once the organization-form emits an event,
+   * set organization.
+   * @param $event
+   */
+  setOrganization($event) {
+    this.validOrganization = $event;
+  }
+
+  onUserFormSubmit() {
     this.store.dispatch(new SettingsActions.UpdateUser(this.validUser));
+  }
+
+  onOrganizationFormSubmit() {
+    this.store.dispatch(new SettingsActions.UpdateOrganization(this.validOrganization));
   }
 }
