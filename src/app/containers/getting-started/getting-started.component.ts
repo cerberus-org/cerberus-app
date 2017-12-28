@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as GettingStartedActions from '../../actions/getting-started.actions';
+import { HeaderOptions } from '../../models/header-options';
 import { Organization } from '../../models/organization';
 import { User } from '../../models/user';
 import { State } from '../../reducers/index';
@@ -24,6 +25,15 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
+    this.store.dispatch(new AppActions.SetHeaderOptions(
+      new HeaderOptions(
+        'Getting Started',
+        'wb_sunny',
+        '/login'
+      )
+    ));
+    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+
     this.gettingStartedSubscription = this.store
       .select('gettingStarted')
       .subscribe(state => {
@@ -32,16 +42,6 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
         this.validOrganization = state.validOrganization;
         this.validUser = state.validUser;
       });
-    this.store.dispatch(
-      new AppActions.SetPageConfig({
-        sidenavOptions: {},
-        headerOptions: {
-          previousUrl: '/login',
-          icon: 'wb_sunny',
-          title: 'Getting Started'
-        }
-      })
-    );
   }
 
   ngOnDestroy(): void {
