@@ -39,7 +39,6 @@ import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-h
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NewOrganizationFormComponent } from './components/new-organization-form/new-organization-form.component';
-import { NewUserFormComponent } from './components/new-user-form/new-user-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -55,11 +54,13 @@ import { UserService } from './services/user.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 
+import { UserFormComponent } from './components/user-form/user-form.component';
 import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
 import { LoginEffects } from './effects/login.effects';
 import { RouterEffects } from './effects/router.effects';
+import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verificationGuard';
 
@@ -76,7 +77,7 @@ import { VerificationGuard } from './verificationGuard';
     HeaderComponent,
     LoginComponent,
     NewOrganizationFormComponent,
-    NewUserFormComponent,
+    UserFormComponent,
     NewVolunteerFormComponent,
     OrganizationConfirmComponent,
     OrganizationDashboardComponent,
@@ -101,6 +102,7 @@ import { VerificationGuard } from './verificationGuard';
       DataDisplayEffects,
       GettingStartedEffects,
       LoginEffects,
+      SettingsEffects,
       RouterEffects
     ]),
     FormsModule,
