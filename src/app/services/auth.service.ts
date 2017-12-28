@@ -117,6 +117,10 @@ export class MockAuthService extends AuthService {
     return Observable.of(user);
   }
 
+  updateUser(user: User): Observable<User> {
+    return Observable.of(user);
+  }
+
   signIn(email: string, password: string): Observable<User> {
     return Observable.of(testUsers
       .find(user => user.email === email));
