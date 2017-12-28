@@ -5,17 +5,17 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs/Observable';
 
 import { testVisits } from '../../models/visit';
-import { VisitDataSource } from './visit-data-source';
-import { VisitHistoryTableComponent } from './visit-history-table.component';
+import { DataTableSource } from './data-table-source';
+import { DataTableComponent } from './data-table.component';
 
-describe('VisitHistoryTableComponent', () => {
-  let component: VisitHistoryTableComponent;
-  let fixture: ComponentFixture<VisitHistoryTableComponent>;
+describe('DataTableComponent', () => {
+  let component: DataTableComponent;
+  let fixture: ComponentFixture<DataTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        VisitHistoryTableComponent
+        DataTableComponent
       ],
       imports: [
         CdkTableModule,
@@ -28,7 +28,7 @@ describe('VisitHistoryTableComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VisitHistoryTableComponent);
+    fixture = TestBed.createComponent(DataTableComponent);
     component = fixture.componentInstance;
     component.visits$ = Observable.of(testVisits);
     fixture.detectChanges();
@@ -49,7 +49,7 @@ describe('VisitHistoryTableComponent', () => {
   });
 
   it('should render the visits for a specific page', () => {
-    component.dataSource = new VisitDataSource(component.visits$, component.paginator);
+    component.dataSource = new DataTableSource(component.visits$, component.paginator);
     component.paginator.pageIndex = 1;
     component.paginator.pageSize = 2;
     const pageData = component.dataSource.getPageData();

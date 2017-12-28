@@ -36,13 +36,13 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CheckInFormComponent } from './components/check-in-form/check-in-form.component';
 import { SignatureFieldComponent } from './components/check-in-form/signature-field/signature-field.component';
 import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-hours-chart.component';
+import { DataTableComponent } from './components/data-table/data-table.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NewOrganizationFormComponent } from './components/new-organization-form/new-organization-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-import { VisitHistoryTableComponent } from './components/visit-history-table/visit-history-table.component';
 import { VolunteerMenuComponent } from './components/volunteer-menu/volunteer-menu.component';
 
 import { AuthService } from './services/auth.service';
@@ -72,6 +72,7 @@ import { VerificationGuard } from './verificationGuard';
     CheckInFormComponent,
     DailyHoursChartComponent,
     DataDisplayComponent,
+    DataTableComponent,
     FooterComponent,
     GettingStartedComponent,
     HeaderComponent,
@@ -83,7 +84,6 @@ import { VerificationGuard } from './verificationGuard';
     OrganizationDashboardComponent,
     SettingsPageComponent,
     SignatureFieldComponent,
-    VisitHistoryTableComponent,
     VolunteerMenuComponent,
     VerificationDialogComponent,
     SidenavComponent
