@@ -1,17 +1,32 @@
 <mat-toolbar color="primary">
-  <i class="material-icons title-icon">{{icon}}</i>
+  <button *ngIf="showSidenavToggle" class="show-xs" mat-icon-button (click)="onSidenavToggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <i class="material-icons title-icon hide-xs">{{icon}}</i>
   <span class="title-text">{{text}}</span>
-  <button mat-button *ngIf="showBack" (click)="back()">
-    <i class="material-icons">keyboard_backspace</i>
-    <span class="button-text">Back</span>
-  </button>
+  <div *ngIf="showBack">
+    <button mat-button class="hide-xs" (click)="onBack()">
+      <i class="material-icons">keyboard_backspace</i> Back
+    </button>
+    <button mat-icon-button class="show-xs" (click)="onBack()">
+      <i class="material-icons">keyboard_backspace</i>
+    </button>
+  </div>
   <span class="spacer"></span>
-  <button *ngIf="showLogOut" (click)="settings()" mat-button>
-    <i class="material-icons">settings</i>
-    <span class="button-text">Settings</span>
-  </button>
-  <button *ngIf="showLogOut" (click)="logOut()" mat-button>
-    <i class="material-icons">exit_to_app</i>
-    <span class="button-text">Log Out</span>
-  </button>
+  <div *ngIf="showLogOut">
+    <button mat-button class="hide-xs" (click)="onSettings()">
+      <i class="material-icons">settings</i> Settings
+    </button>
+    <button mat-icon-button class="show-xs" (click)="onSettings()">
+      <i class="material-icons">settings</i>
+    </button>
+  </div>
+  <div *ngIf="showLogOut">
+    <button mat-button class="hide-xs" (click)="onLogOut()">
+      <i class="material-icons">exit_to_app</i> Log Out
+    </button>
+    <button mat-icon-button class="show-xs" (click)="onLogOut()">
+      <i class="material-icons">exit_to_app</i>
+    </button>
+  </div>
 </mat-toolbar>

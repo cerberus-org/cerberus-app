@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
 
+import { reducers } from '../../reducers/index';
 import { SettingsPageComponent } from './settings-page.component';
 
 describe('SettingsPageComponent', () => {
@@ -8,7 +10,12 @@ describe('SettingsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SettingsPageComponent]
+      declarations: [
+        SettingsPageComponent
+      ],
+      imports: [
+        StoreModule.forRoot(reducers)
+      ]
     })
     .compileComponents();
   }));

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 
 import * as AppActions from '../../actions/app.actions';
 import * as LoginActions from '../../actions/login.actions';
+import { HeaderOptions } from '../../models/header-options';
 import { State } from '../../reducers/index';
 
 @Component({
@@ -24,16 +25,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.createForm();
     this.hidePwd = true;
-    this.store.dispatch(
-      new AppActions.SetPageConfig({
-        sidenavOptions: {},
-        headerOptions: {
-          previousUrl: null,
-          icon: 'group_work',
-          title: 'Cerberus'
-        }
-      })
-    );
+    this.store.dispatch(new AppActions.SetHeaderOptions(
+      new HeaderOptions(
+        'Cerberus',
+        'group_work',
+        null
+      )
+    ));
+    this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   onLogin() {
