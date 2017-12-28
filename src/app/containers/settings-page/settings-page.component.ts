@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
+import { HeaderOptions } from '../../models/header-options';
 import { User } from '../../models/user';
 import { State } from '../../reducers';
-import * as AppActions from '../../actions/app.actions';
-import { HeaderOptions } from '../../models/header-options';
 
 @Component({
   selector: 'app-settings-page',
