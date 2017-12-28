@@ -1,4 +1,4 @@
-import { DataSource } from '@angular/cdk/collections';
+import { DataSource } from '@angular/cdk/table';
 import { OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import { Observable } from 'rxjs/Observable';

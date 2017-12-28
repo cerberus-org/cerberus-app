@@ -16,7 +16,7 @@ import { State } from '../../reducers/index';
 })
 export class DataDisplayComponent implements OnInit {
   visits$: Observable<Visit[]>;
-  visitTableColumns: ColumnOptions[];
+  visitTableColumnOptions: ColumnOptions[];
 
   constructor(private store: Store<State>) { }
 
@@ -26,7 +26,7 @@ export class DataDisplayComponent implements OnInit {
     ));
     this.visits$ = this.store.select('dataDisplay')
       .map(state => state.visits);
-    this.visitTableColumns = [
+    this.visitTableColumnOptions = [
       {
         columnDef: 'date',
         header: 'Date',

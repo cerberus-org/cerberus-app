@@ -13,7 +13,7 @@ import { DataTableSource } from './data-table-source';
 })
 export class DataTableComponent implements OnInit {
   @Input() data$: Observable<any[]>;
-  @Input() columns: ColumnOptions[];
+  @Input() columnOptions: ColumnOptions[];
   displayedColumns: string[];
   initialPageSize: number;
   dataSource: DataTableSource;
@@ -26,6 +26,6 @@ export class DataTableComponent implements OnInit {
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.dataSource = new DataTableSource(this.data$, this.paginator);
-    this.displayedColumns = this.columns.map(column => column.columnDef);
+    this.displayedColumns = this.columnOptions.map(column => column.columnDef);
   }
 }

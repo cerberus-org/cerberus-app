@@ -1,9 +1,9 @@
 export class ColumnOptions {
   columnDef: string;
   header: string;
-  cell: () => void;
+  cell: Function;
 
-  constructor(columnDef: string, header: string, cell: () => void) {
+  constructor(columnDef: string, header: string, cell: Function) {
     this.columnDef = columnDef;
     this.header = header;
     this.cell = cell;
@@ -12,13 +12,13 @@ export class ColumnOptions {
 
 export const testColumnOptions: ColumnOptions[] = [
   {
-    label: 'First Name',
-    key: 'firstName',
+    columnDef: 'firstName',
+    header: 'First Name',
     cell: () => {}
   },
   {
-    label: 'Last Name',
-    key: 'lastName',
+    columnDef: 'lastName',
+    header: 'Last Name',
     cell: () => {}
   }
 ];
