@@ -17,8 +17,7 @@ describe('SettingsPageComponent', () => {
         MockComponent({ selector: 'app-user-form' }),
       ],
       imports: [
-        StoreModule.forRoot(reducers),
-        SettingsPageComponent
+        StoreModule.forRoot(reducers)
       ]
     })
     .compileComponents();
