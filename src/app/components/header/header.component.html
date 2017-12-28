@@ -4,14 +4,29 @@
   </button>
   <i class="material-icons title-icon hide-xs">{{icon}}</i>
   <span class="title-text">{{text}}</span>
-  <button mat-icon-button *ngIf="showBack" (click)="onBack()">
-    <i class="material-icons">keyboard_backspace</i>
-  </button>
+  <div *ngIf="showBack">
+    <button mat-button class="hide-xs" (click)="onBack()">
+      <i class="material-icons">keyboard_backspace</i> Back
+    </button>
+    <button mat-icon-button class="show-xs" (click)="onBack()">
+      <i class="material-icons">keyboard_backspace</i>
+    </button>
+  </div>
   <span class="spacer"></span>
-  <button mat-icon-button *ngIf="showLogOut" (click)="onSettings()" mat-button>
-    <i class="material-icons">settings</i>
-  </button>
-  <button mat-icon-button *ngIf="showLogOut" (click)="onLogOut()" mat-button>
-    <i class="material-icons">exit_to_app</i>
-  </button>
+  <div *ngIf="showLogOut">
+    <button mat-button class="hide-xs" (click)="onSettings()">
+      <i class="material-icons">settings</i> Settings
+    </button>
+    <button mat-icon-button class="show-xs" (click)="onSettings()">
+      <i class="material-icons">settings</i>
+    </button>
+  </div>
+  <div *ngIf="showLogOut">
+    <button mat-button class="hide-xs" (click)="onLogOut()">
+      <i class="material-icons">exit_to_app</i> Log Out
+    </button>
+    <button mat-icon-button class="show-xs" (click)="onLogOut()">
+      <i class="material-icons">exit_to_app</i>
+    </button>
+  </div>
 </mat-toolbar>
