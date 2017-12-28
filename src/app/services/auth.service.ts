@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 
+import * as firebase from 'firebase';
 import { setLocalStorageObject } from '../functions/localStorageObject';
 import { testUsers, User } from '../models/user';
 import { ErrorService } from './error.service';
@@ -41,6 +42,27 @@ export class AuthService {
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
+  /**
+   * Update auth user and base user.
+   * @param user
+   * @returns {Observable<User>}
+   */
+  updateUser(user: any): Observable<any> {
+    const currentUser = firebase.auth().currentUser;
+    const newUser = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password,
+      id: currentUser.uid
+    };
+    return Observable.fromPromise(currentUser
+      .updatePassword(user.password))
+      .switchMap(afUser => currentUser.updateEmail(user.email))
+      .switchMap(afUser => this.userService.update(newUser))
+      .catch(error => this.errorService.handleFirebaseError(error));
+  }
+
   signIn(email: string, password: string): Observable<User> {
     return Observable.fromPromise(this.afAuth.auth
       .signInWithEmailAndPassword(email, password))
@@ -51,15 +73,18 @@ export class AuthService {
   setLocalStorage(afUser: any): Observable<User> {
     return this.userService.getById(afUser.uid)
       .switchMap(res => {
+        // Add Firebase uid and email to base user object
         const user = Object.assign({}, res, {
           id: afUser.uid,
           email: afUser.email
         });
         setLocalStorageObject('user', user);
+        // Get organization id associated with user
         return this.organizationService.getById(user.organizationId)
           .map(organization => {
             setLocalStorageObject(
               'organization',
+              // Add organization id to base user object
               Object.assign({}, organization, { id: user.organizationId })
             );
             return user;
@@ -89,6 +114,10 @@ export class MockAuthService extends AuthService {
   }
 
   createUser(user: User): Observable<User> {
+    return Observable.of(user);
+  }
+
+  updateUser(user: User): Observable<User> {
     return Observable.of(user);
   }
 

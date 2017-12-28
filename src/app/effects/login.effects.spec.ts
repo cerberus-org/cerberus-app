@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 
 import * as LogInActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
-import { SettingsPageComponent } from '../containers/settings-page/settings-page.component';
 import { testUsers } from '../models/user';
 import { AuthService, MockAuthService } from '../services/auth.service';
 import { MockOrganizationService, OrganizationService } from '../services/organization.service';

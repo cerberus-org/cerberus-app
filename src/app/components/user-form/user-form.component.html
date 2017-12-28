@@ -1,5 +1,5 @@
 <form class="container-center loose" [formGroup]="formGroup">
-  <h1>Create an account to access your organization.</h1>
+  <h1>{{title}}</h1>
   <div class="container-center">
     <div class="inline input-row">
       <mat-form-field>
@@ -17,7 +17,8 @@
   </div>
   <div class="container-center">
     <mat-form-field class="input-row">
-      <input type="password" matInput placeholder="Password" formControlName="password">
+      <input [type]="hidePwd ? 'password' : 'text'" type="password" matInput placeholder="Password" formControlName="password">
+      <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{hidePwd ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
   </div>
 </form>

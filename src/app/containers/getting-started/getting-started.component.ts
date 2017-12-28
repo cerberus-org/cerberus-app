@@ -21,8 +21,11 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   step: number;
   validOrganization: Organization;
   validUser: User;
+  userFormTitle: string;
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<State>) {
+    this.userFormTitle = 'Create an account to access your organization.'
+  }
 
   ngOnInit(): void {
     this.store.dispatch(new AppActions.SetHeaderOptions(
