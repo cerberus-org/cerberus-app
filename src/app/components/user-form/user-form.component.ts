@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
+import { getLocalStorageObject } from '../../functions/localStorageObject';
 import { User } from '../../models/user';
 
 @Component({
@@ -33,10 +34,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
    * Creates the form group.
    */
   createForm(): FormGroup {
+    const user = getLocalStorageObject('user');
     return this.fb.group({
-      firstName: ['', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
-      lastName: ['', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
-      email: ['', [Validators.maxLength(255), Validators.required, Validators.email]],
+      // If the user is logged in, pre populate form, else leave blank
+      firstName: [user ? user.firstName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
+      lastName: [user ? user.lastName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
+      email: [user ? user.email : '', [Validators.maxLength(255), Validators.required, Validators.email]],
       password: ['', [Validators.minLength(8), Validators.maxLength(128), Validators.required]]
     });
   }
