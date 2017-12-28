@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import * as SettingsActions from '../actions/settings.actions';
 import { testUsers } from '../models/user';
 import { AuthService, MockAuthService } from '../services/auth.service';
+import { MockOrganizationService, OrganizationService } from '../services/organization.service';
 import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
 import { SettingsEffects } from './settings.effects';
 
@@ -20,6 +21,7 @@ describe('SettingsEffects', () => {
         provideMockActions(() => actions),
         { provide: AuthService, useClass: MockAuthService },
         { provide: SnackBarService, useClass: MockSnackBarService },
+        { provide: OrganizationService, useClass: MockOrganizationService }
       ],
     });
     effects = TestBed.get(SettingsEffects);

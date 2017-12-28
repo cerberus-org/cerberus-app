@@ -10,10 +10,10 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 import * as SettingsActions from '../actions/settings.actions';
-import { AuthService } from '../services/auth.service';
-import { SnackBarService } from '../services/snack-bar.service';
-import { OrganizationService } from '../services/organization.service';
 import { getLocalStorageObject } from '../functions/localStorageObject';
+import { AuthService } from '../services/auth.service';
+import { OrganizationService } from '../services/organization.service';
+import { SnackBarService } from '../services/snack-bar.service';
 
 @Injectable()
 export class SettingsEffects {
