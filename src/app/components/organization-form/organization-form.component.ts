@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Subscription } from 'rxjs/Subscription';
 import { isURL } from 'validator';
 
+import { getLocalStorageObject } from '../../functions/localStorageObject';
 import { Organization } from '../../models/organization';
 
 @Component({
@@ -45,10 +46,12 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
    */
   createForm(): FormGroup {
     const nameRegex = /^[a-z ,.'-]+$/i;
+    const org = getLocalStorageObject('organization');
+    // If the user is logged in, pre populate form, else leave blank
     return this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(70), Validators.pattern(nameRegex)]],
-      website: ['', [Validators.required, Validators.maxLength(255), this.urlValidator]],
-      description: ['', [Validators.required, Validators.maxLength(160)]]
+      name: [org ? org.name : '', [Validators.required, Validators.minLength(4), Validators.maxLength(70), Validators.pattern(nameRegex)]],
+      website: [org ? org.website : '', [Validators.required, Validators.maxLength(255), this.urlValidator]],
+      description: [org ? org.description : '', [Validators.required, Validators.maxLength(160)]]
     });
   }
 
