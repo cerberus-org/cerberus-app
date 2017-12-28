@@ -22,9 +22,11 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   validOrganization: Organization;
   validUser: User;
   userFormTitle: string;
+  organizationFormTitle: string;
 
   constructor(private store: Store<State>) {
-    this.userFormTitle = 'Create an account to access your organization.'
+    this.userFormTitle = 'Create an account to access your organization.';
+    this.organizationFormTitle = 'Tell us about your organization.';
   }
 
   ngOnInit(): void {

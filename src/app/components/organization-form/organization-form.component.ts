@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { isURL } from 'validator';
@@ -12,6 +12,7 @@ import { Organization } from '../../models/organization';
 })
 export class OrganizationFormComponent implements OnInit, OnDestroy {
   @Output() validOrganization = new EventEmitter();
+  @Input() title: string;
   formGroup: FormGroup;
   formSubscription: Subscription;
 

@@ -1,7 +1,16 @@
-<app-user-form
-  [title]="userFormTitle"
-  (validUser)="setUser($event)">
-</app-user-form>
-<div class="container-button">
-  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!validUser">Submit</button>
+<!--user form-->
+<div>
+  <app-user-form
+    [title]="userFormTitle"
+    (validUser)="setUser($event)">
+  </app-user-form>
+  <div class="container-button">
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!validUser">Submit</button>
+  </div>
+</div>
+<!--organization form-->
+<div>
+  <app-organization-form
+    [title]="organizationFormTitle"
+  ></app-organization-form>
 </div>

@@ -18,9 +18,11 @@ export class SettingsPageComponent implements OnInit {
 
   userFormTitle: string;
   validUser: User;
+  organizationFormTitle: string;
 
   constructor(private store: Store<State>) {
-    this.userFormTitle = 'Update user data.'
+    this.userFormTitle = 'Update user data.';
+    this.organizationFormTitle = 'Update organization data.';
   }
 
   ngOnInit() {
