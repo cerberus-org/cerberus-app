@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
-import { getLocalStorageObject } from '../../functions/localStorageObject';
 import { User } from '../../models/user';
 
 @Component({
@@ -12,6 +11,9 @@ import { User } from '../../models/user';
 })
 export class UserFormComponent implements OnInit, OnDestroy {
   @Input() title: string;
+  // Initial user used to pre populate form
+  @Input() initialUser: User;
+  // User entered in form
   @Output() validUser = new EventEmitter();
   formGroup: FormGroup;
   formSubscription: Subscription;
@@ -45,12 +47,11 @@ export class UserFormComponent implements OnInit, OnDestroy {
    * Creates the form group.
    */
   createForm(): FormGroup {
-    const user = getLocalStorageObject('user');
     return this.fb.group({
-      // If the user is logged in, pre populate form, else leave blank
-      firstName: [user ? user.firstName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
-      lastName: [user ? user.lastName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
-      email: [user ? user.email : '', [Validators.maxLength(255), Validators.required, Validators.email]],
+      // If initialUser was passed in, pre populate form, else leave blank
+      firstName: [this.initialUser ? this.initialUser.firstName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
+      lastName: [this.initialUser ? this.initialUser.lastName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
+      email: [this.initialUser ? this.initialUser.email : '', [Validators.maxLength(255), Validators.required, Validators.email]],
       password: ['', [Validators.minLength(8), Validators.maxLength(128), Validators.required]]
     });
   }

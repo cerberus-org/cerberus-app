@@ -1,20 +1,22 @@
 <!--user form-->
-<ng-template #user [ngIf]="sidenavSelection == 'User'">
+<div *ngIf="sidenavSelection == 'User'">
   <app-user-form
     [title]="userFormTitle"
+    [initialUser]="initialUser"
     (validUser)="setUser($event)">
   </app-user-form>
   <div class="container-button">
     <button mat-raised-button color="primary" (click)="onUserFormSubmit()" [disabled]="!validUser">Submit</button>
   </div>
-</ng-template>
+</div>
 <!--organization form-->
-<ng-template #organization [ngIf]="sidenavSelection == 'Organization'">
+<div *ngIf="sidenavSelection == 'Organization'">
   <app-organization-form
     [title]="organizationFormTitle"
+    [initialOrganization]="initialOrganization"
     (validOrganization)="setOrganization($event)">
   </app-organization-form>
   <div class="container-button">
     <button mat-raised-button color="primary" (click)="onOrganizationFormSubmit()" [disabled]="!validOrganization">Submit</button>
   </div>
-</ng-template>
+</div>

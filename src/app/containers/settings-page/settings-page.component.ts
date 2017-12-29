@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
+import { getLocalStorageObject } from '../../functions/localStorageObject';
 import { HeaderOptions } from '../../models/header-options';
 import { Organization } from '../../models/organization';
 import { SidenavOptions } from '../../models/sidenav-options';
@@ -21,14 +22,20 @@ export class SettingsPageComponent implements OnInit {
   sidenavSelection: string;
 
   userFormTitle: string;
+  // User entered in form
   validUser: User;
+  // Initial user used to pre populate form
+  initialUser: User;
 
   organizationFormTitle: string;
   validOrganization: Organization;
+  initialOrganization: Organization;
 
   constructor(private store: Store<State>) {
     this.userFormTitle = 'Update user data.';
     this.organizationFormTitle = 'Update organization data.';
+    this.initialUser = getLocalStorageObject('user');
+    this.initialOrganization = getLocalStorageObject('organization');
   }
 
   ngOnInit() {

@@ -3,7 +3,6 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Subscription } from 'rxjs/Subscription';
 import { isURL } from 'validator';
 
-import { getLocalStorageObject } from '../../functions/localStorageObject';
 import { Organization } from '../../models/organization';
 
 @Component({
@@ -14,6 +13,7 @@ import { Organization } from '../../models/organization';
 export class OrganizationFormComponent implements OnInit, OnDestroy {
   @Output() validOrganization = new EventEmitter();
   @Input() title: string;
+  @Input() initialOrganization: Organization;
   formGroup: FormGroup;
   formSubscription: Subscription;
 
@@ -56,13 +56,12 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
    * Creates the form group.
    */
   createForm(): FormGroup {
+    // If initialOrganization was passed in, pre populate form, else leave blank
     const nameRegex = /^[a-z ,.'-]+$/i;
-    const org = getLocalStorageObject('organization');
-    // If the user is logged in, pre populate form, else leave blank
     return this.fb.group({
-      name: [org ? org.name : '', [Validators.required, Validators.minLength(4), Validators.maxLength(70), Validators.pattern(nameRegex)]],
-      website: [org ? org.website : '', [Validators.required, Validators.maxLength(255), this.urlValidator]],
-      description: [org ? org.description : '', [Validators.required, Validators.maxLength(160)]]
+      name: [this.initialOrganization ? this.initialOrganization.name : '', [Validators.required, Validators.minLength(4), Validators.maxLength(70), Validators.pattern(nameRegex)]],
+      website: [this.initialOrganization ? this.initialOrganization.website : '', [Validators.required, Validators.maxLength(255), this.urlValidator]],
+      description: [this.initialOrganization ? this.initialOrganization.description : '', [Validators.required, Validators.maxLength(160)]]
     });
   }
 
