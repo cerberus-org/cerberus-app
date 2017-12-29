@@ -7,14 +7,6 @@ describe('dataDisplayReducer', () => {
 
   describe('NEXT_STEP', () => {
 
-    it('sets the selectedTabIndex', () => {
-      const state = fromGettingStarted.reducer(
-        fromGettingStarted.initialState,
-        new GettingStartedActions.NextStep(1)
-      );
-      expect(state.selectedTabIndex).toBe(1);
-    });
-
     it('updates step when the next step is greater than the previous', () => {
       const state = fromGettingStarted.reducer(
         fromGettingStarted.initialState,

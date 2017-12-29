@@ -40,7 +40,6 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
     this.gettingStartedSubscription = this.store
       .select('gettingStarted')
       .subscribe(state => {
-        this.tabGroup.selectedIndex = state.selectedTabIndex;
         this.step = state.step;
         this.validOrganization = state.validOrganization;
         this.validUser = state.validUser;
@@ -63,6 +62,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
 
   onNext(step): void {
     this.store.dispatch(new GettingStartedActions.NextStep(step));
+    this.tabGroup.selectedIndex = step;
   };
 
   /**
