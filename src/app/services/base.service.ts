@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorService } from './error.service';
 
 export abstract class BaseService<T> {
-  private collection: AngularFirestoreCollection<T>;
+  public collection: AngularFirestoreCollection<T>;
 
   constructor(protected db: AngularFirestore,
               protected errorService: ErrorService,

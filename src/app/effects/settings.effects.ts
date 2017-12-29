@@ -10,7 +10,7 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 import * as SettingsActions from '../actions/settings.actions';
-import { getLocalStorageObject } from '../functions/localStorageObject';
+import { getLocalStorageObjectProperty } from '../functions/localStorageObject';
 import { AuthService } from '../services/auth.service';
 import { OrganizationService } from '../services/organization.service';
 import { SnackBarService } from '../services/snack-bar.service';
@@ -40,20 +40,17 @@ export class SettingsEffects {
   updateOrganization$: Observable<Action> = this.actions
     .ofType(SettingsActions.UPDATE_ORGANIZATION)
     .map((action: SettingsActions.UpdateOrganization) => action.payload)
-    .switchMap(org => this.organizationService.update({
-        // Add organization id to object
-        name: org.name,
-        description: org.description,
-        website: org.website,
-        id: getLocalStorageObject('organization').id
-      }))
-      .map(() => {
-        this.snackBarService.updateOrganizationSuccess();
-        return new SettingsActions.UpdateOrganizationSuccess();
-      });
+    .switchMap(organization => this.organizationService.updateAndSetLocalStorage(
+      Object.assign({}, organization, { id: getLocalStorageObjectProperty('organization', 'id') })
+    ))
+    .map(() => {
+      this.snackBarService.updateOrganizationSuccess();
+      return new SettingsActions.UpdateOrganizationSuccess();
+    });
 
   constructor(private actions: Actions,
               private snackBarService: SnackBarService,
               private authService: AuthService,
-              private organizationService: OrganizationService) {}
+              private organizationService: OrganizationService) {
+  }
 }
