@@ -4,18 +4,18 @@ import { MatListModule, MatPaginatorModule, MatTableModule } from '@angular/mate
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs/Observable';
 
+import { testColumnOptions } from '../../models/column-options';
 import { testVisits } from '../../models/visit';
-import { VisitDataSource } from './visit-data-source';
-import { VisitHistoryTableComponent } from './visit-history-table.component';
+import { DataTableComponent, DataTableSource } from './data-table.component';
 
-describe('VisitHistoryTableComponent', () => {
-  let component: VisitHistoryTableComponent;
-  let fixture: ComponentFixture<VisitHistoryTableComponent>;
+describe('DataTableComponent', () => {
+  let component: DataTableComponent;
+  let fixture: ComponentFixture<DataTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        VisitHistoryTableComponent
+        DataTableComponent
       ],
       imports: [
         CdkTableModule,
@@ -28,9 +28,10 @@ describe('VisitHistoryTableComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VisitHistoryTableComponent);
+    fixture = TestBed.createComponent(DataTableComponent);
     component = fixture.componentInstance;
-    component.visits$ = Observable.of(testVisits);
+    component.columnOptions = testColumnOptions;
+    component.data$ = Observable.of(testVisits);
     fixture.detectChanges();
   });
 
@@ -38,18 +39,8 @@ describe('VisitHistoryTableComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should format times properly', () => {
-    const formatted = component.formatTime(testVisits[0].startedAt, testVisits[0].timezone);
-    expect(formatted).toEqual('5:45 am')
-  });
-
-  it('should format the durations properly', () => {
-    const formatted = component.formatDuration(testVisits[1]);
-    expect(formatted).toEqual('6 hours')
-  });
-
-  it('should render the visits for a specific page', () => {
-    component.dataSource = new VisitDataSource(component.visits$, component.paginator);
+  it('should render data for a specific page', () => {
+    component.dataSource = new DataTableSource(component.data$, component.paginator);
     component.paginator.pageIndex = 1;
     component.paginator.pageSize = 2;
     const pageData = component.dataSource.getPageData();

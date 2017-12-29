@@ -3,14 +3,12 @@ import { Organization } from '../models/organization';
 import { User } from '../models/user';
 
 export interface State {
-  selectedTabIndex: number;
   step: number;
   validOrganization: Organization
   validUser: User
 }
 
 export const initialState: State = {
-  selectedTabIndex: 0,
   step: 0,
   validOrganization: null,
   validUser: null
@@ -29,7 +27,6 @@ export function reducer(state = initialState, action: Action): State {
     case GettingStartedActions.NEXT_STEP: {
       const next = action.payload;
       return Object.assign({}, state, {
-        selectedTabIndex: next,
         step: Math.max(state.step, next)
       });
     }
