@@ -15,8 +15,8 @@ describe('SettingsPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SettingsPageComponent,
-        MockComponent({ selector: 'app-user-form' }),
-        MockComponent({ selector: 'app-organization-form' }),
+        MockComponent({ selector: 'app-user-form', inputs: ['initialUser'] }),
+        MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
       ],
       imports: [
         StoreModule.forRoot(reducers)
@@ -38,7 +38,7 @@ describe('SettingsPageComponent', () => {
   it('should set user', () => {
     component.setUser(testUsers[0]);
     expect(component.validUser).toBe(testUsers[0]);
-  })
+  });
 
   it('should set organization', () => {
     component.setOrganization(testOrganizations[0]);
