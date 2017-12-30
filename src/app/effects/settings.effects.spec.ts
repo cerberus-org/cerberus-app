@@ -9,6 +9,8 @@ import { AuthService, MockAuthService } from '../services/auth.service';
 import { MockOrganizationService, OrganizationService } from '../services/organization.service';
 import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
 import { SettingsEffects } from './settings.effects';
+import * as LogInActions from '../actions/login.actions';
+import * as RouterActions from '../actions/router.actions';
 
 describe('SettingsEffects', () => {
   let effects: SettingsEffects;
@@ -29,16 +31,23 @@ describe('SettingsEffects', () => {
 
   describe('updateUser$', () => {
 
-    it('should return a UPDATE_USER_SUCCESS action and emit updateUserSuccess snackbar, on success', (() => {
-      const updateUser = new SettingsActions.UpdateUser(testUsers[0]);
-      const updateUserSuccess = new SettingsActions.UpdateUserSuccess();
-      const updateUserSuccessSnackbarSpy = spyOn(TestBed.get(SnackBarService), 'updateUserSuccess');
+    it('should emit updateUserSuccess snackbar, on success', (() => {
+      const updateUserSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateUserSuccess');
 
-      actions = hot('a', { a: updateUser });
-      const expected = cold('b', { b: updateUserSuccess });
+      effects.updateUser$.subscribe(() => {
+        expect(updateUserSuccessSpy).toHaveBeenCalled();
+      });
+    }));
+  });
 
-      expect(effects.updateUser$).toBeObservable(expected);
-      expect(updateUserSuccessSnackbarSpy).toHaveBeenCalled();
+  describe('updateOrganization$', () => {
+
+    it('should emit updateOrganizationSuccess snackbar, on success', (() => {
+      const updateOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateOrganizationSuccess');
+
+      effects.updateOrganization$.subscribe(() => {
+        expect(updateOrganizationSuccessSpy).toHaveBeenCalled();
+      });
     }));
   });
 });

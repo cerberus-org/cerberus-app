@@ -22,31 +22,25 @@ export class SettingsEffects {
    * Listen for the UpdateUser action, update user,
    * then emit the success snack bar.
    */
-  @Effect()
+  @Effect({ dispatch: false })
   updateUser$: Observable<Action> = this.actions
     .ofType(SettingsActions.UPDATE_USER)
     .map((action: SettingsActions.UpdateUser) => action.payload)
     .switchMap(user => this.authService.updateUser(user)
-      .map(() => {
-        this.snackBarService.updateUserSuccess();
-        return new SettingsActions.UpdateUserSuccess();
-      }));
+      .do(() => this.snackBarService.updateUserSuccess()));
 
   /**
    * Listen for the UpdateOrganization action, update organization,
    * then emit the success snack bar.
    */
-  @Effect()
+  @Effect({ dispatch: false })
   updateOrganization$: Observable<Action> = this.actions
     .ofType(SettingsActions.UPDATE_ORGANIZATION)
     .map((action: SettingsActions.UpdateOrganization) => action.payload)
     .switchMap(organization => this.organizationService.updateAndSetLocalStorage(
       Object.assign({}, organization, { id: getLocalStorageObjectProperty('organization', 'id') })
     ))
-    .map(() => {
-      this.snackBarService.updateOrganizationSuccess();
-      return new SettingsActions.UpdateOrganizationSuccess();
-    });
+    .do(() => this.snackBarService.updateOrganizationSuccess());
 
   constructor(private actions: Actions,
               private snackBarService: SnackBarService,
