@@ -26,7 +26,7 @@ export class OrganizationService extends BaseService<Organization> {
    * @returns {Observable<any>}
    */
   updateAndSetLocalStorage(organization: Organization): Observable<any> {
-    return super.update(organization)
+    return this.update(organization)
       .do(() => setLocalStorageObject('organization', organization));
   }
 

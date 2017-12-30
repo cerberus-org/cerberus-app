@@ -44,7 +44,7 @@ export class UserService extends BaseService<User> {
    * @returns {Observable<any>}
    */
   updateAndSetLocalStorage(user: User): Observable<any> {
-    return super.update(user)
+    return this.update(user)
       .do(() => setLocalStorageObject('user', user));
   }
 
