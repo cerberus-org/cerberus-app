@@ -25,6 +25,7 @@ describe('UserFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UserFormComponent);
     component = fixture.componentInstance;
+    component.passwordRequired = true;
     fixture.detectChanges();
   });
 
@@ -140,7 +141,14 @@ describe('UserFormComponent', () => {
 
     it('should validate requirement', (() => {
       const control = component.formGroup.controls['password'];
-      component.passwordRequired = true;
+      expect(control.valid).toBeFalsy();
+      expect(control.errors).toBeTruthy();
+    }));
+
+    it('should validate password is not required', (() => {
+      component.passwordRequired = false;
+      fixture.detectChanges();
+      const control = component.formGroup.controls['password'];
       expect(control.valid).toBeFalsy();
       expect(control.errors).toBeTruthy();
     }));
@@ -168,28 +176,6 @@ describe('UserFormComponent', () => {
   });
 
   describe('confirmPassword control', () => {
-
-    it('should validate requirement', (() => {
-      const control = component.formGroup.controls['password'];
-      component.passwordRequired = true;
-      expect(control.valid).toBeFalsy();
-      expect(control.errors).toBeTruthy();
-    }));
-
-    it('should validate min length', (() => {
-      const control = component.formGroup.controls['password'];
-      control.setValue('1234567');
-      expect(control.valid).toBeFalsy();
-      expect(control.errors['minlength']).toBeTruthy();
-    }));
-
-    it('should validate max length', (() => {
-      const control = component.formGroup.controls['password'];
-      control.setValue('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.' +
-        'Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis');
-      expect(control.valid).toBeFalsy();
-      expect(control.errors['maxlength']).toBeTruthy();
-    }));
 
     it('should validate matching', (() => {
       const pwdControl = component.formGroup.controls['password'];

@@ -22,7 +22,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
   hideConfirmPwd: boolean;
 
   constructor(private fb: FormBuilder) {
-    this.passwordRequired = true;
     this.hidePwd = true;
     this.hideConfirmPwd = true;
   }
@@ -54,7 +53,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
       lastName: [this.initialUser ? this.initialUser.lastName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
       email: [this.initialUser ? this.initialUser.email : '', [Validators.maxLength(255), Validators.required, Validators.email]],
       password: ['', [Validators.minLength(8), Validators.maxLength(128), this.passwordRequiredValidator]],
-      confirmPassword: ['', [Validators.minLength(8), Validators.maxLength(128), this.passwordRequiredValidator]]
+      confirmPassword: ['']
     }, { validator: this.matchingPasswords('password', 'confirmPassword') });
   }
 
