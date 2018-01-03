@@ -10,7 +10,9 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 import * as SettingsActions from '../actions/settings.actions';
+import { getLocalStorageObjectProperty } from '../functions/localStorageObject';
 import { AuthService } from '../services/auth.service';
+import { OrganizationService } from '../services/organization.service';
 import { SnackBarService } from '../services/snack-bar.service';
 
 @Injectable()
@@ -20,17 +22,29 @@ export class SettingsEffects {
    * Listen for the UpdateUser action, update user,
    * then emit the success snack bar.
    */
-  @Effect()
+  @Effect({ dispatch: false })
   updateUser$: Observable<Action> = this.actions
     .ofType(SettingsActions.UPDATE_USER)
     .map((action: SettingsActions.UpdateUser) => action.payload)
     .switchMap(user => this.authService.updateUser(user)
-      .map(() => {
-        this.snackBarService.updateUserSuccess();
-        return new SettingsActions.UpdateUserSuccess()
-      }));
+      .do(() => this.snackBarService.updateUserSuccess()));
+
+  /**
+   * Listen for the UpdateOrganization action, update organization,
+   * then emit the success snack bar.
+   */
+  @Effect({ dispatch: false })
+  updateOrganization$: Observable<Action> = this.actions
+    .ofType(SettingsActions.UPDATE_ORGANIZATION)
+    .map((action: SettingsActions.UpdateOrganization) => action.payload)
+    .switchMap(organization => this.organizationService.updateAndSetLocalStorage(
+      Object.assign({}, organization, { id: getLocalStorageObjectProperty('organization', 'id') })
+    ))
+    .do(() => this.snackBarService.updateOrganizationSuccess());
 
   constructor(private actions: Actions,
               private snackBarService: SnackBarService,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private organizationService: OrganizationService) {
+  }
 }

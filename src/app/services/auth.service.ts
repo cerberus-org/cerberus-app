@@ -6,7 +6,7 @@ import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 
 import * as firebase from 'firebase';
-import { setLocalStorageObject } from '../functions/localStorageObject';
+import { getLocalStorageObject, setLocalStorageObject } from '../functions/localStorageObject';
 import { testUsers, User } from '../models/user';
 import { ErrorService } from './error.service';
 import { OrganizationService } from './organization.service';
@@ -49,28 +49,28 @@ export class AuthService {
    */
   updateUser(user: any): Observable<any> {
     const currentUser = firebase.auth().currentUser;
-    const newUser = {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      password: user.password,
-      id: currentUser.uid
-    };
     return Observable.fromPromise(currentUser
       .updatePassword(user.password))
-      .switchMap(afUser => currentUser.updateEmail(user.email))
-      .switchMap(afUser => this.userService.update(newUser))
+      .switchMap(() => currentUser.updateEmail(user.email))
+      .switchMap(() => this.userService.updateAndSetLocalStorage(
+        Object.assign({}, user, { id: currentUser.uid })
+      ))
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
   signIn(email: string, password: string): Observable<User> {
     return Observable.fromPromise(this.afAuth.auth
       .signInWithEmailAndPassword(email, password))
-      .switchMap(afUser => this.setLocalStorage(afUser))
+      .switchMap(afUser => this.setLocalStorageOnSignIn(afUser))
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
-  setLocalStorage(afUser: any): Observable<User> {
+  /**
+   * Set user and organization in local storage on sign in.
+   * @param afUser
+   * @returns {Observable<User>}
+   */
+  setLocalStorageOnSignIn(afUser: any): Observable<User> {
     return this.userService.getById(afUser.uid)
       .switchMap(res => {
         // Add Firebase uid and email to base user object

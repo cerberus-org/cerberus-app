@@ -4,15 +4,15 @@ import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Organization, testOrganizations } from '../../models/organization';
-import { NewOrganizationFormComponent } from './new-organization-form.component';
+import { OrganizationFormComponent } from './organization-form.component';
 
-describe('NewOrganizationFormComponent', () => {
-  let component: NewOrganizationFormComponent;
-  let fixture: ComponentFixture<NewOrganizationFormComponent>;
+describe('OrganizationFormComponent', () => {
+  let component: OrganizationFormComponent;
+  let fixture: ComponentFixture<OrganizationFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NewOrganizationFormComponent],
+      declarations: [OrganizationFormComponent],
       imports: [
         MatInputModule,
         NoopAnimationsModule,
@@ -22,7 +22,7 @@ describe('NewOrganizationFormComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewOrganizationFormComponent);
+    fixture = TestBed.createComponent(OrganizationFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

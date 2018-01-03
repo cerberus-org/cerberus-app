@@ -30,6 +30,10 @@ export class SnackBarService {
     this.open('User information successfully updated.')
   }
 
+  updateOrganizationSuccess(): void {
+    this.open('Organization information successfully updated.')
+  }
+
   checkInSuccess(): void {
     this.open('Volunteer successfully checked in.')
   }
