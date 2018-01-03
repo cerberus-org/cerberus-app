@@ -34,7 +34,6 @@ export class SidenavComponent implements OnChanges, OnDestroy {
       } else {
         this.sidenav.close();
       }
-      console.log('change!');
     }
   }
 

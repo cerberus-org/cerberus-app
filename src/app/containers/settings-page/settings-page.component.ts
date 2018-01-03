@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
+import { getLocalStorageObject } from '../../functions/localStorageObject';
 import { HeaderOptions } from '../../models/header-options';
+import { Organization } from '../../models/organization';
+import { SidenavOptions } from '../../models/sidenav-options';
 import { User } from '../../models/user';
 import { State } from '../../reducers';
 
@@ -14,11 +18,24 @@ import { State } from '../../reducers';
 })
 export class SettingsPageComponent implements OnInit {
 
+  settingsSubscription: Subscription;
+  sidenavSelection: string;
+
   userFormTitle: string;
+  // User entered in form
   validUser: User;
+  // Initial user used to pre populate form
+  initialUser: User;
+
+  organizationFormTitle: string;
+  validOrganization: Organization;
+  initialOrganization: Organization;
 
   constructor(private store: Store<State>) {
-    this.userFormTitle = 'Update user data.'
+    this.userFormTitle = 'Update user data.';
+    this.organizationFormTitle = 'Update organization data.';
+    this.initialUser = getLocalStorageObject('user');
+    this.initialOrganization = getLocalStorageObject('organization');
   }
 
   ngOnInit() {
@@ -29,7 +46,15 @@ export class SettingsPageComponent implements OnInit {
         '/dashboard'
       )
     ));
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store.dispatch(new AppActions.SetSidenavOptions([
+      new SidenavOptions('User', 'face', new SettingsActions.SetSidenavSelection('User')),
+      new SidenavOptions('Organization', 'domain', new SettingsActions.SetSidenavSelection('Organization'))
+    ]));
+    this.settingsSubscription = this.store
+      .select('settings')
+      .subscribe(state => {
+        this.sidenavSelection = state.sidenavSelection;
+    });
   }
 
   /**
@@ -41,7 +66,20 @@ export class SettingsPageComponent implements OnInit {
     this.validUser = $event;
   }
 
-  onSubmit() {
+  /**
+   * Once the organization-form emits an event,
+   * set organization.
+   * @param $event
+   */
+  setOrganization($event) {
+    this.validOrganization = $event;
+  }
+
+  onUserFormSubmit() {
     this.store.dispatch(new SettingsActions.UpdateUser(this.validUser));
+  }
+
+  onOrganizationFormSubmit() {
+    this.store.dispatch(new SettingsActions.UpdateOrganization(this.validOrganization));
   }
 }

@@ -6,6 +6,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/operator/do';
+import { setLocalStorageObject } from '../functions/localStorageObject';
 import { testUsers, User } from '../models/user';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';
@@ -34,6 +36,16 @@ export class UserService extends BaseService<User> {
    */
   convertIn(user: User): User {
     return this.capitalize(user);
+  }
+
+  /**
+   * Update user then, reset local storage.
+   * @param user
+   * @returns {Observable<any>}
+   */
+  updateAndSetLocalStorage(user: User): Observable<any> {
+    return this.update(user)
+      .do(() => setLocalStorageObject('user', user));
   }
 
   /**

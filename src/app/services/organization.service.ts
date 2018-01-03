@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import 'rxjs/add/observable/empty';
+import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/operator/map';
 import { upperAllFirst } from '../functions/capitalize';
+import { setLocalStorageObject } from '../functions/localStorageObject';
 import { Organization, testOrganizations } from '../models/organization';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';
@@ -15,6 +18,16 @@ export class OrganizationService extends BaseService<Organization> {
   constructor(protected db: AngularFirestore,
               protected errorService: ErrorService) {
     super(db, errorService, 'organizations');
+  }
+
+  /**
+   * Update organization then, reset local storage.
+   * @param organization
+   * @returns {Observable<any>}
+   */
+  updateAndSetLocalStorage(organization: Organization): Observable<any> {
+    return this.update(organization)
+      .do(() => setLocalStorageObject('organization', organization));
   }
 
   /**
