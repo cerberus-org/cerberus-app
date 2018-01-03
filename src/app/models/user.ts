@@ -1,3 +1,9 @@
+/**
+ * The database consists of a User object and a Firebase User object.
+ * Both objects are coupled in this object for simplicity.
+ * The User service removes all fields that are only meant to be in the
+ * Firebase User object on convert out.
+ */
 export class User {
   id: string;
   organizationId: string;
