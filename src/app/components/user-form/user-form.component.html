@@ -21,4 +21,10 @@
       <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{hidePwd ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
   </div>
+  <div class="container-center">
+    <mat-form-field class="input-row">
+      <input [type]="hideConfirmPwd ? 'password' : 'text'" type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword">
+      <mat-icon matSuffix (click)="hideConfirmPwd = !hideConfirmPwd">{{hideConfirmPwd ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+  </div>
 </form>

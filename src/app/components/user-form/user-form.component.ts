@@ -18,9 +18,11 @@ export class UserFormComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   formSubscription: Subscription;
   hidePwd: boolean;
+  hideConfirmPwd: boolean;
 
   constructor(private fb: FormBuilder) {
     this.hidePwd = true;
+    this.hideConfirmPwd = true;
   }
 
   ngOnInit(): void {
@@ -52,7 +54,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
       firstName: [this.initialUser ? this.initialUser.firstName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
       lastName: [this.initialUser ? this.initialUser.lastName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
       email: [this.initialUser ? this.initialUser.email : '', [Validators.maxLength(255), Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(8), Validators.maxLength(128), Validators.required]]
+      password: ['', [Validators.minLength(8), Validators.maxLength(128), Validators.required]],
+      confirmPassword: ['', [Validators.minLength(8), Validators.maxLength(128), Validators.required]]
     });
   }
 
