@@ -3,7 +3,8 @@
   <app-user-form
     [title]="userFormTitle"
     [initialUser]="initialUser"
-    (validUser)="setUser($event)">
+    (validUser)="setUser($event)"
+    [passwordRequired]="false">
   </app-user-form>
   <div class="container-button">
     <button mat-raised-button color="primary" (click)="onUserFormSubmit()" [disabled]="!validUser">Submit</button>

@@ -15,6 +15,7 @@
       <input type="email" matInput placeholder="Email" formControlName="email">
     </mat-form-field>
   </div>
+  <h4 *ngIf="!passwordRequired">Optionally change your password by entering the following:</h4>
   <div class="container-center">
     <mat-form-field class="input-row">
       <input [type]="hidePwd ? 'password' : 'text'" type="password" matInput placeholder="Password" formControlName="password">
