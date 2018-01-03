@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'dashboard', component: OrganizationDashboardComponent, canActivate : [Guard] },
   { path: 'checkin/:id', component: CheckInComponent, canActivate : [Guard] },
   { path: 'start', component: GettingStartedComponent },
-  { path: 'settings', component: SettingsPageComponent },
+  { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

@@ -45,9 +45,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.formSubscription.unsubscribe();
   }
 
-  /**
-   * Creates the form group.
-   */
   createForm(): FormGroup {
     return this.fb.group({
       // If initialUser was passed in, pre populate form, else leave blank
@@ -65,8 +62,10 @@ export class UserFormComponent implements OnInit, OnDestroy {
       const confirmPassword = group.controls[confirmPasswordKey];
 
       if (password.value !== confirmPassword.value) {
+        confirmPassword.setErrors({ mismatchedPasswords: true });
         return { mismatchedPasswords: true };
       }
+      confirmPassword.setErrors(null);
     }
   }
 
