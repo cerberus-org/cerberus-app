@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { User } from '../../models/user';
@@ -56,7 +56,18 @@ export class UserFormComponent implements OnInit, OnDestroy {
       email: [this.initialUser ? this.initialUser.email : '', [Validators.maxLength(255), Validators.required, Validators.email]],
       password: ['', [Validators.minLength(8), Validators.maxLength(128), Validators.required]],
       confirmPassword: ['', [Validators.minLength(8), Validators.maxLength(128), Validators.required]]
-    });
+    }, { validator: this.matchingPasswords('password', 'confirmPassword') });
+  }
+
+  matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+    return (group: FormGroup): {[key: string]: any} => {
+      const password = group.controls[passwordKey];
+      const confirmPassword = group.controls[confirmPasswordKey];
+
+      if (password.value !== confirmPassword.value) {
+        return { mismatchedPasswords: true };
+      }
+    }
   }
 
   /**
