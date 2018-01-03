@@ -65,7 +65,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
    */
   passwordRequiredValidator = (control: AbstractControl): { [key: string]: any } => {
     if (this.passwordRequired && !control.value) {
-      return { error: 'passwordRequired'};
+      return { error: 'required'};
     }
   };
 

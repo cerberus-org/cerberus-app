@@ -15,7 +15,7 @@ describe('SettingsPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SettingsPageComponent,
-        MockComponent({ selector: 'app-user-form', inputs: ['initialUser'] }),
+        MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
         MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
       ],
       imports: [

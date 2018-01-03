@@ -1,7 +1,7 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import { testUsers, User } from '../models/user';
+import { testFbUsers, User } from '../models/user';
 import { ErrorService, MockErrorService } from './error.service';
 import { UserService } from './user.service';
 
@@ -19,7 +19,7 @@ describe('UserService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(UserService);
-    user = Object.assign({}, testUsers[0]);
+    user = Object.assign({}, testFbUsers[0]);
     user.firstName = 'tED';
     user.lastName = 'mAdEr';
   }));
@@ -30,11 +30,11 @@ describe('UserService', () => {
 
   it('should convert data coming from the database', () => {
     const converted = service.convertIn(user);
-    expect(converted).toEqual(testUsers[0]);
+    expect(converted).toEqual(testFbUsers[0]);
   });
 
   it('should convert data going to the database', () => {
     const converted = service.convertOut(user);
-    expect(converted).toEqual(testUsers[0]);
+    expect(converted).toEqual(testFbUsers[0]);
   });
 });

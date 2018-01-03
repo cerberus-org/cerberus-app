@@ -38,10 +38,12 @@ describe('UserFormComponent', () => {
     const lastName = testUsers[0].lastName;
     const email = testUsers[0].email;
     const password = testUsers[0].password;
+    const confirmPassword = testUsers[0].password;
     component.formGroup.controls['firstName'].setValue(firstName);
     component.formGroup.controls['lastName'].setValue(lastName);
     component.formGroup.controls['email'].setValue(email);
     component.formGroup.controls['password'].setValue(password);
+    component.formGroup.controls['confirmPassword'].setValue(confirmPassword);
     expect(component.validUser.emit).toHaveBeenCalledWith(new User(firstName, lastName, email, password));
   });
 
@@ -138,8 +140,9 @@ describe('UserFormComponent', () => {
 
     it('should validate requirement', (() => {
       const control = component.formGroup.controls['password'];
+      component.passwordRequired = true;
       expect(control.valid).toBeFalsy();
-      expect(control.errors['required']).toBeTruthy();
+      expect(control.errors).toBeTruthy();
     }));
 
     it('should validate min length', (() => {
@@ -161,6 +164,48 @@ describe('UserFormComponent', () => {
       const control = component.formGroup.controls['password'];
       control.setValue('password');
       expect(control.valid).toBeTruthy();
+    }));
+  });
+
+  describe('confirmPassword control', () => {
+
+    it('should validate requirement', (() => {
+      const control = component.formGroup.controls['password'];
+      component.passwordRequired = true;
+      expect(control.valid).toBeFalsy();
+      expect(control.errors).toBeTruthy();
+    }));
+
+    it('should validate min length', (() => {
+      const control = component.formGroup.controls['password'];
+      control.setValue('1234567');
+      expect(control.valid).toBeFalsy();
+      expect(control.errors['minlength']).toBeTruthy();
+    }));
+
+    it('should validate max length', (() => {
+      const control = component.formGroup.controls['password'];
+      control.setValue('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.' +
+        'Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis');
+      expect(control.valid).toBeFalsy();
+      expect(control.errors['maxlength']).toBeTruthy();
+    }));
+
+    it('should validate matching', (() => {
+      const pwdControl = component.formGroup.controls['password'];
+      const confirmPwdControl = component.formGroup.controls['confirmPassword'];
+      pwdControl.setValue('password');
+      confirmPwdControl.setValue('confirmPassword');
+      expect(confirmPwdControl.valid).toBeFalsy();
+      expect(confirmPwdControl.errors).toBeTruthy();
+    }));
+
+    it('should accept a valid confirmPassword', (() => {
+      const pwdControl = component.formGroup.controls['password'];
+      const confirmPwdControl = component.formGroup.controls['confirmPassword'];
+      pwdControl.setValue('password');
+      confirmPwdControl.setValue('password');
+      expect(confirmPwdControl.valid).toBeTruthy();
     }));
   });
 });
