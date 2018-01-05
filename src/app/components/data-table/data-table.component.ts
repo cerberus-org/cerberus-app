@@ -53,6 +53,7 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
 export class DataTableComponent implements OnInit {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
+  @Input() showDelete: boolean;
   displayedColumns: string[];
   initialPageSize: number;
   dataSource: DataTableSource;
@@ -66,5 +67,8 @@ export class DataTableComponent implements OnInit {
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.dataSource = new DataTableSource(this.data$, this.paginator);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
+    if (this.showDelete) {
+      this.displayedColumns.push('delete');
+    }
   }
 }
