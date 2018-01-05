@@ -16,7 +16,7 @@ describe('DataDisplayComponent', () => {
       declarations: [
         DataDisplayComponent,
         MockComponent({ selector: 'app-daily-hours-chart', inputs: ['visits'] }),
-        MockComponent({ selector: 'app-visit-history-table', inputs: ['columnOptions', 'data$'] })
+        MockComponent({ selector: 'app-data-table', inputs: ['columnOptions', 'data$'] })
       ],
       imports: [
         NoopAnimationsModule,

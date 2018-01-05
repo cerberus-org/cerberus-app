@@ -46,7 +46,7 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
 }
 
 @Component({
-  selector: 'app-visit-history-table',
+  selector: 'app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss']
 })

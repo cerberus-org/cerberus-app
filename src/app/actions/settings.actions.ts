@@ -1,10 +1,32 @@
 import { Action } from '@ngrx/store';
 import { Organization } from '../models/organization';
 import { User } from '../models/user';
+import { Volunteer } from '../models/volunteer';
 
-export const UPDATE_USER = '[update user] Update user';
-export const UPDATE_ORGANIZATION = '[update organization] Update organization';
-export const SET_SIDENAV_SELECTION = '[set sidenav selection] Set sidenav selection';
+export const LOAD_PAGE = '[Settings] Load page';
+export const LOAD_VOLUNTEERS_PAGE = '[Settings] Load volunteers page';
+export const LOAD_VOLUNTEERS_PAGE_SUCCESS = '[Settings] Load volunteers page success';
+
+export const UPDATE_USER = '[Settings] Update user';
+export const UPDATE_ORGANIZATION = '[Settings] Update organization';
+
+export class LoadPage implements Action {
+  readonly type = LOAD_PAGE;
+
+  constructor(public payload: string) {}
+}
+
+export class LoadVolunteers implements Action {
+  readonly type = LOAD_VOLUNTEERS_PAGE;
+
+  constructor(public payload: string) {}
+}
+
+export class LoadVolunteersSuccess implements Action {
+  readonly type = LOAD_VOLUNTEERS_PAGE_SUCCESS;
+
+  constructor(public payload: Volunteer[]) {}
+}
 
 export class UpdateUser implements Action {
   readonly type = UPDATE_USER;
@@ -18,13 +40,9 @@ export class UpdateOrganization implements Action {
   constructor(public payload: Organization) {}
 }
 
-export class SetSidenavSelection implements Action {
-  readonly type = SET_SIDENAV_SELECTION;
-
-  constructor(public payload: string) {}
-}
-
 export type All
-  = UpdateUser
-  | UpdateOrganization
-  | SetSidenavSelection;
+  = LoadPage
+  | LoadVolunteers
+  | LoadVolunteersSuccess
+  | UpdateUser
+  | UpdateOrganization;

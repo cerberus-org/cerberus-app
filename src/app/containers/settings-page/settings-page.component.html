@@ -1,5 +1,5 @@
-<!--user form-->
-<div *ngIf="sidenavSelection == 'User'">
+<!--User form-->
+<div *ngIf="sidenavSelection === 'User'">
   <app-user-form
     [title]="userFormTitle"
     [initialUser]="initialUser"
@@ -10,8 +10,8 @@
     <button mat-raised-button color="primary" (click)="onUserFormSubmit()" [disabled]="!validUser">Submit</button>
   </div>
 </div>
-<!--organization form-->
-<div *ngIf="sidenavSelection == 'Organization'">
+<!--Organization form-->
+<div *ngIf="sidenavSelection === 'Organization'">
   <app-organization-form
     [title]="organizationFormTitle"
     [initialOrganization]="initialOrganization"
@@ -21,6 +21,11 @@
     <button mat-raised-button color="primary" (click)="onOrganizationFormSubmit()" [disabled]="!validOrganization">Submit</button>
   </div>
 </div>
+<!--Volunteer data table-->
+<div *ngIf="sidenavSelection === 'Volunteer'">
+  <app-data-table
+  >
+  </app-data-table>
 <div *ngIf="sidenavSelection == 'Reports'">
   <app-reports-form
     (validReport)="setReport($event)">

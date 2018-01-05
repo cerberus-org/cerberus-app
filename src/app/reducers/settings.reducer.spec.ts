@@ -3,12 +3,12 @@ import * as fromSettings from './settings.reducer'
 
 describe('settingsReducer', () => {
 
-  describe('SET_SIDENAV_SELECTION', () => {
+  describe('LOAD_PAGE', () => {
 
     it('loads sidenav selection', () => {
       const state = fromSettings.reducer(
         fromSettings.initialState,
-        new SettingsActions.SetSidenavSelection('Organization')
+        new SettingsActions.LoadPage('Organization')
       );
       expect(state.sidenavSelection).toEqual('Organization');
     });

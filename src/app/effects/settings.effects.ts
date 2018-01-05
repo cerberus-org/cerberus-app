@@ -14,6 +14,7 @@ import * as SettingsActions from '../actions/settings.actions';
 import { AuthService } from '../services/auth.service';
 import { OrganizationService } from '../services/organization.service';
 import { SnackBarService } from '../services/snack-bar.service';
+import { VolunteerService } from '../services/volunteer.service';
 
 @Injectable()
 export class SettingsEffects {
@@ -23,8 +24,7 @@ export class SettingsEffects {
    * then dispatch action to app store and display success snack bar.
    */
   @Effect()
-  updateUser$: Observable<Action> = this.actions
-    .ofType(SettingsActions.UPDATE_USER)
+  updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
     .map((action: SettingsActions.UpdateUser) => action.payload)
     .switchMap(user => this.authService.updateUser(user)
       .map(() => {
@@ -37,8 +37,7 @@ export class SettingsEffects {
    * then dispatch an action to app store and display success snack bar.
    */
   @Effect()
-  updateOrganization$: Observable<Action> = this.actions
-    .ofType(SettingsActions.UPDATE_ORGANIZATION)
+  updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)
     .map((action: SettingsActions.UpdateOrganization) => action.payload)
     .switchMap(organization => this.organizationService.update(organization)
       .map(() => {
@@ -46,9 +45,19 @@ export class SettingsEffects {
         return new AppActions.SetOrganization(organization)
       }));
 
+  /**
+   * Listen for the LoadVolunteers action, get the volunteers, then dispatch the success action.
+   */
+  @Effect()
+  loadData$: Observable<Action> = this.actions.ofType(SettingsActions.LOAD_VOLUNTEERS_PAGE)
+    .map((action: SettingsActions.LoadVolunteers) => action.payload)
+    .switchMap(organizationId => this.volunteerService.getByKey('organizationId', organizationId, true)
+    .map(volunteers => new SettingsActions.LoadVolunteersSuccess(volunteers)));
+
   constructor(private actions: Actions,
-              private snackBarService: SnackBarService,
               private authService: AuthService,
-              private organizationService: OrganizationService) {
+              private organizationService: OrganizationService,
+              private snackBarService: SnackBarService,
+              private volunteerService: VolunteerService) {
   }
 }

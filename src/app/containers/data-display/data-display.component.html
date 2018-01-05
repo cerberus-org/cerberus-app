@@ -3,10 +3,10 @@
     <app-daily-hours-chart [visits]="visits$ | async"></app-daily-hours-chart>
   </mat-tab>
   <mat-tab label="Visit History">
-    <app-visit-history-table
+    <app-data-table
       [columnOptions]="visitTableColumnOptions"
       [data$]="visits$"
       [showDelete]="true">
-    </app-visit-history-table>
+    </app-data-table>
   </mat-tab>
 </mat-tab-group>
