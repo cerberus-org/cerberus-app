@@ -25,6 +25,7 @@ describe('UserFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UserFormComponent);
     component = fixture.componentInstance;
+    component.passwordRequired = true;
     fixture.detectChanges();
   });
 
@@ -38,10 +39,12 @@ describe('UserFormComponent', () => {
     const lastName = testUsers[0].lastName;
     const email = testUsers[0].email;
     const password = testUsers[0].password;
+    const confirmPassword = testUsers[0].password;
     component.formGroup.controls['firstName'].setValue(firstName);
     component.formGroup.controls['lastName'].setValue(lastName);
     component.formGroup.controls['email'].setValue(email);
     component.formGroup.controls['password'].setValue(password);
+    component.formGroup.controls['confirmPassword'].setValue(confirmPassword);
     expect(component.validUser.emit).toHaveBeenCalledWith(new User(firstName, lastName, email, password));
   });
 
@@ -139,7 +142,15 @@ describe('UserFormComponent', () => {
     it('should validate requirement', (() => {
       const control = component.formGroup.controls['password'];
       expect(control.valid).toBeFalsy();
-      expect(control.errors['required']).toBeTruthy();
+      expect(control.errors).toBeTruthy();
+    }));
+
+    it('should validate password is not required', (() => {
+      component.passwordRequired = false;
+      fixture.detectChanges();
+      const control = component.formGroup.controls['password'];
+      expect(control.valid).toBeFalsy();
+      expect(control.errors).toBeTruthy();
     }));
 
     it('should validate min length', (() => {
@@ -161,6 +172,26 @@ describe('UserFormComponent', () => {
       const control = component.formGroup.controls['password'];
       control.setValue('password');
       expect(control.valid).toBeTruthy();
+    }));
+  });
+
+  describe('confirmPassword control', () => {
+
+    it('should validate matching', (() => {
+      const pwdControl = component.formGroup.controls['password'];
+      const confirmPwdControl = component.formGroup.controls['confirmPassword'];
+      pwdControl.setValue('password');
+      confirmPwdControl.setValue('confirmPassword');
+      expect(confirmPwdControl.valid).toBeFalsy();
+      expect(confirmPwdControl.errors).toBeTruthy();
+    }));
+
+    it('should accept a valid confirmPassword', (() => {
+      const pwdControl = component.formGroup.controls['password'];
+      const confirmPwdControl = component.formGroup.controls['confirmPassword'];
+      pwdControl.setValue('password');
+      confirmPwdControl.setValue('password');
+      expect(confirmPwdControl.valid).toBeTruthy();
     }));
   });
 });

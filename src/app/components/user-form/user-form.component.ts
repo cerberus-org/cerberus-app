@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { User } from '../../models/user';
@@ -10,6 +10,7 @@ import { User } from '../../models/user';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit, OnDestroy {
+  @Input() passwordRequired;
   @Input() title: string;
   // Initial user used to pre populate form
   @Input() initialUser: User;
@@ -18,9 +19,11 @@ export class UserFormComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   formSubscription: Subscription;
   hidePwd: boolean;
+  hideConfirmPwd: boolean;
 
   constructor(private fb: FormBuilder) {
     this.hidePwd = true;
+    this.hideConfirmPwd = true;
   }
 
   ngOnInit(): void {
@@ -43,17 +46,45 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.formSubscription.unsubscribe();
   }
 
-  /**
-   * Creates the form group.
-   */
   createForm(): FormGroup {
     return this.fb.group({
       // If initialUser was passed in, pre populate form, else leave blank
       firstName: [this.initialUser ? this.initialUser.firstName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
       lastName: [this.initialUser ? this.initialUser.lastName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
       email: [this.initialUser ? this.initialUser.email : '', [Validators.maxLength(255), Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(8), Validators.maxLength(128), Validators.required]]
-    });
+      password: ['', [Validators.minLength(8), Validators.maxLength(128), this.passwordRequiredValidator]],
+      confirmPassword: ['']
+    }, { validator: this.matchingPasswords('password', 'confirmPassword') });
+  }
+
+  /**
+   * Make password requirement conditional on passwordRequired.
+   * @param {AbstractControl} control
+   * @returns {{[p: string]: any}}
+   */
+  passwordRequiredValidator = (control: AbstractControl): { [key: string]: any } => {
+    if (this.passwordRequired && !control.value) {
+      return { error: 'required'};
+    }
+  };
+
+  /**
+   * Set confirmPassword control errors and form invalid if password and confirmPassword do not match.
+   * @param {string} passwordKey
+   * @param {string} confirmPasswordKey
+   * @returns {(group: FormGroup) => {[p: string]: any}}
+   */
+  matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+    return (group: FormGroup): {[key: string]: any} => {
+      const password = group.controls[passwordKey];
+      const confirmPassword = group.controls[confirmPasswordKey];
+
+      if (password.value !== confirmPassword.value) {
+        confirmPassword.setErrors({ mismatchedPasswords: true });
+        return { mismatchedPasswords: true };
+      }
+      confirmPassword.setErrors(null);
+    }
   }
 
   /**

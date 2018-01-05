@@ -26,6 +26,7 @@ export class SettingsPageComponent implements OnInit {
   validUser: User;
   // Initial user used to pre populate form
   initialUser: User;
+  optionalPasswordTitle;
 
   organizationFormTitle: string;
   validOrganization: Organization;
