@@ -5,8 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 
-import * as firebase from 'firebase';
-import { getLocalStorageObject, setLocalStorageObject } from '../functions/localStorageObject';
+import { setLocalStorageObject } from '../functions/localStorageObject';
 import { testUsers, User } from '../models/user';
 import { ErrorService } from './error.service';
 import { OrganizationService } from './organization.service';
@@ -48,7 +47,7 @@ export class AuthService {
    * @returns {Observable<User>}
    */
   updateUser(user: any): Observable<any> {
-    const currentUser = firebase.auth().currentUser;
+    const currentUser = this.afAuth.auth.currentUser;
     return Observable.fromPromise(currentUser
       .updatePassword(user.password))
       .switchMap(() => currentUser.updateEmail(user.email))
