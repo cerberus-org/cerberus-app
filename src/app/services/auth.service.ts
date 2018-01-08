@@ -10,6 +10,7 @@ import { testUsers, User } from '../models/user';
 import { ErrorService } from './error.service';
 import { OrganizationService } from './organization.service';
 import { UserService } from './user.service';
+import { current } from 'codelyzer/util/syntaxKind';
 
 @Injectable()
 export class AuthService {
@@ -70,6 +71,17 @@ export class AuthService {
    */
   isLoggedIn(): Observable<boolean> {
     return this.afAuth.authState.map(auth => !!auth);
+  }
+
+  /**
+   * Get current user logged in. This includes User and afUser fields.
+   * @returns {any}
+   */
+  getCurrentUser(): any {
+    const currentUser = this.afAuth.auth.currentUser;
+    this.userService.getById(currentUser.uid)
+      .map(user => Object.assign({}, user, { email: currentUser.email })
+    )
   }
 
   /**

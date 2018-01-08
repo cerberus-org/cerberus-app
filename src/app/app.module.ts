@@ -63,6 +63,7 @@ import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verification-guard';
+import { AppEffects } from './effects/app.effects';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { VerificationGuard } from './verification-guard';
       GettingStartedEffects,
       LoginEffects,
       SettingsEffects,
-      RouterEffects
+      RouterEffects,
+      AppEffects
     ]),
     FormsModule,
     MatAutocompleteModule,

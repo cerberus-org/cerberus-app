@@ -1,9 +1,12 @@
 import { Action } from '@ngrx/store';
 import { HeaderOptions } from '../models/header-options';
 import { SidenavOptions } from '../models/sidenav-options';
+import { User } from '../models/user';
 
 export const SET_HEADER_OPTIONS = '[App] Set Header Options';
 export const SET_SIDENAV_OPTIONS = '[App] Set Sidenav Options';
+export const LOAD_DATA = '[App] Load Data';
+export const LOAD_DATA_SUCCESS = '[App] Load Data Success';
 
 export class SetHeaderOptions implements Action {
   readonly type = SET_HEADER_OPTIONS;
@@ -17,6 +20,22 @@ export class SetSidenavOptions implements Action {
   constructor(public payload: SidenavOptions[]) {}
 }
 
+export class LoadData implements Action {
+  readonly type = LOAD_DATA;
+
+  constructor() {}
+}
+
+export class LoadDataSuccess implements Action {
+  readonly type = LOAD_DATA_SUCCESS;
+
+  constructor(public payload: {
+    user: any
+  }) {}
+}
+
 export type All
   = SetHeaderOptions
-  | SetSidenavOptions;
+  | SetSidenavOptions
+  | LoadData
+  | LoadDataSuccess;

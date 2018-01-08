@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as AppActions from './actions/app.actions';
 import * as LoginActions from './actions/login.actions';
 import * as RouterActions from './actions/router.actions';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   appSubscription: Subscription;
   headerOptions: HeaderOptions;
   sidenavOptions: SidenavOptions[];
+  user: any;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private store: Store<State>,
@@ -34,6 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.headerOptions = state.headerOptions;
         this.sidenavOptions = state.sidenavOptions;
+        this.user = state.user;
+
         /**
          * TODO:
          * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is
@@ -41,6 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
          */
         this.changeDetectorRef.detectChanges();
       });
+    this.store.dispatch(new AppActions.LoadData());
   }
 
   ngOnDestroy() {

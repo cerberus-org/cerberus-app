@@ -6,11 +6,13 @@ import { SidenavOptions } from '../models/sidenav-options';
 export interface State {
   headerOptions: HeaderOptions;
   sidenavOptions: SidenavOptions[];
+  user: any;
 }
 
 export const initialState: State = {
   headerOptions: null,
-  sidenavOptions: null
+  sidenavOptions: null,
+  user: null,
 };
 
 export type Action = AppActions.All;
@@ -28,6 +30,12 @@ export function reducer(state = initialState, action: Action): State {
     case AppActions.SET_SIDENAV_OPTIONS: {
       return Object.assign({}, state, {
         sidenavOptions: action.payload
+      });
+    }
+
+    case AppActions.LOAD_DATA_SUCCESS: {
+      return Object.assign({}, state, {
+        user: action.payload.user,
       });
     }
 
