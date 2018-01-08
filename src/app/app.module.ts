@@ -20,7 +20,7 @@ import { ChartsModule } from 'ng2-charts';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
-import { Guard } from './guard';
+import { LoginGuard } from './login-guard';
 
 import { AppComponent } from './app.component';
 
@@ -62,7 +62,7 @@ import { LoginEffects } from './effects/login.effects';
 import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
-import { VerificationGuard } from './verificationGuard';
+import { VerificationGuard } from './verification-guard';
 
 @NgModule({
   declarations: [
@@ -128,7 +128,7 @@ import { VerificationGuard } from './verificationGuard';
   providers: [
     AuthService,
     ErrorService,
-    Guard,
+    LoginGuard,
     OrganizationService,
     SiteService,
     SnackBarService,
