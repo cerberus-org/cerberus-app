@@ -65,6 +65,14 @@ export class AuthService {
   }
 
   /**
+   * If the user is not logged in, authState returns null.
+   * @returns {Observable<boolean>}
+   */
+  isLoggedIn(): Observable<boolean> {
+    return this.afAuth.authState.map(auth => !!auth);
+  }
+
+  /**
    * Set user and organization in local storage on sign in.
    * @param afUser
    * @returns {Observable<User>}
