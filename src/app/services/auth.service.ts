@@ -5,22 +5,26 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 
+import { Store } from '@ngrx/store';
+import * as AppActions from '../actions/app.actions';
 import { setLocalStorageObject } from '../functions/localStorageObject';
 import { testUsers, User } from '../models/user';
+import { State } from '../reducers/app.reducer';
 import { ErrorService } from './error.service';
 import { OrganizationService } from './organization.service';
 import { UserService } from './user.service';
-import { current } from 'codelyzer/util/syntaxKind';
 
 @Injectable()
 export class AuthService {
 
   pwdVerification: boolean;
+  user: any;
 
   constructor(private afAuth: AngularFireAuth,
               private errorService: ErrorService,
               private organizationService: OrganizationService,
-              private userService: UserService) {
+              private userService: UserService,
+              private store: Store<State>) {
     this.pwdVerification = false;
     if (afAuth) {
       this.observeStateChanges();
@@ -74,17 +78,6 @@ export class AuthService {
   }
 
   /**
-   * Get current user logged in. This includes User and afUser fields.
-   * @returns {any}
-   */
-  getCurrentUser(): any {
-    const currentUser = this.afAuth.auth.currentUser;
-    this.userService.getById(currentUser.uid)
-      .map(user => Object.assign({}, user, { email: currentUser.email })
-    )
-  }
-
-  /**
    * Set user and organization in local storage on sign in.
    * @param afUser
    * @returns {Observable<User>}
@@ -115,12 +108,16 @@ export class AuthService {
     return Observable.fromPromise(this.afAuth.auth.signOut());
   }
 
+  /**
+   * If the page is reloaded or the state of the user changes dispatch an action to the app store.
+   */
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        // User is signed in.
+        this.store.dispatch(new AppActions.SetUser({ user }));
       } else {
-        localStorage.clear();
+        // If the user is not logged in, set the User to null
+        this.store.dispatch(new AppActions.SetUserSuccess(null));
       }
     });
   }
@@ -129,7 +126,7 @@ export class AuthService {
 export class MockAuthService extends AuthService {
 
   constructor() {
-    super(null, null, null, null);
+    super(null, null, null, null, null);
   }
 
   createUser(user: User): Observable<User> {

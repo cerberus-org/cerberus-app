@@ -33,9 +33,9 @@ export function reducer(state = initialState, action: Action): State {
       });
     }
 
-    case AppActions.LOAD_DATA_SUCCESS: {
+    case AppActions.SET_USER_SUCCESS: {
       return Object.assign({}, state, {
-        user: action.payload.user,
+        user: action.payload,
       });
     }
 

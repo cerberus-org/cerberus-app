@@ -55,6 +55,7 @@ import { VolunteerService } from './services/volunteer.service';
 
 import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { AppEffects } from './effects/app.effects';
 import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
@@ -63,7 +64,6 @@ import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verification-guard';
-import { AppEffects } from './effects/app.effects';
 
 @NgModule({
   declarations: [
@@ -104,8 +104,8 @@ import { AppEffects } from './effects/app.effects';
       GettingStartedEffects,
       LoginEffects,
       SettingsEffects,
-      RouterEffects,
-      AppEffects
+      AppEffects,
+      RouterEffects
     ]),
     FormsModule,
     MatAutocompleteModule,

@@ -3,12 +3,10 @@ import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import * as AppActions from './actions/app.actions';
 import * as LoginActions from './actions/login.actions';
 import * as RouterActions from './actions/router.actions';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
-import { getLocalStorageObjectProperty } from './functions/localStorageObject';
 import { HeaderOptions } from './models/header-options';
 import { SidenavOptions } from './models/sidenav-options';
 import { State } from './reducers/index';
@@ -45,7 +43,6 @@ export class AppComponent implements OnInit, OnDestroy {
          */
         this.changeDetectorRef.detectChanges();
       });
-    this.store.dispatch(new AppActions.LoadData());
   }
 
   ngOnDestroy() {
@@ -101,7 +98,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * @returns {boolean} - true if logged in
    */
   get isLoggedIn() {
-    return !!getLocalStorageObjectProperty('user', 'id');
+    return !!this.user;
   }
 }
 
