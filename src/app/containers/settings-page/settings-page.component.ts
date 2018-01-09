@@ -18,6 +18,7 @@ import { State } from '../../reducers';
 })
 export class SettingsPageComponent implements OnInit {
 
+  appSubscription: Subscription;
   settingsSubscription: Subscription;
   sidenavSelection: string;
 
@@ -26,7 +27,6 @@ export class SettingsPageComponent implements OnInit {
   validUser: User;
   // Initial user used to pre populate form
   initialUser: User;
-  optionalPasswordTitle;
 
   organizationFormTitle: string;
   validOrganization: Organization;
@@ -35,7 +35,6 @@ export class SettingsPageComponent implements OnInit {
   constructor(private store: Store<State>) {
     this.userFormTitle = 'Update user data.';
     this.organizationFormTitle = 'Update organization data.';
-    this.initialUser = getLocalStorageObject('user');
     this.initialOrganization = getLocalStorageObject('organization');
   }
 
@@ -55,6 +54,11 @@ export class SettingsPageComponent implements OnInit {
       .select('settings')
       .subscribe(state => {
         this.sidenavSelection = state.sidenavSelection;
+    });
+    this.appSubscription = this.store
+      .select('app')
+      .subscribe(state => {
+        this.initialUser = state.user;
     });
   }
 
