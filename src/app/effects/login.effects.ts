@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/Observable';
 
 import * as LoginActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
-import { getLocalStorageObjectProperty } from '../functions/localStorageObject';
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
 
@@ -39,7 +38,7 @@ export class LoginEffects {
   verify$: Observable<Action> = this.actions
     .ofType(LoginActions.VERIFY)
     .map((action: LoginActions.Verify) => action.payload)
-    .switchMap(payload => this.authService.signIn(getLocalStorageObjectProperty('user', 'email'), payload)
+    .switchMap(payload => this.authService.signIn(payload.email, payload.password)
       .map(() => {
         this.authService.setPwdVerification(true);
         return new RouterActions.Go({ path: ['/settings'] });
