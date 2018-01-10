@@ -47,19 +47,24 @@ export class AuthService {
   }
 
   /**
-   * Update auth user and base user.
+   * Update auth user and base user. Only update the password if provided.
    * @param user
    * @returns {Observable<User>}
    */
   updateUser(user: any): Observable<any> {
     const currentUser = this.afAuth.auth.currentUser;
+    if (user.password) {
+      this.updatePassword(user, currentUser);
+    }
     return Observable.fromPromise(currentUser
-      .updatePassword(user.password))
-      .switchMap(() => currentUser.updateEmail(user.email))
-      .switchMap(() => this.userService.updateAndSetLocalStorage(
-        Object.assign({}, user, { id: currentUser.uid })
-      ))
+      .updateEmail(user.email))
+      .switchMap(() => this.userService.update(user))
       .catch(error => this.errorService.handleFirebaseError(error));
+  }
+
+  updatePassword(user: any, currentUser: any) {
+    return Observable.fromPromise(currentUser
+      .updatePassword(user.password));
   }
 
   signIn(email: string, password: string): Observable<User> {

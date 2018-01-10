@@ -80,10 +80,14 @@ export class SettingsPageComponent implements OnInit {
   }
 
   onUserFormSubmit() {
-    this.store.dispatch(new SettingsActions.UpdateUser(this.validUser));
+    this.store.dispatch(new SettingsActions.UpdateUser(
+      Object.assign({}, this.validUser, { id: this.initialUser.id })
+    ));
   }
 
   onOrganizationFormSubmit() {
-    this.store.dispatch(new SettingsActions.UpdateOrganization(this.validOrganization));
+    this.store.dispatch(new SettingsActions.UpdateOrganization(
+      Object.assign({}, this.validOrganization, { id: this.initialOrganization.id })
+    ));
   }
 }

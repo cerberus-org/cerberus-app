@@ -43,6 +43,18 @@ export function reducer(state = initialState, action: Action): State {
       });
     }
 
+    case AppActions.SET_ORGANIZATION: {
+      return Object.assign({}, state, {
+        organization: action.payload
+      });
+    }
+
+    case AppActions.SET_USER: {
+      return Object.assign({}, state, {
+        user: action.payload
+      });
+    }
+
     default: {
       return state;
     }
