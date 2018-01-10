@@ -109,15 +109,15 @@ export class AuthService {
   }
 
   /**
-   * If the page is reloaded or the state of the user changes dispatch an action to the app store.
+   * If the page is reloaded or the state of the user changes dispatch an action to load data to the app store.
    */
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        this.store.dispatch(new AppActions.SetUser({ user }));
+        this.store.dispatch(new AppActions.LoadData({ user }));
       } else {
-        // If the user is not logged in, set the User to null
-        this.store.dispatch(new AppActions.SetUserSuccess(null));
+        // If the user is not logged in, set data to null
+        this.store.dispatch(new AppActions.LoadDataSuccess({ user: null, organization: null }));
       }
     });
   }

@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
-import { getLocalStorageObject } from '../../functions/localStorageObject';
 import { HeaderOptions } from '../../models/header-options';
 import { Organization } from '../../models/organization';
 import { SidenavOptions } from '../../models/sidenav-options';
@@ -35,7 +34,6 @@ export class SettingsPageComponent implements OnInit {
   constructor(private store: Store<State>) {
     this.userFormTitle = 'Update user data.';
     this.organizationFormTitle = 'Update organization data.';
-    this.initialOrganization = getLocalStorageObject('organization');
   }
 
   ngOnInit() {
@@ -59,6 +57,7 @@ export class SettingsPageComponent implements OnInit {
       .select('app')
       .subscribe(state => {
         this.initialUser = state.user;
+        this.initialOrganization = state.organization;
     });
   }
 
