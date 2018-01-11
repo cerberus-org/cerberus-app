@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as CheckInActions from '../../actions/check-in.actions';
-import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 import { HeaderOptions } from '../../models/header-options';
 import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
@@ -20,7 +19,9 @@ import { State } from '../../reducers/index';
 export class CheckInComponent implements OnInit, OnDestroy {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
   checkInSubscription: Subscription;
+  appSubscription: Subscription;
   organizationId: string;
+  organizationName: string;
   siteId: string;
   visits: Visit[];
   volunteers: Volunteer[];
@@ -29,16 +30,20 @@ export class CheckInComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.appSubscription = this.store
+      .select('app')
+      .subscribe(state => {
+        this.organizationId = state.organization.id;
+        this.organizationName = state.organization.name;
+      });
     this.store.dispatch(
       new AppActions.SetHeaderOptions(new HeaderOptions(
-        getLocalStorageObjectProperty('organization', 'name'),
+        this.organizationName,
         'business',
         '/dashboard'
       ))
     );
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
-
-    this.organizationId = getLocalStorageObjectProperty('organization', 'id');
     this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
     this.store.dispatch(
       new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId }),
