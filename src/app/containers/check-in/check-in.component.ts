@@ -4,14 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
+import _ = require('lodash');
+import 'rxjs/add/operator/distinctUntilChanged';
 import * as AppActions from '../../actions/app.actions';
 import * as CheckInActions from '../../actions/check-in.actions';
 import { HeaderOptions } from '../../models/header-options';
 import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
 import { State } from '../../reducers/index';
-import _ = require('lodash');
-import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'app-check-in',

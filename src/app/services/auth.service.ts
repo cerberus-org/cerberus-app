@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
 import * as AppActions from '../actions/app.actions';
-import { setLocalStorageObject } from '../functions/localStorageObject';
 import { testUsers, User } from '../models/user';
 import { State } from '../reducers/app.reducer';
 import { ErrorService } from './error.service';
@@ -70,7 +69,6 @@ export class AuthService {
   signIn(email: string, password: string): Observable<User> {
     return Observable.fromPromise(this.afAuth.auth
       .signInWithEmailAndPassword(email, password))
-      .switchMap(afUser => this.setLocalStorageOnSignIn(afUser))
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
@@ -80,33 +78,6 @@ export class AuthService {
    */
   isLoggedIn(): Observable<boolean> {
     return this.afAuth.authState.map(auth => !!auth);
-  }
-
-  /**
-   * Set user and organization in local storage on sign in.
-   * @param afUser
-   * @returns {Observable<User>}
-   */
-  setLocalStorageOnSignIn(afUser: any): Observable<User> {
-    return this.userService.getById(afUser.uid)
-      .switchMap(res => {
-        // Add Firebase uid and email to base user object
-        const user = Object.assign({}, res, {
-          id: afUser.uid,
-          email: afUser.email
-        });
-        setLocalStorageObject('user', user);
-        // Get organization id associated with user
-        return this.organizationService.getById(user.organizationId)
-          .map(organization => {
-            setLocalStorageObject(
-              'organization',
-              // Add organization id to base user object
-              Object.assign({}, organization, { id: user.organizationId })
-            );
-            return user;
-          })
-      });
   }
 
   signOut(): Observable<any> {
