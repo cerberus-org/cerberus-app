@@ -10,6 +10,8 @@ import { HeaderOptions } from '../../models/header-options';
 import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
 import { State } from '../../reducers/index';
+import _ = require('lodash');
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'app-check-in',
@@ -21,37 +23,36 @@ export class CheckInComponent implements OnInit, OnDestroy {
   checkInSubscription: Subscription;
   appSubscription: Subscription;
   organizationId: string;
-  organizationName: string;
   siteId: string;
   visits: Visit[];
   volunteers: Volunteer[];
 
   constructor(private store: Store<State>,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.appSubscription = this.store
       .select('app')
-      .subscribe(state => {
-        if (state && state.organization) {
-          this.organizationId = state.organization.id;
-          this.organizationName = state.organization.name;
+      .map(state => state.organization)
+      // Only emit if there is a change in organization
+      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+      .subscribe(organization => {
+        if (organization) {
+          this.organizationId = organization.id;
+          this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
+          this.store.dispatch(
+            new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId }),
+          );
+          this.store.dispatch(
+            new AppActions.SetHeaderOptions(new HeaderOptions(
+              organization.name,
+              'business',
+              '/dashboard'
+            )))
         }
       });
-    if (this.organizationId && this.organizationName) {
-      this.store.dispatch(
-        new AppActions.SetHeaderOptions(new HeaderOptions(
-          this.organizationName,
-          'business',
-          '/dashboard'
-        ))
-      );
-      this.store.dispatch(new AppActions.SetSidenavOptions(null));
-      this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
-      this.store.dispatch(
-        new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId }),
-      );
-    }
+    this.store.dispatch(new AppActions.SetSidenavOptions(null));
     this.checkInSubscription = this.store
       .select('checkIn')
       .subscribe(state => {
