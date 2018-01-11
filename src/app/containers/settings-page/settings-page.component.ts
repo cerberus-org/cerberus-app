@@ -39,6 +39,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const organizationId = getLocalStorageObjectProperty('organization', 'id');
     this.store.dispatch(new AppActions.SetHeaderOptions(
       new HeaderOptions(
         'Settings',
@@ -48,8 +49,9 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       )
     ));
     this.store.dispatch(new AppActions.SetSidenavOptions([
-      new SidenavOptions('User', 'face', new SettingsActions.LoadPage('User')),
-      new SidenavOptions('Organization', 'domain', new SettingsActions.LoadPage('Organization')),
+      new SidenavOptions('User', 'face', new SettingsActions.LoadPage('user')),
+      new SidenavOptions('Organization', 'domain', new SettingsActions.LoadPage('organization')),
+      new SidenavOptions('Volunteers', 'insert_emoticon', new SettingsActions.LoadVolunteersPage(organizationId)),
       new SidenavOptions('Reports', 'assessment', new SettingsActions.LoadPage('Reports'))
     ]));
     this.settingsSubscription = this.store

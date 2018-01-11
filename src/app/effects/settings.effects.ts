@@ -46,13 +46,13 @@ export class SettingsEffects {
       }));
 
   /**
-   * Listen for the LoadVolunteers action, get the volunteers, then dispatch the success action.
+   * Listen for the LoadVolunteersPage action, get the volunteers, then dispatch the success action.
    */
   @Effect()
   loadData$: Observable<Action> = this.actions.ofType(SettingsActions.LOAD_VOLUNTEERS_PAGE)
-    .map((action: SettingsActions.LoadVolunteers) => action.payload)
+    .map((action: SettingsActions.LoadVolunteersPage) => action.payload)
     .switchMap(organizationId => this.volunteerService.getByKey('organizationId', organizationId, true)
-    .map(volunteers => new SettingsActions.LoadVolunteersSuccess(volunteers)));
+    .map(volunteers => new SettingsActions.LoadVolunteersPageSuccess(volunteers)));
 
   constructor(private actions: Actions,
               private authService: AuthService,

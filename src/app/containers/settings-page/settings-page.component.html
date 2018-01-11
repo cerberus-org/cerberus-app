@@ -11,7 +11,7 @@
   </div>
 </div>
 <!--Organization form-->
-<div *ngIf="sidenavSelection === 'Organization'">
+<div *ngIf="sidenavSelection === 'organization'">
   <app-organization-form
     [title]="organizationFormTitle"
     [initialOrganization]="initialOrganization"
@@ -22,8 +22,9 @@
   </div>
 </div>
 <!--Volunteer data table-->
-<div *ngIf="sidenavSelection === 'Volunteer'">
+<div *ngIf="sidenavSelection === 'volunteer'">
   <app-data-table
+
   >
   </app-data-table>
 <div *ngIf="sidenavSelection == 'Reports'">

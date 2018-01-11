@@ -16,13 +16,13 @@ export class LoadPage implements Action {
   constructor(public payload: string) {}
 }
 
-export class LoadVolunteers implements Action {
+export class LoadVolunteersPage implements Action {
   readonly type = LOAD_VOLUNTEERS_PAGE;
 
   constructor(public payload: string) {}
 }
 
-export class LoadVolunteersSuccess implements Action {
+export class LoadVolunteersPageSuccess implements Action {
   readonly type = LOAD_VOLUNTEERS_PAGE_SUCCESS;
 
   constructor(public payload: Volunteer[]) {}
@@ -42,7 +42,7 @@ export class UpdateOrganization implements Action {
 
 export type All
   = LoadPage
-  | LoadVolunteers
-  | LoadVolunteersSuccess
+  | LoadVolunteersPage
+  | LoadVolunteersPageSuccess
   | UpdateUser
   | UpdateOrganization;
