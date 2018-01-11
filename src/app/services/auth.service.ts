@@ -89,7 +89,7 @@ export class AuthService {
    */
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged(user => {
-      if (user && user !== this.user) {
+      if (user) {
         this.store.dispatch(new AppActions.LoadData({ user }));
       } else {
         // If the user is not logged in, set data to null

@@ -6,19 +6,19 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
+import * as AppActions from '../actions/app.actions';
 import * as LoginActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
 import { UserService } from '../services/user.service';
-import * as AppActions from '../actions/app.actions';
 
 @Injectable()
 export class LoginEffects {
 
   /**
-   * Listen for the LogIn action, log the user in, retrieve the user's organization,
-   * then store the results in localStorage.
+   * Listen for the LogIn action, log the afUser in, retrieve User,
+   * display success snackbar and navigate to settings page on success.
    * @type {Observable<any>}
    */
   @Effect()
@@ -51,7 +51,7 @@ export class LoginEffects {
 
   /**
    * Listen for the LogOut action, log the user out,
-   * then remove the items from localStorage.
+   * navigate to login page on success.
    * @type {Observable<any>}
    */
   @Effect()

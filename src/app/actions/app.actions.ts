@@ -28,6 +28,9 @@ export class LoadData implements Action {
   constructor(public payload: any) {}
 }
 
+/**
+ * Used when user initially logs in.
+ */
 export class LoadDataSuccess implements Action {
   readonly type = LOAD_DATA_SUCCESS;
 
@@ -37,12 +40,18 @@ export class LoadDataSuccess implements Action {
   }) {}
 }
 
+/**
+ * Used when Organization is updated.
+ */
 export class SetOrganization implements Action {
   readonly type = SET_ORGANIZATION;
 
   constructor(public payload: Organization) {}
 }
 
+/**
+ * Used when User is updated.
+ */
 export class SetUser implements Action {
   readonly type = SET_USER;
 
