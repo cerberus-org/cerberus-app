@@ -10,6 +10,8 @@ import * as LoginActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
+import { UserService } from '../services/user.service';
+import * as AppActions from '../actions/app.actions';
 
 @Injectable()
 export class LoginEffects {
@@ -22,11 +24,14 @@ export class LoginEffects {
   @Effect()
   login$: Observable<Action> = this.actions
     .ofType(LoginActions.LOG_IN)
-    .map((action: LoginActions.LogIn) => action.payload)
+    .map((action: AppActions.LoadData) => action.payload)
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
-      .map(user => {
-        this.snackBarService.loginSuccess(user.firstName);
-        return new RouterActions.Go({ path: ['/dashboard'] });
+      .switchMap(res => {
+        return this.userService.getById(res.uid)
+          .map(user => {
+            this.snackBarService.loginSuccess(user.firstName);
+            return new RouterActions.Go({ path: ['/dashboard'] });
+          })
       }));
 
   /**
@@ -60,5 +65,6 @@ export class LoginEffects {
 
   constructor(private actions: Actions,
               private authService: AuthService,
+              private userService: UserService,
               private snackBarService: SnackBarService) {}
 }
