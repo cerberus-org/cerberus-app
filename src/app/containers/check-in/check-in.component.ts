@@ -33,21 +33,25 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.appSubscription = this.store
       .select('app')
       .subscribe(state => {
-        this.organizationId = state.organization.id;
-        this.organizationName = state.organization.name;
+        if (state && state.organization) {
+          this.organizationId = state.organization.id;
+          this.organizationName = state.organization.name;
+        }
       });
-    this.store.dispatch(
-      new AppActions.SetHeaderOptions(new HeaderOptions(
-        this.organizationName,
-        'business',
-        '/dashboard'
-      ))
-    );
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
-    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.store.dispatch(
-      new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId }),
-    );
+    if (this.organizationId && this.organizationName) {
+      this.store.dispatch(
+        new AppActions.SetHeaderOptions(new HeaderOptions(
+          this.organizationName,
+          'business',
+          '/dashboard'
+        ))
+      );
+      this.store.dispatch(new AppActions.SetSidenavOptions(null));
+      this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
+      this.store.dispatch(
+        new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId }),
+      );
+    }
     this.checkInSubscription = this.store
       .select('checkIn')
       .subscribe(state => {
