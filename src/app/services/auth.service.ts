@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
 import * as AppActions from '../actions/app.actions';
-import { testUsers, User } from '../models/user';
+import { testFbAfUsers, testUsers, User } from '../models/user';
 import { State } from '../reducers/app.reducer';
 import { ErrorService } from './error.service';
 import { OrganizationService } from './organization.service';
@@ -114,7 +114,7 @@ export class MockAuthService extends AuthService {
   }
 
   signIn(email: string, password: string): Observable<User> {
-    return Observable.of(testUsers
+    return Observable.of(testFbAfUsers
       .find(user => user.email === email));
   }
 

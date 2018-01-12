@@ -34,28 +34,6 @@ describe('LoginEffects', () => {
     effects = TestBed.get(LoginEffects);
   }));
 
-  afterEach(async(() => {
-    localStorage.clear();
-  }));
-
-  // describe('login$', () => {
-  //
-  //   it('should emit the loginSuccess snackbar and dispatch LogInActions.LogIn', (() => {
-  //     const user = testLoginCredentials[0];
-  //     const login = new LogInActions.LogIn(user);
-  //     const go = new RouterActions.Go({ path: ['/dashboard'] });
-  //     const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'loginSuccess');
-  //
-  //     actions = hot('a', { a: login });
-  //     const expected = cold('b', { b: go });
-  //
-  //     effects.login$.subscribe(() => {
-  //       expect(loginSuccessSpy).toHaveBeenCalledWith(user.firstName);
-  //     });
-  //     expect(effects.login$).toBeObservable(expected);
-  //   }));
-  // });
-
   describe('verify$', () => {
 
     it('should dispatch RouterActions.Go', () => {
