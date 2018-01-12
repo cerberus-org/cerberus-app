@@ -1,8 +1,8 @@
 ///<reference path="../actions/app.actions.ts"/>
 import * as AppActions from '../actions/app.actions';
 import { HeaderOptions } from '../models/header-options';
-import { SidenavOptions } from '../models/sidenav-options';
 import { Organization } from '../models/organization';
+import { SidenavOptions } from '../models/sidenav-options';
 
 export interface State {
   headerOptions: HeaderOptions;

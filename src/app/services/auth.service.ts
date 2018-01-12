@@ -66,7 +66,7 @@ export class AuthService {
       .updatePassword(user.password));
   }
 
-  signIn(email: string, password: string): Observable<User> {
+  signIn(email: string, password: string): Observable<any> {
     return Observable.fromPromise(this.afAuth.auth
       .signInWithEmailAndPassword(email, password))
       .catch(error => this.errorService.handleFirebaseError(error));

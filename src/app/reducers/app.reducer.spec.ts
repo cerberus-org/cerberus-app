@@ -1,9 +1,9 @@
 import * as AppActions from '../actions/app.actions';
 import { testHeaderOptions } from '../models/header-options';
-import { testSidenavOptions } from '../models/sidenav-options';
-import * as fromApp from './app.reducer';
-import { testUsers } from '../models/user';
 import { testOrganizations } from '../models/organization';
+import { testSidenavOptions } from '../models/sidenav-options';
+import { testUsers } from '../models/user';
+import * as fromApp from './app.reducer';
 
 describe('appReducer', () => {
   let testState;
