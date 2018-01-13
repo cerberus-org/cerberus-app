@@ -63,6 +63,7 @@ import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verificationGuard';
+import { ReportsComponent } from './components/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { VerificationGuard } from './verificationGuard';
     SignatureFieldComponent,
     VolunteerMenuComponent,
     VerificationDialogComponent,
-    SidenavComponent
+    SidenavComponent,
+    ReportsComponent
   ],
   imports: [
     AngularFireAuthModule,

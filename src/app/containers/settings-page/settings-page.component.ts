@@ -49,7 +49,8 @@ export class SettingsPageComponent implements OnInit {
     ));
     this.store.dispatch(new AppActions.SetSidenavOptions([
       new SidenavOptions('User', 'face', new SettingsActions.SetSidenavSelection('User')),
-      new SidenavOptions('Organization', 'domain', new SettingsActions.SetSidenavSelection('Organization'))
+      new SidenavOptions('Organization', 'domain', new SettingsActions.SetSidenavSelection('Organization')),
+      new SidenavOptions('Reports', 'assessment', new SettingsActions.SetSidenavSelection('Reports'))
     ]));
     this.settingsSubscription = this.store
       .select('settings')
