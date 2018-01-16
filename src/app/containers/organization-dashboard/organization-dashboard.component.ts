@@ -28,7 +28,8 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
       new HeaderOptions(
         getLocalStorageObjectProperty('organization', 'name'),
         'business',
-        null
+        null,
+        true,
       )
     ));
     this.sitesSubscription = this.siteService
