@@ -3,11 +3,11 @@
   <app-user-form
     [title]="userFormTitle"
     [initialUser]="initialUser"
-    (validUser)="setUser($event)"
+    (validUser)="onSetUser($event)"
     [passwordRequired]="false">
   </app-user-form>
   <div class="container-button">
-    <button mat-raised-button color="primary" (click)="onUserFormSubmit()" [disabled]="!validUser">Submit</button>
+    <button mat-raised-button color="primary" (click)="onSubmitUser()" [disabled]="!validUser">Submit</button>
   </div>
 </div>
 <!--Organization form-->
@@ -15,10 +15,10 @@
   <app-organization-form
     [title]="organizationFormTitle"
     [initialOrganization]="initialOrganization"
-    (validOrganization)="setOrganization($event)">
+    (validOrganization)="onValidOrganization($event)">
   </app-organization-form>
   <div class="container-button">
-    <button mat-raised-button color="primary" (click)="onOrganizationFormSubmit()" [disabled]="!validOrganization">
+    <button mat-raised-button color="primary" (click)="onSubmitOrganization()" [disabled]="!validOrganization">
       Submit
     </button>
   </div>

@@ -115,42 +115,45 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Once the user-form emits an event,
-   * set user.
-   * @param $event
+   * Handles setUser events by setting validUser..
+   * @param user - a valid user when valid, null when invalid
    */
-  setUser($event) {
-    this.validUser = $event;
+  onSetUser(user: User) {
+    this.validUser = user;
   }
 
   /**
-   * Once the organization-form emits an event,
-   * set organization.
-   * @param $event
+   * Handles setOrganization events by setting validOrganization.
+   * @param organization - a valid organization when valid, null when invalid
    */
-  setOrganization($event) {
-    this.validOrganization = $event;
+  onValidOrganization(organization: Organization) {
+    this.validOrganization = organization;
   }
 
   /**
-   * Once the report-form emits an event,
-   * set report.
-   * @param $event
+   * Handles submission of user form by dispatching an UpdateUser action.
    */
+  onSubmitUser() {
+    this.store.dispatch(new SettingsActions.UpdateUser(this.validUser));
+  }
+
+  /**
+   * Handles submission of organization form by dispatching an UpdateOrganization action.
+   */
+  onSubmitOrganization() {
+    this.store.dispatch(new SettingsActions.UpdateOrganization(this.validOrganization));
+  }
+
+  /**
+   * Handles deleteVolunteer events by dispatching a DeleteVolunteer action.
+   * @param volunteer - the volunteer to be deleted
+   */
+  onDeleteVolunteer(volunteer: Volunteer) {
+    console.log('Delete');
+  }
+
   setReport($event) {
     this.validReport = $event;
-  }
-
-  onUserFormSubmit() {
-    this.store.dispatch(new SettingsActions.UpdateUser(
-      Object.assign({}, this.validUser, { id: this.initialUser.id })
-    ));
-  }
-
-  onOrganizationFormSubmit() {
-    this.store.dispatch(new SettingsActions.UpdateOrganization(
-      Object.assign({}, this.validOrganization, { id: this.initialOrganization.id })
-    ));
   }
 
   ngOnDestroy(): void {
