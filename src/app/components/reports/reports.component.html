@@ -1,3 +1,7 @@
-<p>
-  reports works!
-</p>
+<div class="container-center loose" *ngFor="let report of reportOptions">
+  <span>
+    <mat-slide-toggle>
+      {{report}}
+    </mat-slide-toggle>
+  </span>
+</div>

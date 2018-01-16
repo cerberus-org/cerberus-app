@@ -2,8 +2,10 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule,
-  MatRadioModule, MatSidenavModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule,
+  MatPaginatorModule,
+  MatRadioModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule,
+  MatToolbarModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -54,6 +56,7 @@ import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 
 import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
+import { ReportsComponent } from './components/reports/reports.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
@@ -63,7 +66,6 @@ import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verificationGuard';
-import { ReportsComponent } from './components/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -118,6 +120,7 @@ import { ReportsComponent } from './components/reports/reports.component';
     MatPaginatorModule,
     MatRadioModule,
     MatSidenavModule,
+    MatSlideToggleModule,
     MatSnackBarModule,
     MatTableModule,
     MatTabsModule,

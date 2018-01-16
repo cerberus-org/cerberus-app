@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportsComponent implements OnInit {
 
-  constructor() { }
+  reportOptions: string[];
+
+  constructor() {
+    this.reportOptions = ['Individual Volunteer Hours', 'All Volunteer Hours']
+  }
 
   ngOnInit() {
   }
