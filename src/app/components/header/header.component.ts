@@ -11,6 +11,7 @@ export class HeaderComponent {
   @Input() showBack: boolean;
   @Input() showLogOut: boolean;
   @Input() showSidenavToggle: boolean;
+  @Input() showSettings: boolean;
   @Output() buttonClick = new EventEmitter<string>();
 
   onSidenavToggle(): void {

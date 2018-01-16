@@ -29,7 +29,8 @@ export class LoginComponent implements OnInit {
       new HeaderOptions(
         'Cerberus',
         'group_work',
-        null
+        null,
+        true,
       )
     ));
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
