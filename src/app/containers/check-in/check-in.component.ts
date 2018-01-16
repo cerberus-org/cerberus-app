@@ -33,7 +33,8 @@ export class CheckInComponent implements OnInit, OnDestroy {
       new AppActions.SetHeaderOptions(new HeaderOptions(
         getLocalStorageObjectProperty('organization', 'name'),
         'business',
-        '/dashboard'
+        '/dashboard',
+        true,
       ))
     );
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
