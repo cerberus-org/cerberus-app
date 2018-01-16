@@ -1,14 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import * as _ from 'lodash';
-import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
+import { ColumnOptions } from '../../models/column-options';
 import { HeaderOptions } from '../../models/header-options';
 import { Organization } from '../../models/organization';
 import { SidenavOptions } from '../../models/sidenav-options';
 import { User } from '../../models/user';
+import { Volunteer } from '../../models/volunteer';
 import { State } from '../../reducers';
 
 @Component({
@@ -33,13 +36,33 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   validOrganization: Organization;
   initialOrganization: Organization;
 
+  volunteers$: Observable<Volunteer[]>;
+  volunteerTableOptions: ColumnOptions[];
+
   constructor(private store: Store<State>) {
     this.userFormTitle = 'Update user data.';
     this.organizationFormTitle = 'Update organization data.';
   }
 
   ngOnInit() {
-    const organizationId = getLocalStorageObjectProperty('organization', 'id');
+    this.volunteerTableOptions = [
+      new ColumnOptions(
+        'firstName',
+        'First Name',
+        (row: Volunteer) => row.firstName
+      ),
+      new ColumnOptions(
+        'lastName',
+        'Last Name',
+        (row: Volunteer) => row.lastName
+      ),
+      new ColumnOptions(
+        'petName',
+        'Pet Name',
+        (row: Volunteer) => row.petName
+      )
+    ];
+    // Dispatch setup actions
     this.store.dispatch(new AppActions.SetHeaderOptions(
       new HeaderOptions(
         'Settings',
@@ -49,16 +72,33 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       )
     ));
     this.store.dispatch(new AppActions.SetSidenavOptions([
-      new SidenavOptions('User', 'face', new SettingsActions.LoadPage('user')),
-      new SidenavOptions('Organization', 'domain', new SettingsActions.LoadPage('organization')),
-      new SidenavOptions('Volunteers', 'insert_emoticon', new SettingsActions.LoadVolunteersPage(organizationId)),
-      new SidenavOptions('Reports', 'assessment', new SettingsActions.LoadPage('Reports'))
+      new SidenavOptions(
+        'User',
+        'face',
+        new SettingsActions.LoadPage('user')
+      ),
+      new SidenavOptions(
+        'Organization',
+        'domain',
+        new SettingsActions.LoadPage('organization')
+      ),
+      new SidenavOptions(
+        'Volunteers',
+        'insert_emoticon',
+        new SettingsActions.LoadVolunteersPage(organizationId)
+      ),
+      new SidenavOptions(
+        'Reports',
+        'assessment',
+        new SettingsActions.LoadPage('Reports')
+      )
     ]));
-    this.settingsSubscription = this.store
-      .select('settings')
-      .subscribe(state => {
-        this.sidenavSelection = state.sidenavSelection;
+    // Setup subscriptions
+    const settings$ = this.store.select('settings');
+    this.settingsSubscription = settings$.subscribe(state => {
+      this.sidenavSelection = state.sidenavSelection;
     });
+    this.volunteers$ = settings$.map(state => state.volunteers);
     this.appSubscription = this.store
       .select('app')
       .map(state => {
@@ -71,7 +111,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
-    });
+      });
   }
 
   /**
