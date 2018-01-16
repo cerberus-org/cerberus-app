@@ -1,7 +1,15 @@
-<div class="container-center loose" *ngFor="let report of reportOptions">
-  <span>
-    <mat-slide-toggle>
-      {{report}}
-    </mat-slide-toggle>
-  </span>
+<div class="container-center loose">
+  <mat-expansion-panel class="container-center">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Individual Volunteer
+      </mat-panel-title>
+      <mat-panel-description>
+        Get hours for a specific volunteer
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <input matInput placeholder="Please enter volunteer name">
+    </mat-form-field>
+  </mat-expansion-panel>
 </div>
