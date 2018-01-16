@@ -20,6 +20,24 @@ import { VolunteerService } from '../services/volunteer.service';
 export class SettingsEffects {
 
   /**
+   * Listen for the LoadVolunteersPage action, get the volunteers, then dispatch the success action.
+   */
+  @Effect()
+  deleteVolunteer$: Observable<Action> = this.actions.ofType(SettingsActions.DELETE_VOLUNTEER)
+    .map((action: SettingsActions.DeleteVolunteer) => action.payload)
+    .switchMap(volunteer => this.volunteerService.delete(volunteer)
+      .map(() => new SettingsActions.DeleteVolunteerSuccess(volunteer)));
+
+  /**
+   * Listen for the LoadVolunteersPage action, get the volunteers, then dispatch the success action.
+   */
+  @Effect()
+  loadData$: Observable<Action> = this.actions.ofType(SettingsActions.LOAD_VOLUNTEERS_PAGE)
+    .map((action: SettingsActions.LoadVolunteersPage) => action.payload)
+    .switchMap(organizationId => this.volunteerService.getByKey('organizationId', organizationId, true)
+      .map(volunteers => new SettingsActions.LoadVolunteersPageSuccess(volunteers)));
+
+  /**
    * Listen for the UpdateUser action, update user,
    * then dispatch action to app store and display success snack bar.
    */
@@ -44,15 +62,6 @@ export class SettingsEffects {
         this.snackBarService.updateOrganizationSuccess();
         return new AppActions.SetOrganization(organization)
       }));
-
-  /**
-   * Listen for the LoadVolunteersPage action, get the volunteers, then dispatch the success action.
-   */
-  @Effect()
-  loadData$: Observable<Action> = this.actions.ofType(SettingsActions.LOAD_VOLUNTEERS_PAGE)
-    .map((action: SettingsActions.LoadVolunteersPage) => action.payload)
-    .switchMap(organizationId => this.volunteerService.getByKey('organizationId', organizationId, true)
-    .map(volunteers => new SettingsActions.LoadVolunteersPageSuccess(volunteers)));
 
   constructor(private actions: Actions,
               private authService: AuthService,

@@ -149,7 +149,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
    * @param volunteer - the volunteer to be deleted
    */
   onDeleteVolunteer(volunteer: Volunteer) {
-    console.log('onDeleteVolunteer', volunteer);
+    this.store.dispatch(new SettingsActions.DeleteVolunteer(volunteer));
   }
 
   setReport($event) {
