@@ -28,7 +28,8 @@
   <app-data-table
     [data$]="volunteers$"
     [columnOptions]="volunteerTableOptions"
-  [showDelete]="true">
+    [showDelete]="true"
+    (deleteItem)="onDeleteVolunteer($event)">
   </app-data-table>
 <div *ngIf="sidenavSelection == 'Reports'">
   <app-reports-form

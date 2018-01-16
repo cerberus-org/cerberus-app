@@ -1,5 +1,5 @@
 import { DataSource } from '@angular/cdk/table';
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import 'rxjs/add/observable/merge';
 import { Observable } from 'rxjs/Observable';
@@ -54,6 +54,7 @@ export class DataTableComponent implements OnInit {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
+  @Output() deleteItem = new EventEmitter<any>();
   displayedColumns: string[];
   initialPageSize: number;
   dataSource: DataTableSource;
@@ -70,5 +71,13 @@ export class DataTableComponent implements OnInit {
     if (this.showDelete) {
       this.displayedColumns.push('delete');
     }
+  }
+
+  /**
+   * Handles delete button click events by emitting a deleteItem event.
+   * @param item - the item to be deleted
+   */
+  onClickDelete(item: any): void {
+    this.deleteItem.emit(item);
   }
 }
