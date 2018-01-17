@@ -23,7 +23,7 @@ export class AppEffects {
     .map((action: AppActions.LoadData) => action.payload)
     .switchMap(afUser => this.userService.getById(afUser.user.uid)
       .switchMap(res => {
-        const user = Object.assign({}, res, { email: afUser.user.email });
+        const user = Object.assign({}, res, { email: afUser.user.email, id: afUser.user.uid });
         return this.organizationService.getById(user.organizationId)
           .map(organization => {
             const org = Object.assign({}, organization, { id: user.organizationId });
