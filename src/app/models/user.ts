@@ -45,3 +45,11 @@ export const testLoginCredentials: any = [{
   email: 'Test@gmail.com',
   password: 'test',
 }];
+
+export const testFbUsers: any[] = [
+  {
+    uid: 'Fc59YPNibdPXlIjdRuBRIrizClI2',
+    email: 'tlmader.dev@gmail.com',
+    password: 'password',
+  },
+];

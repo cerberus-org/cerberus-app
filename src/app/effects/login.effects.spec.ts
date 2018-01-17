@@ -34,6 +34,19 @@ describe('LoginEffects', () => {
     effects = TestBed.get(LoginEffects);
   }));
 
+  describe('login$', () => {
+
+    it('should emit the loginSuccess snackbar and dispatch RouterActions.Go', () => {
+      const login = new LogInActions.LogIn(testLoginCredentials);
+      const go = new RouterActions.Go({ path: ['/dashboard'] });
+
+      actions = hot('a', { a: login });
+      const expected = cold('b', { b: go });
+
+      expect(effects.login$).toBeObservable(expected);
+    });
+  });
+
   describe('verify$', () => {
 
     it('should dispatch RouterActions.Go', () => {

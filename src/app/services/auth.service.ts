@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { User as FbUser } from 'firebase';
 import * as AppActions from '../actions/app.actions';
-import { User } from '../models/user';
+import { testFbUsers, testUsers, User } from '../models/user';
 import { State } from '../reducers/app.reducer';
 import { ErrorService } from './error.service';
 import { OrganizationService } from './organization.service';
@@ -114,8 +114,8 @@ export class MockAuthService extends AuthService {
     return Observable.of(user);
   }
 
-  signIn(email: string, password: string): Observable<FbUser> {
-    return Observable.of(null);
+  signIn(email: string, password: string): Observable<any> {
+    return Observable.of(testFbUsers[0]);
   }
 
   signOut(): Observable<FbUser> {
