@@ -15,8 +15,7 @@ export class ReportsComponent implements OnInit {
 
   individualVolunteerReport: boolean;
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.formGroup = this.createForm();
@@ -40,6 +39,13 @@ export class ReportsComponent implements OnInit {
       return { error: 'required'};
     }
   };
+
+  /**
+   * On panel close, remove form errors and input.
+   */
+  onPanelClose() {
+    this.formGroup.reset();
+  }
 
   emitReportIfValid(): void {
     const value = this.formGroup.value;
