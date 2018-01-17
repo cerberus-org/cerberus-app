@@ -2,8 +2,9 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatIconModule,
-  MatInputModule, MatListModule,
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
+  MatIconModule,
+  MatInputModule, MatListModule, MatNativeDateModule,
   MatPaginatorModule,
   MatRadioModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule,
   MatToolbarModule
@@ -115,10 +116,12 @@ import { VerificationGuard } from './verificationGuard';
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
+    MatDatepickerModule,
     MatExpansionModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatNativeDateModule,
     MatPaginatorModule,
     MatRadioModule,
     MatSidenavModule,
@@ -141,7 +144,7 @@ import { VerificationGuard } from './verificationGuard';
     UserService,
     VerificationGuard,
     VisitService,
-    VolunteerService
+    VolunteerService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [VerificationDialogComponent]

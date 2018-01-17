@@ -1,15 +1,33 @@
 <div class="container-center loose" [formGroup]="formGroup">
-  <mat-expansion-panel class="container-center" (opened)="individualVolunteerReport = true" (closed)="onPanelClose()">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Individual Volunteer
-      </mat-panel-title>
-      <mat-panel-description>
-        Get hours for a specific volunteer
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+  <!--dates-->
+  <div class="container inline">
     <mat-form-field>
-      <input formControlName="volunteerName" matInput placeholder="Please enter volunteer name">
+      <input matInput [matDatepicker]="picker1" placeholder="Start date">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
-  </mat-expansion-panel>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker2" placeholder="End date">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <!--reports-->
+  <mat-accordion>
+    <mat-expansion-panel class="container-center" *ngFor="let report of reports" (opened)="report.open = true" (closed)="onPanelClose()">
+      <!--header-->
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{report.title}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{report.description}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!--content-->
+      <mat-form-field *ngIf="report.title === 'Individual Volunteer'">
+        <input formControlName="volunteerName" matInput placeholder="Please enter volunteer name">
+      </mat-form-field>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
