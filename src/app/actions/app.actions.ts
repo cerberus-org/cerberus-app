@@ -36,7 +36,7 @@ export class LoadDataSuccess implements Action {
   readonly type = LOAD_DATA_SUCCESS;
 
   constructor(public payload: {
-    user: any,
+    user: User,
     organization: Organization
   }) {}
 }
