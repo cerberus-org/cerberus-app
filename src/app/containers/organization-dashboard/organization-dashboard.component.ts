@@ -57,6 +57,9 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (this.appSubscription) {
+      this.appSubscription.unsubscribe();
+    }
     if (this.sitesSubscription) {
       this.sitesSubscription.unsubscribe();
     }

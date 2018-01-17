@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -14,7 +14,7 @@ import { State } from '../../reducers/index';
   templateUrl: './data-display.component.html',
   styleUrls: ['./data-display.component.scss']
 })
-export class DataDisplayComponent implements OnInit {
+export class DataDisplayComponent implements OnInit, OnDestroy {
   appSubscription: Subscription;
   visits$: Observable<Visit[]>;
   visitTableColumnOptions: ColumnOptions[];
@@ -53,5 +53,11 @@ export class DataDisplayComponent implements OnInit {
         cell: (row: Visit) => formatDuration(row.startedAt, row.endedAt, row.timezone)
       }
     ];
+  }
+
+  ngOnDestroy(): void {
+    if (this.appSubscription) {
+      this.appSubscription.unsubscribe();
+    }
   }
 }

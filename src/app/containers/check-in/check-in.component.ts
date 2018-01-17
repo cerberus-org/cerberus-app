@@ -66,6 +66,9 @@ export class CheckInComponent implements OnInit, OnDestroy {
     if (this.checkInSubscription) {
       this.checkInSubscription.unsubscribe();
     }
+    if (this.appSubscription) {
+      this.appSubscription.unsubscribe();
+    }
   }
 
   onCheckIn(visit: Visit): void {

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import * as _ from 'lodash';
 import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
@@ -15,7 +16,7 @@ import { State } from '../../reducers';
   templateUrl: './settings-page.component.html',
   styleUrls: ['./settings-page.component.scss']
 })
-export class SettingsPageComponent implements OnInit {
+export class SettingsPageComponent implements OnInit, OnDestroy {
 
   appSubscription: Subscription;
   settingsSubscription: Subscription;
@@ -55,6 +56,13 @@ export class SettingsPageComponent implements OnInit {
     });
     this.appSubscription = this.store
       .select('app')
+      .map(state => {
+        return {
+          user: state.user,
+          organization: state.organization,
+        }
+      })
+      .distinctUntilChanged((a, b) => _.isEqual(a, b))
       .subscribe(state => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
@@ -89,5 +97,11 @@ export class SettingsPageComponent implements OnInit {
     this.store.dispatch(new SettingsActions.UpdateOrganization(
       Object.assign({}, this.validOrganization, { id: this.initialOrganization.id })
     ));
+  }
+
+  ngOnDestroy(): void {
+    if (this.appSubscription) {
+      this.appSubscription.unsubscribe();
+    }
   }
 }
