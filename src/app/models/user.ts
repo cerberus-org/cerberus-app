@@ -45,35 +45,3 @@ export const testLoginCredentials: any = [{
   email: 'Test@gmail.com',
   password: 'test',
 }];
-
-/**
- * Represents the model in which users are stored in the Firebase database.
- */
-export const testFbUsers: any[] = [
-  {
-    id: 'Fc59YPNibdPXlIjdRuBRIrizClI2',
-    organizationId: 'Y9oY2YPuxeWxB7x69Ayr',
-    firstName: 'Ted',
-    lastName: 'Mader'
-  }, {
-    id: '5961327dfba1ca1b64b8945b',
-    organizationId: '59a7055733bfe28af47cff40',
-    firstName: 'Hillary',
-    lastName: 'Lynn',
-  },
-];
-
-/**
- * Represents the model in which auth users are stored in the Firebase database.
- */
-export const testFbAfUsers: any[] = [
-  {
-    id: 'Fc59YPNibdPXlIjdRuBRIrizClI2',
-    email: 'tlmader.dev@gmail.com',
-    password: 'defg',
-  }, {
-    id: '5961327dfba1ca1b64b8945b',
-    email: 'harurang@gmail.com',
-    password: 'abc',
-  },
-];
