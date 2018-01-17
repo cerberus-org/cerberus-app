@@ -29,8 +29,8 @@ export class ReportsComponent implements OnInit {
 
   createForm(): FormGroup {
     return this.fb.group({
-      start: ['', Validators.required],
-      end: ['', Validators.required],
+      start: [(new Date()).toISOString(), Validators.required],
+      end: [(new Date()).toISOString(), Validators.required],
       period: ['', Validators.required],
       volunteerName: ['', this.individualVolunteerRequiredValidator]
     });
