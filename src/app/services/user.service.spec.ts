@@ -35,11 +35,8 @@ describe('UserService', () => {
 
   it('should convert data going to the database', () => {
     const converted = service.convertOut(user);
-    expect(converted).toEqual({
-      firstName: testUsers[0].firstName,
-      lastName: testUsers[0].lastName,
-      organizationId: testUsers[0].organizationId,
-      id: testUsers[0].id,
-    });
+    delete testUsers[0].email;
+    delete testUsers[0].password;
+    expect(converted).toEqual(testUsers[0]);
   });
 });
