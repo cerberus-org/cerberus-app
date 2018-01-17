@@ -6,8 +6,9 @@ import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
+import { User as FbUser } from 'firebase';
 import * as AppActions from '../actions/app.actions';
-import { testUsers, User } from '../models/user';
+import { User } from '../models/user';
 import { State } from '../reducers/app.reducer';
 import { ErrorService } from './error.service';
 import { OrganizationService } from './organization.service';
@@ -17,7 +18,7 @@ import { UserService } from './user.service';
 export class AuthService {
 
   pwdVerification: boolean;
-  user: any;
+  user: User;
 
   constructor(private afAuth: AngularFireAuth,
               private errorService: ErrorService,
@@ -50,7 +51,7 @@ export class AuthService {
    * @param user
    * @returns {Observable<User>}
    */
-  updateUser(user: any): Observable<any> {
+  updateUser(user: User): Observable<User> {
     const currentUser = this.afAuth.auth.currentUser;
     if (user.password) {
       this.updatePassword(user, currentUser);
@@ -61,12 +62,12 @@ export class AuthService {
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
-  updatePassword(user: any, currentUser: any) {
+  updatePassword(user: User, currentUser: FbUser) {
     return Observable.fromPromise(currentUser
       .updatePassword(user.password));
   }
 
-  signIn(email: string, password: string): Observable<any> {
+  signIn(email: string, password: string): Observable<FbUser> {
     return Observable.fromPromise(this.afAuth.auth
       .signInWithEmailAndPassword(email, password))
       .catch(error => this.errorService.handleFirebaseError(error));
@@ -80,7 +81,7 @@ export class AuthService {
     return this.afAuth.authState.map(auth => !!auth);
   }
 
-  signOut(): Observable<any> {
+  signOut(): Observable<FbUser> {
     return Observable.fromPromise(this.afAuth.auth.signOut());
   }
 
@@ -113,12 +114,11 @@ export class MockAuthService extends AuthService {
     return Observable.of(user);
   }
 
-  signIn(email: string, password: string): Observable<User> {
-    return Observable.of(testUsers
-      .find(user => user.email === email));
+  signIn(email: string, password: string): Observable<FbUser> {
+    return Observable.of(null);
   }
 
-  signOut(): Observable<any> {
+  signOut(): Observable<FbUser> {
     return Observable.of(null);
   }
 }
