@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { HeaderOptions } from '../models/header-options';
 import { Organization } from '../models/organization';
 import { SidenavOptions } from '../models/sidenav-options';
+import { User } from '../models/user';
 
 export const SET_HEADER_OPTIONS = '[App] Set Header Options';
 export const SET_SIDENAV_OPTIONS = '[App] Set Sidenav Options';
@@ -55,7 +56,7 @@ export class SetOrganization implements Action {
 export class SetUser implements Action {
   readonly type = SET_USER;
 
-  constructor(public payload: any) {}
+  constructor(public payload: User) {}
 }
 
 export type All

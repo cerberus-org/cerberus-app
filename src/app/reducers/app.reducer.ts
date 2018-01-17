@@ -3,11 +3,12 @@ import * as AppActions from '../actions/app.actions';
 import { HeaderOptions } from '../models/header-options';
 import { Organization } from '../models/organization';
 import { SidenavOptions } from '../models/sidenav-options';
+import { User } from '../models/user';
 
 export interface State {
   headerOptions: HeaderOptions;
   sidenavOptions: SidenavOptions[];
-  user: any;
+  user: User;
   organization: Organization;
 }
 
