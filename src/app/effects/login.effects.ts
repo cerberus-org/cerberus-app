@@ -6,7 +6,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
-import * as AppActions from '../actions/app.actions';
 import * as LoginActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
 import { AuthService } from '../services/auth.service';
@@ -24,7 +23,7 @@ export class LoginEffects {
   @Effect()
   login$: Observable<Action> = this.actions
     .ofType(LoginActions.LOG_IN)
-    .map((action: AppActions.LoadData) => action.payload)
+    .map((action: LoginActions.LogIn) => action.payload)
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
       .switchMap(res => {
         return this.userService.getById(res.uid)
