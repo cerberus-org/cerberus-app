@@ -91,7 +91,7 @@ export class AuthService {
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        this.store.dispatch(new AppActions.LoadData({ user }));
+        this.store.dispatch(new AppActions.LoadData(user));
       } else {
         // If the user is not logged in, set data to null
         this.store.dispatch(new AppActions.LoadDataSuccess({ user: null, organization: null }));

@@ -21,9 +21,9 @@ export class AppEffects {
   loadData$: Observable<Action> = this.actions
     .ofType(AppActions.LOAD_DATA)
     .map((action: AppActions.LoadData) => action.payload)
-    .switchMap(fbUser => this.userService.getById(fbUser.user.uid)
+    .switchMap(fbUser => this.userService.getById(fbUser.uid)
       .switchMap(res => {
-        const user = Object.assign({}, res, { email: fbUser.user.email, id: fbUser.user.uid });
+        const user = Object.assign({}, res, { email: fbUser.email, id: fbUser.uid });
         return this.organizationService.getById(user.organizationId)
           .map(organization => {
             const org = Object.assign({}, organization, { id: user.organizationId });
