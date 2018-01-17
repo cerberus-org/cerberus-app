@@ -1,5 +1,5 @@
-<div class="container-center loose">
-  <mat-expansion-panel class="container-center">
+<div class="container-center loose" [formGroup]="formGroup">
+  <mat-expansion-panel class="container-center" (opened)="individualVolunteerReport = true" (closed)="individualVolunteerReport = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Individual Volunteer
@@ -9,7 +9,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-form-field>
-      <input matInput placeholder="Please enter volunteer name">
+      <input formControlName="volunteerName" matInput placeholder="Please enter volunteer name">
     </mat-form-field>
   </mat-expansion-panel>
 </div>

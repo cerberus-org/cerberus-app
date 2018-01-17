@@ -20,13 +20,13 @@ export class SettingsPageComponent implements OnInit {
 
   settingsSubscription: Subscription;
   sidenavSelection: string;
+  validReport: any;
 
   userFormTitle: string;
   // User entered in form
   validUser: User;
   // Initial user used to pre populate form
   initialUser: User;
-  optionalPasswordTitle;
 
   organizationFormTitle: string;
   validOrganization: Organization;
@@ -75,6 +75,15 @@ export class SettingsPageComponent implements OnInit {
    */
   setOrganization($event) {
     this.validOrganization = $event;
+  }
+
+  /**
+   * Once the report-form emits an event,
+   * set report.
+   * @param $event
+   */
+  setReport($event) {
+    this.validReport = $event;
   }
 
   onUserFormSubmit() {
