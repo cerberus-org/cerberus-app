@@ -42,7 +42,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       new HeaderOptions(
         'Settings',
         'settings',
-        '/dashboard'
+        '/dashboard',
+        false,
       )
     ));
     this.store.dispatch(new AppActions.SetSidenavOptions([

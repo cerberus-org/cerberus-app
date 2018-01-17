@@ -36,7 +36,8 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
             new HeaderOptions(
               organization.name,
               'business',
-              null
+              null,
+              true,
             )
           ));
           this.sitesSubscription = this.siteService
