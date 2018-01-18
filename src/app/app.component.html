@@ -4,6 +4,7 @@
     [icon]="headerOptions.icon"
     [text]="headerOptions.title"
     [showBack]="!!headerOptions.previousUrl"
+    [showSettings]="!!headerOptions.showSettings"
     [showLogOut]="isLoggedIn"
     [showSidenavToggle]="!!sidenavOptions"
     (buttonClick)="onButtonClick($event)">

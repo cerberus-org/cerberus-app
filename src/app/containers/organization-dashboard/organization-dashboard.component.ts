@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as _ from 'lodash';
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
-import { getLocalStorageObjectProperty } from '../../functions/localStorageObject';
 import { HeaderOptions } from '../../models/header-options';
 import { SidenavOptions } from '../../models/sidenav-options';
 import { Site } from '../../models/site';
@@ -18,35 +18,49 @@ import { SiteService } from '../../services/site.service';
 })
 export class OrganizationDashboardComponent implements OnInit, OnDestroy {
   sitesSubscription: Subscription;
+  appSubscription: Subscription;
   sites: Site[];
 
   constructor(private store: Store<State>,
               private siteService: SiteService) { }
 
   ngOnInit(): void {
-    this.store.dispatch(new AppActions.SetHeaderOptions(
-      new HeaderOptions(
-        getLocalStorageObjectProperty('organization', 'name'),
-        'business',
-        null
-      )
-    ));
-    this.sitesSubscription = this.siteService
-      .getByKey(
-        'organizationId',
-        getLocalStorageObjectProperty('organization', 'id'),
-        true
-      )
-      .subscribe(sites => this.store.dispatch(new AppActions.SetSidenavOptions(
-        sites.map(site => new SidenavOptions(
-          'Check In',
-          'check_circle',
-          new RouterActions.Go({ path: [`/checkin/${site.id}`] })
-        ))
-      )));
+    this.appSubscription = this.store
+      .select('app')
+      .map(state => state.organization)
+      // Only emit if there is a change in organization
+      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+      .subscribe(organization => {
+        if (organization) {
+          this.store.dispatch(new AppActions.SetHeaderOptions(
+            new HeaderOptions(
+              organization.name,
+              'business',
+              null,
+              true,
+            )
+          ));
+          this.sitesSubscription = this.siteService
+            .getByKey(
+              'organizationId',
+              organization.id,
+              true
+            )
+            .subscribe(sites => this.store.dispatch(new AppActions.SetSidenavOptions(
+              sites.map(site => new SidenavOptions(
+                'Check In',
+                'check_circle',
+                new RouterActions.Go({ path: [`/checkin/${site.id}`] })
+              ))
+            )));
+        }
+      });
   }
 
   ngOnDestroy(): void {
+    if (this.appSubscription) {
+      this.appSubscription.unsubscribe();
+    }
     if (this.sitesSubscription) {
       this.sitesSubscription.unsubscribe();
     }

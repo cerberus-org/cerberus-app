@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import * as _ from 'lodash';
 import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
-import { getLocalStorageObject } from '../../functions/localStorageObject';
 import { HeaderOptions } from '../../models/header-options';
 import { Organization } from '../../models/organization';
 import { SidenavOptions } from '../../models/sidenav-options';
@@ -16,8 +16,9 @@ import { State } from '../../reducers';
   templateUrl: './settings-page.component.html',
   styleUrls: ['./settings-page.component.scss']
 })
-export class SettingsPageComponent implements OnInit {
+export class SettingsPageComponent implements OnInit, OnDestroy {
 
+  appSubscription: Subscription;
   settingsSubscription: Subscription;
   sidenavSelection: string;
   validReport: any;
@@ -35,8 +36,6 @@ export class SettingsPageComponent implements OnInit {
   constructor(private store: Store<State>) {
     this.userFormTitle = 'Update user data.';
     this.organizationFormTitle = 'Update organization data.';
-    this.initialUser = getLocalStorageObject('user');
-    this.initialOrganization = getLocalStorageObject('organization');
   }
 
   ngOnInit() {
@@ -44,7 +43,8 @@ export class SettingsPageComponent implements OnInit {
       new HeaderOptions(
         'Settings',
         'settings',
-        '/dashboard'
+        '/dashboard',
+        false,
       )
     ));
     this.store.dispatch(new AppActions.SetSidenavOptions([
@@ -56,6 +56,19 @@ export class SettingsPageComponent implements OnInit {
       .select('settings')
       .subscribe(state => {
         this.sidenavSelection = state.sidenavSelection;
+    });
+    this.appSubscription = this.store
+      .select('app')
+      .map(state => {
+        return {
+          user: state.user,
+          organization: state.organization,
+        }
+      })
+      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+      .subscribe(state => {
+        this.initialUser = state.user;
+        this.initialOrganization = state.organization;
     });
   }
 
@@ -87,10 +100,23 @@ export class SettingsPageComponent implements OnInit {
   }
 
   onUserFormSubmit() {
-    this.store.dispatch(new SettingsActions.UpdateUser(this.validUser));
+    this.store.dispatch(new SettingsActions.UpdateUser(
+      Object.assign({}, this.validUser, { id: this.initialUser.id })
+    ));
   }
 
   onOrganizationFormSubmit() {
-    this.store.dispatch(new SettingsActions.UpdateOrganization(this.validOrganization));
+    this.store.dispatch(new SettingsActions.UpdateOrganization(
+      Object.assign({}, this.validOrganization, { id: this.initialOrganization.id })
+    ));
+  }
+
+  ngOnDestroy(): void {
+    if (this.appSubscription) {
+      this.appSubscription.unsubscribe();
+    }
+    if (this.settingsSubscription) {
+      this.settingsSubscription.unsubscribe();
+    }
   }
 }

@@ -34,7 +34,8 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
       new HeaderOptions(
         'Getting Started',
         'wb_sunny',
-        '/login'
+        '/login',
+        true,
       )
     ));
     this.store.dispatch(new AppActions.SetSidenavOptions(null));

@@ -7,7 +7,6 @@ import * as LoginActions from './actions/login.actions';
 import * as RouterActions from './actions/router.actions';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
-import { getLocalStorageObjectProperty } from './functions/localStorageObject';
 import { HeaderOptions } from './models/header-options';
 import { SidenavOptions } from './models/sidenav-options';
 import { State } from './reducers/index';
@@ -22,6 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   appSubscription: Subscription;
   headerOptions: HeaderOptions;
   sidenavOptions: SidenavOptions[];
+  user: any;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private store: Store<State>,
@@ -34,6 +34,8 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.headerOptions = state.headerOptions;
         this.sidenavOptions = state.sidenavOptions;
+        this.user = state.user;
+
         /**
          * TODO:
          * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is
@@ -85,7 +87,7 @@ export class AppComponent implements OnInit, OnDestroy {
         pwd => {
           if (pwd) {
             // Once the Observable is returned dispatch an effect
-            this.store.dispatch(new LoginActions.Verify(pwd));
+            this.store.dispatch(new LoginActions.Verify({ email: this.user.email, password: pwd }));
           }
         }
       );
@@ -96,7 +98,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * @returns {boolean} - true if logged in
    */
   get isLoggedIn() {
-    return !!getLocalStorageObjectProperty('user', 'id');
+    return !!this.user;
   }
 }
 

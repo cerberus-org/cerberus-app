@@ -1,4 +1,4 @@
-<form class="container-center loose" [formGroup]="formGroup">
+<form class="container-center loose" [formGroup]="formGroup" autocomplete="off">
   <h1>{{title}}</h1>
   <div class="container-center">
     <div class="inline input-row">
@@ -24,7 +24,7 @@
   </div>
   <div class="container-center">
     <mat-form-field class="input-row">
-      <input [type]="hideConfirmPwd ? 'password' : 'text'" type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword">
+      <input autocomplete="off" [type]="hideConfirmPwd ? 'password' : 'text'" type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword">
       <mat-icon matSuffix (click)="hideConfirmPwd = !hideConfirmPwd">{{hideConfirmPwd ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
   </div>

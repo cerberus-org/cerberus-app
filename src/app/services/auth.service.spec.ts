@@ -1,7 +1,9 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import { StoreModule } from '@ngrx/store';
 import { testUsers } from '../models/user';
+import { reducers } from '../reducers';
 import { AuthService } from './auth.service';
 import { ErrorService, MockErrorService } from './error.service';
 import { MockOrganizationService, OrganizationService } from './organization.service';
@@ -19,6 +21,9 @@ describe('AuthService', () => {
         { provide: ErrorService, useClass: MockErrorService },
         { provide: OrganizationService, useClass: MockOrganizationService },
         { provide: UserService, useClass: MockUserService }
+      ],
+      imports: [
+        StoreModule.forRoot(reducers)
       ]
     });
     const testbed = getTestBed();
@@ -30,19 +35,7 @@ describe('AuthService', () => {
     }
   }));
 
-  afterEach(() => {
-    localStorage.clear();
-  });
-
   it('should be created', inject([AuthService], (authService: AuthService) => {
     expect(authService).toBeTruthy();
   }));
-
-  it('should set localStorage items and returns the user', () => {
-    service.setLocalStorageOnSignIn(afUser).subscribe(user => {
-      expect(user).toEqual(testUsers[0]);
-      expect(localStorage.getItem('user')).toBeTruthy();
-      expect(localStorage.getItem('organization')).toBeTruthy();
-    });
-  });
 });
