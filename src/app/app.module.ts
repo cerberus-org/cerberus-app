@@ -20,7 +20,7 @@ import { ChartsModule } from 'ng2-charts';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
-import { Guard } from './guard';
+import { LoginGuard } from './login-guard';
 
 import { AppComponent } from './app.component';
 
@@ -55,6 +55,7 @@ import { VolunteerService } from './services/volunteer.service';
 
 import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { AppEffects } from './effects/app.effects';
 import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
@@ -62,7 +63,7 @@ import { LoginEffects } from './effects/login.effects';
 import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
-import { VerificationGuard } from './verificationGuard';
+import { VerificationGuard } from './verification-guard';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { VerificationGuard } from './verificationGuard';
       GettingStartedEffects,
       LoginEffects,
       SettingsEffects,
+      AppEffects,
       RouterEffects
     ]),
     FormsModule,
@@ -128,7 +130,7 @@ import { VerificationGuard } from './verificationGuard';
   providers: [
     AuthService,
     ErrorService,
-    Guard,
+    LoginGuard,
     OrganizationService,
     SiteService,
     SnackBarService,

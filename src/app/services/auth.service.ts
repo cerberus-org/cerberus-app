@@ -5,9 +5,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 
-import * as firebase from 'firebase';
-import { getLocalStorageObject, setLocalStorageObject } from '../functions/localStorageObject';
-import { testUsers, User } from '../models/user';
+import { Store } from '@ngrx/store';
+import { User as FbUser } from 'firebase';
+import * as AppActions from '../actions/app.actions';
+import { testFbUsers, testUsers, User } from '../models/user';
+import { State } from '../reducers/app.reducer';
 import { ErrorService } from './error.service';
 import { OrganizationService } from './organization.service';
 import { UserService } from './user.service';
@@ -16,11 +18,13 @@ import { UserService } from './user.service';
 export class AuthService {
 
   pwdVerification: boolean;
+  user: User;
 
   constructor(private afAuth: AngularFireAuth,
               private errorService: ErrorService,
               private organizationService: OrganizationService,
-              private userService: UserService) {
+              private userService: UserService,
+              private store: Store<State>) {
     this.pwdVerification = false;
     if (afAuth) {
       this.observeStateChanges();
@@ -43,65 +47,54 @@ export class AuthService {
   }
 
   /**
-   * Update auth user and base user.
+   * Update auth user and base user. Only update the password if provided.
    * @param user
    * @returns {Observable<User>}
    */
-  updateUser(user: any): Observable<any> {
-    const currentUser = firebase.auth().currentUser;
+  updateUser(user: User): Observable<User> {
+    const currentUser = this.afAuth.auth.currentUser;
+    if (user.password) {
+      this.updatePassword(user, currentUser);
+    }
     return Observable.fromPromise(currentUser
-      .updatePassword(user.password))
-      .switchMap(() => currentUser.updateEmail(user.email))
-      .switchMap(() => this.userService.updateAndSetLocalStorage(
-        Object.assign({}, user, { id: currentUser.uid })
-      ))
+      .updateEmail(user.email))
+      .switchMap(() => this.userService.update(user))
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
-  signIn(email: string, password: string): Observable<User> {
+  updatePassword(user: User, currentUser: FbUser) {
+    return Observable.fromPromise(currentUser
+      .updatePassword(user.password));
+  }
+
+  signIn(email: string, password: string): Observable<FbUser> {
     return Observable.fromPromise(this.afAuth.auth
       .signInWithEmailAndPassword(email, password))
-      .switchMap(afUser => this.setLocalStorageOnSignIn(afUser))
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
   /**
-   * Set user and organization in local storage on sign in.
-   * @param afUser
-   * @returns {Observable<User>}
+   * If the user is not logged in, authState returns null.
+   * @returns {Observable<boolean>}
    */
-  setLocalStorageOnSignIn(afUser: any): Observable<User> {
-    return this.userService.getById(afUser.uid)
-      .switchMap(res => {
-        // Add Firebase uid and email to base user object
-        const user = Object.assign({}, res, {
-          id: afUser.uid,
-          email: afUser.email
-        });
-        setLocalStorageObject('user', user);
-        // Get organization id associated with user
-        return this.organizationService.getById(user.organizationId)
-          .map(organization => {
-            setLocalStorageObject(
-              'organization',
-              // Add organization id to base user object
-              Object.assign({}, organization, { id: user.organizationId })
-            );
-            return user;
-          })
-      });
+  isLoggedIn(): Observable<boolean> {
+    return this.afAuth.authState.map(auth => !!auth);
   }
 
-  signOut(): Observable<any> {
+  signOut(): Observable<FbUser> {
     return Observable.fromPromise(this.afAuth.auth.signOut());
   }
 
+  /**
+   * If the page is reloaded or the state of the user changes dispatch an action to load data to the app store.
+   */
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        // User is signed in.
+        this.store.dispatch(new AppActions.LoadData(user));
       } else {
-        localStorage.clear();
+        // If the user is not logged in, set data to null
+        this.store.dispatch(new AppActions.LoadDataSuccess({ user: null, organization: null }));
       }
     });
   }
@@ -110,7 +103,7 @@ export class AuthService {
 export class MockAuthService extends AuthService {
 
   constructor() {
-    super(null, null, null, null);
+    super(null, null, null, null, null);
   }
 
   createUser(user: User): Observable<User> {
@@ -121,12 +114,11 @@ export class MockAuthService extends AuthService {
     return Observable.of(user);
   }
 
-  signIn(email: string, password: string): Observable<User> {
-    return Observable.of(testUsers
-      .find(user => user.email === email));
+  signIn(email: string, password: string): Observable<any> {
+    return Observable.of(testFbUsers[0]);
   }
 
-  signOut(): Observable<any> {
+  signOut(): Observable<FbUser> {
     return Observable.of(null);
   }
 }

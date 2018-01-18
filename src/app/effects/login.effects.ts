@@ -8,16 +8,16 @@ import { Observable } from 'rxjs/Observable';
 
 import * as LoginActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
-import { getLocalStorageObjectProperty } from '../functions/localStorageObject';
 import { AuthService } from '../services/auth.service';
 import { SnackBarService } from '../services/snack-bar.service';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class LoginEffects {
 
   /**
-   * Listen for the LogIn action, log the user in, retrieve the user's organization,
-   * then store the results in localStorage.
+   * Listen for the LogIn action, log the afUser in, retrieve User,
+   * display success snackbar and navigate to settings page on success.
    * @type {Observable<any>}
    */
   @Effect()
@@ -25,9 +25,12 @@ export class LoginEffects {
     .ofType(LoginActions.LOG_IN)
     .map((action: LoginActions.LogIn) => action.payload)
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
-      .map(user => {
-        this.snackBarService.loginSuccess(user.firstName);
-        return new RouterActions.Go({ path: ['/dashboard'] });
+      .switchMap(res => {
+        return this.userService.getById(res.uid)
+          .map(user => {
+            this.snackBarService.loginSuccess(user.firstName);
+            return new RouterActions.Go({ path: ['/dashboard'] });
+          })
       }));
 
   /**
@@ -39,7 +42,7 @@ export class LoginEffects {
   verify$: Observable<Action> = this.actions
     .ofType(LoginActions.VERIFY)
     .map((action: LoginActions.Verify) => action.payload)
-    .switchMap(payload => this.authService.signIn(getLocalStorageObjectProperty('user', 'email'), payload)
+    .switchMap(payload => this.authService.signIn(payload.email, payload.password)
       .map(() => {
         this.authService.setPwdVerification(true);
         return new RouterActions.Go({ path: ['/settings'] });
@@ -47,7 +50,7 @@ export class LoginEffects {
 
   /**
    * Listen for the LogOut action, log the user out,
-   * then remove the items from localStorage.
+   * navigate to login page on success.
    * @type {Observable<any>}
    */
   @Effect()
@@ -61,5 +64,6 @@ export class LoginEffects {
 
   constructor(private actions: Actions,
               private authService: AuthService,
+              private userService: UserService,
               private snackBarService: SnackBarService) {}
 }
