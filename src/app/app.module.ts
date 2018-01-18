@@ -2,8 +2,13 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatPaginatorModule,
-  MatRadioModule, MatSidenavModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule, MatListModule, MatNativeDateModule,
+  MatPaginatorModule,
+  MatRadioModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule,
+  MatToolbarModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -54,6 +59,7 @@ import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 
 import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
+import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { AppEffects } from './effects/app.effects';
 import { CheckInEffects } from './effects/check-in.effects';
@@ -87,7 +93,8 @@ import { VerificationGuard } from './verification-guard';
     SignatureFieldComponent,
     VolunteerMenuComponent,
     VerificationDialogComponent,
-    SidenavComponent
+    SidenavComponent,
+    ReportsFormComponent
   ],
   imports: [
     AngularFireAuthModule,
@@ -111,13 +118,18 @@ import { VerificationGuard } from './verification-guard';
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatDialogModule,
+    MatDatepickerModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
     MatPaginatorModule,
     MatRadioModule,
     MatSidenavModule,
+    MatSlideToggleModule,
     MatSnackBarModule,
     MatTableModule,
     MatTabsModule,
@@ -137,7 +149,7 @@ import { VerificationGuard } from './verification-guard';
     UserService,
     VerificationGuard,
     VisitService,
-    VolunteerService
+    VolunteerService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [VerificationDialogComponent]

@@ -21,6 +21,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   appSubscription: Subscription;
   settingsSubscription: Subscription;
   sidenavSelection: string;
+  validReport: any;
 
   userFormTitle: string;
   // User entered in form
@@ -48,7 +49,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     ));
     this.store.dispatch(new AppActions.SetSidenavOptions([
       new SidenavOptions('User', 'face', new SettingsActions.SetSidenavSelection('User')),
-      new SidenavOptions('Organization', 'domain', new SettingsActions.SetSidenavSelection('Organization'))
+      new SidenavOptions('Organization', 'domain', new SettingsActions.SetSidenavSelection('Organization')),
+      new SidenavOptions('Reports', 'assessment', new SettingsActions.SetSidenavSelection('Reports'))
     ]));
     this.settingsSubscription = this.store
       .select('settings')
@@ -86,6 +88,15 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
    */
   setOrganization($event) {
     this.validOrganization = $event;
+  }
+
+  /**
+   * Once the report-form emits an event,
+   * set report.
+   * @param $event
+   */
+  setReport($event) {
+    this.validReport = $event;
   }
 
   onUserFormSubmit() {
