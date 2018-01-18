@@ -6,13 +6,13 @@ import { GettingStartedComponent } from './containers/getting-started/getting-st
 import { LoginComponent } from './containers/login/login.component';
 import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
 import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
-import { Guard } from './guard';
-import { VerificationGuard } from './verificationGuard';
+import { LoginGuard } from './login-guard';
+import { VerificationGuard } from './verification-guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: OrganizationDashboardComponent, canActivate : [Guard] },
-  { path: 'checkin/:id', component: CheckInComponent, canActivate : [Guard] },
+  { path: 'dashboard', component: OrganizationDashboardComponent, canActivate : [LoginGuard] },
+  { path: 'checkin/:id', component: CheckInComponent, canActivate : [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },
   { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
