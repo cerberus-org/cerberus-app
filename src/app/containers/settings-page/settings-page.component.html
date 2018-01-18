@@ -22,9 +22,9 @@
   </div>
 </div>
 <div *ngIf="sidenavSelection == 'Reports'">
-  <app-reports
+  <app-reports-form
     (validReport)="setReport($event)">
-  </app-reports>
+  </app-reports-form>
   <div class="container-button">
     <button mat-raised-button color="primary" [disabled]="!validReport">Generate Report</button>
   </div>

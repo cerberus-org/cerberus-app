@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { Report } from '../../models/report';
 
 @Component({
-  selector: 'app-reports',
-  templateUrl: './reports.component.html',
-  styleUrls: ['./reports.component.scss']
+  selector: 'app-reports-form',
+  templateUrl: './reports-form.component.html',
+  styleUrls: ['./reports-form.component.scss']
 })
-export class ReportsComponent implements OnInit {
+export class ReportsFormComponent implements OnInit {
 
   formGroup: FormGroup;
   formSubscription: Subscription;
