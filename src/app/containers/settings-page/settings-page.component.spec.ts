@@ -3,6 +3,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { MockComponent } from 'ng2-mock-component';
 import { testOrganizations } from '../../models/organization';
+import { testReports } from '../../models/report';
 import { testUsers } from '../../models/user';
 import { reducers } from '../../reducers';
 import { SettingsPageComponent } from './settings-page.component';
@@ -17,6 +18,7 @@ describe('SettingsPageComponent', () => {
         SettingsPageComponent,
         MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
         MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
+        MockComponent({ selector: 'app-reports-form' }),
       ],
       imports: [
         StoreModule.forRoot(reducers)
@@ -43,5 +45,10 @@ describe('SettingsPageComponent', () => {
   it('should set organization', () => {
     component.setOrganization(testOrganizations[0]);
     expect(component.validOrganization).toBe(testOrganizations[0]);
+  });
+
+  it('should set report', () => {
+    component.setReport(testReports[0]);
+    expect(component.validReport).toBe(testReports[0]);
   })
 });

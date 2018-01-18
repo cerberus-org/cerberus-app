@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
+  MatFormFieldModule,
   MatIconModule,
   MatInputModule, MatListModule, MatNativeDateModule,
   MatPaginatorModule,
@@ -123,6 +124,7 @@ import { VerificationGuard } from './verification-guard';
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatFormFieldModule,
     MatNativeDateModule,
     MatPaginatorModule,
     MatRadioModule,

@@ -28,8 +28,8 @@ export class ReportsFormComponent implements OnInit {
 
   createForm(): FormGroup {
     return this.fb.group({
-      start: [(new Date()).toISOString(), Validators.required],
-      end: [(new Date()).toISOString(), Validators.required],
+      start: ['', Validators.required],
+      end: ['', Validators.required],
       period: ['', Validators.required],
       selectedReport: ['', Validators.required],
     });
@@ -55,9 +55,9 @@ export class ReportsFormComponent implements OnInit {
    * @returns {Subscription}
    */
   subscribeToForm(): Subscription {
-    const value = this.formGroup.value;
     return this.formGroup.valueChanges.subscribe(() => {
       if (this.formGroup.valid) {
+        const value = this.formGroup.value;
         this.validReport.emit(new Report(value.start, value.end, value.period, value.selectedReport))
       } else {
         this.validReport.emit(null);

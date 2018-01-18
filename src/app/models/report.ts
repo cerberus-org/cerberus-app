@@ -11,3 +11,18 @@ export class Report {
     this.title = title;
   }
 }
+
+export const testReports: Report[] = [
+  {
+    start: new Date().toISOString(),
+    end: new Date().toISOString(),
+    period: 'Year',
+    title: 'Abc'
+  },
+  {
+    start: new Date().toISOString(),
+    end: new Date().toISOString(),
+    period: 'Month',
+    title: 'Def'
+  }
+];
