@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { IndividualReport, Report } from '../../models/report';
+import { Report } from '../../models/report';
 
 @Component({
   selector: 'app-reports',
@@ -13,15 +13,12 @@ export class ReportsComponent implements OnInit {
   formGroup: FormGroup;
   formSubscription: Subscription;
   @Output() validReport = new EventEmitter();
-  reports: Report[];
+  reportOptions: string[];
   periods: string[];
 
   constructor(private fb: FormBuilder) {
     this.periods = ['Year', 'Month', 'Week', 'Day'];
-    this.reports = [
-      new IndividualReport(null, null, null, 'Individual Volunteer', 'Get hours for a specific volunteer', null),
-      new Report(null, null, null, 'All Volunteers', 'Get hours for all volunteers'),
-    ]
+    this.reportOptions = [ 'Testing', 'Test'];
   }
 
   ngOnInit() {
@@ -34,19 +31,22 @@ export class ReportsComponent implements OnInit {
       start: [(new Date()).toISOString(), Validators.required],
       end: [(new Date()).toISOString(), Validators.required],
       period: ['', Validators.required],
-      volunteerName: [' ']
+      selectedReport: ['', Validators.required],
     });
   }
 
   /**
-   * Determine which report to emit and emit.
+   * If a report option is toggled, set selectedReport control.
+   * selectedReport control can not be directly set in form due to lack of support for
+   * toggles in forms.
+   * @param event
+   * @param {string} reportOption
    */
-  emitReportIfValid(): void {
-    const value = this.formGroup.value;
-    if (this.reports[0].open) {
-      this.validReport.emit(Object.assign({}, this.reports[0], { volunteerName: value.volunteerName, start: value.start, end: value.end, period: value.period }))
-    } else if (this.reports[1].open) {
-      this.validReport.emit(Object.assign({}, this.reports[1], { start: value.start, end: value.end, period: value.period }))
+  setReportOption(event: any, reportOption: string) {
+    if (event.checked) {
+      this.formGroup.controls['selectedReport'].setValue(reportOption);
+    } else {
+      this.formGroup.controls['selectedReport'].setValue(null);
     }
   }
 
@@ -55,9 +55,10 @@ export class ReportsComponent implements OnInit {
    * @returns {Subscription}
    */
   subscribeToForm(): Subscription {
+    const value = this.formGroup.value;
     return this.formGroup.valueChanges.subscribe(() => {
       if (this.formGroup.valid) {
-        this.emitReportIfValid();
+        this.validReport.emit(new Report(value.start, value.end, value.period, value.selectedReport))
       } else {
         this.validReport.emit(null);
       }
