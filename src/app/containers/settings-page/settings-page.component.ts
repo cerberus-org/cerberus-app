@@ -10,6 +10,7 @@ import { Organization } from '../../models/organization';
 import { SidenavOptions } from '../../models/sidenav-options';
 import { User } from '../../models/user';
 import { State } from '../../reducers';
+const jsPDF = require('jspdf');
 
 @Component({
   selector: 'app-settings-page',
@@ -109,6 +110,16 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(new SettingsActions.UpdateOrganization(
       Object.assign({}, this.validOrganization, { id: this.initialOrganization.id })
     ));
+  }
+
+  onReportSubmit() {
+    const doc = new jsPDF();
+    doc.setFontSize(22);
+    doc.text(20, 20, 'This is a title');
+
+    doc.setFontSize(16);
+    doc.text(20, 30, 'This is some normal sized text underneath.');
+    doc.save('test.pdf')
   }
 
   ngOnDestroy(): void {
