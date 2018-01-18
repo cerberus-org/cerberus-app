@@ -14,8 +14,10 @@ export class ReportsComponent implements OnInit {
   formSubscription: Subscription;
   @Output() validReport = new EventEmitter();
   reports: Report[];
+  periods: string[];
 
   constructor(private fb: FormBuilder) {
+    this.periods = ['Year', 'Month', 'Week', 'Day'];
     this.reports = [
       new IndividualReport(null, null, null, 'Individual Volunteer', 'Get hours for a specific volunteer', null),
       new Report(null, null, null, 'All Volunteers', 'Get hours for all volunteers'),
@@ -32,27 +34,8 @@ export class ReportsComponent implements OnInit {
       start: [(new Date()).toISOString(), Validators.required],
       end: [(new Date()).toISOString(), Validators.required],
       period: ['', Validators.required],
-      volunteerName: ['', this.individualVolunteerRequiredValidator]
+      volunteerName: [' ']
     });
-  }
-
-  /**
-   * If the individual volunteer report panel is expanded it is required.
-   *
-   * @param {AbstractControl} control
-   * @returns {{[p: string]: any}}
-   */
-  individualVolunteerRequiredValidator = (control: AbstractControl): { [key: string]: any } => {
-    if (this.reports[0].open && !control.value) {
-      return { error: 'required' };
-    }
-  };
-
-  /**
-   * On panel close, remove form errors and input.
-   */
-  onPanelClose() {
-    this.formGroup.reset();
   }
 
   /**

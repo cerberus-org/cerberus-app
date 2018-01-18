@@ -2,7 +2,8 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
+  MatExpansionModule,
   MatIconModule,
   MatInputModule, MatListModule, MatNativeDateModule,
   MatPaginatorModule,
@@ -115,6 +116,7 @@ import { VerificationGuard } from './verificationGuard';
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatDatepickerModule,
     MatExpansionModule,

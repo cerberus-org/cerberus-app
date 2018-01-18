@@ -2,19 +2,25 @@
   <!--dates-->
   <div class="container inline">
     <mat-form-field>
-      <input matInput [matDatepicker]="picker1" placeholder="start" formControlName="start">
+      <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="start">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker2" placeholder="end" formControlName="end">
+      <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="end">
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
   </div>
+  <!--checkboxes-->
+  <div class="container inline">
+    <mat-radio-group formControlName="period">
+      <mat-radio-button class="radioBoxes" *ngFor="let period of periods"  value={{period}}>{{period}}</mat-radio-button>
+    </mat-radio-group>
+  </div>
   <!--reports-->
   <mat-accordion>
-    <mat-expansion-panel class="container-center" *ngFor="let report of reports" (opened)="report.open = true" (closed)="onPanelClose()">
+    <mat-expansion-panel class="container-center" *ngFor="let report of reports" (opened)="report.open = true">
       <!--header-->
       <mat-expansion-panel-header>
         <mat-panel-title>

@@ -83,6 +83,7 @@ export class SettingsPageComponent implements OnInit {
    * @param $event
    */
   setReport($event) {
+    console.log($event);
     this.validReport = $event;
   }
 
