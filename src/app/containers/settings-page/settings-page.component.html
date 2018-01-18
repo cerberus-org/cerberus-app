@@ -21,3 +21,11 @@
     <button mat-raised-button color="primary" (click)="onOrganizationFormSubmit()" [disabled]="!validOrganization">Submit</button>
   </div>
 </div>
+<div *ngIf="sidenavSelection == 'Reports'">
+  <app-reports-form
+    (validReport)="setReport($event)">
+  </app-reports-form>
+  <div class="container-button">
+    <button mat-raised-button color="primary" [disabled]="!validReport">Generate Report</button>
+  </div>
+</div>
