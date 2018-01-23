@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { ErrorService } from './error.service';
 import * as firebase from 'firebase';
+import { Visit } from '../models/visit';
 
 export abstract class BaseService<T> {
   public collection: AngularFirestoreCollection<T>;
@@ -58,7 +59,7 @@ export abstract class BaseService<T> {
         .catch(error => this.errorService.handleFirebaseError(error));
   }
 
-  getByStartAtAndEndAt(start: string, end: string, snapshot: boolean): Observable<T> {
+  getByStartAtAndEndAt(start: string, end: string, snapshot?: boolean): Observable<T[]> {
     const collection = this.db.collection<T>(this.collectionName, ref => ref
       .orderBy('startedAt').startAt(start).endAt(end));
     // Returns a query

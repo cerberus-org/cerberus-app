@@ -14,6 +14,8 @@ import * as SettingsActions from '../actions/settings.actions';
 import { AuthService } from '../services/auth.service';
 import { OrganizationService } from '../services/organization.service';
 import { SnackBarService } from '../services/snack-bar.service';
+import { VisitService } from '../services/visit.service';
+import { Visit } from '../models/visit';
 
 @Injectable()
 export class SettingsEffects {
@@ -46,9 +48,19 @@ export class SettingsEffects {
         return new AppActions.SetOrganization(organization)
       }));
 
+  @Effect()
+  getVisitsByDates: Observable<Action> = this.actions
+    .ofType(SettingsActions.LOAD_VISITS_BY_DATES)
+    .map((action: SettingsActions.LoadVisitsByDates) => action.payload)
+    .switchMap(payload => this.visitService.getByStartAtAndEndAt(payload.start, payload.end, true)
+      .map(visits => {
+        return new SettingsActions.LoadVisitsByDatesSuccess(visits)
+      }));
+
   constructor(private actions: Actions,
               private snackBarService: SnackBarService,
               private authService: AuthService,
-              private organizationService: OrganizationService) {
+              private organizationService: OrganizationService,
+              private visitService: VisitService) {
   }
 }
