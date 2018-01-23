@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
 import { ErrorService } from './error.service';
+import * as firebase from 'firebase';
 
 export abstract class BaseService<T> {
   public collection: AngularFirestoreCollection<T>;
@@ -53,6 +54,24 @@ export abstract class BaseService<T> {
         })
         .catch(error => this.errorService.handleFirebaseError(error))
       : collection.valueChanges()
+        .map(item => this.convertIn(item))
+        .catch(error => this.errorService.handleFirebaseError(error));
+  }
+
+  getByStartAtAndEndAt(start: string, end: string, snapshot: boolean): Observable<T> {
+    const collection = this.db.collection<T>(this.collectionName, ref => ref
+      .orderBy('startedAt').startAt(start).endAt(end));
+    // Returns a query
+    return snapshot
+      ? collection.snapshotChanges() // On completion?
+        .map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as T;
+            return this.convertIn(data);
+          });
+        })
+        .catch(error => this.errorService.handleFirebaseError(error))
+      : collection.valueChanges() // If db is updated?
         .map(item => this.convertIn(item))
         .catch(error => this.errorService.handleFirebaseError(error));
   }
