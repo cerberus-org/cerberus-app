@@ -18,7 +18,7 @@ export class ReportsFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.periods = ['Year', 'Month', 'Week', 'Day'];
-    this.reportOptions = [ 'Testing', 'Test'];
+    this.reportOptions = [ 'Report A', 'Report B'];
   }
 
   ngOnInit() {

@@ -48,6 +48,11 @@ export class SettingsEffects {
         return new AppActions.SetOrganization(organization)
       }));
 
+  /**
+   * Listen for the getVisitsByDates action, get visits by start and end date,
+   * then dispatch an action to the settings store.
+   * @type {Observable<LoadVisitsByDatesSuccess>}
+   */
   @Effect()
   getVisitsByDates: Observable<Action> = this.actions
     .ofType(SettingsActions.LOAD_VISITS_BY_DATES)

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import * as jsPDF from 'jspdf';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
@@ -9,8 +10,8 @@ import { HeaderOptions } from '../../models/header-options';
 import { Organization } from '../../models/organization';
 import { SidenavOptions } from '../../models/sidenav-options';
 import { User } from '../../models/user';
+import { Visit } from '../../models/visit';
 import { State } from '../../reducers';
-const jsPDF = require('jspdf');
 
 @Component({
   selector: 'app-settings-page',
@@ -23,6 +24,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   settingsSubscription: Subscription;
   sidenavSelection: string;
   validReport: any;
+  visits: Visit[];
 
   userFormTitle: string;
   // User entered in form
@@ -55,9 +57,22 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     ]));
     this.settingsSubscription = this.store
       .select('settings')
-      .subscribe(state => {
-        this.sidenavSelection = state.sidenavSelection;
-    });
+      .map(state => state.sidenavSelection)
+      // Only emit if there is a change in visits
+      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+      .subscribe(sidenavSelection => {
+        this.sidenavSelection = sidenavSelection;
+      });
+    // If visits[] changes generate report
+    this.settingsSubscription = this.store
+      .select('settings')
+      .map(state => state.visits)
+      // Only emit if there is a change in visits
+      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+      .subscribe(visits => {
+        this.visits = visits;
+        this.generateReport();
+      });
     this.appSubscription = this.store
       .select('app')
       .map(state => {
@@ -113,13 +128,20 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   onReportSubmit() {
-    const doc = new jsPDF();
-    doc.setFontSize(22);
-    doc.text(20, 20, 'This is a title');
+    this.store.dispatch(new SettingsActions.LoadVisitsByDates(
+      { start: this.validReport.start, end: this.validReport.end }
+    ));
+  }
 
-    doc.setFontSize(16);
-    doc.text(20, 30, 'This is some normal sized text underneath.');
-    doc.save('test.pdf')
+  generateReport() {
+    if (this.visits) {
+      const doc = new jsPDF();
+      doc.setFontSize(22);
+      doc.text(15, 20, 'There are ' + this.visits.length + ' visits between ');
+      doc.text(15, 30, this.validReport.start + ' and ');
+      doc.text(15, 40, this.validReport.end + '');
+      doc.save(this.validReport.title + '.pdf');
+    }
   }
 
   ngOnDestroy(): void {
