@@ -2,10 +2,14 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs/Observable';
 
+import { cold, hot } from 'jasmine-marbles';
 import 'rxjs/add/observable/of';
+import * as SettingsActions from '../actions/settings.actions';
+import { testVisits } from '../models/visit';
 import { AuthService, MockAuthService } from '../services/auth.service';
 import { MockOrganizationService, OrganizationService } from '../services/organization.service';
 import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
+import { MockVisitService, VisitService } from '../services/visit.service';
 import { SettingsEffects } from './settings.effects';
 
 describe('SettingsEffects', () => {
@@ -20,7 +24,8 @@ describe('SettingsEffects', () => {
         provideMockActions(() => actions),
         { provide: AuthService, useClass: MockAuthService },
         { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: OrganizationService, useClass: MockOrganizationService }
+        { provide: OrganizationService, useClass: MockOrganizationService },
+        { provide: VisitService, useClass: MockVisitService },
       ],
     });
     effects = TestBed.get(SettingsEffects);

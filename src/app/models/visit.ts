@@ -58,7 +58,7 @@ export const testVisits: Visit[] = [
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945c',
     startedAt: new Date('2017-06-30T12:45:42.336Z'),
-    endedAt: new Date('2017-06-30T18:45:01.336Z'),
+    endedAt: new Date('2017-06-31T18:45:01.336Z'),
     timezone: 'America/Chicago',
     signature: null
   },
@@ -78,7 +78,7 @@ export const testVisits: Visit[] = [
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945z',
     startedAt: new Date('2017-07-02T10:45:42.336Z'),
-    endedAt: new Date('2017-07-02T23:45:01.336Z'),
+    endedAt: new Date('2017-07-03T23:45:01.336Z'),
     timezone: 'America/Chicago',
     signature: null
   }

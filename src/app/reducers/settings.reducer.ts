@@ -22,7 +22,7 @@ export function reducer(state = initialState, action: Action): State {
       });
     }
 
-    case SettingsActions.LOAD_VISITS_BY_DATES_SUCCESS: {
+    case SettingsActions.LOAD_VISITS_BY_DATE_SUCCESS: {
       return Object.assign({}, state, {
         visits: action.payload
       });

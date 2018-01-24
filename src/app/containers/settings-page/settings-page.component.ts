@@ -136,7 +136,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   onReportSubmit() {
-    this.store.dispatch(new SettingsActions.LoadVisitsByDates(
+    this.store.dispatch(new SettingsActions.LoadVisitsByDate(
       { startedAt: this.validReport.startedAt, endedAt: this.validReport.endedAt }
     ));
   }
