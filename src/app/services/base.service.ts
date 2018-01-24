@@ -57,8 +57,9 @@ export abstract class BaseService<T> {
         .catch(error => this.errorService.handleFirebaseError(error));
   }
 
-  getByDate(startDate: Date, endDate: Date, snapshot?: boolean): Observable<T[]> {
+  getByDateAndOrganization(startDate: Date, endDate: Date, organizationId: string, snapshot?: boolean): Observable<T[]> {
     const collection = this.db.collection<T>(this.collectionName, ref => ref
+      .where('organizationId', '==', organizationId)
       .orderBy('startedAt').startAt(startDate).endAt(endDate));
     return snapshot
       ? collection.snapshotChanges()

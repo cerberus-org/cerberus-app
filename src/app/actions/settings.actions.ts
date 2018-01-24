@@ -33,6 +33,7 @@ export class LoadVisitsByDate implements Action {
   constructor(public payload: {
     startedAt: Date,
     endedAt: Date,
+    organizationId: string,
   }) {}
 }
 

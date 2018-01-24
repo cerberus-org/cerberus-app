@@ -56,7 +56,7 @@ export class SettingsEffects {
   loadVisitsByDate$: Observable<Action> = this.actions
     .ofType(SettingsActions.LOAD_VISITS_BY_DATE)
     .map((action: SettingsActions.LoadVisitsByDate) => action.payload)
-    .switchMap(payload => this.visitService.getByDate(payload.startedAt, payload.endedAt, true)
+    .switchMap(payload => this.visitService.getByDateAndOrganization(payload.startedAt, payload.endedAt, payload.organizationId, true)
       .map(visits => {
         return new SettingsActions.LoadVisitsByDateSuccess(visits)
       }));

@@ -137,12 +137,13 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   onReportSubmit() {
     this.store.dispatch(new SettingsActions.LoadVisitsByDate(
-      { startedAt: this.validReport.startedAt, endedAt: this.validReport.endedAt }
+      { startedAt: this.validReport.startedAt, endedAt: this.validReport.endedAt, organizationId: this.initialOrganization.id }
     ));
   }
 
   generateReport() {
     if (this.visits) {
+      console.log(this.visits);
       const doc = new jsPDF();
       doc.setFontSize(22);
       doc.text(15, 20, 'There are ' + this.visits.length + ' visits between ');
