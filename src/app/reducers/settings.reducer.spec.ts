@@ -15,12 +15,12 @@ describe('settingsReducer', () => {
     });
   });
 
-  describe('LOAD_VISITS_BY_DATES_SUCCESS', () => {
+  describe('LOAD_VISITS_BY_DATE_AND_ORGANIZATION_SUCCESS', () => {
 
-    it('loads visits by startedAt and endedAt', () => {
+    it('loads visits', () => {
       const state = fromSettings.reducer(
         fromSettings.initialState,
-        new SettingsActions.LoadVisitsByDateSuccess(testVisits)
+        new SettingsActions.LoadVisitsByDateAndOrganizationSuccess(testVisits)
       );
       expect(state.visits).toEqual(testVisits);
     });

@@ -53,20 +53,20 @@ describe('SettingsEffects', () => {
     }));
   });
 
-  describe('loadVisitsByDate$', () => {
+  describe('loadVisitsByDateAndOrganization$', () => {
 
-    it('should emit loadVisitsByDateSuccess, on success', (() => {
-      const loadVisitsByDate = new SettingsActions.LoadVisitsByDate({
+    it('should emit loadVisitsByDateAndOrganizationSuccess, on success', (() => {
+      const loadVisitsByDate = new SettingsActions.LoadVisitsByDateAndOrganization({
         startedAt: new Date('2017-06-29T10:45:02.336Z'),
         endedAt: new Date('2017-07-03T23:45:01.336Z'),
         organizationId: '59a7055733bfe28af47cff40'
       });
-      const loadVisitsByDateSuccess = new SettingsActions.LoadVisitsByDateSuccess(testVisits);
+      const loadVisitsByDateSuccess = new SettingsActions.LoadVisitsByDateAndOrganizationSuccess(testVisits);
 
       actions = hot('a', { a: loadVisitsByDate });
       const expected = cold('b', { b: loadVisitsByDateSuccess });
 
-      expect(effects.loadVisitsByDate$).toBeObservable(expected);
+      expect(effects.loadVisitsByDateAndOrganization$).toBeObservable(expected);
     }));
   });
 });

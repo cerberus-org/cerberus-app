@@ -48,17 +48,17 @@ export class SettingsEffects {
       }));
 
   /**
-   * Listen for the getVisitsByDates action, get visits by start and end date,
+   * Listen for the getVisitsByDateAndOrganization action, get visits by start date, end date, and organizationId
    * then dispatch an action to the settings store.
    * @type {Observable<LoadVisitsByDatesSuccess>}
    */
   @Effect()
-  loadVisitsByDate$: Observable<Action> = this.actions
-    .ofType(SettingsActions.LOAD_VISITS_BY_DATE)
-    .map((action: SettingsActions.LoadVisitsByDate) => action.payload)
+  loadVisitsByDateAndOrganization$: Observable<Action> = this.actions
+    .ofType(SettingsActions.LOAD_VISITS_BY_DATE_AND_ORGANIZATION)
+    .map((action: SettingsActions.LoadVisitsByDateAndOrganization) => action.payload)
     .switchMap(payload => this.visitService.getByDateAndOrganization(payload.startedAt, payload.endedAt, payload.organizationId, true)
       .map(visits => {
-        return new SettingsActions.LoadVisitsByDateSuccess(visits)
+        return new SettingsActions.LoadVisitsByDateAndOrganizationSuccess(visits)
       }));
 
   constructor(private actions: Actions,
