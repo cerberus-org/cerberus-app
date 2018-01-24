@@ -31,8 +31,8 @@ export class LoadVisitsByDates implements Action {
   readonly type = LOAD_VISITS_BY_DATES;
 
   constructor(public payload: {
-    start: string,
-    end: string,
+    startedAt: string,
+    endedAt: string,
   }) {}
 }
 

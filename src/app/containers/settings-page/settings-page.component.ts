@@ -55,24 +55,12 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       new SidenavOptions('Organization', 'domain', new SettingsActions.SetSidenavSelection('Organization')),
       new SidenavOptions('Reports', 'assessment', new SettingsActions.SetSidenavSelection('Reports'))
     ]));
-    this.settingsSubscription = this.store
-      .select('settings')
-      .map(state => state.sidenavSelection)
-      // Only emit if there is a change in visits
-      .distinctUntilChanged((a, b) => _.isEqual(a, b))
-      .subscribe(sidenavSelection => {
-        this.sidenavSelection = sidenavSelection;
-      });
-    // If visits[] changes generate report
-    this.settingsSubscription = this.store
-      .select('settings')
-      .map(state => state.visits)
-      // Only emit if there is a change in visits
-      .distinctUntilChanged((a, b) => _.isEqual(a, b))
-      .subscribe(visits => {
-        this.visits = visits;
-        this.generateReport();
-      });
+    this.subscribeToSettings();
+    this.subscribeToApp();
+  }
+
+  subscribeToApp() {
+    // If user or organization changes, set
     this.appSubscription = this.store
       .select('app')
       .map(state => {
@@ -85,7 +73,27 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
-    });
+      });
+  }
+
+  subscribeToSettings() {
+    // If sidenavSelection changes, set
+    this.settingsSubscription = this.store
+      .select('settings')
+      .map(state => state.sidenavSelection)
+      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+      .subscribe(sidenavSelection => {
+        this.sidenavSelection = sidenavSelection;
+      });
+    // If visits[] changes generate report and set
+    this.settingsSubscription = this.store
+      .select('settings')
+      .map(state => state.visits)
+      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+      .subscribe(visits => {
+        this.visits = visits;
+        this.generateReport();
+      });
   }
 
   /**
@@ -129,7 +137,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   onReportSubmit() {
     this.store.dispatch(new SettingsActions.LoadVisitsByDates(
-      { start: this.validReport.start, end: this.validReport.end }
+      { startedAt: this.validReport.startedAt, endedAt: this.validReport.endedAt }
     ));
   }
 
@@ -138,8 +146,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       const doc = new jsPDF();
       doc.setFontSize(22);
       doc.text(15, 20, 'There are ' + this.visits.length + ' visits between ');
-      doc.text(15, 30, this.validReport.start + ' and ');
-      doc.text(15, 40, this.validReport.end + '');
+      doc.text(15, 30, this.validReport.startedAt + ' and ');
+      doc.text(15, 40, this.validReport.endedAt + '');
       doc.save(this.validReport.title + '.pdf');
     }
   }
