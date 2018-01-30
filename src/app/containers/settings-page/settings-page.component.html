@@ -33,6 +33,12 @@
     </button>
   </div>
 </div>
+<div *ngIf="sidenavSelection == 'Reports'">
+  <app-reports-form
+    (validReport)="setReport($event)">
+  </app-reports-form>
+  <div class="container-button">
+    <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onReportSubmit()">Generate Report</button>
 <!--Volunteer data table-->
 <div *ngIf="sidenavSelection === 'volunteers'">
   <app-data-table
@@ -49,3 +55,4 @@
       <button mat-raised-button color="primary" [disabled]="!validReport">Generate Report</button>
     </div>
   </div>
+</div>

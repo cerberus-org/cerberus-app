@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as jsPDF from 'jspdf';
 import * as _ from 'lodash';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
@@ -11,6 +12,7 @@ import { HeaderOptions } from '../../models/header-options';
 import { Organization } from '../../models/organization';
 import { SidenavOptions } from '../../models/sidenav-options';
 import { User } from '../../models/user';
+import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
 import { State } from '../../reducers';
 
@@ -25,6 +27,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   settingsSubscription: Subscription;
   sidenavSelection: string;
   validReport: any;
+  visits: Visit[];
 
   userFormTitle: string;
   // User entered in form
@@ -71,11 +74,17 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
         false,
       )
     ));
-    // Setup subscriptions
-    const settings$ = this.store.select('settings');
-    this.settingsSubscription = settings$.subscribe(state => {
-      this.sidenavSelection = state.sidenavSelection;
-    });
+    this.store.dispatch(new AppActions.SetSidenavOptions([
+      new SidenavOptions('User', 'face', new SettingsActions.SetSidenavSelection('User')),
+      new SidenavOptions('Organization', 'domain', new SettingsActions.SetSidenavSelection('Organization')),
+      new SidenavOptions('Reports', 'assessment', new SettingsActions.SetSidenavSelection('Reports'))
+    ]));
+    this.subscribeToSettings();
+    this.subscribeToApp();
+  }
+
+  subscribeToApp() {
+    // If user or organization changes, set
     this.volunteers$ = settings$.map(state => state.volunteers);
     this.appSubscription = this.store.select('app')
       .map(state => {
@@ -112,6 +121,26 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
             )
           ]));
         }
+      });
+  }
+
+  subscribeToSettings() {
+    // If sidenavSelection changes, set
+    this.settingsSubscription = this.store
+      .select('settings')
+      .map(state => state.sidenavSelection)
+      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+      .subscribe(sidenavSelection => {
+        this.sidenavSelection = sidenavSelection;
+      });
+    // If visits[] changes generate report and set
+    this.settingsSubscription = this.store
+      .select('settings')
+      .map(state => state.visits)
+      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+      .subscribe(visits => {
+        this.visits = visits;
+        this.generateReport();
       });
   }
 
@@ -155,6 +184,24 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   setReport($event) {
     this.validReport = $event;
+  }
+
+  onReportSubmit() {
+    this.store.dispatch(new SettingsActions.LoadVisitsByDateAndOrganization(
+      { startedAt: this.validReport.startedAt, endedAt: this.validReport.endedAt, organizationId: this.initialOrganization.id }
+    ));
+  }
+
+  generateReport() {
+    if (this.visits) {
+      console.log(this.visits);
+      const doc = new jsPDF();
+      doc.setFontSize(22);
+      doc.text(15, 20, 'There are ' + this.visits.length + ' visits between ');
+      doc.text(15, 30, this.validReport.startedAt + ' and ');
+      doc.text(15, 40, this.validReport.endedAt + '');
+      doc.save(this.validReport.title + '.pdf');
+    }
   }
 
   ngOnDestroy(): void {

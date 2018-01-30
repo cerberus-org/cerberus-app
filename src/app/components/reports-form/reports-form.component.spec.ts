@@ -42,8 +42,8 @@ describe('ReportsFormComponent', () => {
 
   it('should emit a validReport event on valid form values', () => {
     spyOn(component.validReport, 'emit');
-    const start = testReports[0].start;
-    const end = testReports[0].end;
+    const start = testReports[0].startedAt;
+    const end = testReports[0].endedAt;
     const period = testReports[0].period;
     const selectedReport = testReports[0].title;
     component.formGroup.controls['start'].setValue(start);
@@ -63,7 +63,7 @@ describe('ReportsFormComponent', () => {
 
     it('should accept a valid start date', (() => {
       const control = component.formGroup.controls['start'];
-      control.setValue(testReports[0].start);
+      control.setValue(testReports[0].startedAt);
       expect(control.valid).toBeTruthy();
     }));
   });
@@ -78,7 +78,7 @@ describe('ReportsFormComponent', () => {
 
     it('should accept a valid end date', (() => {
       const control = component.formGroup.controls['end'];
-      control.setValue(testReports[0].end);
+      control.setValue(testReports[0].endedAt);
       expect(control.valid).toBeTruthy();
     }));
   });
