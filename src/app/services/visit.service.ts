@@ -66,6 +66,15 @@ export class MockVisitService extends VisitService {
       .find(visit => visit.id === id));
   }
 
+  getByDateAndOrganization(startDate: Date, endDate: Date, organizationId: string, snapshot?: boolean): Observable<Visit[]> {
+    return Observable.of(testVisits
+      .filter(visit =>
+        visit.startedAt >= startDate &&
+        (!visit.endedAt || visit.endedAt <= endDate) &&
+        visit.organizationId === organizationId
+      ));
+  }
+
   add(visit: Visit): Observable<Visit> {
     return Observable.of(visit);
   }

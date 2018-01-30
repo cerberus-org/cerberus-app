@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSlideToggle } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { Report } from '../../models/report';
 
@@ -15,10 +16,12 @@ export class ReportsFormComponent implements OnInit {
   @Output() validReport = new EventEmitter();
   reportOptions: string[];
   periods: string[];
+  toggles: MatSlideToggle[];
 
   constructor(private fb: FormBuilder) {
     this.periods = ['Year', 'Month', 'Week', 'Day'];
-    this.reportOptions = [ 'Testing', 'Test'];
+    this.reportOptions = [ 'Report A', 'Report B'];
+    this.toggles = [];
   }
 
   ngOnInit() {
@@ -43,10 +46,28 @@ export class ReportsFormComponent implements OnInit {
    * @param {string} reportOption
    */
   setReportOption(event: any, reportOption: string) {
-    if (event.checked) {
+    if (event.source && event.checked) {
       this.formGroup.controls['selectedReport'].setValue(reportOption);
+      // Keep track of toggles, duplicates will not be stored
+      this.toggles.push(event.source);
+      this.deselectToggles(event.source);
     } else {
       this.formGroup.controls['selectedReport'].setValue(null);
+    }
+    console.log(event);
+
+  }
+
+  /**
+   * If there is a toggle that is checked and it is not the recently selected toggle,
+   * set to unchecked to create accordian effect.
+   * @param {MatSlideToggle} selectedToggle
+   */
+  deselectToggles(selectedToggle: MatSlideToggle) {
+    for (const toggle of this.toggles) {
+      if (toggle.checked && toggle.id !== selectedToggle.id) {
+        toggle.checked = false;
+      }
     }
   }
 

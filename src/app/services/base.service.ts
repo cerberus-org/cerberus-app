@@ -57,6 +57,24 @@ export abstract class BaseService<T> {
         .catch(error => this.errorService.handleFirebaseError(error));
   }
 
+  getByDateAndOrganization(startDate: Date, endDate: Date, organizationId: string, snapshot?: boolean): Observable<T[]> {
+    const collection = this.db.collection<T>(this.collectionName, ref => ref
+      .where('organizationId', '==', organizationId)
+      .orderBy('startedAt').startAt(startDate).endAt(endDate));
+    return snapshot
+      ? collection.snapshotChanges()
+        .map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as T;
+            return this.convertIn(data);
+          });
+        })
+        .catch(error => this.errorService.handleFirebaseError(error))
+      : collection.valueChanges() // If db is updated?
+        .map(item => this.convertIn(item))
+        .catch(error => this.errorService.handleFirebaseError(error));
+  }
+
   /**
    * Gets a document's data from a collection by ID.
    * @param id - the ID for the document.
