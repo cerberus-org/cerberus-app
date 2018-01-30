@@ -134,8 +134,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   /**
    * Handles submission of user form by dispatching an UpdateUser action.
    */
-  onSubmitUser() {
-    this.store.dispatch(new SettingsActions.UpdateUser(this.validUser));
+  onSubmitUser(user: User) {
+    this.store.dispatch(new SettingsActions.UpdateUser(user));
   }
 
   /**

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { testColumnOptions } from '../../models/column-options';
 import { testVisits } from '../../models/visit';
 import { DataTableComponent, DataTableSource } from './data-table.component';
+import { testVolunteers } from '../../models/volunteer';
 
 describe('DataTableComponent', () => {
   let component: DataTableComponent;
@@ -46,5 +47,12 @@ describe('DataTableComponent', () => {
     component.paginator.pageSize = 2;
     const pageData = component.dataSource.getPageData();
     expect(pageData.length).toEqual(2);
+  });
+
+  it('should emit a clickDelete event on clicking the delete button', () => {
+    spyOn(component.deleteItem, 'emit');
+    const item = testVolunteers[0];
+    component.onClickDelete(item);
+    expect(component.deleteItem.emit).toHaveBeenCalledWith(item);
   });
 });

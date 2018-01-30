@@ -50,6 +50,22 @@ describe('SettingsPageComponent', () => {
     expect(component.validOrganization).toBe(testOrganizations[0]);
   });
 
+  it('should handle submitUser events by dispatching SettingsActions.UpdateUser', () => {
+    spyOn(component.store, 'dispatch');
+    const user = testUsers[0];
+    component.onSubmitUser(user);
+    expect(component.store.dispatch)
+      .toHaveBeenCalledWith(new SettingsActions.UpdateUser(user));
+  });
+
+  it('should handle updateOrganization events by dispatching SettingsActions.UpdateOrganization', () => {
+    spyOn(component.store, 'dispatch');
+    const organization = testOrganizations[0];
+    component.onSubmitOrganization(organization);
+    expect(component.store.dispatch)
+      .toHaveBeenCalledWith(new SettingsActions.UpdateOrganization(organization));
+  });
+
   it('should handle deleteVolunteer events by dispatching SettingsActions.DeleteVolunteer', () => {
     spyOn(component.store, 'dispatch');
     const volunteer = testVolunteers[0];
