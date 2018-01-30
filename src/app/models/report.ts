@@ -1,12 +1,12 @@
 export class Report {
-  start: string;
-  end: string;
+  startedAt: Date;
+  endedAt: Date;
   period: string;
   title: string;
 
-  constructor(start: string, end: string, period: string, title: string) {
-    this.start = start;
-    this.end = end;
+  constructor(startedAt: Date, endedAt: Date, period: string, title: string) {
+    this.startedAt = startedAt;
+    this.endedAt = endedAt;
     this.period = period;
     this.title = title;
   }
@@ -14,14 +14,14 @@ export class Report {
 
 export const testReports: Report[] = [
   {
-    start: new Date().toISOString(),
-    end: new Date().toISOString(),
+    startedAt: new Date(),
+    endedAt: new Date(),
     period: 'Year',
     title: 'Abc'
   },
   {
-    start: new Date().toISOString(),
-    end: new Date().toISOString(),
+    startedAt: new Date(),
+    endedAt: new Date(),
     period: 'Month',
     title: 'Def'
   }

@@ -26,6 +26,6 @@
     (validReport)="setReport($event)">
   </app-reports-form>
   <div class="container-button">
-    <button mat-raised-button color="primary" [disabled]="!validReport">Generate Report</button>
+    <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onReportSubmit()">Generate Report</button>
   </div>
 </div>
