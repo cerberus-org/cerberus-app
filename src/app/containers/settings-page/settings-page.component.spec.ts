@@ -7,6 +7,7 @@ import { testReports } from '../../models/report';
 import { testUsers } from '../../models/user';
 import { reducers } from '../../reducers';
 import { SettingsPageComponent } from './settings-page.component';
+import { testVolunteers } from '../../models/volunteer';
 
 describe('SettingsPageComponent', () => {
   let component: SettingsPageComponent;
@@ -37,14 +38,22 @@ describe('SettingsPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set user', () => {
+  it('should handle validUser events by setting validUser', () => {
     component.setUser(testUsers[0]);
     expect(component.validUser).toBe(testUsers[0]);
   });
 
-  it('should set organization', () => {
+  it('should handle validOrganization events by setting validOrganization', () => {
     component.setOrganization(testOrganizations[0]);
     expect(component.validOrganization).toBe(testOrganizations[0]);
+  });
+
+  it('should handle deleteVolunteer events by dispatching SettingsActions.DeleteVolunteer', () => {
+    spyOn(component.store, 'dispatch');
+    const volunteer = testVolunteers[0];
+    component.onDeleteVolunteer(volunteer);
+    expect(component.store.dispatch)
+      .toHaveBeenCalledWith(new SettingsActions.DeleteVolunteer(volunteer));
   });
 
   it('should set report', () => {

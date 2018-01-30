@@ -115,15 +115,15 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handles setUser events by setting validUser..
+   * Handles validUser events by setting validUser.
    * @param user - a valid user when valid, null when invalid
    */
-  onSetUser(user: User) {
+  onValidUser(user: User) {
     this.validUser = user;
   }
 
   /**
-   * Handles setOrganization events by setting validOrganization.
+   * Handles validOrganization events by setting validOrganization.
    * @param organization - a valid organization when valid, null when invalid
    */
   onValidOrganization(organization: Organization) {
