@@ -1,6 +1,6 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
+import { MatIconModule, MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs/Observable';
 
@@ -19,6 +19,7 @@ describe('DataTableComponent', () => {
       ],
       imports: [
         CdkTableModule,
+        MatIconModule,
         MatListModule,
         MatPaginatorModule,
         MatTableModule,

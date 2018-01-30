@@ -39,7 +39,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   volunteers$: Observable<Volunteer[]>;
   volunteerTableOptions: ColumnOptions[];
 
-  constructor(private store: Store<State>) {
+  constructor(public store: Store<State>) {
     this.userFormTitle = 'Update user data.';
     this.organizationFormTitle = 'Update organization data.';
   }
@@ -71,36 +71,13 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
         false,
       )
     ));
-    this.store.dispatch(new AppActions.SetSidenavOptions([
-      new SidenavOptions(
-        'User',
-        'face',
-        new SettingsActions.LoadPage('user')
-      ),
-      new SidenavOptions(
-        'Organization',
-        'domain',
-        new SettingsActions.LoadPage('organization')
-      ),
-      new SidenavOptions(
-        'Volunteers',
-        'insert_emoticon',
-        new SettingsActions.LoadVolunteersPage(organizationId)
-      ),
-      new SidenavOptions(
-        'Reports',
-        'assessment',
-        new SettingsActions.LoadPage('Reports')
-      )
-    ]));
     // Setup subscriptions
     const settings$ = this.store.select('settings');
     this.settingsSubscription = settings$.subscribe(state => {
       this.sidenavSelection = state.sidenavSelection;
     });
     this.volunteers$ = settings$.map(state => state.volunteers);
-    this.appSubscription = this.store
-      .select('app')
+    this.appSubscription = this.store.select('app')
       .map(state => {
         return {
           user: state.user,
@@ -111,6 +88,30 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
+        if (state.organization) {
+          this.store.dispatch(new AppActions.SetSidenavOptions([
+            new SidenavOptions(
+              'User',
+              'face',
+              new SettingsActions.LoadPage('user')
+            ),
+            new SidenavOptions(
+              'Organization',
+              'domain',
+              new SettingsActions.LoadPage('organization')
+            ),
+            new SidenavOptions(
+              'Volunteers',
+              'insert_emoticon',
+              new SettingsActions.LoadVolunteersPage(state.organization.id)
+            ),
+            new SidenavOptions(
+              'Reports',
+              'assessment',
+              new SettingsActions.LoadPage('Reports')
+            )
+          ]));
+        }
       });
   }
 

@@ -1,13 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
-
 import { MockComponent } from 'ng2-mock-component';
+
+import * as SettingsActions from '../../actions/settings.actions';
 import { testOrganizations } from '../../models/organization';
 import { testReports } from '../../models/report';
 import { testUsers } from '../../models/user';
+import { testVolunteers } from '../../models/volunteer';
 import { reducers } from '../../reducers';
 import { SettingsPageComponent } from './settings-page.component';
-import { testVolunteers } from '../../models/volunteer';
 
 describe('SettingsPageComponent', () => {
   let component: SettingsPageComponent;
@@ -17,9 +18,10 @@ describe('SettingsPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SettingsPageComponent,
-        MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
+        MockComponent({ selector: 'app-data-table', inputs: ['columnOptions', 'data$', 'showDelete'] }),
         MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
         MockComponent({ selector: 'app-reports-form' }),
+        MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
       ],
       imports: [
         StoreModule.forRoot(reducers)
@@ -39,12 +41,12 @@ describe('SettingsPageComponent', () => {
   });
 
   it('should handle validUser events by setting validUser', () => {
-    component.setUser(testUsers[0]);
+    component.onValidUser(testUsers[0]);
     expect(component.validUser).toBe(testUsers[0]);
   });
 
   it('should handle validOrganization events by setting validOrganization', () => {
-    component.setOrganization(testOrganizations[0]);
+    component.onValidOrganization(testOrganizations[0]);
     expect(component.validOrganization).toBe(testOrganizations[0]);
   });
 
