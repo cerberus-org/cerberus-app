@@ -7,4 +7,8 @@
   overflow-y: auto;
   display: grid;
   grid-template-rows: auto $mat-paginator-height;
+
+  .cdk-column-delete {
+    max-width: 2.5rem;
+  }
 }

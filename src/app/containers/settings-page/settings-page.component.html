@@ -1,25 +1,46 @@
-<!--user form-->
-<div *ngIf="sidenavSelection == 'User'">
+<!--User form-->
+<div *ngIf="sidenavSelection === 'user'">
   <app-user-form
     [title]="userFormTitle"
     [initialUser]="initialUser"
-    (validUser)="setUser($event)"
+    (validUser)="onValidUser($event)"
     [passwordRequired]="false">
   </app-user-form>
   <div class="container-button">
-    <button mat-raised-button color="primary" (click)="onUserFormSubmit()" [disabled]="!validUser">Submit</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSubmitUser(validUser, initialUser.id)"
+      [disabled]="!validUser">
+      Submit
+    </button>
   </div>
 </div>
-<!--organization form-->
-<div *ngIf="sidenavSelection == 'Organization'">
+<!--Organization form-->
+<div *ngIf="sidenavSelection === 'organization'">
   <app-organization-form
     [title]="organizationFormTitle"
     [initialOrganization]="initialOrganization"
-    (validOrganization)="setOrganization($event)">
+    (validOrganization)="onValidOrganization($event)">
   </app-organization-form>
   <div class="container-button">
-    <button mat-raised-button color="primary" (click)="onOrganizationFormSubmit()" [disabled]="!validOrganization">Submit</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSubmitOrganization(validOrganization, initialOrganization.id)"
+      [disabled]="!validOrganization">
+      Submit
+    </button>
   </div>
+</div>
+<!--Volunteer data table-->
+<div *ngIf="sidenavSelection === 'volunteers'">
+  <app-data-table
+    [data$]="volunteers$"
+    [columnOptions]="volunteerTableOptions"
+    [showDelete]="true"
+    (deleteItem)="onDeleteVolunteer($event)">
+  </app-data-table>
 </div>
 <div *ngIf="sidenavSelection == 'Reports'">
   <app-reports-form

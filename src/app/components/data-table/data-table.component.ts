@@ -1,5 +1,5 @@
 import { DataSource } from '@angular/cdk/table';
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import 'rxjs/add/observable/merge';
 import { Observable } from 'rxjs/Observable';
@@ -46,13 +46,15 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
 }
 
 @Component({
-  selector: 'app-visit-history-table',
+  selector: 'app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss']
 })
 export class DataTableComponent implements OnInit {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
+  @Input() showDelete: boolean;
+  @Output() deleteItem = new EventEmitter<any>();
   displayedColumns: string[];
   initialPageSize: number;
   dataSource: DataTableSource;
@@ -66,5 +68,16 @@ export class DataTableComponent implements OnInit {
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.dataSource = new DataTableSource(this.data$, this.paginator);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
+    if (this.showDelete) {
+      this.displayedColumns.push('delete');
+    }
+  }
+
+  /**
+   * Handles delete button click events by emitting a deleteItem event.
+   * @param item - the item to be deleted
+   */
+  onClickDelete(item: any): void {
+    this.deleteItem.emit(item);
   }
 }

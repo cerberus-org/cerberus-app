@@ -10,6 +10,7 @@ import { AuthService, MockAuthService } from '../services/auth.service';
 import { MockOrganizationService, OrganizationService } from '../services/organization.service';
 import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
 import { MockVisitService, VisitService } from '../services/visit.service';
+import { MockVolunteerService, VolunteerService } from '../services/volunteer.service';
 import { SettingsEffects } from './settings.effects';
 
 describe('SettingsEffects', () => {
@@ -26,6 +27,7 @@ describe('SettingsEffects', () => {
         { provide: SnackBarService, useClass: MockSnackBarService },
         { provide: OrganizationService, useClass: MockOrganizationService },
         { provide: VisitService, useClass: MockVisitService },
+        { provide: VolunteerService, useClass: MockVolunteerService }
       ],
     });
     effects = TestBed.get(SettingsEffects);
