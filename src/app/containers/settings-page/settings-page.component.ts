@@ -41,6 +41,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   initialOrganization: Organization;
 
   volunteers$: Observable<Volunteer[]>;
+  volunteers: Volunteer[];
   volunteerTableOptions: ColumnOptions[];
 
   constructor(public store: Store<State>) {
@@ -122,6 +123,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   subscribeToSettings() {
     const settings$ = this.store.select('settings');
     this.volunteers$ = settings$.map(state => state.volunteers);
+    this.volunteers$.subscribe(volunteers => this.volunteers = volunteers);
     // If sidenavSelection changes, set
     this.sidenavSelectionSubscription = settings$
       .map(state => state.sidenavSelection)
@@ -185,9 +187,12 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   onSubmitReport() {
-    this.store.dispatch(new SettingsActions.LoadVisitsByDateAndOrganization(
-      { startedAt: this.validReport.startedAt, endedAt: this.validReport.endedAt, organizationId: this.initialOrganization.id }
-    ));
+    this.store.dispatch(new SettingsActions.GenerateVisitHistoryReport({
+      startedAt: this.validReport.startedAt,
+      endedAt: this.validReport.endedAt,
+      organizationId: this.initialOrganization.id,
+      volunteers: this.volunteers,
+    }));
   }
 
   ngOnDestroy(): void {

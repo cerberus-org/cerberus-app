@@ -31,12 +31,6 @@ export function reducer(state = initialState, action: Action): State {
       });
     }
 
-    case SettingsActions.LOAD_VISITS_BY_DATE_AND_ORGANIZATION_SUCCESS: {
-      return Object.assign({}, state, {
-        visits: action.payload
-      });
-    }
-
     case SettingsActions.LOAD_VOLUNTEERS_PAGE_SUCCESS: {
       return Object.assign({}, state, {
         sidenavSelection: 'volunteers',
