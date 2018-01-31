@@ -20,7 +20,7 @@ export class ReportsFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.periods = ['Year', 'Month', 'Week', 'Day'];
-    this.reportOptions = [ 'Report A', 'Report B'];
+    this.reportOptions = [ 'Visit History', 'Report B'];
     this.toggles = [];
   }
 
@@ -54,8 +54,6 @@ export class ReportsFormComponent implements OnInit {
     } else {
       this.formGroup.controls['selectedReport'].setValue(null);
     }
-    console.log(event);
-
   }
 
   /**

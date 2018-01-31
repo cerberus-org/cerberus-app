@@ -42,11 +42,12 @@
     (deleteItem)="onDeleteVolunteer($event)">
   </app-data-table>
 </div>
+<!--Reports form-->
 <div *ngIf="sidenavSelection == 'Reports'">
   <app-reports-form
-    (validReport)="setReport($event)">
+    (validReport)="onValidReport($event)">
   </app-reports-form>
   <div class="container-button">
-    <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onReportSubmit()">Generate Report</button>
+    <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onSubmitReport()">Generate Report</button>
   </div>
 </div>
