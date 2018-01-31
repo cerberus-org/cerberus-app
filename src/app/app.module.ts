@@ -70,6 +70,7 @@ import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verification-guard';
+import { CsvService } from './csv.service';
 
 @NgModule({
   declarations: [
@@ -141,6 +142,7 @@ import { VerificationGuard } from './verification-guard';
   ],
   providers: [
     AuthService,
+    CsvService,
     ErrorService,
     LoginGuard,
     OrganizationService,

@@ -16,6 +16,7 @@ import { OrganizationService } from '../services/organization.service';
 import { SnackBarService } from '../services/snack-bar.service';
 import { VisitService } from '../services/visit.service';
 import { VolunteerService } from '../services/volunteer.service';
+import { CsvService } from '../csv.service';
 
 @Injectable()
 export class SettingsEffects {
@@ -75,7 +76,7 @@ export class SettingsEffects {
     .switchMap(payload => this.visitService.getByDateAndOrganization(payload.startedAt, payload.endedAt, payload.organizationId, true)
       .do(visits => {
         // TODO: Map visits to payload.volunteers
-        console.log(visits);
+        console.log(this.csvService.mapVisitsToVolunteers(visits, payload.volunteers));
       }));
 
   constructor(private actions: Actions,
@@ -83,6 +84,7 @@ export class SettingsEffects {
               private organizationService: OrganizationService,
               private snackBarService: SnackBarService,
               private visitService: VisitService,
-              private volunteerService: VolunteerService) {
+              private volunteerService: VolunteerService,
+              private csvService: CsvService) {
   }
 }
