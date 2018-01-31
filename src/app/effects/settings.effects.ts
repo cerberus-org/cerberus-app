@@ -66,7 +66,8 @@ export class SettingsEffects {
       }));
 
   /**
-   *
+   * Listen for the GenerateVisitHistoryReport, get visits by date range and organization,
+   * then download data as csv.
    * @type {Observable<Visit[]>}
    */
   @Effect({ dispatch: false })
@@ -75,8 +76,15 @@ export class SettingsEffects {
     .map((action: SettingsActions.GenerateVisitHistoryReport) => action.payload)
     .switchMap(payload => this.visitService.getByDateAndOrganization(payload.startedAt, payload.endedAt, payload.organizationId, true)
       .do(visits => {
-        // TODO: Map visits to payload.volunteers
-        console.log(this.csvService.mapVisitsToVolunteers(visits, payload.volunteers));
+        const propertiesToColumnTitles = new Map([
+          [ 'startedAt', 'Started At' ],
+          [ 'endedAt', 'Ended At' ],
+          [ 'duration', 'Duration'],
+          [ 'name', 'Name'],
+        ]);
+        this.csvService.downloadAsCsv(
+          this.csvService.mapVisitsToVolunteers(visits, payload.volunteers), 'VisitHistory.csv', propertiesToColumnTitles
+        );
       }));
 
   constructor(private actions: Actions,
