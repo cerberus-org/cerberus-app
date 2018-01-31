@@ -1,11 +1,11 @@
 ## Resolves #<Issue>
 
-## Changes proposed
+## Changes
 - Make Cerberus awesome.
 - Add VR support.
 - Implement Bitcoin payments. 
 
-## Steps to test changes
+## Testing steps
 - [ ] Be awesome.
 - [ ] Put on your headset.
 - [ ] Believe in Bitcoin.
