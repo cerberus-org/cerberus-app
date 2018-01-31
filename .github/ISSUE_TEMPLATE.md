@@ -15,7 +15,7 @@ It should print "Cerberus is awesome."
 
 It prints "Cerberus doesn't like you!"
 
-## Steps to reproduce the behavior
+## Steps to reproduce
 
 1. Navigate to page.
 2. Select sidenav option.
