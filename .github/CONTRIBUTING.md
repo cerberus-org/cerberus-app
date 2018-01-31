@@ -1,6 +1,8 @@
 ## Coding Standards
 
-[Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+### Presentational and Container Components
+
+[Presentational and Container Components by Dan Abramov](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
 
 Our presentational components:
 
