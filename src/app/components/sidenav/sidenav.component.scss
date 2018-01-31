@@ -1,3 +1,4 @@
+@import '~@angular/material/_theming.scss';
 @import '~styles.scss';
 
 .container {
@@ -8,8 +9,13 @@ mat-sidenav {
   box-shadow: 3px 0 6px rgba(0,0,0,.24);
 }
 
+// Allows for vertical scrolling when page content overflows below footer
 mat-sidenav-content {
   max-height: calc(100vh - #{$mat-toolbars-height-desktop});
+
+  @media ($mat-xsmall) {
+    max-height: calc(100vh - #{$mat-toolbar-height-mobile});
+  }
 }
 
 .material-icons {
