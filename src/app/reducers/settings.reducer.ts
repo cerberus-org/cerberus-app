@@ -9,7 +9,7 @@ export interface State {
 }
 
 export const initialState: State = {
-  sidenavSelection: 'User',
+  sidenavSelection: 'user',
   visits: null,
   volunteers: null
 };
