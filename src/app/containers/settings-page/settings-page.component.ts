@@ -12,7 +12,6 @@ import { Organization } from '../../models/organization';
 import { Report } from '../../models/report';
 import { SidenavOptions } from '../../models/sidenav-options';
 import { User } from '../../models/user';
-import { Visit } from '../../models/visit';
 import { Volunteer } from '../../models/volunteer';
 import { State } from '../../reducers';
 
@@ -28,7 +27,6 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   visitsSubscription: Subscription;
   sidenavSelection: string;
   validReport: any;
-  visits: Visit[];
 
   userFormTitle: string;
   // User entered in form
@@ -131,13 +129,6 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       .subscribe(sidenavSelection => {
         this.sidenavSelection = sidenavSelection;
       });
-    // If visits[] changes generate report and set
-    this.visitsSubscription = settings$
-      .map(state => state.visits)
-      .distinctUntilChanged((a, b) => _.isEqual(a, b))
-      .subscribe(visits => {
-        this.visits = visits;
-      });
   }
 
   /**
@@ -156,6 +147,10 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     this.validOrganization = organization;
   }
 
+  /**
+   * Handles validReport events by setting validReport.
+   * @param {Report} report
+   */
   onValidReport(report: Report) {
     this.validReport = report;
   }
@@ -186,13 +181,18 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(new SettingsActions.DeleteVolunteer(volunteer));
   }
 
+  /**
+   * Handles submission of report form by dispatching appropriate report generation action.
+   */
   onSubmitReport() {
-    this.store.dispatch(new SettingsActions.GenerateVisitHistoryReport({
-      startedAt: this.validReport.startedAt,
-      endedAt: this.validReport.endedAt,
-      organizationId: this.initialOrganization.id,
-      volunteers: this.volunteers,
-    }));
+    if (this.validReport.title === 'Visit History') {
+      this.store.dispatch(new SettingsActions.GenerateVisitHistoryReport({
+        startedAt: this.validReport.startedAt,
+        endedAt: this.validReport.endedAt,
+        organizationId: this.initialOrganization.id,
+        volunteers: this.volunteers,
+      }));
+    }
   }
 
   ngOnDestroy(): void {

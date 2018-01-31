@@ -1,16 +1,13 @@
 import * as SettingsActions from '../actions/settings.actions';
-import { Visit } from '../models/visit';
 import { Volunteer } from '../models/volunteer';
 
 export interface State {
   sidenavSelection: string;
-  visits: Visit[];
   volunteers: Volunteer[];
 }
 
 export const initialState: State = {
   sidenavSelection: 'user',
-  visits: null,
   volunteers: null
 };
 

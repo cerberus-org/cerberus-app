@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Organization } from '../models/organization';
 import { User } from '../models/user';
-import { Visit } from '../models/visit';
 import { Volunteer } from '../models/volunteer';
 
 export const DELETE_VOLUNTEER = '[Settings] Delete volunteer';
