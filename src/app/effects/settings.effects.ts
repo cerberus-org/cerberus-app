@@ -15,17 +15,35 @@ import { AuthService } from '../services/auth.service';
 import { OrganizationService } from '../services/organization.service';
 import { SnackBarService } from '../services/snack-bar.service';
 import { VisitService } from '../services/visit.service';
+import { VolunteerService } from '../services/volunteer.service';
 
 @Injectable()
 export class SettingsEffects {
+
+  /**
+   * Listen for the LoadVolunteersPage action, get the volunteers, then dispatch the success action.
+   */
+  @Effect()
+  deleteVolunteer$: Observable<Action> = this.actions.ofType(SettingsActions.DELETE_VOLUNTEER)
+    .map((action: SettingsActions.DeleteVolunteer) => action.payload)
+    .switchMap(volunteer => this.volunteerService.delete(volunteer)
+      .map(() => new SettingsActions.DeleteVolunteerSuccess(volunteer)));
+
+  /**
+   * Listen for the LoadVolunteersPage action, get the volunteers, then dispatch the success action.
+   */
+  @Effect()
+  loadData$: Observable<Action> = this.actions.ofType(SettingsActions.LOAD_VOLUNTEERS_PAGE)
+    .map((action: SettingsActions.LoadVolunteersPage) => action.payload)
+    .switchMap(organizationId => this.volunteerService.getByKey('organizationId', organizationId, true)
+      .map(volunteers => new SettingsActions.LoadVolunteersPageSuccess(volunteers)));
 
   /**
    * Listen for the UpdateUser action, update user,
    * then dispatch action to app store and display success snack bar.
    */
   @Effect()
-  updateUser$: Observable<Action> = this.actions
-    .ofType(SettingsActions.UPDATE_USER)
+  updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
     .map((action: SettingsActions.UpdateUser) => action.payload)
     .switchMap(user => this.authService.updateUser(user)
       .map(() => {
@@ -38,8 +56,7 @@ export class SettingsEffects {
    * then dispatch an action to app store and display success snack bar.
    */
   @Effect()
-  updateOrganization$: Observable<Action> = this.actions
-    .ofType(SettingsActions.UPDATE_ORGANIZATION)
+  updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)
     .map((action: SettingsActions.UpdateOrganization) => action.payload)
     .switchMap(organization => this.organizationService.update(organization)
       .map(() => {
@@ -62,9 +79,10 @@ export class SettingsEffects {
       }));
 
   constructor(private actions: Actions,
-              private snackBarService: SnackBarService,
               private authService: AuthService,
               private organizationService: OrganizationService,
-              private visitService: VisitService) {
+              private snackBarService: SnackBarService,
+              private visitService: VisitService,
+              private volunteerService: VolunteerService) {
   }
 }

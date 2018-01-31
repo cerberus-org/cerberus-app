@@ -4,6 +4,14 @@
       <mat-header-cell *cdkHeaderCellDef>{{column.header}}</mat-header-cell>
       <mat-cell *cdkCellDef="let row">{{column.cell(row)}}</mat-cell>
     </ng-container>
+    <ng-container *ngIf="showDelete" cdkColumnDef="delete">
+      <mat-header-cell *cdkHeaderCellDef>Delete</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-icon-button color="warn" (click)="onClickDelete(row)">
+          <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
     <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>

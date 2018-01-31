@@ -1,16 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import * as jsPDF from 'jspdf';
 import * as _ from 'lodash';
-import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
+import { ColumnOptions } from '../../models/column-options';
 import { HeaderOptions } from '../../models/header-options';
 import { Organization } from '../../models/organization';
 import { SidenavOptions } from '../../models/sidenav-options';
 import { User } from '../../models/user';
 import { Visit } from '../../models/visit';
+import { Volunteer } from '../../models/volunteer';
 import { State } from '../../reducers';
 
 @Component({
@@ -21,7 +24,8 @@ import { State } from '../../reducers';
 export class SettingsPageComponent implements OnInit, OnDestroy {
 
   appSubscription: Subscription;
-  settingsSubscription: Subscription;
+  sidenavSelectionSubscription: Subscription;
+  visitsSubscription: Subscription;
   sidenavSelection: string;
   validReport: any;
   visits: Visit[];
@@ -36,12 +40,35 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   validOrganization: Organization;
   initialOrganization: Organization;
 
-  constructor(private store: Store<State>) {
+  volunteers$: Observable<Volunteer[]>;
+  volunteerTableOptions: ColumnOptions[];
+
+  constructor(public store: Store<State>) {
     this.userFormTitle = 'Update user data.';
     this.organizationFormTitle = 'Update organization data.';
   }
 
   ngOnInit() {
+    this.subscribeToApp();
+    this.subscribeToSettings();
+    this.volunteerTableOptions = [
+      new ColumnOptions(
+        'firstName',
+        'First Name',
+        (row: Volunteer) => row.firstName
+      ),
+      new ColumnOptions(
+        'lastName',
+        'Last Name',
+        (row: Volunteer) => row.lastName
+      ),
+      new ColumnOptions(
+        'petName',
+        'Pet Name',
+        (row: Volunteer) => row.petName
+      )
+    ];
+    // Dispatch setup actions
     this.store.dispatch(new AppActions.SetHeaderOptions(
       new HeaderOptions(
         'Settings',
@@ -50,19 +77,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
         false,
       )
     ));
-    this.store.dispatch(new AppActions.SetSidenavOptions([
-      new SidenavOptions('User', 'face', new SettingsActions.SetSidenavSelection('User')),
-      new SidenavOptions('Organization', 'domain', new SettingsActions.SetSidenavSelection('Organization')),
-      new SidenavOptions('Reports', 'assessment', new SettingsActions.SetSidenavSelection('Reports'))
-    ]));
-    this.subscribeToSettings();
-    this.subscribeToApp();
   }
 
   subscribeToApp() {
     // If user or organization changes, set
-    this.appSubscription = this.store
-      .select('app')
+    this.appSubscription = this.store.select('app')
       .map(state => {
         return {
           user: state.user,
@@ -73,21 +92,45 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
+        if (state.organization) {
+          this.store.dispatch(new AppActions.SetSidenavOptions([
+            new SidenavOptions(
+              'User',
+              'face',
+              new SettingsActions.LoadPage('user')
+            ),
+            new SidenavOptions(
+              'Organization',
+              'domain',
+              new SettingsActions.LoadPage('organization')
+            ),
+            new SidenavOptions(
+              'Volunteers',
+              'insert_emoticon',
+              new SettingsActions.LoadVolunteersPage(state.organization.id)
+            ),
+            new SidenavOptions(
+              'Reports',
+              'assessment',
+              new SettingsActions.LoadPage('Reports')
+            )
+          ]));
+        }
       });
   }
 
   subscribeToSettings() {
+    const settings$ = this.store.select('settings');
+    this.volunteers$ = settings$.map(state => state.volunteers);
     // If sidenavSelection changes, set
-    this.settingsSubscription = this.store
-      .select('settings')
+    this.sidenavSelectionSubscription = settings$
       .map(state => state.sidenavSelection)
       .distinctUntilChanged((a, b) => _.isEqual(a, b))
       .subscribe(sidenavSelection => {
         this.sidenavSelection = sidenavSelection;
       });
     // If visits[] changes generate report and set
-    this.settingsSubscription = this.store
-      .select('settings')
+    this.visitsSubscription = settings$
       .map(state => state.visits)
       .distinctUntilChanged((a, b) => _.isEqual(a, b))
       .subscribe(visits => {
@@ -97,42 +140,49 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Once the user-form emits an event,
-   * set user.
-   * @param $event
+   * Handles validUser events by setting validUser.
+   * @param user - a valid user when valid, null when invalid
    */
-  setUser($event) {
-    this.validUser = $event;
+  onValidUser(user: User) {
+    this.validUser = user;
   }
 
   /**
-   * Once the organization-form emits an event,
-   * set organization.
-   * @param $event
+   * Handles validOrganization events by setting validOrganization.
+   * @param organization - a valid organization when valid, null when invalid
    */
-  setOrganization($event) {
-    this.validOrganization = $event;
+  onValidOrganization(organization: Organization) {
+    this.validOrganization = organization;
   }
 
   /**
-   * Once the report-form emits an event,
-   * set report.
-   * @param $event
+   * Handles submission of user form by dispatching an UpdateUser action.
    */
+  onSubmitUser(user: User, id: string) {
+    this.store.dispatch(new SettingsActions.UpdateUser(
+      Object.assign({}, user, { id })
+    ));
+  }
+
+  /**
+   * Handles submission of organization form by dispatching an UpdateOrganization action.
+   */
+  onSubmitOrganization(organization: Organization, id: string) {
+    this.store.dispatch(new SettingsActions.UpdateOrganization(
+      Object.assign({}, organization, { id })
+    ));
+  }
+
+  /**
+   * Handles deleteVolunteer events by dispatching a DeleteVolunteer action.
+   * @param volunteer - the volunteer to be deleted
+   */
+  onDeleteVolunteer(volunteer: Volunteer) {
+    this.store.dispatch(new SettingsActions.DeleteVolunteer(volunteer));
+  }
+
   setReport($event) {
     this.validReport = $event;
-  }
-
-  onUserFormSubmit() {
-    this.store.dispatch(new SettingsActions.UpdateUser(
-      Object.assign({}, this.validUser, { id: this.initialUser.id })
-    ));
-  }
-
-  onOrganizationFormSubmit() {
-    this.store.dispatch(new SettingsActions.UpdateOrganization(
-      Object.assign({}, this.validOrganization, { id: this.initialOrganization.id })
-    ));
   }
 
   onReportSubmit() {
@@ -157,8 +207,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     if (this.appSubscription) {
       this.appSubscription.unsubscribe();
     }
-    if (this.settingsSubscription) {
-      this.settingsSubscription.unsubscribe();
+    if (this.sidenavSelectionSubscription) {
+      this.sidenavSelectionSubscription.unsubscribe();
+    }
+    if (this.visitsSubscription) {
+      this.visitsSubscription.unsubscribe();
     }
   }
 }

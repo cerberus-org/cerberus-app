@@ -1,11 +1,12 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
+import { MatIconModule, MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs/Observable';
 
 import { testColumnOptions } from '../../models/column-options';
 import { testVisits } from '../../models/visit';
+import { testVolunteers } from '../../models/volunteer';
 import { DataTableComponent, DataTableSource } from './data-table.component';
 
 describe('DataTableComponent', () => {
@@ -19,6 +20,7 @@ describe('DataTableComponent', () => {
       ],
       imports: [
         CdkTableModule,
+        MatIconModule,
         MatListModule,
         MatPaginatorModule,
         MatTableModule,
@@ -45,5 +47,12 @@ describe('DataTableComponent', () => {
     component.paginator.pageSize = 2;
     const pageData = component.dataSource.getPageData();
     expect(pageData.length).toEqual(2);
+  });
+
+  it('should emit a clickDelete event on clicking the delete button', () => {
+    spyOn(component.deleteItem, 'emit');
+    const item = testVolunteers[0];
+    component.onClickDelete(item);
+    expect(component.deleteItem.emit).toHaveBeenCalledWith(item);
   });
 });
