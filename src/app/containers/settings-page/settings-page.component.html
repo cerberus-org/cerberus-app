@@ -10,7 +10,7 @@
     <button
       mat-raised-button
       color="primary"
-      (click)="onSubmitUser(validUser)"
+      (click)="onSubmitUser(validUser, initialUser.id)"
       [disabled]="!validUser">
       Submit
     </button>
@@ -27,18 +27,12 @@
     <button
       mat-raised-button
       color="primary"
-      (click)="onSubmitOrganization()"
+      (click)="onSubmitOrganization(validOrganization, initialOrganization.id)"
       [disabled]="!validOrganization">
       Submit
     </button>
   </div>
 </div>
-<div *ngIf="sidenavSelection == 'Reports'">
-  <app-reports-form
-    (validReport)="setReport($event)">
-  </app-reports-form>
-  <div class="container-button">
-    <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onReportSubmit()">Generate Report</button>
 <!--Volunteer data table-->
 <div *ngIf="sidenavSelection === 'volunteers'">
   <app-data-table
@@ -47,12 +41,12 @@
     [showDelete]="true"
     (deleteItem)="onDeleteVolunteer($event)">
   </app-data-table>
-  <div *ngIf="sidenavSelection == 'Reports'">
-    <app-reports-form
-      (validReport)="setReport($event)">
-    </app-reports-form>
-    <div class="container-button">
-      <button mat-raised-button color="primary" [disabled]="!validReport">Generate Report</button>
-    </div>
+</div>
+<div *ngIf="sidenavSelection == 'Reports'">
+  <app-reports-form
+    (validReport)="setReport($event)">
+  </app-reports-form>
+  <div class="container-button">
+    <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onReportSubmit()">Generate Report</button>
   </div>
 </div>

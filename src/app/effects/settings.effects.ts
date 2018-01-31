@@ -82,6 +82,7 @@ export class SettingsEffects {
               private authService: AuthService,
               private organizationService: OrganizationService,
               private snackBarService: SnackBarService,
+              private visitService: VisitService,
               private volunteerService: VolunteerService) {
   }
 }

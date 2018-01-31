@@ -27,7 +27,7 @@ describe('SettingsPageComponent', () => {
         StoreModule.forRoot(reducers)
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -53,17 +53,21 @@ describe('SettingsPageComponent', () => {
   it('should handle submitUser events by dispatching SettingsActions.UpdateUser', () => {
     spyOn(component.store, 'dispatch');
     const user = testUsers[0];
-    component.onSubmitUser(user);
+    const id = 'testId';
+    const expected = Object.assign({}, user, { id });
+    component.onSubmitUser(user, id);
     expect(component.store.dispatch)
-      .toHaveBeenCalledWith(new SettingsActions.UpdateUser(user));
+      .toHaveBeenCalledWith(new SettingsActions.UpdateUser(expected));
   });
 
   it('should handle updateOrganization events by dispatching SettingsActions.UpdateOrganization', () => {
     spyOn(component.store, 'dispatch');
     const organization = testOrganizations[0];
-    component.onSubmitOrganization(organization);
+    const id = 'testId';
+    const expected = Object.assign({}, organization, { id });
+    component.onSubmitOrganization(organization, id);
     expect(component.store.dispatch)
-      .toHaveBeenCalledWith(new SettingsActions.UpdateOrganization(organization));
+      .toHaveBeenCalledWith(new SettingsActions.UpdateOrganization(expected));
   });
 
   it('should handle deleteVolunteer events by dispatching SettingsActions.DeleteVolunteer', () => {

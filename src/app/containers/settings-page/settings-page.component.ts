@@ -24,7 +24,8 @@ import { State } from '../../reducers';
 export class SettingsPageComponent implements OnInit, OnDestroy {
 
   appSubscription: Subscription;
-  settingsSubscription: Subscription;
+  sidenavSelectionSubscription: Subscription;
+  visitsSubscription: Subscription;
   sidenavSelection: string;
   validReport: any;
   visits: Visit[];
@@ -48,6 +49,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.subscribeToApp();
+    this.subscribeToSettings();
     this.volunteerTableOptions = [
       new ColumnOptions(
         'firstName',
@@ -74,18 +77,10 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
         false,
       )
     ));
-    this.store.dispatch(new AppActions.SetSidenavOptions([
-      new SidenavOptions('User', 'face', new SettingsActions.SetSidenavSelection('User')),
-      new SidenavOptions('Organization', 'domain', new SettingsActions.SetSidenavSelection('Organization')),
-      new SidenavOptions('Reports', 'assessment', new SettingsActions.SetSidenavSelection('Reports'))
-    ]));
-    this.subscribeToSettings();
-    this.subscribeToApp();
   }
 
   subscribeToApp() {
     // If user or organization changes, set
-    this.volunteers$ = settings$.map(state => state.volunteers);
     this.appSubscription = this.store.select('app')
       .map(state => {
         return {
@@ -125,17 +120,17 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   subscribeToSettings() {
+    const settings$ = this.store.select('settings');
+    this.volunteers$ = settings$.map(state => state.volunteers);
     // If sidenavSelection changes, set
-    this.settingsSubscription = this.store
-      .select('settings')
+    this.sidenavSelectionSubscription = settings$
       .map(state => state.sidenavSelection)
       .distinctUntilChanged((a, b) => _.isEqual(a, b))
       .subscribe(sidenavSelection => {
         this.sidenavSelection = sidenavSelection;
       });
     // If visits[] changes generate report and set
-    this.settingsSubscription = this.store
-      .select('settings')
+    this.visitsSubscription = settings$
       .map(state => state.visits)
       .distinctUntilChanged((a, b) => _.isEqual(a, b))
       .subscribe(visits => {
@@ -163,15 +158,19 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   /**
    * Handles submission of user form by dispatching an UpdateUser action.
    */
-  onSubmitUser(user: User) {
-    this.store.dispatch(new SettingsActions.UpdateUser(user));
+  onSubmitUser(user: User, id: string) {
+    this.store.dispatch(new SettingsActions.UpdateUser(
+      Object.assign({}, user, { id })
+    ));
   }
 
   /**
    * Handles submission of organization form by dispatching an UpdateOrganization action.
    */
-  onSubmitOrganization() {
-    this.store.dispatch(new SettingsActions.UpdateOrganization(this.validOrganization));
+  onSubmitOrganization(organization: Organization, id: string) {
+    this.store.dispatch(new SettingsActions.UpdateOrganization(
+      Object.assign({}, organization, { id })
+    ));
   }
 
   /**
@@ -208,8 +207,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     if (this.appSubscription) {
       this.appSubscription.unsubscribe();
     }
-    if (this.settingsSubscription) {
-      this.settingsSubscription.unsubscribe();
+    if (this.sidenavSelectionSubscription) {
+      this.sidenavSelectionSubscription.unsubscribe();
+    }
+    if (this.visitsSubscription) {
+      this.visitsSubscription.unsubscribe();
     }
   }
 }
