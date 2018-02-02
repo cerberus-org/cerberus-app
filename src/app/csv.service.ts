@@ -1,39 +1,10 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
-import { formatDuration } from './functions/date-format';
-import { Visit } from './models/visit';
-import { Volunteer } from './models/volunteer';
 
 @Injectable()
 export class CsvService {
 
   constructor() {}
-
-  /**
-   * Return an array with visits and with the associated volunteer name and visit duration.
-   * @param {Visit[]} visits
-   * @param {Volunteer[]} volunteers
-   * @returns {any[]}
-   */
-  mapVisitsToVolunteers(visits: Visit[], volunteers: Volunteer[]): any[] {
-    let found = false;
-    const volunteerHistory = [];
-    for (const visit of visits) {
-      for (const volunteer of volunteers) {
-        if (visit.volunteerId === volunteer.id) {
-          found = true;
-          volunteerHistory.push(
-            Object.assign({}, visit, { name: volunteer.firstName + ' ' + volunteer.lastName, duration: formatDuration(visit.startedAt, visit.endedAt, visit.timezone) })
-          )
-        }
-      }
-      if (!found) {
-        volunteerHistory.push(Object.assign({}, visit, { name: 'Deleted Volunteer', duration: formatDuration(visit.startedAt, visit.endedAt, visit.timezone) }));
-      }
-      found = false;
-    }
-    return volunteerHistory;
-  }
 
   /**
    * Retrieved from http://vteams.com/blog/using-angular2-to-convert-json-to-csv/

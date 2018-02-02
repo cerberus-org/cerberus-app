@@ -17,6 +17,7 @@ import { SnackBarService } from '../services/snack-bar.service';
 import { VisitService } from '../services/visit.service';
 import { VolunteerService } from '../services/volunteer.service';
 import { CsvService } from '../csv.service';
+import { mapVisitsToVolunteers } from '../functions/transducer';
 
 @Injectable()
 export class SettingsEffects {
@@ -83,7 +84,7 @@ export class SettingsEffects {
           [ 'name', 'Name'],
         ]);
         this.csvService.downloadAsCsv(
-          this.csvService.mapVisitsToVolunteers(visits, payload.volunteers), 'VisitHistory.csv', propertiesToColumnTitles
+          mapVisitsToVolunteers(visits, payload.volunteers), 'VisitHistory.csv', propertiesToColumnTitles
         );
       }));
 
