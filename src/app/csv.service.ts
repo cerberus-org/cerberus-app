@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
+import { testVisits, Visit } from './models/visit';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CsvService {
@@ -53,5 +55,18 @@ export class CsvService {
       str += newRow;
     });
     return str;
+  }
+}
+
+export class MockCsvService extends CsvService {
+
+  constructor() {
+    super();
+  }
+
+  downloadAsCsv(): void {}
+
+  covertToCommaSeparatedString(data: any[], propertiesToColumnTitles: Map<string, string>): string {
+    return 'a, b, c';
   }
 }
