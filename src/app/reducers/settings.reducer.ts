@@ -28,13 +28,6 @@ export function reducer(state = initialState, action: Action): State {
       });
     }
 
-    case SettingsActions.LOAD_VOLUNTEERS_PAGE_SUCCESS: {
-      return Object.assign({}, state, {
-        sidenavSelection: 'volunteers',
-        volunteers: action.payload
-      });
-    }
-
     default: {
       return state;
     }
