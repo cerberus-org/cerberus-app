@@ -22,7 +22,7 @@ Run `yarn test` to execute all unit tests with code coverage.
 
 ## Running end-to-end tests
 Run `yarn e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/). 
-Before running the tests make sure you are serving the app via `npm start`.
+Before running the tests make sure you are serving the app via `yarn start`.
 
 ## Running TSLint
 Run `yarn lint` (frontend) to execute the linter via [TSLint](https://palantir.github.io/tslint/).
