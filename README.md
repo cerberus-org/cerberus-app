@@ -9,7 +9,7 @@ This project is built with [Angular](https://angular.io/) and [Firebase](https:/
 
 ## Prerequisites
 1. Install [Yarn](https://yarnpkg.com/en/): `brew install yarn`
-2. Install Angular CLI: `npm i -g @angular/cli`
+2. Install [Angular CLI](https://cli.angular.io/): `npm i -g @angular/cli`
 3. From project root folder install all the dependencies: `yarn install`
 
 ## Running the app
