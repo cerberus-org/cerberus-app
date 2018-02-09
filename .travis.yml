@@ -35,6 +35,7 @@ install:
 script:
   - yarn run test:ci
   - yarn run lint
+  - yarn run build:dev
 
 after_success:
   - codecov
