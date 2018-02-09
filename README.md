@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/cerberus-org/cerberus-app.svg?branch=master)](https://travis-ci.org/cerberus-org/cerberus-app)
+[![codecov](https://codecov.io/gh/cerberus-org/cerberus-app/branch/master/graph/badge.svg)](https://codecov.io/gh/cerberus-org/cerberus-app)
 ![Dependencies](https://david-dm.org/cerberus-org/cerberus-app.svg)
 
 # Cerberus

@@ -29,12 +29,16 @@ before_install:
 install:
   - yarn global add @angular/cli
   - yarn global add firebase-tools
+  - yarn global add codecov
   - yarn install
 
 script:
   - yarn run test:ci
   - yarn run lint
   - yarn run build:dev
+
+after_success:
+  - codecov
 
 before_deploy:
   - if [[ "$TRAVIS_BRANCH" = "master" ]]; then yarn run build:dev; fi
