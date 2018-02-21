@@ -3,8 +3,8 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/observable/of';
-import { CsvService, MockCsvService } from '../services/csv.service';
 import { AuthService, MockAuthService } from '../services/auth.service';
+import { CsvService, MockCsvService } from '../services/csv.service';
 import { MockOrganizationService, OrganizationService } from '../services/organization.service';
 import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
 import { MockVisitService, VisitService } from '../services/visit.service';

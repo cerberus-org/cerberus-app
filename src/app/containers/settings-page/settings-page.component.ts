@@ -76,8 +76,10 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
         false,
       )
     ));
-    // Load volunteers into store
-    this.store.dispatch(new SettingsActions.LoadVolunteersPage(this.initialOrganization.id));
+    if (this.initialOrganization) {
+      // Load volunteers into store
+      this.store.dispatch(new SettingsActions.LoadVolunteersPage(this.initialOrganization.id));
+    }
   }
 
   subscribeToApp() {
