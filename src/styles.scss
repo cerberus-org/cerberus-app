@@ -59,6 +59,11 @@ input.capitalize {
   grid-gap: 0.5rem;
 }
 
+.input-row {
+  width: calc(360px + 0.5rem);
+  max-width: calc(100vw - 2rem);
+}
+
 .hide-xs {
   @media ($mat-xsmall) {
     display: none !important;

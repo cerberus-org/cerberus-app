@@ -4,11 +4,16 @@
     <mat-form-field class="input-row">
       <input matInput class="capitalize" maxlength="70" placeholder="Organization name" formControlName="name">
     </mat-form-field>
+  </div>
+  <div class="container-center">
     <mat-form-field class="input-row">
       <input matInput placeholder="Website" maxlength="255" formControlName="website">
     </mat-form-field>
+  </div>
+  <div class="container-center">
     <mat-form-field class="input-row">
-      <textarea matInput #description maxlength="160" placeholder="Short description" formControlName="description"></textarea>
+    <textarea matInput #description maxlength="160" placeholder="Short description"
+              formControlName="description"></textarea>
       <mat-hint align="end">{{description.value.length}} / 160</mat-hint>
     </mat-form-field>
   </div>
