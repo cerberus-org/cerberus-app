@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-import { testVisits, Visit } from '../models/visit';
 
 @Injectable()
 export class CsvService {
@@ -47,7 +45,6 @@ export class CsvService {
     // Create comma separated string of data[]
     data.forEach(function (object) {
       Object.keys(object).forEach(function (key) {
-        console.log(key);
         if (propertiesToColumnTitles.has(key)) {
           str += object[key] + ',';
         }
