@@ -17,19 +17,25 @@ html, body {
 }
 
 h1 {
-  margin: 0 1rem;
+  margin: 1rem;
   font-weight: lighter;
   letter-spacing: 1px;
 }
 
 h2, h3, h4 {
-  margin: 0 1rem;
+  margin: 1rem;
   font-weight: lighter;
   letter-spacing: 1px;
 }
 
+p {
+  margin: 1rem;
+  font-weight: 200;
+  letter-spacing: 1px;
+}
+
 .loose {
-  margin-top: 2rem;
+  margin-top: 1rem;
   grid-row-gap: 1rem;
 }
 
