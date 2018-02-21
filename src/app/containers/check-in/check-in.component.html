@@ -1,6 +1,6 @@
 <div class="container">
-  <mat-tab-group mat-stretch-tabs dynamicHeight #tabGroup>
-    <mat-tab label="Check In">
+  <mat-tab-group mat-stretch-tabs [dynamicHeight]="true" #tabGroup>
+    <mat-tab label="Record Visit">
       <app-check-in-form
         [organizationId]="organizationId"
         [siteId]="siteId"
