@@ -11,13 +11,13 @@ import { Observable } from 'rxjs/Observable';
 
 import * as AppActions from '../actions/app.actions';
 import * as SettingsActions from '../actions/settings.actions';
+import { CsvService } from '../services/csv.service';
+import { mapVisitsToVolunteers } from '../functions/transducer';
 import { AuthService } from '../services/auth.service';
 import { OrganizationService } from '../services/organization.service';
 import { SnackBarService } from '../services/snack-bar.service';
 import { VisitService } from '../services/visit.service';
 import { VolunteerService } from '../services/volunteer.service';
-import { CsvService } from '../csv.service';
-import { mapVisitsToVolunteers } from '../functions/transducer';
 
 @Injectable()
 export class SettingsEffects {

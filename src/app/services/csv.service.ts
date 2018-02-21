@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/Rx';
-import { testVisits, Visit } from './models/visit';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
+import { testVisits, Visit } from '../models/visit';
 
 @Injectable()
 export class CsvService {

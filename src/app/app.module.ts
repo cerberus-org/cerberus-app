@@ -61,6 +61,7 @@ import { VolunteerService } from './services/volunteer.service';
 import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { CsvService } from './services/csv.service';
 import { AppEffects } from './effects/app.effects';
 import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
@@ -70,7 +71,6 @@ import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
 import { VerificationGuard } from './verification-guard';
-import { CsvService } from './csv.service';
 
 @NgModule({
   declarations: [
