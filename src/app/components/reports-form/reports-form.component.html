@@ -12,12 +12,6 @@
       <mat-datepicker #endPicker></mat-datepicker>
     </mat-form-field>
   </div>
-  <!--checkboxes-->
-  <div class="container inline">
-    <mat-radio-group formControlName="period">
-      <mat-radio-button class="radioBoxes" *ngFor="let period of periods"  value={{period}}>{{period}}</mat-radio-button>
-    </mat-radio-group>
-  </div>
   <!--report options-->
   <div *ngFor="let reportOption of reportOptions">
     <mat-slide-toggle (change)="setReportOption($event, reportOption)">{{reportOption}}</mat-slide-toggle>

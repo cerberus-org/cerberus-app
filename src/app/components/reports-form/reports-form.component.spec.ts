@@ -44,13 +44,11 @@ describe('ReportsFormComponent', () => {
     spyOn(component.validReport, 'emit');
     const start = testReports[0].startedAt;
     const end = testReports[0].endedAt;
-    const period = testReports[0].period;
     const selectedReport = testReports[0].title;
     component.formGroup.controls['start'].setValue(start);
     component.formGroup.controls['end'].setValue(end);
-    component.formGroup.controls['period'].setValue(period);
     component.formGroup.controls['selectedReport'].setValue(selectedReport);
-    expect(component.validReport.emit).toHaveBeenCalledWith(new Report(start, end, period, selectedReport));
+    expect(component.validReport.emit).toHaveBeenCalledWith(new Report(start, end, selectedReport));
   });
 
   describe('start control', () => {
@@ -79,21 +77,6 @@ describe('ReportsFormComponent', () => {
     it('should accept a valid end date', (() => {
       const control = component.formGroup.controls['end'];
       control.setValue(testReports[0].endedAt);
-      expect(control.valid).toBeTruthy();
-    }));
-  });
-
-  describe('period control', () => {
-
-    it('should validate requirement', (() => {
-      const control = component.formGroup.controls['period'];
-      expect(control.valid).toBeFalsy();
-      expect(control.errors['required']).toBeTruthy();
-    }));
-
-    it('should accept a valid period', (() => {
-      const control = component.formGroup.controls['period'];
-      control.setValue(testReports[0].period);
       expect(control.valid).toBeTruthy();
     }));
   });
