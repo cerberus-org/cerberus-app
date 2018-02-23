@@ -11,7 +11,9 @@ import { Observable } from 'rxjs/Observable';
 
 import * as AppActions from '../actions/app.actions';
 import * as SettingsActions from '../actions/settings.actions';
+import { getVisitsWithVolunteerNames } from '../functions/transducer';
 import { AuthService } from '../services/auth.service';
+import { CsvService } from '../services/csv.service';
 import { OrganizationService } from '../services/organization.service';
 import { SnackBarService } from '../services/snack-bar.service';
 import { VisitService } from '../services/visit.service';
@@ -65,17 +67,25 @@ export class SettingsEffects {
       }));
 
   /**
-   * Listen for the getVisitsByDateAndOrganization action, get visits by start date, end date, and organizationId
-   * then dispatch an action to the settings store.
-   * @type {Observable<LoadVisitsByDatesSuccess>}
+   * Listen for the GenerateVisitHistoryReport, get visits by date range and organization,
+   * then download data as csv.
+   * @type {Observable<Visit[]>}
    */
-  @Effect()
-  loadVisitsByDateAndOrganization$: Observable<Action> = this.actions
-    .ofType(SettingsActions.LOAD_VISITS_BY_DATE_AND_ORGANIZATION)
-    .map((action: SettingsActions.LoadVisitsByDateAndOrganization) => action.payload)
+  @Effect({ dispatch: false })
+  generateVisitHistoryReport$ = this.actions
+    .ofType(SettingsActions.GENERATE_VISIT_HISTORY_REPORT)
+    .map((action: SettingsActions.GenerateVisitHistoryReport) => action.payload)
     .switchMap(payload => this.visitService.getByDateAndOrganization(payload.startedAt, payload.endedAt, payload.organizationId, true)
-      .map(visits => {
-        return new SettingsActions.LoadVisitsByDateAndOrganizationSuccess(visits)
+      .do(visits => {
+        const propertiesToColumnTitles = new Map([
+          [ 'startedAt', 'Started At' ],
+          [ 'endedAt', 'Ended At' ],
+          [ 'duration', 'Duration'],
+          [ 'name', 'Name'],
+        ]);
+        this.csvService.downloadAsCsv(
+          getVisitsWithVolunteerNames(visits, payload.volunteers), 'VisitHistory.csv', propertiesToColumnTitles
+        );
       }));
 
   constructor(private actions: Actions,
@@ -83,6 +93,7 @@ export class SettingsEffects {
               private organizationService: OrganizationService,
               private snackBarService: SnackBarService,
               private visitService: VisitService,
-              private volunteerService: VolunteerService) {
+              private volunteerService: VolunteerService,
+              private csvService: CsvService) {
   }
 }

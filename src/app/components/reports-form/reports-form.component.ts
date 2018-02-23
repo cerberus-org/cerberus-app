@@ -15,12 +15,10 @@ export class ReportsFormComponent implements OnInit {
   formSubscription: Subscription;
   @Output() validReport = new EventEmitter();
   reportOptions: string[];
-  periods: string[];
   toggles: MatSlideToggle[];
 
   constructor(private fb: FormBuilder) {
-    this.periods = ['Year', 'Month', 'Week', 'Day'];
-    this.reportOptions = [ 'Report A', 'Report B'];
+    this.reportOptions = [ 'Visit History', 'Report B'];
     this.toggles = [];
   }
 
@@ -33,7 +31,6 @@ export class ReportsFormComponent implements OnInit {
     return this.fb.group({
       start: ['', Validators.required],
       end: ['', Validators.required],
-      period: ['', Validators.required],
       selectedReport: ['', Validators.required],
     });
   }
@@ -54,8 +51,6 @@ export class ReportsFormComponent implements OnInit {
     } else {
       this.formGroup.controls['selectedReport'].setValue(null);
     }
-    console.log(event);
-
   }
 
   /**
@@ -79,7 +74,7 @@ export class ReportsFormComponent implements OnInit {
     return this.formGroup.valueChanges.subscribe(() => {
       if (this.formGroup.valid) {
         const value = this.formGroup.value;
-        this.validReport.emit(new Report(value.start, value.end, value.period, value.selectedReport))
+        this.validReport.emit(new Report(value.start, value.end, value.selectedReport))
       } else {
         this.validReport.emit(null);
       }

@@ -14,15 +14,4 @@ describe('settingsReducer', () => {
       expect(state.sidenavSelection).toEqual('Organization');
     });
   });
-
-  describe('LOAD_VISITS_BY_DATE_AND_ORGANIZATION_SUCCESS', () => {
-
-    it('loads visits', () => {
-      const state = fromSettings.reducer(
-        fromSettings.initialState,
-        new SettingsActions.LoadVisitsByDateAndOrganizationSuccess(testVisits)
-      );
-      expect(state.visits).toEqual(testVisits);
-    });
-  });
 });

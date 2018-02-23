@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Organization } from '../models/organization';
 import { User } from '../models/user';
-import { Visit } from '../models/visit';
 import { Volunteer } from '../models/volunteer';
 
 export const DELETE_VOLUNTEER = '[Settings] Delete volunteer';
@@ -11,8 +10,7 @@ export const LOAD_VOLUNTEERS_PAGE = '[Settings] Load volunteers page';
 export const LOAD_VOLUNTEERS_PAGE_SUCCESS = '[Settings] Load volunteers page success';
 export const UPDATE_USER = '[Settings] Update user';
 export const UPDATE_ORGANIZATION = '[Settings] Update organization';
-export const LOAD_VISITS_BY_DATE_AND_ORGANIZATION = '[get visits by date and organization] Get visits by date and organization';
-export const LOAD_VISITS_BY_DATE_AND_ORGANIZATION_SUCCESS = '[get visits by dates success] Get visits by date and organization success';
+export const GENERATE_VISIT_HISTORY_REPORT = '[Export csv of visit history] Export csv of visit history';
 
 export class DeleteVolunteer implements Action {
   readonly type = DELETE_VOLUNTEER;
@@ -56,20 +54,15 @@ export class UpdateOrganization implements Action {
   constructor(public payload: Organization) {}
 }
 
-export class LoadVisitsByDateAndOrganization implements Action {
-  readonly type = LOAD_VISITS_BY_DATE_AND_ORGANIZATION;
+export class GenerateVisitHistoryReport implements Action {
+  readonly type = GENERATE_VISIT_HISTORY_REPORT;
 
   constructor(public payload: {
     startedAt: Date,
     endedAt: Date,
     organizationId: string,
+    volunteers: Volunteer[],
   }) {}
-}
-
-export class LoadVisitsByDateAndOrganizationSuccess implements Action {
-  readonly type = LOAD_VISITS_BY_DATE_AND_ORGANIZATION_SUCCESS;
-
-  constructor(public payload: Visit[]) {}
 }
 
 export type All
@@ -80,5 +73,4 @@ export type All
   | LoadVolunteersPageSuccess
   | UpdateUser
   | UpdateOrganization
-  | LoadVisitsByDateAndOrganization
-  | LoadVisitsByDateAndOrganizationSuccess;
+  | GenerateVisitHistoryReport;
