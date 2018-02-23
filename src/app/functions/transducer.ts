@@ -2,28 +2,24 @@ import { Visit } from '../models/visit';
 import { Volunteer } from '../models/volunteer';
 import { formatDuration } from './date-format';
 
+const getName = (volunteer: Volunteer) => (
+  volunteer
+    ? `${volunteer.firstName} ${volunteer.lastName}`
+    : '(deleted)'
+);
+
 /**
  * Return an array with visits and with the associated volunteer name and visit duration.
  * @param {Visit[]} visits
  * @param {Volunteer[]} volunteers
  * @returns {any[]}
  */
-export const mapVisitsToVolunteers = function(visits: Visit[], volunteers: Volunteer[]): any[] {
-  let found = false;
-  const volunteerHistory = [];
-  for (const visit of visits) {
-    for (const volunteer of volunteers) {
-      if (visit.volunteerId === volunteer.id) {
-        found = true;
-        volunteerHistory.push(
-          Object.assign({}, visit, { name: volunteer.firstName + ' ' + volunteer.lastName, duration: formatDuration(visit.startedAt, visit.endedAt, visit.timezone) })
-        )
-      }
-    }
-    if (!found) {
-      volunteerHistory.push(Object.assign({}, visit, { name: 'Deleted Volunteer', duration: formatDuration(visit.startedAt, visit.endedAt, visit.timezone) }));
-    }
-    found = false;
-  }
-  return volunteerHistory;
-};
+export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunteer[]) => (
+  visits.map(visit => Object.assign(
+    {},
+    visit,
+    { duration: visit.endedAt ? formatDuration(visit.startedAt, visit.endedAt, visit.timezone) : '' },
+    { endedAt: visit.endedAt ? visit.endedAt : '(no check-out)' },
+    { name: getName(volunteers.find(volunteer => volunteer.id === visit.volunteerId)) },
+  ))
+);

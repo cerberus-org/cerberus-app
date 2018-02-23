@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 
 import * as AppActions from '../actions/app.actions';
 import * as SettingsActions from '../actions/settings.actions';
-import { mapVisitsToVolunteers } from '../functions/transducer';
+import { getVisitsWithVolunteerNames } from '../functions/transducer';
 import { AuthService } from '../services/auth.service';
 import { CsvService } from '../services/csv.service';
 import { OrganizationService } from '../services/organization.service';
@@ -84,7 +84,7 @@ export class SettingsEffects {
           [ 'name', 'Name'],
         ]);
         this.csvService.downloadAsCsv(
-          mapVisitsToVolunteers(visits, payload.volunteers), 'VisitHistory.csv', propertiesToColumnTitles
+          getVisitsWithVolunteerNames(visits, payload.volunteers), 'VisitHistory.csv', propertiesToColumnTitles
         );
       }));
 
