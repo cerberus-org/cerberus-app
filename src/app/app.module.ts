@@ -69,6 +69,7 @@ import { LoginEffects } from './effects/login.effects';
 import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
+import { CsvService } from './services/csv.service';
 import { VerificationGuard } from './verification-guard';
 
 @NgModule({
@@ -141,6 +142,7 @@ import { VerificationGuard } from './verification-guard';
   ],
   providers: [
     AuthService,
+    CsvService,
     ErrorService,
     LoginGuard,
     OrganizationService,

@@ -50,6 +50,12 @@ describe('SettingsPageComponent', () => {
     expect(component.validOrganization).toBe(testOrganizations[0]);
   });
 
+
+  it('should handle validReport events by setting validReport', () => {
+    component.onValidReport(testReports[0]);
+    expect(component.validReport).toBe(testReports[0]);
+  });
+
   it('should handle submitUser events by dispatching SettingsActions.UpdateUser', () => {
     spyOn(component.store, 'dispatch');
     const user = testUsers[0];
@@ -78,8 +84,18 @@ describe('SettingsPageComponent', () => {
       .toHaveBeenCalledWith(new SettingsActions.DeleteVolunteer(volunteer));
   });
 
-  it('should set report', () => {
-    component.setReport(testReports[0]);
-    expect(component.validReport).toBe(testReports[0]);
-  })
+  it('should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport', () => {
+    spyOn(component.store, 'dispatch');
+    component.validReport = testReports[0];
+    component.initialOrganization = testOrganizations[0];
+    component.volunteers = testVolunteers;
+    component.onSubmitReport();
+    expect(component.store.dispatch)
+      .toHaveBeenCalledWith(new SettingsActions.GenerateVisitHistoryReport({
+        startedAt: testReports[0].startedAt,
+        endedAt: testReports[0].endedAt,
+        organizationId: testOrganizations[0].id,
+        volunteers: testVolunteers,
+       }));
+  });
 });
