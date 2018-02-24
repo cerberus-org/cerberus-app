@@ -1,0 +1,8 @@
+<app-user-form
+  [title]="userFormTitle"
+  (validUser)="onValidUser($event)"
+  [passwordRequired]="true">
+</app-user-form>
+<div class="container-submit">
+  <button mat-raised-button color="primary" [disabled]="!validUser" (click)="onJoinOrganization()">Request to Join</button>
+</div>

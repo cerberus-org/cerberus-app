@@ -57,6 +57,7 @@ import { VolunteerService } from './services/volunteer.service';
 import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { JoinPageComponent } from './containers/join-page/join-page.component';
 import { AuthEffects } from './effects/auth.effects';
 import { CheckInEffects } from './effects/check-in.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
@@ -92,6 +93,7 @@ import { VerificationGuard } from './verification-guard';
     VerificationDialogComponent,
     SidenavComponent,
     ReportsFormComponent,
+    JoinPageComponent,
   ],
   imports: [
     AngularFireAuthModule,

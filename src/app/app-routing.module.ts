@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CheckInComponent } from './containers/check-in/check-in.component';
 import { GettingStartedComponent } from './containers/getting-started/getting-started.component';
+import {JoinPageComponent} from './containers/join-page/join-page.component';
 import { LoginComponent } from './containers/login/login.component';
 import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
 import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'dashboard', component: OrganizationDashboardComponent, canActivate : [LoginGuard] },
   { path: 'checkin/:id', component: CheckInComponent, canActivate : [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },
+  { path: 'join', component: JoinPageComponent },
   { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];

@@ -50,4 +50,8 @@ export class LoginComponent implements OnInit {
   onNewOrganization() {
     this.router.navigateByUrl('/start');
   }
+
+  onJoinOrganization() {
+    this.router.navigateByUrl('/join');
+  }
 }
