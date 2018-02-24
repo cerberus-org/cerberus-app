@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import * as _ from 'lodash';
 import { Subscription } from 'rxjs/Subscription';
 
-import * as _ from 'lodash';
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
 import { HeaderOptions } from '../../models/header-options';
@@ -17,16 +17,15 @@ import { SiteService } from '../../services/site.service';
   styleUrls: ['./organization-dashboard.component.scss']
 })
 export class OrganizationDashboardComponent implements OnInit, OnDestroy {
-  sitesSubscription: Subscription;
   appSubscription: Subscription;
+  modelSubscription: Subscription;
   sites: Site[];
 
   constructor(private store: Store<State>,
               private siteService: SiteService) { }
 
   ngOnInit(): void {
-    this.appSubscription = this.store
-      .select('app')
+    this.appSubscription = this.store.select('app')
       .map(state => state.organization)
       // Only emit if there is a change in organization
       .distinctUntilChanged((a, b) => _.isEqual(a, b))
@@ -40,19 +39,17 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
               true,
             )
           ));
-          this.sitesSubscription = this.siteService
-            .getByKey(
-              'organizationId',
-              organization.id,
-              true
-            )
-            .subscribe(sites => this.store.dispatch(new AppActions.SetSidenavOptions(
-              sites.map(site => new SidenavOptions(
-                'Record Visit',
-                'check_circle',
-                new RouterActions.Go({ path: [`/checkin/${site.id}`] })
-              ))
-            )));
+          this.modelSubscription = this.store.select('model')
+            .map(state => state.sites)
+            .subscribe(sites => this.store.dispatch(
+              new AppActions.SetSidenavOptions(
+                sites.map(site => new SidenavOptions(
+                  'Record Visit',
+                  'check_circle',
+                  new RouterActions.Go({ path: [`/checkin/${site.id}`] })
+                ))
+              )
+            ));
         }
       });
   }
@@ -61,8 +58,8 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
     if (this.appSubscription) {
       this.appSubscription.unsubscribe();
     }
-    if (this.sitesSubscription) {
-      this.sitesSubscription.unsubscribe();
+    if (this.modelSubscription) {
+      this.modelSubscription.unsubscribe();
     }
   }
 }

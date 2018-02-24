@@ -37,8 +37,10 @@ export class AppComponent implements OnInit, OnDestroy {
         this.sidenavOptions = state.sidenavOptions;
         this.user = state.user;
         if (state.organization) {
-          this.store.dispatch(new ModelActions.LoadVisits(state.organization.id));
-          this.store.dispatch(new ModelActions.LoadVolunteers(state.organization.id));
+          const organizationId = state.organization.id;
+          this.store.dispatch(new ModelActions.LoadSites(organizationId));
+          this.store.dispatch(new ModelActions.LoadVisits(organizationId));
+          this.store.dispatch(new ModelActions.LoadVolunteers(organizationId));
         }
         /**
          * TODO:
