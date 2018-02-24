@@ -2,13 +2,9 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule, MatListModule, MatNativeDateModule,
-  MatPaginatorModule,
-  MatRadioModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule,
-  MatToolbarModule
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatFormFieldModule,
+  MatIconModule, MatInputModule, MatListModule, MatNativeDateModule, MatPaginatorModule, MatRadioModule, MatSidenavModule,
+  MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -66,6 +62,7 @@ import { CheckInEffects } from './effects/check-in.effects';
 import { DataDisplayEffects } from './effects/data-display.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
 import { LoginEffects } from './effects/login.effects';
+import { ModelEffects } from './effects/model.effects';
 import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
@@ -107,13 +104,14 @@ import { VerificationGuard } from './verification-guard';
     CdkTableModule,
     ChartsModule,
     EffectsModule.forRoot([
+      AppEffects,
       CheckInEffects,
       DataDisplayEffects,
       GettingStartedEffects,
       LoginEffects,
+      ModelEffects,
+      RouterEffects,
       SettingsEffects,
-      AppEffects,
-      RouterEffects
     ]),
     FormsModule,
     MatAutocompleteModule,

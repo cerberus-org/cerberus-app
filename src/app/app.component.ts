@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as LoginActions from './actions/login.actions';
+import * as ModelActions from './actions/model.actions';
 import * as RouterActions from './actions/router.actions';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
@@ -35,7 +36,10 @@ export class AppComponent implements OnInit, OnDestroy {
         this.headerOptions = state.headerOptions;
         this.sidenavOptions = state.sidenavOptions;
         this.user = state.user;
-
+        if (state.organization) {
+          this.store.dispatch(new ModelActions.LoadVisits(state.organization.id));
+          this.store.dispatch(new ModelActions.LoadVolunteers(state.organization.id));
+        }
         /**
          * TODO:
          * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is

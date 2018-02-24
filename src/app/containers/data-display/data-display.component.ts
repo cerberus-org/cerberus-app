@@ -29,7 +29,7 @@ export class DataDisplayComponent implements OnInit, OnDestroy {
         this.store.dispatch(new DataDisplayActions.LoadData(state.organization.id));
       }
     });
-    this.visits$ = this.store.select('dataDisplay')
+    this.visits$ = this.store.select('model')
       .map(state => state.visits);
     this.visitTableColumnOptions = [
       {
