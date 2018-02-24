@@ -3,7 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
   <i class="material-icons title-icon hide-xs">{{icon}}</i>
-  <span class="title-text">{{text}}</span>
+  <span class="title-text">{{title}}</span>
   <div *ngIf="showBack">
     <button mat-button class="hide-xs" (click)="onBack()">
       <i class="material-icons">keyboard_backspace</i> Back
@@ -13,7 +13,7 @@
     </button>
   </div>
   <span class="spacer"></span>
-  <div *ngIf="showSettings && showLogOut">
+  <div *ngIf="showSettings">
     <button mat-button class="hide-xs" (click)="onSettings()">
       <i class="material-icons">settings</i> Settings
     </button>

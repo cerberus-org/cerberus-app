@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { HeaderOptions } from '../../models/header-options';
 
 @Component({
   selector: 'app-header',
@@ -6,12 +7,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  @Input() icon: string;
-  @Input() text: string;
-  @Input() showBack: boolean;
+  @Input() headerOptions: HeaderOptions;
   @Input() showLogOut: boolean;
   @Input() showSidenavToggle: boolean;
-  @Input() showSettings: boolean;
   @Output() buttonClick = new EventEmitter<string>();
 
   onSidenavToggle(): void {
@@ -28,5 +26,21 @@ export class HeaderComponent {
 
   onLogOut(): void {
     this.buttonClick.emit('logOut');
+  }
+
+  get title(): string {
+    return this.headerOptions ? this.headerOptions.title : 'Loading...';
+  }
+
+  get icon(): string {
+    return this.headerOptions ? this.headerOptions.icon : '';
+  }
+
+  get showBack(): boolean {
+    return this.headerOptions && !!this.headerOptions.previousUrl;
+  }
+
+  get showSettings(): boolean {
+    return this.headerOptions && this.headerOptions.showSettings;
   }
 }
