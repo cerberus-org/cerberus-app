@@ -14,7 +14,8 @@ import { State } from '../../reducers/index';
   styleUrls: ['./data-display.component.scss']
 })
 export class DataDisplayComponent implements OnInit, OnDestroy {
-  appSubscription: Subscription;
+  private appSubscription: Subscription;
+
   visits$: Observable<Visit[]>;
   visitTableColumnOptions: ColumnOptions[] = [
     {

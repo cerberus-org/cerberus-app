@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as _ from 'lodash';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
@@ -9,7 +8,6 @@ import { HeaderOptions } from '../../models/header-options';
 import { SidenavOptions } from '../../models/sidenav-options';
 import { Site } from '../../models/site';
 import { State } from '../../reducers/index';
-import { SiteService } from '../../services/site.service';
 
 @Component({
   selector: 'app-organization-dashboard',
@@ -17,12 +15,12 @@ import { SiteService } from '../../services/site.service';
   styleUrls: ['./organization-dashboard.component.scss']
 })
 export class OrganizationDashboardComponent implements OnInit, OnDestroy {
-  appSubscription: Subscription;
-  modelSubscription: Subscription;
+  private appSubscription: Subscription;
+  private modelSubscription: Subscription;
+
   sites: Site[];
 
-  constructor(private store: Store<State>,
-              private siteService: SiteService) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
     this.appSubscription = this.store.select('auth')
@@ -42,15 +40,19 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
 
     this.modelSubscription = this.store.select('model')
       .map(state => state.sites)
-      .subscribe(sites => this.store.dispatch(
-        new AppActions.SetSidenavOptions(
-          sites.map(site => new SidenavOptions(
-            'Record Visit',
-            'check_circle',
-            new RouterActions.Go({ path: [`/checkin/${site.id}`] })
-          ))
-        )
-      ));
+      .subscribe(sites => {
+        if (sites) {
+          this.store.dispatch(
+            new AppActions.SetSidenavOptions(
+              sites.map(site => new SidenavOptions(
+                'Record Visit',
+                'check_circle',
+                new RouterActions.Go({ path: [`/checkin/${site.id}`] })
+              ))
+            )
+          )
+        }
+      });
   }
 
   ngOnDestroy(): void {

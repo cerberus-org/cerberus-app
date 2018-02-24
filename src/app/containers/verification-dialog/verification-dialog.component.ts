@@ -7,7 +7,6 @@ import { MatDialogRef } from '@angular/material';
   styleUrls: ['./verification-dialog.component.scss']
 })
 export class VerificationDialogComponent implements OnInit {
-
   pwd: string;
   hidePwd: boolean;
 

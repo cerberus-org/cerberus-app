@@ -16,13 +16,22 @@ import { State } from '../../reducers/index';
   styleUrls: ['./getting-started.component.scss']
 })
 export class GettingStartedComponent implements OnInit, OnDestroy {
+  private gettingStartedSubscription: Subscription;
+  private headerOptions: HeaderOptions = new HeaderOptions(
+    'Getting Started',
+    'wb_sunny',
+    '/login',
+    true,
+  );
+
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
-  gettingStartedSubscription: Subscription;
+
+  userFormTitle: string;
+  organizationFormTitle: string;
+
   step: number;
   validOrganization: Organization;
   validUser: User;
-  userFormTitle: string;
-  organizationFormTitle: string;
 
   constructor(private store: Store<State>) {
     this.userFormTitle = 'Create an account to access your organization.';
@@ -30,14 +39,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new AppActions.SetHeaderOptions(
-      new HeaderOptions(
-        'Getting Started',
-        'wb_sunny',
-        '/login',
-        true,
-      )
-    ));
+    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
 
     this.gettingStartedSubscription = this.store

@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as _ from 'lodash';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -19,14 +18,22 @@ import { State } from '../../reducers/index';
   styleUrls: ['./check-in.component.scss']
 })
 export class CheckInComponent implements OnInit, OnDestroy {
+  private headerOptions: HeaderOptions = new HeaderOptions(
+    organization.name,
+    'business',
+    '/dashboard',
+    true,
+  );
+  private appSubscription: Subscription;
+  private checkInSubscription: Subscription;
+  private modelSubscription: Subscription;
+
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
-  appSubscription: Subscription;
-  checkInSubscription: Subscription;
-  modelSubscription: Subscription;
-  organizationId: string;
-  siteId: string;
+
   visits: Visit[];
   volunteers: Volunteer[];
+  organizationId: string;
+  siteId: string;
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute) {
@@ -40,16 +47,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
       .subscribe(organization => {
         if (organization) {
           this.organizationId = organization.id;
-          this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
-          this.store.dispatch(
-            new AppActions.SetHeaderOptions(
-              new HeaderOptions(
-                organization.name,
-                'business',
-                '/dashboard',
-                true,
-              ))
-          )
+          this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
         }
       });
 
@@ -63,6 +61,8 @@ export class CheckInComponent implements OnInit, OnDestroy {
         this.visits = state.visits;
         this.volunteers = state.volunteers;
       });
+
+    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
   ngOnDestroy(): void {

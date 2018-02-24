@@ -19,15 +19,13 @@ import { State } from '../../reducers';
   styleUrls: ['./settings-page.component.scss']
 })
 export class SettingsPageComponent implements OnInit, OnDestroy {
-
-  headerOptions: HeaderOptions = new HeaderOptions(
+  private headerOptions: HeaderOptions = new HeaderOptions(
     'Settings',
     'settings',
     '/dashboard',
     false,
   );
-
-  sidenavOptions: SidenavOptions[] = [
+  private sidenavOptions: SidenavOptions[] = [
     new SidenavOptions(
       'User',
       'face',
@@ -49,7 +47,12 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       new SettingsActions.LoadPage('reports')
     )
   ];
+  private appSubscription: Subscription;
+  private settingsSubscription: Subscription;
+  private volunteersSubscription: Subscription;
 
+  organizationFormTitle: string;
+  userFormTitle: string;
   volunteerTableOptions: ColumnOptions[] = [
     new ColumnOptions(
       'firstName',
@@ -68,25 +71,15 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     )
   ];
 
-  appSubscription: Subscription;
-  settingsSubscription: Subscription;
-  volunteersSubscription: Subscription;
-
-  sidenavSelection: string;
-  validReport: any;
-
-  userFormTitle: string;
-  // User entered in form
-  validUser: User;
-  // Initial user used to pre populate form
-  initialUser: User;
-
-  organizationFormTitle: string;
-  validOrganization: Organization;
   initialOrganization: Organization;
-
+  initialUser: User;
   volunteers$: Observable<Volunteer[]>;
   volunteers: Volunteer[];
+  sidenavSelection: string;
+
+  validReport: any;
+  validOrganization: Organization;
+  validUser: User;
 
   constructor(public store: Store<State>) {
     this.userFormTitle = 'Update your user info.';

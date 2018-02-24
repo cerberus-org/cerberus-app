@@ -14,6 +14,13 @@ import { State } from '../../reducers/index';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  private headerOptions: HeaderOptions = new HeaderOptions(
+    'Cerberus',
+    'group_work',
+    null,
+    true,
+  );
+
   loginForm: FormGroup;
   error: string;
   hidePwd: boolean;
@@ -23,14 +30,7 @@ export class LoginComponent implements OnInit {
               private store: Store<State>) {}
 
   ngOnInit() {
-    this.store.dispatch(new AppActions.SetHeaderOptions(
-      new HeaderOptions(
-        'Cerberus',
-        'group_work',
-        null,
-        true,
-      )
-    ));
+    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
     this.loginForm = this.createForm();
     this.hidePwd = true;
