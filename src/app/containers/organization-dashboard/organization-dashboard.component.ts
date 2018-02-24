@@ -27,14 +27,12 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
       .map(state => state.organization)
       .subscribe(organization => {
         if (organization) {
-          this.store.dispatch(new AppActions.SetHeaderOptions(
-            new HeaderOptions(
-              organization.name,
-              'business',
-              null,
-              true,
-            )
-          ));
+          this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
+            organization.name,
+            'business',
+            null,
+            true,
+          )));
         }
       });
 

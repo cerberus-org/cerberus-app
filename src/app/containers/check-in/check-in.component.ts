@@ -18,12 +18,6 @@ import { State } from '../../reducers/index';
   styleUrls: ['./check-in.component.scss']
 })
 export class CheckInComponent implements OnInit, OnDestroy {
-  private headerOptions: HeaderOptions = new HeaderOptions(
-    organization.name,
-    'business',
-    '/dashboard',
-    true,
-  );
   private appSubscription: Subscription;
   private checkInSubscription: Subscription;
   private modelSubscription: Subscription;
@@ -47,7 +41,12 @@ export class CheckInComponent implements OnInit, OnDestroy {
       .subscribe(organization => {
         if (organization) {
           this.organizationId = organization.id;
-          this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
+          this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
+            organization.name,
+            'business',
+            '/dashboard',
+            true,
+          )));
         }
       });
 

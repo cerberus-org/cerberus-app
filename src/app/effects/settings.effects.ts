@@ -31,19 +31,6 @@ export class SettingsEffects {
     .switchMap(volunteer => this.volunteerService.delete(volunteer));
 
   /**
-   * Listen for the UpdateUser action, update user,
-   * then dispatch action to app store and display success snack bar.
-   */
-  @Effect()
-  updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
-    .map((action: SettingsActions.UpdateUser) => action.payload)
-    .switchMap(user => this.authService.updateUser(user)
-      .map(() => {
-        this.snackBarService.updateUserSuccess();
-        return new AuthActions.UpdateUser(user)
-      }));
-
-  /**
    * Listen for the UpdateOrganization action, update organization,
    * then dispatch an action to app store and display success snack bar.
    */
@@ -54,6 +41,19 @@ export class SettingsEffects {
       .map(() => {
         this.snackBarService.updateOrganizationSuccess();
         return new AuthActions.UpdateOrganization(organization)
+      }));
+
+  /**
+   * Listen for the UpdateUser action, update user,
+   * then dispatch action to app store and display success snack bar.
+   */
+  @Effect()
+  updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
+    .map((action: SettingsActions.UpdateUser) => action.payload)
+    .switchMap(user => this.authService.updateUser(user)
+      .map(() => {
+        this.snackBarService.updateUserSuccess();
+        return new AuthActions.UpdateUser(user)
       }));
 
   /**

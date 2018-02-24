@@ -80,7 +80,7 @@ export class MockVisitService extends VisitService {
   }
 
   update(visit: any): Observable<any> {
-    return Observable.empty<any>();
+    return Observable.of(new Promise<void>());
   }
 
   delete(visit: any): Observable<any> {

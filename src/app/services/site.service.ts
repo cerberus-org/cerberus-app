@@ -71,7 +71,7 @@ export class MockSiteService extends SiteService {
   }
 
   update(site: any): Observable<any> {
-    return Observable.empty<any>();
+    return Observable.of(new Promise<void>());
   }
 
   delete(site: any): Observable<any> {

@@ -87,7 +87,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.openAndSubscribeToDialog();
         break;
       case 'logOut':
-        this.store.dispatch(new LoginActions.LogOut({}));
+        this.store.dispatch(new LoginActions.LogOut());
         break;
     }
   }

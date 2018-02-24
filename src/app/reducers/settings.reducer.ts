@@ -15,7 +15,7 @@ export function reducer(state = initialState, action: Action): State {
 
     case SettingsActions.LOAD_PAGE: {
       return Object.assign({}, state, {
-        sidenavSelection: action.payload
+        sidenavSelection: action.payload,
       });
     }
 
