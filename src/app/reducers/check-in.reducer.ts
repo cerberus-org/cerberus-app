@@ -20,16 +20,8 @@ export function reducer(state = initialState, action: Action): State {
 
   switch (action.type) {
 
-    case CheckInActions.LOAD_DATA_SUCCESS: {
-      return Object.assign({}, state, {
-        visits: action.payload.visits,
-        volunteers: action.payload.volunteers
-      });
-    }
-
     case CheckInActions.SUBMIT_NEW_VOLUNTEER_SUCCESS: {
       return Object.assign({}, state, {
-        volunteers: [action.payload, ...state.volunteers],
         selectedTabIndex: 0
       });
     }

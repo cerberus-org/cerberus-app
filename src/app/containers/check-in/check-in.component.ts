@@ -20,8 +20,9 @@ import { State } from '../../reducers/index';
 })
 export class CheckInComponent implements OnInit, OnDestroy {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
-  checkInSubscription: Subscription;
   appSubscription: Subscription;
+  checkInSubscription: Subscription;
+  modelSubscription: Subscription;
   organizationId: string;
   siteId: string;
   visits: Visit[];
@@ -32,8 +33,8 @@ export class CheckInComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.appSubscription = this.store
-      .select('app')
+    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.appSubscription = this.store.select('app')
       .map(state => state.organization)
       // Only emit if there is a change in organization
       .distinctUntilChanged((a, b) => _.isEqual(a, b))
@@ -41,9 +42,6 @@ export class CheckInComponent implements OnInit, OnDestroy {
         if (organization) {
           this.organizationId = organization.id;
           this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
-          this.store.dispatch(
-            new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId }),
-          );
           this.store.dispatch(
             new AppActions.SetHeaderOptions(new HeaderOptions(
               organization.name,
@@ -53,22 +51,26 @@ export class CheckInComponent implements OnInit, OnDestroy {
             )))
         }
       });
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
-    this.checkInSubscription = this.store
-      .select('checkIn')
+    this.checkInSubscription = this.store.select('checkIn')
       .subscribe(state => {
         this.tabGroup.selectedIndex = state.selectedTabIndex;
+      });
+    this.modelSubscription = this.store.select('model')
+      .subscribe(state => {
         this.visits = state.visits;
         this.volunteers = state.volunteers;
       });
   }
 
   ngOnDestroy(): void {
+    if (this.appSubscription) {
+      this.appSubscription.unsubscribe();
+    }
     if (this.checkInSubscription) {
       this.checkInSubscription.unsubscribe();
     }
-    if (this.appSubscription) {
-      this.appSubscription.unsubscribe();
+    if (this.modelSubscription) {
+      this.modelSubscription.unsubscribe();
     }
   }
 

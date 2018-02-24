@@ -19,23 +19,6 @@ import { VolunteerService } from '../services/volunteer.service';
 export class CheckInEffects {
 
   /**
-   * Listen for the LoadData action, get the visits and volunteers,
-   * then dispatch the LoadDataSuccess action with the data.
-   */
-  @Effect()
-  loadData$: Observable<Action> = this.actions
-    .ofType(CheckInActions.LOAD_DATA)
-    .map((action: CheckInActions.LoadData) => action.payload)
-    .switchMap(payload => Observable
-      .forkJoin(
-        this.visitService.getByKey('siteId', payload.siteId, true).first(),
-        this.volunteerService.getByKey('organizationId', payload.organizationId, true).first())
-      .map(results => {
-        return { visits: results[0], volunteers: results[1] }
-      })
-      .map(data => new CheckInActions.LoadDataSuccess(data)));
-
-  /**
    * Listen for the SubmitNewVolunteer action, create the newVolunteer, emit the snackbar,
    * then dispatch the SubmitNewVolunteerSuccess action with the created newVolunteer.
    */
@@ -44,9 +27,9 @@ export class CheckInEffects {
     .ofType(CheckInActions.SUBMIT_NEW_VOLUNTEER)
     .map((action: CheckInActions.SubmitNewVolunteer) => action.payload)
     .switchMap(volunteer => this.volunteerService.add(volunteer)
-      .map(created => {
+      .map(() => {
         this.snackBarService.signUpSuccess();
-        return new CheckInActions.SubmitNewVolunteerSuccess(created)
+        return new CheckInActions.SubmitNewVolunteerSuccess()
       }));
 
   /**
@@ -62,7 +45,7 @@ export class CheckInEffects {
         this.snackBarService.checkInSuccess();
         return [
           new RouterActions.Go({ path: ['/dashboard'] }),
-          new CheckInActions.CheckInOrOutSuccess({})
+          new CheckInActions.CheckInOrOutSuccess()
         ]
       }));
 
@@ -79,7 +62,7 @@ export class CheckInEffects {
         this.snackBarService.checkOutSuccess();
         return [
           new RouterActions.Go({ path: ['/dashboard'] }),
-          new CheckInActions.CheckInOrOutSuccess({})
+          new CheckInActions.CheckInOrOutSuccess()
         ];
       }));
 

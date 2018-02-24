@@ -59,7 +59,6 @@ import { ReportsFormComponent } from './components/reports-form/reports-form.com
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { AppEffects } from './effects/app.effects';
 import { CheckInEffects } from './effects/check-in.effects';
-import { DataDisplayEffects } from './effects/data-display.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
 import { LoginEffects } from './effects/login.effects';
 import { ModelEffects } from './effects/model.effects';
@@ -106,7 +105,6 @@ import { VerificationGuard } from './verification-guard';
     EffectsModule.forRoot([
       AppEffects,
       CheckInEffects,
-      DataDisplayEffects,
       GettingStartedEffects,
       LoginEffects,
       ModelEffects,

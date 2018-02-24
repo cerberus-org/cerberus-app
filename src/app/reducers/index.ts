@@ -3,14 +3,12 @@ import { ActionReducerMap } from '@ngrx/store';
 
 import * as fromApp from './app.reducer';
 import * as fromCheckIn from './check-in.reducer';
-import * as fromDataDisplay from './data-display.reducer';
 import * as fromGettingStarted from './getting-started.reducer';
-import * as fromModel from './model.reducer'
+import * as fromModel from './model.reducer';
 import * as fromSettings from './settings.reducer';
 
 export interface State {
   checkIn: fromCheckIn.State;
-  dataDisplay: fromDataDisplay.State;
   gettingStarted: fromGettingStarted.State;
   model: fromModel.State;
   settings: fromSettings.State;
@@ -20,7 +18,6 @@ export interface State {
 
 export const reducers: ActionReducerMap<State> = {
   checkIn: fromCheckIn.reducer,
-  dataDisplay: fromDataDisplay.reducer,
   gettingStarted: fromGettingStarted.reducer,
   model: fromModel.reducer,
   settings: fromSettings.reducer,

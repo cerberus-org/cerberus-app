@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { Subscription } from 'rxjs/Subscription';
-import * as DataDisplayActions from '../../actions/data-display.actions';
 import { formatDate, formatDuration, formatTime } from '../../functions/date-format';
 import { ColumnOptions } from '../../models/column-options';
 import { Visit } from '../../models/visit';
@@ -22,13 +21,6 @@ export class DataDisplayComponent implements OnInit, OnDestroy {
   constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
-    this.appSubscription = this.store
-    .select('app')
-    .subscribe(state => {
-      if (state.organization) {
-        this.store.dispatch(new DataDisplayActions.LoadData(state.organization.id));
-      }
-    });
     this.visits$ = this.store.select('model')
       .map(state => state.visits);
     this.visitTableColumnOptions = [
