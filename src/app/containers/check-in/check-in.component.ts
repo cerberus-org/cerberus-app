@@ -34,27 +34,30 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
-    this.appSubscription = this.store.select('app')
+
+    this.appSubscription = this.store.select('auth')
       .map(state => state.organization)
-      // Only emit if there is a change in organization
-      .distinctUntilChanged((a, b) => _.isEqual(a, b))
       .subscribe(organization => {
         if (organization) {
           this.organizationId = organization.id;
           this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
           this.store.dispatch(
-            new AppActions.SetHeaderOptions(new HeaderOptions(
-              organization.name,
-              'business',
-              '/dashboard',
-              true,
-            )))
+            new AppActions.SetHeaderOptions(
+              new HeaderOptions(
+                organization.name,
+                'business',
+                '/dashboard',
+                true,
+              ))
+          )
         }
       });
+
     this.checkInSubscription = this.store.select('checkIn')
       .subscribe(state => {
         this.tabGroup.selectedIndex = state.selectedTabIndex;
       });
+
     this.modelSubscription = this.store.select('model')
       .subscribe(state => {
         this.visits = state.visits;

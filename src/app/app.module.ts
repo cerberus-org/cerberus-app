@@ -91,7 +91,7 @@ import { VerificationGuard } from './verification-guard';
     VolunteerMenuComponent,
     VerificationDialogComponent,
     SidenavComponent,
-    ReportsFormComponent
+    ReportsFormComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -134,7 +134,7 @@ import { VerificationGuard } from './verification-guard';
     ReactiveFormsModule,
     SignaturePadModule,
     StoreModule.forRoot(reducers),
-    StoreRouterConnectingModule
+    StoreRouterConnectingModule,
   ],
   providers: [
     AuthService,

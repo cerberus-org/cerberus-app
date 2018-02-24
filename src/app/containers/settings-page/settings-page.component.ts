@@ -2,8 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-
-import * as _ from 'lodash';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { ColumnOptions } from '../../models/column-options';
@@ -99,14 +97,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
     this.store.dispatch(new AppActions.SetSidenavOptions(this.sidenavOptions));
 
-    this.appSubscription = this.store.select('app')
-      .map(state => {
-        return {
-          user: state.user,
-          organization: state.organization,
-        }
-      })
-      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+    this.appSubscription = this.store.select('auth')
       .subscribe(state => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
@@ -118,10 +109,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       .subscribe(volunteers => this.volunteers = volunteers);
 
     this.settingsSubscription = this.store.select('settings')
-      .map(state => state.sidenavSelection)
-      .distinctUntilChanged((a, b) => _.isEqual(a, b))
-      .subscribe(sidenavSelection => {
-        this.sidenavSelection = sidenavSelection;
+      .subscribe(state => {
+        this.sidenavSelection = state.sidenavSelection;
       });
   }
 

@@ -7,11 +7,10 @@ import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
 import { User as FbUser } from 'firebase';
-import * as AppActions from '../actions/app.actions';
-import { testFbUsers, testUsers, User } from '../models/user';
+import * as AuthActions from '../actions/auth.actions';
+import { testFbUsers, User } from '../models/user';
 import { State } from '../reducers/app.reducer';
 import { ErrorService } from './error.service';
-import { OrganizationService } from './organization.service';
 import { UserService } from './user.service';
 
 @Injectable()
@@ -22,7 +21,6 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
               private errorService: ErrorService,
-              private organizationService: OrganizationService,
               private userService: UserService,
               private store: Store<State>) {
     this.pwdVerification = false;
@@ -91,10 +89,10 @@ export class AuthService {
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        this.store.dispatch(new AppActions.LoadData(user));
+        this.store.dispatch(new AuthActions.LoadData(user));
       } else {
         // If the user is not logged in, set data to null
-        this.store.dispatch(new AppActions.LoadDataSuccess({ user: null, organization: null }));
+        this.store.dispatch(new AuthActions.LoadDataSuccess({ user: null, organization: null }));
       }
     });
   }
@@ -103,7 +101,7 @@ export class AuthService {
 export class MockAuthService extends AuthService {
 
   constructor() {
-    super(null, null, null, null, null);
+    super(null, null, null, null);
   }
 
   createUser(user: User): Observable<User> {

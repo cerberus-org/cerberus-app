@@ -49,23 +49,23 @@ describe('appReducer', () => {
     });
   });
 
-  describe('SET_ORGANIZATION', () => {
+  describe('UPDATE_ORGANIZATION', () => {
 
     it('loads the Organization', () => {
       const state = fromApp.reducer(
         fromApp.initialState,
-        new AppActions.SetOrganization(testOrganizations[0])
+        new AppActions.UpdateOrganization(testOrganizations[0])
       );
       expect(state.organization).toEqual(testOrganizations[0]);
     });
   });
 
-  describe('SET_USER', () => {
+  describe('UPDATE_USER', () => {
 
     it('loads the User', () => {
       const state = fromApp.reducer(
         fromApp.initialState,
-        new AppActions.SetUser(testUsers[0])
+        new AppActions.UpdateUser(testUsers[0])
       );
       expect(state.user).toEqual(testUsers[0]);
     });

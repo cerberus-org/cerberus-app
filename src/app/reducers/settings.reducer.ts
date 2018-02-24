@@ -1,5 +1,4 @@
 import * as SettingsActions from '../actions/settings.actions';
-import { Volunteer } from '../models/volunteer';
 
 export interface State {
   sidenavSelection: string;

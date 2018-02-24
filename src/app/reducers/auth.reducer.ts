@@ -1,5 +1,4 @@
-///<reference path="../actions/app.actions.ts"/>
-import * as AppActions from '../actions/app.actions';
+import * as AuthActions from '../actions/auth.actions';
 import { Organization } from '../models/organization';
 import { User } from '../models/user';
 
@@ -13,26 +12,26 @@ export const initialState: State = {
   organization: null,
 };
 
-export type Action = AppActions.All;
+export type Action = AuthActions.All;
 
 export function reducer(state = initialState, action: Action): State {
 
   switch (action.type) {
 
-    case AppActions.LOAD_DATA_SUCCESS: {
+    case AuthActions.LOAD_DATA_SUCCESS: {
       return Object.assign({}, state, {
         user: action.payload.user,
         organization: action.payload.organization,
       });
     }
 
-    case AppActions.SET_ORGANIZATION: {
+    case AuthActions.UPDATE_ORGANIZATION: {
       return Object.assign({}, state, {
         organization: action.payload,
       });
     }
 
-    case AppActions.SET_USER: {
+    case AuthActions.UPDATE_USER: {
       return Object.assign({}, state, {
         user: action.payload,
       });

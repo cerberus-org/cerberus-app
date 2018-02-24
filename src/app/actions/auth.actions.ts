@@ -1,17 +1,18 @@
 import { Action } from '@ngrx/store';
+import { User as FirebaseUser } from 'firebase';
 
 import { Organization } from '../models/organization';
 import { User } from '../models/user';
 
-export const LOAD_DATA = '[App] Load Data';
-export const LOAD_DATA_SUCCESS = '[App] Load Data Success';
-export const SET_ORGANIZATION = '[App] Set Organization';
-export const SET_USER = '[App] Set User';
+export const LOAD_DATA = '[Auth] Load data';
+export const LOAD_DATA_SUCCESS = '[Auth] Load data success';
+export const UPDATE_ORGANIZATION = '[Auth] Update organization';
+export const UPDATE_USER = '[Auth] Update user';
 
 export class LoadData implements Action {
   readonly type = LOAD_DATA;
 
-  constructor(public payload: FbUser) {}
+  constructor(public payload: FirebaseUser) {}
 }
 
 /**
@@ -29,8 +30,8 @@ export class LoadDataSuccess implements Action {
 /**
  * Used when Organization is updated.
  */
-export class SetOrganization implements Action {
-  readonly type = SET_ORGANIZATION;
+export class UpdateOrganization implements Action {
+  readonly type = UPDATE_ORGANIZATION;
 
   constructor(public payload: Organization) {}
 }
@@ -38,8 +39,8 @@ export class SetOrganization implements Action {
 /**
  * Used when User is updated.
  */
-export class SetUser implements Action {
-  readonly type = SET_USER;
+export class UpdateUser implements Action {
+  readonly type = UPDATE_USER;
 
   constructor(public payload: User) {}
 }
@@ -47,5 +48,5 @@ export class SetUser implements Action {
 export type All
   = LoadData
   | LoadDataSuccess
-  | SetOrganization
-  | SetUser;
+  | UpdateOrganization
+  | UpdateUser;

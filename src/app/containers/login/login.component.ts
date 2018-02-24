@@ -23,8 +23,6 @@ export class LoginComponent implements OnInit {
               private store: Store<State>) {}
 
   ngOnInit() {
-    this.loginForm = this.createForm();
-    this.hidePwd = true;
     this.store.dispatch(new AppActions.SetHeaderOptions(
       new HeaderOptions(
         'Cerberus',
@@ -34,6 +32,8 @@ export class LoginComponent implements OnInit {
       )
     ));
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.loginForm = this.createForm();
+    this.hidePwd = true;
   }
 
   onLogin() {

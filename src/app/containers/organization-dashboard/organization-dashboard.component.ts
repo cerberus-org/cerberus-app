@@ -25,10 +25,8 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
               private siteService: SiteService) { }
 
   ngOnInit(): void {
-    this.appSubscription = this.store.select('app')
+    this.appSubscription = this.store.select('auth')
       .map(state => state.organization)
-      // Only emit if there is a change in organization
-      .distinctUntilChanged((a, b) => _.isEqual(a, b))
       .subscribe(organization => {
         if (organization) {
           this.store.dispatch(new AppActions.SetHeaderOptions(
@@ -39,19 +37,20 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
               true,
             )
           ));
-          this.modelSubscription = this.store.select('model')
-            .map(state => state.sites)
-            .subscribe(sites => this.store.dispatch(
-              new AppActions.SetSidenavOptions(
-                sites.map(site => new SidenavOptions(
-                  'Record Visit',
-                  'check_circle',
-                  new RouterActions.Go({ path: [`/checkin/${site.id}`] })
-                ))
-              )
-            ));
         }
       });
+
+    this.modelSubscription = this.store.select('model')
+      .map(state => state.sites)
+      .subscribe(sites => this.store.dispatch(
+        new AppActions.SetSidenavOptions(
+          sites.map(site => new SidenavOptions(
+            'Record Visit',
+            'check_circle',
+            new RouterActions.Go({ path: [`/checkin/${site.id}`] })
+          ))
+        )
+      ));
   }
 
   ngOnDestroy(): void {

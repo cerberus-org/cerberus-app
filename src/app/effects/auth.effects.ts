@@ -17,12 +17,11 @@ import { UserService } from '../services/user.service';
 export class AuthEffects {
 
   @Effect()
-  loadData$: Observable<Action> = this.actions
-    .ofType(AuthActions.LOAD_DATA)
+  loadData$: Observable<Action> = this.actions.ofType(AuthActions.LOAD_DATA)
     .map((action: AuthActions.LoadData) => action.payload)
-    .switchMap(fbUser => this.userService.getById(fbUser.uid)
+    .switchMap(firebaseUser => this.userService.getById(firebaseUser.uid)
       .switchMap(res => {
-        const user = Object.assign({}, res, { email: fbUser.email, id: fbUser.uid });
+        const user = Object.assign({}, res, { email: firebaseUser.email, id: firebaseUser.uid });
         return this.organizationService.getById(user.organizationId)
           .map(organization => {
             const org = Object.assign({}, organization, { id: user.organizationId });

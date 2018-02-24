@@ -16,35 +16,34 @@ import { State } from '../../reducers/index';
 export class DataDisplayComponent implements OnInit, OnDestroy {
   appSubscription: Subscription;
   visits$: Observable<Visit[]>;
-  visitTableColumnOptions: ColumnOptions[];
+  visitTableColumnOptions: ColumnOptions[] = [
+    {
+      columnDef: 'date',
+      header: 'Date',
+      cell: (row: Visit) => formatDate(row.startedAt, row.timezone)
+    },
+    {
+      columnDef: 'startedAt',
+      header: 'Start',
+      cell: (row: Visit) => formatTime(row.startedAt, row.timezone)
+    },
+    {
+      columnDef: 'endedAt',
+      header: 'End',
+      cell: (row: Visit) => formatTime(row.endedAt, row.timezone)
+    },
+    {
+      columnDef: 'duration',
+      header: 'Duration',
+      cell: (row: Visit) => formatDuration(row.startedAt, row.endedAt, row.timezone)
+    }
+  ];
 
   constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
     this.visits$ = this.store.select('model')
       .map(state => state.visits);
-    this.visitTableColumnOptions = [
-      {
-        columnDef: 'date',
-        header: 'Date',
-        cell: (row: Visit) => formatDate(row.startedAt, row.timezone)
-      },
-      {
-        columnDef: 'startedAt',
-        header: 'Start',
-        cell: (row: Visit) => formatTime(row.startedAt, row.timezone)
-      },
-      {
-        columnDef: 'endedAt',
-        header: 'End',
-        cell: (row: Visit) => formatTime(row.endedAt, row.timezone)
-      },
-      {
-        columnDef: 'duration',
-        header: 'Duration',
-        cell: (row: Visit) => formatDuration(row.startedAt, row.endedAt, row.timezone)
-      }
-    ];
   }
 
   ngOnDestroy(): void {

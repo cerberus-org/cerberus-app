@@ -9,7 +9,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
-import * as AppActions from '../actions/app.actions';
+import * as AuthActions from '../actions/auth.actions';
 import * as SettingsActions from '../actions/settings.actions';
 import { getVisitsWithVolunteerNames } from '../functions/transducer';
 import { AuthService } from '../services/auth.service';
@@ -40,7 +40,7 @@ export class SettingsEffects {
     .switchMap(user => this.authService.updateUser(user)
       .map(() => {
         this.snackBarService.updateUserSuccess();
-        return new AppActions.SetUser(user)
+        return new AuthActions.UpdateUser(user)
       }));
 
   /**
@@ -53,7 +53,7 @@ export class SettingsEffects {
     .switchMap(organization => this.organizationService.update(organization)
       .map(() => {
         this.snackBarService.updateOrganizationSuccess();
-        return new AppActions.SetOrganization(organization)
+        return new AuthActions.UpdateOrganization(organization)
       }));
 
   /**
