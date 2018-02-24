@@ -23,22 +23,12 @@ import { VolunteerService } from '../services/volunteer.service';
 export class SettingsEffects {
 
   /**
-   * Listen for the LoadVolunteersPage action, get the volunteers, then dispatch the success action.
+   * Listen for the deleteVolunteer action then delete the volunteer in the payload.
    */
-  @Effect()
+  @Effect({ dispatch: false })
   deleteVolunteer$: Observable<Action> = this.actions.ofType(SettingsActions.DELETE_VOLUNTEER)
     .map((action: SettingsActions.DeleteVolunteer) => action.payload)
-    .switchMap(volunteer => this.volunteerService.delete(volunteer)
-      .map(() => new SettingsActions.DeleteVolunteerSuccess(volunteer)));
-
-  /**
-   * Listen for the LoadVolunteersPage action, get the volunteers, then dispatch the success action.
-   */
-  @Effect()
-  loadData$: Observable<Action> = this.actions.ofType(SettingsActions.LOAD_VOLUNTEERS_PAGE)
-    .map((action: SettingsActions.LoadVolunteersPage) => action.payload)
-    .switchMap(organizationId => this.volunteerService.getByKey('organizationId', organizationId, true)
-      .map(volunteers => new SettingsActions.LoadVolunteersPageSuccess(volunteers)));
+    .switchMap(volunteer => this.volunteerService.delete(volunteer));
 
   /**
    * Listen for the UpdateUser action, update user,
@@ -78,10 +68,10 @@ export class SettingsEffects {
     .switchMap(payload => this.visitService.getByDateAndOrganization(payload.startedAt, payload.endedAt, payload.organizationId, true)
       .do(visits => {
         const propertiesToColumnTitles = new Map([
-          [ 'name', 'Name'],
-          [ 'startedAt', 'Started At' ],
-          [ 'endedAt', 'Ended At' ],
-          [ 'duration', 'Duration'],
+          ['name', 'Name'],
+          ['startedAt', 'Started At'],
+          ['endedAt', 'Ended At'],
+          ['duration', 'Duration'],
         ]);
         this.csvService.downloadAsCsv(
           getVisitsWithVolunteerNames(visits, payload.volunteers), 'VisitHistory.csv', propertiesToColumnTitles

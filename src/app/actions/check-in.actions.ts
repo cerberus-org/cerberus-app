@@ -5,7 +5,6 @@ import { Volunteer } from '../models/volunteer';
 
 export const CHECK_IN = '[Check-In] Check in';
 export const CHECK_OUT = '[Check-In] Check out';
-export const CHECK_IN_OR_OUT_SUCCESS = '[Check-In] Check in or out success';
 
 export const SUBMIT_NEW_VOLUNTEER = '[Check-In] Submit new newVolunteer';
 export const SUBMIT_NEW_VOLUNTEER_SUCCESS = '[Check-In] Submit new newVolunteer success';
@@ -22,10 +21,6 @@ export class CheckOut implements Action {
   constructor(public payload: Visit) {}
 }
 
-export class CheckInOrOutSuccess implements Action {
-  readonly type = CHECK_IN_OR_OUT_SUCCESS;
-}
-
 export class SubmitNewVolunteer implements Action {
   readonly type = SUBMIT_NEW_VOLUNTEER;
 
@@ -39,6 +34,5 @@ export class SubmitNewVolunteerSuccess implements Action {
 export type All
   = CheckIn
   | CheckOut
-  | CheckInOrOutSuccess
   | SubmitNewVolunteer
   | SubmitNewVolunteerSuccess;

@@ -41,12 +41,9 @@ export class CheckInEffects {
     .ofType(CheckInActions.CHECK_IN)
     .map((action: CheckInActions.CheckIn) => action.payload)
     .switchMap(visit => this.visitService.add(visit)
-      .mergeMap(() => {
+      .map(() => {
         this.snackBarService.checkInSuccess();
-        return [
-          new RouterActions.Go({ path: ['/dashboard'] }),
-          new CheckInActions.CheckInOrOutSuccess()
-        ]
+        return new RouterActions.Go({ path: ['/dashboard'] });
       }));
 
   /**
@@ -58,12 +55,9 @@ export class CheckInEffects {
     .ofType(CheckInActions.CHECK_OUT)
     .map((action: CheckInActions.CheckOut) => action.payload)
     .switchMap(visit => this.visitService.update(visit)
-      .mergeMap(() => {
+      .map(() => {
         this.snackBarService.checkOutSuccess();
-        return [
-          new RouterActions.Go({ path: ['/dashboard'] }),
-          new CheckInActions.CheckInOrOutSuccess()
-        ];
+        return new RouterActions.Go({ path: ['/dashboard'] });
       }));
 
   constructor(private actions: Actions,

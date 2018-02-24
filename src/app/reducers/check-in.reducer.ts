@@ -26,10 +26,6 @@ export function reducer(state = initialState, action: Action): State {
       });
     }
 
-    case CheckInActions.CHECK_IN_OR_OUT_SUCCESS: {
-      return state;
-    }
-
     default: {
       return state;
     }
