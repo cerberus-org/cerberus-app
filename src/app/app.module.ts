@@ -57,7 +57,7 @@ import { VolunteerService } from './services/volunteer.service';
 import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
-import { AppEffects } from './effects/app.effects';
+import { AuthEffects } from './effects/auth.effects';
 import { CheckInEffects } from './effects/check-in.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
 import { LoginEffects } from './effects/login.effects';
@@ -103,7 +103,7 @@ import { VerificationGuard } from './verification-guard';
     CdkTableModule,
     ChartsModule,
     EffectsModule.forRoot([
-      AppEffects,
+      AuthEffects,
       CheckInEffects,
       GettingStartedEffects,
       LoginEffects,
