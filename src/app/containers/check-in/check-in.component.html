@@ -1,20 +1,18 @@
-<div class="container">
-  <mat-tab-group mat-stretch-tabs dynamicHeight #tabGroup>
-    <mat-tab label="Check In">
-      <app-check-in-form
-        [organizationId]="organizationId"
-        [siteId]="siteId"
-        [visits]="visits"
-        [volunteers]="volunteers"
-        (checkIn)="onCheckIn($event)"
-        (checkOut)="onCheckOut($event)">
-      </app-check-in-form>
-    </mat-tab>
-    <mat-tab label="New Volunteer">
-      <app-new-volunteer-form
-        [organizationId]="organizationId"
-        (newVolunteer)="onNewVolunteer($event)">
-      </app-new-volunteer-form>
-    </mat-tab>
-  </mat-tab-group>
-</div>
+<mat-tab-group mat-stretch-tabs [dynamicHeight]="true" #tabGroup>
+  <mat-tab label="Record Visit">
+    <app-check-in-form
+      [organizationId]="organizationId"
+      [siteId]="siteId"
+      [visits]="visits"
+      [volunteers]="volunteers"
+      (checkIn)="onCheckIn($event)"
+      (checkOut)="onCheckOut($event)">
+    </app-check-in-form>
+  </mat-tab>
+  <mat-tab label="New Volunteer">
+    <app-new-volunteer-form
+      [organizationId]="organizationId"
+      (newVolunteer)="onNewVolunteer($event)">
+    </app-new-volunteer-form>
+  </mat-tab>
+</mat-tab-group>

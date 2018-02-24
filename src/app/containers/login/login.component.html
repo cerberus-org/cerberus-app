@@ -1,11 +1,14 @@
 <form autocomplete="off" class="container-center loose" [formGroup]="loginForm" nonvalidate (ngSubmit)="onLogin()">
-  <mat-form-field>
-    <input type="email" matInput placeholder='email' class="form-control" formControlName='email' email>
-  </mat-form-field>
-  <mat-form-field>
-    <input autocomplete="off" [type]="hidePwd ? 'password' : 'text'" matInput placeholder='password' class="form-control" formControlName='password'>
-    <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{hidePwd ? 'visibility' : 'visibility_off'}}</mat-icon>
-  </mat-form-field>
-  <button mat-button id="submit-btn" color="primary" [disabled]="loginForm.invalid">Submit</button>
-  <button mat-raised-button color="accent" (click)="onNewOrganization()">New Organization?</button>
+  <h2>Login to activate your organization's check-in system.</h2>
+  <div class="container-center loose">
+    <mat-form-field>
+      <input type="email" matInput placeholder='email' class="form-control" formControlName='email' email>
+    </mat-form-field>
+    <mat-form-field>
+      <input autocomplete="off" [type]="hidePwd ? 'password' : 'text'" matInput placeholder='password' class="form-control" formControlName='password'>
+      <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{hidePwd ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+    <button mat-button id="submit-btn" color="primary" [disabled]="loginForm.invalid">Submit</button>
+    <button mat-raised-button color="accent" (click)="onNewOrganization()">New Organization?</button>
+  </div>
 </form>

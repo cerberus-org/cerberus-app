@@ -6,7 +6,7 @@
     (validUser)="onValidUser($event)"
     [passwordRequired]="false">
   </app-user-form>
-  <div class="container-button">
+  <div class="container-submit">
     <button
       mat-raised-button
       color="primary"
@@ -23,7 +23,7 @@
     [initialOrganization]="initialOrganization"
     (validOrganization)="onValidOrganization($event)">
   </app-organization-form>
-  <div class="container-button">
+  <div class="container-submit">
     <button
       mat-raised-button
       color="primary"
@@ -47,7 +47,7 @@
   <app-reports-form
     (validReport)="onValidReport($event)">
   </app-reports-form>
-  <div class="container-button">
+  <div class="container-submit">
     <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onSubmitReport()">Generate Report</button>
   </div>
 </div>

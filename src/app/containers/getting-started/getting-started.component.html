@@ -1,16 +1,16 @@
 <mat-tab-group mat-stretch-tabs dynamicHeight #tabGroup>
   <mat-tab label="1. About Us">
     <app-about-us></app-about-us>
-    <div class="container-button">
+    <div class="container-submit">
       <button mat-raised-button color="primary" (click)="onNext(1)">Next</button>
     </div>
   </mat-tab>
   <mat-tab label="2. Your Organization" [disabled]="step < 1">
     <app-organization-form
       (validOrganization)="onValidOrganization($event)"
-      [title]="organizationFormTitle"
-    ></app-organization-form>
-    <div class="container-button">
+      [title]="organizationFormTitle">
+    </app-organization-form>
+    <div class="container-submit">
       <button mat-raised-button color="primary" (click)="onNext(2)" [disabled]="!validOrganization">Next</button>
     </div>
   </mat-tab>
@@ -20,13 +20,13 @@
       [title]="userFormTitle"
       [passwordRequired]="true">
     </app-user-form>
-    <div class="container-button">
+    <div class="container-submit">
       <button mat-raised-button color="primary" (click)="onNext(3)" [disabled]="!validUser">Next</button>
     </div>
   </mat-tab>
   <mat-tab label="4. Confirm" [disabled]="step < 3 || !validOrganization || !validUser">
     <app-organization-confirm [organization]="validOrganization" [user]="validUser"></app-organization-confirm>
-    <div class="container-button">
+    <div class="container-submit">
       <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
     </div>
   </mat-tab>

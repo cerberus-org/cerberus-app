@@ -17,18 +17,21 @@ html, body {
 }
 
 h1 {
+  margin: 1rem;
   font-weight: lighter;
   letter-spacing: 1px;
 }
 
 h2, h3, h4 {
-  font-weight: 200;
+  margin: 1rem;
+  font-weight: lighter;
   letter-spacing: 1px;
 }
 
-.loose {
-  margin-top: 2rem;
-  grid-row-gap: 1rem;
+p {
+  margin: 1rem;
+  font-weight: 200;
+  letter-spacing: 1px;
 }
 
 input.capitalize {
@@ -41,14 +44,30 @@ input.capitalize {
   justify-content: center;
 }
 
-.text-center {
-  text-align: center;
-}
-
 .container-inline {
   display: grid;
   grid-auto-flow: column;
   grid-gap: 0.5rem;
+}
+
+.container-submit {
+  display: grid;
+  justify-items: end;
+  margin: 2rem;
+}
+
+.loose {
+  margin-top: 1rem;
+  grid-row-gap: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.input-row {
+  width: calc(360px + 0.5rem);
+  max-width: calc(100vw - 2rem);
 }
 
 .hide-xs {
@@ -68,6 +87,7 @@ input.capitalize {
 
   .mat-tab-group {
     height: 100%;
+    max-width: 100vw;
   }
 
   .mat-tab-body-wrapper {
