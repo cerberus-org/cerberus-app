@@ -31,23 +31,19 @@ export class CsvService {
   covertToCommaSeparatedString(data: any[], propertiesToColumnTitles: Map<string, string>): string {
     const newRow = '\r\n';
     let str = '';
-    // Since the object properties that will be reached first are unknown,
-    // loop through the first object and set the column titles
-    // based on the order the desired properties are found
-    if (data[0]) {
-      Object.keys(data[0]).forEach(function (key) {
-        if (propertiesToColumnTitles.has(key)) {
-          str += propertiesToColumnTitles.get(key) + ',';
-        }
-      });
-      str += newRow;
-    }
-    // Create comma separated string of data[]
-    data.forEach(function (object) {
-      Object.keys(object).forEach(function (key) {
-        if (propertiesToColumnTitles.has(key)) {
-          str += object[key] + ',';
-        }
+    // Set column titles
+    propertiesToColumnTitles.forEach((value: string, key: string) => {
+      str += value + ',';
+    });
+    str += newRow;
+    // Add data
+    data.forEach(object => {
+      propertiesToColumnTitles.forEach((value: string, key: string) => {
+        Object.keys(object).forEach(field => {
+          if (key === field) {
+            str += object[field] + ',';
+          }
+        })
       });
       str += newRow;
     });

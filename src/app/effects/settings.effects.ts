@@ -78,10 +78,10 @@ export class SettingsEffects {
     .switchMap(payload => this.visitService.getByDateAndOrganization(payload.startedAt, payload.endedAt, payload.organizationId, true)
       .do(visits => {
         const propertiesToColumnTitles = new Map([
+          [ 'name', 'Name'],
           [ 'startedAt', 'Started At' ],
           [ 'endedAt', 'Ended At' ],
           [ 'duration', 'Duration'],
-          [ 'name', 'Name'],
         ]);
         this.csvService.downloadAsCsv(
           getVisitsWithVolunteerNames(visits, payload.volunteers), 'VisitHistory.csv', propertiesToColumnTitles
