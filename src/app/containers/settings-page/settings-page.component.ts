@@ -43,8 +43,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   volunteerTableOptions: ColumnOptions[];
 
   constructor(public store: Store<State>) {
-    this.userFormTitle = 'Update user data.';
-    this.organizationFormTitle = 'Update organization data.';
+    this.userFormTitle = 'Update your user info.';
+    this.organizationFormTitle = 'Update your organization info.';
   }
 
   ngOnInit() {

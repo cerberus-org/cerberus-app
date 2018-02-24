@@ -1,16 +1,12 @@
 <div class="container">
   <app-header
-    *ngIf="headerOptions"
-    [icon]="headerOptions.icon"
-    [text]="headerOptions.title"
-    [showBack]="!!headerOptions.previousUrl"
-    [showSettings]="!!headerOptions.showSettings"
+    [headerOptions]="headerOptions"
     [showLogOut]="isLoggedIn"
     [showSidenavToggle]="!!sidenavOptions"
     (buttonClick)="onButtonClick($event)">
   </app-header>
   <app-sidenav
-    [options]="sidenavOptions"
+    [sidenavOptions]="sidenavOptions"
     (selectIndex)="onSelectIndex($event)">
     <router-outlet></router-outlet>
   </app-sidenav>

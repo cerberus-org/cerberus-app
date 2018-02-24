@@ -1,31 +1,33 @@
 <form class="container-center loose" [formGroup]="formGroup" autocomplete="off">
   <h1>{{title}}</h1>
-  <div class="container-center">
-    <div class="inline input-row">
-      <mat-form-field>
-        <input matInput class="capitalize" placeholder="First name" formControlName="firstName">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput class="capitalize" placeholder="Last name" formControlName="lastName">
-      </mat-form-field>
-    </div>
+  <div class="container-center container-inline">
+    <mat-form-field>
+      <input matInput class="capitalize" placeholder="First name" formControlName="firstName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput class="capitalize" placeholder="Last name" formControlName="lastName">
+    </mat-form-field>
   </div>
   <div class="container-center">
     <mat-form-field class="input-row">
       <input type="email" matInput placeholder="Email" formControlName="email">
     </mat-form-field>
   </div>
-  <h4 *ngIf="!passwordRequired">Optionally change your password by entering the following:</h4>
+  <h4 *ngIf="!passwordRequired">Optionally change your password here:</h4>
   <div class="container-center">
     <mat-form-field class="input-row">
-      <input [type]="hidePwd ? 'password' : 'text'" type="password" matInput placeholder="Password" formControlName="password">
+      <input [type]="hidePwd ? 'password' : 'text'" type="password" matInput placeholder="Password"
+             formControlName="password">
       <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{hidePwd ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
   </div>
   <div class="container-center">
     <mat-form-field class="input-row">
-      <input autocomplete="off" [type]="hideConfirmPwd ? 'password' : 'text'" type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword">
-      <mat-icon matSuffix (click)="hideConfirmPwd = !hideConfirmPwd">{{hideConfirmPwd ? 'visibility' : 'visibility_off'}}</mat-icon>
+      <input autocomplete="off" [type]="hideConfirmPwd ? 'password' : 'text'" type="password" matInput
+             placeholder="Confirm Password" formControlName="confirmPassword">
+      <mat-icon matSuffix (click)="hideConfirmPwd = !hideConfirmPwd">{{hideConfirmPwd ? 'visibility' :
+        'visibility_off'}}
+      </mat-icon>
     </mat-form-field>
   </div>
 </form>

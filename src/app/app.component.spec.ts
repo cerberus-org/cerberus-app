@@ -20,9 +20,9 @@ describe('AppComponent', () => {
         MockComponent({ selector: 'app-footer' }),
         MockComponent({
           selector: 'app-header',
-          inputs: ['icon', 'text', 'showBack', 'showLogOut', 'showSidenavToggle', 'showSettings']
+          inputs: ['headerOptions', 'showLogOut', 'showSidenavToggle']
         }),
-        MockComponent({ selector: 'app-sidenav', inputs: ['options'] })
+        MockComponent({ selector: 'app-sidenav', inputs: ['sidenavOptions'] })
       ]
     }).compileComponents();
   }));

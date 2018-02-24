@@ -11,7 +11,7 @@ import { SidenavOptions } from '../../models/sidenav-options';
 })
 export class SidenavComponent implements OnChanges, OnDestroy {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
-  @Input() options: SidenavOptions[];
+  @Input() sidenavOptions: SidenavOptions[];
   @Output() selectIndex = new EventEmitter<number>();
   mobileQuery: MediaQueryList;
   mode: string;
@@ -24,12 +24,12 @@ export class SidenavComponent implements OnChanges, OnDestroy {
   }
 
   /**
-   * Sets the sidenav on options changes.
-   * @param changes - contains options changes
+   * Sets the sidenav on sidenavOptions changes.
+   * @param changes - contains sidenavOptions changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['options']) {
-      if (changes['options'].currentValue) {
+    if (changes['sidenavOptions']) {
+      if (changes['sidenavOptions'].currentValue) {
         this.setForScreen(this.mobileQuery.matches);
       } else {
         this.sidenav.close();
