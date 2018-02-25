@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -11,6 +11,7 @@ import {User} from '../../models/user';
 import {State} from '../../reducers';
 import {AuthService} from '../../services/auth.service';
 import {ErrorService} from '../../services/error.service';
+import {MatAutocomplete} from '@angular/material';
 
 @Component({
   selector: 'app-join-page',
@@ -19,6 +20,7 @@ import {ErrorService} from '../../services/error.service';
 })
 export class JoinPageComponent implements OnInit {
 
+  filteredOrganizations: Organization[];
   private joinSubscription: Subscription;
   private headerOptions: HeaderOptions = new HeaderOptions(
     'Cerberus',
@@ -26,10 +28,10 @@ export class JoinPageComponent implements OnInit {
     null,
     false,
   );
-
   validUser: User;
   userFormTitle: string;
   organizations: Organization[];
+  @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
 
   constructor(private authService: AuthService,
               private errorService: ErrorService,
@@ -57,5 +59,27 @@ export class JoinPageComponent implements OnInit {
 
   onJoinOrganization() {
     // this.authService.createUser(this.validUser);
+  }
+
+  /**
+   * Watch for user input. Set filteredOrganizations on change.
+   * @param {Organization[]} organizations
+   * @param {string} input
+   */
+  onOrganizationInputChanges(organizations: Organization[], input: string) {
+    this.filteredOrganizations = this.filterOrganizationsByName(organizations, input);
+    console.log(this.filteredOrganizations);
+  }
+
+  /**
+   * Return the organizations that contain name or are a subset of name.
+   * @param {Organization[]} organizations
+   * @param {string} name
+   * @returns {Organization[]}
+   */
+  filterOrganizationsByName(organizations: Organization[], name: string): Organization[] {
+    const nameLowerCase = name.toLowerCase();
+    return organizations
+      .filter(organization => organization.name.toLowerCase().includes(nameLowerCase));
   }
 }
