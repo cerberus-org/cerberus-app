@@ -12,7 +12,7 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Report, testReports } from '../../models';
-import { ReportsFormComponent } from './components';
+import { ReportsFormComponent } from './reports-form.component';
 
 describe('ReportsFormComponent', () => {
   let component: ReportsFormComponent;

@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { upperAllFirst } from '../functions/capitalize';
 import { Site, testSites } from '../models';
-import { BaseService, ErrorService } from './services';
+import { BaseService } from './base.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class SiteService extends BaseService<Site> {

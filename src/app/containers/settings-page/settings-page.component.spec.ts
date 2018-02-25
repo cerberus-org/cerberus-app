@@ -5,7 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import * as SettingsActions from '../../actions/settings.actions';
 import { testOrganizations, testReports, testUsers, testVolunteers } from '../../models';
 import { reducers } from '../../reducers';
-import { SettingsPageComponent } from './components';
+import { SettingsPageComponent } from './settings-page.component';
 
 describe('SettingsPageComponent', () => {
   let component: SettingsPageComponent;

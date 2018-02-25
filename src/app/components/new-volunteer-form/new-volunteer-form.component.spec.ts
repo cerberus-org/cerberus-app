@@ -4,7 +4,7 @@ import { MatAutocompleteModule, MatInputModule, MatListModule } from '@angular/m
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { testOrganizations, testVolunteers, Volunteer } from '../../models';
-import { NewVolunteerFormComponent } from './components';
+import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 
 describe('NewVolunteerFormComponent', () => {
   let component: NewVolunteerFormComponent;

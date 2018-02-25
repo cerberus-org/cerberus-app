@@ -4,7 +4,7 @@ import { MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { testUsers, User } from '../../models';
-import { UserFormComponent } from './components';
+import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {
   let component: UserFormComponent;

@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 
 import * as AppActions from '../../actions/app.actions';
 import * as LoginActions from '../../actions/login.actions';
-import { HeaderOptions } from '../../modelsoptions';
+import { HeaderOptions } from '../../models';
 import { State } from '../../reducers';
 
 @Component({

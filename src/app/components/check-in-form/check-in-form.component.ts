@@ -21,7 +21,7 @@ import { MatAutocomplete } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Visit, Volunteer } from '../../models';
-import { SignatureFieldComponent } from './components';
+import { SignatureFieldComponent } from '../signature-field/signature-field.component';
 
 @Component({
   selector: 'app-check-in-form',

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule, MatListModule } from '@angular/material';
 
-import { OrganizationConfirmComponent } from './components';
+import { OrganizationConfirmComponent } from './organization-confirm.component';
 
 describe('OrganizationConfirmComponent', () => {
   let component: OrganizationConfirmComponent;

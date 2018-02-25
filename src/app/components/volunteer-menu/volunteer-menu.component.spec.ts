@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material';
 
 import { testSites } from '../../models';
-import { VolunteerMenuComponent } from './components';
+import { VolunteerMenuComponent } from './volunteer-menu.component';
 
 describe('VolunteerMenuComponent', () => {
   let component: VolunteerMenuComponent;

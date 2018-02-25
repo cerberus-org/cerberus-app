@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
-import { AppComponent } from './components';
+import { AppComponent } from './app.component';
 import { reducers } from './reducers';
 
 describe('AppComponent', () => {
@@ -24,8 +24,8 @@ describe('AppComponent', () => {
         }),
         MockComponent({ selector: 'app-sidenav', inputs: ['sidenavOptions'] }),
       ],
-    });
-    compileComponents();
+    })
+      .compileComponents();
   }));
 
   it('should create the app', async(() => {

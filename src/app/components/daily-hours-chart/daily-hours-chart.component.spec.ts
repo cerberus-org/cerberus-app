@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChartsModule } from 'ng2-charts';
 
 import { testVisits } from '../../models';
-import { DailyHoursChartComponent } from './components';
+import { DailyHoursChartComponent } from './daily-hours-chart.component';
 
 describe('DailyHoursChartComponent', () => {
   let component: DailyHoursChartComponent;

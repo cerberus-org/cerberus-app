@@ -4,7 +4,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import { ErrorService } from './services';
+import { ErrorService } from './error.service';
 
 export abstract class BaseService<T> {
   public collection: AngularFirestoreCollection<T>;

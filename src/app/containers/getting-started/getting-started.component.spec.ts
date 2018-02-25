@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
 import { reducers } from '../../reducers';
-import { GettingStartedComponent } from './components';
+import { GettingStartedComponent } from './getting-started.component';
 
 describe('GettingStartedComponent', () => {
   let component: GettingStartedComponent;
@@ -28,8 +28,8 @@ describe('GettingStartedComponent', () => {
         RouterTestingModule,
         StoreModule.forRoot(reducers),
       ],
-    });
-    compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

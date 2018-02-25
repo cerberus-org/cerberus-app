@@ -4,7 +4,7 @@ import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Organization, testOrganizations } from '../../models';
-import { OrganizationFormComponent } from './components';
+import { OrganizationFormComponent } from './organization-form.component';
 
 describe('OrganizationFormComponent', () => {
   let component: OrganizationFormComponent;

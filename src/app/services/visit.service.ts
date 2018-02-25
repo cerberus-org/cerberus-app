@@ -5,7 +5,8 @@ import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 
 import { testVisits, Visit } from '../models';
-import { BaseService, ErrorService } from './services';
+import { BaseService } from './base.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class VisitService extends BaseService<Visit> {

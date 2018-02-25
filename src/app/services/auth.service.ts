@@ -10,7 +10,8 @@ import { Observable } from 'rxjs/Observable';
 import * as AuthActions from '../actions/auth.actions';
 import { testFirebaseUsers, User } from '../models';
 import { State } from '../reducers';
-import { ErrorService, UserService } from './services';
+import { ErrorService } from './error.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +37,7 @@ export class AuthService {
     return this.pwdVerification;
   }
 
-  createUser(user: User): Observable<User> {
+  createUser(user: User): Observable<{}> {
     return Observable.fromPromise(this.afAuth.auth
       .createUserWithEmailAndPassword(user.email, user.password))
       .switchMap(afUser => this.userService.add(user, afUser.uid))
@@ -48,7 +49,7 @@ export class AuthService {
    * @param user
    * @returns {Observable<User>}
    */
-  updateUser(user: User): Observable<User> {
+  updateUser(user: User): Observable<{}> {
     const currentUser = this.afAuth.auth.currentUser;
     if (user.password) {
       this.updatePassword(user, currentUser);
@@ -59,7 +60,7 @@ export class AuthService {
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
-  updatePassword(user: User, currentUser: FbUser) {
+  updatePassword(user: User, currentUser: FbUser): Observable<{}> {
     return Observable.fromPromise(currentUser
       .updatePassword(user.password));
   }

@@ -8,7 +8,8 @@ import * as AuthActions from '../actions/auth.actions';
 import * as SettingsActions from '../actions/settings.actions';
 import { testOrganizations, testUsers } from '../models';
 import { CsvService, SnackBarService } from '../services';
-import { mockServices, SettingsEffects } from './effects';
+import { mockServiceProviders } from '../services/mock-service-providers';
+import { SettingsEffects } from './settings.effects';
 
 describe('SettingsEffects', () => {
   let effects: SettingsEffects;
@@ -20,7 +21,7 @@ describe('SettingsEffects', () => {
       providers: [
         SettingsEffects,
         provideMockActions(() => actions),
-      ].concat(mockServices),
+      ].concat(mockServiceProviders),
     });
     effects = TestBed.get(SettingsEffects);
   }));

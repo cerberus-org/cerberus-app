@@ -8,7 +8,8 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
 import { testUsers, User } from '../models/user';
-import { BaseService, ErrorService } from './services';
+import { BaseService } from './base.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class UserService extends BaseService<User> {

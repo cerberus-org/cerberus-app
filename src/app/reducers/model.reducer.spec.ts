@@ -1,7 +1,7 @@
 import * as ModelActions from '../actions/model.actions';
 import { sortVisitsByDate } from '../functions/helpers';
 import { testSites, testVisits, testVolunteers } from '../models';
-import * as fromModel from './model';
+import * as fromModel from './model.reducer';
 
 describe('modelReducer', () => {
   describe('LOAD_SITES_SUCCESS', () => {

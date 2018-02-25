@@ -12,7 +12,7 @@ import {
   SiteService,
   VisitService,
 } from '../../services';
-import { OrganizationDashboardComponent } from './components';
+import { OrganizationDashboardComponent } from './organization-dashboard.component';
 
 describe('OrganizationDashboardComponent', () => {
   let component: OrganizationDashboardComponent;

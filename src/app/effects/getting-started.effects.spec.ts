@@ -7,7 +7,8 @@ import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';
 import { testOrganizations, testUsers } from '../models';
 import { SnackBarService } from '../services';
-import { GettingStartedEffects, mockServices } from './effects';
+import { mockServiceProviders } from '../services/mock-service-providers';
+import { GettingStartedEffects } from './getting-started.effects';
 
 describe('GettingStartedEffects', () => {
   let effects: GettingStartedEffects;
@@ -18,7 +19,7 @@ describe('GettingStartedEffects', () => {
       providers: [
         GettingStartedEffects,
         provideMockActions(() => actions),
-      ].concat(mockServices),
+      ].concat(mockServiceProviders),
     });
     effects = TestBed.get(GettingStartedEffects);
   }));

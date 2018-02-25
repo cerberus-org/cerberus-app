@@ -7,7 +7,8 @@ import { Observable } from 'rxjs/Observable';
 import * as ModelActions from '../actions/model.actions';
 import { filterByOrganizationId } from '../functions/helpers';
 import { testOrganizations, testSites, testVisits, testVolunteers } from '../models';
-import { mockServices, ModelEffects } from './effects';
+import { mockServiceProviders } from '../services/mock-service-providers';
+import { ModelEffects } from './model.effects';
 
 describe('ModelEffects', () => {
   let effects: ModelEffects;
@@ -20,7 +21,7 @@ describe('ModelEffects', () => {
       providers: [
         ModelEffects,
         provideMockActions(() => actions),
-      ].concat(mockServices),
+      ].concat(mockServiceProviders),
     });
     effects = TestBed.get(ModelEffects);
   }));

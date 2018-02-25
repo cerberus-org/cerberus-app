@@ -8,7 +8,8 @@ import * as CheckInActions from '../actions/check-in.actions';
 import * as RouterActions from '../actions/router.actions';
 import { testVisits, testVolunteers } from '../models';
 import { SnackBarService } from '../services';
-import { CheckInEffects, mockServices } from './effects';
+import { mockServiceProviders } from '../services/mock-service-providers';
+import { CheckInEffects } from './check-in.effects';
 
 describe('CheckInEffects', () => {
   let effects: CheckInEffects;
@@ -22,7 +23,7 @@ describe('CheckInEffects', () => {
       providers: [
         CheckInEffects,
         provideMockActions(() => actions),
-      ].concat(mockServices),
+      ].concat(mockServiceProviders),
     });
     effects = TestBed.get(CheckInEffects);
   }));

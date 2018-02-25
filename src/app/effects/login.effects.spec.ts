@@ -8,7 +8,8 @@ import * as LogInActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
 import { testLoginCredentials } from '../models';
 import { SnackBarService } from '../services';
-import { LoginEffects, mockServices } from './effects';
+import { mockServiceProviders } from '../services/mock-service-providers';
+import { LoginEffects } from './login.effects';
 
 describe('LoginEffects', () => {
   let effects: LoginEffects;
@@ -22,7 +23,7 @@ describe('LoginEffects', () => {
       providers: [
         LoginEffects,
         provideMockActions(() => actions),
-      ].concat(mockServices),
+      ].concat(mockServiceProviders),
     });
     effects = TestBed.get(LoginEffects);
   }));

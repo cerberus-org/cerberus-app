@@ -2,7 +2,7 @@ import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 import { Organization, testOrganizations } from '../models';
-import { ErrorService, MockErrorService, OrganizationService } from './services';
+import { ErrorService, MockErrorService, OrganizationService } from '.';
 
 describe('OrganizationService', () => {
   let service: OrganizationService;

@@ -6,7 +6,8 @@ import { Observable } from 'rxjs/Observable';
 
 import * as AuthActions from '../actions/auth.actions';
 import { testFirebaseUsers, testOrganizations, testUsers } from '../models';
-import { AuthEffects, mockServices } from './effects';
+import { mockServiceProviders } from '../services/mock-service-providers';
+import { AuthEffects } from './auth.effects';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;
@@ -18,7 +19,7 @@ describe('AuthEffects', () => {
       providers: [
         AuthEffects,
         provideMockActions(() => actions),
-      ].concat(mockServices),
+      ].concat(mockServiceProviders),
     });
     effects = TestBed.get(AuthEffects);
   }));

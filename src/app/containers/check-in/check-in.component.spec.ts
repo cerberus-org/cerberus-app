@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
 import { reducers } from '../../reducers';
-import { CheckInComponent } from './component';
+import { CheckInComponent } from './check-in.component';
 
 describe('CheckInComponent', () => {
   let component: CheckInComponent;
