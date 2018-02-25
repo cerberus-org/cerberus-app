@@ -6,12 +6,14 @@ import 'rxjs/add/operator/map';
 import {Subscription} from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as JoinActions from '../../actions/join.actions';
+import * as RouterActions from '../../actions/router.actions';
 import {HeaderOptions} from '../../models/header-options';
 import {Organization} from '../../models/organization';
 import {User} from '../../models/user';
 import {State} from '../../reducers';
 import {AuthService} from '../../services/auth.service';
 import {ErrorService} from '../../services/error.service';
+import {SnackBarService} from '../../services/snack-bar.service';
 
 @Component({
   selector: 'app-join-page',
@@ -38,7 +40,8 @@ export class JoinPageComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private errorService: ErrorService,
-              private store: Store<State>) {
+              private store: Store<State>,
+              private snackBarService: SnackBarService) {
     this.userFormTitle = 'Please enter your information.';
   }
 
@@ -60,9 +63,25 @@ export class JoinPageComponent implements OnInit {
     this.validUser = user;
   }
 
-  onJoinOrganization() {
-    console.log(this.organizations);
-    // this.authService.createUser(this.validUser);
+  onJoinOrganization(organizationName: string) {
+    this.authService.createUser(
+      Object.assign({}, this.validUser, { organizationId: this.getOrganizationByName(organizationName).id }))
+      .subscribe(() => {
+        this.authService.signOut();
+        this.snackBarService.requestToJoinOrganizationSuccess();
+        RouterActions.Go({ path: ['/login'] });
+      });
+  }
+
+  /**
+   * Return Organization given name.
+   * @param {string} organizationName
+   * @returns {Organization}
+   */
+  getOrganizationByName(organizationName: string): Organization {
+    return this.organizations.find(organization => {
+      return organization.name === organizationName;
+    })
   }
 
   /**
