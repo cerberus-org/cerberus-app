@@ -8,8 +8,8 @@ import * as AuthActions from '../actions/auth.actions';
 import { testOrganizations } from '../models/organization';
 import { testFirebaseUsers, testUsers } from '../models/user';
 import { AuthEffects } from './auth.effects';
-import { SettingsEffects } from './settings.effects';
 import { mockServices } from './mock-services';
+import { SettingsEffects } from './settings.effects';
 
 describe('AuthEffects', () => {
   let effects: SettingsEffects;

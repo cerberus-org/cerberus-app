@@ -6,16 +6,12 @@ import { Observable } from 'rxjs/Observable';
 
 import * as AuthActions from '../actions/auth.actions';
 import * as SettingsActions from '../actions/settings.actions';
-import { AuthService, MockAuthService } from '../services/auth.service';
-import { CsvService, MockCsvService } from '../services/csv.service';
-import { MockOrganizationService, OrganizationService } from '../services/organization.service';
-import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
-import { MockVisitService, VisitService } from '../services/visit.service';
-import { MockVolunteerService, VolunteerService } from '../services/volunteer.service';
-import { SettingsEffects } from './settings.effects';
 import { testOrganizations } from '../models/organization';
 import { testUsers } from '../models/user';
+import { CsvService } from '../services/csv.service';
+import { SnackBarService } from '../services/snack-bar.service';
 import { mockServices } from './mock-services';
+import { SettingsEffects } from './settings.effects';
 
 describe('SettingsEffects', () => {
   let effects: SettingsEffects;
