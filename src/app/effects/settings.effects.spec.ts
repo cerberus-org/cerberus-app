@@ -15,6 +15,7 @@ import { MockVolunteerService, VolunteerService } from '../services/volunteer.se
 import { SettingsEffects } from './settings.effects';
 import { testOrganizations } from '../models/organization';
 import { testUsers } from '../models/user';
+import { mockServices } from './mock-services';
 
 describe('SettingsEffects', () => {
   let effects: SettingsEffects;
@@ -26,13 +27,7 @@ describe('SettingsEffects', () => {
       providers: [
         SettingsEffects,
         provideMockActions(() => actions),
-        { provide: AuthService, useClass: MockAuthService },
-        { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: OrganizationService, useClass: MockOrganizationService },
-        { provide: VisitService, useClass: MockVisitService },
-        { provide: VolunteerService, useClass: MockVolunteerService },
-        { provide: CsvService, useClass: MockCsvService },
-      ],
+      ].concat(mockServices),
     });
     effects = TestBed.get(SettingsEffects);
   }));

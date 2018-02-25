@@ -23,10 +23,10 @@ export class AuthEffects {
       .switchMap(res => {
         const user = Object.assign({}, res, { email: firebaseUser.email, id: firebaseUser.uid });
         return this.organizationService.getById(user.organizationId)
-          .map(organization => {
-            const org = Object.assign({}, organization, { id: user.organizationId });
-            return new AuthActions.LoadDataSuccess({ user: user, organization: org })
-          })
+          .map(organization => new AuthActions.LoadDataSuccess({
+            user: user,
+            organization: Object.assign({}, organization, { id: user.organizationId })
+          }));
       }));
 
   constructor(private actions: Actions,

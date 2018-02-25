@@ -8,10 +8,9 @@ import * as CheckInActions from '../actions/check-in.actions';
 import * as RouterActions from '../actions/router.actions';
 import { testVisits } from '../models/visit';
 import { testVolunteers } from '../models/volunteer';
-import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
-import { MockVisitService, VisitService } from '../services/visit.service';
-import { MockVolunteerService, VolunteerService } from '../services/volunteer.service';
+import { SnackBarService } from '../services/snack-bar.service';
 import { CheckInEffects } from './check-in.effects';
+import { mockServices } from './mock-services';
 
 describe('CheckInEffects', () => {
   let effects: CheckInEffects;
@@ -25,10 +24,7 @@ describe('CheckInEffects', () => {
       providers: [
         CheckInEffects,
         provideMockActions(() => actions),
-        { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: VisitService, useClass: MockVisitService },
-        { provide: VolunteerService, useClass: MockVolunteerService }
-      ],
+      ].concat(mockServices),
     });
     effects = TestBed.get(CheckInEffects);
   }));

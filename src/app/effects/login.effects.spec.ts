@@ -7,11 +7,9 @@ import { Observable } from 'rxjs/Observable';
 import * as LogInActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
 import { testLoginCredentials } from '../models/user';
-import { AuthService, MockAuthService } from '../services/auth.service';
-import { MockOrganizationService, OrganizationService } from '../services/organization.service';
-import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
-import { MockUserService, UserService } from '../services/user.service';
+import { SnackBarService } from '../services/snack-bar.service';
 import { LoginEffects } from './login.effects';
+import { mockServices } from './mock-services';
 
 describe('LoginEffects', () => {
   let effects: LoginEffects;
@@ -25,11 +23,7 @@ describe('LoginEffects', () => {
       providers: [
         LoginEffects,
         provideMockActions(() => actions),
-        { provide: AuthService, useClass: MockAuthService },
-        { provide: OrganizationService, useClass: MockOrganizationService },
-        { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: UserService, useClass: MockUserService },
-      ],
+      ].concat(mockServices),
     });
     effects = TestBed.get(LoginEffects);
   }));

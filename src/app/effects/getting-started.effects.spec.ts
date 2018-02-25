@@ -7,12 +7,9 @@ import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';
 import { testOrganizations } from '../models/organization';
 import { testUsers } from '../models/user';
-import { AuthService, MockAuthService } from '../services/auth.service';
-import { MockOrganizationService, OrganizationService } from '../services/organization.service';
-import { MockSiteService, SiteService } from '../services/site.service';
-import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
-import { MockUserService, UserService } from '../services/user.service';
+import { SnackBarService } from '../services/snack-bar.service';
 import { GettingStartedEffects } from './getting-started.effects';
+import { mockServices } from './mock-services';
 
 describe('GettingStartedEffects', () => {
   let effects: GettingStartedEffects;
@@ -23,12 +20,7 @@ describe('GettingStartedEffects', () => {
       providers: [
         GettingStartedEffects,
         provideMockActions(() => actions),
-        { provide: AuthService, useClass: MockAuthService },
-        { provide: OrganizationService, useClass: MockOrganizationService },
-        { provide: SiteService, useClass: MockSiteService },
-        { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: UserService, useClass: MockUserService }
-      ],
+      ].concat(mockServices),
     });
     effects = TestBed.get(GettingStartedEffects);
   }));
