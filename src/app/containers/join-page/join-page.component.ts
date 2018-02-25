@@ -64,13 +64,18 @@ export class JoinPageComponent implements OnInit {
   }
 
   onJoinOrganization(organizationName: string) {
-    this.authService.createUser(
-      Object.assign({}, this.validUser, { organizationId: this.getOrganizationByName(organizationName).id, role: 'unverified' }))
-      .subscribe(() => {
-        this.authService.signOut();
-        this.snackBarService.requestToJoinOrganizationSuccess();
-        RouterActions.Go({ path: ['/login'] });
-      });
+    const organization = this.getOrganizationByName(organizationName);
+    if (organization) {
+      this.authService.createUser(
+        Object.assign({}, this.validUser, { organizationId: organization.id, role: 'unverified' }))
+        .subscribe(() => {
+          this.authService.signOut();
+          this.snackBarService.requestToJoinOrganizationSuccess();
+          RouterActions.Go({ path: ['/login'] });
+        });
+    } else {
+      this.snackBarService.invalidOrganization();
+    }
   }
 
   /**

@@ -45,6 +45,10 @@ export class SnackBarService {
   requestToJoinOrganizationSuccess(): void {
     this.open('Successfully requested to join an organization.')
   }
+
+  invalidOrganization(): void {
+    this.open('Invalid organization.')
+  }
 }
 
 export class MockSnackBarService extends SnackBarService {
