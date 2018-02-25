@@ -67,6 +67,7 @@
     "protractor": "^5.2.2",
     "rxjs-marbles": "^2.3.0",
     "tslint": "^5.8.0",
+    "tslint-config-airbnb": "^5.7.0",
     "typescript": "^2.6.2"
   }
 }
