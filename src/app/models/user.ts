@@ -11,15 +11,18 @@ export class User {
   lastName: string;
   email: string;
   password: string;
+  role: string;
 
   constructor(firstName: string,
               lastName: string,
               email: string,
-              password: string) {
+              password: string,
+              role: string) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.password = password;
+    this.role = role;
   }
 }
 
@@ -31,6 +34,7 @@ export const testUsers: User[] = [
     lastName: 'Mader',
     email: 'tlmader.dev@gmail.com',
     password: 'password',
+    role: 'owner',
   }, {
     id: '5961327dfba1ca1b64b8945b',
     organizationId: '59a7055733bfe28af47cff40',
@@ -38,6 +42,7 @@ export const testUsers: User[] = [
     lastName: 'Lynn',
     email: 'harurang@gmail.com',
     password: null,
+    role: 'member',
   },
 ];
 

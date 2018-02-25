@@ -36,7 +36,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   emitUserIfValid(): void {
     const value = this.formGroup.value;
     if (this.formGroup.valid) {
-      this.validUser.emit(new User(value.firstName, value.lastName, value.email, value.password))
+      this.validUser.emit(new User(value.firstName, value.lastName, value.email, value.password, null))
     } else {
       this.validUser.emit(null);
     }
