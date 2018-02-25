@@ -1,7 +1,6 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 
-import { ErrorService } from './error.service';
-import { MockSnackBarService, SnackBarService } from './snack-bar.service';
+import { ErrorService, MockSnackBarService, SnackBarService } from '.';
 
 describe('ErrorService', () => {
   let service: ErrorService = null;
@@ -11,7 +10,7 @@ describe('ErrorService', () => {
       providers: [
         ErrorService,
         { provide: SnackBarService, useClass: MockSnackBarService },
-      ]
+      ],
     });
     const testbed = getTestBed();
     service = testbed.get(ErrorService);

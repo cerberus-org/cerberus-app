@@ -12,17 +12,18 @@ describe('SidenavComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SidenavComponent
+        SidenavComponent,
       ],
       imports: [
         MatListModule,
         MatSidenavModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       providers: [
-        MediaMatcher
-      ]
-    }).compileComponents();
+        MediaMatcher,
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

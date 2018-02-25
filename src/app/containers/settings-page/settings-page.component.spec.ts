@@ -3,10 +3,7 @@ import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
 import * as SettingsActions from '../../actions/settings.actions';
-import { testOrganizations } from '../../models/organization';
-import { testReports } from '../../models/report';
-import { testUsers } from '../../models/user';
-import { testVolunteers } from '../../models/volunteer';
+import { testOrganizations, testReports, testUsers, testVolunteers } from '../../models';
 import { reducers } from '../../reducers';
 import { SettingsPageComponent } from './settings-page.component';
 
@@ -18,14 +15,17 @@ describe('SettingsPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SettingsPageComponent,
-        MockComponent({ selector: 'app-data-table', inputs: ['columnOptions', 'data$', 'showDelete'] }),
+        MockComponent({
+          selector: 'app-data-table',
+          inputs: ['columnOptions', 'data$', 'showDelete'],
+        }),
         MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
         MockComponent({ selector: 'app-reports-form' }),
         MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
       ],
       imports: [
-        StoreModule.forRoot(reducers)
-      ]
+        StoreModule.forRoot(reducers),
+      ],
     })
       .compileComponents();
   }));
@@ -96,6 +96,6 @@ describe('SettingsPageComponent', () => {
         endedAt: testReports[0].endedAt,
         organizationId: testOrganizations[0].id,
         volunteers: testVolunteers,
-       }));
+      }));
   });
 });

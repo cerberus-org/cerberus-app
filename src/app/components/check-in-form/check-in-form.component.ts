@@ -1,12 +1,28 @@
 import { animate, state as animationsState, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  FormGroupDirective,
+  Validators,
+} from '@angular/forms';
 import { MatAutocomplete } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
+import { getFullName } from '../../functions';
 
-import { Visit } from '../../models/visit';
-import { Volunteer } from '../../models/volunteer';
-import { SignatureFieldComponent } from './signature-field/signature-field.component';
+import { Visit, Volunteer } from '../../models';
+import { SignatureFieldComponent } from '../signature-field/signature-field.component';
 
 @Component({
   selector: 'app-check-in-form',
@@ -19,10 +35,10 @@ import { SignatureFieldComponent } from './signature-field/signature-field.compo
       })),
       transition('void => *', [
         style({ opacity: '0' }),
-        animate('500ms 0s ease-in')
-      ])
-    ])
-  ]
+        animate('500ms 0s ease-in'),
+      ]),
+    ]),
+  ],
 })
 export class CheckInFormComponent implements OnInit, OnDestroy {
   @Input() organizationId: string;
@@ -90,7 +106,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
         new Date(),
         null,
         'America/Chicago',
-        this.signatures.first ? this.signatures.first.signature : null
+        this.signatures.first ? this.signatures.first.signature : null,
       );
       this.checkIn.emit(visit);
     }
@@ -118,7 +134,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     // Create the list of filtered volunteers by name
     this.filteredVolunteers = this.filterVolunteersByName(this.volunteers, name);
     // If multiple volunteers all match the name, set to true
-    this.showPetNameForm = this.filteredVolunteers.length > 1 && this.allMatchName(this.filteredVolunteers, name);
+    this.showPetNameForm = this.filteredVolunteers.length > 1
+      && this.allMatchName(this.filteredVolunteers, name);
     // If one newVolunteer remains, select the newVolunteer that exactly matches the name
     if (!this.showPetNameForm) {
       this.selectedVolunteer = this.selectVolunteerByName(this.filteredVolunteers, name);
@@ -126,7 +143,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Subscribes to the form group and attempts to select an active visit if a newVolunteer is selected.
+   * Subscribes to the form group and attempts to select an active visit
+   * if a newVolunteer is selected.
    */
   subscribeToForm(): Subscription {
     return this.formGroup.valueChanges
@@ -135,7 +153,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
         this.autocompleteNames = this.getUniqueNames(this.filteredVolunteers);
         this.activeVisit = this.selectedVolunteer
           ? this.selectActiveVisit(this.visits, this.selectedVolunteer)
-          : null
+          : null;
       });
   }
 
@@ -159,24 +177,33 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     if (control.value) {
       this.updateForm(control.value);
     }
-    return this.selectedVolunteer || this.showPetNameForm ? null : { noMatchByName: { value: control.value } };
-  };
+    return this.selectedVolunteer
+    || this.showPetNameForm
+      ? null
+      : { noMatchByName: { value: control.value } };
+  }
 
   /**
    * Validates if a matching newVolunteer is found by pet name (control.value) if needed.
    * @param control
    */
   petNameValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !this.showPetNameForm || this.selectedVolunteer ? null : { noMatchByPetName: { value: control.value } };
-  };
+    return !this.showPetNameForm
+    || this.selectedVolunteer
+      ? null
+      : { noMatchByPetName: { value: control.value } };
+  }
 
   /**
    * Validates if a signature (control.value) has been entered if needed.
    * @param control
    */
   signatureValidator = (control: AbstractControl): { [key: string]: any } => {
-    return this.activeVisit || control.value ? null : { noSignature: { value: control.value } };
-  };
+    return this.activeVisit
+    || control.value
+      ? null
+      : { noSignature: { value: control.value } };
+  }
 
   /**
    * Creates the form group.
@@ -186,7 +213,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     return this.fb.group({
       name: ['', [Validators.required, this.nameValidator]],
       petName: ['', this.petNameValidator],
-      signatureField: ['', this.signatureValidator]
+      signatureField: ['', this.signatureValidator],
     });
   }
 
@@ -211,7 +238,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   getUniqueNames(volunteers: Volunteer[]): string[] {
     return Array.from(
-      new Set(volunteers.map(volunteer => this.formatName(volunteer)))
+      new Set(volunteers.map(volunteer => this.formatName(volunteer))),
     );
   }
 
@@ -223,7 +250,9 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   allMatchName(volunteers: Volunteer[], name: string): boolean {
     const nameLowerCase = name.toLowerCase();
-    return volunteers.every(volunteer => this.formatName(volunteer).toLowerCase() === nameLowerCase)
+    return volunteers.every(volunteer => (
+      this.formatName(volunteer).toLowerCase() === nameLowerCase
+    ));
   }
 
   /**
@@ -279,7 +308,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Assigns signature to existing signature passed in. The signature will be displayed in the signature pad once set.
+   * Assigns signature to existing signature passed in.
+   * The signature will be displayed in the signature pad once set.
    * @param signature
    */
   setSignature(signature): void {
@@ -292,7 +322,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @returns {string} - the full name as a string
    */
   private formatName(volunteer: Volunteer): string {
-    return `${volunteer.firstName} ${volunteer.lastName}`;
-  };
-
+    return getFullName(volunteer);
+  }
 }

@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 
-import { reducers } from '../../reducers/index';
+import { reducers } from '../../reducers';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
@@ -22,9 +22,10 @@ describe('LoginComponent', () => {
         MatIconModule,
         MatInputModule,
         MatListModule,
-        StoreModule.forRoot(reducers)
-      ]
-    }).compileComponents();
+        StoreModule.forRoot(reducers),
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -12,9 +12,10 @@ describe('OrganizationConfirmComponent', () => {
       declarations: [OrganizationConfirmComponent],
       imports: [
         MatIconModule,
-        MatListModule
-      ]
-    }).compileComponents();
+        MatListModule,
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

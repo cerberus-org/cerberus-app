@@ -3,11 +3,11 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import 'rxjs/add/operator/map';
-import { upperAllFirst } from '../functions/capitalize';
-import { Organization, testOrganizations } from '../models/organization';
+import { upperAllFirst } from '../functions';
+import { Organization, testOrganizations } from '../models';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';
 
@@ -27,7 +27,7 @@ export class OrganizationService extends BaseService<Organization> {
   private capitalize(organization: Organization): Organization {
     organization.name = upperAllFirst(organization.name);
     organization.description = _.upperFirst(organization.description);
-    return organization
+    return organization;
   }
 
   /**

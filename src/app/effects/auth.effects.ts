@@ -10,8 +10,7 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 import * as AuthActions from '../actions/auth.actions';
-import { OrganizationService } from '../services/organization.service';
-import { UserService } from '../services/user.service';
+import { OrganizationService, UserService } from '../services';
 
 @Injectable()
 export class AuthEffects {
@@ -20,12 +19,12 @@ export class AuthEffects {
   loadData$: Observable<Action> = this.actions.ofType(AuthActions.LOAD_DATA)
     .map((action: AuthActions.LoadData) => action.payload)
     .switchMap(firebaseUser => this.userService.getById(firebaseUser.uid)
-      .switchMap(res => {
+      .switchMap((res) => {
         const user = Object.assign({}, res, { email: firebaseUser.email, id: firebaseUser.uid });
         return this.organizationService.getById(user.organizationId)
           .map(organization => new AuthActions.LoadDataSuccess({
-            user: user,
-            organization: Object.assign({}, organization, { id: user.organizationId })
+            user,
+            organization: Object.assign({}, organization, { id: user.organizationId }),
           }));
       }));
 

@@ -1,6 +1,6 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 
-import { CsvService } from './csv.service';
+import { CsvService } from '.';
 
 describe('CsvService', () => {
   let service: CsvService;
@@ -21,9 +21,9 @@ describe('CsvService', () => {
       c: 'test3',
     }];
     propertiesToColumnTitles = new Map([
-      [ 'a', 'A' ],
-      [ 'b', 'B' ],
-      [ 'c', 'C'],
+      ['a', 'A'],
+      ['b', 'B'],
+      ['c', 'C'],
     ]);
   }));
 

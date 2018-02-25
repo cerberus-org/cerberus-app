@@ -1,12 +1,15 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatIconModule, MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
+import {
+  MatIconModule,
+  MatListModule,
+  MatPaginatorModule,
+  MatTableModule,
+} from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs/Observable';
 
-import { testColumnOptions } from '../../models/column-options';
-import { testVisits } from '../../models/visit';
-import { testVolunteers } from '../../models/volunteer';
+import { testColumnOptions, testVisits, testVolunteers } from '../../models';
 import { DataTableComponent, DataTableSource } from './data-table.component';
 
 describe('DataTableComponent', () => {
@@ -16,7 +19,7 @@ describe('DataTableComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DataTableComponent
+        DataTableComponent,
       ],
       imports: [
         CdkTableModule,
@@ -24,9 +27,10 @@ describe('DataTableComponent', () => {
         MatListModule,
         MatPaginatorModule,
         MatTableModule,
-        NoopAnimationsModule
-      ]
-    }).compileComponents();
+        NoopAnimationsModule,
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

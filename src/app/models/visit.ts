@@ -38,9 +38,9 @@ export const testVisits: Visit[] = [
         { x: 283, y: 134, time: 1509295638108, color: 'black' },
         { x: 350, y: 103, time: 1509295638124, color: 'black' },
         { x: 433, y: 72, time: 1509295638140, color: 'black' },
-        { x: 545, y: 41, time: 1509295638156, color: 'black' }
-      ]
-    ]
+        { x: 545, y: 41, time: 1509295638156, color: 'black' },
+      ],
+    ],
   },
   {
     id: '674a861ace7ca574af9070c1',
@@ -50,7 +50,7 @@ export const testVisits: Visit[] = [
     startedAt: new Date('2017-06-29T12:45:42.336Z'),
     endedAt: new Date('2017-06-29T18:45:42.336Z'),
     timezone: 'America/New_York',
-    signature: null
+    signature: null,
   },
   {
     id: '674a861ace7ca574af9070c2',
@@ -60,7 +60,7 @@ export const testVisits: Visit[] = [
     startedAt: new Date('2017-06-30T12:45:42.336Z'),
     endedAt: new Date('2017-06-31T18:45:01.336Z'),
     timezone: 'America/Chicago',
-    signature: null
+    signature: null,
   },
   {
     id: '674a861ace7ca574af9070c3',
@@ -70,7 +70,7 @@ export const testVisits: Visit[] = [
     startedAt: new Date('2017-07-01T14:45:42.336Z'),
     endedAt: null,
     timezone: 'America/Chicago',
-    signature: null
+    signature: null,
   },
   {
     id: '674a861ace7ca574af9070c4',
@@ -80,6 +80,6 @@ export const testVisits: Visit[] = [
     startedAt: new Date('2017-07-02T10:45:42.336Z'),
     endedAt: new Date('2017-07-03T23:45:01.336Z'),
     timezone: 'America/Chicago',
-    signature: null
-  }
+    signature: null,
+  },
 ];

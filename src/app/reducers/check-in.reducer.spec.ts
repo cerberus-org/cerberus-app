@@ -15,7 +15,7 @@ describe('checkInReducer', () => {
     it('sets the tab index', () => {
       const state = fromCheckIn.reducer(
         fromCheckIn.initialState,
-        new CheckInActions.SubmitNewVolunteerSuccess()
+        new CheckInActions.SubmitNewVolunteerSuccess(),
       );
       expect(state.selectedTabIndex).toEqual(0);
     });

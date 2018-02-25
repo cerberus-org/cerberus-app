@@ -1,7 +1,7 @@
 import * as CheckInActions from '../actions/check-in.actions';
 
 export interface State {
-  selectedTabIndex: number,
+  selectedTabIndex: number;
 }
 
 export const initialState: State = {
@@ -16,7 +16,7 @@ export function reducer(state = initialState, action: Action): State {
 
     case CheckInActions.SUBMIT_NEW_VOLUNTEER_SUCCESS: {
       return Object.assign({}, state, {
-        selectedTabIndex: 0
+        selectedTabIndex: 0,
       });
     }
 

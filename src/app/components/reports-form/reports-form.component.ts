@@ -2,12 +2,13 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggle } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
-import { Report } from '../../models/report';
+
+import { Report } from '../../models';
 
 @Component({
   selector: 'app-reports-form',
   templateUrl: './reports-form.component.html',
-  styleUrls: ['./reports-form.component.scss']
+  styleUrls: ['./reports-form.component.scss'],
 })
 export class ReportsFormComponent implements OnInit {
 
@@ -18,7 +19,7 @@ export class ReportsFormComponent implements OnInit {
   toggles: MatSlideToggle[];
 
   constructor(private fb: FormBuilder) {
-    this.reportOptions = [ 'Visit History', 'Report B'];
+    this.reportOptions = ['Visit History', 'Report B'];
     this.toggles = [];
   }
 
@@ -74,7 +75,7 @@ export class ReportsFormComponent implements OnInit {
     return this.formGroup.valueChanges.subscribe(() => {
       if (this.formGroup.valid) {
         const value = this.formGroup.value;
-        this.validReport.emit(new Report(value.start, value.end, value.selectedReport))
+        this.validReport.emit(new Report(value.start, value.end, value.selectedReport));
       } else {
         this.validReport.emit(null);
       }

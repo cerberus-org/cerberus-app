@@ -11,12 +11,13 @@ describe('FooterComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MatIconModule,
-        MatToolbarModule
+        MatToolbarModule,
       ],
       declarations: [
-        FooterComponent
-      ]
-    }).compileComponents();
+        FooterComponent,
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {
