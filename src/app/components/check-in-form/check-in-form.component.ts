@@ -19,7 +19,7 @@ import {
 } from '@angular/forms';
 import { MatAutocomplete } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
-import { getFullName } from '../../functions/helpers.functions';
+import { getFullName } from '../../functions';
 
 import { Visit, Volunteer } from '../../models';
 import { SignatureFieldComponent } from '../signature-field/signature-field.component';

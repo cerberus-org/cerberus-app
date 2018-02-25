@@ -6,7 +6,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import { upperAllFirst } from '../functions/capitalize.functions';
+import { upperAllFirst } from '../functions';
 import { Organization, testOrganizations } from '../models';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';

@@ -3,7 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import 'rxjs/add/observable/empty';
 import { Observable } from 'rxjs/Observable';
 
-import { upperAllFirst } from '../functions/capitalize.functions';
+import { upperAllFirst } from '../functions';
 import { Site, testSites } from '../models';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';

@@ -1,10 +1,6 @@
 import { Visit, Volunteer } from '../models';
 import { formatDuration } from './date-format.functions';
 
-export const sortVisitsByDate = (visits: Visit[]) => (
-  visits.slice().sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime())
-);
-
 export const filterByOrganizationId = (array: any[], organizationId: string) => (
   array.filter(item => item.organizationId === organizationId)
 );
@@ -27,4 +23,8 @@ export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunte
     { endedAt: visit.endedAt ? visit.endedAt : '(no check-out)' },
     { name: getFullName(volunteers.find(volunteer => volunteer.id === visit.volunteerId)) },
   ))
+);
+
+export const sortVisitsByDate = (visits: Visit[]) => (
+  visits.slice().sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime())
 );

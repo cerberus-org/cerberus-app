@@ -5,7 +5,7 @@ import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 
 import * as ModelActions from '../actions/model.actions';
-import { filterByOrganizationId } from '../functions/helpers.functions';
+import { filterByOrganizationId } from '../functions';
 import { testOrganizations, testSites, testVisits, testVolunteers } from '../models';
 import { mockServiceProviders } from '../services/mock-service-providers';
 import { ModelEffects } from './model.effects';

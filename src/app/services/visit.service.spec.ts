@@ -1,8 +1,8 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import { testVisits, Visit } from '../models';
 import { ErrorService, MockErrorService, VisitService } from '.';
+import { testVisits, Visit } from '../models';
 
 describe('VisitService', () => {
   let service: VisitService;
