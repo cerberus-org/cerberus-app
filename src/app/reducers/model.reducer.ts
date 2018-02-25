@@ -1,4 +1,5 @@
 import * as ModelActions from '../actions/model.actions';
+import { sortVisitsByDate } from '../functions/helpers';
 import { Site } from '../models/site';
 import { Visit } from '../models/visit';
 import { Volunteer } from '../models/volunteer';
@@ -29,8 +30,7 @@ export function reducer(state = initialState, action: Action): State {
 
     case ModelActions.LOAD_VISITS_SUCCESS: {
       return Object.assign({}, state, {
-        visits: action.payload
-          .sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime()),
+        visits: sortVisitsByDate(action.payload),
       });
     }
 

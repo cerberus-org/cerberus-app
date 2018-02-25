@@ -78,7 +78,7 @@ export class MockUserService extends UserService {
   }
 
   update(user: any): Observable<any> {
-    return Observable.of(new Promise<void>());
+    return Observable.of(Promise.resolve());
   }
 
   delete(user: any): Observable<any> {

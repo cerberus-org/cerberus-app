@@ -46,7 +46,6 @@ describe('SettingsEffects', () => {
       const expected = cold('b', {
         b: new AuthActions.UpdateOrganization(organization)
       });
-
       expect(effects.updateOrganization$).toBeObservable(expected);
     }));
 
@@ -68,13 +67,11 @@ describe('SettingsEffects', () => {
       const expected = cold('b', {
         b: new AuthActions.UpdateUser(user)
       });
-
       expect(effects.updateUser$).toBeObservable(expected);
     }));
 
     it('should open the updateUserSuccess snackbar', () => {
       const updateUserSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateUserSuccess');
-
       effects.updateUser$.subscribe(() => {
         expect(updateUserSuccessSpy).toHaveBeenCalled();
       });
@@ -84,7 +81,6 @@ describe('SettingsEffects', () => {
   describe('generateVisitHistoryReport$', () => {
     it('should emit download csv, on success', (() => {
       const downloadCsvSpy = spyOn(TestBed.get(CsvService), 'downloadAsCsv');
-
       effects.generateVisitHistoryReport$.subscribe(() => {
         expect(downloadCsvSpy).toHaveBeenCalled();
       });

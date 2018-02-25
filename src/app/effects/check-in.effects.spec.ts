@@ -41,13 +41,11 @@ describe('CheckInEffects', () => {
       const expected = cold('b', {
         b: new CheckInActions.SubmitNewVolunteerSuccess()
       });
-
       expect(effects.submitNewVolunteer$).toBeObservable(expected);
     });
 
     it('should open the signUpSuccess snackbar', () => {
       const signUpSuccessSpy = spyOn(TestBed.get(SnackBarService), 'signUpSuccess');
-
       effects.submitNewVolunteer$.subscribe(() => {
         expect(signUpSuccessSpy).toHaveBeenCalled();
       });
@@ -62,13 +60,11 @@ describe('CheckInEffects', () => {
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] })
       });
-
       expect(effects.checkIn$).toBeObservable(expected);
     });
 
     it('should open the checkInSuccess snackbar', () => {
       const checkInSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkInSuccess');
-
       effects.checkIn$.subscribe(() => {
         expect(checkInSuccessSpy).toHaveBeenCalled();
       });
@@ -83,13 +79,11 @@ describe('CheckInEffects', () => {
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] })
       });
-
       expect(effects.checkOut$).toBeObservable(expected);
     });
 
     it('should open the checkOutSuccess snackbar', () => {
       const checkOutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'checkOutSuccess');
-
       effects.checkOut$.subscribe(() => {
         expect(checkOutSuccessSpy).toHaveBeenCalled();
       });

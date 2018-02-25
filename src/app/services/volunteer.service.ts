@@ -72,7 +72,7 @@ export class MockVolunteerService extends VolunteerService {
   }
 
   update(volunteer: any): Observable<any> {
-    return Observable.of(new Promise<void>());
+    return Observable.of(Promise.resolve());
   }
 
   delete(volunteer: any): Observable<any> {
