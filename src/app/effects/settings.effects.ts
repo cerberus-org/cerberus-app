@@ -11,7 +11,6 @@ import { Observable } from 'rxjs/Observable';
 
 import * as AuthActions from '../actions/auth.actions';
 import * as SettingsActions from '../actions/settings.actions';
-import { getVisitsWithVolunteerNames } from '../functions/transducer';
 import {
   AuthService,
   CsvService,
@@ -20,6 +19,7 @@ import {
   VisitService,
   VolunteerService,
 } from '../services';
+import { getVisitsWithVolunteerNames } from '../functions/helpers.functions';
 
 @Injectable()
 export class SettingsEffects {

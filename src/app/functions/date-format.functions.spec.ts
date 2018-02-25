@@ -1,5 +1,5 @@
 import { testVisits } from '../models/visit';
-import { formatDuration, formatTime } from './date-format';
+import { formatDuration, formatTime } from './date-format.functions';
 
 describe('formatTime()', () => {
   it('should format times', () => {

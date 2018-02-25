@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { formatDate, formatDuration, formatTime } from '../../functions/date-format';
+import { formatDate, formatDuration, formatTime } from '../../functions/date-format.functions';
 import { ColumnOptions, Visit } from '../../models';
 import { State } from '../../reducers';
 

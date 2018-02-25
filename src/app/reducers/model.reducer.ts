@@ -1,5 +1,5 @@
 import * as ModelActions from '../actions/model.actions';
-import { sortVisitsByDate } from '../functions/helpers';
+import { sortVisitsByDate } from '../functions/helpers.functions';
 import { Site, Visit, Volunteer } from '../models';
 
 export interface State {

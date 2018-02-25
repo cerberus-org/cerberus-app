@@ -19,6 +19,7 @@ import {
 } from '@angular/forms';
 import { MatAutocomplete } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
+import { getFullName } from '../../functions/helpers.functions';
 
 import { Visit, Volunteer } from '../../models';
 import { SignatureFieldComponent } from '../signature-field/signature-field.component';
@@ -321,7 +322,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @returns {string} - the full name as a string
    */
   private formatName(volunteer: Volunteer): string {
-    return `${volunteer.firstName} ${volunteer.lastName}`;
+    return getFullName(volunteer);
   }
-
 }

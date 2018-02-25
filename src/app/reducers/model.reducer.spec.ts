@@ -1,5 +1,5 @@
 import * as ModelActions from '../actions/model.actions';
-import { sortVisitsByDate } from '../functions/helpers';
+import { sortVisitsByDate } from '../functions/helpers.functions';
 import { testSites, testVisits, testVolunteers } from '../models';
 import * as fromModel from './model.reducer';
 

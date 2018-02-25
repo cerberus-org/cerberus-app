@@ -1,6 +1,6 @@
 import { testVisits, testVolunteers } from '../models';
-import { formatDuration } from './date-format';
-import { getVisitsWithVolunteerNames } from './transducer';
+import { formatDuration } from './date-format.functions';
+import { getVisitsWithVolunteerNames } from './helpers.functions';
 
 describe('getVisitsWithVolunteerNames()', () => {
   it('should map visits to volunteers', () => {
