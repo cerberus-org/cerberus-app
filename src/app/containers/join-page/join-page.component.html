@@ -5,10 +5,12 @@
 </app-user-form>
 <div class="container-center">
   <mat-form-field class="input-row">
-    <input matInput [matAutocomplete]="autocomplete" (input)="onOrganizationInputChanges(organizations, $event.target.value)" class="capitalize" placeholder="Organization name" #organizationName>
+    <input matInput [matAutocomplete]="autocomplete"
+           (input)="onOrganizationInputChanges(organizations, $event.target.value)"
+           class="capitalize" placeholder="Organization name">
   </mat-form-field>
   <mat-autocomplete>
-    <mat-option *ngFor="let organization of filteredOrganizations" [value]="organization">{{organization.name}}</mat-option>
+    <mat-option *ngFor="let organization of filteredOrganizations">{{organization.name}}</mat-option>
   </mat-autocomplete>
 </div>
 <div class="container-submit">

@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatAutocomplete} from '@angular/material';
 import {Store} from '@ngrx/store';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -11,7 +12,6 @@ import {User} from '../../models/user';
 import {State} from '../../reducers';
 import {AuthService} from '../../services/auth.service';
 import {ErrorService} from '../../services/error.service';
-import {MatAutocomplete} from '@angular/material';
 
 @Component({
   selector: 'app-join-page',
@@ -20,7 +20,6 @@ import {MatAutocomplete} from '@angular/material';
 })
 export class JoinPageComponent implements OnInit {
 
-  filteredOrganizations: Organization[];
   private joinSubscription: Subscription;
   private headerOptions: HeaderOptions = new HeaderOptions(
     'Cerberus',
@@ -28,9 +27,13 @@ export class JoinPageComponent implements OnInit {
     null,
     false,
   );
+
   validUser: User;
   userFormTitle: string;
+
+  filteredOrganizations: Organization[];
   organizations: Organization[];
+
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
 
   constructor(private authService: AuthService,
@@ -58,6 +61,7 @@ export class JoinPageComponent implements OnInit {
   }
 
   onJoinOrganization() {
+    console.log(this.organizations);
     // this.authService.createUser(this.validUser);
   }
 
@@ -68,11 +72,10 @@ export class JoinPageComponent implements OnInit {
    */
   onOrganizationInputChanges(organizations: Organization[], input: string) {
     this.filteredOrganizations = this.filterOrganizationsByName(organizations, input);
-    console.log(this.filteredOrganizations);
   }
 
   /**
-   * Return the organizations that contain name or are a subset of name.
+   * Return the organizations that are equal to name or are a subset of name.
    * @param {Organization[]} organizations
    * @param {string} name
    * @returns {Organization[]}

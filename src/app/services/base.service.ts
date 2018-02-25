@@ -25,8 +25,14 @@ export abstract class BaseService<T> {
   getAll(snapshot?: boolean): Observable<T[]> {
     return snapshot
       ? this.collection.snapshotChanges()
-        .map(item => this.convertIn(item))
-        .catch(this.errorService.handleFirebaseError)
+        .map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as T;
+            const id = a.payload.doc.id;
+            return this.convertIn(Object.assign(data, { id }));
+          });
+        })
+        .catch(error => this.errorService.handleFirebaseError(error))
       : this.collection.valueChanges()
         .map(item => this.convertIn(item))
         .catch(error => this.errorService.handleFirebaseError(error));
