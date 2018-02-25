@@ -41,6 +41,10 @@ export class SnackBarService {
   checkOutSuccess(): void {
     this.open('Volunteer successfully checked out.')
   }
+
+  requestToJoinOrganizationSuccess(): void {
+    this.open('Successfully requested to join an organization.')
+  }
 }
 
 export class MockSnackBarService extends SnackBarService {

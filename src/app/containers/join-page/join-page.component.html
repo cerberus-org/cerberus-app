@@ -1,44 +1,13 @@
-<form class="container-center loose" [formGroup]="formGroup" autocomplete="off">
-  <h1>Please enter your information.</h1>
-  <!--first and last name-->
-  <div class="container-center container-inline">
-    <mat-form-field>
-      <input matInput class="capitalize" placeholder="First name" formControlName="firstName">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput class="capitalize" placeholder="Last name" formControlName="lastName">
-    </mat-form-field>
-  </div>
-  <!--email-->
-  <div class="container-center">
-    <mat-form-field class="input-row">
-      <input type="email" matInput placeholder="Email" formControlName="email">
-    </mat-form-field>
-  </div>
-  <!--password-->
-  <div class="container-center">
-    <mat-form-field class="input-row">
-      <input [type]="hidePwd ? 'password' : 'text'" type="password" matInput placeholder="Password"
-             formControlName="password">
-      <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{hidePwd ? 'visibility' : 'visibility_off'}}</mat-icon>
-    </mat-form-field>
-  </div>
-  <div class="container-center">
-    <mat-form-field class="input-row">
-      <input autocomplete="off" [type]="hideConfirmPwd ? 'password' : 'text'" type="password" matInput
-             placeholder="Confirm Password" formControlName="confirmPassword">
-      <mat-icon matSuffix (click)="hideConfirmPwd = !hideConfirmPwd">{{hideConfirmPwd ? 'visibility' :
-        'visibility_off'}}
-      </mat-icon>
-    </mat-form-field>
-  </div>
-  <!--organization-->
-  <div class="container-center">
-    <mat-form-field class="input-row">
-      <input matInput class="capitalize" placeholder="Organization name" formControlName="organizationName">
-    </mat-form-field>
-  </div>
-</form>
+<app-user-form
+  [title]="userFormTitle"
+  (validUser)="onValidUser($event)"
+  [passwordRequired]="true">
+</app-user-form>
+<div class="container-center">
+  <mat-form-field class="input-row">
+    <input matInput class="capitalize" placeholder="Organization name" #organizationName>
+  </mat-form-field>
+</div>
 <div class="container-submit">
-  <button mat-raised-button color="primary" [disabled]="formGroup.invalid" (click)="onJoinOrganization()">Request to Join</button>
+  <button mat-raised-button color="primary" [disabled]="!validUser || !organizationName.value" (click)="onJoinOrganization()">Request to Join</button>
 </div>
