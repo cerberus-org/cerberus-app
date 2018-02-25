@@ -6,7 +6,7 @@
 <div class="container-center">
   <mat-form-field class="input-row">
     <input matInput [matAutocomplete]="autocomplete"
-           (input)="onOrganizationInputChanges(organizations, organizationName.value)"
+           (input)="onOrganizationInputNameChanges(organizations, organizationName.value)"
            class="capitalize" placeholder="Organization name" #organizationName>
   </mat-form-field>
   <mat-autocomplete>
