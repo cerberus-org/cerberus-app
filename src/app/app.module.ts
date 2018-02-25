@@ -61,6 +61,7 @@ import { JoinPageComponent } from './containers/join-page/join-page.component';
 import { AuthEffects } from './effects/auth.effects';
 import { CheckInEffects } from './effects/check-in.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
+import { JoinEffects } from './effects/join.effects';
 import { LoginEffects } from './effects/login.effects';
 import { ModelEffects } from './effects/model.effects';
 import { RouterEffects } from './effects/router.effects';
@@ -112,6 +113,7 @@ import { VerificationGuard } from './verification-guard';
       ModelEffects,
       RouterEffects,
       SettingsEffects,
+      JoinEffects,
     ]),
     FormsModule,
     MatAutocompleteModule,
