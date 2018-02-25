@@ -74,7 +74,7 @@ export class MockOrganizationService extends OrganizationService {
   }
 
   update(organization: any): Observable<any> {
-    return Observable.empty<any>();
+    return Observable.of(Promise.resolve());
   }
 
   delete(organization: any): Observable<any> {

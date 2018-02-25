@@ -46,7 +46,7 @@ export const testLoginCredentials: any = [{
   password: 'test',
 }];
 
-export const testFbUsers: any[] = [
+export const testFirebaseUsers: any[] = [
   {
     uid: 'Fc59YPNibdPXlIjdRuBRIrizClI2',
     email: 'tlmader.dev@gmail.com',

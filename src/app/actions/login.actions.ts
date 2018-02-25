@@ -15,14 +15,12 @@ export class LogIn implements Action {
 
 export class LogOut implements Action {
   readonly type = LOG_OUT;
-
-  constructor(public payload: any) {}
 }
 
 export class Verify implements Action {
   readonly type = VERIFY;
 
-  constructor(public payload: any) {}
+  constructor(public payload: { email: string, password: string }) {}
 }
 
 export type All

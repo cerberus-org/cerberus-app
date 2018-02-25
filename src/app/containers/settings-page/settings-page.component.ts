@@ -2,8 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-
-import * as _ from 'lodash';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { ColumnOptions } from '../../models/column-options';
@@ -21,26 +19,67 @@ import { State } from '../../reducers';
   styleUrls: ['./settings-page.component.scss']
 })
 export class SettingsPageComponent implements OnInit, OnDestroy {
-
-  appSubscription: Subscription;
-  sidenavSelectionSubscription: Subscription;
-  visitsSubscription: Subscription;
-  sidenavSelection: string;
-  validReport: any;
-
-  userFormTitle: string;
-  // User entered in form
-  validUser: User;
-  // Initial user used to pre populate form
-  initialUser: User;
+  private headerOptions: HeaderOptions = new HeaderOptions(
+    'Settings',
+    'settings',
+    '/dashboard',
+    false,
+  );
+  private sidenavOptions: SidenavOptions[] = [
+    new SidenavOptions(
+      'User',
+      'face',
+      new SettingsActions.LoadPage('user')
+    ),
+    new SidenavOptions(
+      'Organization',
+      'domain',
+      new SettingsActions.LoadPage('organization')
+    ),
+    new SidenavOptions(
+      'Volunteers',
+      'insert_emoticon',
+      new SettingsActions.LoadPage('volunteers')
+    ),
+    new SidenavOptions(
+      'Reports',
+      'assessment',
+      new SettingsActions.LoadPage('reports')
+    )
+  ];
+  private appSubscription: Subscription;
+  private settingsSubscription: Subscription;
+  private volunteersSubscription: Subscription;
 
   organizationFormTitle: string;
-  validOrganization: Organization;
-  initialOrganization: Organization;
+  userFormTitle: string;
+  volunteerTableOptions: ColumnOptions[] = [
+    new ColumnOptions(
+      'firstName',
+      'First Name',
+      (row: Volunteer) => row.firstName
+    ),
+    new ColumnOptions(
+      'lastName',
+      'Last Name',
+      (row: Volunteer) => row.lastName
+    ),
+    new ColumnOptions(
+      'petName',
+      'Pet Name',
+      (row: Volunteer) => row.petName
+    )
+  ];
 
+  initialOrganization: Organization;
+  initialUser: User;
   volunteers$: Observable<Volunteer[]>;
   volunteers: Volunteer[];
-  volunteerTableOptions: ColumnOptions[];
+  sidenavSelection: string;
+
+  validReport: any;
+  validOrganization: Organization;
+  validUser: User;
 
   constructor(public store: Store<State>) {
     this.userFormTitle = 'Update your user info.';
@@ -48,91 +87,24 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscribeToApp();
-    this.subscribeToSettings();
-    this.volunteerTableOptions = [
-      new ColumnOptions(
-        'firstName',
-        'First Name',
-        (row: Volunteer) => row.firstName
-      ),
-      new ColumnOptions(
-        'lastName',
-        'Last Name',
-        (row: Volunteer) => row.lastName
-      ),
-      new ColumnOptions(
-        'petName',
-        'Pet Name',
-        (row: Volunteer) => row.petName
-      )
-    ];
-    // Dispatch setup actions
-    this.store.dispatch(new AppActions.SetHeaderOptions(
-      new HeaderOptions(
-        'Settings',
-        'settings',
-        '/dashboard',
-        false,
-      )
-    ));
-    if (this.initialOrganization) {
-      // Load volunteers into store
-      this.store.dispatch(new SettingsActions.LoadVolunteersPage(this.initialOrganization.id));
-    }
-  }
-
-  subscribeToApp() {
-    // If user or organization changes, set
-    this.appSubscription = this.store.select('app')
-      .map(state => {
-        return {
-          user: state.user,
-          organization: state.organization,
-        }
-      })
-      .distinctUntilChanged((a, b) => _.isEqual(a, b))
+    this.appSubscription = this.store.select('auth')
       .subscribe(state => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
-        if (state.organization) {
-          this.store.dispatch(new AppActions.SetSidenavOptions([
-            new SidenavOptions(
-              'User',
-              'face',
-              new SettingsActions.LoadPage('user')
-            ),
-            new SidenavOptions(
-              'Organization',
-              'domain',
-              new SettingsActions.LoadPage('organization')
-            ),
-            new SidenavOptions(
-              'Volunteers',
-              'insert_emoticon',
-              new SettingsActions.LoadVolunteersPage(state.organization.id)
-            ),
-            new SidenavOptions(
-              'Reports',
-              'assessment',
-              new SettingsActions.LoadPage('Reports')
-            )
-          ]));
-        }
       });
-  }
 
-  subscribeToSettings() {
-    const settings$ = this.store.select('settings');
-    this.volunteers$ = settings$.map(state => state.volunteers);
-    this.volunteers$.subscribe(volunteers => this.volunteers = volunteers);
-    // If sidenavSelection changes, set
-    this.sidenavSelectionSubscription = settings$
-      .map(state => state.sidenavSelection)
-      .distinctUntilChanged((a, b) => _.isEqual(a, b))
-      .subscribe(sidenavSelection => {
-        this.sidenavSelection = sidenavSelection;
+    this.volunteers$ = this.store.select('model')
+      .map(state => state.volunteers);
+    this.volunteersSubscription = this.volunteers$
+      .subscribe(volunteers => this.volunteers = volunteers);
+
+    this.settingsSubscription = this.store.select('settings')
+      .subscribe(state => {
+        this.sidenavSelection = state.sidenavSelection;
       });
+
+    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
+    this.store.dispatch(new AppActions.SetSidenavOptions(this.sidenavOptions));
   }
 
   /**
@@ -203,11 +175,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     if (this.appSubscription) {
       this.appSubscription.unsubscribe();
     }
-    if (this.sidenavSelectionSubscription) {
-      this.sidenavSelectionSubscription.unsubscribe();
-    }
-    if (this.visitsSubscription) {
-      this.visitsSubscription.unsubscribe();
+    if (this.settingsSubscription) {
+      this.settingsSubscription.unsubscribe();
     }
   }
 }

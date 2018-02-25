@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as _ from 'lodash';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -19,56 +18,61 @@ import { State } from '../../reducers/index';
   styleUrls: ['./check-in.component.scss']
 })
 export class CheckInComponent implements OnInit, OnDestroy {
+  private appSubscription: Subscription;
+  private checkInSubscription: Subscription;
+  private modelSubscription: Subscription;
+
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
-  checkInSubscription: Subscription;
-  appSubscription: Subscription;
-  organizationId: string;
-  siteId: string;
+
   visits: Visit[];
   volunteers: Volunteer[];
+  organizationId: string;
+  siteId: string;
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.appSubscription = this.store
-      .select('app')
+    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
+
+    this.appSubscription = this.store.select('auth')
       .map(state => state.organization)
-      // Only emit if there is a change in organization
-      .distinctUntilChanged((a, b) => _.isEqual(a, b))
       .subscribe(organization => {
         if (organization) {
           this.organizationId = organization.id;
-          this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
-          this.store.dispatch(
-            new CheckInActions.LoadData({ siteId: this.siteId, organizationId: this.organizationId }),
-          );
-          this.store.dispatch(
-            new AppActions.SetHeaderOptions(new HeaderOptions(
-              organization.name,
-              'business',
-              '/dashboard',
-              true,
-            )))
+          this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
+            organization.name,
+            'business',
+            '/dashboard',
+            true,
+          )));
         }
       });
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
-    this.checkInSubscription = this.store
-      .select('checkIn')
+
+    this.checkInSubscription = this.store.select('checkIn')
       .subscribe(state => {
         this.tabGroup.selectedIndex = state.selectedTabIndex;
+      });
+
+    this.modelSubscription = this.store.select('model')
+      .subscribe(state => {
         this.visits = state.visits;
         this.volunteers = state.volunteers;
       });
+
+    this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   ngOnDestroy(): void {
+    if (this.appSubscription) {
+      this.appSubscription.unsubscribe();
+    }
     if (this.checkInSubscription) {
       this.checkInSubscription.unsubscribe();
     }
-    if (this.appSubscription) {
-      this.appSubscription.unsubscribe();
+    if (this.modelSubscription) {
+      this.modelSubscription.unsubscribe();
     }
   }
 
