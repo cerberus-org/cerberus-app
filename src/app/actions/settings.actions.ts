@@ -1,7 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Organization } from '../models/organization';
-import { User } from '../models/user';
-import { Volunteer } from '../models/volunteer';
+import { Organization, User, Volunteer } from '../models';
 
 export const DELETE_VOLUNTEER = '[Settings] Delete volunteer';
 export const DELETE_VOLUNTEER_SUCCESS = '[Settings] Delete volunteer success';
@@ -10,7 +8,7 @@ export const LOAD_VOLUNTEERS_PAGE = '[Settings] Load volunteers page';
 export const LOAD_VOLUNTEERS_PAGE_SUCCESS = '[Settings] Load volunteers page success';
 export const UPDATE_USER = '[Settings] Update user';
 export const UPDATE_ORGANIZATION = '[Settings] Update organization';
-export const GENERATE_VISIT_HISTORY_REPORT = '[Export csv of visit history] Export csv of visit history';
+export const GENERATE_VISIT_HISTORY_REPORT = '[Settings] Generate visit history report';
 
 export class DeleteVolunteer implements Action {
   readonly type = DELETE_VOLUNTEER;

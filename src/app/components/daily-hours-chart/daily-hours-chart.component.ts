@@ -1,12 +1,12 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as moment from 'moment';
 
-import { Visit } from '../../models/visit';
+import { Visit } from '../../models';
 
 @Component({
   selector: 'app-daily-hours-chart',
   templateUrl: './daily-hours-chart.component.html',
-  styleUrls: ['./daily-hours-chart.component.scss']
+  styleUrls: ['./daily-hours-chart.component.scss'],
 })
 export class DailyHoursChartComponent implements OnChanges {
   @Input() visits: Visit[];
@@ -19,9 +19,9 @@ export class DailyHoursChartComponent implements OnChanges {
     layout: {
       padding: {
         left: 10,
-        bottom: 10
-      }
-    }
+        bottom: 10,
+      },
+    },
   };
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -49,7 +49,7 @@ export class DailyHoursChartComponent implements OnChanges {
       return date.format(format);
     });
     return labels.reverse();
-  };
+  }
 
   /**
    * Calculates the total hours for each day used in labels
@@ -66,19 +66,19 @@ export class DailyHoursChartComponent implements OnChanges {
       data: visits
         .reduce(
           (data, visit) => {
-            const date = moment(visit.startedAt).format(format);
-            const index = labels.indexOf(date);
-            if (index) {
+            const date: string = moment(visit.startedAt).format(format);
+            const index: number = labels.indexOf(date);
+            if (index > -1) {
               data[index] += this.getDuration(visit);
             }
             return data;
           },
-          Array(labels.length).fill(0)
+          Array(labels.length).fill(0),
         )
         .map(value => value.toFixed(3)),
-      label: 'Hours'
+      label: 'Hours',
     }];
-  };
+  }
 
   /**
    * Returns the duration of a visit in milliseconds.
@@ -89,7 +89,7 @@ export class DailyHoursChartComponent implements OnChanges {
     return visit.endedAt
       ? ((visit.endedAt.getTime() - visit.startedAt.getTime()) / 3600000)
       : ((new Date().getTime() - visit.startedAt.getTime()) / 3600000);
-  };
+  }
 }
 
 /**

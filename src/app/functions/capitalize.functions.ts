@@ -1,11 +1,11 @@
-export const upperAllFirst = function (field: string): string {
-  return field
+export const upperAllFirst = (field: string): string => (
+  field
     ? field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1)))
-    : null;
-};
+    : null
+);
 
-export const titleCase = function (field: string): string {
-  return field
+export const titleCase = (field: string): string => (
+  field
     ? field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()))
-    : null;
-};
+    : null
+);

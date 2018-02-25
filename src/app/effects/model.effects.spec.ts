@@ -5,12 +5,9 @@ import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 
 import * as ModelActions from '../actions/model.actions';
-import { filterByOrganizationId } from '../functions/helpers';
-import { testOrganizations } from '../models/organization';
-import { testSites } from '../models/site';
-import { testVisits } from '../models/visit';
-import { testVolunteers } from '../models/volunteer';
-import { mockServices } from './mock-services';
+import { filterByOrganizationId } from '../functions';
+import { testOrganizations, testSites, testVisits, testVolunteers } from '../models';
+import { mockServiceProviders } from '../services/mock-service-providers';
 import { ModelEffects } from './model.effects';
 
 describe('ModelEffects', () => {
@@ -24,7 +21,7 @@ describe('ModelEffects', () => {
       providers: [
         ModelEffects,
         provideMockActions(() => actions),
-      ].concat(mockServices),
+      ].concat(mockServiceProviders),
     });
     effects = TestBed.get(ModelEffects);
   }));
@@ -32,12 +29,12 @@ describe('ModelEffects', () => {
   describe('loadSites$', () => {
     it('should dispatch AuthActions.LoadSitesSuccess', (() => {
       actions = hot('a', {
-        a: new ModelActions.LoadSites(organizationId)
+        a: new ModelActions.LoadSites(organizationId),
       });
       const expected = cold('b', {
         b: new ModelActions.LoadSitesSuccess(
-          filterByOrganizationId(testSites, organizationId)
-        )
+          filterByOrganizationId(testSites, organizationId),
+        ),
       });
       expect(effects.loadSites$).toBeObservable(expected);
     }));
@@ -46,12 +43,12 @@ describe('ModelEffects', () => {
   describe('loadVisits$', () => {
     it('should dispatch AuthActions.LoadVisitsSuccess', (() => {
       actions = hot('a', {
-        a: new ModelActions.LoadVisits(organizationId)
+        a: new ModelActions.LoadVisits(organizationId),
       });
       const expected = cold('b', {
         b: new ModelActions.LoadVisitsSuccess(
-          filterByOrganizationId(testVisits, organizationId)
-        )
+          filterByOrganizationId(testVisits, organizationId),
+        ),
       });
       expect(effects.loadVisits$).toBeObservable(expected);
     }));
@@ -60,12 +57,12 @@ describe('ModelEffects', () => {
   describe('loadVolunteers$', () => {
     it('should dispatch AuthActions.LoadVolunteersSuccess', (() => {
       actions = hot('a', {
-        a: new ModelActions.LoadVolunteers(organizationId)
+        a: new ModelActions.LoadVolunteers(organizationId),
       });
       const expected = cold('b', {
         b: new ModelActions.LoadVolunteersSuccess(
-          filterByOrganizationId(testVolunteers, organizationId)
-        )
+          filterByOrganizationId(testVolunteers, organizationId),
+        ),
       });
       expect(effects.loadVolunteers$).toBeObservable(expected);
     }));

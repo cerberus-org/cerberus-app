@@ -6,16 +6,15 @@ import { Subscription } from 'rxjs/Subscription';
 import * as LoginActions from './actions/login.actions';
 import * as ModelActions from './actions/model.actions';
 import * as RouterActions from './actions/router.actions';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
-import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
-import { HeaderOptions } from './models/header-options';
-import { SidenavOptions } from './models/sidenav-options';
-import { State } from './reducers/index';
+import { SidenavComponent } from './components';
+import { VerificationDialogComponent } from './containers';
+import { HeaderOptions, SidenavOptions } from './models';
+import { State } from './reducers';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -35,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.appSubscription = this.store.select('app')
-      .subscribe(state => {
+      .subscribe((state) => {
         this.headerOptions = state.headerOptions;
         this.sidenavOptions = state.sidenavOptions;
         /**
@@ -47,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
 
     this.authSubscription = this.store.select('auth')
-      .subscribe(state => {
+      .subscribe((state) => {
         this.user = state.user;
         if (state.organization) {
           const organizationId = state.organization.id;
@@ -98,15 +97,12 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   public openAndSubscribeToDialog() {
     const dialog = this.dialog.open(VerificationDialogComponent);
-    dialog.afterClosed()
-      .subscribe(
-        pwd => {
-          if (pwd) {
-            // Once the Observable is returned dispatch an effect
-            this.store.dispatch(new LoginActions.Verify({ email: this.user.email, password: pwd }));
-          }
-        }
-      );
+    dialog.afterClosed().subscribe((pwd) => {
+      if (pwd) {
+        // Once the Observable is returned dispatch an effect
+        this.store.dispatch(new LoginActions.Verify({ email: this.user.email, password: pwd }));
+      }
+    });
   }
 
   /**

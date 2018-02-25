@@ -11,6 +11,6 @@ export const environment = {
     databaseURL: 'https://cerberus-develop.firebaseio.com',
     projectId: 'cerberus-develop',
     storageBucket: 'cerberus-develop.appspot.com',
-    messagingSenderId: '78367178329'
-  }
+    messagingSenderId: '78367178329',
+  },
 };

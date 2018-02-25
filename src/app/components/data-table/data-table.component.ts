@@ -1,16 +1,26 @@
 import { DataSource } from '@angular/cdk/table';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import 'rxjs/add/observable/merge';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { ColumnOptions } from '../../models/column-options';
+import { ColumnOptions } from '../../models';
 
 /**
- * Provides what data should be rendered in the table. Note that the data source can retrieve its data in
- * any way. It is not the data source's responsibility to manage the underlying data. Instead, it only needs to take the
- * data and send the table exactly what should be rendered.
+ * Provides what data should be rendered in the table.
+ * Note that the data source can retrieve its data in any way.
+ * It is not the data source's responsibility to manage the underlying data.
+ * Instead, it only needs to take the data and send the table
+ * exactly what should be rendered.
  */
 export class DataTableSource extends DataSource<any> implements OnDestroy {
   data: any[];
@@ -48,7 +58,7 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
 @Component({
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.scss']
+  styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit {
   @Input() data$: Observable<any[]>;

@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
-import { reducers } from '../../reducers/index';
+import { reducers } from '../../reducers';
 import { CheckInComponent } from './check-in.component';
 
 describe('CheckInComponent', () => {
@@ -16,16 +16,23 @@ describe('CheckInComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         CheckInComponent,
-        MockComponent({ selector: 'app-check-in-form', inputs: ['organizationId', 'siteId', 'visits', 'volunteers'] }),
-        MockComponent({ selector: 'app-new-volunteer-form', inputs: ['organizationId', 'changeTab'] })
+        MockComponent({
+          selector: 'app-check-in-form',
+          inputs: ['organizationId', 'siteId', 'visits', 'volunteers'],
+        }),
+        MockComponent({
+          selector: 'app-new-volunteer-form',
+          inputs: ['organizationId', 'changeTab'],
+        }),
       ],
       imports: [
         MatTabsModule,
         NoopAnimationsModule,
         RouterTestingModule,
-        StoreModule.forRoot(reducers)
-      ]
-    }).compileComponents();
+        StoreModule.forRoot(reducers),
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

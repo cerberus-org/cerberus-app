@@ -11,13 +11,15 @@ import { Observable } from 'rxjs/Observable';
 
 import * as AuthActions from '../actions/auth.actions';
 import * as SettingsActions from '../actions/settings.actions';
-import { getVisitsWithVolunteerNames } from '../functions/transducer';
-import { AuthService } from '../services/auth.service';
-import { CsvService } from '../services/csv.service';
-import { OrganizationService } from '../services/organization.service';
-import { SnackBarService } from '../services/snack-bar.service';
-import { VisitService } from '../services/visit.service';
-import { VolunteerService } from '../services/volunteer.service';
+import { getVisitsWithVolunteerNames } from '../functions';
+import {
+  AuthService,
+  CsvService,
+  OrganizationService,
+  SnackBarService,
+  VisitService,
+  VolunteerService,
+} from '../services';
 
 @Injectable()
 export class SettingsEffects {
@@ -40,7 +42,7 @@ export class SettingsEffects {
     .switchMap(organization => this.organizationService.update(organization)
       .map(() => {
         this.snackBarService.updateOrganizationSuccess();
-        return new AuthActions.UpdateOrganization(organization)
+        return new AuthActions.UpdateOrganization(organization);
       }));
 
   /**
@@ -53,7 +55,7 @@ export class SettingsEffects {
     .switchMap(user => this.authService.updateUser(user)
       .map(() => {
         this.snackBarService.updateUserSuccess();
-        return new AuthActions.UpdateUser(user)
+        return new AuthActions.UpdateUser(user);
       }));
 
   /**
@@ -65,16 +67,16 @@ export class SettingsEffects {
   generateVisitHistoryReport$ = this.actions
     .ofType(SettingsActions.GENERATE_VISIT_HISTORY_REPORT)
     .map((action: SettingsActions.GenerateVisitHistoryReport) => action.payload)
-    .switchMap(payload => this.visitService.getByDateAndOrganization(payload.startedAt, payload.endedAt, payload.organizationId, true)
-      .do(visits => {
-        const propertiesToColumnTitles = new Map([
-          ['name', 'Name'],
-          ['startedAt', 'Started At'],
-          ['endedAt', 'Ended At'],
-          ['duration', 'Duration'],
-        ]);
+    .switchMap(payload => this.visitService
+      .getByDateAndOrganization(payload.startedAt, payload.endedAt, payload.organizationId, true)
+      .do((visits) => {
         this.csvService.downloadAsCsv(
-          getVisitsWithVolunteerNames(visits, payload.volunteers), 'VisitHistory.csv', propertiesToColumnTitles
+          getVisitsWithVolunteerNames(visits, payload.volunteers), 'VisitHistory.csv', new Map([
+            ['name', 'Name'],
+            ['startedAt', 'Started At'],
+            ['endedAt', 'Ended At'],
+            ['duration', 'Duration'],
+          ]),
         );
       }));
 

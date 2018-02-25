@@ -1,6 +1,5 @@
 import * as AuthActions from '../actions/auth.actions';
-import { Organization } from '../models/organization';
-import { User } from '../models/user';
+import { Organization, User } from '../models';
 
 export interface State {
   user: User;

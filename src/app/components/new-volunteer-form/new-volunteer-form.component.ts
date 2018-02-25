@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { Volunteer } from '../../models/volunteer';
+
+import { Volunteer } from '../../models';
 
 @Component({
   selector: 'app-new-volunteer-form',
   templateUrl: './new-volunteer-form.component.html',
-  styleUrls: ['./new-volunteer-form.component.scss']
+  styleUrls: ['./new-volunteer-form.component.scss'],
 })
 export class NewVolunteerFormComponent {
   @Input() organizationId: string;
@@ -23,7 +24,7 @@ export class NewVolunteerFormComponent {
       this.organizationId,
       this.formGroup.value.firstName,
       this.formGroup.value.lastName,
-      this.formGroup.value.petName
+      this.formGroup.value.petName,
     );
     this.ngForm.resetForm();
     this.newVolunteer.emit(volunteer);
@@ -36,13 +37,13 @@ export class NewVolunteerFormComponent {
     this.formGroup = this.fb.group({
       firstName: ['', validators],
       lastName: ['', validators],
-      petName: ['', validators]
+      petName: ['', validators],
     });
     // Allows using *ngFor to add forms
     this.forms = [
       { placeholder: 'First', control: 'firstName' },
       { placeholder: 'Last', control: 'lastName' },
-      { placeholder: 'Favorite Pet Name', control: 'petName' }
+      { placeholder: 'Favorite Pet Name', control: 'petName' },
     ];
   }
 }

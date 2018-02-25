@@ -4,8 +4,7 @@ import { MatAutocompleteModule, MatInputModule, MatRadioModule } from '@angular/
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 
-import { testVisits } from '../../models/visit';
-import { testVolunteers } from '../../models/volunteer';
+import { testVisits, testVolunteers } from '../../models';
 import { CheckInFormComponent } from './check-in-form.component';
 
 describe('CheckInFormComponent', () => {
@@ -16,16 +15,17 @@ describe('CheckInFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         CheckInFormComponent,
-        MockComponent({ selector: 'app-signature-field' })
+        MockComponent({ selector: 'app-signature-field' }),
       ],
       imports: [
         MatAutocompleteModule,
         MatInputModule,
         MatRadioModule,
         NoopAnimationsModule,
-        ReactiveFormsModule
-      ]
-    }).compileComponents();
+        ReactiveFormsModule,
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

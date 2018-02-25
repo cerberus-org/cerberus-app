@@ -22,10 +22,10 @@ export class SignatureFieldComponent implements ControlValueAccessor {
 
   public options: Object = {
     canvasWidth: 600,
-    canvasHeight: 200
+    canvasHeight: 200,
   };
 
-  public _signature: any = null;
+  public signatureData: any = null;
 
   public propagateChange: Function = null;
 
@@ -36,11 +36,11 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   constructor() { }
 
   get signature(): any {
-    return this._signature;
+    return this.signatureData;
   }
 
   set signature(value: any) {
-    this._signature = value;
+    this.signatureData = value;
     // modify form
     this.propagateChange(this.signature);
   }
@@ -51,10 +51,10 @@ export class SignatureFieldComponent implements ControlValueAccessor {
    * @param value
    */
   public writeValue(value: any): void {
-    if (!value || !this.signaturePad || !this._signature) {
+    if (!value || !this.signaturePad || !this.signatureData) {
       return;
     }
-    this._signature = value;
+    this.signatureData = value;
     this.signaturePad.fromData(this.signature);
   }
 

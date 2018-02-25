@@ -11,9 +11,7 @@ import { Observable } from 'rxjs/Observable';
 
 import * as CheckInActions from '../actions/check-in.actions';
 import * as RouterActions from '../actions/router.actions';
-import { SnackBarService } from '../services/snack-bar.service';
-import { VisitService } from '../services/visit.service';
-import { VolunteerService } from '../services/volunteer.service';
+import { SnackBarService, VisitService, VolunteerService } from '../services';
 
 @Injectable()
 export class CheckInEffects {
@@ -29,7 +27,7 @@ export class CheckInEffects {
     .switchMap(volunteer => this.volunteerService.add(volunteer)
       .map(() => {
         this.snackBarService.signUpSuccess();
-        return new CheckInActions.SubmitNewVolunteerSuccess()
+        return new CheckInActions.SubmitNewVolunteerSuccess();
       }));
 
   /**

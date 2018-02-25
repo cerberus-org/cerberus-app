@@ -10,12 +10,13 @@ describe('AboutUsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AboutUsComponent
+        AboutUsComponent,
       ],
       imports: [
-        MatIconModule
-      ]
-    }).compileComponents();
+        MatIconModule,
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

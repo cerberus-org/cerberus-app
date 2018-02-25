@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
-import { HeaderOptions } from '../models/header-options';
-import { SidenavOptions } from '../models/sidenav-options';
+import { HeaderOptions, SidenavOptions } from '../models';
 
 export const SET_HEADER_OPTIONS = '[App] Set Header Options';
 export const SET_SIDENAV_OPTIONS = '[App] Set Sidenav Options';

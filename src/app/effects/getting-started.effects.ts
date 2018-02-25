@@ -9,11 +9,8 @@ import { Observable } from 'rxjs/Observable';
 
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';
-import { Site } from '../models/site';
-import { AuthService } from '../services/auth.service';
-import { OrganizationService } from '../services/organization.service';
-import { SiteService } from '../services/site.service';
-import { SnackBarService } from '../services/snack-bar.service';
+import { Site } from '../models';
+import { AuthService, OrganizationService, SiteService, SnackBarService } from '../services';
 
 @Injectable()
 export class GettingStartedEffects {
@@ -28,7 +25,7 @@ export class GettingStartedEffects {
     .map((action: GettingStartedActions.Submit) => action.payload)
     // Create the organization
     .switchMap(payload => this.organizationService.add(payload.organization)
-      .switchMap(createdOrganization => {
+      .switchMap((createdOrganization) => {
         // Use the ID from the created organization for the site and user
         const site = new Site(createdOrganization.id, createdOrganization.name, null);
         const user = Object.assign({}, payload.user, { organizationId: createdOrganization.id });
@@ -40,7 +37,7 @@ export class GettingStartedEffects {
           .map(() => {
             this.snackBarService.addOrganizationSuccess();
             return new LoginActions.LogIn(payload.user);
-          })
+          });
       }));
 
   constructor(private actions: Actions,

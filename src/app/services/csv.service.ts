@@ -37,13 +37,13 @@ export class CsvService {
     });
     str += newRow;
     // Add data
-    data.forEach(object => {
+    data.forEach((object) => {
       propertiesToColumnTitles.forEach((value: string, key: string) => {
-        Object.keys(object).forEach(field => {
+        Object.keys(object).forEach((field) => {
           if (key === field) {
             str += object[field] + ',';
           }
-        })
+        });
       });
       str += newRow;
     });

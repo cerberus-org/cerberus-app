@@ -5,13 +5,13 @@ import { Store } from '@ngrx/store';
 
 import * as AppActions from '../../actions/app.actions';
 import * as LoginActions from '../../actions/login.actions';
-import { HeaderOptions } from '../../models/header-options';
-import { State } from '../../reducers/index';
+import { HeaderOptions } from '../../models';
+import { State } from '../../reducers';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   private headerOptions: HeaderOptions = new HeaderOptions(
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
     this.hidePwd = true;
 
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   onLogin() {
     this.store.dispatch(new LoginActions.LogIn({
       email: this.loginForm.value.email,
-      password: this.loginForm.value.password
+      password: this.loginForm.value.password,
     }));
   }
 
