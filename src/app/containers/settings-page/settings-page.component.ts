@@ -87,9 +87,6 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.store.dispatch(new AppActions.SetSidenavOptions(this.sidenavOptions));
-
     this.appSubscription = this.store.select('auth')
       .subscribe(state => {
         this.initialUser = state.user;
@@ -105,6 +102,9 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.sidenavSelection = state.sidenavSelection;
       });
+
+    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
+    this.store.dispatch(new AppActions.SetSidenavOptions(this.sidenavOptions));
   }
 
   /**

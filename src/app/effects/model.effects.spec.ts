@@ -12,10 +12,9 @@ import { testVisits } from '../models/visit';
 import { testVolunteers } from '../models/volunteer';
 import { mockServices } from './mock-services';
 import { ModelEffects } from './model.effects';
-import { SettingsEffects } from './settings.effects';
 
 describe('ModelEffects', () => {
-  let effects: SettingsEffects;
+  let effects: ModelEffects;
   let actions: Observable<any>;
   const organizationId: string = testOrganizations[0].id;
 

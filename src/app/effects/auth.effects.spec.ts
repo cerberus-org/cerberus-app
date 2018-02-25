@@ -9,10 +9,9 @@ import { testOrganizations } from '../models/organization';
 import { testFirebaseUsers, testUsers } from '../models/user';
 import { AuthEffects } from './auth.effects';
 import { mockServices } from './mock-services';
-import { SettingsEffects } from './settings.effects';
 
 describe('AuthEffects', () => {
-  let effects: SettingsEffects;
+  let effects: AuthEffects;
   let actions: Observable<any>;
 
   beforeEach(async(() => {

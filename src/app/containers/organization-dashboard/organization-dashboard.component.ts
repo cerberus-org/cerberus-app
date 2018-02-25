@@ -40,15 +40,13 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
       .map(state => state.sites)
       .subscribe(sites => {
         if (sites) {
-          this.store.dispatch(
-            new AppActions.SetSidenavOptions(
-              sites.map(site => new SidenavOptions(
-                'Record Visit',
-                'check_circle',
-                new RouterActions.Go({ path: [`/checkin/${site.id}`] })
-              ))
-            )
-          )
+          this.store.dispatch(new AppActions.SetSidenavOptions(
+            sites.map(site => new SidenavOptions(
+              'Record Visit',
+              'check_circle',
+              new RouterActions.Go({ path: [`/checkin/${site.id}`] })
+            ))
+          ))
         }
       });
   }

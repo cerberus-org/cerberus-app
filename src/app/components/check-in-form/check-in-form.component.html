@@ -1,7 +1,9 @@
 <form class="container-center loose"
       [formGroup]="formGroup"
       (ngSubmit)="submit()">
-  <h2>Enter your name to check in or check out.</h2>
+  <div class="container-center">
+    <h2>Enter your name to check in or check out.</h2>
+  </div>
   <div class="container-center field-container">
     <mat-form-field>
       <input matInput
@@ -24,9 +26,9 @@
       </mat-radio-button>
     </mat-radio-group>
   </div>
-  <!--Show the next step when a unisubmitVolunteerteer has been selected-->
+  <!--Show the next step when a volunteer has been selected-->
   <ng-container *ngIf="selectedVolunteer">
-    <!--If submitVolunteerteer has been selected, show the signature and button group-->
+    <!--If volunteer has been selected, show the signature and button group-->
     <ng-container *ngIf="!activeVisit; else checkOut">
       <div class="container-center" [@fadeInTrigger]="fadeInState">
         <app-signature-field formControlName="signatureField"></app-signature-field>

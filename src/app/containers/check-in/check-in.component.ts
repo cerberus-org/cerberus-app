@@ -34,7 +34,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.appSubscription = this.store.select('auth')
       .map(state => state.organization)
@@ -61,7 +61,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
         this.volunteers = state.volunteers;
       });
 
-    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   ngOnDestroy(): void {

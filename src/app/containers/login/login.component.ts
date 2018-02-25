@@ -25,15 +25,19 @@ export class LoginComponent implements OnInit {
   error: string;
   hidePwd: boolean;
 
-  constructor(private fb: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
               private router: Router,
               private store: Store<State>) {}
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required]
+    });
+    this.hidePwd = true;
+
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
-    this.loginForm = this.createForm();
-    this.hidePwd = true;
   }
 
   onLogin() {
@@ -45,12 +49,5 @@ export class LoginComponent implements OnInit {
 
   onNewOrganization() {
     this.router.navigateByUrl('/start');
-  }
-
-  createForm(): FormGroup {
-    return this.fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.required]
-    });
   }
 }

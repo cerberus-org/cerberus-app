@@ -39,9 +39,6 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
-
     this.gettingStartedSubscription = this.store
       .select('gettingStarted')
       .subscribe(state => {
@@ -49,6 +46,9 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
         this.validOrganization = state.validOrganization;
         this.validUser = state.validUser;
       });
+
+    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
+    this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   ngOnDestroy(): void {
