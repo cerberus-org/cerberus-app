@@ -7,7 +7,7 @@ describe('SnackBarService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MatSnackBarModule],
-      providers: [SnackBarService]
+      providers: [SnackBarService],
     });
   });
 

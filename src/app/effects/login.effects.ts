@@ -8,9 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 import * as LoginActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
-import { AuthService } from '../services/auth.service';
-import { SnackBarService } from '../services/snack-bar.service';
-import { UserService } from '../services/user.service';
+import { AuthService, SnackBarService, UserService } from '../services';
 
 @Injectable()
 export class LoginEffects {
@@ -25,13 +23,12 @@ export class LoginEffects {
     .ofType(LoginActions.LOG_IN)
     .map((action: LoginActions.LogIn) => action.payload)
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
-      .switchMap(res => {
-        return this.userService.getById(res.uid)
-          .map(user => {
-            this.snackBarService.loginSuccess(user.firstName);
-            return new RouterActions.Go({ path: ['/dashboard'] });
-          })
-      }));
+      .switchMap(res => this.userService.getById(res.uid)
+        .map((user) => {
+          this.snackBarService.loginSuccess(user.firstName);
+          return new RouterActions.Go({ path: ['/dashboard'] });
+        }),
+      ));
 
   /**
    * Listen for the Verify action, verify password,

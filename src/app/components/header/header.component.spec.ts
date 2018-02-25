@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule, MatToolbarModule } from '@angular/material';
 
-import { testHeaderOptions } from '../../models/header-options';
-import { HeaderComponent } from './header.component';
+import { testHeaderOptions } from '../../models';
+import { HeaderComponent } from './components';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -12,11 +12,11 @@ describe('HeaderComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MatIconModule,
-        MatToolbarModule
+        MatToolbarModule,
       ],
       declarations: [
-        HeaderComponent
-      ]
+        HeaderComponent,
+      ],
     })
       .compileComponents();
   }));

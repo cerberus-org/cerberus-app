@@ -1,10 +1,8 @@
-import { testVisits } from '../models/visit';
-import { testVolunteers } from '../models/volunteer';
+import { testVisits, testVolunteers } from '../models';
 import { formatDuration } from './date-format';
 import { getVisitsWithVolunteerNames } from './transducer';
 
 describe('getVisitsWithVolunteerNames()', () => {
-
   it('should map visits to volunteers', () => {
     const visits = [testVisits[1]];
     const volunteers = [testVolunteers[1]];
@@ -18,9 +16,9 @@ describe('getVisitsWithVolunteerNames()', () => {
       timezone: 'America/New_York',
       signature: null,
       name: volunteers[0].firstName + ' ' + volunteers[0].lastName,
-      duration: formatDuration(visits[0].startedAt, visits[0].endedAt, visits[0].timezone)
+      duration: formatDuration(visits[0].startedAt, visits[0].endedAt, visits[0].timezone),
     }];
     const formatted = getVisitsWithVolunteerNames(visits, volunteers);
-    expect(formatted).toEqual(expected)
+    expect(formatted).toEqual(expected);
   });
 });

@@ -16,6 +16,6 @@ export const testSidenavOptions: SidenavOptions[] = [
   {
     label: 'Go',
     icon: 'forward',
-    action: null
-  }
+    action: null,
+  },
 ];

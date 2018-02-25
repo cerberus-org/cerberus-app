@@ -1,5 +1,4 @@
-import { Visit } from '../models/visit';
-import { Volunteer } from '../models/volunteer';
+import { Visit, Volunteer } from '../models';
 import { formatDuration } from './date-format';
 
 const getName = (volunteer: Volunteer) => (

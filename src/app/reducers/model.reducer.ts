@@ -1,8 +1,6 @@
 import * as ModelActions from '../actions/model.actions';
 import { sortVisitsByDate } from '../functions/helpers';
-import { Site } from '../models/site';
-import { Visit } from '../models/visit';
-import { Volunteer } from '../models/volunteer';
+import { Site, Visit, Volunteer } from '../models';
 
 export interface State {
   sites: Site[];

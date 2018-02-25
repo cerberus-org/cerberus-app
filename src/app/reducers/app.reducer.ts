@@ -1,7 +1,5 @@
-///<reference path="../actions/app.actions.ts"/>
 import * as AppActions from '../actions/app.actions';
-import { HeaderOptions } from '../models/header-options';
-import { SidenavOptions } from '../models/sidenav-options';
+import { HeaderOptions, SidenavOptions } from '../models';
 
 export interface State {
   headerOptions: HeaderOptions;

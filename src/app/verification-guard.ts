@@ -1,17 +1,16 @@
-/**
- * This guard is used in conjunction with verification dialog.
- * The purpose of this guard is to prevent direct access to URL's
- * that require password verification.
- */
-
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as RouterActions from './actions/router.actions';
 import { State } from './reducers';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services';
 
+/**
+ * This guard is used in conjunction with verification dialog.
+ * The purpose of this guard is to prevent direct access to URL's
+ * that require password verification.
+ */
 @Injectable()
 export class VerificationGuard implements CanActivate {
 

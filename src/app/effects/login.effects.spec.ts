@@ -6,10 +6,9 @@ import { Observable } from 'rxjs/Observable';
 
 import * as LogInActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
-import { testLoginCredentials } from '../models/user';
-import { SnackBarService } from '../services/snack-bar.service';
-import { LoginEffects } from './login.effects';
-import { mockServices } from './mock-services';
+import { testLoginCredentials } from '../models';
+import { SnackBarService } from '../services';
+import { LoginEffects, mockServices } from './effects';
 
 describe('LoginEffects', () => {
   let effects: LoginEffects;
@@ -18,7 +17,7 @@ describe('LoginEffects', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
       ],
       providers: [
         LoginEffects,
@@ -31,10 +30,10 @@ describe('LoginEffects', () => {
   describe('login$', () => {
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new LogInActions.LogIn(testLoginCredentials)
+        a: new LogInActions.LogIn(testLoginCredentials),
       });
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/dashboard'] })
+        b: new RouterActions.Go({ path: ['/dashboard'] }),
       });
 
       expect(effects.login$).toBeObservable(expected);
@@ -46,16 +45,16 @@ describe('LoginEffects', () => {
       effects.login$.subscribe(() => {
         expect(loginSuccessSpy).toHaveBeenCalled();
       });
-    })
+    });
   });
 
   describe('verify$', () => {
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new LogInActions.Verify({ email: '', password: '' })
+        a: new LogInActions.Verify({ email: '', password: '' }),
       });
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/settings'] })
+        b: new RouterActions.Go({ path: ['/settings'] }),
       });
 
       expect(effects.verify$).toBeObservable(expected);
@@ -65,10 +64,10 @@ describe('LoginEffects', () => {
   describe('logout$', () => {
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new LogInActions.LogOut()
+        a: new LogInActions.LogOut(),
       });
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/login'] })
+        b: new RouterActions.Go({ path: ['/login'] }),
       });
 
       expect(effects.logout$).toBeObservable(expected);
@@ -80,6 +79,6 @@ describe('LoginEffects', () => {
       effects.logout$.subscribe(() => {
         expect(logoutSuccessSpy).toHaveBeenCalled();
       });
-    })
+    });
   });
 });

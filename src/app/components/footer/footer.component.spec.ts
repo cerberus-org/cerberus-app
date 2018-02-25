@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule, MatToolbarModule } from '@angular/material';
 
-import { FooterComponent } from './footer.component';
+import { FooterComponent } from './components';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -11,11 +11,11 @@ describe('FooterComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MatIconModule,
-        MatToolbarModule
+        MatToolbarModule,
       ],
       declarations: [
-        FooterComponent
-      ]
+        FooterComponent,
+      ],
     })
       .compileComponents();
   }));

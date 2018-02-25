@@ -1,4 +1,4 @@
-import { Visit } from '../models/visit';
+import { Visit } from '../models';
 
 export const sortVisitsByDate = (visits: Visit[]) => (
   visits.slice().sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime())

@@ -2,11 +2,17 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSlideToggleModule
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatRadioModule,
+  MatSlideToggleModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Report, testReports } from '../../models/report';
-import { ReportsFormComponent } from './reports-form.component';
+
+import { Report, testReports } from '../../models';
+import { ReportsFormComponent } from './components';
 
 describe('ReportsFormComponent', () => {
   let component: ReportsFormComponent;
@@ -24,7 +30,7 @@ describe('ReportsFormComponent', () => {
         MatRadioModule,
         MatInputModule,
         NoopAnimationsModule,
-      ]
+      ],
     })
       .compileComponents();
   }));

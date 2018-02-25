@@ -3,8 +3,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { Organization, testOrganizations } from '../../models/organization';
-import { OrganizationFormComponent } from './organization-form.component';
+import { Organization, testOrganizations } from '../../models';
+import { OrganizationFormComponent } from './components';
 
 describe('OrganizationFormComponent', () => {
   let component: OrganizationFormComponent;
@@ -16,8 +16,8 @@ describe('OrganizationFormComponent', () => {
       imports: [
         MatInputModule,
         NoopAnimationsModule,
-        ReactiveFormsModule
-      ]
+        ReactiveFormsModule,
+      ],
     })
       .compileComponents();
   }));

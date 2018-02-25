@@ -4,8 +4,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
-import { reducers } from '../../reducers/index';
-import { DataDisplayComponent } from './data-display.component';
+import { reducers } from '../../reducers';
+import { DataDisplayComponent } from './components';
 
 describe('DataDisplayComponent', () => {
   let component: DataDisplayComponent;
@@ -16,14 +16,17 @@ describe('DataDisplayComponent', () => {
       declarations: [
         DataDisplayComponent,
         MockComponent({ selector: 'app-daily-hours-chart', inputs: ['visits'] }),
-        MockComponent({ selector: 'app-data-table', inputs: ['columnOptions', 'data$', 'showDelete'] })
+        MockComponent({
+          selector: 'app-data-table',
+          inputs: ['columnOptions', 'data$', 'showDelete'],
+        }),
       ],
       imports: [
         NoopAnimationsModule,
         MatIconModule,
         MatTabsModule,
-        StoreModule.forRoot(reducers)
-      ]
+        StoreModule.forRoot(reducers),
+      ],
     })
       .compileComponents();
   }));

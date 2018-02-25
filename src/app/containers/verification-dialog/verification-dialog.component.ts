@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material';
 @Component({
   selector: 'app-verification-dialog',
   templateUrl: './verification-dialog.component.html',
-  styleUrls: ['./verification-dialog.component.scss']
+  styleUrls: ['./verification-dialog.component.scss'],
 })
 export class VerificationDialogComponent implements OnInit {
   pwd: string;

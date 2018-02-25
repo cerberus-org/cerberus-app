@@ -1,9 +1,8 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import { Site, testSites } from '../models/site';
-import { ErrorService, MockErrorService } from './error.service';
-import { SiteService } from './site.service';
+import { Site, testSites } from '../models';
+import { ErrorService, MockErrorService, SiteService } from './services';
 
 describe('SiteService', () => {
   let service: SiteService;
@@ -14,8 +13,8 @@ describe('SiteService', () => {
       providers: [
         SiteService,
         { provide: AngularFirestore, useValue: null },
-        { provide: ErrorService, useClass: MockErrorService }
-      ]
+        { provide: ErrorService, useClass: MockErrorService },
+      ],
     });
     const testbed = getTestBed();
     service = testbed.get(SiteService);

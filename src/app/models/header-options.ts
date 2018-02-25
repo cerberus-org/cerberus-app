@@ -17,6 +17,6 @@ export const testHeaderOptions: HeaderOptions[] = [
     title: 'Welcome',
     icon: 'sun',
     previousUrl: '/login',
-    showSettings: true
-  }
+    showSettings: true,
+  },
 ];

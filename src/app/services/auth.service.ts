@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { User as FbUser } from 'firebase';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 
-import { Store } from '@ngrx/store';
-import { User as FbUser } from 'firebase';
 import * as AuthActions from '../actions/auth.actions';
-import { testFirebaseUsers, User } from '../models/user';
-import { State } from '../reducers/app.reducer';
-import { ErrorService } from './error.service';
-import { UserService } from './user.service';
+import { testFirebaseUsers, User } from '../models';
+import { State } from '../reducers';
+import { ErrorService, UserService } from './services';
 
 @Injectable()
 export class AuthService {
@@ -87,13 +86,12 @@ export class AuthService {
    * If the page is reloaded or the state of the user changes dispatch an action to load data to the app store.
    */
   observeStateChanges(): void {
-    this.afAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.store.dispatch(new AuthActions.LoadData(user));
-      } else {
-        // If the user is not logged in, set data to null
-        this.store.dispatch(new AuthActions.LoadDataSuccess({ user: null, organization: null }));
-      }
+    this.afAuth.auth.onAuthStateChanged((user) => {
+      this.store.dispatch(
+        user
+          ? new AuthActions.LoadData(user)
+          : new AuthActions.LoadDataSuccess({ user: null, organization: null }),
+      );
     });
   }
 }

@@ -8,9 +8,11 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
   styleUrls: ['./signature-field.component.scss'],
   providers: [
     {
-      // Since SignatureFieldComponent implements the ControlValueAccessor it is registered as a provider.
+      // Since SignatureFieldComponent implements the ControlValueAccessor
+      // it is registered as a provider
       provide: NG_VALUE_ACCESSOR,
-      // Since classes that are referenced in the same file they are used are not hoisted, a foward reference is used.
+      // Since classes that are referenced in the same file
+      // they are used are not hoisted, a foward reference is used
       useExisting: forwardRef(() => SignatureFieldComponent),
       // A multi provider provides all the providers registered with NG_VALUE_ACCESSOR.
       multi: true,
@@ -22,10 +24,10 @@ export class SignatureFieldComponent implements ControlValueAccessor {
 
   public options: Object = {
     canvasWidth: 600,
-    canvasHeight: 200
+    canvasHeight: 200,
   };
 
-  public _signature: any = null;
+  public signature: any = null;
 
   public propagateChange: Function = null;
 
@@ -36,11 +38,11 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   constructor() { }
 
   get signature(): any {
-    return this._signature;
+    return this.signature;
   }
 
   set signature(value: any) {
-    this._signature = value;
+    this.signature = value;
     // modify form
     this.propagateChange(this.signature);
   }
@@ -51,10 +53,10 @@ export class SignatureFieldComponent implements ControlValueAccessor {
    * @param value
    */
   public writeValue(value: any): void {
-    if (!value || !this.signaturePad || !this._signature) {
+    if (!value || !this.signaturePad || !this.signature) {
       return;
     }
-    this._signature = value;
+    this.signature = value;
     this.signaturePad.fromData(this.signature);
   }
 

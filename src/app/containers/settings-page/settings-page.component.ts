@@ -2,21 +2,24 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
-import { ColumnOptions } from '../../models/column-options';
-import { HeaderOptions } from '../../models/header-options';
-import { Organization } from '../../models/organization';
-import { Report } from '../../models/report';
-import { SidenavOptions } from '../../models/sidenav-options';
-import { User } from '../../models/user';
-import { Volunteer } from '../../models/volunteer';
+import {
+  ColumnOptions,
+  HeaderOptions,
+  Organization,
+  Report,
+  SidenavOptions,
+  User,
+  Volunteer,
+} from '../../models';
 import { State } from '../../reducers';
 
 @Component({
   selector: 'app-settings-page',
   templateUrl: './settings-page.component.html',
-  styleUrls: ['./settings-page.component.scss']
+  styleUrls: ['./settings-page.component.scss'],
 })
 export class SettingsPageComponent implements OnInit, OnDestroy {
   private headerOptions: HeaderOptions = new HeaderOptions(
@@ -29,23 +32,23 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     new SidenavOptions(
       'User',
       'face',
-      new SettingsActions.LoadPage('user')
+      new SettingsActions.LoadPage('user'),
     ),
     new SidenavOptions(
       'Organization',
       'domain',
-      new SettingsActions.LoadPage('organization')
+      new SettingsActions.LoadPage('organization'),
     ),
     new SidenavOptions(
       'Volunteers',
       'insert_emoticon',
-      new SettingsActions.LoadPage('volunteers')
+      new SettingsActions.LoadPage('volunteers'),
     ),
     new SidenavOptions(
       'Reports',
       'assessment',
-      new SettingsActions.LoadPage('reports')
-    )
+      new SettingsActions.LoadPage('reports'),
+    ),
   ];
   private appSubscription: Subscription;
   private settingsSubscription: Subscription;
@@ -57,18 +60,18 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     new ColumnOptions(
       'firstName',
       'First Name',
-      (row: Volunteer) => row.firstName
+      (row: Volunteer) => row.firstName,
     ),
     new ColumnOptions(
       'lastName',
       'Last Name',
-      (row: Volunteer) => row.lastName
+      (row: Volunteer) => row.lastName,
     ),
     new ColumnOptions(
       'petName',
       'Pet Name',
-      (row: Volunteer) => row.petName
-    )
+      (row: Volunteer) => row.petName,
+    ),
   ];
 
   initialOrganization: Organization;
@@ -88,7 +91,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.appSubscription = this.store.select('auth')
-      .subscribe(state => {
+      .subscribe((state) => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
       });
@@ -96,10 +99,12 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     this.volunteers$ = this.store.select('model')
       .map(state => state.volunteers);
     this.volunteersSubscription = this.volunteers$
-      .subscribe(volunteers => this.volunteers = volunteers);
+      .subscribe((volunteers) => {
+        this.volunteers = volunteers;
+      });
 
     this.settingsSubscription = this.store.select('settings')
-      .subscribe(state => {
+      .subscribe((state) => {
         this.sidenavSelection = state.sidenavSelection;
       });
 
@@ -136,7 +141,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
    */
   onSubmitUser(user: User, id: string) {
     this.store.dispatch(new SettingsActions.UpdateUser(
-      Object.assign({}, user, { id })
+      Object.assign({}, user, { id }),
     ));
   }
 
@@ -145,7 +150,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
    */
   onSubmitOrganization(organization: Organization, id: string) {
     this.store.dispatch(new SettingsActions.UpdateOrganization(
-      Object.assign({}, organization, { id })
+      Object.assign({}, organization, { id }),
     ));
   }
 

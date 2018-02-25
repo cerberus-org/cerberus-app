@@ -3,7 +3,7 @@ import { FirebaseError } from 'firebase';
 import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Observable';
 
-import { SnackBarService } from './snack-bar.service';
+import { SnackBarService } from './services';
 
 @Injectable()
 export class ErrorService {

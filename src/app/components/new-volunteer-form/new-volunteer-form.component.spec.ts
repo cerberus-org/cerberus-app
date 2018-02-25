@@ -3,9 +3,8 @@ import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatInputModule, MatListModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { testOrganizations } from '../../models/organization';
-import { testVolunteers, Volunteer } from '../../models/volunteer';
-import { NewVolunteerFormComponent } from './new-volunteer-form.component';
+import { testOrganizations, testVolunteers, Volunteer } from '../../models';
+import { NewVolunteerFormComponent } from './components';
 
 describe('NewVolunteerFormComponent', () => {
   let component: NewVolunteerFormComponent;
@@ -20,7 +19,7 @@ describe('NewVolunteerFormComponent', () => {
         MatAutocompleteModule,
         MatListModule,
         MatInputModule,
-      ]
+      ],
     })
       .compileComponents();
   }));
@@ -50,7 +49,7 @@ describe('NewVolunteerFormComponent', () => {
       .toHaveBeenCalledWith(new Volunteer(organizationId, firstName, lastName, petName));
   });
 
-  ['firstName', 'lastName', 'petName'].forEach(form => {
+  ['firstName', 'lastName', 'petName'].forEach((form) => {
     describe((`${form} control`), () => {
       let control: AbstractControl;
 
@@ -93,5 +92,5 @@ describe('NewVolunteerFormComponent', () => {
         expect(control.value).toBeFalsy();
       }));
     });
-  })
+  });
 });

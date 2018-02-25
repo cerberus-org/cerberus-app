@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material';
 
-import { testSites } from '../../models/site';
-import { VolunteerMenuComponent } from './volunteer-menu.component';
+import { testSites } from '../../models';
+import { VolunteerMenuComponent } from './components';
 
 describe('VolunteerMenuComponent', () => {
   let component: VolunteerMenuComponent;
@@ -11,11 +11,11 @@ describe('VolunteerMenuComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        VolunteerMenuComponent
+        VolunteerMenuComponent,
       ],
       imports: [
         MatCardModule,
-      ]
+      ],
     })
       .compileComponents();
   }));

@@ -4,9 +4,8 @@ import 'rxjs/add/observable/empty';
 import { Observable } from 'rxjs/Observable';
 
 import { upperAllFirst } from '../functions/capitalize';
-import { Site, testSites } from '../models/site';
-import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
+import { Site, testSites } from '../models';
+import { BaseService, ErrorService } from './services';
 
 @Injectable()
 export class SiteService extends BaseService<Site> {
@@ -40,9 +39,10 @@ export class SiteService extends BaseService<Site> {
    * @returns {any}
    */
   private capitalize(site) {
-    site.name = upperAllFirst(site.name);
-    site.address = upperAllFirst(site.address);
-    return site
+    return Object.assign({}, site, {
+      name: upperAllFirst(site.name),
+      address: upperAllFirst(site.address),
+    });
   }
 }
 

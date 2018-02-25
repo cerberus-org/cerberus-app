@@ -7,15 +7,13 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as CheckInActions from '../../actions/check-in.actions';
-import { HeaderOptions } from '../../models/header-options';
-import { Visit } from '../../models/visit';
-import { Volunteer } from '../../models/volunteer';
-import { State } from '../../reducers/index';
+import { HeaderOptions, Visit, Volunteer } from '../../models';
+import { State } from '../../reducers';
 
 @Component({
   selector: 'app-check-in',
   templateUrl: './check-in.component.html',
-  styleUrls: ['./check-in.component.scss']
+  styleUrls: ['./check-in.component.scss'],
 })
 export class CheckInComponent implements OnInit, OnDestroy {
   private appSubscription: Subscription;
@@ -38,7 +36,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
     this.appSubscription = this.store.select('auth')
       .map(state => state.organization)
-      .subscribe(organization => {
+      .subscribe((organization) => {
         if (organization) {
           this.organizationId = organization.id;
           this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
@@ -51,12 +49,12 @@ export class CheckInComponent implements OnInit, OnDestroy {
       });
 
     this.checkInSubscription = this.store.select('checkIn')
-      .subscribe(state => {
+      .subscribe((state) => {
         this.tabGroup.selectedIndex = state.selectedTabIndex;
       });
 
     this.modelSubscription = this.store.select('model')
-      .subscribe(state => {
+      .subscribe((state) => {
         this.visits = state.visits;
         this.volunteers = state.volunteers;
       });

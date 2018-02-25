@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CheckInComponent } from './containers/check-in/check-in.component';
-import { GettingStartedComponent } from './containers/getting-started/getting-started.component';
-import { LoginComponent } from './containers/login/login.component';
-import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
-import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
+import {
+  CheckInComponent,
+  GettingStartedComponent,
+  LoginComponent,
+  OrganizationDashboardComponent,
+  SettingsPageComponent,
+} from './containers';
 import { LoginGuard } from './login-guard';
 import { VerificationGuard } from './verification-guard';
 

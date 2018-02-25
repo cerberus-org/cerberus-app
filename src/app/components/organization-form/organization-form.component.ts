@@ -3,12 +3,12 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Subscription } from 'rxjs/Subscription';
 import { isURL } from 'validator';
 
-import { Organization } from '../../models/organization';
+import { Organization } from '../../models';
 
 @Component({
   selector: 'app-organization-form',
   templateUrl: './organization-form.component.html',
-  styleUrls: ['./organization-form.component.scss']
+  styleUrls: ['./organization-form.component.scss'],
 })
 export class OrganizationFormComponent implements OnInit, OnDestroy {
   @Output() validOrganization = new EventEmitter();
@@ -50,7 +50,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
    */
   urlValidator = (control: AbstractControl): { [key: string]: any } => {
     return isURL(control.value) ? null : { invalidURL: { value: control.value } };
-  };
+  }
 
   /**
    * Creates the form group.
@@ -59,9 +59,30 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
     // If initialOrganization was passed in, pre populate form, else leave blank
     const nameRegex = /^[a-z ,.'-]+$/i;
     return this.fb.group({
-      name: [this.initialOrganization ? this.initialOrganization.name : '', [Validators.required, Validators.minLength(4), Validators.maxLength(70), Validators.pattern(nameRegex)]],
-      website: [this.initialOrganization ? this.initialOrganization.website : '', [Validators.required, Validators.maxLength(255), this.urlValidator]],
-      description: [this.initialOrganization ? this.initialOrganization.description : '', [Validators.required, Validators.maxLength(160)]]
+      name: [
+        this.initialOrganization ? this.initialOrganization.name : '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(70),
+          Validators.pattern(nameRegex),
+        ],
+      ],
+      website: [
+        this.initialOrganization ? this.initialOrganization.website : '',
+        [
+          Validators.required,
+          Validators.maxLength(255),
+          this.urlValidator,
+        ],
+      ],
+      description: [
+        this.initialOrganization ? this.initialOrganization.description : '',
+        [
+          Validators.required,
+          Validators.maxLength(160),
+        ],
+      ],
     });
   }
 

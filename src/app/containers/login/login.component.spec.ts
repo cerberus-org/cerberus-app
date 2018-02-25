@@ -5,8 +5,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 
-import { reducers } from '../../reducers/index';
-import { LoginComponent } from './login.component';
+import { reducers } from '../../reducers';
+import { LoginComponent } from './components';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -22,8 +22,8 @@ describe('LoginComponent', () => {
         MatIconModule,
         MatInputModule,
         MatListModule,
-        StoreModule.forRoot(reducers)
-      ]
+        StoreModule.forRoot(reducers),
+      ],
     })
       .compileComponents();
   }));

@@ -5,11 +5,9 @@ import { Observable } from 'rxjs/Observable';
 
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';
-import { testOrganizations } from '../models/organization';
-import { testUsers } from '../models/user';
-import { SnackBarService } from '../services/snack-bar.service';
-import { GettingStartedEffects } from './getting-started.effects';
-import { mockServices } from './mock-services';
+import { testOrganizations, testUsers } from '../models';
+import { SnackBarService } from '../services';
+import { GettingStartedEffects, mockServices } from './effects';
 
 describe('GettingStartedEffects', () => {
   let effects: GettingStartedEffects;
@@ -31,10 +29,10 @@ describe('GettingStartedEffects', () => {
       const user = testUsers[0];
 
       actions = hot('a', {
-        a: new GettingStartedActions.Submit({ organization, user })
+        a: new GettingStartedActions.Submit({ organization, user }),
       });
       const expected = cold('b', {
-        b: new LoginActions.LogIn(user)
+        b: new LoginActions.LogIn(user),
       });
       expect(effects.submit$).toBeObservable(expected);
     });
@@ -44,6 +42,6 @@ describe('GettingStartedEffects', () => {
       effects.submit$.subscribe(() => {
         expect(addOrganizationSuccessSpy).toHaveBeenCalled();
       });
-    })
+    });
   });
 });

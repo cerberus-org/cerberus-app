@@ -5,9 +5,8 @@ import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 
-import { testVolunteers, Volunteer } from '../models/volunteer';
-import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
+import { testVolunteers, Volunteer } from '../models';
+import { BaseService, ErrorService } from './services';
 
 @Injectable()
 export class VolunteerService extends BaseService<Volunteer> {
@@ -43,7 +42,11 @@ export class VolunteerService extends BaseService<Volunteer> {
     volunteer.firstName = _.capitalize(volunteer.firstName);
     volunteer.lastName = _.capitalize(volunteer.lastName);
     volunteer.petName = _.capitalize(volunteer.petName);
-    return volunteer
+    return Object.assign({}, volunteer, {
+      firstName: _.capitalize(volunteer.firstName),
+      lastName: _.capitalize(volunteer.lastName),
+      petName: _.capitalize(volunteer.petName),
+    });
   }
 }
 

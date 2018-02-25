@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Organization } from '../models/organization';
-import { User } from '../models/user';
+import { Organization, User } from '../models';
 
 export const NEXT_STEP = '[Getting Started] Next step';
 export const UPDATE_VALID_ORGANIZATION = '[Getting Started] Update valid organization';

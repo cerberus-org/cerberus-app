@@ -1,9 +1,8 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import { testVolunteers, Volunteer } from '../models/volunteer';
-import { ErrorService, MockErrorService } from './error.service';
-import { VolunteerService } from './volunteer.service';
+import { testVolunteers, Volunteer } from '../models';
+import { ErrorService, MockErrorService, VolunteerService } from './services';
 
 describe('VolunteerService', () => {
   let service: VolunteerService;
@@ -14,8 +13,8 @@ describe('VolunteerService', () => {
       providers: [
         VolunteerService,
         { provide: AngularFirestore, useValue: null },
-        { provide: ErrorService, useClass: MockErrorService }
-      ]
+        { provide: ErrorService, useClass: MockErrorService },
+      ],
     });
     const testbed = getTestBed();
     service = testbed.get(VolunteerService);

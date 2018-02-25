@@ -4,9 +4,8 @@ import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 
-import { testVisits, Visit } from '../models/visit';
-import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
+import { testVisits, Visit } from '../models';
+import { BaseService, ErrorService } from './services';
 
 @Injectable()
 export class VisitService extends BaseService<Visit> {
@@ -16,19 +15,22 @@ export class VisitService extends BaseService<Visit> {
     super(db, errorService, 'visits');
   }
 
+  private convertDates(visit: Visit): Visit {
+    return Object.assign({}, visit, {
+      startedAt: new Date(visit.startedAt),
+      endedAt: visit.endedAt ? new Date(visit.endedAt) : null,
+    });
+  }
+
   /**
    * Override to parse startedAt and endedAt Strings into Date objects and to stringify signature.
    * @param visit
    * @returns {any}
    */
   convertOut(visit: Visit): Visit {
-    visit.startedAt = new Date(visit.startedAt);
-    visit.endedAt = visit.endedAt ? new Date(visit.endedAt) : null;
-    // If the visit contains a signature
-    if (visit.signature) {
-      visit.signature = JSON.stringify(visit.signature);
-    }
-    return visit
+    return Object.assign({}, this.convertDates(visit), {
+      signature: visit.signature ? JSON.stringify(visit.signature) : null,
+    });
   }
 
   /**
@@ -36,13 +38,9 @@ export class VisitService extends BaseService<Visit> {
    * @param visit
    */
   convertIn(visit: Visit): Visit {
-    visit.startedAt = new Date(visit.startedAt);
-    visit.endedAt = visit.endedAt ? new Date(visit.endedAt) : null;
-    // If the visit contains a signature
-    if (visit.signature) {
-      visit.signature = JSON.parse(visit.signature);
-    }
-    return visit;
+    return Object.assign({}, this.convertDates(visit), {
+      signature: visit.signature ? JSON.parse(visit.signature) : null,
+    });
   }
 }
 
@@ -71,7 +69,7 @@ export class MockVisitService extends VisitService {
       .filter(visit =>
         visit.startedAt >= startDate &&
         (!visit.endedAt || visit.endedAt <= endDate) &&
-        visit.organizationId === organizationId
+        visit.organizationId === organizationId,
       ));
   }
 

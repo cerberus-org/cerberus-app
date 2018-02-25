@@ -1,15 +1,15 @@
 import { Action } from '@ngrx/store';
 
-export const LOG_IN = '[login] Log in';
-export const LOG_OUT = '[login] Log out';
-export const VERIFY = '[login] Verify';
+export const LOG_IN = '[Login] Log in';
+export const LOG_OUT = '[Login] Log out';
+export const VERIFY = '[Login] Verify';
 
 export class LogIn implements Action {
   readonly type = LOG_IN;
 
   constructor(public payload: {
     email: string,
-    password: string
+    password: string,
   }) {}
 }
 
