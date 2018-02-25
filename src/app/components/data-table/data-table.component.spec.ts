@@ -26,7 +26,8 @@ describe('DataTableComponent', () => {
         MatTableModule,
         NoopAnimationsModule
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

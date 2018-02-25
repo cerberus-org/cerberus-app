@@ -24,7 +24,7 @@ export class AuthEffects {
         const user = Object.assign({}, res, { email: firebaseUser.email, id: firebaseUser.uid });
         return this.organizationService.getById(user.organizationId)
           .map(organization => new AuthActions.LoadDataSuccess({
-            user: user,
+            user,
             organization: Object.assign({}, organization, { id: user.organizationId })
           }));
       }));

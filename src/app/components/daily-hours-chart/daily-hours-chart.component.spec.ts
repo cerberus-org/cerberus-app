@@ -17,7 +17,8 @@ describe('DailyHoursChartComponent', () => {
       imports: [
         ChartsModule,
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -21,9 +21,9 @@ describe('CsvService', () => {
       c: 'test3',
     }];
     propertiesToColumnTitles = new Map([
-      [ 'a', 'A' ],
-      [ 'b', 'B' ],
-      [ 'c', 'C'],
+      ['a', 'A'],
+      ['b', 'B'],
+      ['c', 'C'],
     ]);
   }));
 

@@ -2,8 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule,
-  MatSlideToggleModule
+  MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSlideToggleModule
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Report, testReports } from '../../models/report';
@@ -15,7 +14,7 @@ describe('ReportsFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReportsFormComponent ],
+      declarations: [ReportsFormComponent],
       imports: [
         MatSlideToggleModule,
         ReactiveFormsModule,
@@ -27,7 +26,7 @@ describe('ReportsFormComponent', () => {
         NoopAnimationsModule,
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

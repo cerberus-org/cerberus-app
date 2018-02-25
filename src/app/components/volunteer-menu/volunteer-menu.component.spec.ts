@@ -16,7 +16,8 @@ describe('VolunteerMenuComponent', () => {
       imports: [
         MatCardModule,
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

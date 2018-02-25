@@ -29,7 +29,8 @@ describe('OrganizationDashboardComponent', () => {
         { provide: OrganizationService, useClass: MockOrganizationService },
         { provide: VisitService, useClass: MockVisitService }
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

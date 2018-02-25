@@ -18,7 +18,8 @@ describe('OrganizationFormComponent', () => {
         NoopAnimationsModule,
         ReactiveFormsModule
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

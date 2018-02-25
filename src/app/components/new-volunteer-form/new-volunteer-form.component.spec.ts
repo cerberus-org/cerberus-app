@@ -21,7 +21,8 @@ describe('NewVolunteerFormComponent', () => {
         MatListModule,
         MatInputModule,
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -150,7 +150,7 @@ import { VerificationGuard } from './verification-guard';
     VolunteerService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [VerificationDialogComponent]
+  entryComponents: [VerificationDialogComponent],
 })
 export class AppModule {
 }

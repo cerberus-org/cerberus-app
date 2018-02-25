@@ -18,7 +18,7 @@ export class ReportsFormComponent implements OnInit {
   toggles: MatSlideToggle[];
 
   constructor(private fb: FormBuilder) {
-    this.reportOptions = [ 'Visit History', 'Report B'];
+    this.reportOptions = ['Visit History', 'Report B'];
     this.toggles = [];
   }
 

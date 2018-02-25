@@ -6,6 +6,6 @@ export const environment = {
     databaseURL: 'https://cerberus-staging.firebaseio.com',
     projectId: 'cerberus-staging',
     storageBucket: 'cerberus-staging.appspot.com',
-    messagingSenderId: '765294677808'
-  }
+    messagingSenderId: '765294677808',
+  },
 };

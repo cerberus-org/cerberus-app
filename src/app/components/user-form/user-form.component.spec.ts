@@ -19,7 +19,8 @@ describe('UserFormComponent', () => {
         ReactiveFormsModule,
         MatIconModule,
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

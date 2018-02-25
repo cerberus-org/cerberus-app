@@ -15,7 +15,8 @@ describe('AboutUsComponent', () => {
       imports: [
         MatIconModule
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

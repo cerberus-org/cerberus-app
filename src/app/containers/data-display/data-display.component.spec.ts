@@ -24,7 +24,8 @@ describe('DataDisplayComponent', () => {
         MatTabsModule,
         StoreModule.forRoot(reducers)
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

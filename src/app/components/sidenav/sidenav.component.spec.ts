@@ -22,7 +22,8 @@ describe('SidenavComponent', () => {
       providers: [
         MediaMatcher
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

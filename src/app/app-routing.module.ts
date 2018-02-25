@@ -11,16 +11,16 @@ import { VerificationGuard } from './verification-guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: OrganizationDashboardComponent, canActivate : [LoginGuard] },
-  { path: 'checkin/:id', component: CheckInComponent, canActivate : [LoginGuard] },
+  { path: 'dashboard', component: OrganizationDashboardComponent, canActivate: [LoginGuard] },
+  { path: 'checkin/:id', component: CheckInComponent, canActivate: [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },
-  { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
-  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
+  { path: 'settings', component: SettingsPageComponent, canActivate: [VerificationGuard] },
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
 }

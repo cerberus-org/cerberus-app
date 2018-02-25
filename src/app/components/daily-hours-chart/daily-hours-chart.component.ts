@@ -66,9 +66,9 @@ export class DailyHoursChartComponent implements OnChanges {
       data: visits
         .reduce(
           (data, visit) => {
-            const date = moment(visit.startedAt).format(format);
-            const index = labels.indexOf(date);
-            if (index) {
+            const date: string = moment(visit.startedAt).format(format);
+            const index: number = labels.indexOf(date);
+            if (index > -1) {
               data[index] += this.getDuration(visit);
             }
             return data;

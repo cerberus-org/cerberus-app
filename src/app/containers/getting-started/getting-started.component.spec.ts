@@ -18,7 +18,7 @@ describe('GettingStartedComponent', () => {
         GettingStartedComponent,
         MockComponent({ selector: 'app-about-us' }),
         MockComponent({ selector: 'app-organization-form' }),
-        MockComponent({ selector: 'app-user-form', inputs: [ 'passwordRequired' ] }),
+        MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
         MockComponent({ selector: 'app-organization-confirm', inputs: ['organization', 'user'] })
       ],
       imports: [
@@ -28,7 +28,8 @@ describe('GettingStartedComponent', () => {
         RouterTestingModule,
         StoreModule.forRoot(reducers)
       ]
-    }).compileComponents();
+    });
+    compileComponents();
   }));
 
   beforeEach(() => {

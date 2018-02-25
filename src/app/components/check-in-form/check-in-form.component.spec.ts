@@ -25,7 +25,8 @@ describe('CheckInFormComponent', () => {
         NoopAnimationsModule,
         ReactiveFormsModule
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -17,6 +17,7 @@ export class VerificationGuard implements CanActivate {
 
   constructor(private authService: AuthService,
               private store: Store<State>) {}
+
   /**
    * When a user attempts to access the admin page via URL,
    * check if a certain boolean value in AuthService is true.
@@ -31,7 +32,7 @@ export class VerificationGuard implements CanActivate {
       return true;
     }
     this.store.dispatch(
-      new RouterActions.Go({ path: ['/dashboard'] })
+      new RouterActions.Go({ path: ['/dashboard'] }),
     );
     return false;
   }

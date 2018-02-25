@@ -24,7 +24,8 @@ describe('AppComponent', () => {
         }),
         MockComponent({ selector: 'app-sidenav', inputs: ['sidenavOptions'] })
       ]
-    }).compileComponents();
+    })
+    compileComponents();
   }));
 
   it('should create the app', async(() => {

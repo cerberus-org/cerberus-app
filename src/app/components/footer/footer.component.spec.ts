@@ -16,7 +16,8 @@ describe('FooterComponent', () => {
       declarations: [
         FooterComponent
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

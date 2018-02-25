@@ -17,7 +17,8 @@ describe('HeaderComponent', () => {
       declarations: [
         HeaderComponent
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

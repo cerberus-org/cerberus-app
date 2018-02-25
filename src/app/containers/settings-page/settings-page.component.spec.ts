@@ -96,6 +96,6 @@ describe('SettingsPageComponent', () => {
         endedAt: testReports[0].endedAt,
         organizationId: testOrganizations[0].id,
         volunteers: testVolunteers,
-       }));
+      }));
   });
 });

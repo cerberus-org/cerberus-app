@@ -24,7 +24,8 @@ describe('LoginComponent', () => {
         MatListModule,
         StoreModule.forRoot(reducers)
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

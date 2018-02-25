@@ -14,7 +14,8 @@ describe('OrganizationConfirmComponent', () => {
         MatIconModule,
         MatListModule
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

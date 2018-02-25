@@ -25,7 +25,8 @@ describe('CheckInComponent', () => {
         RouterTestingModule,
         StoreModule.forRoot(reducers)
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -47,24 +47,27 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   createForm(): FormGroup {
-    return this.fb.group({
-      // If initialUser was passed in, pre populate form, else leave blank
-      firstName: [this.initialUser ? this.initialUser.firstName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
-      lastName: [this.initialUser ? this.initialUser.lastName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
-      email: [this.initialUser ? this.initialUser.email : '', [Validators.maxLength(255), Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(8), Validators.maxLength(128), this.passwordRequiredValidator]],
-      confirmPassword: ['']
-    }, { validator: this.matchingPasswords('password', 'confirmPassword') });
+    return this.fb.group(
+      {
+        // If initialUser was passed in, pre populate form, else leave blank
+        firstName: [this.initialUser ? this.initialUser.firstName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
+        lastName: [this.initialUser ? this.initialUser.lastName : '', [Validators.minLength(2), Validators.maxLength(35), Validators.required]],
+        email: [this.initialUser ? this.initialUser.email : '', [Validators.maxLength(255), Validators.required, Validators.email]],
+        password: ['', [Validators.minLength(8), Validators.maxLength(128), this.passwordRequiredValidator]],
+        confirmPassword: ['']
+      },
+      { validator: this.matchingPasswords('password', 'confirmPassword') }
+    );
   }
 
   /**
    * Make password requirement conditional on passwordRequired.
    * @param {AbstractControl} control
-   * @returns {{[p: string]: any}}
+   * @returns {{error: string}}
    */
   passwordRequiredValidator = (control: AbstractControl): { [key: string]: any } => {
     if (this.passwordRequired && !control.value) {
-      return { error: 'required'};
+      return { error: 'required' };
     }
   };
 
@@ -75,7 +78,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
    * @returns {(group: FormGroup) => {[p: string]: any}}
    */
   matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
-    return (group: FormGroup): {[key: string]: any} => {
+    return (group: FormGroup): { [key: string]: any } => {
       const password = group.controls[passwordKey];
       const confirmPassword = group.controls[confirmPasswordKey];
 
