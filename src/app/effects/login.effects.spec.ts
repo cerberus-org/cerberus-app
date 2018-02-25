@@ -6,12 +6,10 @@ import { Observable } from 'rxjs/Observable';
 
 import * as LogInActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
-import { testLoginCredentials, testUsers } from '../models/user';
-import { AuthService, MockAuthService } from '../services/auth.service';
-import { MockOrganizationService, OrganizationService } from '../services/organization.service';
-import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
-import { MockUserService, UserService } from '../services/user.service';
+import { testLoginCredentials } from '../models/user';
+import { SnackBarService } from '../services/snack-bar.service';
 import { LoginEffects } from './login.effects';
+import { mockServices } from './mock-services';
 
 describe('LoginEffects', () => {
   let effects: LoginEffects;
@@ -25,55 +23,63 @@ describe('LoginEffects', () => {
       providers: [
         LoginEffects,
         provideMockActions(() => actions),
-        { provide: AuthService, useClass: MockAuthService },
-        { provide: OrganizationService, useClass: MockOrganizationService },
-        { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: UserService, useClass: MockUserService },
-      ],
+      ].concat(mockServices),
     });
     effects = TestBed.get(LoginEffects);
   }));
 
   describe('login$', () => {
-
-    it('should emit the loginSuccess snackbar and dispatch RouterActions.Go', () => {
-      const login = new LogInActions.LogIn(testLoginCredentials);
-      const go = new RouterActions.Go({ path: ['/dashboard'] });
-
-      actions = hot('a', { a: login });
-      const expected = cold('b', { b: go });
+    it('should dispatch RouterActions.Go', () => {
+      actions = hot('a', {
+        a: new LogInActions.LogIn(testLoginCredentials)
+      });
+      const expected = cold('b', {
+        b: new RouterActions.Go({ path: ['/dashboard'] })
+      });
 
       expect(effects.login$).toBeObservable(expected);
     });
+
+    it('should open the loginSuccess snackbar', () => {
+      const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'loginSuccess');
+
+      effects.login$.subscribe(() => {
+        expect(loginSuccessSpy).toHaveBeenCalled();
+      });
+    })
   });
 
   describe('verify$', () => {
-
     it('should dispatch RouterActions.Go', () => {
-      const verify = new LogInActions.Verify({});
-      const go = new RouterActions.Go({ path: ['/settings'] });
-
-      actions = hot('a', { a: verify });
-      const expected = cold('b', { b: go });
+      actions = hot('a', {
+        a: new LogInActions.Verify({ email: '', password: '' })
+      });
+      const expected = cold('b', {
+        b: new RouterActions.Go({ path: ['/settings'] })
+      });
 
       expect(effects.verify$).toBeObservable(expected);
     });
   });
 
   describe('logout$', () => {
+    it('should dispatch RouterActions.Go', () => {
+      actions = hot('a', {
+        a: new LogInActions.LogOut()
+      });
+      const expected = cold('b', {
+        b: new RouterActions.Go({ path: ['/login'] })
+      });
 
-    it('should emit the logoutSuccess snackbar and dispatch RouterActions.Go', (() => {
-      const logout = new LogInActions.LogOut({});
-      const go = new RouterActions.Go({ path: ['/login'] });
+      expect(effects.logout$).toBeObservable(expected);
+    });
+
+    it('should open the logoutSuccess snackbar', () => {
       const logoutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'logoutSuccess');
-
-      actions = hot('a', { a: logout });
-      const expected = cold('b', { b: go });
 
       effects.logout$.subscribe(() => {
         expect(logoutSuccessSpy).toHaveBeenCalled();
       });
-      expect(effects.logout$).toBeObservable(expected);
-    }));
+    })
   });
 });

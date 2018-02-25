@@ -2,25 +2,28 @@ import * as fromRouter from '@ngrx/router-store';
 import { ActionReducerMap } from '@ngrx/store';
 
 import * as fromApp from './app.reducer';
+import * as fromAuth from './auth.reducer';
 import * as fromCheckIn from './check-in.reducer';
-import * as fromDataDisplay from './data-display.reducer';
 import * as fromGettingStarted from './getting-started.reducer';
+import * as fromModel from './model.reducer';
 import * as fromSettings from './settings.reducer';
 
 export interface State {
-  checkIn: fromCheckIn.State;
-  dataDisplay: fromDataDisplay.State;
-  gettingStarted: fromGettingStarted.State;
-  settings: fromSettings.State;
-  router: fromRouter.RouterReducerState;
   app: fromApp.State;
+  auth: fromAuth.State;
+  checkIn: fromCheckIn.State;
+  gettingStarted: fromGettingStarted.State;
+  model: fromModel.State;
+  router: fromRouter.RouterReducerState;
+  settings: fromSettings.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
-  checkIn: fromCheckIn.reducer,
-  dataDisplay: fromDataDisplay.reducer,
-  gettingStarted: fromGettingStarted.reducer,
-  settings: fromSettings.reducer,
-  router: fromRouter.routerReducer,
   app: fromApp.reducer,
+  auth: fromAuth.reducer,
+  checkIn: fromCheckIn.reducer,
+  gettingStarted: fromGettingStarted.reducer,
+  model: fromModel.reducer,
+  router: fromRouter.routerReducer,
+  settings: fromSettings.reducer,
 };

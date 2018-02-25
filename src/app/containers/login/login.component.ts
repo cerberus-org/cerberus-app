@@ -14,25 +14,29 @@ import { State } from '../../reducers/index';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  private headerOptions: HeaderOptions = new HeaderOptions(
+    'Cerberus',
+    'group_work',
+    null,
+    true,
+  );
+
   loginForm: FormGroup;
   error: string;
   hidePwd: boolean;
 
-  constructor(private fb: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
               private router: Router,
               private store: Store<State>) {}
 
   ngOnInit() {
-    this.loginForm = this.createForm();
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required]
+    });
     this.hidePwd = true;
-    this.store.dispatch(new AppActions.SetHeaderOptions(
-      new HeaderOptions(
-        'Cerberus',
-        'group_work',
-        null,
-        true,
-      )
-    ));
+
+    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
@@ -45,12 +49,5 @@ export class LoginComponent implements OnInit {
 
   onNewOrganization() {
     this.router.navigateByUrl('/start');
-  }
-
-  createForm(): FormGroup {
-    return this.fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.required]
-    });
   }
 }

@@ -1,6 +1,4 @@
 import * as CheckInActions from '../actions/check-in.actions';
-import { testVisits } from '../models/visit';
-import { testVolunteers } from '../models/volunteer';
 import * as fromCheckIn from './check-in.reducer';
 
 describe('checkInReducer', () => {
@@ -9,22 +7,6 @@ describe('checkInReducer', () => {
   beforeEach(() => {
     testState = Object.assign({}, fromCheckIn.initialState, {
       selectedTabIndex: 1,
-      visits: testVisits,
-      volunteers: testVolunteers
-    });
-  });
-
-  describe('LOAD_DATA_SUCCESS', () => {
-
-    it('loads volunteers and visits', () => {
-      const state = fromCheckIn.reducer(
-        fromCheckIn.initialState,
-        new CheckInActions.LoadDataSuccess({
-          visits: testVisits,
-          volunteers: testVolunteers
-        }));
-      expect(state.visits).toEqual(testVisits);
-      expect(state.volunteers).toEqual(testVolunteers);
     });
   });
 
@@ -33,7 +15,8 @@ describe('checkInReducer', () => {
     it('sets the tab index', () => {
       const state = fromCheckIn.reducer(
         fromCheckIn.initialState,
-        new CheckInActions.SubmitNewVolunteerSuccess(testVolunteers[0]));
+        new CheckInActions.SubmitNewVolunteerSuccess()
+      );
       expect(state.selectedTabIndex).toEqual(0);
     });
   });

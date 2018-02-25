@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as LoginActions from './actions/login.actions';
+import * as ModelActions from './actions/model.actions';
 import * as RouterActions from './actions/router.actions';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { VerificationDialogComponent } from './containers/verification-dialog/verification-dialog.component';
@@ -17,8 +18,12 @@ import { State } from './reducers/index';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
+
   @ViewChild(SidenavComponent) sidenav: SidenavComponent;
+
   appSubscription: Subscription;
+  authSubscription: Subscription;
+
   headerOptions: HeaderOptions;
   sidenavOptions: SidenavOptions[];
   user: any;
@@ -29,13 +34,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.appSubscription = this.store
-      .select('app')
+    this.appSubscription = this.store.select('app')
       .subscribe(state => {
         this.headerOptions = state.headerOptions;
         this.sidenavOptions = state.sidenavOptions;
-        this.user = state.user;
-
         /**
          * TODO:
          * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is
@@ -43,11 +45,25 @@ export class AppComponent implements OnInit, OnDestroy {
          */
         this.changeDetectorRef.detectChanges();
       });
+
+    this.authSubscription = this.store.select('auth')
+      .subscribe(state => {
+        this.user = state.user;
+        if (state.organization) {
+          const organizationId = state.organization.id;
+          this.store.dispatch(new ModelActions.LoadSites(organizationId));
+          this.store.dispatch(new ModelActions.LoadVisits(organizationId));
+          this.store.dispatch(new ModelActions.LoadVolunteers(organizationId));
+        }
+      });
   }
 
   ngOnDestroy() {
     if (this.appSubscription) {
       this.appSubscription.unsubscribe();
+    }
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
     }
   }
 
@@ -71,7 +87,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.openAndSubscribeToDialog();
         break;
       case 'logOut':
-        this.store.dispatch(new LoginActions.LogOut({}));
+        this.store.dispatch(new LoginActions.LogOut());
         break;
     }
   }

@@ -2,13 +2,9 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule, MatListModule, MatNativeDateModule,
-  MatPaginatorModule,
-  MatRadioModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule,
-  MatToolbarModule
+  MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatFormFieldModule,
+  MatIconModule, MatInputModule, MatListModule, MatNativeDateModule, MatPaginatorModule, MatRadioModule, MatSidenavModule,
+  MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -61,11 +57,11 @@ import { VolunteerService } from './services/volunteer.service';
 import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
-import { AppEffects } from './effects/app.effects';
+import { AuthEffects } from './effects/auth.effects';
 import { CheckInEffects } from './effects/check-in.effects';
-import { DataDisplayEffects } from './effects/data-display.effects';
 import { GettingStartedEffects } from './effects/getting-started.effects';
 import { LoginEffects } from './effects/login.effects';
+import { ModelEffects } from './effects/model.effects';
 import { RouterEffects } from './effects/router.effects';
 import { SettingsEffects } from './effects/settings.effects';
 import { reducers } from './reducers/index';
@@ -95,7 +91,7 @@ import { VerificationGuard } from './verification-guard';
     VolunteerMenuComponent,
     VerificationDialogComponent,
     SidenavComponent,
-    ReportsFormComponent
+    ReportsFormComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -107,13 +103,13 @@ import { VerificationGuard } from './verification-guard';
     CdkTableModule,
     ChartsModule,
     EffectsModule.forRoot([
+      AuthEffects,
       CheckInEffects,
-      DataDisplayEffects,
       GettingStartedEffects,
       LoginEffects,
+      ModelEffects,
+      RouterEffects,
       SettingsEffects,
-      AppEffects,
-      RouterEffects
     ]),
     FormsModule,
     MatAutocompleteModule,
@@ -138,7 +134,7 @@ import { VerificationGuard } from './verification-guard';
     ReactiveFormsModule,
     SignaturePadModule,
     StoreModule.forRoot(reducers),
-    StoreRouterConnectingModule
+    StoreRouterConnectingModule,
   ],
   providers: [
     AuthService,

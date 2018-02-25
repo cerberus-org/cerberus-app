@@ -3,16 +3,13 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs/Observable';
 
-import { Submit } from '../actions/getting-started.actions';
-import { LogIn } from '../actions/login.actions';
+import * as GettingStartedActions from '../actions/getting-started.actions';
+import * as LoginActions from '../actions/login.actions';
 import { testOrganizations } from '../models/organization';
 import { testUsers } from '../models/user';
-import { AuthService, MockAuthService } from '../services/auth.service';
-import { MockOrganizationService, OrganizationService } from '../services/organization.service';
-import { MockSiteService, SiteService } from '../services/site.service';
-import { MockSnackBarService, SnackBarService } from '../services/snack-bar.service';
-import { MockUserService, UserService } from '../services/user.service';
+import { SnackBarService } from '../services/snack-bar.service';
 import { GettingStartedEffects } from './getting-started.effects';
+import { mockServices } from './mock-services';
 
 describe('GettingStartedEffects', () => {
   let effects: GettingStartedEffects;
@@ -23,32 +20,30 @@ describe('GettingStartedEffects', () => {
       providers: [
         GettingStartedEffects,
         provideMockActions(() => actions),
-        { provide: AuthService, useClass: MockAuthService },
-        { provide: OrganizationService, useClass: MockOrganizationService },
-        { provide: SiteService, useClass: MockSiteService },
-        { provide: SnackBarService, useClass: MockSnackBarService },
-        { provide: UserService, useClass: MockUserService }
-      ],
+      ].concat(mockServices),
     });
     effects = TestBed.get(GettingStartedEffects);
   }));
 
   describe('gettingStarted$', () => {
-
-    it('should create the organization, site, and user, displays the addOrganizationSuccess snackbar, returns a LOG_IN action, on success', async(() => {
+    it('should dispatch LoginActions.LogIn', () => {
       const organization = testOrganizations[0];
       const user = testUsers[0];
-      const submit = new Submit({ organization, user });
-      const login = new LogIn(user);
+
+      actions = hot('a', {
+        a: new GettingStartedActions.Submit({ organization, user })
+      });
+      const expected = cold('b', {
+        b: new LoginActions.LogIn(user)
+      });
+      expect(effects.submit$).toBeObservable(expected);
+    });
+
+    it('should open the addOrganizationSuccess snackbar', () => {
       const addOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'addOrganizationSuccess');
-
-      actions = hot('a', { a: submit });
-      const expected = cold('b', { b: login });
-
       effects.submit$.subscribe(() => {
         expect(addOrganizationSuccessSpy).toHaveBeenCalled();
       });
-      expect(effects.submit$).toBeObservable(expected);
-    }));
+    })
   });
 });
