@@ -15,7 +15,8 @@ describe('SignatureFieldComponent', () => {
         ReactiveFormsModule,
         SignaturePadModule,
       ],
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

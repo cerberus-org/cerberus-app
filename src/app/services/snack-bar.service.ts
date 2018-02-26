@@ -23,23 +23,23 @@ export class SnackBarService {
   }
 
   signUpSuccess(): void {
-    this.open('Volunteer successfully signed up.')
+    this.open('Volunteer successfully signed up.');
   }
 
   updateUserSuccess(): void {
-    this.open('User information successfully updated.')
+    this.open('User information successfully updated.');
   }
 
   updateOrganizationSuccess(): void {
-    this.open('Organization information successfully updated.')
+    this.open('Organization information successfully updated.');
   }
 
   checkInSuccess(): void {
-    this.open('Volunteer successfully checked in.')
+    this.open('Volunteer successfully checked in.');
   }
 
   checkOutSuccess(): void {
-    this.open('Volunteer successfully checked out.')
+    this.open('Volunteer successfully checked out.');
   }
 
   requestToJoinOrganizationSuccess(): void {

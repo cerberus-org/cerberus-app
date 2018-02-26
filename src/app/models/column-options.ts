@@ -14,11 +14,11 @@ export const testColumnOptions: ColumnOptions[] = [
   {
     columnDef: 'firstName',
     header: 'First Name',
-    cell: () => {}
+    cell: () => {},
   },
   {
     columnDef: 'lastName',
     header: 'Last Name',
-    cell: () => {}
-  }
+    cell: () => {},
+  },
 ];

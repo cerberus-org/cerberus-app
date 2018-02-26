@@ -1,8 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Site } from '../models/site';
-import { Visit } from '../models/visit';
-import { Volunteer } from '../models/volunteer';
+import { Site, Visit, Volunteer } from '../models';
 
 export const LOAD_SITES = '[Model] Load sites';
 export const LOAD_SITES_SUCCESS = '[Model] Load sites success';

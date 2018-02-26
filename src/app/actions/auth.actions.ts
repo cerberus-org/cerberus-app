@@ -1,8 +1,7 @@
 import { Action } from '@ngrx/store';
 import { User as FirebaseUser } from 'firebase';
 
-import { Organization } from '../models/organization';
-import { User } from '../models/user';
+import { Organization, User } from '../models';
 
 export const LOAD_DATA = '[Auth] Load data';
 export const LOAD_DATA_SUCCESS = '[Auth] Load data success';
@@ -23,7 +22,7 @@ export class LoadDataSuccess implements Action {
 
   constructor(public payload: {
     user: User,
-    organization: Organization
+    organization: Organization,
   }) {}
 }
 

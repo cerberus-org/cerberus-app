@@ -4,15 +4,13 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
-import { HeaderOptions } from '../../models/header-options';
-import { SidenavOptions } from '../../models/sidenav-options';
-import { Site } from '../../models/site';
-import { State } from '../../reducers/index';
+import { HeaderOptions, SidenavOptions, Site } from '../../models';
+import { State } from '../../reducers';
 
 @Component({
   selector: 'app-organization-dashboard',
   templateUrl: './organization-dashboard.component.html',
-  styleUrls: ['./organization-dashboard.component.scss']
+  styleUrls: ['./organization-dashboard.component.scss'],
 })
 export class OrganizationDashboardComponent implements OnInit, OnDestroy {
   private appSubscription: Subscription;
@@ -25,7 +23,7 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.appSubscription = this.store.select('auth')
       .map(state => state.organization)
-      .subscribe(organization => {
+      .subscribe((organization) => {
         if (organization) {
           this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
             organization.name,
@@ -38,15 +36,15 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
 
     this.modelSubscription = this.store.select('model')
       .map(state => state.sites)
-      .subscribe(sites => {
+      .subscribe((sites) => {
         if (sites) {
           this.store.dispatch(new AppActions.SetSidenavOptions(
             sites.map(site => new SidenavOptions(
               'Record Visit',
               'check_circle',
-              new RouterActions.Go({ path: [`/checkin/${site.id}`] })
-            ))
-          ))
+              new RouterActions.Go({ path: [`/checkin/${site.id}`] }),
+            )),
+          ));
         }
       });
   }

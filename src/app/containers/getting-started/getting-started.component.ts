@@ -5,15 +5,13 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as GettingStartedActions from '../../actions/getting-started.actions';
-import { HeaderOptions } from '../../models/header-options';
-import { Organization } from '../../models/organization';
-import { User } from '../../models/user';
-import { State } from '../../reducers/index';
+import { HeaderOptions, Organization, User } from '../../models';
+import { State } from '../../reducers';
 
 @Component({
   selector: 'app-getting-started',
   templateUrl: './getting-started.component.html',
-  styleUrls: ['./getting-started.component.scss']
+  styleUrls: ['./getting-started.component.scss'],
 })
 export class GettingStartedComponent implements OnInit, OnDestroy {
   private gettingStartedSubscription: Subscription;
@@ -41,7 +39,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.gettingStartedSubscription = this.store
       .select('gettingStarted')
-      .subscribe(state => {
+      .subscribe((state) => {
         this.step = state.step;
         this.validOrganization = state.validOrganization;
         this.validUser = state.validUser;
@@ -58,17 +56,17 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   }
 
   onValidOrganization(organization: Organization): void {
-    this.store.dispatch(new GettingStartedActions.UpdateValidOrganization(organization))
+    this.store.dispatch(new GettingStartedActions.UpdateValidOrganization(organization));
   }
 
   onValidUser(user: User): void {
-    this.store.dispatch(new GettingStartedActions.UpdateValidUser(user))
+    this.store.dispatch(new GettingStartedActions.UpdateValidUser(user));
   }
 
   onNext(step): void {
     this.store.dispatch(new GettingStartedActions.NextStep(step));
     this.tabGroup.selectedIndex = step;
-  };
+  }
 
   /**
    * Dispatches the Submit action.
@@ -76,7 +74,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     this.store.dispatch(new GettingStartedActions.Submit({
       organization: this.validOrganization,
-      user: this.validUser
+      user: this.validUser,
     }));
-  };
+  }
 }

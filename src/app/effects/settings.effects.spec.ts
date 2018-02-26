@@ -6,11 +6,9 @@ import { Observable } from 'rxjs/Observable';
 
 import * as AuthActions from '../actions/auth.actions';
 import * as SettingsActions from '../actions/settings.actions';
-import { testOrganizations } from '../models/organization';
-import { testUsers } from '../models/user';
-import { CsvService } from '../services/csv.service';
-import { SnackBarService } from '../services/snack-bar.service';
-import { mockServices } from './mock-services';
+import { testOrganizations, testUsers } from '../models';
+import { CsvService, SnackBarService } from '../services';
+import { mockServiceProviders } from '../services/mock-service-providers';
 import { SettingsEffects } from './settings.effects';
 
 describe('SettingsEffects', () => {
@@ -23,7 +21,7 @@ describe('SettingsEffects', () => {
       providers: [
         SettingsEffects,
         provideMockActions(() => actions),
-      ].concat(mockServices),
+      ].concat(mockServiceProviders),
     });
     effects = TestBed.get(SettingsEffects);
   }));
@@ -32,31 +30,33 @@ describe('SettingsEffects', () => {
     it('should dispatch AuthActions.UpdateOrganization', (() => {
       const organization = testOrganizations[0];
       actions = hot('a', {
-        a: new SettingsActions.UpdateOrganization(organization)
+        a: new SettingsActions.UpdateOrganization(organization),
       });
       const expected = cold('b', {
-        b: new AuthActions.UpdateOrganization(organization)
+        b: new AuthActions.UpdateOrganization(organization),
       });
       expect(effects.updateOrganization$).toBeObservable(expected);
     }));
 
     it('should open the updateOrganizationSuccess snackbar', () => {
-      const updateOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateOrganizationSuccess');
-
+      const updateOrganizationSuccessSpy = spyOn(
+        TestBed.get(SnackBarService),
+        'updateOrganizationSuccess',
+      );
       effects.updateOrganization$.subscribe(() => {
         expect(updateOrganizationSuccessSpy).toHaveBeenCalled();
       });
-    })
+    });
   });
 
   describe('updateUser$', () => {
     it('should dispatch AuthActions.UpdateUser', (() => {
       const user = testUsers[0];
       actions = hot('a', {
-        a: new SettingsActions.UpdateUser(user)
+        a: new SettingsActions.UpdateUser(user),
       });
       const expected = cold('b', {
-        b: new AuthActions.UpdateUser(user)
+        b: new AuthActions.UpdateUser(user),
       });
       expect(effects.updateUser$).toBeObservable(expected);
     }));
@@ -66,7 +66,7 @@ describe('SettingsEffects', () => {
       effects.updateUser$.subscribe(() => {
         expect(updateUserSuccessSpy).toHaveBeenCalled();
       });
-    })
+    });
   });
 
   describe('generateVisitHistoryReport$', () => {

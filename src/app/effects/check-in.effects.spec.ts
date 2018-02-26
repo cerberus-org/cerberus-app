@@ -6,11 +6,10 @@ import { Observable } from 'rxjs/Observable';
 
 import * as CheckInActions from '../actions/check-in.actions';
 import * as RouterActions from '../actions/router.actions';
-import { testVisits } from '../models/visit';
-import { testVolunteers } from '../models/volunteer';
-import { SnackBarService } from '../services/snack-bar.service';
+import { testVisits, testVolunteers } from '../models';
+import { SnackBarService } from '../services';
+import { mockServiceProviders } from '../services/mock-service-providers';
 import { CheckInEffects } from './check-in.effects';
-import { mockServices } from './mock-services';
 
 describe('CheckInEffects', () => {
   let effects: CheckInEffects;
@@ -24,7 +23,7 @@ describe('CheckInEffects', () => {
       providers: [
         CheckInEffects,
         provideMockActions(() => actions),
-      ].concat(mockServices),
+      ].concat(mockServiceProviders),
     });
     effects = TestBed.get(CheckInEffects);
   }));
@@ -32,10 +31,10 @@ describe('CheckInEffects', () => {
   describe('submitNewVolunteer$', () => {
     it('should dispatch CheckInActions.SubmitNewVolunteerSuccess', () => {
       actions = hot('a', {
-        a: new CheckInActions.SubmitNewVolunteer(testVolunteers[0])
+        a: new CheckInActions.SubmitNewVolunteer(testVolunteers[0]),
       });
       const expected = cold('b', {
-        b: new CheckInActions.SubmitNewVolunteerSuccess()
+        b: new CheckInActions.SubmitNewVolunteerSuccess(),
       });
       expect(effects.submitNewVolunteer$).toBeObservable(expected);
     });
@@ -51,10 +50,10 @@ describe('CheckInEffects', () => {
   describe('checkIn$', () => {
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new CheckInActions.CheckIn(testVisits[0])
+        a: new CheckInActions.CheckIn(testVisits[0]),
       });
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/dashboard'] })
+        b: new RouterActions.Go({ path: ['/dashboard'] }),
       });
       expect(effects.checkIn$).toBeObservable(expected);
     });
@@ -70,10 +69,10 @@ describe('CheckInEffects', () => {
   describe('checkOut$', () => {
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new CheckInActions.CheckOut(testVisits[0])
+        a: new CheckInActions.CheckOut(testVisits[0]),
       });
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/dashboard'] })
+        b: new RouterActions.Go({ path: ['/dashboard'] }),
       });
       expect(effects.checkOut$).toBeObservable(expected);
     });

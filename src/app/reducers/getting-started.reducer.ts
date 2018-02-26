@@ -1,17 +1,16 @@
 import * as GettingStartedActions from '../actions/getting-started.actions';
-import { Organization } from '../models/organization';
-import { User } from '../models/user';
+import { Organization, User } from '../models';
 
 export interface State {
   step: number;
-  validOrganization: Organization
-  validUser: User
+  validOrganization: Organization;
+  validUser: User;
 }
 
 export const initialState: State = {
   step: 0,
   validOrganization: null,
-  validUser: null
+  validUser: null,
 };
 
 export type Action = GettingStartedActions.All;
@@ -27,7 +26,7 @@ export function reducer(state = initialState, action: Action): State {
     case GettingStartedActions.NEXT_STEP: {
       const next = action.payload;
       return Object.assign({}, state, {
-        step: Math.max(state.step, next)
+        step: Math.max(state.step, next),
       });
     }
 
@@ -37,7 +36,7 @@ export function reducer(state = initialState, action: Action): State {
      */
     case GettingStartedActions.UPDATE_VALID_ORGANIZATION: {
       return Object.assign({}, state, {
-        validOrganization: action.payload
+        validOrganization: action.payload,
       });
     }
 
@@ -47,7 +46,7 @@ export function reducer(state = initialState, action: Action): State {
      */
     case GettingStartedActions.UPDATE_VALID_USER: {
       return Object.assign({}, state, {
-        validUser: action.payload
+        validUser: action.payload,
       });
     }
 

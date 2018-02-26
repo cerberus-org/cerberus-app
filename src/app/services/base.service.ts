@@ -50,10 +50,10 @@ export abstract class BaseService<T> {
       .where(key, '==', value));
     return snapshot
       ? collection.snapshotChanges()
-        .map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data() as T;
-            const id = a.payload.doc.id;
+        .map((actions) => {
+          return actions.map((action) => {
+            const data = action.payload.doc.data() as T;
+            const id = action.payload.doc.id;
             return this.convertIn(Object.assign(data, { id }));
           });
         })
@@ -69,9 +69,9 @@ export abstract class BaseService<T> {
       .orderBy('startedAt').startAt(startDate).endAt(endDate));
     return snapshot
       ? collection.snapshotChanges()
-        .map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data() as T;
+        .map((actions) => {
+          return actions.map((action) => {
+            const data = action.payload.doc.data() as T;
             return this.convertIn(data);
           });
         })
@@ -89,7 +89,7 @@ export abstract class BaseService<T> {
   getById(id: string): Observable<T> {
     return Observable.fromPromise(
       this.collection.doc(id).ref.get()
-        .then(snapshot => this.convertIn(snapshot.data()))
+        .then(snapshot => this.convertIn(snapshot.data())),
     )
       .catch(error => this.errorService.handleFirebaseError(error));
   }
@@ -108,8 +108,8 @@ export abstract class BaseService<T> {
       : this.collection.add(Object.assign({}, this.convertOut(item)))
         .then(
           ref => ref.get()
-            .then(snapshot => this.convertIn(Object.assign({}, snapshot.data(), { id: snapshot.id })))
-        )
+            .then(snapshot => this.convertIn(Object.assign({}, snapshot.data(), { id: snapshot.id }))),
+        ),
     )
       .catch(error => this.errorService.handleFirebaseError(error));
   }
@@ -121,7 +121,7 @@ export abstract class BaseService<T> {
    */
   update(item: any): Observable<any> {
     return Observable.fromPromise(
-      this.collection.doc(item.id).update(this.convertOut(item))
+      this.collection.doc(item.id).update(this.convertOut(item)),
     )
       .catch(error => this.errorService.handleFirebaseError(error));
   }

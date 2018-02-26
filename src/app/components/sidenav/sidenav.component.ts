@@ -1,13 +1,22 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { MatSidenav } from '@angular/material';
 
-import { SidenavOptions } from '../../models/sidenav-options';
+import { SidenavOptions } from '../../models';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+  styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent implements OnChanges, OnDestroy {
   @ViewChild(MatSidenav) sidenav: MatSidenav;

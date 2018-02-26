@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
-import { reducers } from '../../reducers/index';
+import { reducers } from '../../reducers';
 import { GettingStartedComponent } from './getting-started.component';
 
 describe('GettingStartedComponent', () => {
@@ -18,17 +18,18 @@ describe('GettingStartedComponent', () => {
         GettingStartedComponent,
         MockComponent({ selector: 'app-about-us' }),
         MockComponent({ selector: 'app-organization-form' }),
-        MockComponent({ selector: 'app-user-form', inputs: [ 'passwordRequired' ] }),
-        MockComponent({ selector: 'app-organization-confirm', inputs: ['organization', 'user'] })
+        MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
+        MockComponent({ selector: 'app-organization-confirm', inputs: ['organization', 'user'] }),
       ],
       imports: [
         MatButtonModule,
         MatTabsModule,
         NoopAnimationsModule,
         RouterTestingModule,
-        StoreModule.forRoot(reducers)
-      ]
-    }).compileComponents();
+        StoreModule.forRoot(reducers),
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -6,9 +6,7 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 import * as ModelActions from '../actions/model.actions';
-import { SiteService } from '../services/site.service';
-import { VisitService } from '../services/visit.service';
-import { VolunteerService } from '../services/volunteer.service';
+import { SiteService, VisitService, VolunteerService } from '../services';
 
 @Injectable()
 export class ModelEffects {

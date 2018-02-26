@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { User as FbUser } from 'firebase';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
-import { Store } from '@ngrx/store';
-import { User as FbUser } from 'firebase';
-import 'rxjs/add/operator/switchMap';
 import * as AuthActions from '../actions/auth.actions';
-import { testFirebaseUsers, User } from '../models/user';
-import { State } from '../reducers/app.reducer';
+import { testFirebaseUsers, User } from '../models';
+import { State } from '../reducers';
 import { ErrorService } from './error.service';
 import { UserService } from './user.service';
 
@@ -38,7 +38,7 @@ export class AuthService {
     return this.pwdVerification;
   }
 
-  createUser(user: User): Observable<User> {
+  createUser(user: User): Observable<{}> {
     return Observable.fromPromise(this.afAuth.auth
       .createUserWithEmailAndPassword(user.email, user.password))
       .switchMap(afUser => this.userService.add(user, afUser.uid))
@@ -50,7 +50,7 @@ export class AuthService {
    * @param user
    * @returns {Observable<User>}
    */
-  updateUser(user: User): Observable<User> {
+  updateUser(user: User): Observable<{}> {
     const currentUser = this.afAuth.auth.currentUser;
     if (user.password) {
       this.updatePassword(user, currentUser);
@@ -61,7 +61,7 @@ export class AuthService {
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
-  updatePassword(user: User, currentUser: FbUser) {
+  updatePassword(user: User, currentUser: FbUser): Observable<{}> {
     return Observable.fromPromise(currentUser
       .updatePassword(user.password));
   }
@@ -88,13 +88,12 @@ export class AuthService {
    * If the page is reloaded or the state of the user changes dispatch an action to load data to the app store.
    */
   observeStateChanges(): void {
-    this.afAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.store.dispatch(new AuthActions.LoadData(user));
-      } else {
-        // If the user is not logged in, set data to null
-        this.store.dispatch(new AuthActions.LoadDataSuccess({ user: null, organization: null }));
-      }
+    this.afAuth.auth.onAuthStateChanged((user) => {
+      this.store.dispatch(
+        user
+          ? new AuthActions.LoadData(user)
+          : new AuthActions.LoadDataSuccess({ user: null, organization: null }),
+      );
     });
   }
 }

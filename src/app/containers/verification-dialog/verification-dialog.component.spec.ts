@@ -1,8 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FormsModule } from '@angular/forms';
-import { MatDialogModule, MatDialogRef, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+} from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { VerificationDialogComponent } from './verification-dialog.component';
 
 class MatDialogRefMock {
@@ -21,12 +27,12 @@ describe('VerificationDialogComponent', () => {
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [VerificationDialogComponent],
       providers: [
-        { provide: MatDialogRef, useClass: MatDialogRefMock }
-      ]
+        { provide: MatDialogRef, useClass: MatDialogRefMock },
+      ],
     })
       .compileComponents();
   }));

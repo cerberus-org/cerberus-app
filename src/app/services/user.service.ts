@@ -3,10 +3,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import 'rxjs/add/operator/do';
 import { testUsers, User } from '../models/user';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';
@@ -47,9 +47,10 @@ export class UserService extends BaseService<User> {
    * @returns {any}
    */
   private capitalize(user: User): User {
-    user.firstName = _.capitalize(user.firstName);
-    user.lastName = _.capitalize(user.lastName);
-    return user
+    return Object.assign({}, user, {
+      firstName: _.capitalize(user.firstName),
+      lastName: _.capitalize(user.lastName),
+    });
   }
 }
 

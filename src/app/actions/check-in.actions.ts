@@ -1,13 +1,12 @@
 import { Action } from '@ngrx/store';
 
-import { Visit } from '../models/visit';
-import { Volunteer } from '../models/volunteer';
+import { Visit, Volunteer } from '../models';
 
 export const CHECK_IN = '[Check-In] Check in';
 export const CHECK_OUT = '[Check-In] Check out';
 
-export const SUBMIT_NEW_VOLUNTEER = '[Check-In] Submit new newVolunteer';
-export const SUBMIT_NEW_VOLUNTEER_SUCCESS = '[Check-In] Submit new newVolunteer success';
+export const SUBMIT_NEW_VOLUNTEER = '[Check-In] Submit new volunteer';
+export const SUBMIT_NEW_VOLUNTEER_SUCCESS = '[Check-In] Submit new volunteer success';
 
 export class CheckIn implements Action {
   readonly type = CHECK_IN;
