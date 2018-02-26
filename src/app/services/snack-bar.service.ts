@@ -49,6 +49,10 @@ export class SnackBarService {
   invalidOrganization(): void {
     this.open('Invalid organization.');
   }
+
+  accountNotVerified(): void {
+    this.open('Your account has not been verified yet.');
+  }
 }
 
 export class MockSnackBarService extends SnackBarService {
