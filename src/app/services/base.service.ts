@@ -25,8 +25,8 @@ export abstract class BaseService<T> {
   getAll(snapshot?: boolean): Observable<T[]> {
     return snapshot
       ? this.collection.snapshotChanges()
-        .map(actions => {
-          return actions.map(a => {
+        .map((actions) => {
+          return actions.map((a) => {
             const data = a.payload.doc.data() as T;
             const id = a.payload.doc.id;
             return this.convertIn(Object.assign(data, { id }));

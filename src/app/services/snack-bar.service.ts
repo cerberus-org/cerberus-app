@@ -43,11 +43,11 @@ export class SnackBarService {
   }
 
   requestToJoinOrganizationSuccess(): void {
-    this.open('Successfully requested to join an organization.')
+    this.open('Successfully requested to join an organization.');
   }
 
   invalidOrganization(): void {
-    this.open('Invalid organization.')
+    this.open('Invalid organization.');
   }
 }
 

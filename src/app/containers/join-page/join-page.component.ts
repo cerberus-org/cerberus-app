@@ -1,23 +1,20 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatAutocomplete} from '@angular/material';
-import {Store} from '@ngrx/store';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatAutocomplete } from '@angular/material';
+import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
-import {HeaderOptions} from '../../models/header-options';
-import {Organization} from '../../models/organization';
-import {User} from '../../models/user';
-import {State} from '../../reducers';
-import {AuthService} from '../../services/auth.service';
-import {ErrorService} from '../../services/error.service';
-import {OrganizationService} from '../../services/organization.service';
-import {SnackBarService} from '../../services/snack-bar.service';
+
+import { HeaderOptions, Organization, User } from '../../models';
+import { State } from '../../reducers';
+import { AuthService, ErrorService, OrganizationService, SnackBarService } from '../../services';
 
 @Component({
   selector: 'app-join-page',
   templateUrl: './join-page.component.html',
-  styleUrls: ['./join-page.component.scss']
+  styleUrls: ['./join-page.component.scss'],
 })
 export class JoinPageComponent implements OnInit {
 
@@ -46,12 +43,12 @@ export class JoinPageComponent implements OnInit {
 
   ngOnInit() {
     this.organizationService.getAll(true)
-      .map(organizations => {
+      .map((organizations: Organization[]) => {
         this.organizations = organizations;
       },
-      error => {
-        this.errorService.handleFirebaseError(error);
-      }).subscribe();
+           (error: any) => {
+             this.errorService.handleFirebaseError(error);
+           }).subscribe();
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
@@ -76,7 +73,8 @@ export class JoinPageComponent implements OnInit {
         .subscribe(() => {
           this.authService.signOut();
           this.snackBarService.requestToJoinOrganizationSuccess();
-          this.store.dispatch(new RouterActions.Go({ path: ['/login'] })) });
+          this.store.dispatch(new RouterActions.Go({ path: ['/login'] }));
+        });
     } else {
       this.snackBarService.invalidOrganization();
     }
@@ -88,9 +86,9 @@ export class JoinPageComponent implements OnInit {
    * @returns {Organization}
    */
   getOrganizationByName(organizationName: string): Organization {
-    return this.organizations.find(organization => {
+    return this.organizations.find((organization: Organization) => {
       return organization.name === organizationName;
-    })
+    });
   }
 
   /**

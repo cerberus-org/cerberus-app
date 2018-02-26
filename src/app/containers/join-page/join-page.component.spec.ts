@@ -8,7 +8,7 @@ describe('JoinPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JoinPageComponent ]
+      declarations: [JoinPageComponent],
     })
     .compileComponents();
   }));
