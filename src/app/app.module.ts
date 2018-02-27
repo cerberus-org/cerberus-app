@@ -40,6 +40,7 @@ import { ChartsModule } from 'ng2-charts';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import {
   AboutUsComponent,
   CheckInFormComponent,
@@ -60,6 +61,7 @@ import {
   CheckInComponent,
   DataDisplayComponent,
   GettingStartedComponent,
+  JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
   SettingsPageComponent,
@@ -113,6 +115,7 @@ import { VerificationGuard } from './verification-guard';
     VerificationDialogComponent,
     SidenavComponent,
     ReportsFormComponent,
+    JoinPageComponent,
   ],
   imports: [
     AngularFireAuthModule,

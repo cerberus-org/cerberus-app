@@ -40,6 +40,14 @@ describe('LoginEffects', () => {
       expect(effects.login$).toBeObservable(expected);
     });
 
+    it('should open the accountNotVerified snackbar', () => {
+      const accountNotVerifiedSpy = spyOn(TestBed.get(SnackBarService), 'accountNotVerified');
+
+      effects.login$.subscribe(() => {
+        expect(accountNotVerifiedSpy).toHaveBeenCalled();
+      });
+    });
+
     it('should open the loginSuccess snackbar', () => {
       const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'loginSuccess');
 
