@@ -25,8 +25,13 @@ export class LoginEffects {
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
       .switchMap(res => this.userService.getById(res.uid)
         .map((user) => {
-          this.snackBarService.loginSuccess(user.firstName);
-          return new RouterActions.Go({ path: ['/dashboard'] });
+          if (user.role === 'unverified') {
+            this.authService.signOut();
+            this.snackBarService.accountNotVerified();
+          } else {
+            this.snackBarService.loginSuccess(user.firstName);
+            return new RouterActions.Go({ path: ['/dashboard'] });
+          }
         }),
       ));
 

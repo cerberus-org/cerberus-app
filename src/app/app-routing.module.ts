@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   CheckInComponent,
   GettingStartedComponent,
+  JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
   SettingsPageComponent,
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'dashboard', component: OrganizationDashboardComponent, canActivate: [LoginGuard] },
   { path: 'checkin/:id', component: CheckInComponent, canActivate: [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },
-  { path: 'settings', component: SettingsPageComponent, canActivate: [VerificationGuard] },
+  { path: 'join', component: JoinPageComponent },
+  { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 

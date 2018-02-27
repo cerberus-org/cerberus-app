@@ -5,6 +5,7 @@ import { User as FbUser } from 'firebase';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 import * as AuthActions from '../actions/auth.actions';
