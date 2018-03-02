@@ -51,3 +51,6 @@
     <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onSubmitReport()">Generate Report</button>
   </div>
 </div>
+<div *ngIf="sidenavSelection == 'permissions' && initialUser.role !== 'member' && initialUser.role != 'admin'">
+
+</div>

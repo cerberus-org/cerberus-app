@@ -49,6 +49,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       'assessment',
       new SettingsActions.LoadPage('reports'),
     ),
+    new SidenavOptions(
+      'Permissions',
+      'lock_outline',
+      new SettingsActions.LoadPage('permissions'),
+    ),
   ];
   private authSubscription: Subscription;
   private settingsSubscription: Subscription;
