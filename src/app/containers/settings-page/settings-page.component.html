@@ -17,7 +17,7 @@
   </div>
 </div>
 <!--Organization form-->
-<div *ngIf="sidenavSelection === 'organization'">
+<div *ngIf="sidenavSelection === 'organization' && initialUser.role !== 'member'">
   <app-organization-form
     [title]="organizationFormTitle"
     [initialOrganization]="initialOrganization"
@@ -34,7 +34,7 @@
   </div>
 </div>
 <!--Volunteer data table-->
-<div *ngIf="sidenavSelection === 'volunteers'">
+<div *ngIf="sidenavSelection === 'volunteers' && initialUser.role !== 'member'">
   <app-data-table
     [data$]="volunteers$"
     [columnOptions]="volunteerTableOptions"
@@ -43,7 +43,7 @@
   </app-data-table>
 </div>
 <!--Reports form-->
-<div *ngIf="sidenavSelection == 'reports'">
+<div *ngIf="sidenavSelection == 'reports' && initialUser.role !== 'member'">
   <app-reports-form
     (validReport)="onValidReport($event)">
   </app-reports-form>

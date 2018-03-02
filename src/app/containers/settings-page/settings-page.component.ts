@@ -50,7 +50,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       new SettingsActions.LoadPage('reports'),
     ),
   ];
-  private appSubscription: Subscription;
+  private authSubscription: Subscription;
   private settingsSubscription: Subscription;
   private volunteersSubscription: Subscription;
 
@@ -90,7 +90,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.appSubscription = this.store.select('auth')
+    this.authSubscription = this.store.select('auth')
       .subscribe((state) => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
@@ -177,8 +177,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.appSubscription) {
-      this.appSubscription.unsubscribe();
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
     }
     if (this.settingsSubscription) {
       this.settingsSubscription.unsubscribe();
