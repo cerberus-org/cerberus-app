@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
+import { MatDialog } from '@angular/material';
+import { ResetPasswordDialogComponent } from '../';
 import * as AppActions from '../../actions/app.actions';
 import * as LoginActions from '../../actions/login.actions';
 import { HeaderOptions } from '../../models';
@@ -24,10 +26,12 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string;
   hidePwd: boolean;
+  email: string;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private store: Store<State>) {}
+              private store: Store<State>,
+              private dialog: MatDialog) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -45,6 +49,19 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
     }));
+  }
+
+  /**
+   * Open the dialog and subscribe to the observable that is returned on close
+   * to extract the email. Once email is obtained dispatch the verify effect.
+   */
+  public onForgotPassword() {
+    const dialog = this.dialog.open(ResetPasswordDialogComponent);
+    dialog.afterClosed().subscribe((email) => {
+      if (email) {
+        this.email = email;
+      }
+    });
   }
 
   onNewOrganization() {

@@ -6,4 +6,5 @@ export * from './organization-dashboard/organization-dashboard.component';
 export * from './settings-page/settings-page.component';
 export * from './verification-dialog/verification-dialog.component';
 export * from './join-page/join-page.component';
+export * from './reset-password-dialog/reset-password-dialog.component';
 

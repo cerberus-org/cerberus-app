@@ -64,6 +64,7 @@ import {
   JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
+  ResetPasswordDialogComponent,
   SettingsPageComponent,
   VerificationDialogComponent,
 } from './containers';
@@ -90,7 +91,6 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
-
 @NgModule({
   declarations: [
     AboutUsComponent,
@@ -116,6 +116,7 @@ import { VerificationGuard } from './verification-guard';
     SidenavComponent,
     ReportsFormComponent,
     JoinPageComponent,
+    ResetPasswordDialogComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -174,7 +175,7 @@ import { VerificationGuard } from './verification-guard';
     VolunteerService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [VerificationDialogComponent],
+  entryComponents: [VerificationDialogComponent, ResetPasswordDialogComponent],
 })
 export class AppModule {
 }

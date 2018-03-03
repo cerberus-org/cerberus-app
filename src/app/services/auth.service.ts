@@ -45,6 +45,14 @@ export class AuthService {
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
+  resetPassword(email: string): void {
+    this.afAuth.auth.sendPasswordResetEmail(email).then((val: any) => {
+      // Email sent.
+    }).catch((error: any) => {
+      // An error happened.
+    });
+  }
+
   /**
    * Update auth user and base user. Only update the password if provided.
    * @param user

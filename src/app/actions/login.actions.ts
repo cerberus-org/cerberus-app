@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 export const LOG_IN = '[Login] Log in';
 export const LOG_OUT = '[Login] Log out';
 export const VERIFY = '[Login] Verify';
+export const FORGOT_PASSWORD = '[Login] Verify';
 
 export class LogIn implements Action {
   readonly type = LOG_IN;
