@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
+import { isAdmin, isAdminUser, isOwner } from '../../functions/helpers.functions';
 import {
   ColumnOptions,
   HeaderOptions,
@@ -28,33 +29,6 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     '/dashboard',
     false,
   );
-  private sidenavOptions: SidenavOptions[] = [
-    new SidenavOptions(
-      'User',
-      'face',
-      new SettingsActions.LoadPage('user'),
-    ),
-    new SidenavOptions(
-      'Organization',
-      'domain',
-      new SettingsActions.LoadPage('organization'),
-    ),
-    new SidenavOptions(
-      'Volunteers',
-      'insert_emoticon',
-      new SettingsActions.LoadPage('volunteers'),
-    ),
-    new SidenavOptions(
-      'Reports',
-      'assessment',
-      new SettingsActions.LoadPage('reports'),
-    ),
-    new SidenavOptions(
-      'Permissions',
-      'lock_outline',
-      new SettingsActions.LoadPage('permissions'),
-    ),
-  ];
   private authSubscription: Subscription;
   private settingsSubscription: Subscription;
   private volunteersSubscription: Subscription;
@@ -114,7 +88,51 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       });
 
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.store.dispatch(new AppActions.SetSidenavOptions(this.sidenavOptions));
+    this.store.dispatch(new AppActions.SetSidenavOptions(this.getSidenavOptions(user)));
+  }
+
+  /**
+   * Creates the array of sidenav options based on user role.
+   * @param user - the current user
+   * @returns {SidenavOptions[]} the sidenav options to display
+   */
+  private getSidenavOptions(user: User): SidenavOptions[] {
+    const sidenavOptions = [
+      new SidenavOptions(
+        'User',
+        'face',
+        new SettingsActions.LoadPage('user'),
+      ),
+    ];
+    if (isAdmin(user)) {
+      sidenavOptions = sidenavOptions.concat([
+        new SidenavOptions(
+          'Organization',
+          'domain',
+          new SettingsActions.LoadPage('organization'),
+        ),
+        new SidenavOptions(
+          'Volunteers',
+          'insert_emoticon',
+          new SettingsActions.LoadPage('volunteers'),
+        ),
+        new SidenavOptions(
+          'Reports',
+          'assessment',
+          new SettingsActions.LoadPage('reports'),
+        ),
+      ]);
+    }
+    if (isOwner(user)) {
+      sidenavOptions = sidenavOptions.concat([
+        new SidenavOptions(
+          'Permissions',
+          'lock_outline',
+          new SettingsActions.LoadPage('permissions'),
+        ),
+      ]);
+    }
+    return sidenavOptions;
   }
 
   /**
