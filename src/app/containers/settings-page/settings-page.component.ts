@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
-import { isAdmin, isAdminUser, isOwner } from '../../functions/helpers.functions';
+import { isAdmin, isOwner } from '../../functions';
 import {
   ColumnOptions,
   HeaderOptions,
@@ -73,6 +73,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       .subscribe((state) => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
+        if (this.initialUser) {
+          this.store.dispatch(new AppActions.SetSidenavOptions(
+            this.getSidenavOptions(this.initialUser),
+          ));
+        }
       });
 
     this.volunteers$ = this.store.select('model')
@@ -88,7 +93,6 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       });
 
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.store.dispatch(new AppActions.SetSidenavOptions(this.getSidenavOptions(user)));
   }
 
   /**
@@ -97,7 +101,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
    * @returns {SidenavOptions[]} the sidenav options to display
    */
   private getSidenavOptions(user: User): SidenavOptions[] {
-    const sidenavOptions = [
+    let sidenavOptions = [
       new SidenavOptions(
         'User',
         'face',
