@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'checkin/:id', component: CheckInComponent, canActivate: [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },
   { path: 'join', component: JoinPageComponent },
-  { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard, LoginGuard] },
+  { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
