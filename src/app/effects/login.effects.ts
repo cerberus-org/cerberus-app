@@ -64,6 +64,19 @@ export class LoginEffects {
         return new RouterActions.Go({ path: ['/login'] });
       }));
 
+  /**
+   * Listen for the ResetPassword action,
+   * send email to user and display snackbar.
+   * @type {Observable<any>}
+   */
+  @Effect({ dispatch: false })
+  resetPassword$: Observable<Action> = this.actions
+    .ofType(LoginActions.RESET_PASSWORD)
+    .switchMap(action => this.authService.resetPassword(action.payload)
+      .do(() => {
+        this.snackBarService.resetPassword();
+      }));
+
   constructor(private actions: Actions,
               private authService: AuthService,
               private userService: UserService,

@@ -53,13 +53,13 @@ export class LoginComponent implements OnInit {
 
   /**
    * Open the dialog and subscribe to the observable that is returned on close
-   * to extract the email. Once email is obtained dispatch the verify effect.
+   * to extract the email. Once email is obtained dispatch the reset password effect.
    */
   public onForgotPassword() {
     const dialog = this.dialog.open(ResetPasswordDialogComponent);
     dialog.afterClosed().subscribe((email) => {
       if (email) {
-        this.email = email;
+        this.store.dispatch(new LoginActions.ResetPassword(email));
       }
     });
   }
