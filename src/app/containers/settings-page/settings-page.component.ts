@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
+import { isAdmin, isOwner } from '../../functions';
 import {
   ColumnOptions,
   HeaderOptions,
@@ -28,29 +29,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     '/dashboard',
     false,
   );
-  private sidenavOptions: SidenavOptions[] = [
-    new SidenavOptions(
-      'User',
-      'face',
-      new SettingsActions.LoadPage('user'),
-    ),
-    new SidenavOptions(
-      'Organization',
-      'domain',
-      new SettingsActions.LoadPage('organization'),
-    ),
-    new SidenavOptions(
-      'Volunteers',
-      'insert_emoticon',
-      new SettingsActions.LoadPage('volunteers'),
-    ),
-    new SidenavOptions(
-      'Reports',
-      'assessment',
-      new SettingsActions.LoadPage('reports'),
-    ),
-  ];
-  private appSubscription: Subscription;
+  private authSubscription: Subscription;
   private settingsSubscription: Subscription;
   private volunteersSubscription: Subscription;
 
@@ -90,10 +69,15 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.appSubscription = this.store.select('auth')
+    this.authSubscription = this.store.select('auth')
       .subscribe((state) => {
         this.initialUser = state.user;
         this.initialOrganization = state.organization;
+        if (this.initialUser) {
+          this.store.dispatch(new AppActions.SetSidenavOptions(
+            this.getSidenavOptions(this.initialUser),
+          ));
+        }
       });
 
     this.volunteers$ = this.store.select('model')
@@ -109,7 +93,50 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       });
 
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.store.dispatch(new AppActions.SetSidenavOptions(this.sidenavOptions));
+  }
+
+  /**
+   * Creates the array of sidenav options based on user role.
+   * @param user - the current user
+   * @returns {SidenavOptions[]} the sidenav options to display
+   */
+  private getSidenavOptions(user: User): SidenavOptions[] {
+    let sidenavOptions = [
+      new SidenavOptions(
+        'User',
+        'face',
+        new SettingsActions.LoadPage('user'),
+      ),
+    ];
+    if (isAdmin(user)) {
+      sidenavOptions = sidenavOptions.concat([
+        new SidenavOptions(
+          'Organization',
+          'domain',
+          new SettingsActions.LoadPage('organization'),
+        ),
+        new SidenavOptions(
+          'Volunteers',
+          'insert_emoticon',
+          new SettingsActions.LoadPage('volunteers'),
+        ),
+        new SidenavOptions(
+          'Reports',
+          'assessment',
+          new SettingsActions.LoadPage('reports'),
+        ),
+      ]);
+    }
+    if (isOwner(user)) {
+      sidenavOptions = sidenavOptions.concat([
+        new SidenavOptions(
+          'Permissions',
+          'lock_outline',
+          new SettingsActions.LoadPage('permissions'),
+        ),
+      ]);
+    }
+    return sidenavOptions;
   }
 
   /**
@@ -177,8 +204,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.appSubscription) {
-      this.appSubscription.unsubscribe();
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
     }
     if (this.settingsSubscription) {
       this.settingsSubscription.unsubscribe();
