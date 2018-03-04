@@ -66,6 +66,7 @@ export class DataTableComponent implements OnInit {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
+  @Output() updateItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
   displayedColumns: string[];
   initialPageSize: number;
@@ -95,5 +96,17 @@ export class DataTableComponent implements OnInit {
    */
   onClickDelete(item: any): void {
     this.deleteItem.emit(item);
+  }
+
+  /**
+   * Handles select option events by emitting the item modified with the selected option.
+   * @param value - the value to apply
+   * @param item - the table item to modify
+   * @param key - the property to modify
+   */
+  onSelectOption(value, item, key) {
+    const updatedItem = Object.assign({}, item);
+    updatedItem[key] = value;
+    this.updateItem.emit(updatedItem);
   }
 }

@@ -1,9 +1,6 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -17,7 +14,8 @@ import {
   MatListModule,
   MatNativeDateModule,
   MatPaginatorModule,
-  MatRadioModule, MatSelectModule,
+  MatRadioModule,
+  MatSelectModule,
   MatSidenavModule,
   MatSlideToggleModule,
   MatSnackBarModule,
@@ -60,6 +58,7 @@ import {
   UserFormComponent,
   VolunteerMenuComponent,
 } from './components';
+import { DataCellComponent } from './components/data-cell/data-cell.component';
 import {
   CheckInComponent,
   GettingStartedComponent,
@@ -118,6 +117,7 @@ import { VerificationGuard } from './verification-guard';
     SidenavComponent,
     ReportsFormComponent,
     JoinPageComponent,
+    DataCellComponent,
     EmailDialogComponent,
     PublicOrganizationDashboardComponent,
   ],

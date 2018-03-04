@@ -3,14 +3,11 @@
     <ng-container *ngFor="let column of columnOptions" [cdkColumnDef]="column.columnDef">
       <mat-header-cell *cdkHeaderCellDef>{{column.header}}</mat-header-cell>
       <mat-cell *cdkCellDef="let row">
-        <mat-select *ngIf="column.selectOptions; else textOnly" [value]="'test'">
-          <mat-option *ngFor="let selectOption of column.selectOptions" [value]="selectOption">
-            {{selectOption}}
-          </mat-option>
-        </mat-select>
-        <ng-template #textOnly>
-          {{column.cell(row)}}
-        </ng-template>
+        <app-data-cell
+          [column]="column"
+          [row]="row"
+          (selectOption)="onSelectOption($event, row, column.columnDef)">
+        </app-data-cell>
       </mat-cell>
     </ng-container>
     <ng-container *ngIf="showDelete" cdkColumnDef="delete">
