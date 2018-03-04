@@ -41,9 +41,9 @@ export class LoginEffects {
    * @type {Observable<any>}
    */
   @Effect()
-  verify$: Observable<Action> = this.actions
-    .ofType(LoginActions.VERIFY)
-    .map((action: LoginActions.Verify) => action.payload)
+  verifyPassword$: Observable<Action> = this.actions
+    .ofType(LoginActions.VERIFY_PASSWORD)
+    .map((action: LoginActions.VerifyPassword) => action.payload)
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
       .map(() => {
         this.authService.setPwdVerification(true);

@@ -13,7 +13,6 @@ import {
 } from '.';
 import { testUsers } from '../models';
 import { reducers } from '../reducers';
-import {SnackBarService} from './snack-bar.service';
 
 describe('AuthService', () => {
   let service: AuthService;

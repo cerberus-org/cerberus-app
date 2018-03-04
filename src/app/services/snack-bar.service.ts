@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class SnackBarService {

@@ -99,7 +99,7 @@ export class AppComponent implements OnInit, OnDestroy {
     dialog.afterClosed().subscribe((pwd) => {
       if (pwd) {
         // Once the Observable is returned dispatch an effect
-        this.store.dispatch(new LoginActions.Verify({ email: this.user.email, password: pwd }));
+        this.store.dispatch(new LoginActions.VerifyPassword({ email: this.user.email, password: pwd }));
       }
     });
   }
