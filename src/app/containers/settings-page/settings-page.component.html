@@ -2,7 +2,7 @@
 <div *ngIf="sidenavSelection === 'user'">
   <app-user-form
     [title]="userFormTitle"
-    [initialUser]="initialUser"
+    [initialUser]="currentUser"
     (validUser)="onValidUser($event)"
     [passwordRequired]="false">
   </app-user-form>
@@ -10,8 +10,8 @@
     <button
       mat-raised-button
       color="primary"
-      (click)="onSubmitUser(validUser, initialUser.id)"
-      [disabled]="!validUser">
+      (click)="onSubmitUser()"
+      [disabled]="!userChanges">
       Submit
     </button>
   </div>
@@ -20,15 +20,15 @@
 <div *ngIf="sidenavSelection === 'organization'">
   <app-organization-form
     [title]="organizationFormTitle"
-    [initialOrganization]="initialOrganization"
+    [initialOrganization]="currentOrganization"
     (validOrganization)="onValidOrganization($event)">
   </app-organization-form>
   <div class="container-submit">
     <button
       mat-raised-button
       color="primary"
-      (click)="onSubmitOrganization(validOrganization, initialOrganization.id)"
-      [disabled]="!validOrganization">
+      (click)="onSubmitOrganization()"
+      [disabled]="!organizationChanges">
       Submit
     </button>
   </div>
@@ -48,7 +48,8 @@
     (validReport)="onValidReport($event)">
   </app-reports-form>
   <div class="container-submit">
-    <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onSubmitReport()">Generate Report</button>
+    <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onSubmitReport()">Generate Report
+    </button>
   </div>
 </div>
 <!--Roles data table-->
@@ -57,6 +58,7 @@
     [data$]="users$"
     [columnOptions]="userTableOptions"
     [showDelete]="true"
-    (deleteItem)="onDeleteVolunteer($event)">
+    (deleteItem)="onDeleteUser($event)"
+    (updateItem)="onUpdateUser($event)">
   </app-data-table>
 </div>

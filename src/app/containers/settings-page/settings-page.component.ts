@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { isAdmin } from '../../functions';
-import { capitalize } from '../../functions/capitalize.functions';
 import {
   ColumnOptions,
   HeaderOptions,
@@ -14,7 +13,7 @@ import {
   Report,
   SidenavOptions,
   User,
-  Volunteer
+  Volunteer,
 } from '../../models';
 import { State } from '../../reducers';
 
@@ -50,7 +49,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     new ColumnOptions(
       'role',
       'Role',
-      (row: User) => capitalize(row.role),
+      (row: User) => row.role,
       ['Member', 'Admin', 'Owner'],
     ),
   ];
@@ -74,14 +73,14 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   users$: Observable<User[]>;
   volunteers$: Observable<Volunteer[]>;
-  initialOrganization: Organization;
-  initialUser: User;
+  currentOrganization: Organization;
+  currentUser: User;
   volunteers: Volunteer[];
   sidenavSelection: string;
 
+  organizationChanges: Organization;
+  userChanges: User;
   validReport: any;
-  validOrganization: Organization;
-  validUser: User;
 
   constructor(public store: Store<State>) {
     this.userFormTitle = 'Update your user info.';
@@ -91,11 +90,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.authSubscription = this.store.select('auth')
       .subscribe((state) => {
-        this.initialUser = state.user;
-        this.initialOrganization = state.organization;
-        if (this.initialUser) {
+        this.currentUser = state.user;
+        this.currentOrganization = state.organization;
+        if (this.currentUser) {
           this.store.dispatch(new AppActions.SetSidenavOptions(
-            this.getSidenavOptions(this.initialUser),
+            this.getSidenavOptions(this.currentUser),
           ));
         }
       });
@@ -114,6 +113,18 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       });
 
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
+  }
+
+  ngOnDestroy(): void {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
+    if (this.settingsSubscription) {
+      this.settingsSubscription.unsubscribe();
+    }
+    if (this.volunteersSubscription) {
+      this.volunteersSubscription.unsubscribe();
+    }
   }
 
   /**
@@ -157,19 +168,19 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handles validUser events by setting validUser.
+   * Handles userChanges events by setting userChanges.
    * @param user - a valid user when valid, null when invalid
    */
   onValidUser(user: User) {
-    this.validUser = user;
+    this.userChanges = user;
   }
 
   /**
-   * Handles validOrganization events by setting validOrganization.
+   * Handles organizationChanges events by setting organizationChanges.
    * @param organization - a valid organization when valid, null when invalid
    */
   onValidOrganization(organization: Organization) {
-    this.validOrganization = organization;
+    this.organizationChanges = organization;
   }
 
   /**
@@ -183,18 +194,19 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   /**
    * Handles submission of user form by dispatching an UpdateUser action.
    */
-  onSubmitUser(user: User, id: string) {
+  onSubmitUser() {
     this.store.dispatch(new SettingsActions.UpdateUser(
-      Object.assign({}, user, { id }),
+      Object.assign({}, this.currentUser, this.userChanges),
     ));
   }
 
   /**
    * Handles submission of organization form by dispatching an UpdateOrganization action.
    */
-  onSubmitOrganization(organization: Organization, id: string) {
+  onSubmitOrganization() {
+    console.log(Object.assign({}, this.currentOrganization, this.organizationChanges));
     this.store.dispatch(new SettingsActions.UpdateOrganization(
-      Object.assign({}, organization, { id }),
+      Object.assign({}, this.currentOrganization, this.organizationChanges),
     ));
   }
 
@@ -214,21 +226,21 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       this.store.dispatch(new SettingsActions.GenerateVisitHistoryReport({
         startedAt: this.validReport.startedAt,
         endedAt: this.validReport.endedAt,
-        organizationId: this.initialOrganization.id,
+        organizationId: this.currentOrganization.id,
         volunteers: this.volunteers,
       }));
     }
   }
 
-  ngOnDestroy(): void {
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
-    }
-    if (this.settingsSubscription) {
-      this.settingsSubscription.unsubscribe();
-    }
-    if (this.volunteersSubscription) {
-      this.volunteersSubscription.unsubscribe();
-    }
+  onUpdateUser(user: User) {
+    this.store.dispatch(
+      user.id === this.currentUser.id
+        ? new SettingsActions.UpdateUser(user)
+        : new SettingsActions.UpdateRole(user),
+    );
+  }
+
+  onDeleteUser(user: User) {
+    console.log('Not yet implemented');
   }
 }

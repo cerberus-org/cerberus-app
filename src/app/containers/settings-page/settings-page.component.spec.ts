@@ -19,9 +19,9 @@ describe('SettingsPageComponent', () => {
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showDelete'],
         }),
-        MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
+        MockComponent({ selector: 'app-organization-form', inputs: ['organization'] }),
         MockComponent({ selector: 'app-reports-form' }),
-        MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
+        MockComponent({ selector: 'app-user-form', inputs: ['user', 'passwordRequired'] }),
       ],
       imports: [
         StoreModule.forRoot(reducers),
@@ -40,14 +40,14 @@ describe('SettingsPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle validUser events by setting validUser', () => {
+  it('should handle userChanges events by setting userChanges', () => {
     component.onValidUser(testUsers[0]);
-    expect(component.validUser).toBe(testUsers[0]);
+    expect(component.userChanges).toBe(testUsers[0]);
   });
 
-  it('should handle validOrganization events by setting validOrganization', () => {
+  it('should handle organizationChanges events by setting organizationChanges', () => {
     component.onValidOrganization(testOrganizations[0]);
-    expect(component.validOrganization).toBe(testOrganizations[0]);
+    expect(component.organizationChanges).toBe(testOrganizations[0]);
   });
 
 
@@ -87,7 +87,7 @@ describe('SettingsPageComponent', () => {
   it('should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport', () => {
     spyOn(component.store, 'dispatch');
     component.validReport = testReports[0];
-    component.initialOrganization = testOrganizations[0];
+    component.organization = testOrganizations[0];
     component.volunteers = testVolunteers;
     component.onSubmitReport();
     expect(component.store.dispatch)

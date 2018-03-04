@@ -20,6 +20,7 @@ import {
   VisitService,
   VolunteerService,
 } from '../services';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class SettingsEffects {
@@ -31,32 +32,6 @@ export class SettingsEffects {
   deleteVolunteer$: Observable<Action> = this.actions.ofType(SettingsActions.DELETE_VOLUNTEER)
     .map((action: SettingsActions.DeleteVolunteer) => action.payload)
     .switchMap(volunteer => this.volunteerService.delete(volunteer));
-
-  /**
-   * Listen for the UpdateOrganization action, update organization,
-   * then dispatch an action to app store and display success snack bar.
-   */
-  @Effect()
-  updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)
-    .map((action: SettingsActions.UpdateOrganization) => action.payload)
-    .switchMap(organization => this.organizationService.update(organization)
-      .map(() => {
-        this.snackBarService.updateOrganizationSuccess();
-        return new AuthActions.UpdateOrganization(organization);
-      }));
-
-  /**
-   * Listen for the UpdateUser action, update user,
-   * then dispatch action to app store and display success snack bar.
-   */
-  @Effect()
-  updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
-    .map((action: SettingsActions.UpdateUser) => action.payload)
-    .switchMap(user => this.authService.updateUser(user)
-      .map(() => {
-        this.snackBarService.updateUserSuccess();
-        return new AuthActions.UpdateUser(user);
-      }));
 
   /**
    * Listen for the GenerateVisitHistoryReport, get visits by date range and organization,
@@ -80,10 +55,49 @@ export class SettingsEffects {
         );
       }));
 
+  /**
+   * Listen for the UpdateOrganization action, update organization,
+   * then dispatch an action to app store and display success snack bar.
+   */
+  @Effect()
+  updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)
+    .map((action: SettingsActions.UpdateOrganization) => action.payload)
+    .switchMap(organization => this.organizationService.update(organization)
+      .map(() => {
+        this.snackBarService.updateOrganizationSuccess();
+        return new AuthActions.UpdateOrganization(organization);
+      }));
+
+  /**
+   * Listen for the updateRole action, update a user's role,
+   * then display a success snack bar.
+   */
+  @Effect({ dispatch: false })
+  updateRole$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ROLE)
+    .map((action: SettingsActions.UpdateRole) => action.payload)
+    .switchMap(user => this.userService.update(user)
+      .do(() => {
+        this.snackBarService.updateUserSuccess();
+      }));
+
+  /**
+   * Listen for the UpdateUser action, update user,
+   * then dispatch AuthActions.UpdateUser and display a success snack bar.
+   */
+  @Effect()
+  updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
+    .map((action: SettingsActions.UpdateUser) => action.payload)
+    .switchMap(user => this.authService.updateUser(user)
+      .map(() => {
+        this.snackBarService.updateUserSuccess();
+        return new AuthActions.UpdateUser(user);
+      }));
+
   constructor(private actions: Actions,
               private authService: AuthService,
               private organizationService: OrganizationService,
               private snackBarService: SnackBarService,
+              private userService: UserService,
               private visitService: VisitService,
               private volunteerService: VolunteerService,
               private csvService: CsvService) {
