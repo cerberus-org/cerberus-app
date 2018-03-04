@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class SnackBarService {
@@ -56,6 +57,10 @@ export class SnackBarService {
 
   resetPassword(): void {
     this.open('If your email is associated with an organization, you will receive an email.');
+  }
+
+  signInError(): void {
+    this.open('Unsuccessful login.');
   }
 }
 

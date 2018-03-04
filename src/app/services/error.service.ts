@@ -20,6 +20,11 @@ export class ErrorService {
     // Stop the pipeline after a caught error
     return Observable.of(null).filter(e => !!e);
   }
+
+  handleLoginError(error: FirebaseError): Observable<any> {
+    this.snackBarService.signInError();
+    return Observable.of(null).filter(e => !!e);
+  }
 }
 
 export class MockErrorService extends ErrorService {
@@ -29,6 +34,10 @@ export class MockErrorService extends ErrorService {
   }
 
   handleFirebaseError(error: FirebaseError) {
+    return Observable.of(null).filter(e => !!e);
+  }
+
+  handleLoginError(error: FirebaseError) {
     return Observable.of(null).filter(e => !!e);
   }
 }
