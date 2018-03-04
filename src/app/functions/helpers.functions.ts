@@ -4,16 +4,61 @@ import { formatDuration } from './date-format.functions';
 
 export const isAdmin = (user: User) => ['Admin', 'Owner'].includes(user.role);
 
+const USER_ROLES = ['Locked', 'Member', 'Admin', 'Owner'];
+
+const getRoleValue = (role: string): number => USER_ROLES.indexOf(role);
+
+const isGreaterRole = (roleA: string, roleB: string): boolean => (
+  getRoleValue(roleA) > getRoleValue(roleB)
+);
+
+const areSameUser = (currentUser: User, otherUser: User): boolean => (
+  currentUser.id === otherUser.id
+);
+
 /**
  * Compares the roles between two users and returns true
- * if user A has a higher role than user B.
- * @param userA - the user to compare for
- * @param userB - the user to compare against
- * @returns {boolean}
+ * if user A has a greater role than user B.
+ * Returns true if currentUser and otherUser have the same ID.
+ * @param currentUser - the current user
+ * @param otherUser - the user to compare against
+ * @returns {boolean} true if greater, false if lesser
  */
-export const compareByRole = (userA: User, userB: User) => {
-  const roles = ['Member', 'Admin', 'Owner'];
-  return userA.id === userB.id || roles.indexOf(userA.role) > roles.indexOf(userB.role);
+export const canSelectRole = (currentUser: User, otherUser: User): boolean => (
+  getRoleValue(currentUser.role) > 1
+  && (
+    areSameUser(currentUser, otherUser)
+    || isGreaterRole(currentUser.role, otherUser.role)
+  )
+);
+
+/**
+ * Gets available role select options for a given user, based on the current user's role.
+ * Owners will be able to select the "Owner" role for other users.
+ * Users will not be able to select the "Locked" option for themselves.
+ * @param currentUser - the current user who will select an option
+ * @param otherUser - the user to get available roles for
+ * @returns {string[]} - the available options for the given user
+ */
+export const getRoleOptions = (currentUser: User, otherUser: User): string[] => {
+  if (getRoleValue(currentUser.role) < 2 || isGreaterRole(otherUser.role, currentUser.role)) {
+    return null;
+  }
+  // Filter out greater roles (use all for owners) and include current user's role
+  const roles = (
+    getRoleValue(currentUser.role) === 3
+      ? USER_ROLES
+      : USER_ROLES.filter(role => (
+      isGreaterRole(currentUser.role, role)
+      || (areSameUser(currentUser, otherUser) && currentUser.role === role)
+    ))
+  )
+    .slice();
+  // Remove the "Locked" option for the current user
+  if (areSameUser(currentUser, otherUser)) {
+    roles.shift();
+  }
+  return roles;
 };
 
 export const filterByOrganizationId = (array: any[], organizationId: string) => (

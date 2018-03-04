@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { isAdmin } from '../../functions';
+import { canSelectRole, getRoleOptions } from '../../functions/helpers.functions';
 import {
   ColumnOptions,
   HeaderOptions,
@@ -16,7 +17,7 @@ import {
   Volunteer,
 } from '../../models';
 import { State } from '../../reducers';
-import { compareByRole } from '../../functions/helpers.functions';
+import { current } from 'codelyzer/util/syntaxKind';
 
 @Component({
   selector: 'app-settings-page',
@@ -31,7 +32,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     false,
   );
   private authSubscription: Subscription;
-  private volunteersSubscription: Subscription;
+  private modelSubscription: Subscription;
   private settingsSubscription: Subscription;
 
   organizationFormTitle: string;
@@ -51,7 +52,9 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       'role',
       'Role',
       (row: User) => row.role,
-      (row: User) => compareByRole(this.currentUser, row) ? ['Member', 'Admin', 'Owner'] : null,
+      (row: User) => canSelectRole(this.currentUserFromModel, row)
+        ? getRoleOptions(this.currentUserFromModel, row)
+        : null,
     ),
   ];
   volunteerTableOptions: ColumnOptions[] = [
@@ -76,6 +79,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   volunteers$: Observable<Volunteer[]>;
   currentOrganization: Organization;
   currentUser: User;
+  currentUserFromModel: User; // Used for user table
   volunteers: Volunteer[];
   sidenavSelection: string;
 
@@ -103,9 +107,10 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     const model$ = this.store.select('model');
     this.users$ = model$.map(state => state.users);
     this.volunteers$ = model$.map(state => state.volunteers);
-    this.volunteersSubscription = this.volunteers$
-      .subscribe((volunteers) => {
-        this.volunteers = volunteers;
+    this.modelSubscription = model$
+      .subscribe((state) => {
+        this.currentUserFromModel = state.users.find(user => user.id === this.currentUser.id);
+        this.volunteers = state.volunteers;
       });
 
     this.settingsSubscription = this.store.select('settings')
@@ -119,6 +124,9 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
+    }
+    if (this.modelSubscription) {
+      this.modelSubscription.unsubscribe();
     }
     if (this.settingsSubscription) {
       this.settingsSubscription.unsubscribe();
@@ -134,7 +142,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
    * @returns {SidenavOptions[]} the sidenav options to display
    */
   private getSidenavOptions(user: User): SidenavOptions[] {
-    let sidenavOptions = [
+    const sidenavOptions = [
       new SidenavOptions(
         'User',
         'face',
@@ -142,7 +150,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       ),
     ];
     if (isAdmin(user)) {
-      sidenavOptions = sidenavOptions.concat([
+      sidenavOptions.push(
         new SidenavOptions(
           'Organization',
           'domain',
@@ -163,7 +171,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
           'lock_outline',
           new SettingsActions.LoadPage('roles'),
         ),
-      ]);
+      );
     }
     return sidenavOptions;
   }

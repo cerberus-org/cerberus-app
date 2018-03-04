@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ColumnOptions } from '../../models/column-options';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { MatSelectChange } from '@angular/material';
+
+import { ColumnOptions } from '../../models/column-options';
 
 @Component({
   selector: 'app-data-cell',
   templateUrl: './data-cell.component.html',
   styleUrls: ['./data-cell.component.scss'],
 })
-export class DataCellComponent implements OnInit {
+export class DataCellComponent implements OnChanges {
   @Input() column: ColumnOptions;
   @Input() row: any;
   @Output() selectOption = new EventEmitter<string>();
@@ -16,7 +17,7 @@ export class DataCellComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnChanges() {
     if (this.column.selectOptions) {
       this.selectOptions = this.column.selectOptions(this.row);
     }
