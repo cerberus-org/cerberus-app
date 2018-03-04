@@ -16,6 +16,7 @@ import {
   Volunteer,
 } from '../../models';
 import { State } from '../../reducers';
+import { compareByRole } from '../../functions/helpers.functions';
 
 @Component({
   selector: 'app-settings-page',
@@ -50,7 +51,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       'role',
       'Role',
       (row: User) => row.role,
-      ['Member', 'Admin', 'Owner'],
+      (row: User) => compareByRole(this.currentUser, row) ? ['Member', 'Admin', 'Owner'] : null,
     ),
   ];
   volunteerTableOptions: ColumnOptions[] = [

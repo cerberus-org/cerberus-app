@@ -12,10 +12,14 @@ export class DataCellComponent implements OnInit {
   @Input() row: any;
   @Output() selectOption = new EventEmitter<string>();
   selected: string;
+  selectOptions: string[];
 
   constructor() { }
 
   ngOnInit() {
+    if (this.column.selectOptions) {
+      this.selectOptions = this.column.selectOptions(this.row);
+    }
     this.selected = this.column.cell(this.row);
   }
 

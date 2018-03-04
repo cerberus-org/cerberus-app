@@ -4,7 +4,17 @@ import { formatDuration } from './date-format.functions';
 
 export const isAdmin = (user: User) => ['Admin', 'Owner'].includes(user.role);
 
-export const isOwner = (user: User) => user.role === 'Owner';
+/**
+ * Compares the roles between two users and returns true
+ * if user A has a higher role than user B.
+ * @param userA - the user to compare for
+ * @param userB - the user to compare against
+ * @returns {boolean}
+ */
+export const compareByRole = (userA: User, userB: User) => {
+  const roles = ['Member', 'Admin', 'Owner'];
+  return userA.id === userB.id || roles.indexOf(userA.role) > roles.indexOf(userB.role);
+};
 
 export const filterByOrganizationId = (array: any[], organizationId: string) => (
   array.filter(item => item.organizationId === organizationId)
