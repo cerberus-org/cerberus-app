@@ -9,15 +9,15 @@ import {
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { VerificationDialogComponent } from './verification-dialog.component';
+import { PasswordDialogComponent } from './password-dialog.component';
 
 class MatDialogRefMock {
   close() { }
 }
 
 describe('VerificationDialogComponent', () => {
-  let component: VerificationDialogComponent;
-  let fixture: ComponentFixture<VerificationDialogComponent>;
+  let component: PasswordDialogComponent;
+  let fixture: ComponentFixture<PasswordDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,7 +29,7 @@ describe('VerificationDialogComponent', () => {
         MatInputModule,
         NoopAnimationsModule,
       ],
-      declarations: [VerificationDialogComponent],
+      declarations: [PasswordDialogComponent],
       providers: [
         { provide: MatDialogRef, useClass: MatDialogRefMock },
       ],
@@ -38,7 +38,7 @@ describe('VerificationDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VerificationDialogComponent);
+    fixture = TestBed.createComponent(PasswordDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
