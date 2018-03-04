@@ -70,9 +70,9 @@ export class LoginEffects {
    * @type {Observable<any>}
    */
   @Effect({ dispatch: false })
-  resetPassword$: Observable<Action> = this.actions
+  resetPassword$: Observable<{}> = this.actions
     .ofType(LoginActions.RESET_PASSWORD)
-    .switchMap(action => this.authService.resetPassword(action.payload)
+    .switchMap((action: LoginActions.ResetPassword) => this.authService.resetPassword(action.payload)
       .do(() => {
         this.snackBarService.resetPassword();
       }));

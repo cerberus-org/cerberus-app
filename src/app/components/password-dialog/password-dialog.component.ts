@@ -3,14 +3,14 @@ import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-verification-dialog',
-  templateUrl: './verification-dialog.component.html',
-  styleUrls: ['./verification-dialog.component.scss'],
+  templateUrl: './password-dialog.component.html',
+  styleUrls: ['./password-dialog.component.scss'],
 })
-export class VerificationDialogComponent implements OnInit {
+export class PasswordDialogComponent implements OnInit {
   pwd: string;
   hidePwd: boolean;
 
-  constructor(public dialogRef: MatDialogRef<VerificationDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<PasswordDialogComponent>) { }
 
   ngOnInit() {
     this.hidePwd = true;

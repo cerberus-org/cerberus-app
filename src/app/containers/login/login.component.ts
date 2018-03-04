@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { MatDialog } from '@angular/material';
-import { ResetPasswordDialogComponent } from '../';
 import * as AppActions from '../../actions/app.actions';
 import * as LoginActions from '../../actions/login.actions';
+import { EmailDialogComponent } from '../../components';
 import { HeaderOptions } from '../../models';
 import { State } from '../../reducers';
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     'Cerberus',
     'group_work',
     null,
-    true,
+    false,
   );
 
   loginForm: FormGroup;
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
    * to extract the email. Once email is obtained dispatch the reset password effect.
    */
   public onForgotPassword() {
-    const dialog = this.dialog.open(ResetPasswordDialogComponent);
+    const dialog = this.dialog.open(EmailDialogComponent);
     dialog.afterClosed().subscribe((email) => {
       if (email) {
         this.store.dispatch(new LoginActions.ResetPassword(email));

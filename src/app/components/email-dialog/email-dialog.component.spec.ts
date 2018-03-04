@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForgotPwdDialogComponent } from './reset-password-dialog.component';
+import { ForgotPwdDialogComponent } from './email-dialog.component';
 
 describe('ForgotPwdDialogComponent', () => {
   let component: ForgotPwdDialogComponent;

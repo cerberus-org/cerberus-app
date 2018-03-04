@@ -9,7 +9,7 @@ import {
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { VerificationDialogComponent } from './verification-dialog.component';
+import { VerificationDialogComponent } from './password-dialog.component';
 
 class MatDialogRefMock {
   close() { }

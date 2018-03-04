@@ -12,3 +12,5 @@ export * from './reports-form/reports-form.component';
 export * from './sidenav/sidenav.component';
 export * from './user-form/user-form.component';
 export * from './volunteer-menu/volunteer-menu.component';
+export * from './email-dialog/email-dialog.component';
+export * from './password-dialog/password-dialog.component';

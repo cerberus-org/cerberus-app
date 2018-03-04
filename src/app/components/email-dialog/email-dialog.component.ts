@@ -3,12 +3,12 @@ import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-reset-password-dialog',
-  templateUrl: './reset-password-dialog.component.html',
-  styleUrls: ['./reset-password-dialog.component.scss'],
+  templateUrl: './email-dialog.component.html',
+  styleUrls: ['./email-dialog.component.scss'],
 })
-export class ResetPasswordDialogComponent implements OnInit {
+export class EmailDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<ResetPasswordDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<EmailDialogComponent>) { }
 
   email: string;
 
