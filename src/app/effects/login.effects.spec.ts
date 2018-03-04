@@ -90,4 +90,14 @@ describe('LoginEffects', () => {
       });
     });
   });
+
+  describe('resetPassword$', () => {
+    it('should open the resetPassword snackbar', () => {
+      const resetPasswordSuccessSpy = spyOn(TestBed.get(SnackBarService), 'resetPassword');
+
+      effects.resetPassword$.subscribe(() => {
+        expect(resetPasswordSuccessSpy).toHaveBeenCalled();
+      });
+    });
+  });
 });
