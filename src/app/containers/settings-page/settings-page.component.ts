@@ -5,7 +5,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
-import { isAdmin, isOwner } from '../../functions';
+import { isAdmin } from '../../functions';
+import { capitalize } from '../../functions/capitalize.functions';
 import {
   ColumnOptions,
   HeaderOptions,
@@ -30,11 +31,33 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     false,
   );
   private authSubscription: Subscription;
-  private settingsSubscription: Subscription;
   private volunteersSubscription: Subscription;
+  private settingsSubscription: Subscription;
 
   organizationFormTitle: string;
   userFormTitle: string;
+  userTableOptions: ColumnOptions[] = [
+    new ColumnOptions(
+      'firstName',
+      'First Name',
+      (row: User) => row.firstName,
+    ),
+    new ColumnOptions(
+      'lastName',
+      'Last Name',
+      (row: User) => row.lastName,
+    ),
+    new ColumnOptions(
+      'email',
+      'Email',
+      (row: User) => row.email,
+    ),
+    new ColumnOptions(
+      'role',
+      'Role',
+      (row: User) => capitalize(row.role),
+    ),
+  ];
   volunteerTableOptions: ColumnOptions[] = [
     new ColumnOptions(
       'firstName',
@@ -53,9 +76,10 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     ),
   ];
 
+  users$: Observable<User[]>;
+  volunteers$: Observable<Volunteer[]>;
   initialOrganization: Organization;
   initialUser: User;
-  volunteers$: Observable<Volunteer[]>;
   volunteers: Volunteer[];
   sidenavSelection: string;
 
@@ -80,8 +104,9 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.volunteers$ = this.store.select('model')
-      .map(state => state.volunteers);
+    const model$ = this.store.select('model');
+    this.users$ = model$.map(state => state.users);
+    this.volunteers$ = model$.map(state => state.volunteers);
     this.volunteersSubscription = this.volunteers$
       .subscribe((volunteers) => {
         this.volunteers = volunteers;
@@ -125,14 +150,10 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
           'assessment',
           new SettingsActions.LoadPage('reports'),
         ),
-      ]);
-    }
-    if (isOwner(user)) {
-      sidenavOptions = sidenavOptions.concat([
         new SidenavOptions(
-          'Permissions',
+          'Roles',
           'lock_outline',
-          new SettingsActions.LoadPage('permissions'),
+          new SettingsActions.LoadPage('roles'),
         ),
       ]);
     }

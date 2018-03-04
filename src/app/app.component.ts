@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import * as LoginActions from './actions/login.actions';
 import * as ModelActions from './actions/model.actions';
 import * as RouterActions from './actions/router.actions';
+import { isAdmin } from './functions/helpers.funcimport { isAdmin } from './functions/helpers.functions';
 import { PasswordDialogComponent, SidenavComponent } from './components';
 import { HeaderOptions, SidenavOptions } from './models';
 import { State } from './reducers';
@@ -52,6 +53,9 @@ export class AppComponent implements OnInit, OnDestroy {
           this.store.dispatch(new ModelActions.LoadSites(organizationId));
           this.store.dispatch(new ModelActions.LoadVisits(organizationId));
           this.store.dispatch(new ModelActions.LoadVolunteers(organizationId));
+          if (isAdmin(this.user)) {
+            this.store.dispatch(new ModelActions.LoadUsers(organizationId));
+          }
         }
       });
   }

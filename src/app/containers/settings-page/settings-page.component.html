@@ -53,4 +53,10 @@
 </div>
 <!--Roles data table-->
 <div *ngIf="sidenavSelection == 'roles'">
+  <app-data-table
+    [data$]="users$"
+    [columnOptions]="userTableOptions"
+    [showDelete]="true"
+    (deleteItem)="onDeleteVolunteer($event)">
+  </app-data-table>
 </div>
