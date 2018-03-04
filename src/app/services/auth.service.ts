@@ -45,6 +45,13 @@ export class AuthService {
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
+  resetPassword(email: string): Observable<{}> {
+    // Do not handle Firebase error for security purposes.
+    // We do not want the user to know if any email does or does not exist.
+    return Observable.fromPromise(this.afAuth.auth
+      .sendPasswordResetEmail(email));
+  }
+
   /**
    * Update auth user and base user. Only update the password if provided.
    * @param user
