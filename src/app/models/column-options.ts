@@ -2,11 +2,13 @@ export class ColumnOptions {
   columnDef: string;
   header: string;
   cell: Function;
+  selectOptions?: string[];
 
-  constructor(columnDef: string, header: string, cell: Function) {
+  constructor(columnDef: string, header: string, cell: Function, selectOptions?: string[]) {
     this.columnDef = columnDef;
     this.header = header;
     this.cell = cell;
+    this.selectOptions = selectOptions;
   }
 }
 

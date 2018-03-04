@@ -14,7 +14,7 @@ import {
   Report,
   SidenavOptions,
   User,
-  Volunteer,
+  Volunteer
 } from '../../models';
 import { State } from '../../reducers';
 
@@ -48,14 +48,10 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       (row: User) => row.lastName,
     ),
     new ColumnOptions(
-      'email',
-      'Email',
-      (row: User) => row.email,
-    ),
-    new ColumnOptions(
       'role',
       'Role',
       (row: User) => capitalize(row.role),
+      ['Member', 'Admin', 'Owner'],
     ),
   ];
   volunteerTableOptions: ColumnOptions[] = [

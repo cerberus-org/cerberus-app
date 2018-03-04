@@ -2,7 +2,16 @@
   <mat-table #table [dataSource]="dataSource">
     <ng-container *ngFor="let column of columnOptions" [cdkColumnDef]="column.columnDef">
       <mat-header-cell *cdkHeaderCellDef>{{column.header}}</mat-header-cell>
-      <mat-cell *cdkCellDef="let row">{{column.cell(row)}}</mat-cell>
+      <mat-cell *cdkCellDef="let row">
+        <mat-select *ngIf="column.selectOptions; else textOnly" [value]="'test'">
+          <mat-option *ngFor="let selectOption of column.selectOptions" [value]="selectOption">
+            {{selectOption}}
+          </mat-option>
+        </mat-select>
+        <ng-template #textOnly>
+          {{column.cell(row)}}
+        </ng-template>
+      </mat-cell>
     </ng-container>
     <ng-container *ngIf="showDelete" cdkColumnDef="delete">
       <mat-header-cell *cdkHeaderCellDef>Delete</mat-header-cell>
