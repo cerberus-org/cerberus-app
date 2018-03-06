@@ -46,11 +46,13 @@ import {
   CheckInFormComponent,
   DailyHoursChartComponent,
   DataTableComponent,
+  EmailDialogComponent,
   FooterComponent,
   HeaderComponent,
   NewVolunteerFormComponent,
   OrganizationConfirmComponent,
   OrganizationFormComponent,
+  PasswordDialogComponent,
   ReportsFormComponent,
   SidenavComponent,
   SignatureFieldComponent,
@@ -65,7 +67,6 @@ import {
   LoginComponent,
   OrganizationDashboardComponent,
   SettingsPageComponent,
-  VerificationDialogComponent,
 } from './containers';
 import {
   AuthEffects,
@@ -109,13 +110,14 @@ import { VerificationGuard } from './verification-guard';
     NewVolunteerFormComponent,
     OrganizationConfirmComponent,
     OrganizationDashboardComponent,
+    PasswordDialogComponent,
     SettingsPageComponent,
     SignatureFieldComponent,
     VolunteerMenuComponent,
-    VerificationDialogComponent,
     SidenavComponent,
     ReportsFormComponent,
     JoinPageComponent,
+    EmailDialogComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -174,7 +176,7 @@ import { VerificationGuard } from './verification-guard';
     VolunteerService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [VerificationDialogComponent],
+  entryComponents: [PasswordDialogComponent, EmailDialogComponent],
 })
 export class AppModule {
 }

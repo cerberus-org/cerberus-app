@@ -27,4 +27,12 @@ describe('ErrorService', () => {
     expect(service.snackBarService.open).toHaveBeenCalledWith(error.message);
     expect(obs).toBeTruthy();
   });
+
+  it('should handle a Firebase error on unsuccessful login', () => {
+    spyOn(service.snackBarService, 'signInError');
+    const error = { code: '404', message: 'This is a test.', name: '', stack: undefined };
+    const obs = service.handleLoginError(error);
+    expect(service.snackBarService.signInError).toHaveBeenCalled();
+    expect(obs).toBeTruthy();
+  });
 });

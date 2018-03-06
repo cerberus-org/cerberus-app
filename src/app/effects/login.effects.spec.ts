@@ -57,16 +57,16 @@ describe('LoginEffects', () => {
     });
   });
 
-  describe('verify$', () => {
+  describe('verifyPassword$', () => {
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new LogInActions.Verify({ email: '', password: '' }),
+        a: new LogInActions.VerifyPassword({ email: '', password: '' }),
       });
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/settings'] }),
       });
 
-      expect(effects.verify$).toBeObservable(expected);
+      expect(effects.verifyPassword$).toBeObservable(expected);
     });
   });
 
@@ -87,6 +87,16 @@ describe('LoginEffects', () => {
 
       effects.logout$.subscribe(() => {
         expect(logoutSuccessSpy).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('resetPassword$', () => {
+    it('should open the resetPassword snackbar', () => {
+      const resetPasswordSuccessSpy = spyOn(TestBed.get(SnackBarService), 'resetPassword');
+
+      effects.resetPassword$.subscribe(() => {
+        expect(resetPasswordSuccessSpy).toHaveBeenCalled();
       });
     });
   });

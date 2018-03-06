@@ -41,9 +41,9 @@ export class LoginEffects {
    * @type {Observable<any>}
    */
   @Effect()
-  verify$: Observable<Action> = this.actions
-    .ofType(LoginActions.VERIFY)
-    .map((action: LoginActions.Verify) => action.payload)
+  verifyPassword$: Observable<Action> = this.actions
+    .ofType(LoginActions.VERIFY_PASSWORD)
+    .map((action: LoginActions.VerifyPassword) => action.payload)
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
       .map(() => {
         this.authService.setPwdVerification(true);
@@ -62,6 +62,19 @@ export class LoginEffects {
       .map(() => {
         this.snackBarService.logoutSuccess();
         return new RouterActions.Go({ path: ['/login'] });
+      }));
+
+  /**
+   * Listen for the ResetPassword action,
+   * send email to user and display snackbar.
+   * @type {Observable<any>}
+   */
+  @Effect({ dispatch: false })
+  resetPassword$: Observable<{}> = this.actions
+    .ofType(LoginActions.RESET_PASSWORD)
+    .switchMap((action: LoginActions.ResetPassword) => this.authService.resetPassword(action.payload)
+      .do(() => {
+        this.snackBarService.resetPassword();
       }));
 
   constructor(private actions: Actions,

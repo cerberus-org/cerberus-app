@@ -53,6 +53,14 @@ export class SnackBarService {
   accountNotVerified(): void {
     this.open('Your account has not been verified yet.');
   }
+
+  resetPassword(): void {
+    this.open('If your email is associated with an organization, you will receive an email.');
+  }
+
+  signInError(): void {
+    this.open('Unsuccessful login.');
+  }
 }
 
 export class MockSnackBarService extends SnackBarService {
