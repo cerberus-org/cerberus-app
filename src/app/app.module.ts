@@ -66,6 +66,7 @@ import {
   JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
+  PublicOrganizationDashboardComponent,
   SettingsPageComponent,
 } from './containers';
 import {
@@ -118,6 +119,7 @@ import { VerificationGuard } from './verification-guard';
     ReportsFormComponent,
     JoinPageComponent,
     EmailDialogComponent,
+    PublicOrganizationDashboardComponent,
   ],
   imports: [
     AngularFireAuthModule,

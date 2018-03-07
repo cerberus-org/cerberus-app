@@ -11,6 +11,7 @@ import {
 } from './containers';
 import { LoginGuard } from './login-guard';
 import { VerificationGuard } from './verification-guard';
+import {PublicOrganizationDashboardComponent} from './containers/public-organization-dashboard/public-organization-dashboard.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'start', component: GettingStartedComponent },
   { path: 'join', component: JoinPageComponent },
   { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
+  { path: 'public-dashboard', component: PublicOrganizationDashboardComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
