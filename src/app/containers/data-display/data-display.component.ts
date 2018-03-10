@@ -12,8 +12,7 @@ import { State } from '../../reducers';
   templateUrl: './data-display.component.html',
   styleUrls: ['./data-display.component.scss'],
 })
-export class DataDisplayComponent implements OnInit, OnDestroy {
-  private appSubscription: Subscription;
+export class DataDisplayComponent implements OnInit {
 
   visits$: Observable<Visit[]>;
   visitTableColumnOptions: ColumnOptions[] = [
@@ -44,11 +43,5 @@ export class DataDisplayComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.visits$ = this.store.select('model')
       .map(state => state.visits);
-  }
-
-  ngOnDestroy(): void {
-    if (this.appSubscription) {
-      this.appSubscription.unsubscribe();
-    }
   }
 }

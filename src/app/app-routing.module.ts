@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'start', component: GettingStartedComponent },
   { path: 'join', component: JoinPageComponent },
   { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
-  { path: 'public-dashboard', component: PublicOrganizationDashboardComponent },
+  { path: 'public-dashboard/:name', component: PublicOrganizationDashboardComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 

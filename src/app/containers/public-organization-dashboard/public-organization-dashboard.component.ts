@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
+import * as ModelActions from '../../actions/model.actions';
 import { HeaderOptions } from '../../models';
 import { State } from '../../reducers';
 
@@ -11,16 +13,30 @@ import { State } from '../../reducers';
 })
 export class PublicOrganizationDashboardComponent implements OnInit {
 
-  private headerOptions: HeaderOptions = new HeaderOptions(
-    'Public Dashboard',
-    'domain',
-    null,
-    false,
-  );
+  private modelSubscription: Subscription;
 
   constructor(public store: Store<State>) { }
 
   ngOnInit() {
-    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
+    const headerOptions: HeaderOptions = new HeaderOptions(
+      this.getOrganizationNameByUrl(),
+      'domain',
+      '/dashboard',
+      false,
+    );
+
+    this.store.dispatch(new AppActions.SetHeaderOptions(headerOptions));
+    this.store.dispatch(new ModelActions.LoadVisitsByOrganizatioName(this.getOrganizationNameByUrl()));
+  }
+
+  public getOrganizationNameByUrl(): string {
+    const url = window.location.href;
+    return url.substr(url.lastIndexOf('/') + 1);
+  }
+
+  ngOnDestroy(): void {
+    if (this.modelSubscription) {
+      this.modelSubscription.unsubscribe();
+    }
   }
 }
