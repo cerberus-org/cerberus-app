@@ -45,6 +45,7 @@ import {
   AboutUsComponent,
   CheckInFormComponent,
   DailyHoursChartComponent,
+  DataDisplayComponent,
   DataTableComponent,
   EmailDialogComponent,
   FooterComponent,
@@ -61,7 +62,6 @@ import {
 } from './components';
 import {
   CheckInComponent,
-  DataDisplayComponent,
   GettingStartedComponent,
   JoinPageComponent,
   LoginComponent,

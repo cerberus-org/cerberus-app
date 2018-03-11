@@ -6,7 +6,6 @@ export const LOAD_SITES = '[Model] Load sites';
 export const LOAD_SITES_SUCCESS = '[Model] Load sites success';
 
 export const LOAD_VISITS = '[Model] Load visits';
-export const LOAD_VISITS_BY_ORGANIZATION_NAME = '[Model] Load visits by organization name';
 export const LOAD_VISITS_SUCCESS = '[Model] Load visits success';
 
 export const LOAD_VOLUNTEERS = '[Model] Load volunteers';
@@ -26,12 +25,6 @@ export class LoadSitesSuccess implements Action {
 
 export class LoadVisits implements Action {
   readonly type = LOAD_VISITS;
-
-  constructor(public payload: string) {}
-}
-
-export class LoadVisitsByOrganizatioName implements Action {
-  readonly type = LOAD_VISITS_BY_ORGANIZATION_NAME;
 
   constructor(public payload: string) {}
 }
@@ -58,7 +51,6 @@ export type All
   = LoadSites
   | LoadSitesSuccess
   | LoadVisits
-  | LoadVisitsByOrganizatioName
   | LoadVisitsSuccess
   | LoadVolunteers
   | LoadVolunteersSuccess;

@@ -2,9 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
+import { Observable } from 'rxjs/Observable';
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
-import { HeaderOptions, SidenavOptions, Site } from '../../models';
+import { HeaderOptions, SidenavOptions, Site, Visit } from '../../models';
 import { State } from '../../reducers';
 
 @Component({
@@ -17,6 +18,7 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
   private modelSubscription: Subscription;
 
   sites: Site[];
+  visits$: Observable<Visit[]>;
 
   constructor(private store: Store<State>) { }
 
@@ -33,6 +35,9 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
           )));
         }
       });
+
+    this.visits$ = this.store.select('model')
+      .map(state => state.visits);
 
     this.modelSubscription = this.store.select('model')
       .map(state => state.sites)

@@ -34,21 +34,6 @@ export class ModelEffects {
       .map(visits => new ModelActions.LoadVisitsSuccess(visits)));
 
   /**
-   * Listen for the LoadVisitsByOrganizationName action, get organization by name,
-   * get visits by organizationId and dispatch the success action.
-   *
-   * @type {Observable<LoadVisitsSuccess>}
-   */
-  @Effect()
-  loadVisitsByOrganizationName$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_VISITS_BY_ORGANIZATION_NAME)
-    .map((action: ModelActions.LoadVisitsByOrganizatioName) => action.payload)
-    .switchMap(organizationName => this.organizationService.getByKey('name', organizationName, true)
-      .switchMap((organization) => {
-        return this.visitService.getByKey('organizationId', organization[0].id, true)
-          .map(visits => new ModelActions.LoadVisitsSuccess(visits));
-      }));
-
-  /**
    * Listen for the LoadVisits action, get the volunteers by organizationId,
    * then dispatch the success action.
    */
