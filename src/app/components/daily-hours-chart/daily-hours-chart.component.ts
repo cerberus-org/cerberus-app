@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import * as moment from 'moment';
 
-import { Visit } from '../../models';
+import {Visit} from '../../models';
 
 @Component({
   selector: 'app-daily-hours-chart',
@@ -10,7 +10,7 @@ import { Visit } from '../../models';
 })
 export class DailyHoursChartComponent implements OnChanges {
   @Input() visits: Visit[];
-  data: LineChartData[];
+  data: LineChartData[] = [];
   labels: string[];
   type = 'line';
   options = {
@@ -62,22 +62,24 @@ export class DailyHoursChartComponent implements OnChanges {
   setupLineChartData(visits: Visit[],
                      labels: string[],
                      format: string = 'ddd MMM D'): LineChartData[] {
-    return [{
-      data: visits
-        .reduce(
-          (data, visit) => {
-            const date: string = moment(visit.startedAt).format(format);
-            const index: number = labels.indexOf(date);
-            if (index > -1) {
-              data[index] += this.getDuration(visit);
-            }
-            return data;
-          },
-          Array(labels.length).fill(0),
-        )
-        .map(value => value.toFixed(3)),
-      label: 'Hours',
-    }];
+    return visits
+      ? [{
+        data: visits
+          .reduce(
+            (data, visit) => {
+              const date: string = moment(visit.startedAt).format(format);
+              const index: number = labels.indexOf(date);
+              if (index > -1) {
+                data[index] += this.getDuration(visit);
+              }
+              return data;
+            },
+            Array(labels.length).fill(0),
+          )
+          .map(value => value.toFixed(3)),
+        label: 'Hours',
+      }]
+      : [{ data: [], label: '' }];
   }
 
   /**

@@ -23,7 +23,7 @@ import { ColumnOptions } from '../../models';
  * exactly what should be rendered.
  */
 export class DataTableSource extends DataSource<any> implements OnDestroy {
-  data: any[];
+  data: any[] = [];
   subscription: Subscription;
 
   constructor(private data$: Observable<any[]>, private paginator: MatPaginator) {
@@ -40,9 +40,9 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
    * Connect function called by the table to retrieve one stream containing the data to render.
    */
   connect(): Observable<any[]> {
-    return Observable.merge(this.paginator.page, this.data$).map(() => {
+    return this.data$ ? Observable.merge(this.paginator.page, this.data$).map(() => {
       return this.getPageData();
-    });
+    }) : Observable.of([]);
   }
 
   getPageData(): any[] {
