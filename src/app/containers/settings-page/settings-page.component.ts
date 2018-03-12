@@ -210,5 +210,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     if (this.settingsSubscription) {
       this.settingsSubscription.unsubscribe();
     }
+    if (this.volunteersSubscription) {
+      this.volunteersSubscription.unsubscribe();
+    }
   }
 }

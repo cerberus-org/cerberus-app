@@ -28,8 +28,10 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
 
   constructor(private data$: Observable<any[]>, private paginator: MatPaginator) {
     super();
-    this.subscription = this.data$
-      .subscribe(data => this.data = data);
+    if (this.data$) {
+      this.subscription = this.data$
+        .subscribe(data => this.data = data);
+    }
   }
 
   ngOnDestroy(): void {
@@ -81,6 +83,10 @@ export class DataTableComponent implements OnInit {
     if (this.showDelete) {
       this.displayedColumns.push('delete');
     }
+  }
+
+  isDataSourceAndData(): boolean {
+    return this.dataSource && this.dataSource.data ? true : false;
   }
 
   /**

@@ -17,7 +17,7 @@
   </mat-table>
   <mat-paginator
     #paginator
-    [length]="dataSource.data.length"
+    [length]="isDataSourceAndData() ? this.dataSource.data.length : null"
     [pageIndex]="0"
     [pageSize]="initialPageSize"
     [pageSizeOptions]="[initialPageSize, 25, 50, 100]">
