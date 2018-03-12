@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import { HeaderOptions, Organization, Visit } from '../../models';
-import { State } from '../../reducers';
+import { State } from '../../reducers/index';
 import { ErrorService, OrganizationService, VisitService } from '../../services';
 
 @Component({
@@ -11,10 +12,11 @@ import { ErrorService, OrganizationService, VisitService } from '../../services'
   templateUrl: './public-organization-dashboard.component.html',
   styleUrls: ['./public-organization-dashboard.component.scss'],
 })
-export class PublicOrganizationDashboardComponent implements OnInit {
+export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
   private organization: Organization;
   private visits$: Observable<Visit[]>;
   showNotFound: boolean;
+  subscription: Subscription;
 
   constructor(public store: Store<State>,
               private organizationService: OrganizationService,
@@ -22,7 +24,7 @@ export class PublicOrganizationDashboardComponent implements OnInit {
               private errorService: ErrorService) {}
 
   ngOnInit() {
-    this.organizationService.getByKey('name', this.getOrganizationNameByUrl(), true)
+    this.subscription = this.organizationService.getByKey('name', this.getOrganizationNameByUrl(), true)
       .subscribe(
         (organizations: Organization[]) => {
           const organization = organizations[0];
@@ -49,5 +51,11 @@ export class PublicOrganizationDashboardComponent implements OnInit {
   public getOrganizationNameByUrl(): string {
     const url = window.location.href;
     return decodeURI(url.substr(url.lastIndexOf('/') + 1));
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

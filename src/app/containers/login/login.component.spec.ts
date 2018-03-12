@@ -25,7 +25,7 @@ describe('LoginComponent', () => {
         MatDialogModule,
         StoreModule.forRoot(reducers),
       ],
-    }) 
+    })
       .compileComponents();
   }));
 
