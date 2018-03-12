@@ -12,34 +12,37 @@ import { ErrorService, OrganizationService, VisitService } from '../../services'
   styleUrls: ['./public-organization-dashboard.component.scss'],
 })
 export class PublicOrganizationDashboardComponent implements OnInit {
-
   private organization: Organization;
   private visits$: Observable<Visit[]>;
+  showNotFound: boolean;
 
   constructor(public store: Store<State>,
               private organizationService: OrganizationService,
               private visitService: VisitService,
-              private errorService: ErrorService) {
-    this.visits$ = Observable.of();
-  }
+              private errorService: ErrorService) {}
 
   ngOnInit() {
     this.organizationService.getByKey('name', this.getOrganizationNameByUrl(), true)
-      .map((organization: Organization[]) => {
-        if (organization[0]) {
-          this.organization = organization[0];
+      .subscribe(
+        (organizations: Organization[]) => {
+          const organization = organizations[0];
+          if (organization) {
+            this.organization = organization;
+            this.visits$ = this.visitService.getByKey('organizationId', organization.id, true);
+          }
           this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
-            organization[0].name,
-            'domain',
+            organization ? organization.name : '',
+            null,
             '/dashboard',
             false,
           )));
-          this.visits$ = this.visitService.getByKey('organizationId', organization[0].id, true);
-        }
-      },
-           (error: any) => {
-             this.errorService.handleFirebaseError(error);
-           }).subscribe();
+          // Only display error after attempting to fetch organization
+          this.showNotFound = organizations.length === 0;
+        },
+        (error: any) => {
+          this.errorService.handleFirebaseError(error);
+        },
+      );
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
