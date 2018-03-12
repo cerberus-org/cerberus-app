@@ -7,11 +7,11 @@ import {
   JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
+  PublicOrganizationDashboardComponent,
   SettingsPageComponent,
 } from './containers';
 import { LoginGuard } from './login-guard';
 import { VerificationGuard } from './verification-guard';
-import {PublicOrganizationDashboardComponent} from './containers/public-organization-dashboard/public-organization-dashboard.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

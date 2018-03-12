@@ -1,4 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+import { MockComponent } from 'ng2-mock-component';
+import { reducers } from '../../reducers';
+import { mockServiceProviders } from '../../services/mock-service-providers';
 
 import { PublicOrganizationDashboardComponent } from './public-organization-dashboard.component';
 
@@ -8,7 +12,14 @@ describe('PublicOrganizationDashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PublicOrganizationDashboardComponent ]
+      imports: [
+        StoreModule.forRoot(reducers),
+      ],
+      declarations: [
+        PublicOrganizationDashboardComponent,
+        MockComponent({ selector: 'app-data-display', inputs: ['visits$'] }),
+      ],
+      providers: [].concat(mockServiceProviders),
     })
     .compileComponents();
   }));
