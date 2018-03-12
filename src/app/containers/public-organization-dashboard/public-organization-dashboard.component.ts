@@ -48,6 +48,6 @@ export class PublicOrganizationDashboardComponent implements OnInit {
 
   public getOrganizationNameByUrl(): string {
     const url = window.location.href;
-    return url.substr(url.lastIndexOf('/') + 1);
+    return decodeURI(url.substr(url.lastIndexOf('/') + 1));
   }
 }
