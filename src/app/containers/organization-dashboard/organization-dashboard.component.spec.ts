@@ -12,6 +12,7 @@ import {
   SiteService,
   VisitService,
 } from '../../services';
+import { mockServiceProviders } from '../../services/mock-service-providers';
 import { OrganizationDashboardComponent } from './organization-dashboard.component';
 
 describe('OrganizationDashboardComponent', () => {
@@ -26,14 +27,10 @@ describe('OrganizationDashboardComponent', () => {
       ],
       declarations: [
         OrganizationDashboardComponent,
-        MockComponent({ selector: 'app-data-display' }),
+        MockComponent({ selector: 'app-data-display', inputs: ['visits$'] }),
         MockComponent({ selector: 'app-volunteer-menu', inputs: ['sites'] }),
       ],
-      providers: [
-        { provide: SiteService, useClass: MockSiteService },
-        { provide: OrganizationService, useClass: MockOrganizationService },
-        { provide: VisitService, useClass: MockVisitService },
-      ],
+      providers: [].concat(mockServiceProviders),
     })
       .compileComponents();
   }));

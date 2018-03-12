@@ -62,22 +62,24 @@ export class DailyHoursChartComponent implements OnChanges {
   setupLineChartData(visits: Visit[],
                      labels: string[],
                      format: string = 'ddd MMM D'): LineChartData[] {
-    return [{
-      data: visits
-        .reduce(
-          (data, visit) => {
-            const date: string = moment(visit.startedAt).format(format);
-            const index: number = labels.indexOf(date);
-            if (index > -1) {
-              data[index] += this.getDuration(visit);
-            }
-            return data;
-          },
-          Array(labels.length).fill(0),
-        )
-        .map(value => value.toFixed(3)),
-      label: 'Hours',
-    }];
+    return visits
+      ? [{
+        data: visits
+          .reduce(
+            (data, visit) => {
+              const date: string = moment(visit.startedAt).format(format);
+              const index: number = labels.indexOf(date);
+              if (index > -1) {
+                data[index] += this.getDuration(visit);
+              }
+              return data;
+            },
+            Array(labels.length).fill(0),
+          )
+          .map(value => value.toFixed(3)),
+        label: 'Hours',
+      }]
+      : [{ data: [], label: '' }];
   }
 
   /**

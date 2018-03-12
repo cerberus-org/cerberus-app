@@ -45,6 +45,7 @@ import {
   AboutUsComponent,
   CheckInFormComponent,
   DailyHoursChartComponent,
+  DataDisplayComponent,
   DataTableComponent,
   EmailDialogComponent,
   FooterComponent,
@@ -61,11 +62,11 @@ import {
 } from './components';
 import {
   CheckInComponent,
-  DataDisplayComponent,
   GettingStartedComponent,
   JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
+  PublicOrganizationDashboardComponent,
   SettingsPageComponent,
 } from './containers';
 import {
@@ -105,19 +106,20 @@ import { VerificationGuard } from './verification-guard';
     GettingStartedComponent,
     HeaderComponent,
     LoginComponent,
-    OrganizationFormComponent,
-    UserFormComponent,
     NewVolunteerFormComponent,
+    OrganizationFormComponent,
     OrganizationConfirmComponent,
     OrganizationDashboardComponent,
     PasswordDialogComponent,
     SettingsPageComponent,
     SignatureFieldComponent,
+    UserFormComponent,
     VolunteerMenuComponent,
     SidenavComponent,
     ReportsFormComponent,
     JoinPageComponent,
     EmailDialogComponent,
+    PublicOrganizationDashboardComponent,
   ],
   imports: [
     AngularFireAuthModule,

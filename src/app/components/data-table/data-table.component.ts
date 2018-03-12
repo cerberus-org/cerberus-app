@@ -23,13 +23,15 @@ import { ColumnOptions } from '../../models';
  * exactly what should be rendered.
  */
 export class DataTableSource extends DataSource<any> implements OnDestroy {
-  data: any[];
+  data: any[] = [];
   subscription: Subscription;
 
   constructor(private data$: Observable<any[]>, private paginator: MatPaginator) {
     super();
-    this.subscription = this.data$
-      .subscribe(data => this.data = data);
+    if (this.data$) {
+      this.subscription = this.data$
+        .subscribe(data => this.data = data);
+    }
   }
 
   ngOnDestroy(): void {
@@ -40,9 +42,9 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
    * Connect function called by the table to retrieve one stream containing the data to render.
    */
   connect(): Observable<any[]> {
-    return Observable.merge(this.paginator.page, this.data$).map(() => {
+    return this.data$ ? Observable.merge(this.paginator.page, this.data$).map(() => {
       return this.getPageData();
-    });
+    }) : Observable.of([]);
   }
 
   getPageData(): any[] {
@@ -81,6 +83,10 @@ export class DataTableComponent implements OnInit {
     if (this.showDelete) {
       this.displayedColumns.push('delete');
     }
+  }
+
+  isDataSourceAndData(): boolean {
+    return this.dataSource && this.dataSource.data ? true : false;
   }
 
   /**

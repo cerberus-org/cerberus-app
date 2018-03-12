@@ -6,7 +6,7 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 import * as ModelActions from '../actions/model.actions';
-import { SiteService, VisitService, VolunteerService } from '../services';
+import { OrganizationService, SiteService, VisitService, VolunteerService } from '../services';
 
 @Injectable()
 export class ModelEffects {
@@ -47,5 +47,6 @@ export class ModelEffects {
   constructor(private actions: Actions,
               private siteService: SiteService,
               private visitService: VisitService,
-              private volunteerService: VolunteerService) {}
+              private volunteerService: VolunteerService,
+              private organizationService: OrganizationService) {}
 }

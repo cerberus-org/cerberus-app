@@ -1,21 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
 import { formatDate, formatDuration, formatTime } from '../../functions';
 import { ColumnOptions, Visit } from '../../models';
-import { State } from '../../reducers';
 
 @Component({
   selector: 'app-data-display',
   templateUrl: './data-display.component.html',
   styleUrls: ['./data-display.component.scss'],
 })
-export class DataDisplayComponent implements OnInit, OnDestroy {
-  private appSubscription: Subscription;
+export class DataDisplayComponent implements OnInit {
 
-  visits$: Observable<Visit[]>;
+  @Input() visits$: Observable<Visit[]>;
   visitTableColumnOptions: ColumnOptions[] = [
     {
       columnDef: 'date',
@@ -39,16 +35,7 @@ export class DataDisplayComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(private store: Store<State>) { }
+  constructor() {}
 
-  ngOnInit(): void {
-    this.visits$ = this.store.select('model')
-      .map(state => state.visits);
-  }
-
-  ngOnDestroy(): void {
-    if (this.appSubscription) {
-      this.appSubscription.unsubscribe();
-    }
-  }
+  ngOnInit(): void {}
 }

@@ -7,6 +7,7 @@ import {
   JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
+  PublicOrganizationDashboardComponent,
   SettingsPageComponent,
 } from './containers';
 import { LoginGuard } from './login-guard';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'start', component: GettingStartedComponent },
   { path: 'join', component: JoinPageComponent },
   { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
+  { path: 'public-dashboard/:name', component: PublicOrganizationDashboardComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
