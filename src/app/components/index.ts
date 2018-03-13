@@ -2,6 +2,7 @@ export * from './about-us/about-us.component';
 export * from './check-in-form/check-in-form.component';
 export * from './signature-field/signature-field.component';
 export * from './daily-hours-chart/daily-hours-chart.component';
+export * from './data-cell/data-cell.component';
 export * from './data-table/data-table.component';
 export * from './footer/footer.component';
 export * from './header/header.component';

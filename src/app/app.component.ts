@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs/Subscription';
 import * as LoginActions from './actions/login.actions';
 import * as ModelActions from './actions/model.actions';
 import * as RouterActions from './actions/router.actions';
-import { isAdmin } from './functions/helpers.funcimport { isAdmin } from './functions/helpers.functions';
 import { PasswordDialogComponent, SidenavComponent } from './components';
+import { isAdmin } from './functions';
 import { HeaderOptions, SidenavOptions } from './models';
 import { State } from './reducers';
 
@@ -103,7 +103,10 @@ export class AppComponent implements OnInit, OnDestroy {
     dialog.afterClosed().subscribe((pwd) => {
       if (pwd) {
         // Once the Observable is returned dispatch an effect
-        this.store.dispatch(new LoginActions.VerifyPassword({ email: this.user.email, password: pwd }));
+        this.store.dispatch(new LoginActions.VerifyPassword({
+          email: this.user.email,
+          password: pwd,
+        }));
       }
     });
   }

@@ -1,6 +1,7 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
   MatAutocompleteModule,
   MatButtonModule,
   MatCardModule,
@@ -42,6 +43,7 @@ import {
   AboutUsComponent,
   CheckInFormComponent,
   DailyHoursChartComponent,
+  DataCellComponent,
   DataDisplayComponent,
   DataTableComponent,
   EmailDialogComponent,
@@ -57,7 +59,6 @@ import {
   UserFormComponent,
   VolunteerMenuComponent,
 } from './components';
-import { DataCellComponent } from './components/data-cell/data-cell.component';
 import {
   CheckInComponent,
   GettingStartedComponent,
@@ -77,7 +78,7 @@ import {
   SettingsEffects,
 } from './effects';
 import { LoginGuard } from './login-guard';
-import { reducers } from './reducers/index';
+import { reducers } from './reducers';
 import {
   AuthService,
   CsvService,
