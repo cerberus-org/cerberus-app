@@ -32,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.store.dispatch(new ModelActions.LoadOrganizations());
     this.appSubscription = this.store.select('app')
       .subscribe((state) => {
         this.headerOptions = state.headerOptions;

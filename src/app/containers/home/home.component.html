@@ -1,3 +1,17 @@
-<p>
-  home works!
-</p>
+<div class="container-center loose">
+  <mat-card>
+    <mat-tab-group>
+      <mat-tab label="Login">Content 1</mat-tab>
+      <mat-tab label="Live Data">
+        <div class="container-inline loose">
+          <app-find-organization
+            (validInput)="onValidInput($event)">
+          </app-find-organization>
+          <button mat-icon-button color="accent" [disabled]="!organizationName" (click)="onLiveData(organizationName)">
+            <mat-icon class="material-icons">forward</mat-icon>
+          </button>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

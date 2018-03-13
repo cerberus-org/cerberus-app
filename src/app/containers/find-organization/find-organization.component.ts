@@ -23,7 +23,6 @@ export class FindOrganizationComponent implements OnInit {
   constructor(public store: Store<State>) { }
 
   ngOnInit() {
-    this.store.dispatch(new ModelActions.LoadOrganizations());
     this.modelSubscription = this.store.select('model')
       .subscribe((state) => {
         if (state.organizations) {
