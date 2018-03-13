@@ -44,6 +44,13 @@ export class ModelEffects {
       .getByKey('organizationId', organizationId, true)
       .map(volunteers => new ModelActions.LoadVolunteersSuccess(volunteers)));
 
+  @Effect()
+  loadOrganizations$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_ORGANIZATIONS)
+    .map((action: ModelActions.LoadOrganizations) => action)
+    .switchMap(organizations => this.organizationService
+      .getAll()
+      .map(organizations => new ModelActions.LoadOrganizationsSuccess(organizations)));
+
   constructor(private actions: Actions,
               private siteService: SiteService,
               private visitService: VisitService,

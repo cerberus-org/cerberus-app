@@ -1,17 +1,19 @@
 import * as ModelActions from '../actions/model.actions';
 import { sortVisitsByDate } from '../functions/helpers.functions';
-import { Site, Visit, Volunteer } from '../models';
+import { Organization, Site, Visit, Volunteer } from '../models';
 
 export interface State {
   sites: Site[];
   visits: Visit[];
   volunteers: Volunteer[];
+  organizations: Organization[];
 }
 
 export const initialState: State = {
   sites: [],
   visits: [],
   volunteers: [],
+  organizations: [],
 };
 
 export type Action = ModelActions.All;
@@ -35,6 +37,12 @@ export function reducer(state = initialState, action: Action): State {
     case ModelActions.LOAD_VOLUNTEERS_SUCCESS: {
       return Object.assign({}, state, {
         volunteers: action.payload,
+      });
+    }
+
+    case ModelActions.LOAD_ORGANIZATIONS_SUCCESS: {
+      return Object.assign({}, state, {
+        organizations: action.payload,
       });
     }
 
