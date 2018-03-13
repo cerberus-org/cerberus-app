@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { MatSelectChange } from '@angular/material';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
-import { ColumnOptions } from '../../models/column-options';
+import { ColumnOptions } from '../../models';
 
 @Component({
   selector: 'app-data-cell',
@@ -17,14 +16,15 @@ export class DataCellComponent implements OnChanges {
 
   constructor() { }
 
-  ngOnChanges() {
-    if (this.column.selectOptions) {
-      this.selectOptions = this.column.selectOptions(this.row);
+  ngOnChanges(changes: SimpleChanges) {
+    const columnChanges = changes['column'];
+    if (columnChanges && columnChanges.currentValue.selectOptions) {
+      this.selectOptions = columnChanges.currentValue.selectOptions(this.row);
+      this.selected = columnChanges.currentValue.cell(this.row);
     }
-    this.selected = this.column.cell(this.row);
   }
 
-  onSelectionChange(selectChange: MatSelectChange): void {
-    this.selectOption.emit(selectChange.value);
+  onSelectionChange(value: string): void {
+    this.selectOption.emit(value);
   }
 }

@@ -55,19 +55,20 @@ describe('DataTableComponent', () => {
     expect(pageData.length).toEqual(2);
   });
 
-  it('should handle click delete events by emitting a delete item event', () => {
+  it('should handle clickDelete events by emitting a deleteItem event', () => {
     spyOn(component.deleteItem, 'emit');
     const item = testVolunteers[0];
     component.onClickDelete(item);
     expect(component.deleteItem.emit).toHaveBeenCalledWith(item);
   });
 
-  it('should handle select option events by emitting an update item event', () => {
+  it('should handle selectOption events by emitting an updateItem event', () => {
     spyOn(component.updateItem, 'emit');
     const value = 'Admin';
     const item = testVolunteers[0];
     const key = 'role';
+    const expected = Object.assign({}, item, { role: value });
     component.onSelectOption(value, item, key);
-    expect(component.updateItem.emit).toHaveBeenCalledWith(value, item, key);
+    expect(component.updateItem.emit).toHaveBeenCalledWith(expected);
   });
 });

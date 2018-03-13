@@ -1,7 +1,7 @@
 <mat-select
   *ngIf="selectOptions; else textOnly"
   [value]="selected"
-  (selectionChange)="onSelectionChange($event)">
+  (selectionChange)="onSelectionChange($event.value)">
   <mat-option *ngFor="let selectOption of selectOptions" [value]="selectOption">
     {{selectOption}}
   </mat-option>
