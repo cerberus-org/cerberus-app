@@ -52,7 +52,6 @@ export class AppComponent implements OnInit, OnDestroy {
           this.store.dispatch(new ModelActions.LoadSites(organizationId));
           this.store.dispatch(new ModelActions.LoadVisits(organizationId));
           this.store.dispatch(new ModelActions.LoadVolunteers(organizationId));
-          this.store.dispatch(new ModelActions.LoadOrganizations());
         }
       });
   }

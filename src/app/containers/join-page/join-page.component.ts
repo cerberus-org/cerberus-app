@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatAutocomplete } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
@@ -25,13 +25,11 @@ export class JoinPageComponent implements OnInit {
     false,
   );
 
+  validInput: string;
   validUser: User;
   userFormTitle: string;
-
-  filteredOrganizations: Organization[];
   organizations: Organization[];
-
-  @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
+  modelSubscription: Subscription;
 
   constructor(private authService: AuthService,
               private organizationService: OrganizationService,
@@ -42,19 +40,19 @@ export class JoinPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.organizationService.getAll(true)
-      .map((organizations: Organization[]) => {
-        this.organizations = organizations;
-      },
-           (error: any) => {
-             this.errorService.handleFirebaseError(error);
-           }).subscribe();
+    this.modelSubscription = this.store.select('model')
+      .subscribe((state) => {
+        if (state.organizations) {
+          this.organizations = state.organizations;
+        }
+      });
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   /**
    * Handles validUser events by setting validUser.
+   *
    * @param user - a valid user when valid, null when invalid
    */
   onValidUser(user: User) {
@@ -62,11 +60,33 @@ export class JoinPageComponent implements OnInit {
   }
 
   /**
-   * On submit, create user, log user out and display snack bar on success.
+   * Handles validInput events by setting validInput.
+   *
    * @param {string} organizationName
    */
-  onJoinOrganization(organizationName: string) {
-    const organization = this.getOrganizationByName(organizationName);
+  onValidInput(organizationName: string) {
+    this.validInput = organizationName;
+  }
+
+  /**
+   * Return Organization given name.
+   *
+   * @param {string} organizationName
+   * @returns {Organization}
+   */
+  getOrganizationByName(organizationName: string): Organization {
+    return this.organizations.find((organization: Organization) => {
+      return organization.name === organizationName;
+    });
+  }
+
+  /**
+   * On submit, validate organization, create user, log user out and display snack bar on success.
+   *
+   * @param {string} organizationName
+   */
+  onJoinOrganization() {
+    const organization = this.getOrganizationByName(this.validInput);
     if (organization) {
       this.authService.createUser(
         Object.assign({}, this.validUser, { organizationId: organization.id, role: 'unverified' }))
@@ -78,37 +98,5 @@ export class JoinPageComponent implements OnInit {
     } else {
       this.snackBarService.invalidOrganization();
     }
-  }
-
-  /**
-   * Return Organization given name.
-   * @param {string} organizationName
-   * @returns {Organization}
-   */
-  getOrganizationByName(organizationName: string): Organization {
-    return this.organizations.find((organization: Organization) => {
-      return organization.name === organizationName;
-    });
-  }
-
-  /**
-   * Watch for changes in the organizationName input. Set filteredOrganizations on change.
-   * @param {Organization[]} organizations
-   * @param {string} input
-   */
-  onOrganizationInputNameChanges(organizations: Organization[], input: string) {
-    this.filteredOrganizations = this.filterOrganizationsByName(organizations, input);
-  }
-
-  /**
-   * Return the organizations that are equal to name or are a subset of name.
-   * @param {Organization[]} organizations
-   * @param {string} name
-   * @returns {Organization[]}
-   */
-  filterOrganizationsByName(organizations: Organization[], name: string): Organization[] {
-    const nameLowerCase = name.toLowerCase();
-    return organizations
-      .filter(organization => organization.name.toLowerCase().includes(nameLowerCase));
   }
 }

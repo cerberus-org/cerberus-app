@@ -5,4 +5,5 @@ export * from './organization-dashboard/organization-dashboard.component';
 export * from './settings-page/settings-page.component';
 export * from './join-page/join-page.component';
 export * from './public-organization-dashboard/public-organization-dashboard.component';
+export * from './find-organization/find-organization.component';
 

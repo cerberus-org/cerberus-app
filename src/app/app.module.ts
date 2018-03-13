@@ -62,6 +62,7 @@ import {
 } from './components';
 import {
   CheckInComponent,
+  FindOrganizationComponent,
   GettingStartedComponent,
   JoinPageComponent,
   LoginComponent,
@@ -106,6 +107,7 @@ import { VerificationGuard } from './verification-guard';
     GettingStartedComponent,
     HeaderComponent,
     LoginComponent,
+    FindOrganizationComponent,
     NewVolunteerFormComponent,
     OrganizationFormComponent,
     OrganizationConfirmComponent,
