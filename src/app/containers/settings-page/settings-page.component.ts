@@ -17,7 +17,6 @@ import {
   Volunteer,
 } from '../../models';
 import { State } from '../../reducers';
-import { current } from 'codelyzer/util/syntaxKind';
 
 @Component({
   selector: 'app-settings-page',
