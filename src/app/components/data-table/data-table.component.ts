@@ -91,7 +91,7 @@ export class DataTableComponent implements OnInit {
   }
 
   /**
-   * Handles delete button click events by emitting a deleteItem event.
+   * Handles delete button click events by emitting a delete item event.
    * @param item - the item to be deleted
    */
   onClickDelete(item: any): void {
@@ -105,8 +105,8 @@ export class DataTableComponent implements OnInit {
    * @param key - the property to modify
    */
   onSelectOption(value, item, key) {
-    const updatedItem = Object.assign({}, item);
-    updatedItem[key] = value;
-    this.updateItem.emit(updatedItem);
+    const itemCopy = Object.assign({}, item);
+    itemCopy[key] = value;
+    this.updateItem.emit(itemCopy);
   }
 }

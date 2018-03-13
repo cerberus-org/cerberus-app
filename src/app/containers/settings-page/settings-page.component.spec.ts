@@ -19,9 +19,9 @@ describe('SettingsPageComponent', () => {
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showDelete'],
         }),
-        MockComponent({ selector: 'app-organization-form', inputs: ['organization'] }),
+        MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
         MockComponent({ selector: 'app-reports-form' }),
-        MockComponent({ selector: 'app-user-form', inputs: ['user', 'passwordRequired'] }),
+        MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
       ],
       imports: [
         StoreModule.forRoot(reducers),
@@ -33,6 +33,8 @@ describe('SettingsPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SettingsPageComponent);
     component = fixture.componentInstance;
+    component.currentOrganization = testOrganizations[0];
+    component.currentUser = testUsers[0];
     fixture.detectChanges();
   });
 
@@ -58,22 +60,18 @@ describe('SettingsPageComponent', () => {
 
   it('should handle submitUser events by dispatching SettingsActions.UpdateUser', () => {
     spyOn(component.store, 'dispatch');
-    const user = testUsers[0];
-    const id = 'testId';
-    const expected = Object.assign({}, user, { id });
-    component.onSubmitUser(user, id);
+    const user = Object.assign({}, testUsers[0], { firstName: 'Edited' });
+    component.onSubmitUser(user);
     expect(component.store.dispatch)
-      .toHaveBeenCalledWith(new SettingsActions.UpdateUser(expected));
+      .toHaveBeenCalledWith(new SettingsActions.UpdateUser(user));
   });
 
   it('should handle updateOrganization events by dispatching SettingsActions.UpdateOrganization', () => {
     spyOn(component.store, 'dispatch');
-    const organization = testOrganizations[0];
-    const id = 'testId';
-    const expected = Object.assign({}, organization, { id });
-    component.onSubmitOrganization(organization, id);
+    const organization = Object.assign({}, testOrganizations[0], { name: 'Edited' });
+    component.onSubmitOrganization(organization);
     expect(component.store.dispatch)
-      .toHaveBeenCalledWith(new SettingsActions.UpdateOrganization(expected));
+      .toHaveBeenCalledWith(new SettingsActions.UpdateOrganization(organization));
   });
 
   it('should handle deleteVolunteer events by dispatching SettingsActions.DeleteVolunteer', () => {
@@ -87,7 +85,7 @@ describe('SettingsPageComponent', () => {
   it('should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport', () => {
     spyOn(component.store, 'dispatch');
     component.validReport = testReports[0];
-    component.organization = testOrganizations[0];
+    component.currentOrganization = testOrganizations[0];
     component.volunteers = testVolunteers;
     component.onSubmitReport();
     expect(component.store.dispatch)

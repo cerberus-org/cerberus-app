@@ -203,19 +203,18 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   /**
    * Handles submission of user form by dispatching an UpdateUser action.
    */
-  onSubmitUser() {
+  onSubmitUser(user: User) {
     this.store.dispatch(new SettingsActions.UpdateUser(
-      Object.assign({}, this.currentUser, this.userChanges),
+      Object.assign({}, this.currentUser, user),
     ));
   }
 
   /**
    * Handles submission of organization form by dispatching an UpdateOrganization action.
    */
-  onSubmitOrganization() {
-    console.log(Object.assign({}, this.currentOrganization, this.organizationChanges));
+  onSubmitOrganization(organization: Organization) {
     this.store.dispatch(new SettingsActions.UpdateOrganization(
-      Object.assign({}, this.currentOrganization, this.organizationChanges),
+      Object.assign({}, this.currentOrganization, organization),
     ));
   }
 
