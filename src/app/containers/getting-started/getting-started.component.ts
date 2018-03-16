@@ -18,7 +18,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   private headerOptions: HeaderOptions = new HeaderOptions(
     'Getting Started',
     'wb_sunny',
-    '/login',
+    '/home',
     true,
   );
 

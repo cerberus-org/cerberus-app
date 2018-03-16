@@ -21,7 +21,7 @@ export class JoinPageComponent implements OnInit {
   private headerOptions: HeaderOptions = new HeaderOptions(
     'Cerberus',
     'group_work',
-    null,
+    '/home',
     false,
   );
 

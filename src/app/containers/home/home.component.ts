@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import * as ModelActions from '../../actions/model.actions';
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
   modelSubscription: Subscription;
   organizations: Organization[];
 
-  constructor(public store: Store<State>) { }
+  constructor(public store: Store<State>,
+              private router: Router) { }
 
   ngOnInit() {
     this.modelSubscription = this.store.select('model')
@@ -35,5 +37,13 @@ export class HomeComponent implements OnInit {
 
   onLiveData(organizationName: string) {
     this.store.dispatch(new RouterActions.Go({ path: ['/public-dashboard/' + organizationName] }));
+  }
+
+  onNewOrganization() {
+    this.router.navigateByUrl('/start');
+  }
+
+  onJoinOrganization() {
+    this.router.navigateByUrl('/join');
   }
 }
