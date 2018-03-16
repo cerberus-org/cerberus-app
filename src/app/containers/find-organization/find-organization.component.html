@@ -8,10 +8,11 @@
            #organizationName>
   </mat-form-field>
   <mat-autocomplete>
-    <mat-option (click)="onOrganizationInputNameChanges(organizations, organization.name)"
-                (keyup.enter)="onOrganizationInputNameChanges(organizations, organization.name)"
-                *ngFor="let organization of filteredOrganizations"
-                [value]="organization.name">{{organization.name}}
+    <mat-option
+            (onSelectionChange)="onOrganizationInputNameChanges(organizations, organization.name)"
+            (click)="onOrganizationInputNameChanges(organizations, organization.name)"
+            *ngFor="let organization of filteredOrganizations"
+            [value]="organization.name">{{organization.name}}
     </mat-option>
   </mat-autocomplete>
 </div>
