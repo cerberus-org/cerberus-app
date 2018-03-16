@@ -7,7 +7,8 @@
       <mat-tab label="Live Data">
         <div class="container-inline loose">
           <app-find-organization
-            (validInput)="onValidInput($event)">
+            (validInput)="onValidInput($event)"
+            [title]="findOrganizationTitle">
           </app-find-organization>
           <button mat-icon-button color="accent" [disabled]="!organizationName" (click)="onLiveData(organizationName)">
             <mat-icon class="material-icons">forward</mat-icon>

@@ -17,9 +17,12 @@ export class HomeComponent implements OnInit {
   organizationName: string;
   modelSubscription: Subscription;
   organizations: Organization[];
+  findOrganizationTitle: string;
 
   constructor(public store: Store<State>,
-              private router: Router) { }
+              private router: Router) {
+    this.findOrganizationTitle = 'test';
+  }
 
   ngOnInit() {
     this.modelSubscription = this.store.select('model')
