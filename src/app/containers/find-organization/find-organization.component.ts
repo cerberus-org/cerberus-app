@@ -19,7 +19,6 @@ export class FindOrganizationComponent implements OnInit {
 
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
   @Output() validInput = new EventEmitter();
-  @Input() title;
 
   constructor(public store: Store<State>) { }
 

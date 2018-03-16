@@ -5,10 +5,10 @@
         <app-login></app-login>
       </mat-tab>
       <mat-tab label="Live Data">
+        <h2>Enter the organization name to see live volunteering data.</h2>
         <div class="container-inline loose">
           <app-find-organization
-            (validInput)="onValidInput($event)"
-            [title]="findOrganizationTitle">
+            (validInput)="onValidInput($event)">
           </app-find-organization>
           <button mat-icon-button color="accent" [disabled]="!organizationName" (click)="onLiveData(organizationName)">
             <mat-icon class="material-icons">forward</mat-icon>
