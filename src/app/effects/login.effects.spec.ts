@@ -76,7 +76,7 @@ describe('LoginEffects', () => {
         a: new LogInActions.LogOut(),
       });
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/login'] }),
+        b: new RouterActions.Go({ path: ['/home'] }),
       });
 
       expect(effects.logout$).toBeObservable(expected);

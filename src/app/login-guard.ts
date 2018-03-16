@@ -18,7 +18,7 @@ export class LoginGuard implements CanActivate {
     // Subscribe to observable so appropriate action can be taken upon completion
     isLoggedIn$.subscribe((val) => {
       if (!val) {
-        this.store.dispatch(new RouterActions.Go({ path: ['/login'] }));
+        this.store.dispatch(new RouterActions.Go({ path: ['/home'] }));
       }
     });
     // Observable will not be returned until completed

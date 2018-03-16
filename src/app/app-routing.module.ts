@@ -15,7 +15,6 @@ import { VerificationGuard } from './verification-guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: OrganizationDashboardComponent, canActivate: [LoginGuard] },
   { path: 'checkin/:id', component: CheckInComponent, canActivate: [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },

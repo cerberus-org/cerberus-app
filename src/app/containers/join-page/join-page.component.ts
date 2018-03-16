@@ -93,7 +93,7 @@ export class JoinPageComponent implements OnInit {
         .subscribe(() => {
           this.authService.signOut();
           this.snackBarService.requestToJoinOrganizationSuccess();
-          this.store.dispatch(new RouterActions.Go({ path: ['/login'] }));
+          this.store.dispatch(new RouterActions.Go({ path: ['/home'] }));
         });
     } else {
       this.snackBarService.invalidOrganization();
