@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatAutocompleteModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
@@ -19,16 +18,12 @@ describe('JoinPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [JoinPageComponent,
         MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
+        MockComponent({ selector: 'app-find-organization' }),
       ],
       imports: [
-        MatAutocompleteModule,
-        MatInputModule,
-        BrowserAnimationsModule,
         StoreModule.forRoot(reducers),
       ],
-      providers: [
-
-      ].concat(mockServiceProviders),
+      providers: [].concat(mockServiceProviders),
     })
     .compileComponents();
   }));
@@ -49,26 +44,27 @@ describe('JoinPageComponent', () => {
   });
 
   it('should get Organization by name', () => {
-    expect(component.getOrganizationByName(testOrganizations[0].name)).toBe(testOrganizations[0]);
-  });
-
-  it('should filter Organizations based on name', () => {
-    expect(component.filterOrganizationsByName(testOrganizations, 'Jefferson')).toEqual([testOrganizations[0]]);
+    component.organizations = testOrganizations;
+    expect(component.getOrganizationByName(testOrganizations[0].name)).toEqual(testOrganizations[0]);
   });
 
   describe('onJoinOrganization', () => {
 
     it('should log out user and display requestToJoinOrganizationSuccess snack bar on success', () => {
+      component.organizations = testOrganizations;
+      component.validInput = testOrganizations[0].name;
       const snackBarSpy = spyOn(TestBed.get(SnackBarService), 'requestToJoinOrganizationSuccess');
       const authServiceSignOutSpy = spyOn(TestBed.get(AuthService), 'signOut');
-      component.onJoinOrganization(testOrganizations[0].name);
+      component.onJoinOrganization();
       expect(snackBarSpy).toHaveBeenCalled();
       expect(authServiceSignOutSpy).toHaveBeenCalled();
     });
 
     it('should display invalidOrganization snack bar on failure', () => {
+      component.organizations = testOrganizations;
+      component.validInput = 'abc';
       const snackBarSpy = spyOn(TestBed.get(SnackBarService), 'invalidOrganization');
-      component.onJoinOrganization('abc');
+      component.onJoinOrganization();
       expect(snackBarSpy).toHaveBeenCalled();
     });
   });

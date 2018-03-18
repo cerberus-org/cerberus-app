@@ -63,7 +63,7 @@ import {
 import {
   CheckInComponent,
   FindOrganizationComponent,
-  GettingStartedComponent,
+  GettingStartedComponent, HomeComponent,
   JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
@@ -93,7 +93,6 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
-import { HomeComponent } from './containers/home/home.component';
 
 @NgModule({
   declarations: [
