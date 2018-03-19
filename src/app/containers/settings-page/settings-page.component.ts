@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { isAdmin } from '../../functions';
-import { canSelectRole, getRoleOptions } from '../../functions/helpers.functions';
+import { canSelectRole, getRoleOptions } from '../../functions';
 import {
   ColumnOptions,
   HeaderOptions,
