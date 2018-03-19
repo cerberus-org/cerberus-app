@@ -57,7 +57,6 @@
   <app-data-table
     [data$]="users$"
     [columnOptions]="userTableOptions"
-    [showDelete]="true"
     (deleteItem)="onDeleteUser($event)"
     (updateItem)="onUpdateUser($event)">
   </app-data-table>
