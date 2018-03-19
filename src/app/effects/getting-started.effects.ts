@@ -28,7 +28,7 @@ export class GettingStartedEffects {
       .switchMap((createdOrganization) => {
         // Use the ID from the created organization for the site and user
         const site = new Site(createdOrganization.id, createdOrganization.name, null);
-        const user = Object.assign({}, payload.user, { organizationId: createdOrganization.id, role: 'owner' });
+        const user = Object.assign({}, payload.user, { organizationId: createdOrganization.id, role: 'Owner' });
         return Observable
         // Concurrently create the user and site
           .forkJoin(
