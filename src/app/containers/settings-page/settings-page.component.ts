@@ -94,6 +94,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.store.dispatch(new SettingsActions.LoadPage('user'));
+
     this.authSubscription = this.store.select('auth')
       .subscribe((state) => {
         this.currentUser = state.user;
