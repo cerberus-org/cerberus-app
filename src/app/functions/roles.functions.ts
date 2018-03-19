@@ -10,6 +10,12 @@ const isGreaterRole = (roleA: string, roleB: string): boolean => (
   getRoleValue(roleA) > getRoleValue(roleB)
 );
 
+const isOwner = (user): boolean => getRoleValue(user.role) === 3;
+
+export const isLastOwner = (currentUser: User, users: User[]): boolean => (
+  isOwner(currentUser) && users.filter(user => isOwner(user)).length === 1
+);
+
 const areSameUser = (currentUser: User, otherUser: User): boolean => (
   currentUser.id === otherUser.id
 );
@@ -23,7 +29,7 @@ const areSameUser = (currentUser: User, otherUser: User): boolean => (
  * @returns {boolean} true if greater, false if lesser
  */
 export const canSelectRole = (currentUser: User, otherUser: User): boolean => (
-  getRoleValue(currentUser.role) > 1
+  isAdmin(currentUser)
   && (
     areSameUser(currentUser, otherUser)
     || isGreaterRole(currentUser.role, otherUser.role)
@@ -39,12 +45,12 @@ export const canSelectRole = (currentUser: User, otherUser: User): boolean => (
  * @returns {string[]} - the available options for the given user
  */
 export const getRoleOptions = (currentUser: User, otherUser: User): string[] => {
-  if (getRoleValue(currentUser.role) < 2 || isGreaterRole(otherUser.role, currentUser.role)) {
+  if (!isAdmin(currentUser) || isGreaterRole(otherUser.role, currentUser.role)) {
     return null;
   }
   // Filter out greater roles (use all for owners) and include current user's role
   const roles = (
-    getRoleValue(currentUser.role) === 3
+    isOwner(currentUser)
       ? USER_ROLES
       : USER_ROLES.filter(role => (
         isGreaterRole(currentUser.role, role)

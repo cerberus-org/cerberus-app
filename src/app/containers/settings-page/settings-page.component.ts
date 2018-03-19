@@ -5,8 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
-import { isAdmin } from '../../functions';
-import { canSelectRole, getRoleOptions } from '../../functions';
+import { canSelectRole, getRoleOptions, isAdmin, isLastOwner } from '../../functions';
 import {
   ColumnOptions,
   HeaderOptions,
@@ -51,9 +50,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       'role',
       'Role',
       (row: User) => row.role,
-      (row: User) => canSelectRole(this.currentUserFromModel, row)
-        ? getRoleOptions(this.currentUserFromModel, row)
-        : null,
+      (row: User) => (
+        canSelectRole(this.currentUserFromModel, row) && !isLastOwner(row, this.users)
+          ? getRoleOptions(this.currentUserFromModel, row)
+          : null
+      ),
     ),
   ];
   volunteerTableOptions: ColumnOptions[] = [
@@ -79,6 +80,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   currentOrganization: Organization;
   currentUser: User;
   currentUserFromModel: User; // Used for user table
+  users: User[];
   volunteers: Volunteer[];
   sidenavSelection: string;
 
@@ -108,7 +110,9 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     this.volunteers$ = model$.map(state => state.volunteers);
     this.modelSubscription = model$
       .subscribe((state) => {
-        this.currentUserFromModel = state.users.find(user => user.id === this.currentUser.id);
+        this.currentUserFromModel = state.users
+          .find(user => user.id === this.currentUser.id);
+        this.users = state.users;
         this.volunteers = state.volunteers;
       });
 
