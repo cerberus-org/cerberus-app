@@ -38,7 +38,7 @@ describe('JoinPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle validUser events by setting validUser', () => {
+  it('should handle userChanges events by setting userChanges', () => {
     component.onValidUser(testUsers[0]);
     expect(component.validUser).toBe(testUsers[0]);
   });

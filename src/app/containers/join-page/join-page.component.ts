@@ -53,7 +53,7 @@ export class JoinPageComponent implements OnInit {
   /**
    * Handles validUser events by setting validUser.
    *
-   * @param user - a valid user when valid, null when invalid
+   * @param {User} user
    */
   onValidUser(user: User) {
     this.validUser = user;

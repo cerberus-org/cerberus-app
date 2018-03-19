@@ -6,7 +6,7 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 import * as ModelActions from '../actions/model.actions';
-import { OrganizationService, SiteService, VisitService, VolunteerService } from '../services';
+import { OrganizationService, SiteService, UserService, VisitService, VolunteerService } from '../services';
 
 @Injectable()
 export class ModelEffects {
@@ -21,6 +21,17 @@ export class ModelEffects {
     .switchMap(organizationId => this.siteService
       .getByKey('organizationId', organizationId, true)
       .map(sites => new ModelActions.LoadSitesSuccess(sites)));
+
+  /**
+   * Listen for the LoadUsers action, get the users by organizationId,
+   * then dispatch the success action.
+   */
+  @Effect()
+  loadUsers$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_USERS)
+    .map((action: ModelActions.LoadUsers) => action.payload)
+    .switchMap(organizationId => this.userService
+      .getByKey('organizationId', organizationId, true)
+      .map(users => new ModelActions.LoadUsersSuccess(users)));
 
   /**
    * Listen for the LoadVisits action, get the visits by organizationId,
@@ -53,6 +64,7 @@ export class ModelEffects {
 
   constructor(private actions: Actions,
               private siteService: SiteService,
+              private userService: UserService,
               private visitService: VisitService,
               private volunteerService: VolunteerService,
               private organizationService: OrganizationService) {}

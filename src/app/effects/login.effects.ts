@@ -25,7 +25,7 @@ export class LoginEffects {
     .switchMap(payload => this.authService.signIn(payload.email, payload.password)
       .switchMap(res => this.userService.getById(res.uid)
         .map((user) => {
-          if (user.role === 'unverified') {
+          if (user.role === 'Locked') {
             this.authService.signOut();
             this.snackBarService.accountNotVerified();
           } else {

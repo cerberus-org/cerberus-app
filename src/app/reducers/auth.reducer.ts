@@ -2,13 +2,13 @@ import * as AuthActions from '../actions/auth.actions';
 import { Organization, User } from '../models';
 
 export interface State {
-  user: User;
   organization: Organization;
+  user: User;
 }
 
 export const initialState: State = {
-  user: null,
   organization: null,
+  user: null,
 };
 
 export type Action = AuthActions.All;

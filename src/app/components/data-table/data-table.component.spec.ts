@@ -7,6 +7,7 @@ import {
   MatTableModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MockComponent } from 'ng2-mock-component';
 import { Observable } from 'rxjs/Observable';
 
 import { testColumnOptions, testVisits, testVolunteers } from '../../models';
@@ -20,6 +21,7 @@ describe('DataTableComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         DataTableComponent,
+        MockComponent({ selector: 'app-data-cell', inputs: ['column', 'row'] }),
       ],
       imports: [
         CdkTableModule,
@@ -53,10 +55,20 @@ describe('DataTableComponent', () => {
     expect(pageData.length).toEqual(2);
   });
 
-  it('should emit a clickDelete event on clicking the delete button', () => {
+  it('should handle clickDelete events by emitting a deleteItem event', () => {
     spyOn(component.deleteItem, 'emit');
     const item = testVolunteers[0];
     component.onClickDelete(item);
     expect(component.deleteItem.emit).toHaveBeenCalledWith(item);
+  });
+
+  it('should handle selectOption events by emitting an updateItem event', () => {
+    spyOn(component.updateItem, 'emit');
+    const value = 'Admin';
+    const item = testVolunteers[0];
+    const key = 'role';
+    const expected = Object.assign({}, item, { role: value });
+    component.onSelectOption(value, item, key);
+    expect(component.updateItem.emit).toHaveBeenCalledWith(expected);
   });
 });
