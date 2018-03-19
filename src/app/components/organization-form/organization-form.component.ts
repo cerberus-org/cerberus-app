@@ -56,7 +56,7 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
    * Creates the form group.
    */
   createForm(): FormGroup {
-    // If initialOrganization was passed in, pre populate form, else leave blank
+    // If organization was passed in, pre populate form, else leave blank
     const nameRegex = /^[a-z ,.'-]+$/i;
     return this.fb.group({
       name: [

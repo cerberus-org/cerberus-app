@@ -34,7 +34,7 @@ describe('UserFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit a validUser event on valid form values', () => {
+  it('should emit a userChanges event on valid form values', () => {
     spyOn(component.validUser, 'emit');
     const firstName = testUsers[0].firstName;
     const lastName = testUsers[0].lastName;

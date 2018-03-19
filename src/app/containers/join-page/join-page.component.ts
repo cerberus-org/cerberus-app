@@ -54,7 +54,7 @@ export class JoinPageComponent implements OnInit {
   }
 
   /**
-   * Handles validUser events by setting validUser.
+   * Handles userChanges events by setting userChanges.
    * @param user - a valid user when valid, null when invalid
    */
   onValidUser(user: User) {
@@ -69,7 +69,7 @@ export class JoinPageComponent implements OnInit {
     const organization = this.getOrganizationByName(organizationName);
     if (organization) {
       this.authService.createUser(
-        Object.assign({}, this.validUser, { organizationId: organization.id, role: 'unverified' }))
+        Object.assign({}, this.validUser, { organizationId: organization.id, role: 'Locked' }))
         .subscribe(() => {
           this.authService.signOut();
           this.snackBarService.requestToJoinOrganizationSuccess();

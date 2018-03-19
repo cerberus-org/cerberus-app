@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import { HeaderOptions, Organization, Visit } from '../../models';
-import { State } from '../../reducers/index';
+import { State } from '../../reducers';
 import { ErrorService, OrganizationService, VisitService } from '../../services';
 
 @Component({

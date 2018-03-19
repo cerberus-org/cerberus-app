@@ -49,7 +49,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   createForm(): FormGroup {
     return this.fb.group(
       {
-        // If initialUser was passed in, pre populate form, else leave blank
+        // If user was passed in, pre populate form, else leave blank
         firstName: [this.initialUser ? this.initialUser.firstName : '',
           [Validators.minLength(2),
             Validators.maxLength(35),

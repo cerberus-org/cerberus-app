@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { ErrorService } from './error.service';
 
-export abstract class BaseService<T> {
+export abstract class BaseService<T extends { id: string }> {
   public collection: AngularFirestoreCollection<T>;
 
   constructor(protected db: AngularFirestore,
@@ -119,7 +119,7 @@ export abstract class BaseService<T> {
    * @param item - the item to be updated
    * @returns {Observable<R|T>} - an empty Observable that emits when completed.
    */
-  update(item: any): Observable<any> {
+  update(item: T): Observable<any> {
     return Observable.fromPromise(
       this.collection.doc(item.id).update(this.convertOut(item)),
     )
@@ -131,7 +131,7 @@ export abstract class BaseService<T> {
    * @param item - the item to be deleted
    * @returns {Observable<R|T>} - an empty Observable that emits when completed.
    */
-  delete(item: any): Observable<any> {
+  delete(item: T): Observable<any> {
     return Observable.fromPromise(this.collection.doc(item.id).delete())
       .catch(error => this.errorService.handleFirebaseError(error));
   }

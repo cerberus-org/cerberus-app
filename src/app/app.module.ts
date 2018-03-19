@@ -1,9 +1,6 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -18,6 +15,7 @@ import {
   MatNativeDateModule,
   MatPaginatorModule,
   MatRadioModule,
+  MatSelectModule,
   MatSidenavModule,
   MatSlideToggleModule,
   MatSnackBarModule,
@@ -45,6 +43,7 @@ import {
   AboutUsComponent,
   CheckInFormComponent,
   DailyHoursChartComponent,
+  DataCellComponent,
   DataDisplayComponent,
   DataTableComponent,
   EmailDialogComponent,
@@ -79,7 +78,7 @@ import {
   SettingsEffects,
 } from './effects';
 import { LoginGuard } from './login-guard';
-import { reducers } from './reducers/index';
+import { reducers } from './reducers';
 import {
   AuthService,
   CsvService,
@@ -118,6 +117,7 @@ import { VerificationGuard } from './verification-guard';
     SidenavComponent,
     ReportsFormComponent,
     JoinPageComponent,
+    DataCellComponent,
     EmailDialogComponent,
     PublicOrganizationDashboardComponent,
   ],
@@ -153,6 +153,7 @@ import { VerificationGuard } from './verification-guard';
     MatNativeDateModule,
     MatPaginatorModule,
     MatRadioModule,
+    MatSelectModule,
     MatSidenavModule,
     MatSlideToggleModule,
     MatSnackBarModule,

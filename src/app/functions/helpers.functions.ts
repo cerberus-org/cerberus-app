@@ -2,10 +2,6 @@ import { Visit, Volunteer } from '../models';
 import { User } from '../models/user';
 import { formatDuration } from './date-format.functions';
 
-export const isAdmin = (user: User) => ['admin', 'owner'].includes(user.role);
-
-export const isOwner = (user: User) => user.role === 'owner';
-
 export const filterByOrganizationId = (array: any[], organizationId: string) => (
   array.filter(item => item.organizationId === organizationId)
 );
