@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { MatDialog } from '@angular/material';
@@ -29,7 +28,6 @@ export class LoginComponent implements OnInit {
   email: string;
 
   constructor(private formBuilder: FormBuilder,
-              private router: Router,
               private store: Store<State>,
               private dialog: MatDialog) {}
 
@@ -62,13 +60,5 @@ export class LoginComponent implements OnInit {
         this.store.dispatch(new LoginActions.ResetPassword(email));
       }
     });
-  }
-
-  onNewOrganization() {
-    this.router.navigateByUrl('/start');
-  }
-
-  onJoinOrganization() {
-    this.router.navigateByUrl('/join');
   }
 }

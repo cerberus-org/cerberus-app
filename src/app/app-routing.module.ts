@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {
   CheckInComponent,
-  GettingStartedComponent,
+  GettingStartedComponent, HomeComponent,
   JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
@@ -14,7 +14,7 @@ import { LoginGuard } from './login-guard';
 import { VerificationGuard } from './verification-guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'dashboard', component: OrganizationDashboardComponent, canActivate: [LoginGuard] },
   { path: 'checkin/:id', component: CheckInComponent, canActivate: [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },

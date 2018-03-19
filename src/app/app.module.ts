@@ -61,7 +61,8 @@ import {
 } from './components';
 import {
   CheckInComponent,
-  GettingStartedComponent,
+  FindOrganizationComponent,
+  GettingStartedComponent, HomeComponent,
   JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
@@ -105,6 +106,7 @@ import { VerificationGuard } from './verification-guard';
     GettingStartedComponent,
     HeaderComponent,
     LoginComponent,
+    FindOrganizationComponent,
     NewVolunteerFormComponent,
     OrganizationFormComponent,
     OrganizationConfirmComponent,
@@ -120,6 +122,7 @@ import { VerificationGuard } from './verification-guard';
     DataCellComponent,
     EmailDialogComponent,
     PublicOrganizationDashboardComponent,
+    HomeComponent,
   ],
   imports: [
     AngularFireAuthModule,

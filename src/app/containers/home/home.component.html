@@ -1,0 +1,24 @@
+<div class="container-center loose">
+  <mat-card>
+    <mat-tab-group>
+      <mat-tab label="Login">
+        <app-login></app-login>
+      </mat-tab>
+      <mat-tab label="Live Data">
+        <h2>Enter the organization name to see live volunteering data.</h2>
+        <div class="container-inline loose">
+          <app-find-organization
+            (validInput)="onValidInput($event)">
+          </app-find-organization>
+          <button mat-icon-button color="accent" [disabled]="!organizationName" (click)="onLiveData(organizationName)">
+            <mat-icon class="material-icons">forward</mat-icon>
+          </button>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>
+<div class="container-center loose container-inline">
+  <button mat-raised-button color="accent" (click)="onNewOrganization()">New Organization?</button>
+  <button mat-raised-button (click)="onJoinOrganization()" color="accent">Join Existing Organization?</button>
+</div>

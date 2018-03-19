@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
-
-import { Site, User, Visit, Volunteer } from '../models';
+import { Organization, Site, User, Visit, Volunteer } from '../models';
 
 export const LOAD_SITES = '[Model] Load sites';
 export const LOAD_SITES_SUCCESS = '[Model] Load sites success';
@@ -13,6 +12,9 @@ export const LOAD_VISITS_SUCCESS = '[Model] Load visits success';
 
 export const LOAD_VOLUNTEERS = '[Model] Load volunteers';
 export const LOAD_VOLUNTEERS_SUCCESS = '[Model] Load volunteers success';
+
+export const LOAD_ORGANIZATIONS = '[Model] Load organizations';
+export const LOAD_ORGANIZATIONS_SUCCESS = '[Model] Load organizations success';
 
 export class LoadSites implements Action {
   readonly type = LOAD_SITES;
@@ -62,6 +64,16 @@ export class LoadVolunteersSuccess implements Action {
   constructor(public payload: Volunteer[]) {}
 }
 
+export class LoadOrganizations implements Action {
+  readonly type = LOAD_ORGANIZATIONS;
+}
+
+export class LoadOrganizationsSuccess implements Action {
+  readonly type = LOAD_ORGANIZATIONS_SUCCESS;
+
+  constructor(public payload: Organization[]) {}
+}
+
 export type All
   = LoadSites
   | LoadSitesSuccess
@@ -70,4 +82,6 @@ export type All
   | LoadVisits
   | LoadVisitsSuccess
   | LoadVolunteers
-  | LoadVolunteersSuccess;
+  | LoadVolunteersSuccess
+  | LoadOrganizations
+  | LoadOrganizationsSuccess;

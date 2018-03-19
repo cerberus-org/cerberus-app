@@ -1,0 +1,18 @@
+<div class="container-center">
+  <mat-form-field class="input-row">
+    <input matInput
+           [matAutocomplete]="autocomplete"
+           (input)="onOrganizationInputNameChanges(organizations, organizationName.value)"
+           class="capitalize"
+           placeholder="Organization name"
+           #organizationName>
+  </mat-form-field>
+  <mat-autocomplete>
+    <mat-option
+            (onSelectionChange)="onOrganizationInputNameChanges(organizations, organization.name)"
+            (click)="onOrganizationInputNameChanges(organizations, organization.name)"
+            *ngFor="let organization of filteredOrganizations"
+            [value]="organization.name">{{organization.name}}
+    </mat-option>
+  </mat-autocomplete>
+</div>

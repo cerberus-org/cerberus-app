@@ -61,7 +61,7 @@ export class LoginEffects {
     .switchMap(() => this.authService.signOut()
       .map(() => {
         this.snackBarService.logoutSuccess();
-        return new RouterActions.Go({ path: ['/login'] });
+        return new RouterActions.Go({ path: ['/home'] });
       }));
 
   /**
