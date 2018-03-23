@@ -4,7 +4,7 @@
 .container {
   height: 100%;
   display: grid;
-  grid-template-rows: $mat-toolbar-height-desktop auto $mat-toolbar-height-desktop;
+  grid-template-rows: $mat-toolbar-height-desktop auto;
 
   @media ($mat-xsmall) {
     grid-template-rows: $mat-toolbar-height-mobile auto;

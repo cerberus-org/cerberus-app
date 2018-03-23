@@ -4,7 +4,6 @@ export * from './signature-field/signature-field.component';
 export * from './daily-hours-chart/daily-hours-chart.component';
 export * from './data-cell/data-cell.component';
 export * from './data-table/data-table.component';
-export * from './footer/footer.component';
 export * from './header/header.component';
 export * from './new-volunteer-form/new-volunteer-form.component';
 export * from './organization-confirm/organization-confirm.component';
