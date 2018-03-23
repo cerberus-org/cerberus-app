@@ -1,5 +1,6 @@
 <div class="container">
   <app-header
+    *ngIf="headerOptions"
     class="hg__header"
     [headerOptions]="headerOptions"
     [showLogOut]="isLoggedIn"
