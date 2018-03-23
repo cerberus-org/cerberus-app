@@ -1,11 +1,13 @@
 <div class="container">
   <app-header
+    class="hg__header"
     [headerOptions]="headerOptions"
     [showLogOut]="isLoggedIn"
     [showSidenavToggle]="!!sidenavOptions"
     (buttonClick)="onButtonClick($event)">
   </app-header>
   <app-sidenav
+    class="hg__main"
     [sidenavOptions]="sidenavOptions"
     (selectIndex)="onSelectIndex($event)">
     <router-outlet></router-outlet>
