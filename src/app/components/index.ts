@@ -15,3 +15,4 @@ export * from './volunteer-menu/volunteer-menu.component';
 export * from './password-dialog/password-dialog.component';
 export * from './email-dialog/email-dialog.component';
 export * from './data-display/data-display.component';
+export * from './is-volunteer/is-volunteer.component';

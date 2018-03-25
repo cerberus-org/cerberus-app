@@ -92,6 +92,7 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
+import { IsVolunteerComponent } from './components/is-volunteer/is-volunteer.component';
 
 @NgModule({
   declarations: [
@@ -122,6 +123,7 @@ import { VerificationGuard } from './verification-guard';
     EmailDialogComponent,
     PublicOrganizationDashboardComponent,
     HomeComponent,
+    IsVolunteerComponent,
   ],
   imports: [
     AngularFireAuthModule,

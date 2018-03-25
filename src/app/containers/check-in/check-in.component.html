@@ -1,19 +1,15 @@
 <mat-horizontal-stepper>
   <mat-step>
-    <div class="container-center loose">
-      <mat-slide-toggle>I am a new volunteer.</mat-slide-toggle>
-      <mat-slide-toggle>I am an existing volunteer.</mat-slide-toggle>
-    </div>
     <button mat-button matStepperNext>Next</button>
   </mat-step>
   <mat-step>
-  <ng-template matStepLabel>New Volunteer</ng-template>
-  <div>
-    <app-new-volunteer-form
-      [organizationId]="organizationId"
-      (newVolunteer)="onNewVolunteer($event)">
-    </app-new-volunteer-form>
-  </div>
+    <ng-template matStepLabel>New Volunteer</ng-template>
+    <div>
+      <app-new-volunteer-form
+        [organizationId]="organizationId"
+        (newVolunteer)="onNewVolunteer($event)">
+      </app-new-volunteer-form>
+    </div>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Check-In</ng-template>
