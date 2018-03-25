@@ -1,10 +1,12 @@
 <mat-horizontal-stepper #stepper>
+  <!--Is existing volunteer-->
   <mat-step>
     <app-toggle-options-form
       [toggleOptions]="toggleOptions"
       (selectedToggleOption)="onSelectedToggleOption($event)">
     </app-toggle-options-form>
   </mat-step>
+  <!--New volunteer form-->
   <mat-step>
     <ng-template matStepLabel>New Volunteer</ng-template>
     <div>
@@ -14,6 +16,7 @@
       </app-new-volunteer-form>
     </div>
   </mat-step>
+  <!--Check in/out form-->
   <mat-step>
     <ng-template matStepLabel>Check-In</ng-template>
     <div>
