@@ -17,7 +17,6 @@ import { State } from '../../reducers';
 })
 export class CheckInComponent implements OnInit, OnDestroy {
   private appSubscription: Subscription;
-  private checkInSubscription: Subscription;
   private modelSubscription: Subscription;
 
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
@@ -48,11 +47,6 @@ export class CheckInComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.checkInSubscription = this.store.select('checkIn')
-      .subscribe((state) => {
-        this.tabGroup.selectedIndex = state.selectedTabIndex;
-      });
-
     this.modelSubscription = this.store.select('model')
       .subscribe((state) => {
         this.visits = state.visits;
@@ -65,9 +59,6 @@ export class CheckInComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.appSubscription) {
       this.appSubscription.unsubscribe();
-    }
-    if (this.checkInSubscription) {
-      this.checkInSubscription.unsubscribe();
     }
     if (this.modelSubscription) {
       this.modelSubscription.unsubscribe();
