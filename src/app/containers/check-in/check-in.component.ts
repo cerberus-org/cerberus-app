@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatTabGroup } from '@angular/material';
+import { MatTabGroup, MatVerticalStepper } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -19,7 +19,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
   private appSubscription: Subscription;
   private modelSubscription: Subscription;
 
-  @ViewChild('tabGroup') tabGroup: MatTabGroup;
+  @ViewChild('stepper') stepper: MatVerticalStepper;
 
   visits: Visit[];
   volunteers: Volunteer[];
@@ -29,7 +29,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute) {
-    this.toggleOptions = ['I am a new volunteer.', 'I am an exisiting volunteer'];
+    this.toggleOptions = ['I am a new volunteer.', 'I am an existing volunteer'];
   }
 
   ngOnInit(): void {
@@ -79,7 +79,8 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.store.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
   }
 
-  onSelectedToggleOption(string: boolean): void {
-
+  onSelectedToggleOption(selectedToggleOption: string): void {
+    selectedToggleOption === this.toggleOptions[0] ?
+      this.stepper.next() : this.stepper.selectedIndex = 2;
   }
 }
