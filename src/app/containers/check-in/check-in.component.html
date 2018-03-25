@@ -18,9 +18,10 @@
   </mat-step>
   <!--Check in/out form-->
   <mat-step>
-    <ng-template matStepLabel>Check-In</ng-template>
+    <ng-template matStepLabel>{{checkInOutStepperTitle}}</ng-template>
     <div>
       <app-check-in-form
+        [title]="checkInOutFormTitle"
         [organizationId]="organizationId"
         [siteId]="siteId"
         [visits]="visits"

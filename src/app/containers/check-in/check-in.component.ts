@@ -26,15 +26,22 @@ export class CheckInComponent implements OnInit, OnDestroy {
   organizationId: string;
   siteId: string;
   toggleOptions: string[];
+  checkInOutFormTitle: string;
+  checkInOutStepperTitle: string;
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute) {
-    this.toggleOptions = ['I am a new volunteer.', 'I am an existing volunteer'];
+    this.toggleOptions = ['I am a new volunteer.', 'I am an existing volunteer.'];
+    this.checkInOutFormTitle = 'Test';
   }
 
   ngOnInit(): void {
-    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.checkInOutFormTitle = this.isCheckIn(window.location.href) ?
+      'Enter your name to check in.' : 'Enter your name to check out.';
+    this.checkInOutStepperTitle = this.isCheckIn(window.location.href) ?
+      'Check In' : 'Check Out';
 
+    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
     this.appSubscription = this.store.select('auth')
       .map(state => state.organization)
       .subscribe((organization) => {
@@ -56,6 +63,10 @@ export class CheckInComponent implements OnInit, OnDestroy {
       });
 
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
+  }
+
+  isCheckIn(url): boolean {
+    return url.split('/')[3] === 'checkin';
   }
 
   ngOnDestroy(): void {

@@ -45,6 +45,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   @Input() siteId: string;
   @Input() visits: Visit[];
   @Input() volunteers: Volunteer[];
+  @Input() title: string;
   @Output() checkIn = new EventEmitter<Visit>();
   @Output() checkOut = new EventEmitter<Visit>();
 
