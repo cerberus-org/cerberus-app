@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as AppActions from './actions/app.actions';
 import * as LoginActions from './actions/login.actions';
 import * as ModelActions from './actions/model.actions';
 import * as RouterActions from './actions/router.actions';
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.appSubscription = this.store.select('app')
       .subscribe((state) => {
         this.headerOptions = state.headerOptions;
+        console.log(state.headerOptions);
         this.sidenavOptions = state.sidenavOptions;
         /**
          * TODO:

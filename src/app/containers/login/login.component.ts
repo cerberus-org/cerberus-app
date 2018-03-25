@@ -15,12 +15,6 @@ import { State } from '../../reducers';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  private headerOptions: HeaderOptions = new HeaderOptions(
-    'Cerberus',
-    'group_work',
-    null,
-    false,
-  );
 
   loginForm: FormGroup;
   error: string;
@@ -37,8 +31,6 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
     this.hidePwd = true;
-
-    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 

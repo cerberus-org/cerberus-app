@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
+import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
 import { Organization } from '../../models';
 import { State } from '../../reducers';
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
           this.organizations = state.organizations;
         }
       });
+    this.store.dispatch(new AppActions.SetHeaderOptions(null));
   }
 
   onValidInput(organizationName: string): void {
