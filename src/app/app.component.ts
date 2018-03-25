@@ -38,7 +38,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.appSubscription = this.store.select('app')
       .subscribe((state) => {
         this.headerOptions = state.headerOptions;
-        console.log(state.headerOptions);
         this.sidenavOptions = state.sidenavOptions;
         /**
          * TODO:
