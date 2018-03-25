@@ -1,0 +1,6 @@
+<div class="container-center loose" [formGroup]="formGroup">
+  <h2>Select an option.</h2>
+  <div *ngFor="let toggleOption of toggleOptions">
+    <mat-slide-toggle (change)="setSelectedToggleOption($event, toggleOption)">{{toggleOption}}</mat-slide-toggle>
+  </div>
+</div>

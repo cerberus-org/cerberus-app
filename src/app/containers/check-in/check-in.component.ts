@@ -25,9 +25,11 @@ export class CheckInComponent implements OnInit, OnDestroy {
   volunteers: Volunteer[];
   organizationId: string;
   siteId: string;
+  toggleOptions: string[];
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute) {
+    this.toggleOptions = ['I am a new volunteer.', 'I am an exisiting volunteer'];
   }
 
   ngOnInit(): void {
@@ -75,5 +77,9 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
   onNewVolunteer(volunteer: Volunteer): void {
     this.store.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
+  }
+
+  onSelectedToggleOption(string: boolean): void {
+
   }
 }
