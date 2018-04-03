@@ -1,4 +1,12 @@
-.mat-stepper-horizontal, .mat-stepper-vertical {
-  height: 100%;
-  background-color: #fafafa;
+/deep/ {
+
+  .mat-horizontal-stepper-header-container {
+    max-width: 30rem;
+    margin: auto;
+  }
+
+  .mat-stepper-horizontal, .mat-stepper-vertical {
+    height: 100%;
+    background-color: #fafafa;
+  }
 }
