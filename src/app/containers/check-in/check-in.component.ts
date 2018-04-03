@@ -25,13 +25,11 @@ export class CheckInComponent implements OnInit, OnDestroy {
   volunteers: Volunteer[];
   organizationId: string;
   siteId: string;
-  toggleOptions: string[];
   checkInOutFormTitle: string;
   checkInOutStepperTitle: string;
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute) {
-    this.toggleOptions = ['I am a new volunteer.', 'I am an existing volunteer.'];
     this.checkInOutFormTitle = 'Test';
   }
 
@@ -90,8 +88,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.store.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
   }
 
-  onSelectedToggleOption(selectedToggleOption: string): void {
-    selectedToggleOption === this.toggleOptions[0] ?
-      this.stepper.next() : this.stepper.selectedIndex = 2;
+  onIsExistingVolunteer(isExisitingVolunteer: boolean): void {
+    !isExisitingVolunteer ? this.stepper.next() : this.stepper.selectedIndex = 2;
   }
 }

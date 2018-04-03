@@ -92,7 +92,6 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
-import { ToggleOptionsFormComponent } from './components/toggle-options-form/toggle-options-form.component';
 
 @NgModule({
   declarations: [
@@ -123,7 +122,6 @@ import { ToggleOptionsFormComponent } from './components/toggle-options-form/tog
     EmailDialogComponent,
     PublicOrganizationDashboardComponent,
     HomeComponent,
-    ToggleOptionsFormComponent,
   ],
   imports: [
     AngularFireAuthModule,
