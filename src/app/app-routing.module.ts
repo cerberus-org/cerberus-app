@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'dashboard', component: OrganizationDashboardComponent, canActivate: [LoginGuard] },
   { path: 'checkin/:id', component: CheckInComponent, canActivate: [LoginGuard] },
+  { path: 'checkout/:id', component: CheckInComponent, canActivate: [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },
   { path: 'join', component: JoinPageComponent },
   { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
