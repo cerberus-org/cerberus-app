@@ -38,6 +38,8 @@ export class CheckInComponent implements OnInit, OnDestroy {
       'Enter your name to check in.' : 'Enter your name to check out.';
     this.checkInOutStepperTitle = this.isCheckIn(window.location.href) ?
       'Check In' : 'Check Out';
+    this.stepper.selectedIndex = this.isCheckIn(window.location.href) ?
+      0 : 2;
 
     this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
     this.appSubscription = this.store.select('auth')
