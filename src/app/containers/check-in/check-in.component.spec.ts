@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatTabsModule } from '@angular/material';
+import { MatStepperModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
@@ -29,6 +29,7 @@ describe('CheckInComponent', () => {
         MatTabsModule,
         NoopAnimationsModule,
         RouterTestingModule,
+        MatStepperModule,
         StoreModule.forRoot(reducers),
       ],
     })

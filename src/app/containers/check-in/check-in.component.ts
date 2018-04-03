@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatTabGroup } from '@angular/material';
+import { MatVerticalStepper } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -17,23 +17,31 @@ import { State } from '../../reducers';
 })
 export class CheckInComponent implements OnInit, OnDestroy {
   private appSubscription: Subscription;
-  private checkInSubscription: Subscription;
   private modelSubscription: Subscription;
 
-  @ViewChild('tabGroup') tabGroup: MatTabGroup;
+  @ViewChild('stepper') stepper: MatVerticalStepper;
 
   visits: Visit[];
   volunteers: Volunteer[];
   organizationId: string;
   siteId: string;
+  checkInOutFormTitle: string;
+  checkInOutStepperTitle: string;
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute) {
+    this.checkInOutFormTitle = 'Test';
   }
 
   ngOnInit(): void {
-    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.checkInOutFormTitle = this.isCheckIn(window.location.href) ?
+      'Enter your name to check in.' : 'Enter your name to check out.';
+    this.checkInOutStepperTitle = this.isCheckIn(window.location.href) ?
+      'Check In' : 'Check Out';
+    this.stepper.selectedIndex = this.isCheckIn(window.location.href) ?
+      0 : 2;
 
+    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
     this.appSubscription = this.store.select('auth')
       .map(state => state.organization)
       .subscribe((organization) => {
@@ -48,11 +56,6 @@ export class CheckInComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.checkInSubscription = this.store.select('checkIn')
-      .subscribe((state) => {
-        this.tabGroup.selectedIndex = state.selectedTabIndex;
-      });
-
     this.modelSubscription = this.store.select('model')
       .subscribe((state) => {
         this.visits = state.visits;
@@ -62,12 +65,13 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.store.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
+  isCheckIn(url): boolean {
+    return url.split('/')[3] === 'checkin';
+  }
+
   ngOnDestroy(): void {
     if (this.appSubscription) {
       this.appSubscription.unsubscribe();
-    }
-    if (this.checkInSubscription) {
-      this.checkInSubscription.unsubscribe();
     }
     if (this.modelSubscription) {
       this.modelSubscription.unsubscribe();
@@ -84,5 +88,9 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
   onNewVolunteer(volunteer: Volunteer): void {
     this.store.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
+  }
+
+  onIsExistingVolunteer(isExisitingVolunteer: boolean): void {
+    !isExisitingVolunteer ? this.stepper.next() : this.stepper.selectedIndex = 2;
   }
 }

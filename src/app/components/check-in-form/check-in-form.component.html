@@ -2,7 +2,7 @@
       [formGroup]="formGroup"
       (ngSubmit)="submit()">
   <div class="container-center">
-    <h2>Enter your name to check in or check out.</h2>
+    <h2>{{title}}</h2>
   </div>
   <div class="container-center field-container">
     <mat-form-field>
@@ -37,7 +37,7 @@
         <button mat-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">
           Clear
         </button>
-        <button mat-raised-button color="primary" [disabled]="formGroup.invalid">
+        <button matStepperNext mat-raised-button color="primary" [disabled]="formGroup.invalid">
           Check In
         </button>
       </div>
@@ -45,7 +45,7 @@
     <!--Show the check out button if there is currently an active visit-->
     <ng-template #checkOut>
       <div class="container-center check-out-container" [@fadeInTrigger]="fadeInState">
-        <button mat-raised-button color="primary">Check Out</button>
+        <button matStepperNext mat-raised-button color="primary">Check Out</button>
       </div>
     </ng-template>
   </ng-container>

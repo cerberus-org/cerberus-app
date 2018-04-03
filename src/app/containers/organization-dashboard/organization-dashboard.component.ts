@@ -20,7 +20,8 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
   sites: Site[];
   visits$: Observable<Visit[]>;
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<State>) {
+  }
 
   ngOnInit(): void {
     this.appSubscription = this.store.select('auth')
@@ -44,11 +45,23 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
       .subscribe((sites) => {
         if (sites) {
           this.store.dispatch(new AppActions.SetSidenavOptions(
-            sites.map(site => new SidenavOptions(
-              'Record Visit',
-              'check_circle',
-              new RouterActions.Go({ path: [`/checkin/${site.id}`] }),
-            )),
+            sites.reduce(
+              (options, site) => options.concat(
+                [
+                  new SidenavOptions(
+                    'Check In',
+                    'done',
+                    new RouterActions.Go({ path: [`/checkin/${site.id}`] }),
+                  ),
+                  new SidenavOptions(
+                    'Check Out',
+                    'done_all',
+                    new RouterActions.Go({ path: [`/checkout/${site.id}`] }),
+                  ),
+                ],
+              ),
+              [],
+            ),
           ));
         }
       });
