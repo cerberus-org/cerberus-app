@@ -24,7 +24,10 @@
       <button mat-raised-button color="primary" (click)="onNext(3)" [disabled]="!validUser">Next</button>
     </div>
   </mat-tab>
-  <mat-tab label="4. Confirm" [disabled]="step < 3 || !validOrganization || !validUser">
+  <mat-tab label="4. Terms of Service">
+    <app-terms-of-service></app-terms-of-service>
+  </mat-tab>
+  <mat-tab label="5. Confirm" [disabled]="step < 4 || !validOrganization || !validUser">
     <app-organization-confirm [organization]="validOrganization" [user]="validUser"></app-organization-confirm>
     <div class="container-submit">
       <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>

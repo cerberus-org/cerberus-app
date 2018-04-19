@@ -92,6 +92,8 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
+import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -122,6 +124,7 @@ import { VerificationGuard } from './verification-guard';
     EmailDialogComponent,
     PublicOrganizationDashboardComponent,
     HomeComponent,
+    TermsOfServiceComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -165,6 +168,7 @@ import { VerificationGuard } from './verification-guard';
     MatStepperModule,
     ReactiveFormsModule,
     SignaturePadModule,
+    PdfViewerModule,
     StoreModule.forRoot(reducers),
     StoreRouterConnectingModule,
   ],
@@ -184,5 +188,5 @@ import { VerificationGuard } from './verification-guard';
   bootstrap: [AppComponent],
   entryComponents: [PasswordDialogComponent, EmailDialogComponent],
 })
-export class AppModule {
-}
+export class AppModule {}
+
