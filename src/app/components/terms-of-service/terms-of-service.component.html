@@ -1,10 +1,9 @@
 <form class="container-center loose" [formGroup]="formGroup">
-    <iframe width="900px" style="height: 95vh" src="https://app.termly.io/document/terms-of-use-for-website/bf514bf4-f102-46da-9da9-dfc8fe925ffc" frameborder="0" allowfullscreen>
-      <p>Your browser does not support iframes.</p>
-    </iframe>
-    <div class="container-center">
-      <app-signature-field formControlName="signatureField" formControlName="signatureField"></app-signature-field>
-    </div>
+    <mat-card class="card-terms">
+      <iframe width="900px" style="height: 95vh" src="https://app.termly.io/document/terms-of-use-for-website/bf514bf4-f102-46da-9da9-dfc8fe925ffc" frameborder="0" allowfullscreen>
+        <p>Your browser does not support iframes.</p>
+      </iframe>
+    </mat-card>
     <div class="container-center actions-container">
       <button mat-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">
         Clear
