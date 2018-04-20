@@ -1,7 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
-import { SignatureFieldComponent } from '../signature-field/signature-field.component';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-terms-of-service',
@@ -10,26 +7,13 @@ import { SignatureFieldComponent } from '../signature-field/signature-field.comp
 })
 export class TermsOfServiceComponent implements OnInit {
 
-  formGroup: FormGroup;
-  @ViewChildren(SignatureFieldComponent) signatures: QueryList<SignatureFieldComponent>;
+  @Output() isTosChecked = new EventEmitter();
 
-  constructor(private fb: FormBuilder) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.formGroup = this.createForm();
+  ngOnInit() {}
+
+  onCheck (e) {
+    this.isTosChecked.emit(e.checked);
   }
-
-  createForm(): FormGroup {
-    return this.fb.group({
-      terms: [''],
-      signatureField: ['', Validators.required],
-    });
-  }
-
-  clearSignature(): void {
-    if (this.signatures.first) {
-      this.signatures.first.clear();
-    }
-  }
-
 }
