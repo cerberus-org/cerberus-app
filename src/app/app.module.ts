@@ -56,6 +56,7 @@ import {
   ReportsFormComponent,
   SidenavComponent,
   SignatureFieldComponent,
+  TermsOfServiceComponent,
   UserFormComponent,
   VolunteerMenuComponent,
 } from './components';
@@ -92,8 +93,6 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
-import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
-import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -168,7 +167,6 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
     MatStepperModule,
     ReactiveFormsModule,
     SignaturePadModule,
-    PdfViewerModule,
     StoreModule.forRoot(reducers),
     StoreRouterConnectingModule,
   ],
