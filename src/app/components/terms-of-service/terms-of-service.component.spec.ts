@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MatCardModule, MatCheckboxModule, MatInputModule } from '@angular/material';
 import { TermsOfServiceComponent } from './terms-of-service.component';
 
 describe('TermsOfServiceComponent', () => {
@@ -8,7 +9,11 @@ describe('TermsOfServiceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TermsOfServiceComponent ]
+      declarations: [TermsOfServiceComponent],
+      imports: [
+        MatCardModule,
+        MatCheckboxModule,
+      ],
     })
     .compileComponents();
   }));
