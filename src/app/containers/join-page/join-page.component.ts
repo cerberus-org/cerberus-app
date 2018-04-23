@@ -33,6 +33,7 @@ export class JoinPageComponent implements OnInit {
   userFormTitle: string;
   organizations: Organization[];
   modelSubscription: Subscription;
+  isTosChecked: boolean;
 
   constructor(private authService: AuthService,
               private organizationService: OrganizationService,
@@ -60,6 +61,15 @@ export class JoinPageComponent implements OnInit {
    */
   onValidUser(user: User) {
     this.validUser = user;
+  }
+
+  /**
+   * Handles isTosChecked by setting isTosChecked.
+   *
+   * @param {boolean} isChecked
+   */
+  onTosChecked(isChecked: boolean) {
+    this.isTosChecked = isChecked;
   }
 
   /**

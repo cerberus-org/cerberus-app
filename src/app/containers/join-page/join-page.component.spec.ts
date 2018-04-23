@@ -20,6 +20,7 @@ describe('JoinPageComponent', () => {
       declarations: [JoinPageComponent,
         MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
         MockComponent({ selector: 'app-find-organization' }),
+        MockComponent({ selector: 'app-terms-of-service' }),
       ],
       imports: [
         StoreModule.forRoot(reducers),
@@ -44,6 +45,11 @@ describe('JoinPageComponent', () => {
   it('should handle userChanges events by setting userChanges', () => {
     component.onValidUser(testUsers[0]);
     expect(component.validUser).toBe(testUsers[0]);
+  });
+
+  it('should handle check box change events by setting isTosChecked', () => {
+    component.onTosChecked(true);
+    expect(component.isTosChecked).toBe(true);
   });
 
   it('should get Organization by name', () => {
