@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
 
+import { MatVerticalStepper } from '@angular/material';
 import { HeaderOptions, Organization, User } from '../../models';
 import { State } from '../../reducers';
 import { AuthService, ErrorService, OrganizationService, SnackBarService } from '../../services';
@@ -24,6 +25,8 @@ export class JoinPageComponent implements OnInit {
     '/home',
     false,
   );
+
+  @ViewChild('stepper') stepper: MatVerticalStepper;
 
   validInput: string;
   validUser: User;
@@ -78,6 +81,10 @@ export class JoinPageComponent implements OnInit {
     return this.organizations.find((organization: Organization) => {
       return organization.name === organizationName;
     });
+  }
+
+  onNext(index: number): void {
+    this.stepper.selectedIndex = index;
   }
 
   /**

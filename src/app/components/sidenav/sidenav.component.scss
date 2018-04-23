@@ -11,7 +11,7 @@ mat-sidenav {
 
 // Allows for vertical scrolling when page content overflows below footer
 mat-sidenav-content {
-  max-height: calc(100vh - #{$mat-toolbars-height-desktop});
+  max-height: calc(100vh - #{$mat-toolbar-height-desktop});
 
   @media ($mat-xsmall) {
     max-height: calc(100vh - #{$mat-toolbar-height-mobile});

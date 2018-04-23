@@ -58,8 +58,8 @@ export class ModelEffects {
   @Effect()
   loadOrganizations$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_ORGANIZATIONS)
     .map((action: ModelActions.LoadOrganizations) => action)
-    .switchMap(organizations => this.organizationService
-      .getAll()
+    .switchMap(() => this.organizationService
+      .getAll(true)
       .map(organizations => new ModelActions.LoadOrganizationsSuccess(organizations)));
 
   constructor(private actions: Actions,

@@ -56,6 +56,7 @@ import {
   ReportsFormComponent,
   SidenavComponent,
   SignatureFieldComponent,
+  TermsOfServiceComponent,
   UserFormComponent,
   VolunteerMenuComponent,
 } from './components';
@@ -122,6 +123,7 @@ import { VerificationGuard } from './verification-guard';
     EmailDialogComponent,
     PublicOrganizationDashboardComponent,
     HomeComponent,
+    TermsOfServiceComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -184,5 +186,5 @@ import { VerificationGuard } from './verification-guard';
   bootstrap: [AppComponent],
   entryComponents: [PasswordDialogComponent, EmailDialogComponent],
 })
-export class AppModule {
-}
+export class AppModule {}
+
