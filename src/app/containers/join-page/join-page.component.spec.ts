@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
+import { MatStepperModule } from '@angular/material';
 import { JoinPageComponent } from '../../containers';
 import { testOrganizations, testUsers } from '../../models';
 import { reducers } from '../../reducers';
@@ -22,6 +23,8 @@ describe('JoinPageComponent', () => {
       ],
       imports: [
         StoreModule.forRoot(reducers),
+        MatStepperModule,
+        BrowserAnimationsModule,
       ],
       providers: [].concat(mockServiceProviders),
     })
