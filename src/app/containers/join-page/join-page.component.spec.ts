@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
+import { MatStepperModule } from '@angular/material';
 import { JoinPageComponent } from '../../containers';
 import { testOrganizations, testUsers } from '../../models';
 import { reducers } from '../../reducers';
@@ -19,9 +20,12 @@ describe('JoinPageComponent', () => {
       declarations: [JoinPageComponent,
         MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
         MockComponent({ selector: 'app-find-organization' }),
+        MockComponent({ selector: 'app-terms-of-service' }),
       ],
       imports: [
         StoreModule.forRoot(reducers),
+        MatStepperModule,
+        BrowserAnimationsModule,
       ],
       providers: [].concat(mockServiceProviders),
     })
@@ -41,6 +45,11 @@ describe('JoinPageComponent', () => {
   it('should handle userChanges events by setting userChanges', () => {
     component.onValidUser(testUsers[0]);
     expect(component.validUser).toBe(testUsers[0]);
+  });
+
+  it('should handle check box change events by setting isTosChecked', () => {
+    component.onTosChecked(true);
+    expect(component.isTosChecked).toBe(true);
   });
 
   it('should get Organization by name', () => {
