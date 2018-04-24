@@ -30,6 +30,7 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
   step: number;
   validOrganization: Organization;
   validUser: User;
+  isTosChecked: boolean;
 
   constructor(private store: Store<State>) {
     this.userFormTitle = 'Create an account to access your organization.';
@@ -53,6 +54,10 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
     if (this.gettingStartedSubscription) {
       this.gettingStartedSubscription.unsubscribe();
     }
+  }
+
+  onTosChecked(isChecked: boolean) {
+    this.isTosChecked = isChecked;
   }
 
   onValidOrganization(organization: Organization): void {
