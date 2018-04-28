@@ -49,12 +49,12 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
               (options, site) => options.concat(
                 [
                   new SidenavOptions(
-                    'Check In',
+                    'Check in',
                     'done',
                     new RouterActions.Go({ path: [`/checkin/${site.id}`] }),
                   ),
                   new SidenavOptions(
-                    'Check Out',
+                    'Check out',
                     'done_all',
                     new RouterActions.Go({ path: [`/checkout/${site.id}`] }),
                   ),

@@ -37,7 +37,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.checkInOutFormTitle = this.isCheckIn(window.location.href) ?
       'Enter your name to check in.' : 'Enter your name to check out.';
     this.checkInOutStepperTitle = this.isCheckIn(window.location.href) ?
-      'Check In' : 'Check Out';
+      'Check in' : 'Check out';
     this.stepper.selectedIndex = this.isCheckIn(window.location.href) ?
       0 : 2;
 

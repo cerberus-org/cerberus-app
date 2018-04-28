@@ -112,7 +112,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Used to determine if header "Log Out" button should be displayed.
+   * Used to determine if header "Log out" button should be displayed.
    * @returns {boolean} - true if logged in
    */
   get isLoggedIn() {
