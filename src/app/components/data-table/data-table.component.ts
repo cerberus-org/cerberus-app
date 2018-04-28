@@ -3,9 +3,11 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material';
@@ -62,7 +64,7 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
-export class DataTableComponent implements OnInit {
+export class DataTableComponent implements OnInit, OnChanges {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
@@ -74,20 +76,42 @@ export class DataTableComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  /**
+   * Initializes the data source on changes to data$.
+   * @param {SimpleChanges} changes - the changes for data$
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data$']) {
+      this.dataSource = new DataTableSource(changes['data$'].currentValue, this.paginator);
+    }
+  }
+
+  /**
+   * Sets the initial page size and columns to display.
+   */
   ngOnInit(): void {
     // Determine initial page size using inner height of window at component init
-    const surroundingElementsPx = 281;
+    const surroundingElementsPx = 217;
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
-    this.dataSource = new DataTableSource(this.data$, this.paginator);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
     if (this.showDelete) {
       this.displayedColumns.push('delete');
     }
   }
 
-  isDataSourceAndData(): boolean {
-    return this.dataSource && this.dataSource.data ? true : false;
+  /**
+   * Getter for number of data items in the data source.
+   * @returns {number} - the length of the data array in this.dataSource
+   */
+  get dataLength(): number {
+    return !!(this.dataSource && this.dataSource.data) ? this.dataSource.data.length : null;
+  }
+
+  get pageSizeByWindowHeight(): number {
+    const surroundingElementsPx = 217;
+    const cellPx = 49;
+    return Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
   }
 
   /**
@@ -104,7 +128,7 @@ export class DataTableComponent implements OnInit {
    * @param item - the table item to modify
    * @param key - the property to modify
    */
-  onSelectOption(value, item, key) {
+  onSelectOption(value, item, key): void {
     const itemCopy = Object.assign({}, item);
     itemCopy[key] = value;
     this.updateItem.emit(itemCopy);

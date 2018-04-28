@@ -2,8 +2,6 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@ang
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
-
-import * as AppActions from './actions/app.actions';
 import * as LoginActions from './actions/login.actions';
 import * as ModelActions from './actions/model.actions';
 import * as RouterActions from './actions/router.actions';
