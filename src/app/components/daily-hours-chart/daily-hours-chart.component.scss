@@ -6,7 +6,7 @@
 }
 
 .graph {
-  max-height: calc(99.9vh - #{$mat-toolbars-height-desktop} - #{$mat-tab-bar-height});
+  max-height: calc(99.9vh - #{$mat-toolbar-height-desktop} - #{$mat-tab-bar-height});
   max-width: 100%;
 
   @media ($mat-xsmall) {
