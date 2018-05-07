@@ -1,11 +1,11 @@
 import { getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
+import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { testVolunteers } from '../models';
 
 import { BaseService } from './base.service';
 import { ErrorService, MockErrorService } from './error.service';
-import 'rxjs/add/operator/map';
 
 describe('BaseService', () => {
   let service: BaseService<any> = null;
@@ -14,6 +14,19 @@ describe('BaseService', () => {
     collection(someString) {
       return {
         valueChanges: () => Observable.from(testVolunteers.slice()),
+        snapshotChanges: () => Observable.from(testVolunteers.slice()
+          .map((item) => {
+            const id = item.id;
+            delete item.id;
+            return {
+              payload: {
+                doc: {
+                  id,
+                  data: () => item,
+                },
+              },
+            };
+          })),
       };
     }
   }
@@ -34,16 +47,13 @@ describe('BaseService', () => {
     expect(baseService).toBeTruthy();
   }));
 
-  it('should get value changes from a collection', () => {
+  it('should get all data from a collection using valueChanges', () => {
     service.getAll().subscribe((data) => {
       expect(data).toEqual(testVolunteers);
     });
   });
 
-  xit('should get snapshot changes from a collection', () => {
-    spyOn<any>(service.collection, 'valueChanges').and.returnValue(
-      Observable.from(testVolunteers.slice()),
-    );
+  it('should get all data from a collection using snapshotChanges', () => {
     service.getAll(true).map((data) => {
       expect(data).toEqual(testVolunteers);
     });
