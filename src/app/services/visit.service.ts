@@ -17,6 +17,15 @@ export class VisitService extends BaseService<Visit> {
     super(db, errorService);
   }
 
+  getByOrganizationIdAndDateRange(organizationId: string, startDate: Date, endDate: Date, snapshot?: boolean): Observable<Visit[]> {
+    return this.getDataFromCollection(
+      snapshot,
+      this.db.collection<Visit>(this.collectionName, ref => ref
+        .where('organizationId', '==', organizationId)
+        .orderBy('startedAt').startAt(startDate).endAt(endDate)),
+    );
+  }
+
   private convertDates(visit: Visit): Visit {
     return Object.assign({}, visit, {
       startedAt: new Date(visit.startedAt),
@@ -66,7 +75,7 @@ export class MockVisitService extends VisitService {
       .find(visit => visit.id === id));
   }
 
-  getByDateAndOrganization(startDate: Date, endDate: Date, organizationId: string, snapshot?: boolean): Observable<Visit[]> {
+  getByOrganizationIdAndDateRange(startDate: Date, endDate: Date, organizationId: string, snapshot?: boolean): Observable<Visit[]> {
     return Observable.of(testVisits
       .filter(visit =>
         visit.startedAt >= startDate &&

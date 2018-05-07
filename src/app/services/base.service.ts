@@ -69,15 +69,6 @@ export abstract class BaseService<T extends { id: string }> {
     );
   }
 
-  getByDateAndOrganization(startDate: Date, endDate: Date, organizationId: string, snapshot?: boolean): Observable<T[]> {
-    return this.getDataFromCollection(
-      snapshot,
-      this.db.collection<T>(this.collectionName, ref => ref
-        .where('organizationId', '==', organizationId)
-        .orderBy('startedAt').startAt(startDate).endAt(endDate)),
-    );
-  }
-
   /**
    * Gets a document's data from a collection by ID.
    * @param id - the ID for the document.
