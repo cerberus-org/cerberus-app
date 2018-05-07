@@ -6,16 +6,37 @@ import { testVolunteers } from '../models';
 
 import { BaseService } from './base.service';
 import { ErrorService, MockErrorService } from './error.service';
+import createSpy = jasmine.createSpy;
 
 describe('BaseService', () => {
   let service: BaseService<any> = null;
+  let angularFirestoreStub;
+  let whereSpy;
+  let orderBySpy;
 
-  class AngularFirestoreStub {
-    collection(someString) {
-      return {
-        valueChanges: () => Observable.from(testVolunteers.slice()),
-        snapshotChanges: () => Observable.from(testVolunteers.slice()
-          .map((item) => {
+  beforeEach(() => {
+    angularFirestoreStub = {
+      collection(path, queryFn) {
+        let items = testVolunteers.slice();
+        if (queryFn) {
+          const ref = {
+            where: whereSpy = createSpy('where').and.callFake(function () {
+              items = items.filter(item => item.firstName === 'Ted');
+              return this;
+            }),
+            orderBy: orderBySpy = createSpy('orderBy').and.callFake(function () {
+              return this;
+            }),
+          };
+          queryFn(ref);
+        }
+        return {
+          ref: {
+            where: whereSpy,
+            orderBy: orderBySpy,
+          },
+          valueChanges: () => Observable.from(items),
+          snapshotChanges: () => Observable.from(items.map((item) => {
             const id = item.id;
             delete item.id;
             return {
@@ -27,15 +48,13 @@ describe('BaseService', () => {
               },
             };
           })),
-      };
-    }
-  }
-
-  beforeEach(() => {
+        };
+      },
+    };
     TestBed.configureTestingModule({
       providers: [
         BaseService,
-        { provide: AngularFirestore, useClass: AngularFirestoreStub },
+        { provide: AngularFirestore, useValue: angularFirestoreStub },
         { provide: ErrorService, useClass: MockErrorService },
       ],
     });
@@ -48,14 +67,32 @@ describe('BaseService', () => {
   }));
 
   it('should get all data from a collection using valueChanges', () => {
-    service.getAll().subscribe((data) => {
+    service.getAll(false).subscribe((data) => {
       expect(data).toEqual(testVolunteers);
     });
   });
 
   it('should get all data from a collection using snapshotChanges', () => {
-    service.getAll(true).map((data) => {
+    service.getAll(true).subscribe((data) => {
       expect(data).toEqual(testVolunteers);
     });
+  });
+
+  it('should get all data from a collection by a key and value using valueChanges', () => {
+    const key = 'firstName';
+    const value = 'Ted';
+    service.getByKey('firstName', 'Ted', false).subscribe((data) => {
+      expect(data).toEqual(testVolunteers.filter(item => item.firstName === 'Ted'));
+    });
+    expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
+  });
+
+  it('should get all data from a collection by a key and value using snapshotChanges', () => {
+    const key = 'firstName';
+    const value = 'Ted';
+    service.getByKey('firstName', 'Ted', true).subscribe((data) => {
+      expect(data).toEqual(testVolunteers.filter(item => item.firstName === 'Ted'));
+    });
+    expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
   });
 });

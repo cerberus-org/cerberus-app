@@ -28,7 +28,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @param {AngularFirestoreCollection<T extends {id: string}>} collection
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
-  private getDataFromCollection(snapshot: boolean, collection: AngularFirestoreCollection<T>): Observable<T[]> {
+  getDataFromCollection(snapshot: boolean, collection: AngularFirestoreCollection<T>): Observable<T[]> {
     return (
       snapshot
         ? collection.snapshotChanges()
