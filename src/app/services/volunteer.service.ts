@@ -11,9 +11,10 @@ import { ErrorService } from './error.service';
 
 @Injectable()
 export class VolunteerService extends BaseService<Volunteer> {
+  collectionName = 'volunteers';
 
   constructor(protected db: AngularFirestore, protected errorService: ErrorService) {
-    super(db, errorService, 'volunteers');
+    super(db, errorService);
   }
 
   /**

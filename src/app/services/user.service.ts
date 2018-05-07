@@ -7,16 +7,17 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import { testUsers, User } from '../models/user';
+import { testUsers, User } from '../models';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';
 
 @Injectable()
 export class UserService extends BaseService<User> {
+  collectionName = 'users';
 
   constructor(protected db: AngularFirestore,
               protected errorService: ErrorService) {
-    super(db, errorService, 'users');
+    super(db, errorService);
   }
 
   /**

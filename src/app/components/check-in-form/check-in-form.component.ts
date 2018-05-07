@@ -150,21 +150,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Subscribes to the form group and attempts to select an active visit
-   * if a newVolunteer is selected.
-   */
-  subscribeToForm(): Subscription {
-    return this.formGroup.valueChanges
-      .subscribe(() => {
-        // Uses values set in filterAndSelect invoked by nameValidator
-        this.autocompleteNames = getUniqueNames(this.filteredVolunteers);
-        this.activeVisit = this.selectedVolunteer
-          ? findActiveVisit(this.visits, this.selectedVolunteer)
-          : null;
-      });
-  }
-
-  /**
    * Updates state when a pet name is selected.
    * @param petName - the selected petName
    */
@@ -222,6 +207,21 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
       petName: ['', this.petNameValidator],
       signatureField: ['', this.signatureValidator],
     });
+  }
+
+  /**
+   * Subscribes to the form group and attempts to select an active visit
+   * if a newVolunteer is selected.
+   */
+  subscribeToForm(): Subscription {
+    return this.formGroup.valueChanges
+      .subscribe(() => {
+        // Uses values set in filterAndSelect invoked by nameValidator
+        this.autocompleteNames = getUniqueNames(this.filteredVolunteers);
+        this.activeVisit = this.selectedVolunteer
+          ? findActiveVisit(this.visits, this.selectedVolunteer)
+          : null;
+      });
   }
 
   // Signature Field

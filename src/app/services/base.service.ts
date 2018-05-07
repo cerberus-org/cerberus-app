@@ -1,4 +1,5 @@
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -6,15 +7,16 @@ import { Observable } from 'rxjs/Observable';
 
 import { ErrorService } from './error.service';
 
+@Injectable()
 export abstract class BaseService<T extends { id: string }> {
-  public collection: AngularFirestoreCollection<T>;
+  abstract collectionName: string;
 
   constructor(protected db: AngularFirestore,
-              protected errorService: ErrorService,
-              protected collectionName: string) {
-    if (db) {
-      this.collection = db.collection<T>(collectionName);
-    }
+              protected errorService: ErrorService) {
+  }
+
+  get collection() {
+    return this.db ? this.db.collection<T>(this.collectionName) : null;
   }
 
   /**
@@ -26,9 +28,9 @@ export abstract class BaseService<T extends { id: string }> {
     return snapshot
       ? this.collection.snapshotChanges()
         .map((actions) => {
-          return actions.map((a) => {
-            const data = a.payload.doc.data() as T;
-            const id = a.payload.doc.id;
+          return actions.map((action) => {
+            const data = action.payload.doc.data() as T;
+            const id = action.payload.doc.id;
             return this.convertIn(Object.assign(data, { id }));
           });
         })
