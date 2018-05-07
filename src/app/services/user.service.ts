@@ -26,7 +26,7 @@ export class UserService extends BaseService<User> {
    * @param user
    * @returns {any}
    */
-  convertOut(user: User): User {
+  protected convertOut(user: User): User {
     const userCopy = Object.assign({}, user);
     delete userCopy.password;
     delete userCopy.email;
@@ -38,7 +38,7 @@ export class UserService extends BaseService<User> {
    * @param user
    * @returns {any}
    */
-  convertIn(user: User): User {
+  protected convertIn(user: User): User {
     return this.capitalize(user);
   }
 
@@ -66,13 +66,11 @@ export class MockUserService extends UserService {
   }
 
   getByKey(key: string, value: string): Observable<User[]> {
-    return Observable.of(testUsers
-      .filter(user => user[key] === value));
+    return Observable.of(testUsers.filter(user => user[key] === value));
   }
 
   getById(id: string): Observable<User> {
-    return Observable.of(testUsers
-      .find(user => user.id === id));
+    return Observable.of(testUsers.find(user => user.id === id));
   }
 
   add(user: User): Observable<User> {

@@ -12,7 +12,7 @@ import { ErrorService } from './error.service';
 
 @Injectable()
 export abstract class BaseService<T extends { id: string }> {
-  abstract collectionName: string;
+  protected abstract collectionName: string;
 
   constructor(protected db: AngularFirestore,
               protected errorService: ErrorService) {
@@ -129,7 +129,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @param data
    * @returns {any}
    */
-  convertIn(data) {
+  protected convertIn(data) {
     return data;
   }
 
@@ -138,7 +138,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @param data
    * @return {any}
    */
-  convertOut(data) {
+  protected convertOut(data) {
     return data;
   }
 }

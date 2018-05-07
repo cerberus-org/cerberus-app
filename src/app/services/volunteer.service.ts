@@ -22,7 +22,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @param volunteer
    * @returns {any}
    */
-  convertOut(volunteer: Volunteer): Volunteer {
+  protected convertOut(volunteer: Volunteer): Volunteer {
     return this.capitalize(volunteer);
   }
 
@@ -31,7 +31,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @param volunteer
    * @returns {any}
    */
-  convertIn(volunteer: Volunteer): Volunteer {
+  protected convertIn(volunteer: Volunteer): Volunteer {
     return this.capitalize(volunteer);
   }
 
@@ -63,13 +63,11 @@ export class MockVolunteerService extends VolunteerService {
   }
 
   getByKey(key: string, value: string): Observable<Volunteer[]> {
-    return Observable.of(testVolunteers
-      .filter(volunteer => volunteer[key] === value));
+    return Observable.of(testVolunteers.filter(volunteer => volunteer[key] === value));
   }
 
   getById(id: string): Observable<Volunteer> {
-    return Observable.of(testVolunteers
-      .find(volunteer => volunteer.id === id));
+    return Observable.of(testVolunteers.find(volunteer => volunteer.id === id));
   }
 
   add(volunteer: Volunteer): Observable<Volunteer> {

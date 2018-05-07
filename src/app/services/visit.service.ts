@@ -10,14 +10,21 @@ import { ErrorService } from './error.service';
 
 @Injectable()
 export class VisitService extends BaseService<Visit> {
-  collectionName = 'visits';
+  protected collectionName = 'visits';
 
-  constructor(protected db: AngularFirestore,
-              protected errorService: ErrorService) {
+  constructor(
+    protected db: AngularFirestore,
+    protected errorService: ErrorService,
+  ) {
     super(db, errorService);
   }
 
-  getByOrganizationIdAndDateRange(organizationId: string, startDate: Date, endDate: Date, snapshot?: boolean): Observable<Visit[]> {
+  getByOrganizationIdAndDateRange(
+    organizationId: string,
+    startDate: Date,
+    endDate: Date,
+    snapshot?: boolean,
+  ): Observable<Visit[]> {
     return this.getDataFromCollection(
       snapshot,
       this.db.collection<Visit>(this.collectionName, ref => ref
@@ -38,7 +45,7 @@ export class VisitService extends BaseService<Visit> {
    * @param visit
    * @returns {any}
    */
-  convertOut(visit: Visit): Visit {
+  protected convertOut(visit: Visit): Visit {
     return Object.assign({}, this.convertDates(visit), {
       signature: visit.signature ? JSON.stringify(visit.signature) : null,
     });
@@ -48,7 +55,7 @@ export class VisitService extends BaseService<Visit> {
    * Override to parse startedAt and endedAt Strings into Date objects and to destringify signature.
    * @param visit
    */
-  convertIn(visit: Visit): Visit {
+  protected convertIn(visit: Visit): Visit {
     return Object.assign({}, this.convertDates(visit), {
       signature: visit.signature ? JSON.parse(visit.signature) : null,
     });
@@ -61,27 +68,30 @@ export class MockVisitService extends VisitService {
     super(null, null);
   }
 
-  getAll(): Observable<Visit[]> {
-    return Observable.of(testVisits);
-  }
-
-  getByKey(key: string, value: string): Observable<Visit[]> {
-    return Observable.of(testVisits
-      .filter(visit => visit[key] === value));
-  }
-
-  getById(id: string): Observable<Visit> {
-    return Observable.of(testVisits
-      .find(visit => visit.id === id));
-  }
-
-  getByOrganizationIdAndDateRange(startDate: Date, endDate: Date, organizationId: string, snapshot?: boolean): Observable<Visit[]> {
+  getByOrganizationIdAndDateRange(
+    organizationId: string,
+    startDate: Date,
+    endDate: Date,
+    snapshot?: boolean,
+  ): Observable<Visit[]> {
     return Observable.of(testVisits
       .filter(visit =>
         visit.startedAt >= startDate &&
         (!visit.endedAt || visit.endedAt <= endDate) &&
         visit.organizationId === organizationId,
       ));
+  }
+
+  getAll(): Observable<Visit[]> {
+    return Observable.of(testVisits);
+  }
+
+  getByKey(key: string, value: string): Observable<Visit[]> {
+    return Observable.of(testVisits.filter(visit => visit[key] === value));
+  }
+
+  getById(id: string): Observable<Visit> {
+    return Observable.of(testVisits.find(visit => visit.id === id));
   }
 
   add(visit: Visit): Observable<Visit> {

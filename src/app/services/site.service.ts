@@ -22,7 +22,7 @@ export class SiteService extends BaseService<Site> {
    * @param site
    * @returns {any}
    */
-  convertOut(site: Site) {
+  protected convertOut(site: Site) {
     return this.capitalize(site);
   }
 
@@ -31,7 +31,7 @@ export class SiteService extends BaseService<Site> {
    * @param site
    * @returns {any}
    */
-  convertIn(site: Site) {
+  protected convertIn(site: Site) {
     return this.capitalize(site);
   }
 
@@ -59,13 +59,11 @@ export class MockSiteService extends SiteService {
   }
 
   getByKey(key: string, value: string): Observable<Site[]> {
-    return Observable.of(testSites
-      .filter(site => site[key] === value));
+    return Observable.of(testSites.filter(site => site[key] === value));
   }
 
   getById(id: string): Observable<Site> {
-    return Observable.of(testSites
-      .find(site => site.id === id));
+    return Observable.of(testSites.find(site => site.id === id));
   }
 
   add(site: Site): Observable<Site> {

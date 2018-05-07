@@ -36,7 +36,7 @@ export class OrganizationService extends BaseService<Organization> {
    * @param organization
    * @returns {any}
    */
-  convertOut(organization: Organization): Organization {
+  protected convertOut(organization: Organization): Organization {
     return this.capitalize(organization);
   }
 
@@ -45,7 +45,7 @@ export class OrganizationService extends BaseService<Organization> {
    * @param organization
    * @returns {any}
    */
-  convertIn(organization: Organization): Organization {
+  protected convertIn(organization: Organization): Organization {
     return this.capitalize(organization);
   }
 }
@@ -61,13 +61,11 @@ export class MockOrganizationService extends OrganizationService {
   }
 
   getByKey(key: string, value: string): Observable<Organization[]> {
-    return Observable.of(testOrganizations
-      .filter(organization => organization[key] === value));
+    return Observable.of(testOrganizations.filter(organization => organization[key] === value));
   }
 
   getById(id: string): Observable<Organization> {
-    return Observable.of(testOrganizations
-      .find(organization => organization.id === id));
+    return Observable.of(testOrganizations.find(organization => organization.id === id));
   }
 
   add(organization: Organization): Observable<Organization> {
