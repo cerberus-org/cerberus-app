@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import {
+  AngularFirestore, AngularFirestoreCollection,
+  DocumentChangeAction,
+} from 'angularfire2/firestore';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -20,24 +23,35 @@ export abstract class BaseService<T extends { id: string }> {
   }
 
   /**
+   * Handles logic for retrieving an array of data from a given collection.
+   * @param {boolean} snapshot - use true to get objects with IDs
+   * @param {AngularFirestoreCollection<T extends {id: string}>} collection
+   * @returns {Observable<T[]>} - the Observable of data as an array of objects
+   */
+  private getDataFromCollection(snapshot: boolean, collection: AngularFirestoreCollection<T>): Observable<T[]> {
+    return (
+      snapshot
+        ? collection.snapshotChanges()
+          .map((actions: DocumentChangeAction[]) => (
+            actions.map((action: DocumentChangeAction) => {
+              const data = action.payload.doc.data() as T;
+              const id = action.payload.doc.id;
+              return this.convertIn(Object.assign(data, { id }));
+            })
+          ))
+        : collection.valueChanges()
+          .map((items: T[]) => items.map((item: T) => this.convertIn(item)))
+    )
+      .catch(error => this.errorService.handleFirebaseError(error));
+  }
+
+  /**
    * Gets the list of data from the collection.
    * @param snapshot - use true if you need a list of data with the metadata (includes document IDs)
-   * @returns {Observable<R|T>} - the Observable of data as an array of objects
+   * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
   getAll(snapshot?: boolean): Observable<T[]> {
-    return snapshot
-      ? this.collection.snapshotChanges()
-        .map((actions) => {
-          return actions.map((action) => {
-            const data = action.payload.doc.data() as T;
-            const id = action.payload.doc.id;
-            return this.convertIn(Object.assign(data, { id }));
-          });
-        })
-        .catch(error => this.errorService.handleFirebaseError(error))
-      : this.collection.valueChanges()
-        .map(item => this.convertIn(item))
-        .catch(error => this.errorService.handleFirebaseError(error));
+    return this.getDataFromCollection(snapshot, this.collection);
   }
 
   /**
@@ -45,48 +59,29 @@ export abstract class BaseService<T extends { id: string }> {
    * @param key - the key to filter by
    * @param value - the value the key should be equal to
    * @param snapshot - use true if you need a list of data with the metadata (includes document IDs)
-   * @returns {Observable<R|T>} - the Observable of data as an array of objects
+   * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
   getByKey(key: string, value: string, snapshot?: boolean): Observable<T[]> {
-    const collection = this.db.collection<T>(this.collectionName, ref => ref
-      .where(key, '==', value));
-    return snapshot
-      ? collection.snapshotChanges()
-        .map((actions) => {
-          return actions.map((action) => {
-            const data = action.payload.doc.data() as T;
-            const id = action.payload.doc.id;
-            return this.convertIn(Object.assign(data, { id }));
-          });
-        })
-        .catch(error => this.errorService.handleFirebaseError(error))
-      : collection.valueChanges()
-        .map(item => this.convertIn(item))
-        .catch(error => this.errorService.handleFirebaseError(error));
+    return this.getDataFromCollection(
+      snapshot,
+      this.db.collection<T>(this.collectionName, ref => ref
+        .where(key, '==', value)),
+    );
   }
 
   getByDateAndOrganization(startDate: Date, endDate: Date, organizationId: string, snapshot?: boolean): Observable<T[]> {
-    const collection = this.db.collection<T>(this.collectionName, ref => ref
-      .where('organizationId', '==', organizationId)
-      .orderBy('startedAt').startAt(startDate).endAt(endDate));
-    return snapshot
-      ? collection.snapshotChanges()
-        .map((actions) => {
-          return actions.map((action) => {
-            const data = action.payload.doc.data() as T;
-            return this.convertIn(data);
-          });
-        })
-        .catch(error => this.errorService.handleFirebaseError(error))
-      : collection.valueChanges() // If db is updated?
-        .map(item => this.convertIn(item))
-        .catch(error => this.errorService.handleFirebaseError(error));
+    return this.getDataFromCollection(
+      snapshot,
+      this.db.collection<T>(this.collectionName, ref => ref
+        .where('organizationId', '==', organizationId)
+        .orderBy('startedAt').startAt(startDate).endAt(endDate)),
+    );
   }
 
   /**
    * Gets a document's data from a collection by ID.
    * @param id - the ID for the document.
-   * @returns {any} - an observable containing the data.
+   * @returns {Observable<T>} - an observable containing the data.
    */
   getById(id: string): Observable<T> {
     return Observable.fromPromise(
@@ -100,7 +95,7 @@ export abstract class BaseService<T extends { id: string }> {
    * Adds a new document to a collection.
    * @param item - the item to be added
    * @param id - specify an ID, otherwise an auto-generated ID will be used
-   * @returns {Observable<R|T>} - the Observable of the snapshot of the added object
+   * @returns {Observable<T>} - the Observable of the snapshot of the added object
    */
   add(item: T, id?: string): Observable<T> {
     return Observable.fromPromise(id
@@ -119,7 +114,7 @@ export abstract class BaseService<T extends { id: string }> {
   /**
    * Non-destructively updates a document's data.
    * @param item - the item to be updated
-   * @returns {Observable<R|T>} - an empty Observable that emits when completed.
+   * @returns {Observable<any>} - an empty Observable that emits when completed.
    */
   update(item: T): Observable<any> {
     return Observable.fromPromise(
@@ -131,7 +126,7 @@ export abstract class BaseService<T extends { id: string }> {
   /**
    * Deletes an entire document. Does not delete any nested collections.
    * @param item - the item to be deleted
-   * @returns {Observable<R|T>} - an empty Observable that emits when completed.
+   * @returns {Observable<any>} - an empty Observable that emits when completed.
    */
   delete(item: T): Observable<any> {
     return Observable.fromPromise(this.collection.doc(item.id).delete())
