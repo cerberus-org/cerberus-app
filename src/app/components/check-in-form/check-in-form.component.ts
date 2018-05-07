@@ -19,7 +19,14 @@ import {
 } from '@angular/forms';
 import { MatAutocomplete } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
-import { getFullName } from '../../functions';
+import {
+  everyVolunteerMatchesName,
+  filterVolunteersByName,
+  findActiveVisit,
+  findVolunteerByName,
+  findVolunteerByPetName,
+  getUniqueNames,
+} from '../../functions';
 
 import { Visit, Volunteer } from '../../models';
 import { SignatureFieldComponent } from '../signature-field/signature-field.component';
@@ -73,7 +80,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activeVisit = null;
     this.selectedVolunteer = null;
-
     this.formGroup = this.createForm();
     this.formGroupSubscription = this.subscribeToForm();
   }
@@ -133,13 +139,13 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   updateForm(name: string): void {
     this.resetForm();
     // Create the list of filtered volunteers by name
-    this.filteredVolunteers = this.filterVolunteersByName(this.volunteers, name);
+    this.filteredVolunteers = filterVolunteersByName(this.volunteers, name);
     // If multiple volunteers all match the name, set to true
     this.showPetNameForm = this.filteredVolunteers.length > 1
-      && this.allMatchName(this.filteredVolunteers, name);
+      && everyVolunteerMatchesName(this.filteredVolunteers, name);
     // If one newVolunteer remains, select the newVolunteer that exactly matches the name
     if (!this.showPetNameForm) {
-      this.selectedVolunteer = this.selectVolunteerByName(this.filteredVolunteers, name);
+      this.selectedVolunteer = findVolunteerByName(this.filteredVolunteers, name);
     }
   }
 
@@ -151,9 +157,9 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     return this.formGroup.valueChanges
       .subscribe(() => {
         // Uses values set in filterAndSelect invoked by nameValidator
-        this.autocompleteNames = this.getUniqueNames(this.filteredVolunteers);
+        this.autocompleteNames = getUniqueNames(this.filteredVolunteers);
         this.activeVisit = this.selectedVolunteer
-          ? this.selectActiveVisit(this.visits, this.selectedVolunteer)
+          ? findActiveVisit(this.visits, this.selectedVolunteer)
           : null;
       });
   }
@@ -163,7 +169,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param petName - the selected petName
    */
   onPetNameChange(petName: string): void {
-    this.selectedVolunteer = this.selectVolunteerByPetName(this.filteredVolunteers, petName);
+    this.selectedVolunteer = findVolunteerByPetName(this.filteredVolunteers, petName);
   }
 
   // FormGroup and validators
@@ -218,76 +224,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Filtering and selection
-
-  /**
-   * Filters the volunteers by name (case-insensitive).
-   * @param volunteers - the list of volunteers to be filtered
-   * @param name - the name to filter by
-   * @returns {Volunteer[]} - the filtered list of volunteers
-   */
-  filterVolunteersByName(volunteers: Volunteer[], name: string): Volunteer[] {
-    const nameLowerCase = name.toLowerCase();
-    return volunteers
-      .filter(volunteer => this.formatName(volunteer).toLowerCase().includes(nameLowerCase));
-  }
-
-  /**
-   * Creates the list of unique newVolunteer names to be displayed on the autocomplete menu.
-   * @param volunteers - the list of volunteers
-   * @returns {Array<T>} - the list of unique names
-   */
-  getUniqueNames(volunteers: Volunteer[]): string[] {
-    return Array.from(
-      new Set(volunteers.map(volunteer => this.formatName(volunteer))),
-    );
-  }
-
-  /**
-   * Checks if all volunteers match the name (case-insensitive).
-   * @param volunteers - the list of volunteers
-   * @param name - the name used to match
-   * @returns {boolean} - true if all volunteers match the name
-   */
-  allMatchName(volunteers: Volunteer[], name: string): boolean {
-    const nameLowerCase = name.toLowerCase();
-    return volunteers.every(volunteer => (
-      this.formatName(volunteer).toLowerCase() === nameLowerCase
-    ));
-  }
-
-  /**
-   * Selects a newVolunteer by name (case-insensitive).
-   * @param volunteers - the list of volunteers
-   * @param name - string used to search by name
-   * @returns {undefined|Volunteer} - the newVolunteer or undefined if not found
-   */
-  selectVolunteerByName(volunteers: Volunteer[], name: string): Volunteer {
-    const nameLowerCase = name.toLowerCase();
-    return volunteers.find(volunteer => this.formatName(volunteer).toLowerCase() === nameLowerCase);
-  }
-
-  /**
-   * Selects a newVolunteer by petName (case-insensitive).
-   * @param volunteers - the list of volunteers
-   * @param petName - string used to search by petName
-   * @returns {undefined|Volunteer} - the newVolunteer or undefined if not found
-   */
-  selectVolunteerByPetName(volunteers: Volunteer[], petName: string): Volunteer {
-    const petNameLowerCase = petName.toLowerCase();
-    return volunteers.find(volunteer => volunteer.petName.toLowerCase() === petNameLowerCase);
-  }
-
-  /**
-   * Selects an active visit for the given newVolunteer.
-   * @param visits - the list of visits
-   * @param volunteer - the newVolunteer search by
-   * @returns {undefined|Visit} - the active visit or undefined if not found
-   */
-  selectActiveVisit(visits: Visit[], volunteer: Volunteer): Visit {
-    return visits.find(visit => visit.endedAt === null && volunteer.id === visit.volunteerId);
-  }
-
   // Signature Field
 
   /**
@@ -315,14 +251,5 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   setSignature(signature): void {
     this.signatures.first.signature.setSignatureToExistingSignature(signature);
-  }
-
-  /**
-   * Formats the name of a newVolunteer as one string.
-   * @param volunteer - the newVolunteer to use
-   * @returns {string} - the full name as a string
-   */
-  private formatName(volunteer: Volunteer): string {
-    return getFullName(volunteer);
   }
 }

@@ -1,6 +1,14 @@
 import { testVisits, testVolunteers } from '../models';
 import { formatDuration } from './date-format.functions';
-import { getVisitsWithVolunteerNames } from './helpers.functions';
+import {
+  everyVolunteerMatchesName,
+  filterVolunteersByName,
+  findActiveVisit,
+  findVolunteerByName,
+  findVolunteerByPetName,
+  getUniqueNames,
+  getVisitsWithVolunteerNames,
+} from './helpers.functions';
 
 describe('getVisitsWithVolunteerNames()', () => {
   it('should map visits to volunteers', () => {
@@ -20,5 +28,50 @@ describe('getVisitsWithVolunteerNames()', () => {
     }];
     const formatted = getVisitsWithVolunteerNames(visits, volunteers);
     expect(formatted).toEqual(expected);
+  });
+
+  it('should filter by name', () => {
+    const name = testVolunteers[1].firstName;
+    const filtered = filterVolunteersByName(testVolunteers, name);
+    expect(filtered.length).toEqual(1);
+    expect(filtered[0]).toBe(testVolunteers[1]);
+  });
+
+  it('should create the list of unique names for the filtered testVolunteers', () => {
+    const names = getUniqueNames(testVolunteers);
+    expect(names.length).toEqual(2);
+    expect(names[0]).toEqual(`${testVolunteers[0].firstName} ${testVolunteers[0].lastName}`);
+    expect(names[1]).toEqual(`${testVolunteers[1].firstName} ${testVolunteers[1].lastName}`);
+  });
+
+  it('should check if the filtered volunteers all match the same name', () => {
+    const volunteers = [testVolunteers[0], testVolunteers[2]];
+    const name = `${testVolunteers[0].firstName} ${testVolunteers[0].lastName}`;
+    const allMatch = everyVolunteerMatchesName(volunteers, name);
+    expect(allMatch).toBeTruthy();
+  });
+
+  it('should select a newVolunteer by name', () => {
+    const name = `${testVolunteers[1].firstName} ${testVolunteers[1].lastName}`;
+    const selected = findVolunteerByName(testVolunteers, name);
+    expect(selected).toBe(testVolunteers[1]);
+  });
+
+  it('should not select a newVolunteer if the name does not exactly match', () => {
+    const name = testVolunteers[1].firstName;
+    const selected = findVolunteerByName(testVolunteers, name);
+    expect(selected).toBeFalsy();
+  });
+
+  it('should select a newVolunteer by petName', () => {
+    const petName = testVolunteers[2].petName;
+    const selected = findVolunteerByPetName(testVolunteers, petName);
+    expect(selected).toBe(testVolunteers[2]);
+  });
+
+  it('should select an active visit for a volunteer', () => {
+    const volunteer = Object.assign({}, testVolunteers[0]);
+    const selected = findActiveVisit(testVisits, volunteer);
+    expect(selected).toBe(testVisits[3]);
   });
 });
