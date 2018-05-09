@@ -22,7 +22,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @param volunteer
    * @returns {any}
    */
-  protected convertOut(volunteer: Volunteer): Volunteer {
+  convertOut(volunteer: Volunteer): Volunteer {
     return this.capitalize(volunteer);
   }
 
@@ -31,7 +31,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @param volunteer
    * @returns {any}
    */
-  protected convertIn(volunteer: Volunteer): Volunteer {
+  convertIn(volunteer: Volunteer): Volunteer {
     return this.capitalize(volunteer);
   }
 

@@ -36,7 +36,7 @@ export class OrganizationService extends BaseService<Organization> {
    * @param organization
    * @returns {any}
    */
-  protected convertOut(organization: Organization): Organization {
+  convertOut(organization: Organization): Organization {
     return this.capitalize(organization);
   }
 
@@ -45,7 +45,7 @@ export class OrganizationService extends BaseService<Organization> {
    * @param organization
    * @returns {any}
    */
-  protected convertIn(organization: Organization): Organization {
+  convertIn(organization: Organization): Organization {
     return this.capitalize(organization);
   }
 }

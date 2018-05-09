@@ -22,7 +22,7 @@ export class SiteService extends BaseService<Site> {
    * @param site
    * @returns {any}
    */
-  protected convertOut(site: Site) {
+  convertOut(site: Site) {
     return this.capitalize(site);
   }
 
@@ -31,7 +31,7 @@ export class SiteService extends BaseService<Site> {
    * @param site
    * @returns {any}
    */
-  protected convertIn(site: Site) {
+  convertIn(site: Site) {
     return this.capitalize(site);
   }
 

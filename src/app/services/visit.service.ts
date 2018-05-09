@@ -45,7 +45,7 @@ export class VisitService extends BaseService<Visit> {
    * @param visit
    * @returns {any}
    */
-  protected convertOut(visit: Visit): Visit {
+  convertOut(visit: Visit): Visit {
     return Object.assign({}, this.convertDates(visit), {
       signature: visit.signature ? JSON.stringify(visit.signature) : null,
     });
@@ -55,7 +55,7 @@ export class VisitService extends BaseService<Visit> {
    * Override to parse startedAt and endedAt Strings into Date objects and to destringify signature.
    * @param visit
    */
-  protected convertIn(visit: Visit): Visit {
+  convertIn(visit: Visit): Visit {
     return Object.assign({}, this.convertDates(visit), {
       signature: visit.signature ? JSON.parse(visit.signature) : null,
     });

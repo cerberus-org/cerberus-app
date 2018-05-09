@@ -26,7 +26,7 @@ export class UserService extends BaseService<User> {
    * @param user
    * @returns {any}
    */
-  protected convertOut(user: User): User {
+  convertOut(user: User): User {
     const userCopy = Object.assign({}, user);
     delete userCopy.password;
     delete userCopy.email;
@@ -38,7 +38,7 @@ export class UserService extends BaseService<User> {
    * @param user
    * @returns {any}
    */
-  protected convertIn(user: User): User {
+  convertIn(user: User): User {
     return this.capitalize(user);
   }
 

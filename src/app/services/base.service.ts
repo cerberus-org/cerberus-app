@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   AngularFirestore, AngularFirestoreCollection,
-  DocumentChangeAction,
+  DocumentChangeAction, QueryFn,
 } from 'angularfire2/firestore';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/catch';
@@ -14,12 +14,19 @@ import { ErrorService } from './error.service';
 export abstract class BaseService<T extends { id: string }> {
   protected abstract collectionName: string;
 
-  constructor(protected db: AngularFirestore,
-              protected errorService: ErrorService) {
+  constructor(
+    protected db: AngularFirestore,
+    protected errorService: ErrorService,
+  ) {
   }
 
-  get collection() {
-    return this.db ? this.db.collection<T>(this.collectionName) : null;
+  /**
+   * Returns the collection based on the collectionName, using a query function if provided.
+   * @param {QueryFn} queryFn - queries the collection
+   * @returns {AngularFirestoreCollection<T>} - the collection
+   */
+  protected collection(queryFn?: QueryFn): AngularFirestoreCollection<T> {
+    return this.db ? this.db.collection<T>(this.collectionName, queryFn) : undefined;
   }
 
   /**
@@ -28,7 +35,10 @@ export abstract class BaseService<T extends { id: string }> {
    * @param {AngularFirestoreCollection<T extends {id: string}>} collection
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
-  getDataFromCollection(snapshot: boolean, collection: AngularFirestoreCollection<T>): Observable<T[]> {
+  protected getDataFromCollection(
+    snapshot: boolean,
+    collection: AngularFirestoreCollection<T>,
+  ): Observable<T[]> {
     return (
       snapshot
         ? collection.snapshotChanges()
@@ -51,7 +61,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
   getAll(snapshot?: boolean): Observable<T[]> {
-    return this.getDataFromCollection(snapshot, this.collection);
+    return this.getDataFromCollection(snapshot, this.collection());
   }
 
   /**
@@ -64,8 +74,7 @@ export abstract class BaseService<T extends { id: string }> {
   getByKey(key: string, value: string, snapshot?: boolean): Observable<T[]> {
     return this.getDataFromCollection(
       snapshot,
-      this.db.collection<T>(this.collectionName, ref => ref
-        .where(key, '==', value)),
+      this.collection(ref => ref.where(key, '==', value)),
     );
   }
 
@@ -76,7 +85,7 @@ export abstract class BaseService<T extends { id: string }> {
    */
   getById(id: string): Observable<T> {
     return Observable.fromPromise(
-      this.collection.doc(id).ref.get()
+      this.collection().doc(id).ref.get()
         .then(snapshot => this.convertIn(snapshot.data())),
     )
       .catch(error => this.errorService.handleFirebaseError(error));
@@ -89,15 +98,17 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<T>} - the Observable of the snapshot of the added object
    */
   add(item: T, id?: string): Observable<T> {
-    return Observable.fromPromise(id
-      ? this.collection.doc(id)
-        .set(Object.assign({}, this.convertOut(item)))
-        .then(() => this.convertIn(Object.assign({}, item, { id })))
-      : this.collection.add(Object.assign({}, this.convertOut(item)))
-        .then(
-          ref => ref.get()
-            .then(snapshot => this.convertIn(Object.assign({}, snapshot.data(), { id: snapshot.id }))),
-        ),
+    return Observable.fromPromise(
+      id
+        ? this.collection().doc(id)
+          .set(this.convertOut(item))
+          .then(() => this.convertIn(Object.assign({}, item, { id })))
+        : this.collection().add(Object.assign({}, this.convertOut(item)))
+          .then(
+            ref => ref.get()
+              .then(
+                snapshot => this.convertIn(Object.assign({}, snapshot.data(), { id: snapshot.id }))),
+          ),
     )
       .catch(error => this.errorService.handleFirebaseError(error));
   }
@@ -109,7 +120,7 @@ export abstract class BaseService<T extends { id: string }> {
    */
   update(item: T): Observable<any> {
     return Observable.fromPromise(
-      this.collection.doc(item.id).update(this.convertOut(item)),
+      this.collection().doc(item.id).update(this.convertOut(item)),
     )
       .catch(error => this.errorService.handleFirebaseError(error));
   }
@@ -120,7 +131,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<any>} - an empty Observable that emits when completed.
    */
   delete(item: T): Observable<any> {
-    return Observable.fromPromise(this.collection.doc(item.id).delete())
+    return Observable.fromPromise(this.collection().doc(item.id).delete())
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
