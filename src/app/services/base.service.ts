@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  AngularFirestore, AngularFirestoreCollection,
-  DocumentChangeAction, QueryFn,
+  AngularFirestore,
+  AngularFirestoreCollection,
+  DocumentChangeAction,
+  QueryFn,
 } from 'angularfire2/firestore';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/catch';
@@ -131,7 +133,9 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<any>} - an empty Observable that emits when completed.
    */
   delete(item: T): Observable<any> {
-    return Observable.fromPromise(this.collection().doc(item.id).delete())
+    return Observable.fromPromise(
+      this.collection().doc(item.id).delete(),
+    )
       .catch(error => this.errorService.handleFirebaseError(error));
   }
 
