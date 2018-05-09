@@ -3,7 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { testVolunteers } from '../models';
+import { getTestVolunteers } from '../models';
 
 import { BaseService } from './base.service';
 import { ErrorService, MockErrorService } from './error.service';
@@ -13,15 +13,16 @@ describe('BaseService', () => {
   let service: BaseService<any> = null;
   let testVolunteers;
   // Declare spies here for access in specs, set during stub creation
-  let docSpy;
   let addSpy;
+  let addGetSpy;
   let deleteSpy;
-  let getSpy;
-  let setSpy;
+  let docSpy;
+  let docGetSpy;
   let orderBySpy;
+  let setSpy;
+  let snapshotChangesSpy;
   let updateSpy;
   let valueChangesSpy;
-  let snapshotChangesSpy;
   let whereSpy;
 
   beforeEach(() => {
@@ -34,7 +35,7 @@ describe('BaseService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(BaseService);
-    testVolunteers = testVolunteers.slice();
+    testVolunteers = getTestVolunteers();
   });
 
   it('should be created', inject([BaseService], (baseService: BaseService<any>) => {
@@ -88,7 +89,7 @@ describe('BaseService', () => {
         expect(data).toEqual(testVolunteers[0]);
       });
       expect(docSpy).toHaveBeenCalledWith(id);
-      expect(getSpy).toHaveBeenCalled();
+      expect(docGetSpy).toHaveBeenCalled();
     });
   });
 
@@ -110,7 +111,7 @@ describe('BaseService', () => {
       service.add(volunteer).subscribe((data) => {
         expect(data).toEqual(Object.assign({}, testVolunteers[0], { id: 'testId' }));
         expect(addSpy).toHaveBeenCalledWith(volunteer);
-        expect(getSpy).toHaveBeenCalled();
+        expect(addGetSpy).toHaveBeenCalled();
       });
     });
   });
@@ -135,36 +136,37 @@ describe('BaseService', () => {
 
   class AngularFirestoreStub {
     collection(path, queryFn) {
-      let items = testVolunteers.slice();
-      const ref = {
-        get: getSpy = createSpy('get').and.callFake(id => (
-          Promise.resolve({
-            id,
-            data: () => items.find(item => item.id === id),
-          })
-        )),
-        where: whereSpy = createSpy('where').and.callFake(function () {
-          items = items.filter(item => item.firstName === 'Ted');
-          return this;
-        }),
-        orderBy: orderBySpy = createSpy('orderBy').and.callFake(function () {
-          return this;
-        }),
-      };
+      let items = getTestVolunteers();
       // Run query function to call spies if provided
       if (queryFn) {
-        queryFn(ref);
+        queryFn({
+          where: whereSpy = createSpy('where').and.callFake(function () {
+            items = items.filter(item => item.firstName === 'Ted');
+            return this;
+          }),
+          orderBy: orderBySpy = createSpy('orderBy').and.callFake(function () {
+            return this;
+          }),
+        });
       }
       return {
-        add: addSpy = createSpy('add').and.callFake(() => (
-          Promise.resolve(ref)),
-        ),
+        add: addSpy = createSpy('add').and.callFake(item => (
+          Promise.resolve({
+            get: addGetSpy = createSpy('get').and.callFake(() => Promise.resolve({
+              id: 'testId',
+              data: () => item,
+            })),
+          })
+        )),
         doc: docSpy = createSpy('doc').and.callFake(id => ({
           ref: {
-            get: () => ref.get(id),
+            get: docGetSpy = createSpy('get').and.callFake(() => Promise.resolve({
+              id,
+              data: () => items.find(item => item.id === id),
+            })),
           },
           set: setSpy = createSpy('set').and.callFake(item => (
-            Promise.resolve(Object.assign({}, item, { id }))
+            Promise.resolve()
           )),
           delete: deleteSpy = createSpy('delete').and.callFake(() => (
             Promise.resolve(Observable.empty<any>())
@@ -178,8 +180,9 @@ describe('BaseService', () => {
         ),
         snapshotChanges: snapshotChangesSpy = createSpy('valueChanges').and.callFake(
           () => Observable.from(items.map((item) => {
-            const id = item.id;
-            delete item.id;
+            const itemCopy = Object.assign({}, item);
+            const id = itemCopy.id;
+            delete itemCopy.id;
             return {
               payload: {
                 doc: {
