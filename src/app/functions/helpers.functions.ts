@@ -2,7 +2,8 @@ import { Visit, Volunteer } from '../models';
 import { formatDuration } from './date-format.functions';
 
 /**
- * Checks if all volunteers match the name (case-insensitive).
+ * Checks if an array of volunteers have the same full name (case-insensitive).
+ *
  * @param volunteers - the list of volunteers
  * @param name - the name used to match
  * @returns {boolean} - true if all volunteers match the name
@@ -16,6 +17,7 @@ export const everyVolunteerMatchesName = (volunteers: Volunteer[], name: string)
 
 /**
  * Filters an array of objects by a given organization ID.
+ *
  * @param {any[]} array - the array to filter
  * @param {string} organizationId - the value to filter by
  * @returns {any[]} - the filtered array
@@ -28,6 +30,7 @@ export const filterByOrganizationId = (array: any[], organizationId: string) => 
 
 /**
  * Filters the volunteers by name (case-insensitive).
+ *
  * @param volunteers - the list of volunteers to be filtered
  * @param name - the name to filter by
  * @returns {Volunteer[]} - the filtered list of volunteers
@@ -41,6 +44,7 @@ export const filterVolunteersByName = (volunteers: Volunteer[], name: string): V
 
 /**
  * Selects an active visit for the given newVolunteer.
+ *
  * @param {Visit[]} visits - the list of visits
  * @param {Volunteer} volunteer - the volunteer search by
  * @returns {undefined|Visit} - the active visit or undefined if not found
@@ -52,12 +56,13 @@ export const findActiveVisit = (visits: Visit[], volunteer: Volunteer): Visit =>
 };
 
 /**
- * Selects a newVolunteer by name (case-insensitive).
+ * Finds a volunteer by name (case-insensitive).
+ *
  * @param volunteers - the list of volunteers
  * @param name - string used to search by name
  * @returns {undefined|Volunteer} - the newVolunteer or undefined if not found
  */
-export const findVolunteerByName = (volunteers: Volunteer[], name: string): Volunteer => {
+export const findVolunteerByFullName = (volunteers: Volunteer[], name: string): Volunteer => {
   const nameLowerCase = name.toLowerCase();
   return volunteers.find(volunteer => (
     getFullName(volunteer).toLowerCase() === nameLowerCase
@@ -66,7 +71,8 @@ export const findVolunteerByName = (volunteers: Volunteer[], name: string): Volu
 
 
 /**
- * Selects a newVolunteer by petName (case-insensitive).
+ * Finds a volunteer by petName (case-insensitive).
+ *
  * @param volunteers - the list of volunteers
  * @param petName - string used to search by petName
  * @returns {undefined|Volunteer} - the newVolunteer or undefined if not found
@@ -80,6 +86,7 @@ export const findVolunteerByPetName = (volunteers: Volunteer[], petName: string)
 
 /**
  * Gets the full name for a given volunteer.
+ *
  * @param {Volunteer} volunteer - Volunteer to get full name for
  * @returns {string} - the full name
  */
@@ -88,11 +95,13 @@ export const getFullName = (volunteer: Volunteer) => {
 };
 
 /**
- * Creates the list of unique newVolunteer names to be displayed on the autocomplete menu.
+ * Gets the unique full names from an array of volunteers.
+ *
+ * Used to display options on the autocomplete menu.
  * @param volunteers - the list of volunteers
  * @returns {Array<T>} - the list of unique names
  */
-export const getUniqueNames = (volunteers: Volunteer[]): string[] => {
+export const getUniqueFullNames = (volunteers: Volunteer[]): string[] => {
   return Array.from(
     new Set(volunteers.map(volunteer => getFullName(volunteer))),
   );
@@ -100,6 +109,7 @@ export const getUniqueNames = (volunteers: Volunteer[]): string[] => {
 
 /**
  * Return an array with visits and with the associated volunteer name and visit duration.
+ *
  * @param {Visit[]} visits - the visits
  * @param {Volunteer[]} volunteers
  * @returns {any[]}
@@ -124,6 +134,7 @@ export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunte
 
 /**
  * Sorts a given array of visits by their start date.
+ *
  * @param {Visit[]} visits - the array of visits to be sorted
  * @returns {Visit[]} - the sorted array of visits
  */

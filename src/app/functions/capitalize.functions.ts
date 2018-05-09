@@ -8,6 +8,9 @@ export const upperAllFirst = (field: string): string => (
 
 export const titleCase = (field: string): string => (
   field
-    ? field.replace(/\b[\w']+\b/g, (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()))
+    ? field.replace(
+    /\b[\w']+\b/g,
+    (txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()),
+    )
     : null
 );

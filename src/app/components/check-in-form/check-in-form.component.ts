@@ -23,9 +23,9 @@ import {
   everyVolunteerMatchesName,
   filterVolunteersByName,
   findActiveVisit,
-  findVolunteerByName,
+  findVolunteerByFullName,
   findVolunteerByPetName,
-  getUniqueNames,
+  getUniqueFullNames,
 } from '../../functions';
 
 import { Visit, Volunteer } from '../../models';
@@ -145,7 +145,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
       && everyVolunteerMatchesName(this.filteredVolunteers, name);
     // If one newVolunteer remains, select the newVolunteer that exactly matches the name
     if (!this.showPetNameForm) {
-      this.selectedVolunteer = findVolunteerByName(this.filteredVolunteers, name);
+      this.selectedVolunteer = findVolunteerByFullName(this.filteredVolunteers, name);
     }
   }
 
@@ -217,7 +217,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     return this.formGroup.valueChanges
       .subscribe(() => {
         // Uses values set in filterAndSelect invoked by nameValidator
-        this.autocompleteNames = getUniqueNames(this.filteredVolunteers);
+        this.autocompleteNames = getUniqueFullNames(this.filteredVolunteers);
         this.activeVisit = this.selectedVolunteer
           ? findActiveVisit(this.visits, this.selectedVolunteer)
           : null;

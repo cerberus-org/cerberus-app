@@ -18,6 +18,8 @@ describe('BaseService', () => {
   let setSpy;
   let orderBySpy;
   let updateSpy;
+  let valueChangesSpy;
+  let snapshotChangesSpy;
   let whereSpy;
 
   beforeEach(() => {
@@ -61,22 +63,27 @@ describe('BaseService', () => {
               Promise.resolve(Observable.empty<any>())
             )),
           })),
-          valueChanges: () => Observable.from(items),
-          snapshotChanges: () => Observable.from(items.map((item) => {
-            const id = item.id;
-            delete item.id;
-            return {
-              payload: {
-                doc: {
-                  id,
-                  data: () => item,
+          valueChanges: valueChangesSpy = createSpy('valueChanges').and.callFake(
+            () => Observable.from(items),
+          ),
+          snapshotChanges: snapshotChangesSpy = createSpy('valueChanges').and.callFake(
+            () => Observable.from(items.map((item) => {
+              const id = item.id;
+              delete item.id;
+              return {
+                payload: {
+                  doc: {
+                    id,
+                    data: () => item,
+                  },
                 },
-              },
-            };
-          })),
+              };
+            })),
+          ),
         };
       }
     }
+
     TestBed.configureTestingModule({
       providers: [
         BaseService,
@@ -92,51 +99,52 @@ describe('BaseService', () => {
     expect(baseService).toBeTruthy();
   }));
 
-  it('should get all data from a collection using valueChanges', () => {
-    service.getAll(false).subscribe((data) => {
-      expect(data).toEqual(testVolunteers);
+  describe('getAll', () => {
+    it('should get all data from a collection', () => {
+      service.getAll(false).subscribe((data) => {
+        expect(data).toEqual(testVolunteers);
+      });
+      expect(valueChangesSpy).toHaveBeenCalled();
+    });
+
+    it('should get all data from a collection and include IDs from the snapshots', () => {
+      service.getAll(true).subscribe((data) => {
+        expect(data).toEqual(testVolunteers);
+      });
+      expect(snapshotChangesSpy).toHaveBeenCalled();
     });
   });
 
-  it('should get all data from a collection using snapshotChanges', () => {
-    service.getAll(true).subscribe((data) => {
-      expect(data).toEqual(testVolunteers);
+  describe('getByKey', () => {
+    it('should get data from a collection by a key and value pair', () => {
+      const key = 'firstName';
+      const value = 'Ted';
+      service.getByKey('firstName', 'Ted', false).subscribe((data) => {
+        expect(data).toEqual(testVolunteers.filter(item => item.firstName === 'Ted'));
+      });
+      expect(valueChangesSpy).toHaveBeenCalled();
+      expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
+    });
+
+    it('should get data from a collection by a key and value pair and include IDs from the snapshots', () => {
+      const key = 'firstName';
+      const value = 'Ted';
+      service.getByKey('firstName', 'Ted', true).subscribe((data) => {
+        expect(data).toEqual(testVolunteers.filter(item => item.firstName === 'Ted'));
+      });
+      expect(snapshotChangesSpy).toHaveBeenCalled();
+      expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
     });
   });
 
-  it('should get all data from a collection by a key and value using valueChanges', () => {
-    const key = 'firstName';
-    const value = 'Ted';
-    service.getByKey('firstName', 'Ted', false).subscribe((data) => {
-      expect(data).toEqual(testVolunteers.filter(item => item.firstName === 'Ted'));
+  describe('getById', () => {
+    it('should get data from a collection by ID and include the id from the snapshot', () => {
+      const id = testVolunteers[0].id;
+      service.getById(testVolunteers[0].id).subscribe((data) => {
+        expect(data).toEqual(testVolunteers[0]);
+      });
+      expect(docSpy).toHaveBeenCalledWith(id);
+      expect(getSpy).toHaveBeenCalled();
     });
-    expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
-  });
-
-  it('should get all data from a collection by a key and value using snapshotChanges', () => {
-    const key = 'firstName';
-    const value = 'Ted';
-    service.getByKey('firstName', 'Ted', true).subscribe((data) => {
-      expect(data).toEqual(testVolunteers.filter(item => item.firstName === 'Ted'));
-    });
-    expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
-  });
-
-  it('should get all data from a collection by a key and value using valueChanges', () => {
-    const id = testVolunteers[0].id;
-    service.getById(testVolunteers[0].id).subscribe((data) => {
-      expect(data).toEqual(testVolunteers[0]);
-    });
-    expect(docSpy).toHaveBeenCalledWith(id);
-    expect(getSpy).toHaveBeenCalled();
-  });
-
-  it('should get all data from a collection by a key and value using snapshotChanges', () => {
-    const id = testVolunteers[0].id;
-    service.getById(testVolunteers[0].id).subscribe((data) => {
-      expect(data).toEqual(testVolunteers[0]);
-    });
-    expect(docSpy).toHaveBeenCalledWith(id);
-    expect(getSpy).toHaveBeenCalled();
   });
 });
