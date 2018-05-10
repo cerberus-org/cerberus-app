@@ -43,7 +43,12 @@ export class SettingsEffects {
     .ofType(SettingsActions.GENERATE_VISIT_HISTORY_REPORT)
     .map((action: SettingsActions.GenerateVisitHistoryReport) => action.payload)
     .switchMap(payload => this.visitService
-      .getByDateAndOrganization(payload.startedAt, payload.endedAt, payload.organizationId, true)
+      .getByOrganizationIdAndDateRange(
+        payload.organizationId,
+        payload.startedAt,
+        payload.endedAt,
+        true,
+      )
       .do((visits) => {
         this.csvService.downloadAsCsv(
           getVisitsWithVolunteerNames(visits, payload.volunteers), 'VisitHistory.csv', new Map([

@@ -10,40 +10,46 @@ import { ErrorService } from './error.service';
 
 @Injectable()
 export class SiteService extends BaseService<Site> {
+  collectionName = 'sites';
 
-  constructor(protected db: AngularFirestore,
-              protected errorService: ErrorService) {
-    super(db, errorService, 'sites');
-  }
-
-  /**
-   * Capitalize the name and address of the site going to the database.
-   * @param site
-   * @returns {any}
-   */
-  convertOut(site: Site) {
-    return this.capitalize(site);
-  }
-
-  /**
-   * Capitalize the name and address of the site coming from the database.
-   * @param site
-   * @returns {any}
-   */
-  convertIn(site: Site) {
-    return this.capitalize(site);
+  constructor(
+    protected db: AngularFirestore,
+    protected errorService: ErrorService,
+  ) {
+    super(db, errorService);
   }
 
   /**
    * Handles capitalization logic for sites.
-   * @param site
-   * @returns {any}
+   *
+   * @param {Site} site - the site to capitalize properties for
+   * @returns {Site} - a new site with capitalized properties
    */
-  private capitalize(site) {
+  private capitalizeSite(site: Site): Site {
     return Object.assign({}, site, {
       name: upperAllFirst(site.name),
       address: upperAllFirst(site.address),
     });
+  }
+
+  /**
+   * Capitalize the name and address of the site going to the database.
+   *
+   * @param {Site} site - the site to capitalize properties for
+   * @returns {Site} - a new site with capitalized properties
+   */
+  convertOut(site: Site): Site {
+    return this.capitalizeSite(site);
+  }
+
+  /**
+   * Capitalize the name and address of the site coming from the database.
+   *
+   * @param {Site} site - the site to capitalize properties for
+   * @returns {Site} - a new site with capitalized properties
+   */
+  convertIn(site: Site): Site {
+    return this.capitalizeSite(site);
   }
 }
 
@@ -58,13 +64,11 @@ export class MockSiteService extends SiteService {
   }
 
   getByKey(key: string, value: string): Observable<Site[]> {
-    return Observable.of(testSites
-      .filter(site => site[key] === value));
+    return Observable.of(testSites.filter(site => site[key] === value));
   }
 
   getById(id: string): Observable<Site> {
-    return Observable.of(testSites
-      .find(site => site.id === id));
+    return Observable.of(testSites.find(site => site.id === id));
   }
 
   add(site: Site): Observable<Site> {

@@ -10,10 +10,27 @@ import { ErrorService } from './error.service';
 
 @Injectable()
 export class VisitService extends BaseService<Visit> {
+  protected collectionName = 'visits';
 
-  constructor(protected db: AngularFirestore,
-              protected errorService: ErrorService) {
-    super(db, errorService, 'visits');
+  constructor(
+    protected db: AngularFirestore,
+    protected errorService: ErrorService,
+  ) {
+    super(db, errorService);
+  }
+
+  getByOrganizationIdAndDateRange(
+    organizationId: string,
+    startDate: Date,
+    endDate: Date,
+    snapshot?: boolean,
+  ): Observable<Visit[]> {
+    return this.getDataFromCollection(
+      snapshot,
+      this.collection(ref => ref
+        .where('organizationId', '==', organizationId)
+        .orderBy('startedAt').startAt(startDate).endAt(endDate)),
+    );
   }
 
   private convertDates(visit: Visit): Visit {
@@ -51,27 +68,30 @@ export class MockVisitService extends VisitService {
     super(null, null);
   }
 
-  getAll(): Observable<Visit[]> {
-    return Observable.of(testVisits);
-  }
-
-  getByKey(key: string, value: string): Observable<Visit[]> {
-    return Observable.of(testVisits
-      .filter(visit => visit[key] === value));
-  }
-
-  getById(id: string): Observable<Visit> {
-    return Observable.of(testVisits
-      .find(visit => visit.id === id));
-  }
-
-  getByDateAndOrganization(startDate: Date, endDate: Date, organizationId: string, snapshot?: boolean): Observable<Visit[]> {
+  getByOrganizationIdAndDateRange(
+    organizationId: string,
+    startDate: Date,
+    endDate: Date,
+    snapshot?: boolean,
+  ): Observable<Visit[]> {
     return Observable.of(testVisits
       .filter(visit =>
         visit.startedAt >= startDate &&
         (!visit.endedAt || visit.endedAt <= endDate) &&
         visit.organizationId === organizationId,
       ));
+  }
+
+  getAll(): Observable<Visit[]> {
+    return Observable.of(testVisits);
+  }
+
+  getByKey(key: string, value: string): Observable<Visit[]> {
+    return Observable.of(testVisits.filter(visit => visit[key] === value));
+  }
+
+  getById(id: string): Observable<Visit> {
+    return Observable.of(testVisits.find(visit => visit.id === id));
   }
 
   add(visit: Visit): Observable<Visit> {

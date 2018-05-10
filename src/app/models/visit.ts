@@ -83,3 +83,5 @@ export const testVisits: Visit[] = [
     signature: null,
   },
 ];
+
+export const getTestVisits = (): Visit[] => testVisits.slice();

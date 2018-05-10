@@ -11,9 +11,10 @@ import { ErrorService } from './error.service';
 
 @Injectable()
 export class VolunteerService extends BaseService<Volunteer> {
+  collectionName = 'volunteers';
 
   constructor(protected db: AngularFirestore, protected errorService: ErrorService) {
-    super(db, errorService, 'volunteers');
+    super(db, errorService);
   }
 
   /**
@@ -62,13 +63,11 @@ export class MockVolunteerService extends VolunteerService {
   }
 
   getByKey(key: string, value: string): Observable<Volunteer[]> {
-    return Observable.of(testVolunteers
-      .filter(volunteer => volunteer[key] === value));
+    return Observable.of(testVolunteers.filter(volunteer => volunteer[key] === value));
   }
 
   getById(id: string): Observable<Volunteer> {
-    return Observable.of(testVolunteers
-      .find(volunteer => volunteer.id === id));
+    return Observable.of(testVolunteers.find(volunteer => volunteer.id === id));
   }
 
   add(volunteer: Volunteer): Observable<Volunteer> {

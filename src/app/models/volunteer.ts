@@ -32,3 +32,5 @@ export const testVolunteers: Volunteer[] = [{
   lastName: 'Mader',
   petName: 'Gam-Gam',
 }];
+
+export const getTestVolunteers = (): Volunteer[] => testVolunteers.slice();
