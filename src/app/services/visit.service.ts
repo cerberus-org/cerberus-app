@@ -27,7 +27,7 @@ export class VisitService extends BaseService<Visit> {
   ): Observable<Visit[]> {
     return this.getDataFromCollection(
       snapshot,
-      this.db.collection<Visit>(this.collectionName, ref => ref
+      this.collection(ref => ref
         .where('organizationId', '==', organizationId)
         .orderBy('startedAt').startAt(startDate).endAt(endDate)),
     );

@@ -3,8 +3,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { getTestVolunteers } from '../models';
 
+import { getTestVolunteers } from '../models';
 import { BaseService } from './base.service';
 import { ErrorService, MockErrorService } from './error.service';
 import createSpy = jasmine.createSpy;
@@ -12,7 +12,7 @@ import createSpy = jasmine.createSpy;
 describe('BaseService', () => {
   let service: BaseService<any> = null;
   let testVolunteers;
-  // Declare spies here for access in specs, set during stub creation
+  // Declare spies here for access in specs, set during AngularFirestoreStub creation
   let addSpy;
   let addGetSpy;
   let deleteSpy;
@@ -45,16 +45,16 @@ describe('BaseService', () => {
   describe('getAll', () => {
     it('should get all data from a collection and include IDs from the snapshots', () => {
       service.getAll(true).subscribe((data) => {
+        expect(snapshotChangesSpy).toHaveBeenCalled();
         expect(data).toEqual(testVolunteers);
       });
-      expect(snapshotChangesSpy).toHaveBeenCalled();
     });
 
     it('should get all data without IDs from a collection', () => {
       service.getAll(false).subscribe((data) => {
+        expect(valueChangesSpy).toHaveBeenCalled();
         expect(data).toEqual(testVolunteers);
       });
-      expect(valueChangesSpy).toHaveBeenCalled();
     });
 
   });
@@ -64,10 +64,10 @@ describe('BaseService', () => {
       const key = 'firstName';
       const value = 'Ted';
       service.getByKey('firstName', 'Ted', true).subscribe((data) => {
+        expect(snapshotChangesSpy).toHaveBeenCalled();
+        expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
         expect(data).toEqual(testVolunteers.filter(item => item.firstName === 'Ted'));
       });
-      expect(snapshotChangesSpy).toHaveBeenCalled();
-      expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
     });
 
     it('should get data without IDs from a collection by a key and value pair', () => {
@@ -75,10 +75,10 @@ describe('BaseService', () => {
       const key = 'firstName';
       const value = 'Ted';
       service.getByKey('firstName', 'Ted', false).subscribe((data) => {
+        expect(valueChangesSpy).toHaveBeenCalled();
+        expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
         expect(data).toEqual(testVolunteers.filter(item => item.firstName === 'Ted'));
       });
-      expect(valueChangesSpy).toHaveBeenCalled();
-      expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
     });
   });
 
@@ -86,10 +86,10 @@ describe('BaseService', () => {
     it('should get data from a collection by ID and include the id from the snapshot', () => {
       const id = testVolunteers[0].id;
       service.getById(testVolunteers[0].id).subscribe((data) => {
+        expect(docSpy).toHaveBeenCalledWith(id);
+        expect(docGetSpy).toHaveBeenCalled();
         expect(data).toEqual(testVolunteers[0]);
       });
-      expect(docSpy).toHaveBeenCalledWith(id);
-      expect(docGetSpy).toHaveBeenCalled();
     });
   });
 
@@ -99,9 +99,9 @@ describe('BaseService', () => {
       const id = volunteer.id;
       delete volunteer.id;
       service.add(volunteer, id).subscribe((data) => {
-        expect(data).toEqual(testVolunteers[0]);
         expect(docSpy).toHaveBeenCalledWith(id);
         expect(setSpy).toHaveBeenCalledWith(volunteer);
+        expect(data).toEqual(testVolunteers[0]);
       });
     });
 
@@ -109,9 +109,9 @@ describe('BaseService', () => {
       const volunteer = Object.assign({}, testVolunteers[0]);
       delete volunteer.id;
       service.add(volunteer).subscribe((data) => {
-        expect(data).toEqual(Object.assign({}, testVolunteers[0], { id: 'testId' }));
         expect(addSpy).toHaveBeenCalledWith(volunteer);
         expect(addGetSpy).toHaveBeenCalled();
+        expect(data).toEqual(Object.assign({}, testVolunteers[0], { id: 'testId' }));
       });
     });
   });
@@ -178,7 +178,7 @@ describe('BaseService', () => {
         valueChanges: valueChangesSpy = createSpy('valueChanges').and.callFake(
           () => Observable.from(items),
         ),
-        snapshotChanges: snapshotChangesSpy = createSpy('valueChanges').and.callFake(
+        snapshotChanges: snapshotChangesSpy = createSpy('snapshotChanges').and.callFake(
           () => Observable.from(items.map((item) => {
             const itemCopy = Object.assign({}, item);
             const id = itemCopy.id;
