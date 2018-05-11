@@ -34,9 +34,17 @@ export class DataDisplayComponent implements OnInit {
       cell: (row: Visit) => formatDuration(row.startedAt, row.endedAt, row.timezone),
     },
   ];
-  colorFn = visit => !visit.endedAt ? 'palegreen' : '';
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  /**
+   * Passed to data-table as the colorFunc to highlight active visits.
+   * @param {Visit} visit
+   * @returns {string}
+   */
+  getVisitRowColor(visit: Visit): string {
+    return !visit.endedAt ? 'palegreen' : '';
+  }
 }

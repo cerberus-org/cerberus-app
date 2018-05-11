@@ -68,7 +68,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
-  @Input() colorFn: (any) => string = () => '';
+  @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
   displayedColumns: string[];

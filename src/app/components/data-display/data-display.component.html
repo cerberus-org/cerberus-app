@@ -6,7 +6,8 @@
     <app-data-table
       [columnOptions]="visitTableColumnOptions"
       [data$]="visits$"
-      [colorFn]="colorFn">
+      [getRowColor]="getVisitRowColor"
+    >
     </app-data-table>
   </mat-tab>
 </mat-tab-group>
