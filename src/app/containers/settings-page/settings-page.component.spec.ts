@@ -17,7 +17,7 @@ describe('SettingsPageComponent', () => {
         SettingsPageComponent,
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showDelete'],
+          inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
         }),
         MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
         MockComponent({ selector: 'app-reports-form' }),
