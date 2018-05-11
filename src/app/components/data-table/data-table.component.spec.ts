@@ -10,7 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { Observable } from 'rxjs/Observable';
 
-import { getTestVisits, getTestVolunteers, testColumnOptions, } from '../../models';
+import { getTestVisits, getTestVolunteers, testColumnOptions } from '../../models';
 import { DataTableComponent, DataTableSource } from './data-table.component';
 
 describe('DataTableComponent', () => {
