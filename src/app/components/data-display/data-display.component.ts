@@ -34,6 +34,7 @@ export class DataDisplayComponent implements OnInit {
       cell: (row: Visit) => formatDuration(row.startedAt, row.endedAt, row.timezone),
     },
   ];
+  colorFn = visit => !visit.endedAt ? 'palegreen' : '';
 
   constructor() {}
 
