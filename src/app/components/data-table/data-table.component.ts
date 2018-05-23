@@ -96,7 +96,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   ngOnInit(): void {
     // Determine initial page size using inner height of window at component init
-    const surroundingElementsPx = 217;
+    const surroundingElementsPx = 224;
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
