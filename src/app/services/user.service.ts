@@ -87,6 +87,6 @@ export class MockUserService extends UserService {
   }
 
   delete(user: any): Observable<any> {
-    return Observable.empty<any>();
+    return Observable.empty();
   }
 }

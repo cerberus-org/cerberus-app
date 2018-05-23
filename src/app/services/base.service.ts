@@ -44,8 +44,8 @@ export abstract class BaseService<T extends { id: string }> {
     return (
       snapshot
         ? collection.snapshotChanges()
-          .map((actions: DocumentChangeAction[]) => (
-            actions.map((action: DocumentChangeAction) => {
+          .map((actions: DocumentChangeAction<T>[]) => (
+            actions.map((action: DocumentChangeAction<T>) => {
               const data = action.payload.doc.data() as T;
               const id = action.payload.doc.id;
               return this.convertIn(Object.assign(data, { id }));

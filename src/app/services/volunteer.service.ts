@@ -79,6 +79,6 @@ export class MockVolunteerService extends VolunteerService {
   }
 
   delete(volunteer: any): Observable<any> {
-    return Observable.empty<any>();
+    return Observable.empty();
   }
 }

@@ -52,6 +52,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.6.3",
     "@angular/language-service": "^6.0.3",
+    "@firebase/app-types": "^0.3.1",
     "@types/jasmine": "^2.8.7",
     "@types/jasminewd2": "^2.0.3",
     "@types/node": "^10.1.2",

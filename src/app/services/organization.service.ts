@@ -82,6 +82,6 @@ export class MockOrganizationService extends OrganizationService {
   }
 
   delete(organization: any): Observable<any> {
-    return Observable.empty<any>();
+    return Observable.empty();
   }
 }

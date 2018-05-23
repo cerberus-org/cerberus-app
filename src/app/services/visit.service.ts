@@ -103,6 +103,6 @@ export class MockVisitService extends VisitService {
   }
 
   delete(visit: any): Observable<any> {
-    return Observable.empty<any>();
+    return Observable.empty();
   }
 }

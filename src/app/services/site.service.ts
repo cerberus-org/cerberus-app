@@ -80,6 +80,6 @@ export class MockSiteService extends SiteService {
   }
 
   delete(site: any): Observable<any> {
-    return Observable.empty<any>();
+    return Observable.empty();
   }
 }
