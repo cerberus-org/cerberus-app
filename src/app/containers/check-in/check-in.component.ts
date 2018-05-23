@@ -99,8 +99,6 @@ export class CheckInComponent implements OnInit, OnDestroy {
   }
 
   onOpenPolicyDialog(): void {
-    this.dialog.open(PolicyDialogComponent, {
-      scrollStrategy: this.overlay.scrollStrategies.noop(),
-    });
+    this.dialog.open(PolicyDialogComponent);
   }
 }
