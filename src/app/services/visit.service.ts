@@ -41,20 +41,21 @@ export class VisitService extends BaseService<Visit> {
    */
   convertOut(visit: Visit): Visit {
     return Object.assign({}, visit, {
-      startedAt: (visit.startedAt as Timestamp).getApproximateDate(),
+      startedAt: new Date(visit.startedAt),
       endedAt: visit.endedAt ? new Date(visit.endedAt) : null,
       signature: visit.signature ? JSON.stringify(visit.signature) : null,
     });
   }
 
   /**
-   * Override to convert startedAt and endedAt Timestamps into Dates and to destringify signature.
+   * Override to convert startedAt and endedAt (asserts types as Timestamp) into Dates and to destringify signature.
    * @param visit
    */
-  convertIn(visit: Visit | Timestamp): Visit {
+  convertIn(visit: Visit): Visit {
     return Object.assign({}, visit, {
-      startedAt: visit.startedAt.toDate(),
-      endedAt: visit.endedAt ? visit.endedAt.toDate() : null,
+      // Double assertion to treat as Timestamp, since Firebase no longer returns a string
+      startedAt: (visit.startedAt as any as Timestamp).toDate(),
+      endedAt: visit.endedAt ? (visit.endedAt as any as Timestamp).toDate() : null,
       signature: visit.signature ? JSON.parse(visit.signature) : null,
     });
   }
