@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import {MatDialog, MatVerticalStepper} from '@angular/material';
+import { MatDialog, MatVerticalStepper } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -10,6 +10,7 @@ import * as CheckInActions from '../../actions/check-in.actions';
 import { PolicyDialogComponent } from '../../components';
 import { HeaderOptions, Visit, Volunteer } from '../../models';
 import { State } from '../../reducers';
+import {Overlay} from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-check-in',
@@ -31,7 +32,8 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private overlay: Overlay) {
     this.checkInOutFormTitle = 'Test';
   }
 
@@ -97,6 +99,8 @@ export class CheckInComponent implements OnInit, OnDestroy {
   }
 
   onOpenPolicyDialog(): void {
-    this.dialog.open(PolicyDialogComponent);
+    this.dialog.open(PolicyDialogComponent, {
+      scrollStrategy: this.overlay.scrollStrategies.noop(),
+    });
   }
 }
