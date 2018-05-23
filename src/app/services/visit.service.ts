@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { testVisits, Visit } from '../models';
 import { BaseService } from './base.service';

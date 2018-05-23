@@ -2,7 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import 'rxjs/add/observable/of';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import * as ModelActions from '../actions/model.actions';
 import { filterByOrganizationId } from '../functions';

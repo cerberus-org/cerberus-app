@@ -8,7 +8,7 @@ import {
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { getTestVisits, getTestVolunteers, testColumnOptions } from '../../models';
 import { DataTableComponent, DataTableSource } from './data-table.component';

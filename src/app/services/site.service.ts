@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import 'rxjs/add/observable/empty';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { upperAllFirst } from '../functions';
 import { Site, testSites } from '../models';

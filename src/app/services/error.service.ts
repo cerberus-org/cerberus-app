@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FirebaseError } from 'firebase';
 import 'rxjs/add/observable/throw';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { SnackBarService } from './snack-bar.service';
 

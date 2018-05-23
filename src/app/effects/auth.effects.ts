@@ -7,7 +7,7 @@ import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import * as AuthActions from '../actions/auth.actions';
 import { OrganizationService, UserService } from '../services';

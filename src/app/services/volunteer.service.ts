@@ -3,7 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { testVolunteers, Volunteer } from '../models';
 import { BaseService } from './base.service';

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
 import { HeaderOptions, SidenavOptions, Site, Visit } from '../../models';

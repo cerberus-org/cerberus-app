@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { formatDate, formatDuration, formatTime } from '../../functions';
 import { ColumnOptions, Visit } from '../../models';

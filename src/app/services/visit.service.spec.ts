@@ -1,6 +1,6 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { ErrorService, MockErrorService, VisitService } from '.';
 import { getTestVisits, testVisits, Visit } from '../models';

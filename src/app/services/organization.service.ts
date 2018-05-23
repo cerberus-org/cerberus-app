@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { upperAllFirst } from '../functions';
 import { Organization, testOrganizations } from '../models';

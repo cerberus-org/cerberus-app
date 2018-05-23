@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as AppActions from '../../actions/app.actions';

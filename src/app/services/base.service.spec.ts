@@ -2,7 +2,7 @@ import { getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { getTestVolunteers } from '../models';
 import { BaseService } from './base.service';

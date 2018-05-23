@@ -5,7 +5,7 @@ import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { testUsers, User } from '../models';
 import { BaseService } from './base.service';

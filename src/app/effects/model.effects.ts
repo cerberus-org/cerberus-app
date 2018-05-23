@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import * as ModelActions from '../actions/model.actions';
 import { OrganizationService, SiteService, UserService, VisitService, VolunteerService } from '../services';
