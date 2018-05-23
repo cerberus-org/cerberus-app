@@ -1,18 +1,8 @@
-
-import {from} from 'rxjs';
-
-import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  DocumentChangeAction,
-  QueryFn,
-} from 'angularfire2/firestore';
-
-
-
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
+import { from } from 'rxjs';
 import { Observable } from 'rxjs/index';
+import { catchError, map } from 'rxjs/operators';
 
 import { ErrorService } from './error.service';
 
@@ -48,15 +38,15 @@ export abstract class BaseService<T extends { id: string }> {
     return (
       snapshot
         ? collection.snapshotChanges().pipe(
-          map((actions: DocumentChangeAction<T>[]) => (
-            actions.map((action: DocumentChangeAction<T>) => {
-              const data = action.payload.doc.data() as T;
-              const id = action.payload.doc.id;
-              return this.convertIn(Object.assign(data, { id }));
-            })
-          )))
+        map((actions: DocumentChangeAction<T>[]) => (
+          actions.map((action: DocumentChangeAction<T>) => {
+            const data = action.payload.doc.data() as T;
+            const id = action.payload.doc.id;
+            return this.convertIn(Object.assign(data, { id }));
+          })
+        )))
         : collection.valueChanges().pipe(
-          map((items: T[]) => items.map((item: T) => this.convertIn(item))))
+        map((items: T[]) => items.map((item: T) => this.convertIn(item))))
     ).pipe(
       catchError(error => this.errorService.handleFirebaseError(error)));
   }

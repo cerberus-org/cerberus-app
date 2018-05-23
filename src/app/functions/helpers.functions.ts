@@ -69,7 +69,6 @@ export const findVolunteerByFullName = (volunteers: Volunteer[], name: string): 
   ));
 };
 
-
 /**
  * Finds a volunteer by petName (case-insensitive).
  *

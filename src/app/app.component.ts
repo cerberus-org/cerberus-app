@@ -26,9 +26,11 @@ export class AppComponent implements OnInit, OnDestroy {
   sidenavOptions: SidenavOptions[];
   user: any;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef,
-              private store: Store<State>,
-              private dialog: MatDialog) {
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private store: Store<State>,
+    private dialog: MatDialog,
+  ) {
   }
 
   ngOnInit() {
@@ -119,4 +121,3 @@ export class AppComponent implements OnInit, OnDestroy {
     return !!this.user;
   }
 }
-

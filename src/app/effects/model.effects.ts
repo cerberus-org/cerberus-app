@@ -1,10 +1,8 @@
-import { switchMap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-
-
 import { Observable } from 'rxjs/index';
+import { map, switchMap } from 'rxjs/operators';
 
 import * as ModelActions from '../actions/model.actions';
 import { OrganizationService, SiteService, UserService, VisitService, VolunteerService } from '../services';

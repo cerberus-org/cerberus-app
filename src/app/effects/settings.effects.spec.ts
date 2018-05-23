@@ -1,9 +1,7 @@
-
-import {of} from 'rxjs';
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
-
+import { of } from 'rxjs';
 import { Observable } from 'rxjs/index';
 
 import * as AuthActions from '../actions/auth.actions';

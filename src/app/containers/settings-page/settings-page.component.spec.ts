@@ -52,7 +52,6 @@ describe('SettingsPageComponent', () => {
     expect(component.organizationChanges).toBe(testOrganizations[0]);
   });
 
-
   it('should handle validReport events by setting validReport', () => {
     component.onValidReport(testReports[0]);
     expect(component.validReport).toBe(testReports[0]);
@@ -82,18 +81,21 @@ describe('SettingsPageComponent', () => {
       .toHaveBeenCalledWith(new SettingsActions.DeleteVolunteer(volunteer));
   });
 
-  it('should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport', () => {
-    spyOn(component.store, 'dispatch');
-    component.validReport = testReports[0];
-    component.currentOrganization = testOrganizations[0];
-    component.volunteers = testVolunteers;
-    component.onSubmitReport();
-    expect(component.store.dispatch)
-      .toHaveBeenCalledWith(new SettingsActions.GenerateVisitHistoryReport({
-        startedAt: testReports[0].startedAt,
-        endedAt: testReports[0].endedAt,
-        organizationId: testOrganizations[0].id,
-        volunteers: testVolunteers,
-      }));
-  });
+  it(
+    'should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport',
+    () => {
+      spyOn(component.store, 'dispatch');
+      component.validReport = testReports[0];
+      component.currentOrganization = testOrganizations[0];
+      component.volunteers = testVolunteers;
+      component.onSubmitReport();
+      expect(component.store.dispatch)
+        .toHaveBeenCalledWith(new SettingsActions.GenerateVisitHistoryReport({
+          startedAt: testReports[0].startedAt,
+          endedAt: testReports[0].endedAt,
+          organizationId: testOrganizations[0].id,
+          volunteers: testVolunteers,
+        }));
+    },
+  );
 });

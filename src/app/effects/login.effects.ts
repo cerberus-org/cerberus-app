@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { User } from 'firebase';
-
-
 import { Observable } from 'rxjs/index';
 import { map, switchMap, tap } from 'rxjs/operators';
 
