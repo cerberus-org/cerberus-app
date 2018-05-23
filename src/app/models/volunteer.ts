@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export class Volunteer {
   id: string;
   organizationId: string;
@@ -33,4 +35,4 @@ export const testVolunteers: Volunteer[] = [{
   petName: 'Gam-Gam',
 }];
 
-export const getTestVolunteers = (): Volunteer[] => testVolunteers.slice();
+export const getTestVolunteers = (): Volunteer[] => _.cloneDeep(testVolunteers);

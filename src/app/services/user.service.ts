@@ -3,8 +3,9 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { empty, of } from 'rxjs';
 import { Observable } from 'rxjs/index';
+import { deepCopy } from '../functions';
 
-import { testUsers, User } from '../models';
+import { getTestUsers, testUsers, User } from '../models';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';
 
@@ -40,10 +41,10 @@ export class UserService extends BaseService<User> {
    * @returns {User} - a new user with capitalized properties
    */
   convertOut(user: User): User {
-    const userCopy = Object.assign({}, user);
-    delete userCopy.password;
-    delete userCopy.email;
-    return this.capitalizeUser(userCopy);
+    const userClone = _.cloneDeep(user);
+    delete userClone.password;
+    delete userClone.email;
+    return this.capitalizeUser(userClone);
   }
 
   /**
@@ -64,15 +65,15 @@ export class MockUserService extends UserService {
   }
 
   getAll(): Observable<User[]> {
-    return of(testUsers);
+    return of(getTestUsers());
   }
 
   getByKey(key: string, value: string): Observable<User[]> {
-    return of(testUsers.filter(user => user[key] === value));
+    return of(getTestUsers().filter(user => user[key] === value));
   }
 
   getById(id: string): Observable<User> {
-    return of(testUsers.find(user => user.id === id));
+    return of(getTestUsers().find(user => user.id === id));
   }
 
   add(user: User): Observable<User> {

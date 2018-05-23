@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
+import { User as FirebaseUser } from 'firebase';
 import { Observable } from 'rxjs/index';
 import { map, switchMap, tap } from 'rxjs/operators';
 
@@ -23,8 +24,7 @@ export class LoginEffects {
       map((action: LoginActions.LogIn) => action.payload),
       switchMap(payload => this.authService.signIn(payload.email, payload.password)
         .pipe(
-          // Firebase User object now contains user property with uid
-          switchMap((firebaseUser: any) => this.userService.getById(firebaseUser.user.uid)
+          switchMap((firebaseUser: FirebaseUser) => this.userService.getById(firebaseUser.uid)
             .pipe(
               map((user) => {
                 if (user.role === 'Locked') {

@@ -1,5 +1,6 @@
 import { getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
+import * as _ from 'lodash';
 import { empty, from } from 'rxjs';
 
 import { getTestVolunteers } from '../models';
@@ -93,7 +94,7 @@ describe('BaseService', () => {
 
   describe('add', () => {
     it('should add data to a collection with a given ID', () => {
-      const volunteer = Object.assign({}, testVolunteers[0]);
+      const volunteer = _.cloneDeep(testVolunteers[0]);
       const id = volunteer.id;
       delete volunteer.id;
       service.add(volunteer, id).subscribe((data) => {

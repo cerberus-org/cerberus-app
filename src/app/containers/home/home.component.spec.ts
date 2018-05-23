@@ -48,7 +48,7 @@ describe('HomeComponent', () => {
 
   it('should handle validInput events by setting organizationName', () => {
     component.onValidInput(testOrganizations[0].name);
-    expect(component.organizationName).toBe(testOrganizations[0].name);
+    expect(component.organizationName).toEqual(testOrganizations[0].name);
   });
 
   it('should handle onLiveData events by dispatching RouterActions.Go', () => {

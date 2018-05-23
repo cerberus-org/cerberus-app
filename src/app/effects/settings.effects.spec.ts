@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/index';
 
 import * as AuthActions from '../actions/auth.actions';
 import * as SettingsActions from '../actions/settings.actions';
-import { testOrganizations, testUsers } from '../models';
+import { getTestUsers, testOrganizations } from '../models';
 import { CsvService, SnackBarService } from '../services';
 import { mockServiceProviders } from '../services/mock-service-providers';
 import { SettingsEffects } from './settings.effects';
@@ -51,7 +51,7 @@ describe('SettingsEffects', () => {
 
   describe('updateUser$', () => {
     it('should dispatch AuthActions.UpdateUser', (() => {
-      const user = testUsers[0];
+      const user = getTestUsers()[0];
       actions = hot('a', {
         a: new SettingsActions.UpdateUser(user),
       });

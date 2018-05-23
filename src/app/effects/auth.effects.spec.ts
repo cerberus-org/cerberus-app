@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { Observable } from 'rxjs/index';
 
 import * as AuthActions from '../actions/auth.actions';
-import { testFirebaseUsers, testOrganizations, testUsers } from '../models';
+import { getTestUsers, testFirebaseUsers, testOrganizations, testUsers } from '../models';
 import { mockServiceProviders } from '../services/mock-service-providers';
 import { AuthEffects } from './auth.effects';
 
@@ -31,7 +31,7 @@ describe('AuthEffects', () => {
       });
       const expected = cold('b', {
         b: new AuthActions.LoadDataSuccess({
-          user: testUsers[0],
+          user: getTestUsers()[0],
           organization: testOrganizations[0],
         }),
       });

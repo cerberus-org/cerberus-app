@@ -78,8 +78,11 @@ export class AuthService {
   signIn(email: string, password: string): Observable<FirebaseUser> {
     // Do not use Firebase error for security purposes.
     // We do not want the user to know if any account does or does not exist.
-    return from(this.afAuth.auth
-      .signInWithEmailAndPassword(email, password))
+    return from(
+      this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      // Now returns user property nested inside an object
+        .then(res => res.user),
+    )
       .pipe(catchError(error => this.errorService.handleLoginError(error)));
   }
 

@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 /**
  * The database consists of a User object and a Firebase User object.
  * Both objects are coupled in this object for simplicity.
@@ -47,6 +49,8 @@ export const testUsers: User[] = [
     role: 'member',
   },
 ];
+
+export const getTestUsers = (): User[] => _.cloneDeep(testUsers);
 
 export const testLoginCredentials: any = [{
   email: 'Test@gmail.com',

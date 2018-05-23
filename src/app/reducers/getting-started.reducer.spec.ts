@@ -1,5 +1,5 @@
 import * as GettingStartedActions from '../actions/getting-started.actions';
-import { testOrganizations, testUsers } from '../models';
+import { getTestUsers, testOrganizations, testUsers } from '../models';
 import * as fromGettingStarted from './getting-started.reducer';
 
 describe('dataDisplayReducer', () => {
@@ -11,7 +11,7 @@ describe('dataDisplayReducer', () => {
         fromGettingStarted.initialState,
         new GettingStartedActions.NextStep(1),
       );
-      expect(state.step).toBe(1);
+      expect(state.step).toEqual(1);
     });
 
     it('does not step when the next step is less than the previous', () => {
@@ -20,7 +20,7 @@ describe('dataDisplayReducer', () => {
         initialState,
         new GettingStartedActions.NextStep(1),
       );
-      expect(state.step).toBe(2);
+      expect(state.step).toEqual(2);
     });
   });
 
@@ -31,8 +31,7 @@ describe('dataDisplayReducer', () => {
         fromGettingStarted.initialState,
         new GettingStartedActions.UpdateValidOrganization(testOrganizations[0]),
       );
-      expect(state.validOrganization).toBe(testOrganizations[0],
-      );
+      expect(state.validOrganization).toEqual(testOrganizations[0]);
     });
   });
 
@@ -41,9 +40,9 @@ describe('dataDisplayReducer', () => {
     it('updates the valid organization', () => {
       const state = fromGettingStarted.reducer(
         fromGettingStarted.initialState,
-        new GettingStartedActions.UpdateValidUser(testUsers[0]),
+        new GettingStartedActions.UpdateValidUser(getTestUsers()[0]),
       );
-      expect(state.validUser).toBe(testUsers[0]);
+      expect(state.validUser).toEqual(getTestUsers()[0]);
     });
   });
 });

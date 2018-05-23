@@ -34,7 +34,7 @@ describe('helpers.functions', () => {
     const name = testVolunteers[1].firstName;
     const filtered = filterVolunteersByName(testVolunteers, name);
     expect(filtered.length).toEqual(1);
-    expect(filtered[0]).toBe(testVolunteers[1]);
+    expect(filtered[0]).toEqual(testVolunteers[1]);
   });
 
   it('should get the unique full names from an array of volunteers', () => {
@@ -54,7 +54,7 @@ describe('helpers.functions', () => {
   it('should find volunteers by full name', () => {
     const name = `${testVolunteers[1].firstName} ${testVolunteers[1].lastName}`;
     const selected = findVolunteerByFullName(testVolunteers, name);
-    expect(selected).toBe(testVolunteers[1]);
+    expect(selected).toEqual(testVolunteers[1]);
   });
 
   it('should not find volunteers by only first name', () => {
@@ -66,12 +66,12 @@ describe('helpers.functions', () => {
   it('should find volunteers by petName', () => {
     const petName = testVolunteers[2].petName;
     const selected = findVolunteerByPetName(testVolunteers, petName);
-    expect(selected).toBe(testVolunteers[2]);
+    expect(selected).toEqual(testVolunteers[2]);
   });
 
   it('should find active visits for volunteers', () => {
     const volunteer = Object.assign({}, testVolunteers[0]);
     const selected = findActiveVisit(testVisits, volunteer);
-    expect(selected).toBe(testVisits[3]);
+    expect(selected).toEqual(testVisits[3]);
   });
 });
