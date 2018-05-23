@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { Observable } from 'rxjs/index';
+import { map } from 'rxjs/operators';
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
 import { HeaderOptions, SidenavOptions, Site, Visit } from '../../models';
@@ -24,8 +25,8 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.appSubscription = this.store.select('auth')
-      .map(state => state.organization)
+    this.appSubscription = this.store.select('auth').pipe(
+      map(state => state.organization))
       .subscribe((organization) => {
         if (organization) {
           this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
@@ -37,11 +38,11 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.visits$ = this.store.select('model')
-      .map(state => state.visits);
+    this.visits$ = this.store.select('model').pipe(
+      map(state => state.visits));
 
-    this.modelSubscription = this.store.select('model')
-      .map(state => state.sites)
+    this.modelSubscription = this.store.select('model').pipe(
+      map(state => state.sites))
       .subscribe((sites) => {
         if (sites) {
           this.store.dispatch(new AppActions.SetSidenavOptions(

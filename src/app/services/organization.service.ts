@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
-import 'rxjs/add/observable/empty';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
+import { empty, of } from 'rxjs';
 import { Observable } from 'rxjs/index';
 
 import { upperAllFirst } from '../functions';
@@ -62,26 +60,26 @@ export class MockOrganizationService extends OrganizationService {
   }
 
   getAll(): Observable<Organization[]> {
-    return Observable.of(testOrganizations);
+    return of(testOrganizations);
   }
 
   getByKey(key: string, value: string): Observable<Organization[]> {
-    return Observable.of(testOrganizations.filter(organization => organization[key] === value));
+    return of(testOrganizations.filter(organization => organization[key] === value));
   }
 
   getById(id: string): Observable<Organization> {
-    return Observable.of(testOrganizations.find(organization => organization.id === id));
+    return of(testOrganizations.find(organization => organization.id === id));
   }
 
   add(organization: Organization): Observable<Organization> {
-    return Observable.of(organization);
+    return of(organization);
   }
 
   update(organization: any): Observable<any> {
-    return Observable.of(Promise.resolve());
+    return of(Promise.resolve());
   }
 
   delete(organization: any): Observable<any> {
-    return Observable.empty();
+    return empty();
   }
 }

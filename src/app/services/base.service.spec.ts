@@ -1,8 +1,6 @@
 import { getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
-import 'rxjs/add/observable/empty';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/index';
+import { empty, from } from 'rxjs';
 
 import { getTestVolunteers } from '../models';
 import { BaseService } from './base.service';
@@ -169,17 +167,17 @@ describe('BaseService', () => {
             Promise.resolve()
           )),
           delete: deleteSpy = createSpy('delete').and.callFake(() => (
-            Promise.resolve(Observable.empty<any>())
+            Promise.resolve(empty())
           )),
           update: updateSpy = createSpy('update').and.callFake(() => (
-            Promise.resolve(Observable.empty<any>())
+            Promise.resolve(empty())
           )),
         })),
         valueChanges: valueChangesSpy = createSpy('valueChanges').and.callFake(
-          () => Observable.from(items),
+          () => from(items),
         ),
         snapshotChanges: snapshotChangesSpy = createSpy('snapshotChanges').and.callFake(
-          () => Observable.from(items.map((item) => {
+          () => from(items.map((item) => {
             const itemCopy = Object.assign({}, item);
             const id = itemCopy.id;
             delete itemCopy.id;

@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatVerticalStepper } from '@angular/material';
 import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
-
-import { MatVerticalStepper } from '@angular/material';
 import { HeaderOptions, Organization, User } from '../../models';
 import { State } from '../../reducers';
 import { AuthService, ErrorService, OrganizationService, SnackBarService } from '../../services';
@@ -35,11 +32,13 @@ export class JoinPageComponent implements OnInit {
   modelSubscription: Subscription;
   isTosChecked: boolean;
 
-  constructor(private authService: AuthService,
-              private organizationService: OrganizationService,
-              private errorService: ErrorService,
-              private store: Store<State>,
-              private snackBarService: SnackBarService) {
+  constructor(
+    private authService: AuthService,
+    private organizationService: OrganizationService,
+    private errorService: ErrorService,
+    private store: Store<State>,
+    private snackBarService: SnackBarService,
+  ) {
     this.userFormTitle = 'Please enter your information.';
   }
 
@@ -99,8 +98,6 @@ export class JoinPageComponent implements OnInit {
 
   /**
    * On submit, validate organization, create user, log user out and display snack bar on success.
-   *
-   * @param {string} organizationName
    */
   onJoinOrganization() {
     const organization = this.getOrganizationByName(this.validInput);

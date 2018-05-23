@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
+
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
 import { Organization } from '../../models';
@@ -18,8 +19,10 @@ export class HomeComponent implements OnInit {
   modelSubscription: Subscription;
   organizations: Organization[];
 
-  constructor(public store: Store<State>,
-              private router: Router) {}
+  constructor(
+    public store: Store<State>,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.modelSubscription = this.store.select('model')

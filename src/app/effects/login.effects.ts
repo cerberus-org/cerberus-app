@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
+import { User } from 'firebase';
+
+
 import { Observable } from 'rxjs/index';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import * as LoginActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
@@ -21,19 +22,25 @@ export class LoginEffects {
   @Effect()
   login$: Observable<Action> = this.actions
     .ofType(LoginActions.LOG_IN)
-    .map((action: LoginActions.LogIn) => action.payload)
-    .switchMap(payload => this.authService.signIn(payload.email, payload.password)
-      .switchMap(res => this.userService.getById(res.uid)
-        .map((user) => {
-          if (user.role === 'Locked') {
-            this.authService.signOut();
-            this.snackBarService.accountNotVerified();
-          } else {
-            this.snackBarService.loginSuccess(user.firstName);
-            return new RouterActions.Go({ path: ['/dashboard'] });
-          }
-        }),
-      ));
+    .pipe(
+      map((action: LoginActions.LogIn) => action.payload),
+      switchMap(payload => this.authService.signIn(payload.email, payload.password)
+        .pipe(
+          // Firebase User object now contains user property with uid
+          switchMap((firebaseUser: any) => this.userService.getById(firebaseUser.user.uid)
+            .pipe(
+              map((user) => {
+                if (user.role === 'Locked') {
+                  this.authService.signOut();
+                  this.snackBarService.accountNotVerified();
+                } else {
+                  this.snackBarService.loginSuccess(user.firstName);
+                  return new RouterActions.Go({ path: ['/dashboard'] });
+                }
+              }),
+            )),
+        )),
+    );
 
   /**
    * Listen for the Verify action, verify password,
@@ -42,13 +49,16 @@ export class LoginEffects {
    */
   @Effect()
   verifyPassword$: Observable<Action> = this.actions
-    .ofType(LoginActions.VERIFY_PASSWORD)
-    .map((action: LoginActions.VerifyPassword) => action.payload)
-    .switchMap(payload => this.authService.signIn(payload.email, payload.password)
-      .map(() => {
-        this.authService.setPwdVerification(true);
-        return new RouterActions.Go({ path: ['/settings'] });
-      }));
+    .ofType(LoginActions.VERIFY_PASSWORD).pipe(
+      map((action: LoginActions.VerifyPassword) => action.payload),
+      switchMap(payload => this.authService.signIn(payload.email, payload.password)
+        .pipe(
+          map(() => {
+            this.authService.setPwdVerification(true);
+            return new RouterActions.Go({ path: ['/settings'] });
+          }),
+        )),
+    );
 
   /**
    * Listen for the LogOut action, log the user out,
@@ -58,11 +68,15 @@ export class LoginEffects {
   @Effect()
   logout$: Observable<Action> = this.actions
     .ofType(LoginActions.LOG_OUT)
-    .switchMap(() => this.authService.signOut()
-      .map(() => {
-        this.snackBarService.logoutSuccess();
-        return new RouterActions.Go({ path: ['/home'] });
-      }));
+    .pipe(
+      switchMap(() => this.authService.signOut()
+        .pipe(
+          map(() => {
+            this.snackBarService.logoutSuccess();
+            return new RouterActions.Go({ path: ['/home'] });
+          }),
+        )),
+    );
 
   /**
    * Listen for the ResetPassword action,
@@ -72,13 +86,19 @@ export class LoginEffects {
   @Effect({ dispatch: false })
   resetPassword$: Observable<{}> = this.actions
     .ofType(LoginActions.RESET_PASSWORD)
-    .switchMap((action: LoginActions.ResetPassword) => this.authService.resetPassword(action.payload)
-      .do(() => {
-        this.snackBarService.resetPassword();
-      }));
+    .pipe(
+      switchMap((action: LoginActions.ResetPassword) => this.authService.resetPassword(action.payload)
+        .pipe(
+          tap(() => {
+            this.snackBarService.resetPassword();
+          }),
+        )),
+    );
 
-  constructor(private actions: Actions,
-              private authService: AuthService,
-              private userService: UserService,
-              private snackBarService: SnackBarService) {}
+  constructor(
+    private actions: Actions,
+    private authService: AuthService,
+    private userService: UserService,
+    private snackBarService: SnackBarService,
+  ) {}
 }

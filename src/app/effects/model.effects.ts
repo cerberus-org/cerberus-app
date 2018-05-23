@@ -1,8 +1,9 @@
+import { switchMap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
+
+
 import { Observable } from 'rxjs/index';
 
 import * as ModelActions from '../actions/model.actions';
@@ -17,10 +18,14 @@ export class ModelEffects {
    */
   @Effect()
   loadSites$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_SITES)
-    .map((action: ModelActions.LoadSites) => action.payload)
-    .switchMap(organizationId => this.siteService
-      .getByKey('organizationId', organizationId, true)
-      .map(sites => new ModelActions.LoadSitesSuccess(sites)));
+    .pipe(
+      map((action: ModelActions.LoadSites) => action.payload),
+      switchMap(organizationId => this.siteService
+        .getByKey('organizationId', organizationId, true)
+        .pipe(
+          map(sites => new ModelActions.LoadSitesSuccess(sites)),
+        )),
+    );
 
   /**
    * Listen for the LoadUsers action, get the users by organizationId,
@@ -28,10 +33,14 @@ export class ModelEffects {
    */
   @Effect()
   loadUsers$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_USERS)
-    .map((action: ModelActions.LoadUsers) => action.payload)
-    .switchMap(organizationId => this.userService
-      .getByKey('organizationId', organizationId, true)
-      .map(users => new ModelActions.LoadUsersSuccess(users)));
+    .pipe(
+      map((action: ModelActions.LoadUsers) => action.payload),
+      switchMap(organizationId => this.userService
+        .getByKey('organizationId', organizationId, true)
+        .pipe(
+          map(users => new ModelActions.LoadUsersSuccess(users)),
+        )),
+    );
 
   /**
    * Listen for the LoadVisits action, get the visits by organizationId,
@@ -39,10 +48,14 @@ export class ModelEffects {
    */
   @Effect()
   loadVisits$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_VISITS)
-    .map((action: ModelActions.LoadVisits) => action.payload)
-    .switchMap(organizationId => this.visitService
-      .getByKey('organizationId', organizationId, true)
-      .map(visits => new ModelActions.LoadVisitsSuccess(visits)));
+    .pipe(
+      map((action: ModelActions.LoadVisits) => action.payload),
+      switchMap(organizationId => this.visitService
+        .getByKey('organizationId', organizationId, true)
+        .pipe(
+          map(visits => new ModelActions.LoadVisitsSuccess(visits)),
+        )),
+    );
 
   /**
    * Listen for the LoadVisits action, get the volunteers by organizationId,
@@ -50,22 +63,32 @@ export class ModelEffects {
    */
   @Effect()
   loadVolunteers$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_VOLUNTEERS)
-    .map((action: ModelActions.LoadVolunteers) => action.payload)
-    .switchMap(organizationId => this.volunteerService
-      .getByKey('organizationId', organizationId, true)
-      .map(volunteers => new ModelActions.LoadVolunteersSuccess(volunteers)));
+    .pipe(
+      map((action: ModelActions.LoadVolunteers) => action.payload),
+      switchMap(organizationId => this.volunteerService
+        .getByKey('organizationId', organizationId, true)
+        .pipe(
+          map(volunteers => new ModelActions.LoadVolunteersSuccess(volunteers)),
+        )),
+    );
 
   @Effect()
   loadOrganizations$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_ORGANIZATIONS)
-    .map((action: ModelActions.LoadOrganizations) => action)
-    .switchMap(() => this.organizationService
-      .getAll(true)
-      .map(organizations => new ModelActions.LoadOrganizationsSuccess(organizations)));
+    .pipe(
+      map((action: ModelActions.LoadOrganizations) => action),
+      switchMap(() => this.organizationService
+        .getAll(true)
+        .pipe(
+          map(organizations => new ModelActions.LoadOrganizationsSuccess(organizations)),
+        )),
+    );
 
-  constructor(private actions: Actions,
-              private siteService: SiteService,
-              private userService: UserService,
-              private visitService: VisitService,
-              private volunteerService: VolunteerService,
-              private organizationService: OrganizationService) {}
+  constructor(
+    private actions: Actions,
+    private siteService: SiteService,
+    private userService: UserService,
+    private visitService: VisitService,
+    private volunteerService: VolunteerService,
+    private organizationService: OrganizationService,
+  ) {}
 }

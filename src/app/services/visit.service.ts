@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import 'rxjs/add/observable/empty';
-import 'rxjs/add/observable/of';
+import { empty, of } from 'rxjs';
 import { Observable } from 'rxjs/index';
 
 import { testVisits, Visit } from '../models';
@@ -74,7 +73,7 @@ export class MockVisitService extends VisitService {
     endDate: Date,
     snapshot?: boolean,
   ): Observable<Visit[]> {
-    return Observable.of(testVisits
+    return of(testVisits
       .filter(visit =>
         visit.startedAt >= startDate &&
         (!visit.endedAt || visit.endedAt <= endDate) &&
@@ -83,26 +82,26 @@ export class MockVisitService extends VisitService {
   }
 
   getAll(): Observable<Visit[]> {
-    return Observable.of(testVisits);
+    return of(testVisits);
   }
 
   getByKey(key: string, value: string): Observable<Visit[]> {
-    return Observable.of(testVisits.filter(visit => visit[key] === value));
+    return of(testVisits.filter(visit => visit[key] === value));
   }
 
   getById(id: string): Observable<Visit> {
-    return Observable.of(testVisits.find(visit => visit.id === id));
+    return of(testVisits.find(visit => visit.id === id));
   }
 
   add(visit: Visit): Observable<Visit> {
-    return Observable.of(visit);
+    return of(visit);
   }
 
   update(visit: any): Observable<any> {
-    return Observable.of(Promise.resolve());
+    return of(Promise.resolve());
   }
 
   delete(visit: any): Observable<any> {
-    return Observable.empty();
+    return empty();
   }
 }

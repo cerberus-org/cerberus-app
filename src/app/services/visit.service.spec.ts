@@ -1,9 +1,9 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/index';
+import { from } from 'rxjs';
 
 import { ErrorService, MockErrorService, VisitService } from '.';
-import { getTestVisits, testVisits, Visit } from '../models';
+import { getTestVisits, Visit } from '../models';
 import createSpy = jasmine.createSpy;
 
 describe('VisitService', () => {
@@ -93,10 +93,10 @@ describe('VisitService', () => {
       }
       return {
         valueChanges: valueChangesSpy = createSpy('valueChanges').and.callFake(
-          () => Observable.from(items),
+          () => from(items),
         ),
         snapshotChanges: snapshotChangesSpy = createSpy('snapshotChanges').and.callFake(
-          () => Observable.from(items.map((item) => {
+          () => from(items.map((item) => {
             const itemCopy = Object.assign({}, item);
             const id = itemCopy.id;
             delete itemCopy.id;

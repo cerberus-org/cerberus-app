@@ -1,7 +1,9 @@
+
+import {of} from 'rxjs';
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
-import 'rxjs/add/observable/of';
+
 import { Observable } from 'rxjs/index';
 
 import * as AuthActions from '../actions/auth.actions';
@@ -16,7 +18,7 @@ describe('SettingsEffects', () => {
   let actions: Observable<any>;
 
   beforeEach(async(() => {
-    actions = Observable.of('');
+    actions = of('');
     TestBed.configureTestingModule({
       providers: [
         SettingsEffects,

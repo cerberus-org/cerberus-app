@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatVerticalStepper } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/distinctUntilChanged';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import * as AppActions from '../../actions/app.actions';
 import * as CheckInActions from '../../actions/check-in.actions';
@@ -28,8 +28,10 @@ export class CheckInComponent implements OnInit, OnDestroy {
   checkInOutFormTitle: string;
   checkInOutStepperTitle: string;
 
-  constructor(private store: Store<State>,
-              private activatedRoute: ActivatedRoute) {
+  constructor(
+    private store: Store<State>,
+    private activatedRoute: ActivatedRoute,
+  ) {
     this.checkInOutFormTitle = 'Test';
   }
 
@@ -43,7 +45,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
     this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
     this.appSubscription = this.store.select('auth')
-      .map(state => state.organization)
+      .pipe(map(state => state.organization))
       .subscribe((organization) => {
         if (organization) {
           this.organizationId = organization.id;

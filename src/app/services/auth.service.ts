@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { User as FbUser } from 'firebase';
-import 'rxjs/add/observable/fromPromise';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/switchMap';
+import { User as FirebaseUser } from 'firebase';
+import { from, of } from 'rxjs';
 import { Observable } from 'rxjs/index';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import * as AuthActions from '../actions/auth.actions';
 import { testFirebaseUsers, User } from '../models';
@@ -20,10 +18,12 @@ export class AuthService {
   pwdVerification: boolean;
   user: User;
 
-  constructor(private afAuth: AngularFireAuth,
-              private errorService: ErrorService,
-              private userService: UserService,
-              private store: Store<State>) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private errorService: ErrorService,
+    private userService: UserService,
+    private store: Store<State>,
+  ) {
     this.pwdVerification = false;
     if (afAuth) {
       this.observeStateChanges();
@@ -39,16 +39,18 @@ export class AuthService {
   }
 
   createUser(user: User): Observable<{}> {
-    return Observable.fromPromise(this.afAuth.auth
+    return from(this.afAuth.auth
       .createUserWithEmailAndPassword(user.email, user.password))
-      .switchMap(afUser => this.userService.add(user, afUser.uid))
-      .catch(error => this.errorService.handleFirebaseError(error));
+      .pipe(
+        switchMap(afUser => this.userService.add(user, afUser.uid)),
+        catchError(error => this.errorService.handleFirebaseError(error)),
+      );
   }
 
   resetPassword(email: string): Observable<{}> {
     // Do not handle Firebase error for security purposes.
     // We do not want the user to know if any email does or does not exist.
-    return Observable.fromPromise(this.afAuth.auth
+    return from(this.afAuth.auth
       .sendPasswordResetEmail(email));
   }
 
@@ -66,17 +68,19 @@ export class AuthService {
     if (user.email) {
       updates.push(currentUser.updateEmail(user.email));
     }
-    return Observable.fromPromise(Promise.all(updates))
-      .switchMap(() => this.userService.update(user))
-      .catch(error => this.errorService.handleFirebaseError(error));
+    return from(Promise.all(updates))
+      .pipe(
+        switchMap(() => this.userService.update(user)),
+        catchError(error => this.errorService.handleFirebaseError(error)),
+      );
   }
 
-  signIn(email: string, password: string): Observable<FbUser> {
+  signIn(email: string, password: string): Observable<FirebaseUser> {
     // Do not use Firebase error for security purposes.
     // We do not want the user to know if any account does or does not exist.
-    return Observable.fromPromise(this.afAuth.auth
+    return from(this.afAuth.auth
       .signInWithEmailAndPassword(email, password))
-      .catch(error => this.errorService.handleLoginError(error));
+      .pipe(catchError(error => this.errorService.handleLoginError(error)));
   }
 
   /**
@@ -84,11 +88,11 @@ export class AuthService {
    * @returns {Observable<boolean>}
    */
   isLoggedIn(): Observable<boolean> {
-    return this.afAuth.authState.map(auth => !!auth);
+    return this.afAuth.authState.pipe(map(auth => !!auth));
   }
 
   signOut(): Observable<FbUser> {
-    return Observable.fromPromise(this.afAuth.auth.signOut());
+    return from(this.afAuth.auth.signOut());
   }
 
   /**
@@ -112,18 +116,18 @@ export class MockAuthService extends AuthService {
   }
 
   createUser(user: User): Observable<User> {
-    return Observable.of(user);
+    return of(user);
   }
 
   updateUser(user: User): Observable<User> {
-    return Observable.of(user);
+    return of(user);
   }
 
   signIn(email: string, password: string): Observable<any> {
-    return Observable.of(testFirebaseUsers[0]);
+    return of(testFirebaseUsers[0]);
   }
 
   signOut(): Observable<FbUser> {
-    return Observable.of(null);
+    return of(null);
   }
 }

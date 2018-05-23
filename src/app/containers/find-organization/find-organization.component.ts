@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatAutocomplete } from '@angular/material';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
-import * as ModelActions from '../../actions/model.actions';
+import { Subscription } from 'rxjs';
+
 import { Organization } from '../../models';
 import { State } from '../../reducers';
 
