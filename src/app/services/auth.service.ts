@@ -91,7 +91,7 @@ export class AuthService {
     return this.afAuth.authState.pipe(map(auth => !!auth));
   }
 
-  signOut(): Observable<FbUser> {
+  signOut(): Observable<FirebaseUser> {
     return from(this.afAuth.auth.signOut());
   }
 
@@ -127,7 +127,7 @@ export class MockAuthService extends AuthService {
     return of(testFirebaseUsers[0]);
   }
 
-  signOut(): Observable<FbUser> {
+  signOut(): Observable<FirebaseUser> {
     return of(null);
   }
 }

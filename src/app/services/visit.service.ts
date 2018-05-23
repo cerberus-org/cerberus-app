@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import * as firebase from 'firebase';
 import { empty, of } from 'rxjs';
 import { Observable } from 'rxjs/index';
 
 import { testVisits, Visit } from '../models';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';
+import Timestamp = firebase.firestore.Timestamp;
 
 @Injectable()
 export class VisitService extends BaseService<Visit> {
@@ -32,30 +34,27 @@ export class VisitService extends BaseService<Visit> {
     );
   }
 
-  private convertDates(visit: Visit): Visit {
-    return Object.assign({}, visit, {
-      startedAt: new Date(visit.startedAt),
-      endedAt: visit.endedAt ? new Date(visit.endedAt) : null,
-    });
-  }
-
   /**
-   * Override to parse startedAt and endedAt Strings into Date objects and to stringify signature.
+   * Override to parse startedAt and endedAt Strings into Dates and to stringify signature.
    * @param visit
    * @returns {any}
    */
   convertOut(visit: Visit): Visit {
-    return Object.assign({}, this.convertDates(visit), {
+    return Object.assign({}, visit, {
+      startedAt: (visit.startedAt as Timestamp).getApproximateDate(),
+      endedAt: visit.endedAt ? new Date(visit.endedAt) : null,
       signature: visit.signature ? JSON.stringify(visit.signature) : null,
     });
   }
 
   /**
-   * Override to parse startedAt and endedAt Strings into Date objects and to destringify signature.
+   * Override to convert startedAt and endedAt Timestamps into Dates and to destringify signature.
    * @param visit
    */
-  convertIn(visit: Visit): Visit {
-    return Object.assign({}, this.convertDates(visit), {
+  convertIn(visit: Visit | Timestamp): Visit {
+    return Object.assign({}, visit, {
+      startedAt: visit.startedAt.toDate(),
+      endedAt: visit.endedAt ? visit.endedAt.toDate() : null,
       signature: visit.signature ? JSON.parse(visit.signature) : null,
     });
   }
