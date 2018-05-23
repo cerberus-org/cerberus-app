@@ -33,6 +33,6 @@ describe('CsvService', () => {
 
   it('should convert an array of objects to a comma separated string ', () => {
     expect(service.covertToCommaSeparatedString(data, propertiesToColumnTitles))
-      .toBe('A,B,C,\r\ntest1,test2,test3,\r\n');
+      .toEqual('A,B,C,\r\ntest1,test2,test3,\r\n');
   });
 });

@@ -1,14 +1,9 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  MatIconModule,
-  MatListModule,
-  MatPaginatorModule,
-  MatTableModule,
-} from '@angular/material';
+import { MatIconModule, MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 
 import { getTestVisits, getTestVolunteers, testColumnOptions } from '../../models';
 import { DataTableComponent, DataTableSource } from './data-table.component';
@@ -39,7 +34,7 @@ describe('DataTableComponent', () => {
     fixture = TestBed.createComponent(DataTableComponent);
     component = fixture.componentInstance;
     component.columnOptions = testColumnOptions;
-    component.data$ = Observable.of(getTestVisits());
+    component.data$ = of(getTestVisits());
     fixture.detectChanges();
   });
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import 'rxjs/add/observable/empty';
-import { Observable } from 'rxjs/Observable';
+import { empty, of } from 'rxjs';
+import { Observable } from 'rxjs/index';
 
 import { upperAllFirst } from '../functions';
 import { Site, testSites } from '../models';
@@ -60,26 +60,26 @@ export class MockSiteService extends SiteService {
   }
 
   getAll(): Observable<Site[]> {
-    return Observable.of(testSites);
+    return of(testSites);
   }
 
   getByKey(key: string, value: string): Observable<Site[]> {
-    return Observable.of(testSites.filter(site => site[key] === value));
+    return of(testSites.filter(site => site[key] === value));
   }
 
   getById(id: string): Observable<Site> {
-    return Observable.of(testSites.find(site => site.id === id));
+    return of(testSites.find(site => site.id === id));
   }
 
   add(site: Site): Observable<Site> {
-    return Observable.of(site);
+    return of(site);
   }
 
   update(site: any): Observable<any> {
-    return Observable.of(Promise.resolve());
+    return of(Promise.resolve());
   }
 
   delete(site: any): Observable<any> {
-    return Observable.empty<any>();
+    return empty();
   }
 }

@@ -1,14 +1,8 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  DocumentChangeAction,
-  QueryFn,
-} from 'angularfire2/firestore';
-import 'rxjs/add/observable/fromPromise';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
+import { from } from 'rxjs';
+import { Observable } from 'rxjs/index';
+import { catchError, map } from 'rxjs/operators';
 
 import { ErrorService } from './error.service';
 
@@ -43,18 +37,18 @@ export abstract class BaseService<T extends { id: string }> {
   ): Observable<T[]> {
     return (
       snapshot
-        ? collection.snapshotChanges()
-          .map((actions: DocumentChangeAction[]) => (
-            actions.map((action: DocumentChangeAction) => {
-              const data = action.payload.doc.data() as T;
-              const id = action.payload.doc.id;
-              return this.convertIn(Object.assign(data, { id }));
-            })
-          ))
-        : collection.valueChanges()
-          .map((items: T[]) => items.map((item: T) => this.convertIn(item)))
-    )
-      .catch(error => this.errorService.handleFirebaseError(error));
+        ? collection.snapshotChanges().pipe(
+        map((actions: DocumentChangeAction<T>[]) => (
+          actions.map((action: DocumentChangeAction<T>) => {
+            const data = action.payload.doc.data() as T;
+            const id = action.payload.doc.id;
+            return this.convertIn(Object.assign(data, { id }));
+          })
+        )))
+        : collection.valueChanges().pipe(
+        map((items: T[]) => items.map((item: T) => this.convertIn(item))))
+    ).pipe(
+      catchError(error => this.errorService.handleFirebaseError(error)));
   }
 
   /**
@@ -86,11 +80,11 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<T>} - an observable containing the data.
    */
   getById(id: string): Observable<T> {
-    return Observable.fromPromise(
+    return from(
       this.collection().doc(id).ref.get()
         .then(snapshot => this.convertIn(snapshot.data())),
-    )
-      .catch(error => this.errorService.handleFirebaseError(error));
+    ).pipe(
+      catchError(error => this.errorService.handleFirebaseError(error)));
   }
 
   /**
@@ -100,7 +94,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<T>} - the Observable of the snapshot of the added object
    */
   add(item: T, id?: string): Observable<T> {
-    return Observable.fromPromise(
+    return from(
       id
         ? this.collection().doc(id)
           .set(this.convertOut(item))
@@ -111,8 +105,8 @@ export abstract class BaseService<T extends { id: string }> {
               .then(
                 snapshot => this.convertIn(Object.assign({}, snapshot.data(), { id: snapshot.id }))),
           ),
-    )
-      .catch(error => this.errorService.handleFirebaseError(error));
+    ).pipe(
+      catchError(error => this.errorService.handleFirebaseError(error)));
   }
 
   /**
@@ -121,10 +115,10 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<any>} - an empty Observable that emits when completed.
    */
   update(item: T): Observable<any> {
-    return Observable.fromPromise(
+    return from(
       this.collection().doc(item.id).update(this.convertOut(item)),
-    )
-      .catch(error => this.errorService.handleFirebaseError(error));
+    ).pipe(
+      catchError(error => this.errorService.handleFirebaseError(error)));
   }
 
   /**
@@ -133,10 +127,10 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<any>} - an empty Observable that emits when completed.
    */
   delete(item: T): Observable<any> {
-    return Observable.fromPromise(
+    return from(
       this.collection().doc(item.id).delete(),
-    )
-      .catch(error => this.errorService.handleFirebaseError(error));
+    ).pipe(
+      catchError(error => this.errorService.handleFirebaseError(error)));
   }
 
   /**

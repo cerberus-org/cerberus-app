@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { testUsers, User } from '../../models';
+import { getTestUsers, User } from '../../models';
 import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {
@@ -36,11 +36,12 @@ describe('UserFormComponent', () => {
 
   it('should emit a userChanges event on valid form values', () => {
     spyOn(component.validUser, 'emit');
-    const firstName = testUsers[0].firstName;
-    const lastName = testUsers[0].lastName;
-    const email = testUsers[0].email;
-    const password = testUsers[0].password;
-    const confirmPassword = testUsers[0].password;
+    const testUser = getTestUsers()[0];
+    const firstName = testUser.firstName;
+    const lastName = testUser.lastName;
+    const email = testUser.email;
+    const password = testUser.password;
+    const confirmPassword = testUser.password;
     component.formGroup.controls['firstName'].setValue(firstName);
     component.formGroup.controls['lastName'].setValue(lastName);
     component.formGroup.controls['email'].setValue(email);
@@ -118,7 +119,8 @@ describe('UserFormComponent', () => {
 
     it('should validate max length', (() => {
       const control = component.formGroup.controls['email'];
-      control.setValue('Lorem.ipsum.dolor.sit.amet.consectetuer.adipiscing.elit.Aenean.commodo.ligula.eget.dolor.Aenean.massa.Cum.sociis.natoque.penatibus.et.magnis.dis.parturient.montes.nascetur.ridiculus.mus.Donec.quam.felis.ultricies.nec.pellentesque.eu.pretium.quis.Lorem.ipsum.@gmailcom');
+      control.setValue(
+        'Lorem.ipsum.dolor.sit.amet.consectetuer.adipiscing.elit.Aenean.commodo.ligula.eget.dolor.Aenean.massa.Cum.sociis.natoque.penatibus.et.magnis.dis.parturient.montes.nascetur.ridiculus.mus.Donec.quam.felis.ultricies.nec.pellentesque.eu.pretium.quis.Lorem.ipsum.@gmailcom');
       expect(control.valid).toBeFalsy();
       expect(control.errors['maxlength']).toBeTruthy();
     }));
@@ -162,7 +164,8 @@ describe('UserFormComponent', () => {
 
     it('should validate max length', () => {
       const control = component.formGroup.controls['password'];
-      control.setValue('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis');
+      control.setValue(
+        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis');
       expect(control.valid).toBeFalsy();
       expect(control.errors['maxlength']).toBeTruthy();
     });

@@ -187,4 +187,3 @@ import { VerificationGuard } from './verification-guard';
   entryComponents: [PasswordDialogComponent, EmailDialogComponent],
 })
 export class AppModule {}
-

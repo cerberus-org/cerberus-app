@@ -1,8 +1,7 @@
 import { getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
-import 'rxjs/add/observable/empty';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import * as _ from 'lodash';
+import { empty, from } from 'rxjs';
 
 import { getTestVolunteers } from '../models';
 import { BaseService } from './base.service';
@@ -95,7 +94,7 @@ describe('BaseService', () => {
 
   describe('add', () => {
     it('should add data to a collection with a given ID', () => {
-      const volunteer = Object.assign({}, testVolunteers[0]);
+      const volunteer = _.cloneDeep(testVolunteers[0]);
       const id = volunteer.id;
       delete volunteer.id;
       service.add(volunteer, id).subscribe((data) => {
@@ -169,17 +168,17 @@ describe('BaseService', () => {
             Promise.resolve()
           )),
           delete: deleteSpy = createSpy('delete').and.callFake(() => (
-            Promise.resolve(Observable.empty<any>())
+            Promise.resolve(empty())
           )),
           update: updateSpy = createSpy('update').and.callFake(() => (
-            Promise.resolve(Observable.empty<any>())
+            Promise.resolve(empty())
           )),
         })),
         valueChanges: valueChangesSpy = createSpy('valueChanges').and.callFake(
-          () => Observable.from(items),
+          () => from(items),
         ),
         snapshotChanges: snapshotChangesSpy = createSpy('snapshotChanges').and.callFake(
-          () => Observable.from(items.map((item) => {
+          () => from(items.map((item) => {
             const itemCopy = Object.assign({}, item);
             const id = itemCopy.id;
             delete itemCopy.id;

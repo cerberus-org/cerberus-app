@@ -11,9 +11,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material';
-import 'rxjs/add/observable/merge';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { merge, of, Subscription } from 'rxjs';
+import { Observable } from 'rxjs/index';
+import { map } from 'rxjs/operators';
 
 import { ColumnOptions } from '../../models';
 
@@ -31,8 +31,7 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
   constructor(private data$: Observable<any[]>, private paginator: MatPaginator) {
     super();
     if (this.data$) {
-      this.subscription = this.data$
-        .subscribe(data => this.data = data);
+      this.subscription = this.data$.subscribe(data => this.data = data);
     }
   }
 
@@ -44,9 +43,14 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
    * Connect function called by the table to retrieve one stream containing the data to render.
    */
   connect(): Observable<any[]> {
-    return this.data$ ? Observable.merge(this.paginator.page, this.data$).map(() => {
-      return this.getPageData();
-    }) : Observable.of([]);
+    return this.data$
+      ? merge(this.paginator.page, this.data$)
+        .pipe(
+          map(() => {
+            return this.getPageData();
+          }),
+        )
+      : of([]);
   }
 
   getPageData(): any[] {
@@ -92,7 +96,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   ngOnInit(): void {
     // Determine initial page size using inner height of window at component init
-    const surroundingElementsPx = 217;
+    const surroundingElementsPx = 224;
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);

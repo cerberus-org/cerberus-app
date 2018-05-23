@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs/index';
+
 import * as AppActions from '../../actions/app.actions';
 import { HeaderOptions, Organization, Visit } from '../../models';
 import { State } from '../../reducers';
@@ -18,10 +19,12 @@ export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
   showNotFound: boolean;
   subscription: Subscription;
 
-  constructor(public store: Store<State>,
-              private organizationService: OrganizationService,
-              private visitService: VisitService,
-              private errorService: ErrorService) {}
+  constructor(
+    public store: Store<State>,
+    private organizationService: OrganizationService,
+    private visitService: VisitService,
+    private errorService: ErrorService,
+  ) {}
 
   ngOnInit() {
     this.subscription = this.organizationService.getByKey('name', this.getOrganizationNameByUrl(), true)

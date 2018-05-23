@@ -1,20 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs/index';
+import { map } from 'rxjs/operators';
 
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { canSelectRole, getRoleOptions, isAdmin, isLastOwner } from '../../functions';
-import {
-  ColumnOptions,
-  HeaderOptions,
-  Organization,
-  Report,
-  SidenavOptions,
-  User,
-  Volunteer,
-} from '../../models';
+import { ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Volunteer } from '../../models';
 import { State } from '../../reducers';
 
 @Component({
@@ -108,8 +101,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       });
 
     const model$ = this.store.select('model');
-    this.users$ = model$.map(state => state.users);
-    this.volunteers$ = model$.map(state => state.volunteers);
+    this.users$ = model$.pipe(map(state => state.users));
+    this.volunteers$ = model$.pipe(map(state => state.volunteers));
     this.modelSubscription = model$
       .subscribe((state) => {
         this.currentUserFromModel = state.users

@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export class Visit {
   id: string;
   organizationId: string;
@@ -8,8 +10,15 @@ export class Visit {
   timezone: string;
   signature: any;
 
-  constructor(organizationId: string, siteId: string, volunteerId: string,
-              startedAt: Date, endedAt: Date, timezone: string, signature: any) {
+  constructor(
+    organizationId: string,
+    siteId: string,
+    volunteerId: string,
+    startedAt: Date,
+    endedAt: Date,
+    timezone: string,
+    signature: any,
+  ) {
     this.organizationId = organizationId;
     this.siteId = siteId;
     this.volunteerId = volunteerId;
@@ -84,4 +93,4 @@ export const testVisits: Visit[] = [
   },
 ];
 
-export const getTestVisits = (): Visit[] => testVisits.slice();
+export const getTestVisits = (): Visit[] => _.cloneDeep(testVisits);
