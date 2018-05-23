@@ -10,7 +10,6 @@ import * as CheckInActions from '../../actions/check-in.actions';
 import { PolicyDialogComponent } from '../../components';
 import { HeaderOptions, Visit, Volunteer } from '../../models';
 import { State } from '../../reducers';
-import {Overlay} from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-check-in',
@@ -32,8 +31,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute,
-              private dialog: MatDialog,
-              private overlay: Overlay) {
+              private dialog: MatDialog) {
     this.checkInOutFormTitle = 'Test';
   }
 
