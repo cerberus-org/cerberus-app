@@ -6,7 +6,6 @@
   }
 
   .mat-stepper-horizontal, .mat-stepper-vertical {
-    height: 85%;
     background-color: #fafafa;
   }
 }
@@ -16,6 +15,8 @@
 }
 
 .container__policy-button {
-  margin: 15px;
-  float: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
 }
