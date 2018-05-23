@@ -93,6 +93,7 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
+import { PolicyDialogComponent } from './components/policy-dialog/policy-dialog.component';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import { VerificationGuard } from './verification-guard';
     PublicOrganizationDashboardComponent,
     HomeComponent,
     TermsOfServiceComponent,
+    PolicyDialogComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -184,7 +186,7 @@ import { VerificationGuard } from './verification-guard';
     VolunteerService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [PasswordDialogComponent, EmailDialogComponent],
+  entryComponents: [PasswordDialogComponent, EmailDialogComponent, PolicyDialogComponent],
 })
 export class AppModule {}
 
