@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatVerticalStepper } from '@angular/material';
+import { MatDialog, MatVerticalStepper } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 
 import * as AppActions from '../../actions/app.actions';
 import * as CheckInActions from '../../actions/check-in.actions';
+import { PolicyDialogComponent } from '../../components';
 import { HeaderOptions, Visit, Volunteer } from '../../models';
 import { State } from '../../reducers';
 
@@ -28,10 +29,9 @@ export class CheckInComponent implements OnInit, OnDestroy {
   checkInOutFormTitle: string;
   checkInOutStepperTitle: string;
 
-  constructor(
-    private store: Store<State>,
-    private activatedRoute: ActivatedRoute,
-  ) {
+  constructor(private store: Store<State>,
+              private activatedRoute: ActivatedRoute,
+              public dialog: MatDialog) {
     this.checkInOutFormTitle = 'Test';
   }
 
@@ -94,5 +94,9 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
   onIsExistingVolunteer(isExisitingVolunteer: boolean): void {
     !isExisitingVolunteer ? this.stepper.next() : this.stepper.selectedIndex = 2;
+  }
+
+  onOpenPolicyDialog(): void {
+    this.dialog.open(PolicyDialogComponent);
   }
 }

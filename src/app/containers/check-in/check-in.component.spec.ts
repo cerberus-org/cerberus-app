@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatStepperModule, MatTabsModule } from '@angular/material';
+import { MatDialogModule, MatStepperModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
@@ -30,6 +30,7 @@ describe('CheckInComponent', () => {
         NoopAnimationsModule,
         RouterTestingModule,
         MatStepperModule,
+        MatDialogModule,
         StoreModule.forRoot(reducers),
       ],
     })
@@ -44,5 +45,11 @@ describe('CheckInComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should open the dialog when onOpenPolicyDialog is called', () => {
+    spyOn(component.dialog, 'open');
+    component.onOpenPolicyDialog();
+    expect(component.dialog.open).toHaveBeenCalled();
   });
 });
