@@ -1,12 +1,24 @@
 <form class="container-center loose">
+    <div class="container-center">
+      <h1>Services Agreement</h1>
+    </div>
     <mat-card class="card-terms">
-      <iframe width="900px" style="height: 95vh" src="https://app.termly.io/document/terms-of-use-for-website/bf514bf4-f102-46da-9da9-dfc8fe925ffc" frameborder="0" allowfullscreen>
-        <p>Your browser does not support iframes.</p>
-      </iframe>
+      <mat-tab-group>
+        <mat-tab label="Terms of Service">
+          <iframe width="900px" style="height: 95vh" src="https://app.termly.io/document/terms-of-use-for-website/bf514bf4-f102-46da-9da9-dfc8fe925ffc" frameborder="0">
+            <p>Your browser does not support iframes.</p>
+          </iframe>
+        </mat-tab>
+        <mat-tab label="Privacy Policy">
+          <iframe width="900px" style="height: 95vh" src="https://app.termly.io/document/privacy-policy-for-website/1ec9f2ac-f34c-4061-bc7e-24c6b0ea6e32" frameborder="0">
+            <p>Your browser does not support iframes.</p>
+          </iframe>
+        </mat-tab>
+      </mat-tab-group>
     </mat-card>
     <div class="container-center actions-container">
       <mat-checkbox (change)="onCheck($event)">
-        <h3>By checking this box I agree to the Terms of Use.</h3>
+        <div>By checking this box I agree to Services Agreement.</div>
       </mat-checkbox>
     </div>
 </form>
