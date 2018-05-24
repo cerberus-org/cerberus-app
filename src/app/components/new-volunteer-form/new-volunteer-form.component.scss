@@ -5,4 +5,10 @@
 }
 .policy-agreement__policy-link {
   margin-left: 5px;
+  cursor:pointer;
+  color:blue;
+  text-decoration:underline;
+}
+.policy-agreement__policy-link:hover {
+  color: dodgerblue;
 }
