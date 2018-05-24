@@ -53,6 +53,7 @@ import {
   OrganizationConfirmComponent,
   OrganizationFormComponent,
   PasswordDialogComponent,
+  PolicyDialogComponent,
   ReportsFormComponent,
   SidenavComponent,
   SignatureFieldComponent,
@@ -93,7 +94,6 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
-import { PolicyDialogComponent } from './components/policy-dialog/policy-dialog.component';
 
 @NgModule({
   declarations: [

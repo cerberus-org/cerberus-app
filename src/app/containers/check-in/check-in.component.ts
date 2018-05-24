@@ -31,7 +31,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute,
-              private dialog: MatDialog) {
+              public dialog: MatDialog) {
     this.checkInOutFormTitle = 'Test';
   }
 

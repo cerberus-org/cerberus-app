@@ -13,8 +13,7 @@ export class PolicyDialogComponent implements OnInit {
 
   ngOnInit() {}
 
-  confirmSelection() {
+  close() {
     this.dialogRef.close();
   }
-
 }
