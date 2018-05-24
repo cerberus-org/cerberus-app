@@ -53,11 +53,9 @@ import {
   OrganizationConfirmComponent,
   OrganizationFormComponent,
   PasswordDialogComponent,
-  PolicyDialogComponent,
   ReportsFormComponent, ServicesAgreementComponent,
   SidenavComponent,
   SignatureFieldComponent,
-  TermsOfServiceComponent,
   UserFormComponent,
   VolunteerMenuComponent,
 } from './components';
@@ -94,6 +92,7 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
+import {ServicesAgreementDialogComponent} from "./components/services-agreement-dialog/services-agreement-dialog.component";
 
 @NgModule({
   declarations: [
@@ -125,7 +124,7 @@ import { VerificationGuard } from './verification-guard';
     PublicOrganizationDashboardComponent,
     HomeComponent,
     ServicesAgreementComponent,
-    PolicyDialogComponent,
+    ServicesAgreementDialogComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -186,6 +185,6 @@ import { VerificationGuard } from './verification-guard';
     VolunteerService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [PasswordDialogComponent, EmailDialogComponent, PolicyDialogComponent],
+  entryComponents: [PasswordDialogComponent, EmailDialogComponent, ServicesAgreementDialogComponent],
 })
 export class AppModule {}

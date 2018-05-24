@@ -3,15 +3,15 @@ import {
   MatDialogModule, MatDialogRef, MatTabsModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { PolicyDialogComponent } from './policy-dialog.component';
+import { ServicesAgreementDialogComponent } from './services-agreement-dialog.component';
 
 class MatDialogRefMock {
   close() { }
 }
 
 describe('PolicyDialogComponent', () => {
-  let component: PolicyDialogComponent;
-  let fixture: ComponentFixture<PolicyDialogComponent>;
+  let component: ServicesAgreementDialogComponent;
+  let fixture: ComponentFixture<ServicesAgreementDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,7 +20,7 @@ describe('PolicyDialogComponent', () => {
         MatDialogModule,
         NoopAnimationsModule,
       ],
-      declarations: [PolicyDialogComponent],
+      declarations: [ServicesAgreementDialogComponent],
       providers: [
         { provide: MatDialogRef, useClass: MatDialogRefMock },
       ],
@@ -29,7 +29,7 @@ describe('PolicyDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PolicyDialogComponent);
+    fixture = TestBed.createComponent(ServicesAgreementDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

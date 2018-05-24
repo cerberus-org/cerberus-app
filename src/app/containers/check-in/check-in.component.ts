@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 
 import * as AppActions from '../../actions/app.actions';
 import * as CheckInActions from '../../actions/check-in.actions';
-import { PolicyDialogComponent } from '../../components';
+import { ServicesAgreementDialogComponent } from '../../components/services-agreement-dialog/services-agreement-dialog.component';
 import { HeaderOptions, Visit, Volunteer } from '../../models';
 import { State } from '../../reducers';
 
@@ -97,6 +97,6 @@ export class CheckInComponent implements OnInit, OnDestroy {
   }
 
   onOpenPolicyDialog(): void {
-    this.dialog.open(PolicyDialogComponent);
+    this.dialog.open(ServicesAgreementDialogComponent);
   }
 }
