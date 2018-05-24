@@ -49,55 +49,65 @@ export class AppComponent implements OnInit, OnDestroy {
     this.afAuth.auth.onAuthStateChanged((user) => {
       this.state = Object.assign(this.state, { isLoading: !!user });
     });
-
+    this.appSubscription = this.store.select('app').subscribe(this.onNextAppState);
+    this.authSubscription = this.store.select('auth').subscribe(this.onNextAuthState);
+    this.modelSubscription = this.store.select('model').subscribe(this.onNextModelState);
     this.store.dispatch(new ModelActions.LoadOrganizations());
-
-    this.appSubscription = this.store.select('app')
-      .subscribe((appState) => {
-        this.state = Object.assign(this.state, { ...appState });
-        /**
-         * TODO:
-         * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is
-         * not present. Find alternate solution.
-         */
-        this.changeDetectorRef.detectChanges();
-      });
-
-    this.authSubscription = this.store.select('auth')
-      .subscribe((authState) => {
-        console.log(authState.user);
-        Object.assign(this.state, { ...authState, isLoading: !!authState.user });
-        if (authState.organization) {
-          const organizationId = authState.organization.id;
-          this.store.dispatch(new ModelActions.LoadSites(organizationId));
-          this.store.dispatch(new ModelActions.LoadVisits(organizationId));
-          this.store.dispatch(new ModelActions.LoadVolunteers(organizationId));
-          if (isAdmin(authState.user)) {
-            this.store.dispatch(new ModelActions.LoadUsers(organizationId));
-          }
-        }
-      });
-
-    // Disable loader when model is loaded
-    this.modelSubscription = this.store.select('model')
-      .subscribe((modelState) => {
-        // Check if there is an active session before setting model
-        if (this.state.user && this.state.organization) {
-          setTimeout(
-            () => {
-              this.state = Object.assign(this.state, {
-                isLoading: (
-                  !modelState.sites.length
-                  || !modelState.visits.length
-                  || !modelState.volunteers.length
-                ),
-              });
-            },
-            500,
-          );
-        }
-      });
   }
+
+  /**
+   * Handles the next app store state.
+   * @param appState - the next state
+   */
+  onNextAppState = (appState) => {
+    this.state = Object.assign(this.state, { ...appState });
+    /**
+     * TODO:
+     * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is
+     * not present. Find alternate solution.
+     */
+    this.changeDetectorRef.detectChanges();
+  };
+
+  /**
+   * Handles the next auth store state.
+   * @param authState - the next state
+   */
+  onNextAuthState = (authState) => {
+    Object.assign(this.state, { ...authState, isLoading: !!authState.user });
+    if (authState.organization) {
+      const organizationId = authState.organization.id;
+      this.store.dispatch(new ModelActions.LoadSites(organizationId));
+      this.store.dispatch(new ModelActions.LoadVisits(organizationId));
+      this.store.dispatch(new ModelActions.LoadVolunteers(organizationId));
+      if (isAdmin(authState.user)) {
+        this.store.dispatch(new ModelActions.LoadUsers(organizationId));
+      }
+    }
+  };
+
+  /**
+   * Handles the next model store state.
+   * @param modelState - the next state
+   */
+  onNextModelState = (modelState) => {
+    // Check if there is an active session before setting model
+    if (this.state.user && this.state.organization) {
+      setTimeout(
+        () => {
+          this.state = Object.assign(this.state, {
+            // Disable loader when model is loaded
+            isLoading: (
+              !modelState.sites.length
+              || !modelState.visits.length
+              || !modelState.volunteers.length
+            ),
+          });
+        },
+        500,
+      );
+    }
+  };
 
   ngOnDestroy() {
     if (this.appSubscription) {
