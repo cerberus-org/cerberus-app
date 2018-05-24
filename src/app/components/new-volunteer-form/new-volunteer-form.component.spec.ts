@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule, MatInputModule, MatListModule } from '@angular/material';
+import {
+  MatAutocompleteModule, MatCheckboxModule, MatDialogModule, MatInputModule,
+  MatListModule,
+} from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { testOrganizations, testVolunteers, Volunteer } from '../../models';
@@ -16,9 +19,11 @@ describe('NewVolunteerFormComponent', () => {
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
+        MatCheckboxModule
         MatAutocompleteModule,
         MatListModule,
         MatInputModule,
+        MatDialogModule,
       ],
     })
       .compileComponents();
@@ -32,6 +37,12 @@ describe('NewVolunteerFormComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should open the dialog when onOpenPolicyDialog is called', () => {
+    spyOn(component.dialog, 'open');
+    component.onOpenPolicyDialog();
+    expect(component.dialog.open).toHaveBeenCalled();
   });
 
   it('should emit a new volunteer on submit', () => {

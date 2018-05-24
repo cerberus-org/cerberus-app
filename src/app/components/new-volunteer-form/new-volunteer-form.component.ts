@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 
+import { MatDialog } from '@angular/material';
 import { Volunteer } from '../../models';
-import {MatDialog} from "@angular/material";
-import {PolicyDialogComponent} from "../index";
+import { PolicyDialogComponent } from '../index';
 
 @Component({
   selector: 'app-new-volunteer-form',
