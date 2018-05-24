@@ -83,13 +83,18 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((modelState) => {
         // Check if there is an active session before setting model
         if (this.state.user && this.state.organization) {
-          this.state = Object.assign(this.state, {
-            isLoading: (
-              !modelState.sites.length
-              || !modelState.visits.length
-              || !modelState.volunteers.length
-            ),
-          });
+          setTimeout(
+            () => {
+              this.state = Object.assign(this.state, {
+                isLoading: (
+                  !modelState.sites.length
+                  || !modelState.visits.length
+                  || !modelState.volunteers.length
+                ),
+              });
+            },
+            500,
+          );
         }
       });
   }
