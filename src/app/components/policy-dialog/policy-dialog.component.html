@@ -1,0 +1,20 @@
+<mat-dialog-content>
+  <mat-tab-group>
+    <mat-tab label="Terms of Service">
+      <iframe width="900px" style="height: 400px" src="https://app.termly.io/document/terms-of-use-for-website/bf514bf4-f102-46da-9da9-dfc8fe925ffc" frameborder="0">
+        <p>Your browser does not support iframes.</p>
+      </iframe>
+    </mat-tab>
+    <mat-tab label="Privacy Policy">
+      <iframe width="900px" style="height: 400px" src="https://app.termly.io/document/privacy-policy-for-website/1ec9f2ac-f34c-4061-bc7e-24c6b0ea6e32" frameborder="0">
+        <p>Your browser does not support iframes.</p>
+      </iframe>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <span class="fill-space"></span>
+  <button mat-button (click)="dialogRef.close()">
+    Close
+  </button>
+</div>

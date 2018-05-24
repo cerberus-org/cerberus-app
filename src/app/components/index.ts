@@ -17,3 +17,4 @@ export * from './email-dialog/email-dialog.component';
 export * from './data-display/data-display.component';
 export * from './terms-of-service/terms-of-service.component';
 export * from './loader/loader.component';
+export * from './policy-dialog/policy-dialog.component';

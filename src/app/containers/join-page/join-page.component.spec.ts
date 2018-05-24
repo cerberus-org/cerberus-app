@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MatStepperModule } from '@angular/material';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
+
 import { JoinPageComponent } from '../../containers';
 import { getTestUsers, testOrganizations } from '../../models';
 import { reducers } from '../../reducers';
