@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 
 import * as AppActions from '../../actions/app.actions';
 import * as RouterActions from '../../actions/router.actions';
-import { MatVerticalStepper } from '@angular/material';
 import { HeaderOptions, Organization, User } from '../../models';
 import { State } from '../../reducers';
 import { AuthService, ErrorService, OrganizationService, SnackBarService } from '../../services';
