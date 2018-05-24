@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatCardModule, MatCheckboxModule, MatInputModule } from '@angular/material';
-import { TermsOfServiceComponent } from './terms-of-service.component';
+import { MatCardModule, MatCheckboxModule } from '@angular/material';
+import { ServicesAgreementComponent } from './services-agreement.component';
 
-describe('TermsOfServiceComponent', () => {
-  let component: TermsOfServiceComponent;
-  let fixture: ComponentFixture<TermsOfServiceComponent>;
+describe('ServicesAgreementComponent', () => {
+  let component: ServicesAgreementComponent;
+  let fixture: ComponentFixture<ServicesAgreementComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TermsOfServiceComponent],
+      declarations: [ServicesAgreementComponent],
       imports: [
         MatCardModule,
         MatCheckboxModule,
@@ -19,7 +19,7 @@ describe('TermsOfServiceComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TermsOfServiceComponent);
+    fixture = TestBed.createComponent(ServicesAgreementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -26,7 +26,7 @@
   </mat-tab>
   <mat-tab label="4. Services Agreement" [disabled]="step < 3 || !validOrganization || !validUser">
     <div class="container-center loose">
-      <app-terms-of-service [showTitle]="true"></app-terms-of-service>
+      <app-services-agreement [showTitle]="true"></app-services-agreement>
     </div>
     <div class="container-center actions-container">
       <mat-checkbox (change)="onCheck($event)">

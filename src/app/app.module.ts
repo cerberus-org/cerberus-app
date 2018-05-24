@@ -54,7 +54,7 @@ import {
   OrganizationFormComponent,
   PasswordDialogComponent,
   PolicyDialogComponent,
-  ReportsFormComponent,
+  ReportsFormComponent, ServicesAgreementComponent,
   SidenavComponent,
   SignatureFieldComponent,
   TermsOfServiceComponent,
@@ -124,7 +124,7 @@ import { VerificationGuard } from './verification-guard';
     EmailDialogComponent,
     PublicOrganizationDashboardComponent,
     HomeComponent,
-    TermsOfServiceComponent,
+    ServicesAgreementComponent,
     PolicyDialogComponent,
   ],
   imports: [
