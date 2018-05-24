@@ -33,7 +33,9 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-  <div class="container__policy-button" *ngIf="stepper.selectedIndex !== 1">
-    <button mat-fab on-click="onOpenPolicyDialog()">Policy</button>
+  <div class="container__policy-button">
+    <button mat-fab on-click="onOpenPolicyDialog()">
+      <mat-icon>library_books</mat-icon>
+    </button>
   </div>
 </div>
