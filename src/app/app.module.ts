@@ -14,6 +14,7 @@ import {
   MatListModule,
   MatNativeDateModule,
   MatPaginatorModule,
+  MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule,
   MatSidenavModule,
@@ -61,10 +62,12 @@ import {
   UserFormComponent,
   VolunteerMenuComponent,
 } from './components';
+import { LoaderComponent } from './components/loader/loader.component';
 import {
   CheckInComponent,
   FindOrganizationComponent,
-  GettingStartedComponent, HomeComponent,
+  GettingStartedComponent,
+  HomeComponent,
   JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
@@ -125,6 +128,7 @@ import { VerificationGuard } from './verification-guard';
     PublicOrganizationDashboardComponent,
     HomeComponent,
     TermsOfServiceComponent,
+    LoaderComponent,
     PolicyDialogComponent,
   ],
   imports: [
@@ -158,6 +162,7 @@ import { VerificationGuard } from './verification-guard';
     MatFormFieldModule,
     MatNativeDateModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     MatRadioModule,
     MatSelectModule,
     MatSidenavModule,
@@ -188,4 +193,5 @@ import { VerificationGuard } from './verification-guard';
   bootstrap: [AppComponent],
   entryComponents: [PasswordDialogComponent, EmailDialogComponent, PolicyDialogComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

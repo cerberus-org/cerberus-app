@@ -8,7 +8,7 @@ export interface State {
 
 export const initialState: State = {
   headerOptions: null,
-  sidenavOptions: null,
+  sidenavOptions: [],
 };
 
 export type Action = AppActions.All;

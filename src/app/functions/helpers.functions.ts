@@ -140,10 +140,3 @@ export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunte
 export const sortVisitsByStartedAt = (visits: Visit[]): Visit[] => {
   return visits.slice().sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime());
 };
-
-/**
- * Returns a deep copy of the given object. Note: can't be used to copy user-defined object functions.
- * @param {Object} object
- * @returns {Object}
- */
-export const deepCopy = (object: Object): Object => JSON.parse(JSON.stringify(object));

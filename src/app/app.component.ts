@@ -1,13 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Subscription } from 'rxjs';
 import * as LoginActions from './actions/login.actions';
 import * as ModelActions from './actions/model.actions';
 import * as RouterActions from './actions/router.actions';
 import { PasswordDialogComponent, SidenavComponent } from './components';
 import { isAdmin } from './functions';
-import { HeaderOptions, SidenavOptions } from './models';
+import { HeaderOptions, Organization, SidenavOptions, User } from './models';
 import { State } from './reducers';
 
 @Component({
@@ -16,50 +17,96 @@ import { State } from './reducers';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   @ViewChild(SidenavComponent) sidenav: SidenavComponent;
-
+  state: {
+    headerOptions: HeaderOptions;
+    sidenavOptions: SidenavOptions[];
+    organization: Organization
+    user: User;
+    isLoading: Boolean;
+  };
   appSubscription: Subscription;
   authSubscription: Subscription;
-
-  headerOptions: HeaderOptions;
-  sidenavOptions: SidenavOptions[];
-  user: any;
+  modelSubscription: Subscription;
 
   constructor(
+    private afAuth: AngularFireAuth,
     private changeDetectorRef: ChangeDetectorRef,
     private store: Store<State>,
     private dialog: MatDialog,
   ) {
+    this.state = {
+      headerOptions: null,
+      sidenavOptions: [],
+      organization: null,
+      user: null,
+      isLoading: true,
+    };
   }
 
   ngOnInit() {
+    // Enable loader on login
+    this.afAuth.auth.onAuthStateChanged((user) => {
+      this.state = Object.assign(this.state, { isLoading: !!user });
+    });
+    this.appSubscription = this.store.select('app').subscribe(this.onNextAppState);
+    this.authSubscription = this.store.select('auth').subscribe(this.onNextAuthState);
+    this.modelSubscription = this.store.select('model').subscribe(this.onNextModelState);
     this.store.dispatch(new ModelActions.LoadOrganizations());
-    this.appSubscription = this.store.select('app')
-      .subscribe((state) => {
-        this.headerOptions = state.headerOptions;
-        this.sidenavOptions = state.sidenavOptions;
-        /**
-         * TODO:
-         * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is
-         * not present. Find alternate solution.
-         */
-        this.changeDetectorRef.detectChanges();
-      });
+  }
 
-    this.authSubscription = this.store.select('auth')
-      .subscribe((state) => {
-        this.user = state.user;
-        if (state.organization) {
-          const organizationId = state.organization.id;
-          this.store.dispatch(new ModelActions.LoadSites(organizationId));
-          this.store.dispatch(new ModelActions.LoadVisits(organizationId));
-          this.store.dispatch(new ModelActions.LoadVolunteers(organizationId));
-          if (isAdmin(this.user)) {
-            this.store.dispatch(new ModelActions.LoadUsers(organizationId));
-          }
-        }
-      });
+  /**
+   * Handles the next app store state.
+   * @param appState - the next state
+   */
+  onNextAppState = (appState) => {
+    this.state = Object.assign(this.state, { ...appState });
+    /**
+     * TODO:
+     * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is
+     * not present. Find alternate solution.
+     */
+    this.changeDetectorRef.detectChanges();
+  }
+
+  /**
+   * Handles the next auth store state.
+   * @param authState - the next state
+   */
+  onNextAuthState = (authState) => {
+    Object.assign(this.state, { ...authState, isLoading: !!authState.user });
+    if (authState.organization) {
+      const organizationId = authState.organization.id;
+      this.store.dispatch(new ModelActions.LoadSites(organizationId));
+      this.store.dispatch(new ModelActions.LoadVisits(organizationId));
+      this.store.dispatch(new ModelActions.LoadVolunteers(organizationId));
+      if (isAdmin(authState.user)) {
+        this.store.dispatch(new ModelActions.LoadUsers(organizationId));
+      }
+    }
+  }
+
+  /**
+   * Handles the next model store state.
+   * @param modelState - the next state
+   */
+  onNextModelState = (modelState) => {
+    // Check if there is an active session before setting model
+    if (this.state.user && this.state.organization) {
+      setTimeout(
+        () => {
+          this.state = Object.assign(this.state, {
+            // Disable loader when model is loaded
+            isLoading: (
+              !modelState.sites.length
+              || !modelState.visits.length
+              || !modelState.volunteers.length
+            ),
+          });
+        },
+        500,
+      );
+    }
   }
 
   ngOnDestroy() {
@@ -72,7 +119,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onSelectIndex(index: number) {
-    this.store.dispatch(this.sidenavOptions[index].action);
+    this.store.dispatch(this.state.sidenavOptions[index].action);
   }
 
   /**
@@ -106,7 +153,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (pwd) {
         // Once the Observable is returned dispatch an effect
         this.store.dispatch(new LoginActions.VerifyPassword({
-          email: this.user.email,
+          email: this.state.user.email,
           password: pwd,
         }));
       }
@@ -118,6 +165,6 @@ export class AppComponent implements OnInit, OnDestroy {
    * @returns {boolean} - true if logged in
    */
   get isLoggedIn() {
-    return !!this.user;
+    return !!this.state.user;
   }
 }
