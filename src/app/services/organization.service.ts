@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
-import 'rxjs/add/observable/empty';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { empty, of } from 'rxjs';
+import { Observable } from 'rxjs/index';
 
 import { upperAllFirst } from '../functions';
 import { Organization, testOrganizations } from '../models';
@@ -13,18 +11,22 @@ import { ErrorService } from './error.service';
 
 @Injectable()
 export class OrganizationService extends BaseService<Organization> {
+  collectionName = 'organizations';
 
-  constructor(protected db: AngularFirestore,
-              protected errorService: ErrorService) {
-    super(db, errorService, 'organizations');
+  constructor(
+    protected db: AngularFirestore,
+    protected errorService: ErrorService,
+  ) {
+    super(db, errorService);
   }
 
   /**
    * Handles capitalization logic for organizations.
-   * @param organization
-   * @returns {any}
+   *
+   * @param {Organization} organization - the organization to capitalize properties for
+   * @returns {Organization} - a new organization with capitalized properties
    */
-  private capitalize(organization: Organization): Organization {
+  private capitalizeOrganizaton(organization: Organization): Organization {
     organization.name = upperAllFirst(organization.name);
     organization.description = _.upperFirst(organization.description);
     return organization;
@@ -32,20 +34,22 @@ export class OrganizationService extends BaseService<Organization> {
 
   /**
    * Capitalize the name and description of the organization going to the database.
-   * @param organization
-   * @returns {any}
+   *
+   * @param {Organization} organization - the organization to capitalize properties for
+   * @returns {Organization} - a new organization with capitalized properties
    */
   convertOut(organization: Organization): Organization {
-    return this.capitalize(organization);
+    return this.capitalizeOrganizaton(organization);
   }
 
   /**
    * Capitalize the name and description of the organization coming from the database.
-   * @param organization
-   * @returns {any}
+   *
+   * @param {Organization} organization - the organization to capitalize properties for
+   * @returns {Organization} - a new organization with capitalized properties
    */
   convertIn(organization: Organization): Organization {
-    return this.capitalize(organization);
+    return this.capitalizeOrganizaton(organization);
   }
 }
 
@@ -56,28 +60,26 @@ export class MockOrganizationService extends OrganizationService {
   }
 
   getAll(): Observable<Organization[]> {
-    return Observable.of(testOrganizations);
+    return of(testOrganizations);
   }
 
   getByKey(key: string, value: string): Observable<Organization[]> {
-    return Observable.of(testOrganizations
-      .filter(organization => organization[key] === value));
+    return of(testOrganizations.filter(organization => organization[key] === value));
   }
 
   getById(id: string): Observable<Organization> {
-    return Observable.of(testOrganizations
-      .find(organization => organization.id === id));
+    return of(testOrganizations.find(organization => organization.id === id));
   }
 
   add(organization: Organization): Observable<Organization> {
-    return Observable.of(organization);
+    return of(organization);
   }
 
   update(organization: any): Observable<any> {
-    return Observable.of(Promise.resolve());
+    return of(Promise.resolve());
   }
 
   delete(organization: any): Observable<any> {
-    return Observable.empty<any>();
+    return empty();
   }
 }

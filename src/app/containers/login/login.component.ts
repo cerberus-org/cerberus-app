@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
 
 import { MatDialog } from '@angular/material';
+import { Store } from '@ngrx/store';
 import * as AppActions from '../../actions/app.actions';
 import * as LoginActions from '../../actions/login.actions';
 import { EmailDialogComponent } from '../../components';
-import { HeaderOptions } from '../../models';
 import { State } from '../../reducers';
 
 @Component({
@@ -21,9 +20,11 @@ export class LoginComponent implements OnInit {
   hidePwd: boolean;
   email: string;
 
-  constructor(private formBuilder: FormBuilder,
-              private store: Store<State>,
-              private dialog: MatDialog) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store<State>,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

@@ -1,8 +1,8 @@
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
-import 'rxjs/add/observable/of';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
+import { Observable } from 'rxjs/index';
 
 import * as ModelActions from '../actions/model.actions';
 import { filterByOrganizationId } from '../functions';
@@ -16,7 +16,7 @@ describe('ModelEffects', () => {
   const organizationId: string = testOrganizations[0].id;
 
   beforeEach(async(() => {
-    actions = Observable.of('');
+    actions = of('');
     TestBed.configureTestingModule({
       providers: [
         ModelEffects,

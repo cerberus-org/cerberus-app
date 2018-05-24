@@ -1,11 +1,11 @@
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';
-import { testOrganizations, testUsers } from '../models';
+import { getTestUsers, testOrganizations } from '../models';
 import { SnackBarService } from '../services';
 import { mockServiceProviders } from '../services/mock-service-providers';
 import { GettingStartedEffects } from './getting-started.effects';
@@ -27,7 +27,7 @@ describe('GettingStartedEffects', () => {
   describe('gettingStarted$', () => {
     it('should dispatch LoginActions.LogIn', () => {
       const organization = testOrganizations[0];
-      const user = testUsers[0];
+      const user = getTestUsers()[0];
 
       actions = hot('a', {
         a: new GettingStartedActions.Submit({ organization, user }),

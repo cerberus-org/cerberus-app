@@ -3,6 +3,7 @@ import { MatIconModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
+import { getTestVisits } from '../../models';
 
 import { reducers } from '../../reducers';
 import { DataDisplayComponent } from './data-display.component';
@@ -18,7 +19,7 @@ describe('DataDisplayComponent', () => {
         MockComponent({ selector: 'app-daily-hours-chart', inputs: ['visits'] }),
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showDelete'],
+          inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
         }),
       ],
       imports: [
@@ -39,5 +40,13 @@ describe('DataDisplayComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should highlight active visits with palegreen', () => {
+    expect(component.getVisitRowColor(getTestVisits()[3])).toEqual('palegreen');
+  });
+
+  it('should not highlight completed visits', () => {
+    expect(component.getVisitRowColor(getTestVisits()[0])).toEqual('');
   });
 });

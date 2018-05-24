@@ -3,15 +3,17 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material';
-import 'rxjs/add/observable/merge';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { merge, of, Subscription } from 'rxjs';
+import { Observable } from 'rxjs/index';
+import { map } from 'rxjs/operators';
 
 import { ColumnOptions } from '../../models';
 
@@ -29,8 +31,7 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
   constructor(private data$: Observable<any[]>, private paginator: MatPaginator) {
     super();
     if (this.data$) {
-      this.subscription = this.data$
-        .subscribe(data => this.data = data);
+      this.subscription = this.data$.subscribe(data => this.data = data);
     }
   }
 
@@ -42,9 +43,14 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
    * Connect function called by the table to retrieve one stream containing the data to render.
    */
   connect(): Observable<any[]> {
-    return this.data$ ? Observable.merge(this.paginator.page, this.data$).map(() => {
-      return this.getPageData();
-    }) : Observable.of([]);
+    return this.data$
+      ? merge(this.paginator.page, this.data$)
+        .pipe(
+          map(() => {
+            return this.getPageData();
+          }),
+        )
+      : of([]);
   }
 
   getPageData(): any[] {
@@ -62,10 +68,11 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
-export class DataTableComponent implements OnInit {
+export class DataTableComponent implements OnInit, OnChanges {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
+  @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
   displayedColumns: string[];
@@ -74,20 +81,42 @@ export class DataTableComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  /**
+   * Initializes the data source on changes to data$.
+   * @param {SimpleChanges} changes - the changes for data$
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data$']) {
+      this.dataSource = new DataTableSource(changes['data$'].currentValue, this.paginator);
+    }
+  }
+
+  /**
+   * Sets the initial page size and columns to display.
+   */
   ngOnInit(): void {
     // Determine initial page size using inner height of window at component init
-    const surroundingElementsPx = 281;
+    const surroundingElementsPx = 224;
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
-    this.dataSource = new DataTableSource(this.data$, this.paginator);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
     if (this.showDelete) {
       this.displayedColumns.push('delete');
     }
   }
 
-  isDataSourceAndData(): boolean {
-    return this.dataSource && this.dataSource.data ? true : false;
+  /**
+   * Getter for number of data items in the data source.
+   * @returns {number} - the length of the data array in this.dataSource
+   */
+  get dataLength(): number {
+    return !!(this.dataSource && this.dataSource.data) ? this.dataSource.data.length : null;
+  }
+
+  get pageSizeByWindowHeight(): number {
+    const surroundingElementsPx = 217;
+    const cellPx = 49;
+    return Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
   }
 
   /**
@@ -104,7 +133,7 @@ export class DataTableComponent implements OnInit {
    * @param item - the table item to modify
    * @param key - the property to modify
    */
-  onSelectOption(value, item, key) {
+  onSelectOption(value, item, key): void {
     const itemCopy = Object.assign({}, item);
     itemCopy[key] = value;
     this.updateItem.emit(itemCopy);

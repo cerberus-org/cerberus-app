@@ -5,7 +5,9 @@
   <mat-tab label="Visit History">
     <app-data-table
       [columnOptions]="visitTableColumnOptions"
-      [data$]="visits$">
+      [data$]="visits$"
+      [getRowColor]="getVisitRowColor"
+    >
     </app-data-table>
   </mat-tab>
 </mat-tab-group>

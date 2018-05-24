@@ -39,10 +39,12 @@ export class DailyHoursChartComponent implements OnChanges {
    * @param unit - the unit to use for mapping to dates (refer to Moment.js keys)
    * @return {Array<string>} - the array of chart labels
    */
-  setupLineChartLabels(latest: Date = new Date(),
-                       count: number = 7,
-                       format: string = 'ddd MMM D',
-                       unit: moment.unitOfTime.DurationConstructor = 'days'): string[] {
+  setupLineChartLabels(
+    latest: Date = new Date(),
+    count: number = 7,
+    format: string = 'ddd MMM D',
+    unit: moment.unitOfTime.DurationConstructor = 'days',
+  ): string[] {
     const labels = Array.from(Array(count), (_, index) => {
       const date = moment(latest.getTime());
       date.subtract(index, unit);
@@ -59,23 +61,24 @@ export class DailyHoursChartComponent implements OnChanges {
    * @param format - how each date should be displayed (refer to Moment.js formats)
    * @returns {[{data: number[], label: string}]} - the line chart data
    */
-  setupLineChartData(visits: Visit[],
-                     labels: string[],
-                     format: string = 'ddd MMM D'): LineChartData[] {
+  setupLineChartData(
+    visits: Visit[],
+    labels: string[],
+    format: string = 'ddd MMM D',
+  ): LineChartData[] {
     return visits
       ? [{
-        data: visits
-          .reduce(
-            (data, visit) => {
-              const date: string = moment(visit.startedAt).format(format);
-              const index: number = labels.indexOf(date);
-              if (index > -1) {
-                data[index] += this.getDuration(visit);
-              }
-              return data;
-            },
-            Array(labels.length).fill(0),
-          )
+        data: visits.reduce(
+          (data, visit) => {
+            const date: string = moment(visit.startedAt).format(format);
+            const index: number = labels.indexOf(date);
+            if (index > -1) {
+              data[index] += this.getDuration(visit);
+            }
+            return data;
+          },
+          Array(labels.length).fill(0),
+        )
           .map(value => value.toFixed(3)),
         label: 'Hours',
       }]

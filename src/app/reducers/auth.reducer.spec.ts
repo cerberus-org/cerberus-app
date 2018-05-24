@@ -1,5 +1,5 @@
 import * as AuthActions from '../actions/auth.actions';
-import { testOrganizations, testUsers } from '../models';
+import { getTestUsers, testOrganizations } from '../models';
 import * as fromAuth from './auth.reducer';
 
 describe('appReducer', () => {
@@ -9,9 +9,9 @@ describe('appReducer', () => {
     it('loads the User and Organization', () => {
       const state = fromAuth.reducer(
         fromAuth.initialState,
-        new AuthActions.LoadDataSuccess({ user: testUsers[0], organization: testOrganizations[0] }),
+        new AuthActions.LoadDataSuccess({ user: getTestUsers()[0], organization: testOrganizations[0] }),
       );
-      expect(state.user).toEqual(testUsers[0]);
+      expect(state.user).toEqual(getTestUsers()[0]);
       expect(state.organization).toEqual(testOrganizations[0]);
     });
   });
@@ -32,9 +32,9 @@ describe('appReducer', () => {
     it('updates the user', () => {
       const state = fromAuth.reducer(
         fromAuth.initialState,
-        new AuthActions.UpdateUser(testUsers[0]),
+        new AuthActions.UpdateUser(getTestUsers()[0]),
       );
-      expect(state.user).toEqual(testUsers[0]);
+      expect(state.user).toEqual(getTestUsers()[0]);
     });
   });
 });

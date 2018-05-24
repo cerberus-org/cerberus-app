@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/index';
 
 import { formatDate, formatDuration, formatTime } from '../../functions';
 import { ColumnOptions, Visit } from '../../models';
@@ -38,4 +38,13 @@ export class DataDisplayComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  /**
+   * Passed to data-table as the colorFunc to highlight active visits.
+   * @param {Visit} visit
+   * @returns {string}
+   */
+  getVisitRowColor(visit: Visit): string {
+    return !visit.endedAt ? 'palegreen' : '';
+  }
 }

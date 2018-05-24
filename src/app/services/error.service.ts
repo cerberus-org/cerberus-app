@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FirebaseError } from 'firebase';
-import 'rxjs/add/observable/throw';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
+import { Observable } from 'rxjs/index';
+import { filter } from 'rxjs/operators';
 
 import { SnackBarService } from './snack-bar.service';
 
@@ -18,12 +19,12 @@ export class ErrorService {
   handleFirebaseError(error: FirebaseError): Observable<any> {
     this.snackBarService.open(error.message);
     // Stop the pipeline after a caught error
-    return Observable.of(null).filter(e => !!e);
+    return of(null).pipe(filter(e => !!e));
   }
 
   handleLoginError(error: FirebaseError): Observable<any> {
     this.snackBarService.signInError();
-    return Observable.of(null).filter(e => !!e);
+    return of(null).pipe(filter(e => !!e));
   }
 }
 
@@ -34,11 +35,10 @@ export class MockErrorService extends ErrorService {
   }
 
   handleFirebaseError(error: FirebaseError) {
-    return Observable.of(null).filter(e => !!e);
+    return of(null).pipe(filter(e => !!e));
   }
 
   handleLoginError(error: FirebaseError) {
-    return Observable.of(null).filter(e => !!e);
+    return of(null).pipe(filter(e => !!e));
   }
 }
-

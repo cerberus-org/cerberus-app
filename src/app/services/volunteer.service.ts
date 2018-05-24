@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
-import 'rxjs/add/observable/empty';
-import 'rxjs/add/observable/of';
-import { Observable } from 'rxjs/Observable';
+import { empty, of } from 'rxjs';
+import { Observable } from 'rxjs/index';
 
 import { testVolunteers, Volunteer } from '../models';
 import { BaseService } from './base.service';
@@ -11,9 +10,10 @@ import { ErrorService } from './error.service';
 
 @Injectable()
 export class VolunteerService extends BaseService<Volunteer> {
+  collectionName = 'volunteers';
 
   constructor(protected db: AngularFirestore, protected errorService: ErrorService) {
-    super(db, errorService, 'volunteers');
+    super(db, errorService);
   }
 
   /**
@@ -58,28 +58,26 @@ export class MockVolunteerService extends VolunteerService {
   }
 
   getAll(): Observable<Volunteer[]> {
-    return Observable.of(testVolunteers);
+    return of(testVolunteers);
   }
 
   getByKey(key: string, value: string): Observable<Volunteer[]> {
-    return Observable.of(testVolunteers
-      .filter(volunteer => volunteer[key] === value));
+    return of(testVolunteers.filter(volunteer => volunteer[key] === value));
   }
 
   getById(id: string): Observable<Volunteer> {
-    return Observable.of(testVolunteers
-      .find(volunteer => volunteer.id === id));
+    return of(testVolunteers.find(volunteer => volunteer.id === id));
   }
 
   add(volunteer: Volunteer): Observable<Volunteer> {
-    return Observable.of(volunteer);
+    return of(volunteer);
   }
 
   update(volunteer: any): Observable<any> {
-    return Observable.of(Promise.resolve());
+    return of(Promise.resolve());
   }
 
   delete(volunteer: any): Observable<any> {
-    return Observable.empty<any>();
+    return empty();
   }
 }

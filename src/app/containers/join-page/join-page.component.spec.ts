@@ -1,12 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MatStepperModule } from '@angular/material';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-
 import { MatStepperModule } from '@angular/material';
 import { JoinPageComponent } from '../../containers';
-import { testOrganizations, testUsers } from '../../models';
+import { getTestUsers, testOrganizations } from '../../models';
 import { reducers } from '../../reducers';
 import { AuthService, SnackBarService } from '../../services';
 import { mockServiceProviders } from '../../services/mock-service-providers';
@@ -20,6 +21,7 @@ describe('JoinPageComponent', () => {
       declarations: [JoinPageComponent,
         MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
         MockComponent({ selector: 'app-find-organization' }),
+        MockComponent({ selector: 'app-terms-of-service' }),
       ],
       imports: [
         StoreModule.forRoot(reducers),
@@ -28,7 +30,7 @@ describe('JoinPageComponent', () => {
       ],
       providers: [].concat(mockServiceProviders),
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -42,8 +44,13 @@ describe('JoinPageComponent', () => {
   });
 
   it('should handle userChanges events by setting userChanges', () => {
-    component.onValidUser(testUsers[0]);
-    expect(component.validUser).toBe(testUsers[0]);
+    component.onValidUser(getTestUsers()[0]);
+    expect(component.validUser).toEqual(getTestUsers()[0]);
+  });
+
+  it('should handle check box change events by setting isTosChecked', () => {
+    component.onTosChecked(true);
+    expect(component.isTosChecked).toEqual(true);
   });
 
   it('should get Organization by name', () => {

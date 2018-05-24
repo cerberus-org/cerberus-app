@@ -189,4 +189,3 @@ import { VerificationGuard } from './verification-guard';
   entryComponents: [PasswordDialogComponent, EmailDialogComponent, PolicyDialogComponent],
 })
 export class AppModule {}
-

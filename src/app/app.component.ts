@@ -1,9 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
-
-import * as AppActions from './actions/app.actions';
+import { Subscription } from 'rxjs';
 import * as LoginActions from './actions/login.actions';
 import * as ModelActions from './actions/model.actions';
 import * as RouterActions from './actions/router.actions';
@@ -28,9 +26,11 @@ export class AppComponent implements OnInit, OnDestroy {
   sidenavOptions: SidenavOptions[];
   user: any;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef,
-              private store: Store<State>,
-              private dialog: MatDialog) {
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private store: Store<State>,
+    private dialog: MatDialog,
+  ) {
   }
 
   ngOnInit() {
@@ -114,11 +114,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Used to determine if header "Log Out" button should be displayed.
+   * Used to determine if header "Log out" button should be displayed.
    * @returns {boolean} - true if logged in
    */
   get isLoggedIn() {
     return !!this.user;
   }
 }
-
