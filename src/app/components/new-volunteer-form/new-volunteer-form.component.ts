@@ -14,6 +14,7 @@ export class NewVolunteerFormComponent {
   @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
   formGroup: FormGroup;
   forms: { placeholder: string, control: string }[];
+  isPolicyChecked: Boolean;
 
   constructor(private fb: FormBuilder) {
     this.createForm();
@@ -45,5 +46,9 @@ export class NewVolunteerFormComponent {
       { placeholder: 'Last', control: 'lastName' },
       { placeholder: 'Favorite Pet Name', control: 'petName' },
     ];
+  }
+
+  setPolicyCheckBox(e): void {
+    this.isPolicyChecked = e.checked;
   }
 }
