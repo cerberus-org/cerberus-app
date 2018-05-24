@@ -1,4 +1,5 @@
 import { getTestBed, inject, TestBed } from '@angular/core/testing';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { empty, from } from 'rxjs';
@@ -28,6 +29,7 @@ describe('BaseService', () => {
     TestBed.configureTestingModule({
       providers: [
         BaseService,
+        { provide: AngularFireAuth, useValue: null },
         { provide: AngularFirestore, useClass: AngularFirestoreStub },
         { provide: ErrorService, useClass: MockErrorService },
       ],

@@ -2,6 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { MockComponent } from 'ng2-mock-component';
 
 import { AppComponent } from './app.component';
@@ -22,7 +23,11 @@ describe('AppComponent', () => {
           selector: 'app-header',
           inputs: ['headerOptions', 'showLogOut', 'showSidenavToggle'],
         }),
+        MockComponent({ selector: 'app-loader', inputs: ['text'] }),
         MockComponent({ selector: 'app-sidenav', inputs: ['sidenavOptions'] }),
+      ],
+      providers: [
+        { provide: AngularFireAuth, useValue: null },
       ],
     })
       .compileComponents();
