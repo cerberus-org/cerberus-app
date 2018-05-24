@@ -7,8 +7,8 @@ export interface State {
 }
 
 export const initialState: State = {
-  organization: null,
-  user: null,
+  organization: undefined,
+  user: undefined,
 };
 
 export type Action = AuthActions.All;

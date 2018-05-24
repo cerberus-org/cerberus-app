@@ -1,15 +1,15 @@
 <div class="container">
-  <app-loader [value]="true"></app-loader>
+  <app-loader *ngIf="state.isLoading" [value]="true"></app-loader>
   <app-header
     class="hg__header"
-    [headerOptions]="headerOptions"
+    [headerOptions]="state.headerOptions"
     [showLogOut]="isLoggedIn"
-    [showSidenavToggle]="!!sidenavOptions"
+    [showSidenavToggle]="!!state.sidenavOptions"
     (buttonClick)="onButtonClick($event)">
   </app-header>
   <app-sidenav
     class="hg__main"
-    [sidenavOptions]="sidenavOptions"
+    [sidenavOptions]="state.sidenavOptions"
     (selectIndex)="onSelectIndex($event)">
     <router-outlet></router-outlet>
   </app-sidenav>
