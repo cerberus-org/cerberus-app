@@ -113,4 +113,8 @@ export class JoinPageComponent implements OnInit {
       this.snackBarService.invalidOrganization();
     }
   }
+
+  onCheck(e): void {
+    this.isTosChecked = e.checked;
+  }
 }

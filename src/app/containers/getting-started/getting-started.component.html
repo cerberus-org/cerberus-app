@@ -24,8 +24,15 @@
       <button mat-raised-button color="primary" (click)="onNext(3)" [disabled]="!validUser">Next</button>
     </div>
   </mat-tab>
-  <mat-tab label="4. Terms of Service" [disabled]="step < 3 || !validOrganization || !validUser">
-    <app-terms-of-service (isTosChecked)="onTosChecked($event)"></app-terms-of-service>
+  <mat-tab label="4. Services Agreement" [disabled]="step < 3 || !validOrganization || !validUser">
+    <div class="container-center loose">
+      <app-terms-of-service [showTitle]="true"></app-terms-of-service>
+    </div>
+    <div class="container-center actions-container">
+      <mat-checkbox (change)="onCheck($event)">
+        <div>By checking this box I agree to Services Agreement.</div>
+      </mat-checkbox>
+    </div>
     <div class="container-submit">
       <button mat-raised-button color="primary" [disabled]="!isTosChecked" (click)="onNext(4)">Next</button>
     </div>

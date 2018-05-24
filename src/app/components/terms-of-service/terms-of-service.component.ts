@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-terms-of-service',
@@ -7,13 +7,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class TermsOfServiceComponent implements OnInit {
 
-  @Output() isTosChecked = new EventEmitter();
+  @Input() showTitle: boolean;
 
   constructor() { }
 
   ngOnInit() {}
-
-  onCheck (e) {
-    this.isTosChecked.emit(e.checked);
-  }
 }
