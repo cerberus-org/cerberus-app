@@ -67,7 +67,7 @@ export class AppComponent implements OnInit, OnDestroy {
      * not present. Find alternate solution.
      */
     this.changeDetectorRef.detectChanges();
-  };
+  }
 
   /**
    * Handles the next auth store state.
@@ -84,7 +84,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.store.dispatch(new ModelActions.LoadUsers(organizationId));
       }
     }
-  };
+  }
 
   /**
    * Handles the next model store state.
@@ -107,7 +107,7 @@ export class AppComponent implements OnInit, OnDestroy {
         500,
       );
     }
-  };
+  }
 
   ngOnDestroy() {
     if (this.appSubscription) {
