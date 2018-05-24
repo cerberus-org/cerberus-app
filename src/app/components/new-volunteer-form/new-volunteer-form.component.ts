@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 
 import { Volunteer } from '../../models';
+import {MatDialog} from "@angular/material";
+import {PolicyDialogComponent} from "../index";
 
 @Component({
   selector: 'app-new-volunteer-form',
@@ -16,7 +18,7 @@ export class NewVolunteerFormComponent {
   forms: { placeholder: string, control: string }[];
   isPolicyChecked: Boolean;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, public dialog: MatDialog) {
     this.createForm();
   }
 
@@ -50,5 +52,9 @@ export class NewVolunteerFormComponent {
 
   setPolicyCheckBox(e): void {
     this.isPolicyChecked = e.checked;
+  }
+
+  onOpenPolicyDialog(): void {
+    this.dialog.open(PolicyDialogComponent);
   }
 }
