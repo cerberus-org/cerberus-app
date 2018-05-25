@@ -19,7 +19,7 @@ describe('NewVolunteerFormComponent', () => {
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
-        MatCheckboxModule
+        MatCheckboxModule,
         MatAutocompleteModule,
         MatListModule,
         MatInputModule,
@@ -39,9 +39,9 @@ describe('NewVolunteerFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open the dialog when onOpenPolicyDialog is called', () => {
+  it('should open the dialog when openServicesAgreementDialog is called', () => {
     spyOn(component.dialog, 'open');
-    component.onOpenPolicyDialog();
+    component.openServicesAgreementDialog();
     expect(component.dialog.open).toHaveBeenCalled();
   });
 

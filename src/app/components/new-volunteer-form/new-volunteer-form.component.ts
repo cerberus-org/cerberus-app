@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 
 import { MatDialog } from '@angular/material';
+import { ServicesAgreementDialogComponent } from '../';
 import { Volunteer } from '../../models';
-import { PolicyDialogComponent } from '../index';
 
 @Component({
   selector: 'app-new-volunteer-form',
@@ -54,7 +54,7 @@ export class NewVolunteerFormComponent {
     this.isPolicyChecked = e.checked;
   }
 
-  onOpenPolicyDialog(): void {
-    this.dialog.open(PolicyDialogComponent);
+  openServicesAgreementDialog(): void {
+    this.dialog.open(ServicesAgreementDialogComponent);
   }
 }

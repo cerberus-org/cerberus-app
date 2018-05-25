@@ -19,7 +19,7 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         HomeComponent,
-        MockComponent({ selector: 'app-find-organization' }),
+        MockComponent({ selector: 'app-find-organization', inputs: ['showTitle'] }),
         MockComponent({ selector: 'app-login' }),
       ],
       imports: [

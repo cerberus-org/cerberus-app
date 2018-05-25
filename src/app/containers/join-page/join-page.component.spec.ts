@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatStepperModule } from '@angular/material';
+import { MatCheckboxModule, MatStepperModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
@@ -18,12 +18,13 @@ describe('JoinPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [JoinPageComponent,
         MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
-        MockComponent({ selector: 'app-find-organization' }),
-        MockComponent({ selector: 'app-terms-of-service' }),
+        MockComponent({ selector: 'app-find-organization', inputs: ['showTitle'] }),
+        MockComponent({ selector: 'app-services-agreement', inputs: ['showTitle'] }),
       ],
       imports: [
         StoreModule.forRoot(reducers),
         MatStepperModule,
+        MatCheckboxModule,
         BrowserAnimationsModule,
       ],
       providers: [].concat(mockServiceProviders),
@@ -46,11 +47,6 @@ describe('JoinPageComponent', () => {
     expect(component.validUser).toEqual(getTestUsers()[0]);
   });
 
-  it('should handle check box change events by setting isTosChecked', () => {
-    component.onTosChecked(true);
-    expect(component.isTosChecked).toEqual(true);
-  });
-
   it('should get Organization by name', () => {
     component.organizations = testOrganizations;
     expect(component.getOrganizationByName(testOrganizations[0].name)).toEqual(testOrganizations[0]);
@@ -61,6 +57,7 @@ describe('JoinPageComponent', () => {
     it('should log out user and display requestToJoinOrganizationSuccess snack bar on success', () => {
       component.organizations = testOrganizations;
       component.validInput = testOrganizations[0].name;
+      component.isTosChecked = true;
       const snackBarSpy = spyOn(TestBed.get(SnackBarService), 'requestToJoinOrganizationSuccess');
       const authServiceSignOutSpy = spyOn(TestBed.get(AuthService), 'signOut');
       component.onJoinOrganization();
@@ -71,6 +68,7 @@ describe('JoinPageComponent', () => {
     it('should display invalidOrganization snack bar on failure', () => {
       component.organizations = testOrganizations;
       component.validInput = 'abc';
+      component.isTosChecked = true;
       const snackBarSpy = spyOn(TestBed.get(SnackBarService), 'invalidOrganization');
       component.onJoinOrganization();
       expect(snackBarSpy).toHaveBeenCalled();

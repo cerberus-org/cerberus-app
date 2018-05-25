@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatAutocomplete } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';

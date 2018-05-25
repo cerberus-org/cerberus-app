@@ -53,7 +53,9 @@ import {
   OrganizationConfirmComponent,
   OrganizationFormComponent,
   PasswordDialogComponent,
-  ReportsFormComponent, ServicesAgreementComponent,
+  ReportsFormComponent,
+  ServicesAgreementComponent,
+  ServicesAgreementDialogComponent,
   SidenavComponent,
   SignatureFieldComponent,
   UserFormComponent,
@@ -92,7 +94,6 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
-import {ServicesAgreementDialogComponent} from "./components/services-agreement-dialog/services-agreement-dialog.component";
 
 @NgModule({
   declarations: [

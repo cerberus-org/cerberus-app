@@ -96,7 +96,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
     !isExisitingVolunteer ? this.stepper.next() : this.stepper.selectedIndex = 2;
   }
 
-  onOpenPolicyDialog(): void {
+  openServicesAgreementDialog(): void {
     this.dialog.open(ServicesAgreementDialogComponent);
   }
 }

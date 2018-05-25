@@ -2,14 +2,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   MatDialogModule, MatDialogRef, MatTabsModule,
 } from '@angular/material';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MockComponent } from 'ng2-mock-component';
 import { ServicesAgreementDialogComponent } from './services-agreement-dialog.component';
 
 class MatDialogRefMock {
   close() { }
 }
 
-describe('PolicyDialogComponent', () => {
+describe('ServicesAgreementDialogComponent', () => {
   let component: ServicesAgreementDialogComponent;
   let fixture: ComponentFixture<ServicesAgreementDialogComponent>;
 
@@ -19,8 +20,11 @@ describe('PolicyDialogComponent', () => {
         MatTabsModule,
         MatDialogModule,
         NoopAnimationsModule,
+        BrowserAnimationsModule,
       ],
-      declarations: [ServicesAgreementDialogComponent],
+      declarations: [
+        ServicesAgreementDialogComponent,
+        MockComponent({ selector: 'app-services-agreement', inputs: ['showTitle'] })],
       providers: [
         { provide: MatDialogRef, useClass: MatDialogRefMock },
       ],
