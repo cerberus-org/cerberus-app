@@ -1,0 +1,17 @@
+.policy-agreement {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.policy-agreement__pre-link {
+  margin-left: 10px;
+}
+.policy-agreement__policy-link {
+  margin-left: 5px;
+  cursor: pointer;
+  color: royalblue;
+  text-decoration: underline;
+}
+.policy-agreement__policy-link:hover {
+  color: dodgerblue;
+}

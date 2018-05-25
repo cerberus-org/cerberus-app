@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatAutocomplete } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -19,6 +19,7 @@ export class FindOrganizationComponent implements OnInit {
 
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
   @Output() validInput = new EventEmitter();
+  @Input() showTitle;
 
   constructor(public store: Store<State>) { }
 

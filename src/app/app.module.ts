@@ -54,11 +54,11 @@ import {
   OrganizationConfirmComponent,
   OrganizationFormComponent,
   PasswordDialogComponent,
-  PolicyDialogComponent,
   ReportsFormComponent,
+  ServicesAgreementComponent,
+  ServicesAgreementDialogComponent,
   SidenavComponent,
   SignatureFieldComponent,
-  TermsOfServiceComponent,
   UserFormComponent,
   VolunteerMenuComponent,
 } from './components';
@@ -127,9 +127,9 @@ import { VerificationGuard } from './verification-guard';
     EmailDialogComponent,
     PublicOrganizationDashboardComponent,
     HomeComponent,
-    TermsOfServiceComponent,
+    ServicesAgreementComponent,
+    ServicesAgreementDialogComponent,
     LoaderComponent,
-    PolicyDialogComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -191,7 +191,7 @@ import { VerificationGuard } from './verification-guard';
     VolunteerService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [PasswordDialogComponent, EmailDialogComponent, PolicyDialogComponent],
+  entryComponents: [PasswordDialogComponent, EmailDialogComponent, ServicesAgreementDialogComponent],
 })
 export class AppModule {
 }

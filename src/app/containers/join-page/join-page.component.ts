@@ -63,15 +63,6 @@ export class JoinPageComponent implements OnInit {
   }
 
   /**
-   * Handles isTosChecked by setting isTosChecked.
-   *
-   * @param {boolean} isChecked
-   */
-  onTosChecked(isChecked: boolean) {
-    this.isTosChecked = isChecked;
-  }
-
-  /**
    * Handles validInput events by setting validInput.
    *
    * @param {string} organizationName
@@ -112,5 +103,9 @@ export class JoinPageComponent implements OnInit {
     } else {
       this.snackBarService.invalidOrganization();
     }
+  }
+
+  onCheck(e): void {
+    this.isTosChecked = e.checked;
   }
 }

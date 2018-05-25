@@ -9,7 +9,14 @@
       </mat-list-item>
     </mat-list>
   </div>
+  <div class="container-center policy-agreement">
+    <mat-checkbox (change)="setPolicyCheckBox($event)"></mat-checkbox>
+    <div class="policy-agreement__pre-link">I agree to the</div>
+    <div class="policy-agreement__policy-link" on-click="openServicesAgreementDialog()">Services Agreement</div>.
+  </div>
   <div class="container-center">
-    <button type="submit" matStepperNext mat-raised-button color="primary" [disabled]="formGroup.invalid">Submit</button>
+    <button type="submit" matStepperNext mat-raised-button color="primary"
+            [disabled]="formGroup.invalid || !isPolicyChecked">Submit
+    </button>
   </div>
 </form>

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatButtonModule, MatTabsModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
@@ -20,12 +20,13 @@ describe('GettingStartedComponent', () => {
         MockComponent({ selector: 'app-organization-form' }),
         MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
         MockComponent({ selector: 'app-organization-confirm', inputs: ['organization', 'user'] }),
-        MockComponent({ selector: 'app-terms-of-service' }),
+        MockComponent({ selector: 'app-services-agreement', inputs: ['showTitle'] }),
       ],
       imports: [
         MatButtonModule,
         MatTabsModule,
         NoopAnimationsModule,
+        MatCheckboxModule,
         RouterTestingModule,
         StoreModule.forRoot(reducers),
       ],

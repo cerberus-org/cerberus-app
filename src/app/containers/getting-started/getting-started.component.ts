@@ -82,4 +82,8 @@ export class GettingStartedComponent implements OnInit, OnDestroy {
       user: this.validUser,
     }));
   }
+
+  onCheck(e): void {
+    this.isTosChecked = e.checked;
+  }
 }

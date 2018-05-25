@@ -15,6 +15,6 @@ export * from './volunteer-menu/volunteer-menu.component';
 export * from './password-dialog/password-dialog.component';
 export * from './email-dialog/email-dialog.component';
 export * from './data-display/data-display.component';
-export * from './terms-of-service/terms-of-service.component';
+export * from './services-agreement/services-agreement.component';
+export * from './services-agreement-dialog/services-agreement-dialog.component';
 export * from './loader/loader.component';
-export * from './policy-dialog/policy-dialog.component';

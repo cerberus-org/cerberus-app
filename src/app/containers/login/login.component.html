@@ -1,5 +1,5 @@
 <form
-  class="container-center loose"
+  class="container-center"
   autocomplete="off"
   nonvalidate
   [formGroup]="loginForm"
@@ -14,9 +14,9 @@
              class="form-control" formControlName='password'>
       <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{hidePwd ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
-    <button mat-button id="submit-btn" color="primary" [disabled]="loginForm.invalid">Submit</button>
+    <button mat-raised-button="" id="submit-btn" color="primary" [disabled]="loginForm.invalid">Submit</button>
   </div>
 </form>
 <div class="container-center loose">
-  <button class="forgot-pwd" (click)="onForgotPassword()">Forgot password?</button>
+  <span class="forgot-pwd" (click)="onForgotPassword()">Forgot password?</span>
 </div>
