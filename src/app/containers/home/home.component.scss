@@ -2,3 +2,9 @@
   height: 430px;
   width: 450px;
 }
+
+/deep/ {
+  .mat-tab-label {
+    width: 100%;
+  }
+}
