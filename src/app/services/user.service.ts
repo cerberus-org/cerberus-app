@@ -3,9 +3,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { empty, of } from 'rxjs';
 import { Observable } from 'rxjs/index';
-import { deepCopy } from '../functions';
 
-import { getTestUsers, testUsers, User } from '../models';
+import { getTestUsers, User } from '../models';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';
 

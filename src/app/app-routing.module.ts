@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {
   CheckInComponent,
-  GettingStartedComponent, HomeComponent,
+  GettingStartedComponent,
+  HomeComponent,
   JoinPageComponent,
-  LoginComponent,
   OrganizationDashboardComponent,
   PublicOrganizationDashboardComponent,
   SettingsPageComponent,
@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'checkout/:id', component: CheckInComponent, canActivate: [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },
   { path: 'join', component: JoinPageComponent },
-  { path: 'settings', component: SettingsPageComponent, canActivate : [VerificationGuard] },
+  { path: 'settings', component: SettingsPageComponent, canActivate: [VerificationGuard] },
   { path: 'public-dashboard/:name', component: PublicOrganizationDashboardComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];

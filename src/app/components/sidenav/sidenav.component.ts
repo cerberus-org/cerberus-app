@@ -29,7 +29,10 @@ export class SidenavComponent implements OnChanges, OnDestroy {
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['sidenavOptions']) {
-      if (changes['sidenavOptions'].currentValue) {
+      if (
+        changes['sidenavOptions'].isFirstChange()
+        || changes['sidenavOptions'].currentValue
+      ) {
         this.setForScreen(this.mobileQuery.matches);
       } else {
         this.sidenav.close();
