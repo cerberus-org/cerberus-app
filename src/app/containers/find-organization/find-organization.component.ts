@@ -20,7 +20,9 @@ export class FindOrganizationComponent implements OnInit {
 
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
   @Output() validInput = new EventEmitter();
+  @Output() iconButtonClick = new EventEmitter();
   @Input() showTitle;
+  @Input() showInputIconButton;
 
   constructor(public store: Store<State>) { }
 
@@ -38,6 +40,10 @@ export class FindOrganizationComponent implements OnInit {
     if (input) {
       this.validInput.emit(input);
     }
+  }
+
+  emitInputIconButtonClick() {
+    this.iconButtonClick.emit();
   }
 
   /**

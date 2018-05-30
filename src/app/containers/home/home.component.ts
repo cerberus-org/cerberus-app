@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     this.organizationName = organizationName;
   }
 
-  onLiveData(organizationName: string) {
+  onInputIconButtonClick(organizationName: string) {
     this.store.dispatch(new RouterActions.Go({ path: ['/public-dashboard/' + organizationName] }));
   }
 

@@ -9,7 +9,7 @@
                class="capitalize"
                placeholder="Organization name"
                #organizationName>
-        <button mat-icon-button color="accent" [disabled]="!organizationName.value">
+        <button *ngIf="showInputIconButton" mat-icon-button color="accent" [disabled]="!organizationName.value" (click)="emitInputIconButtonClick()">
           <mat-icon class="material-icons">forward</mat-icon>
         </button>
       </div>

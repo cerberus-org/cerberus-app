@@ -10,6 +10,8 @@
           <div class="container-inline loose">
             <app-find-organization
               [showTitle]="false"
+              [showInputIconButton]="true"
+              (iconButtonClick)="onInputIconButtonClick(organizationName)"
               (validInput)="onValidInput($event)">
             </app-find-organization>
           </div>
