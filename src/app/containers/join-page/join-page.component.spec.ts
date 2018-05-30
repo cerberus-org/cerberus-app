@@ -18,7 +18,7 @@ describe('JoinPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [JoinPageComponent,
         MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
-        MockComponent({ selector: 'app-find-organization', inputs: ['showTitle'] }),
+        MockComponent({ selector: 'app-find-organization', inputs: ['showTitle', 'showInputIconButton'] }),
         MockComponent({ selector: 'app-services-agreement', inputs: ['showTitle'] }),
       ],
       imports: [
