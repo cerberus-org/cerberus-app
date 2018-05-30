@@ -3,8 +3,16 @@
   width: 450px;
 }
 
+.mat-card {
+  padding: 0px;
+}
+
 /deep/ {
   .mat-tab-label {
     width: 100%;
   }
+}
+
+.home-buttons {
+  color: lightslategray;
 }
