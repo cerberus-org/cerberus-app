@@ -15,6 +15,7 @@ export class FindOrganizationComponent implements OnInit {
 
   filteredOrganizations: Organization[];
   organizations: Organization[];
+  organizationName: String;
   modelSubscription: Subscription;
 
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
@@ -33,7 +34,10 @@ export class FindOrganizationComponent implements OnInit {
   }
 
   emitInput(input: string) {
-    input !== null || input !== '' ? this.validInput.emit(input) : null;
+    this.organizationName = input;
+    if (input) {
+      this.validInput.emit(input);
+    }
   }
 
   /**
