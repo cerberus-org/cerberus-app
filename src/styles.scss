@@ -17,16 +17,17 @@ html, body {
   font-family: Roboto, sans-serif;
 }
 
-h1 {
+h1, h2, h3, h4 {
   margin: 1rem;
   font-weight: lighter;
   letter-spacing: 1px;
 }
 
-h2, h3, h4 {
-  margin: 1rem;
-  font-weight: lighter;
-  letter-spacing: 1px;
+.center-text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 }
 
 p {

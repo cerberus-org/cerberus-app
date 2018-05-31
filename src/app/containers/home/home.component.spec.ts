@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import * as RouterActions from '../../actions/router.actions';
-import * as SettingsActions from '../../actions/settings.actions';
 import { testOrganizations, testVolunteers } from '../../models';
 import { reducers } from '../../reducers';
 
@@ -19,7 +18,7 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         HomeComponent,
-        MockComponent({ selector: 'app-find-organization', inputs: ['showTitle'] }),
+        MockComponent({ selector: 'app-find-organization', inputs: ['showTitle', 'showInputIconButton'] }),
         MockComponent({ selector: 'app-login' }),
       ],
       imports: [
@@ -53,7 +52,7 @@ describe('HomeComponent', () => {
 
   it('should handle onLiveData events by dispatching RouterActions.Go', () => {
     spyOn(component.store, 'dispatch');
-    component.onLiveData(testOrganizations[0].name);
+    component.onInputIconButtonClick(testOrganizations[0].name);
     expect(component.store.dispatch)
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/public-dashboard/' + testOrganizations[0].name] }));
   });
