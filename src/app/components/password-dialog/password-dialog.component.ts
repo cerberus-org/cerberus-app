@@ -19,7 +19,7 @@ export class PasswordDialogComponent implements OnInit {
   /**
    * Close dialog and pass back data.
    */
-  confirmSelection() {
+  close() {
     this.dialogRef.close(this.pwd);
   }
 }
