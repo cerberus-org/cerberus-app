@@ -43,7 +43,7 @@
   </app-data-table>
 </div>
 <!--Reports form-->
-<div *ngIf="sidenavSelection == 'reports'">
+<div *ngIf="sidenavSelection === 'reports'">
   <app-reports-form
     (validReport)="onValidReport($event)">
   </app-reports-form>
@@ -53,11 +53,14 @@
   </div>
 </div>
 <!--Roles data table-->
-<div *ngIf="sidenavSelection == 'roles'">
+<div *ngIf="sidenavSelection === 'roles'">
   <app-data-table
     [data$]="users$"
     [columnOptions]="userTableOptions"
     (deleteItem)="onDeleteUser($event)"
     (updateItem)="onUpdateUser($event)">
   </app-data-table>
+</div>
+<div *ngIf="sidenavSelection == 'visits'">
+  hi
 </div>

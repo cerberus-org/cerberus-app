@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { canSelectRole, getRoleOptions, isAdmin, isLastOwner } from '../../functions';
-import { ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Volunteer } from '../../models';
+import {ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Visit, Volunteer} from '../../models';
 import { State } from '../../reducers';
 
 @Component({
@@ -75,6 +75,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   currentUserFromModel: User; // Used for user table
   users: User[];
   volunteers: Volunteer[];
+  visits: Visit[];
   sidenavSelection: string;
 
   organizationChanges: Organization;
@@ -109,6 +110,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
           .find(user => user.id === this.currentUser.id);
         this.users = state.users;
         this.volunteers = state.volunteers;
+        this.visits = state.visits;
       });
 
     this.settingsSubscription = this.store.select('settings')
@@ -165,6 +167,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
           'Roles',
           'lock_outline',
           new SettingsActions.LoadPage('roles'),
+        ),
+        new SidenavOptions(
+          'Visits',
+          'done_all',
+          new SettingsActions.LoadPage('visits'),
         ),
       );
     }
