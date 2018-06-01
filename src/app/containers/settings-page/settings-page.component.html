@@ -62,5 +62,8 @@
   </app-data-table>
 </div>
 <div *ngIf="sidenavSelection == 'visits'">
-  hi
+  <app-data-table
+    [data$]="visits$"
+    [columnOptions]="visitTableOptions">
+  </app-data-table>
 </div>
