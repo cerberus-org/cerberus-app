@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { PasswordDialogComponent } from '../password-dialog/password-dialog.component';
 
 @Component({
   selector: 'app-email-dialog',
@@ -11,7 +10,7 @@ export class EmailDialogComponent implements OnInit {
 
   email: string;
 
-  constructor(public dialogRef: MatDialogRef<PasswordDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<EmailDialogComponent>) { }
 
   ngOnInit() {}
 

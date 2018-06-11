@@ -18,6 +18,14 @@
         </button>
       </mat-cell>
     </ng-container>
+    <ng-container *ngIf="showTimePicker" cdkColumnDef="showTimePicker">
+      <mat-header-cell *cdkHeaderCellDef>Test</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-icon-button color="warn">
+          <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
     <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *cdkRowDef="let row; columns: displayedColumns;" [ngStyle]="{'background-color' : getRowColor(row)}"></mat-row>
   </mat-table>
