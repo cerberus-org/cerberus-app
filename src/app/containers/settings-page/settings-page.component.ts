@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { canSelectRole, getRoleOptions, isAdmin, isLastOwner } from '../../functions';
-import { ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Volunteer } from '../../models';
+import { ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Visit, Volunteer } from '../../models';
 import { State } from '../../reducers';
 
 @Component({
@@ -67,14 +67,38 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       (row: Volunteer) => row.petName,
     ),
   ];
+  visitTableOptions: ColumnOptions[] = [
+    new ColumnOptions(
+      'firstName',
+      'First Name',
+      (row: Visit) => row.id,
+    ),
+    new ColumnOptions(
+      'lastName',
+      'Last Name',
+      (row: Visit) => row.id,
+    ),
+    new ColumnOptions(
+      'start',
+      'Start',
+      (row: Visit) => row.startedAt,
+    ),
+    new ColumnOptions(
+      'end',
+      'End',
+      (row: Visit) => row.endedAt,
+    ),
+  ];
 
   users$: Observable<User[]>;
   volunteers$: Observable<Volunteer[]>;
+  visits$: Observable<Volunteer[]>;
   currentOrganization: Organization;
   currentUser: User;
   currentUserFromModel: User; // Used for user table
   users: User[];
   volunteers: Volunteer[];
+  visits: Visit[];
   sidenavSelection: string;
 
   organizationChanges: Organization;
@@ -103,12 +127,14 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     const model$ = this.store.select('model');
     this.users$ = model$.pipe(map(state => state.users));
     this.volunteers$ = model$.pipe(map(state => state.volunteers));
+    this.visits$ = model$.pipe(map(state => state.visits));
     this.modelSubscription = model$
       .subscribe((state) => {
         this.currentUserFromModel = state.users
           .find(user => user.id === this.currentUser.id);
         this.users = state.users;
         this.volunteers = state.volunteers;
+        this.visits = state.visits;
       });
 
     this.settingsSubscription = this.store.select('settings')
@@ -165,6 +191,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
           'Roles',
           'lock_outline',
           new SettingsActions.LoadPage('roles'),
+        ),
+        new SidenavOptions(
+          'Visits',
+          'done_all',
+          new SettingsActions.LoadPage('visits'),
         ),
       );
     }
