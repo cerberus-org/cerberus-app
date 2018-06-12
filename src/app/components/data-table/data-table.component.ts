@@ -72,7 +72,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
-  @Input() showTimePicker: boolean;
   @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
@@ -104,9 +103,6 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
     if (this.showDelete) {
       this.displayedColumns.push('delete');
-    }
-    if (this.showTimePicker) {
-      this.displayedColumns.push('showTimePicker');
     }
   }
 

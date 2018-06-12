@@ -18,12 +18,6 @@
         </button>
       </mat-cell>
     </ng-container>
-    <ng-container *ngIf="showTimePicker" cdkColumnDef="showTimePicker">
-      <mat-header-cell *cdkHeaderCellDef>Check out Time</mat-header-cell>
-      <mat-cell *cdkCellDef="let row">
-        <input type="time" (click)="onTimeChange($event)">
-      </mat-cell>
-    </ng-container>
     <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *cdkRowDef="let row; columns: displayedColumns;" [ngStyle]="{'background-color' : getRowColor(row)}"></mat-row>
   </mat-table>

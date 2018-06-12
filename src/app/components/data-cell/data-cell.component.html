@@ -1,11 +1,14 @@
-<mat-select
-  *ngIf="selectOptions; else textOnly"
-  [value]="selected"
-  (selectionChange)="onSelectionChange($event.value)">
-  <mat-option *ngFor="let selectOption of selectOptions" [value]="selectOption">
-    {{selectOption}}
-  </mat-option>
-</mat-select>
-<ng-template #textOnly>
-  {{column.cell(row)}}
-</ng-template>
+<div [ngSwitch]="inputType">
+  <mat-select
+    *ngSwitchCase="'SELECT'"
+    [value]="selected"
+    (selectionChange)="onSelectionChange($event.value)">
+    <mat-option *ngFor="let selectOption of selectOptions" [value]="selectOption">
+      {{selectOption}}
+    </mat-option>
+  </mat-select>
+  <input *ngSwitchCase="'TIME_PICKER'" type="time" (click)="onTimeChange($event)">
+  <ng-template ngSwitchDefault>
+    {{column.cell(row)}}
+  </ng-template>
+</div>

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 
-import { ColumnOptions } from '../../models';
+import {ColumnOptions} from '../../models';
 
 @Component({
   selector: 'app-data-cell',
@@ -14,7 +14,8 @@ export class DataCellComponent implements OnChanges {
   selected: string;
   selectOptions: string[];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     const columnChanges = changes['column'];
@@ -26,5 +27,15 @@ export class DataCellComponent implements OnChanges {
 
   onSelectionChange(value: string): void {
     this.selectOption.emit(value);
+  }
+
+  get inputType(): string {
+    if (this.selectOptions && this.selectOptions.length) {
+      return 'SELECT';
+    }
+    if (this.column.timePicker) {
+      return 'TIME_PICKER';
+    }
+    return 'TEXT_ONLY';
   }
 }

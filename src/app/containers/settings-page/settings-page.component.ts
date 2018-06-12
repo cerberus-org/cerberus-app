@@ -1,14 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { Observable } from 'rxjs/index';
-import { map } from 'rxjs/operators';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs';
+import {Observable} from 'rxjs/index';
+import {map} from 'rxjs/operators';
 
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
-import { canSelectRole, getRoleOptions, isAdmin, isLastOwner } from '../../functions';
-import { ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Visit, Volunteer } from '../../models';
-import { State } from '../../reducers';
+import {canSelectRole, getRoleOptions, isAdmin, isLastOwner} from '../../functions';
+import {ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Visit, Volunteer} from '../../models';
+import {State} from '../../reducers';
 
 @Component({
   selector: 'app-settings-page',
@@ -83,11 +83,12 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       'Start',
       (row: Visit) => row.startedAt,
     ),
-    new ColumnOptions(
-      'end',
-      'End',
-      (row: Visit) => row.endedAt,
-    ),
+    {
+      columnDef: 'end',
+      header: 'End',
+      cell: (row: Visit) => row.endedAt,
+      timePicker: true,
+    },
   ];
 
   users$: Observable<User[]>;
