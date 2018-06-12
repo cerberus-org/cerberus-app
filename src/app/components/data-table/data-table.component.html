@@ -19,11 +19,9 @@
       </mat-cell>
     </ng-container>
     <ng-container *ngIf="showTimePicker" cdkColumnDef="showTimePicker">
-      <mat-header-cell *cdkHeaderCellDef>Test</mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef>Check out Time</mat-header-cell>
       <mat-cell *cdkCellDef="let row">
-        <button mat-icon-button color="warn">
-          <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>
-        </button>
+        <input type="time" (click)="onTimeChange($event)">
       </mat-cell>
     </ng-container>
     <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>

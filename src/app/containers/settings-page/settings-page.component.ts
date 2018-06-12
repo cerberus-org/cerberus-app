@@ -277,4 +277,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   onDeleteUser(user: User) {
     console.log('Not yet implemented');
   }
+
+  onTimeSelected(time: String) {
+    console.log(time);
+  }
 }

@@ -61,10 +61,12 @@
     (updateItem)="onUpdateUser($event)">
   </app-data-table>
 </div>
+<!--visit table-->
 <div *ngIf="sidenavSelection === 'visits'">
   <app-data-table
     [data$]="visits$"
     [columnOptions]="visitTableOptions"
-    [showTimePicker]="true">
+    [showTimePicker]="true"
+    (timeSelected)="onTimeSelected($event)">
   </app-data-table>
 </div>

@@ -76,6 +76,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
+  @Output() timeSelected = new EventEmitter<any>();
   displayedColumns: string[];
   initialPageSize: number;
   dataSource: DataTableSource;
@@ -129,6 +130,10 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   onClickDelete(item: any): void {
     this.deleteItem.emit(item);
+  }
+
+  onTimeChange(e): void {
+    this.timeSelected.emit(e.target.value);
   }
 
   /**
