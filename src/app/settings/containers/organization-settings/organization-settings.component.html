@@ -1,0 +1,14 @@
+<app-organization-form
+  [title]="organizationFormTitle"
+  [initialOrganization]="currentOrganization"
+  (validOrganization)="onValidOrganization($event, currentOrganization)">
+</app-organization-form>
+<div class="container-submit">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmitOrganization(organizationChanges)"
+    [disabled]="!organizationChanges">
+    Submit
+  </button>
+</div>

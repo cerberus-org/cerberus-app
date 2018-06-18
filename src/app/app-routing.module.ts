@@ -8,10 +8,9 @@ import {
   JoinPageComponent,
   OrganizationDashboardComponent,
   PublicOrganizationDashboardComponent,
-  SettingsPageComponent,
 } from './containers';
 import { LoginGuard } from './login-guard';
-import { VerificationGuard } from './verification-guard';
+import { SettingsPageComponent } from './settings/containers/settings-page/settings-page.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },

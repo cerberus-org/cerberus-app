@@ -1,14 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Observable } from 'rxjs/index';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs/Rx';
 
 import * as AppActions from '../../../actions/app.actions';
 import * as SettingsActions from '../../../actions/settings.actions';
-import { canSelectRole, getRoleOptions, isAdmin, isLastOwner } from '../../../functions/index';
-import { ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Volunteer } from '../../../models/index';
-import { State } from '../../../reducers/index';
+import { isAdmin } from '../../../functions';
+import { HeaderOptions, Organization, SidenavOptions, User, Volunteer, } from '../../../models';
+import { State } from '../../../reducers';
 
 @Component({
   selector: 'app-settings-page',
@@ -23,108 +22,41 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     false,
   );
   private authSubscription: Subscription;
-  private modelSubscription: Subscription;
   private settingsSubscription: Subscription;
-
-  organizationFormTitle: string;
-  userFormTitle: string;
-  userTableOptions: ColumnOptions[] = [
-    new ColumnOptions(
-      'firstName',
-      'First Name',
-      (row: User) => row.firstName,
-    ),
-    new ColumnOptions(
-      'lastName',
-      'Last Name',
-      (row: User) => row.lastName,
-    ),
-    new ColumnOptions(
-      'role',
-      'Role',
-      (row: User) => row.role,
-      (row: User) => (
-        canSelectRole(this.currentUserFromModel, row) && !isLastOwner(row, this.users)
-          ? getRoleOptions(this.currentUserFromModel, row)
-          : null
-      ),
-    ),
-  ];
-  volunteerTableOptions: ColumnOptions[] = [
-    new ColumnOptions(
-      'firstName',
-      'First Name',
-      (row: Volunteer) => row.firstName,
-    ),
-    new ColumnOptions(
-      'lastName',
-      'Last Name',
-      (row: Volunteer) => row.lastName,
-    ),
-    new ColumnOptions(
-      'petName',
-      'Pet Name',
-      (row: Volunteer) => row.petName,
-    ),
-  ];
-
-  users$: Observable<User[]>;
-  volunteers$: Observable<Volunteer[]>;
-  currentOrganization: Organization;
-  currentUser: User;
-  currentUserFromModel: User; // Used for user table
+  settings$: Observable<State['settings']>;
   users: User[];
   volunteers: Volunteer[];
   sidenavSelection: string;
 
   organizationChanges: Organization;
-  userChanges: User;
-  validReport: any;
 
-  constructor(public store: Store<State>) {
-    this.userFormTitle = 'Update your user info.';
-    this.organizationFormTitle = 'Update your organization info.';
+  constructor(
+    public store: Store<State>,
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {
   }
 
   ngOnInit() {
-    this.store.dispatch(new SettingsActions.LoadPage('user'));
-
+    this.store.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
     this.authSubscription = this.store.select('auth')
       .subscribe((state) => {
-        this.currentUser = state.user;
-        this.currentOrganization = state.organization;
-        if (this.currentUser) {
+        if (state.user) {
           this.store.dispatch(new AppActions.SetSidenavOptions(
-            this.getSidenavOptions(this.currentUser),
+            this.getSidenavOptions(state.user),
           ));
         }
       });
-
-    const model$ = this.store.select('model');
-    this.users$ = model$.pipe(map(state => state.users));
-    this.volunteers$ = model$.pipe(map(state => state.volunteers));
-    this.modelSubscription = model$
-      .subscribe((state) => {
-        this.currentUserFromModel = state.users
-          .find(user => user.id === this.currentUser.id);
-        this.users = state.users;
-        this.volunteers = state.volunteers;
-      });
-
     this.settingsSubscription = this.store.select('settings')
       .subscribe((state) => {
         this.sidenavSelection = state.sidenavSelection;
+        this.changeDetectorRef.detectChanges();
       });
-
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
   }
 
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
-    }
-    if (this.modelSubscription) {
-      this.modelSubscription.unsubscribe();
     }
     if (this.settingsSubscription) {
       this.settingsSubscription.unsubscribe();
@@ -141,109 +73,33 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       new SidenavOptions(
         'User',
         'face',
-        new SettingsActions.LoadPage('user'),
+        new SettingsActions.LoadPage('USER_SETTINGS'),
       ),
     ];
-    if (isAdmin(user)) {
-      sidenavOptions.push(
+    return isAdmin(user)
+      ? [
+        ...sidenavOptions,
         new SidenavOptions(
           'Organization',
           'domain',
-          new SettingsActions.LoadPage('organization'),
+          new SettingsActions.LoadPage('ORGANIZATION_SETTINGS'),
         ),
         new SidenavOptions(
           'Volunteers',
           'insert_emoticon',
-          new SettingsActions.LoadPage('volunteers'),
+          new SettingsActions.LoadPage('VOLUNTEER_SETTINGS'),
         ),
         new SidenavOptions(
           'Reports',
           'assessment',
-          new SettingsActions.LoadPage('reports'),
+          new SettingsActions.LoadPage('REPORTS'),
         ),
         new SidenavOptions(
           'Roles',
           'lock_outline',
-          new SettingsActions.LoadPage('roles'),
+          new SettingsActions.LoadPage('ROLES'),
         ),
-      );
-    }
-    return sidenavOptions;
-  }
-
-  /**
-   * Handles userChanges events by setting userChanges.
-   * @param user - a valid user when valid, null when invalid
-   */
-  onValidUser(user: User) {
-    this.userChanges = user;
-  }
-
-  /**
-   * Handles organizationChanges events by setting organizationChanges.
-   * @param organization - a valid organization when valid, null when invalid
-   */
-  onValidOrganization(organization: Organization) {
-    this.organizationChanges = organization;
-  }
-
-  /**
-   * Handles validReport events by setting validReport.
-   * @param {Report} report
-   */
-  onValidReport(report: Report) {
-    this.validReport = report;
-  }
-
-  /**
-   * Handles submission of user form by dispatching an UpdateUser action.
-   */
-  onSubmitUser(user: User) {
-    this.store.dispatch(new SettingsActions.UpdateUser(
-      Object.assign({}, this.currentUser, user),
-    ));
-  }
-
-  /**
-   * Handles submission of organization form by dispatching an UpdateOrganization action.
-   */
-  onSubmitOrganization(organization: Organization) {
-    this.store.dispatch(new SettingsActions.UpdateOrganization(
-      Object.assign({}, this.currentOrganization, organization),
-    ));
-  }
-
-  /**
-   * Handles deleteVolunteer events by dispatching a DeleteVolunteer action.
-   * @param volunteer - the volunteer to be deleted
-   */
-  onDeleteVolunteer(volunteer: Volunteer) {
-    this.store.dispatch(new SettingsActions.DeleteVolunteer(volunteer));
-  }
-
-  /**
-   * Handles submission of report form by dispatching appropriate report generation action.
-   */
-  onSubmitReport() {
-    if (this.validReport.title === 'Visit History') {
-      this.store.dispatch(new SettingsActions.GenerateVisitHistoryReport({
-        startedAt: this.validReport.startedAt,
-        endedAt: this.validReport.endedAt,
-        organizationId: this.currentOrganization.id,
-        volunteers: this.volunteers,
-      }));
-    }
-  }
-
-  onUpdateUser(user: User) {
-    this.store.dispatch(
-      user.id === this.currentUser.id
-        ? new SettingsActions.UpdateUser(user)
-        : new SettingsActions.UpdateRole(user),
-    );
-  }
-
-  onDeleteUser(user: User) {
-    console.log('Not yet implemented');
+      ]
+      : sidenavOptions;
   }
 }

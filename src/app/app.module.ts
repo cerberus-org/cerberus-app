@@ -72,7 +72,6 @@ import {
   LoginComponent,
   OrganizationDashboardComponent,
   PublicOrganizationDashboardComponent,
-  SettingsPageComponent,
 } from './containers';
 import {
   AuthEffects,
@@ -96,14 +95,13 @@ import {
   VisitService,
   VolunteerService,
 } from './services';
-import { VerificationGuard } from './verification-guard';
-import { UserSettingsComponent } from './settings/containers/user-settings/user-settings.component';
-import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
-import { VolunteerSettingsComponent } from './settings/containers/volunteer-settings/volunteer-settings.component';
-import { ReportSsComponent } from './containers/report-ss/report-ss.component';
-import { RolesComponent } from './settings/containers/roles/roles.component';
+import { OrganizationSettingsComponent } from './settings/containers/organization-settings/organization-settings.component';
 import { ReportsComponent } from './settings/containers/reports/reports.component';
-import { SettingsLayoutComponent } from './settings/components/settings-layout/settings-layout.component';
+import { RolesComponent } from './settings/containers/roles/roles.component';
+import { SettingsPageComponent } from './settings/containers/settings-page/settings-page.component';
+import { UserSettingsComponent } from './settings/containers/user-settings/user-settings.component';
+import { VolunteerSettingsComponent } from './settings/containers/volunteer-settings/volunteer-settings.component';
+import { VerificationGuard } from './verification-guard';
 
 @NgModule({
   declarations: [
@@ -140,10 +138,8 @@ import { SettingsLayoutComponent } from './settings/components/settings-layout/s
     UserSettingsComponent,
     OrganizationSettingsComponent,
     VolunteerSettingsComponent,
-    ReportSsComponent,
     RolesComponent,
     ReportsComponent,
-    SettingsLayoutComponent,
   ],
   imports: [
     AngularFireAuthModule,

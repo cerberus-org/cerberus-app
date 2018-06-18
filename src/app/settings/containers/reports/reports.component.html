@@ -1,3 +1,7 @@
-<p>
-  reports works!
-</p>
+<app-reports-form
+  (validReport)="onValidReport($event)">
+</app-reports-form>
+<div class="container-submit">
+  <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onSubmitReport()">Export Report
+  </button>
+</div>
