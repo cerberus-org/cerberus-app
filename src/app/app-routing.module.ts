@@ -20,9 +20,11 @@ const routes: Routes = [
   { path: 'checkout/:id', component: CheckInComponent, canActivate: [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },
   { path: 'join', component: JoinPageComponent },
-  { path: 'settings', component: SettingsPageComponent, canActivate: [VerificationGuard] },
+  // { path: 'settings', component: SettingsPageComponent, canActivate: [VerificationGuard] },
+  { path: 'settings', component: SettingsPageComponent },
   { path: 'public-dashboard/:name', component: PublicOrganizationDashboardComponent },
-  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+  // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: 'settings', pathMatch: 'full' },
 ];
 
 @NgModule({

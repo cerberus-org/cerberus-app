@@ -97,6 +97,13 @@ import {
   VolunteerService,
 } from './services';
 import { VerificationGuard } from './verification-guard';
+import { UserSettingsComponent } from './settings/containers/user-settings/user-settings.component';
+import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
+import { VolunteerSettingsComponent } from './settings/containers/volunteer-settings/volunteer-settings.component';
+import { ReportSsComponent } from './containers/report-ss/report-ss.component';
+import { RolesComponent } from './settings/containers/roles/roles.component';
+import { ReportsComponent } from './settings/containers/reports/reports.component';
+import { SettingsLayoutComponent } from './settings/components/settings-layout/settings-layout.component';
 
 @NgModule({
   declarations: [
@@ -130,6 +137,13 @@ import { VerificationGuard } from './verification-guard';
     ServicesAgreementComponent,
     ServicesAgreementDialogComponent,
     LoaderComponent,
+    UserSettingsComponent,
+    OrganizationSettingsComponent,
+    VolunteerSettingsComponent,
+    ReportSsComponent,
+    RolesComponent,
+    ReportsComponent,
+    SettingsLayoutComponent,
   ],
   imports: [
     AngularFireAuthModule,

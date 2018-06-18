@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/index';
 import { map } from 'rxjs/operators';
 
-import * as AppActions from '../../actions/app.actions';
-import * as SettingsActions from '../../actions/settings.actions';
-import { canSelectRole, getRoleOptions, isAdmin, isLastOwner } from '../../functions';
-import { ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Volunteer } from '../../models';
-import { State } from '../../reducers';
+import * as AppActions from '../../../actions/app.actions';
+import * as SettingsActions from '../../../actions/settings.actions';
+import { canSelectRole, getRoleOptions, isAdmin, isLastOwner } from '../../../functions/index';
+import { ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Volunteer } from '../../../models/index';
+import { State } from '../../../reducers/index';
 
 @Component({
   selector: 'app-settings-page',
