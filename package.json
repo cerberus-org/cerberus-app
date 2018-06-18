@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:dev": "ng build --dev",
+    "build:dev": "ng build",
     "build:staging": "ng build --prod -e=staging",
     "build:prod": "ng build --prod",
     "test": "ng test --code-coverage",
