@@ -50,6 +50,7 @@ import {
   DataTableComponent,
   EmailDialogComponent,
   HeaderComponent,
+  LoaderComponent,
   NewVolunteerFormComponent,
   OrganizationConfirmComponent,
   OrganizationFormComponent,
@@ -62,7 +63,6 @@ import {
   UserFormComponent,
   VolunteerMenuComponent,
 } from './components';
-import { LoaderComponent } from './components/loader/loader.component';
 import {
   CheckInComponent,
   FindOrganizationComponent,
@@ -95,12 +95,14 @@ import {
   VisitService,
   VolunteerService,
 } from './services';
-import { OrganizationSettingsComponent } from './settings/containers/organization-settings/organization-settings.component';
-import { ReportsComponent } from './settings/containers/reports/reports.component';
-import { RolesComponent } from './settings/containers/roles/roles.component';
-import { SettingsPageComponent } from './settings/containers/settings-page/settings-page.component';
-import { UserSettingsComponent } from './settings/containers/user-settings/user-settings.component';
-import { VolunteerSettingsComponent } from './settings/containers/volunteer-settings/volunteer-settings.component';
+import {
+  OrganizationSettingsComponent,
+  ReportsComponent,
+  RolesComponent,
+  SettingsPageComponent,
+  UserSettingsComponent,
+  VolunteerSettingsComponent,
+} from './settings';
 import { VerificationGuard } from './verification-guard';
 
 @NgModule({
