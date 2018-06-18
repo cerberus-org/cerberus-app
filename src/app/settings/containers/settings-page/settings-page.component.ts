@@ -1,12 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs';
 
 import * as AppActions from '../../../actions/app.actions';
 import * as SettingsActions from '../../../actions/settings.actions';
 import { isAdmin } from '../../../functions';
-import { HeaderOptions, Organization, SidenavOptions, User, Volunteer, } from '../../../models';
+import { HeaderOptions, Organization, SidenavOptions, User, Volunteer } from '../../../models';
 import { State } from '../../../reducers';
 
 @Component({
@@ -49,7 +48,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     this.settingsSubscription = this.store.select('settings')
       .subscribe((state) => {
         this.sidenavSelection = state.sidenavSelection;
-        this.changeDetectorRef.detectChanges();
+        this.changeDetectorRef.markForCheck();
       });
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
   }

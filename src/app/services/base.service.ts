@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
 import { from } from 'rxjs';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { ErrorService } from './error.service';

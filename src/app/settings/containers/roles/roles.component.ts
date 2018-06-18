@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
-import { Observable, Subscription } from 'rxjs/Rx';
 
 import * as SettingsActions from '../../../actions/settings.actions';
 import { canSelectRole, getRoleOptions, isLastOwner } from '../../../functions';

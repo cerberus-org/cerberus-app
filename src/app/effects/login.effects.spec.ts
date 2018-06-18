@@ -2,7 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 
 import * as LogInActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';

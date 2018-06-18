@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs';
 
 import * as SettingsActions from '../../../actions/settings.actions';
 import { User } from '../../../models';

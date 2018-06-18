@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 
 import * as RouterActions from './actions/router.actions';
 import { State } from './reducers';
