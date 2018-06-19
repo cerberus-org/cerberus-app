@@ -76,6 +76,7 @@ import {
   SettingsEffects,
 } from './effects';
 import { LoginGuard } from './login-guard';
+import { PublicDashboardModule } from './public-dashboard/public-dashboard.module';
 import { reducers } from './reducers';
 import {
   AuthService,
@@ -101,6 +102,7 @@ import { VerificationGuard } from './verification-guard';
 @NgModule({
   imports: [
     DataDisplayModule,
+    PublicDashboardModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
@@ -164,7 +166,6 @@ import { VerificationGuard } from './verification-guard';
     ReportsFormComponent,
     JoinPageComponent,
     EmailDialogComponent,
-    PublicOrganizationDashboardComponent,
     HomeComponent,
     ServicesAgreementComponent,
     ServicesAgreementDialogComponent,

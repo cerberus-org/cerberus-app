@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
-import * as AppActions from '../../actions/app.actions';
-import { HeaderOptions, Organization, Visit } from '../../models';
-import { State } from '../../reducers';
-import { ErrorService, OrganizationService, VisitService } from '../../services';
+import * as AppActions from '../../../actions/app.actions';
+import { HeaderOptions, Organization, Visit } from '../../../models/index';
+import { State } from '../../../reducers/index';
+import { ErrorService, OrganizationService, VisitService } from '../../../services/index';
 
 @Component({
   selector: 'app-public-organization-dashboard',
