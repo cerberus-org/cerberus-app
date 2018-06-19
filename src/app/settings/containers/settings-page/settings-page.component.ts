@@ -5,7 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import * as AppActions from '../../../actions/app.actions';
 import * as SettingsActions from '../../../actions/settings.actions';
 import { isAdmin } from '../../../functions';
-import { HeaderOptions, Organization, SidenavOptions, User, Volunteer } from '../../../models';
+import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
 import { State } from '../../../reducers';
 
 @Component({
@@ -21,19 +21,14 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     false,
   );
   private authSubscription: Subscription;
-  private settingsSubscription: Subscription;
-  settings$: Observable<State['settings']>;
-  users: User[];
-  volunteers: Volunteer[];
-  sidenavSelection: string;
-
-  organizationChanges: Organization;
+  settings$: Observable<State['settings']> = this.store.select('settings');
 
   constructor(public store: Store<State>) {
   }
 
   ngOnInit() {
     this.store.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
+    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
     this.authSubscription = this.store.select('auth')
       .subscribe((state) => {
         if (state.user) {
@@ -42,19 +37,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
           ));
         }
       });
-    this.settingsSubscription = this.store.select('settings')
-      .subscribe((state) => {
-        this.sidenavSelection = state.sidenavSelection;
-      });
-    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
   }
 
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
-    }
-    if (this.settingsSubscription) {
-      this.settingsSubscription.unsubscribe();
     }
   }
 

@@ -1,5 +1,5 @@
 <!--User form-->
-<div [ngSwitch]="sidenavSelection">
+<div [ngSwitch]="(settings$ | async)?.sidenavSelection">
   <app-user-settings
     *ngSwitchCase="'USER_SETTINGS'"
   >
