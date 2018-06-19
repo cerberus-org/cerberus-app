@@ -1,4 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+import { MockComponent } from 'ng2-mock-component';
+
+import * as SettingsActions from '../../../actions/settings.actions';
+import { getTestUsers } from '../../../models';
+import { reducers } from '../../../reducers';
 
 import { UserSettingsComponent } from './user-settings.component';
 
@@ -8,9 +14,15 @@ describe('UserSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserSettingsComponent ]
+      imports: [
+        StoreModule.forRoot(reducers),
+      ],
+      declarations: [
+        UserSettingsComponent,
+        MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +33,18 @@ describe('UserSettingsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should handle userChanges events by setting userChanges', () => {
+    component.onValidUser(getTestUsers()[0]);
+    expect(component.userChanges).toEqual(getTestUsers()[0]);
+  });
+
+  it('should handle submitUser events by dispatching SettingsActions.UpdateUser', () => {
+    spyOn(component.store, 'dispatch');
+    const user = Object.assign({}, getTestUsers()[0], { firstName: 'Edited' });
+    component.onSubmitUser(user);
+    expect(component.store.dispatch)
+      .toHaveBeenCalledWith(new SettingsActions.UpdateUser(user));
   });
 });

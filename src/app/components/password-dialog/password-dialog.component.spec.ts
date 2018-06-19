@@ -49,7 +49,7 @@ describe('VerificationDialogComponent', () => {
 
   it('should close the dialog when confirmSelection is called', () => {
     spyOn(component.dialogRef, 'close');
-    component.confirmSelection();
+    component.close();
     expect(component.dialogRef.close).toHaveBeenCalled();
   });
 });

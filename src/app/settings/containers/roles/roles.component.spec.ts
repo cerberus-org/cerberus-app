@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+import { MockComponent } from 'ng2-mock-component';
+import { reducers } from '../../../reducers';
 
 import { RolesComponent } from './roles.component';
 
@@ -8,9 +11,18 @@ describe('RolesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RolesComponent ]
+      imports: [
+        StoreModule.forRoot(reducers),
+      ],
+      declarations: [
+        RolesComponent,
+        MockComponent({
+          selector: 'app-data-table',
+          inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
+        }),
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
