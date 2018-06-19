@@ -1,4 +1,3 @@
-import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -13,7 +12,6 @@ import {
   MatInputModule,
   MatListModule,
   MatNativeDateModule,
-  MatPaginatorModule,
   MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule,
@@ -21,7 +19,6 @@ import {
   MatSlideToggleModule,
   MatSnackBarModule,
   MatStepperModule,
-  MatTableModule,
   MatTabsModule,
   MatToolbarModule,
 } from '@angular/material';
@@ -35,7 +32,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import 'hammerjs';
-import { ChartsModule } from 'ng2-charts';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -44,10 +40,6 @@ import { AppComponent } from './app.component';
 import {
   AboutUsComponent,
   CheckInFormComponent,
-  DailyHoursChartComponent,
-  DataCellComponent,
-  DataDisplayComponent,
-  DataTableComponent,
   EmailDialogComponent,
   HeaderComponent,
   LoaderComponent,
@@ -73,6 +65,7 @@ import {
   OrganizationDashboardComponent,
   PublicOrganizationDashboardComponent,
 } from './containers';
+import { DataDisplayModule } from './data-display/data-display.module';
 import {
   AuthEffects,
   CheckInEffects,
@@ -107,14 +100,13 @@ import { VerificationGuard } from './verification-guard';
 
 @NgModule({
   imports: [
+    DataDisplayModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    CdkTableModule,
-    ChartsModule,
     EffectsModule.forRoot([
       AuthEffects,
       CheckInEffects,
@@ -136,14 +128,12 @@ import { VerificationGuard } from './verification-guard';
     MatListModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatPaginatorModule,
     MatProgressSpinnerModule,
     MatRadioModule,
     MatSelectModule,
     MatSidenavModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    MatTableModule,
     MatTabsModule,
     MatToolbarModule,
     MatStepperModule,
@@ -157,9 +147,6 @@ import { VerificationGuard } from './verification-guard';
     AppComponent,
     CheckInComponent,
     CheckInFormComponent,
-    DailyHoursChartComponent,
-    DataDisplayComponent,
-    DataTableComponent,
     GettingStartedComponent,
     HeaderComponent,
     LoginComponent,
@@ -176,7 +163,6 @@ import { VerificationGuard } from './verification-guard';
     SidenavComponent,
     ReportsFormComponent,
     JoinPageComponent,
-    DataCellComponent,
     EmailDialogComponent,
     PublicOrganizationDashboardComponent,
     HomeComponent,

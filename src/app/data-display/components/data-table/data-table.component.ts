@@ -14,7 +14,7 @@ import { MatPaginator } from '@angular/material';
 import { merge, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 
-import { ColumnOptions } from '../../models';
+import { ColumnOptions } from '../../../models/index';
 
 /**
  * Provides what data should be rendered in the table.

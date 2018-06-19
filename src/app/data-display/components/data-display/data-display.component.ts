@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { formatDate, formatDuration, formatTime } from '../../functions';
-import { ColumnOptions, Visit } from '../../models';
+import { formatDate, formatDuration, formatTime } from '../../../functions';
+import { ColumnOptions, Visit } from '../../../models';
 
 @Component({
   selector: 'app-data-display',

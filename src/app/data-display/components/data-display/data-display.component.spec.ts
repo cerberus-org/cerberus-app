@@ -3,9 +3,9 @@ import { MatIconModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { getTestVisits } from '../../models';
+import { getTestVisits } from '../../../models/index';
 
-import { reducers } from '../../reducers';
+import { reducers } from '../../../reducers/index';
 import { DataDisplayComponent } from './data-display.component';
 
 describe('DataDisplayComponent', () => {
