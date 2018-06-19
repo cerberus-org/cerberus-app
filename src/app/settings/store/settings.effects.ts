@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
-import * as AuthActions from '../actions/auth.actions';
-import * as SettingsActions from '../actions/settings.actions';
-import { getVisitsWithVolunteerNames } from '../functions';
+import * as AuthActions from '../../actions/auth.actions';
+import { getVisitsWithVolunteerNames } from '../../functions';
 import {
   AuthService,
   CsvService,
@@ -15,7 +14,8 @@ import {
   UserService,
   VisitService,
   VolunteerService,
-} from '../services';
+} from '../../services';
+import * as SettingsActions from './settings.actions';
 
 @Injectable()
 export class SettingsEffects {

@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:dev": "ng build --dev",
+    "build:dev": "ng build",
     "build:staging": "ng build --prod -e=staging",
     "build:prod": "ng build --prod",
     "test": "ng test --code-coverage",
@@ -28,15 +28,15 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
-    "@ngrx/effects": "^5.2.0",
-    "@ngrx/router-store": "^5.2.0",
-    "@ngrx/store": "^5.2.0",
+    "@ngrx/effects": "^6.0.1",
+    "@ngrx/router-store": "^6.0.1",
+    "@ngrx/store": "^6.0.1",
     "@types/angular-material": "^1.1.59",
     "angular2-signaturepad": "^2.8.0",
     "angularfire2": "^5.0.0-rc.10",
     "chart.js": "^2.7.2",
     "core-js": "^2.5.6",
-    "firebase": "5.0.3",
+    "firebase": "5.0.4",
     "hammerjs": "^2.0.8",
     "jspdf": "^1.4.0",
     "lodash": "^4.17.10",
@@ -45,7 +45,6 @@
     "moment-timezone": "^0.5.17",
     "ng2-charts": "^1.6.0",
     "rxjs": "^6.1.0",
-    "rxjs-compat": "^6.1.0",
     "validator": "^10.2.0",
     "zone.js": "^0.8.26"
   },
@@ -71,6 +70,6 @@
     "rxjs-marbles": "^4.1.0",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
-    "typescript": ">=2.7.2 <2.8.0"
+    "typescript": "<2.8.0"
   }
 }

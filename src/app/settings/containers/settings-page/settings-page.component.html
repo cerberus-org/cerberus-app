@@ -1,0 +1,23 @@
+<!--User form-->
+<div [ngSwitch]="(sidenavSelection$ | async)">
+  <app-user-settings
+    *ngSwitchCase="'USER_SETTINGS'"
+  >
+  </app-user-settings>
+  <app-organization-settings
+    *ngSwitchCase="'ORGANIZATION_SETTINGS'"
+  >
+  </app-organization-settings>
+  <app-volunteer-settings
+    *ngSwitchCase="'VOLUNTEER_SETTINGS'"
+  >
+  </app-volunteer-settings>
+  <app-roles
+    *ngSwitchCase="'ROLES'"
+  >
+  </app-roles>
+  <app-reports
+    *ngSwitchCase="'REPORTS'"
+  >
+  </app-reports>
+</div>

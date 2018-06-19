@@ -1,0 +1,6 @@
+<app-data-table
+  [data$]="users$"
+  [columnOptions]="userTableOptions"
+  (deleteItem)="onDeleteUser($event)"
+  (updateItem)="onUpdateUser($event)">
+</app-data-table>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { User as FirebaseUser } from 'firebase';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
 import * as LoginActions from '../actions/login.actions';

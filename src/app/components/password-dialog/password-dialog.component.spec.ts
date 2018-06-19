@@ -1,12 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import {
-  MatDialogModule,
-  MatDialogRef,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-} from '@angular/material';
+import { MatDialogModule, MatDialogRef, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PasswordDialogComponent } from './password-dialog.component';
@@ -49,7 +43,7 @@ describe('VerificationDialogComponent', () => {
 
   it('should close the dialog when confirmSelection is called', () => {
     spyOn(component.dialogRef, 'close');
-    component.confirmSelection();
+    component.close();
     expect(component.dialogRef.close).toHaveBeenCalled();
   });
 });

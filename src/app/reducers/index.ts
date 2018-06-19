@@ -1,12 +1,12 @@
 import * as fromRouter from '@ngrx/router-store';
 import { ActionReducerMap } from '@ngrx/store';
+import * as fromSettings from '../settings/store/settings.reducer';
 
 import * as fromApp from './app.reducer';
 import * as fromAuth from './auth.reducer';
 import * as fromCheckIn from './check-in.reducer';
 import * as fromGettingStarted from './getting-started.reducer';
 import * as fromModel from './model.reducer';
-import * as fromSettings from './settings.reducer';
 
 export interface State {
   app: fromApp.State;
@@ -15,7 +15,7 @@ export interface State {
   gettingStarted: fromGettingStarted.State;
   model: fromModel.State;
   router: fromRouter.RouterReducerState;
-  settings: fromSettings.State;
+  settings: fromSettings.SettingsState;
 }
 
 export const reducers: ActionReducerMap<State> = {

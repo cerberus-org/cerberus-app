@@ -1,7 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatAutocompleteModule, MatCheckboxModule, MatDialogModule, MatInputModule,
+  MatAutocompleteModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatInputModule,
   MatListModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';

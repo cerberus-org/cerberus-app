@@ -1,0 +1,6 @@
+<app-data-table
+  [data$]="volunteers$"
+  [columnOptions]="volunteerTableOptions"
+  [showDelete]="true"
+  (deleteItem)="onDeleteVolunteer($event)">
+</app-data-table>

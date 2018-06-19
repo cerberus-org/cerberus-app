@@ -8,9 +8,9 @@ import {
   JoinPageComponent,
   OrganizationDashboardComponent,
   PublicOrganizationDashboardComponent,
-  SettingsPageComponent,
 } from './containers';
 import { LoginGuard } from './login-guard';
+import { SettingsPageComponent } from './settings/containers/settings-page/settings-page.component';
 import { VerificationGuard } from './verification-guard';
 
 const routes: Routes = [

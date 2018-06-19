@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User as FirebaseUser } from 'firebase';
-import { from, of } from 'rxjs';
-import { Observable } from 'rxjs/index';
+import { from, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import * as AuthActions from '../actions/auth.actions';

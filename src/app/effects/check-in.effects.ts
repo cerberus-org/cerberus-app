@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import * as CheckInActions from '../actions/check-in.actions';

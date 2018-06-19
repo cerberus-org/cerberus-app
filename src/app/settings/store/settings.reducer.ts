@@ -1,16 +1,15 @@
-import * as SettingsActions from '../actions/settings.actions';
+import * as SettingsActions from './settings.actions';
 
-export interface State {
+export interface SettingsState {
   sidenavSelection: string;
 }
 
-export const initialState: State = {
+export const initialState: SettingsState = {
   sidenavSelection: 'user',
 };
-
 export type Action = SettingsActions.All;
 
-export function reducer(state = initialState, action: Action): State {
+export function reducer(state = initialState, action: Action): SettingsState {
   switch (action.type) {
 
     case SettingsActions.LOAD_PAGE: {
