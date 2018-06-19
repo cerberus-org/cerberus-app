@@ -4,14 +4,6 @@ import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
 import { reducers } from '../../reducers';
-import {
-  MockOrganizationService,
-  MockSiteService,
-  MockVisitService,
-  OrganizationService,
-  SiteService,
-  VisitService,
-} from '../../services';
 import { mockServiceProviders } from '../../services/mock-service-providers';
 import { OrganizationDashboardComponent } from './organization-dashboard.component';
 

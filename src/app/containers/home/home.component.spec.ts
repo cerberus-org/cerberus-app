@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import * as RouterActions from '../../actions/router.actions';
-import { testOrganizations, testVolunteers } from '../../models';
+import { testOrganizations } from '../../models';
 import { reducers } from '../../reducers';
 
 import { HomeComponent } from './home.component';

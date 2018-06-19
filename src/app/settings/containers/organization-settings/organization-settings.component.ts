@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import * as SettingsActions from '../../store/settings.actions';
 import { Organization } from '../../../models';
 import { State } from '../../../reducers';
+import * as SettingsActions from '../../store/settings.actions';
 
 @Component({
   selector: 'app-organization-settings',

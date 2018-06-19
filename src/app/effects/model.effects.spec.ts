@@ -1,8 +1,7 @@
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
-import { of } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import * as ModelActions from '../actions/model.actions';
 import { filterByOrganizationId } from '../functions';

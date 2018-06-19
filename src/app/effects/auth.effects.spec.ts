@@ -1,11 +1,10 @@
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
-import { of } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import * as AuthActions from '../actions/auth.actions';
-import { getTestUsers, testFirebaseUsers, testOrganizations, testUsers } from '../models';
+import { getTestUsers, testFirebaseUsers, testOrganizations } from '../models';
 import { mockServiceProviders } from '../services/mock-service-providers';
 import { AuthEffects } from './auth.effects';
 
