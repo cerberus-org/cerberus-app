@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
 import * as AppActions from '../../../actions/app.actions';
@@ -7,6 +7,7 @@ import * as SettingsActions from '../../../actions/settings.actions';
 import { isAdmin } from '../../../functions';
 import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
 import { State } from '../../../reducers';
+import * as SettingsSelectors from '../../store/settings.selectors';
 
 @Component({
   selector: 'app-settings-page',
@@ -21,7 +22,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     false,
   );
   private authSubscription: Subscription;
-  settings$: Observable<State['settings']> = this.store.select('settings');
+  sidenavSelection$: Observable<string> = this.store.pipe(select(SettingsSelectors.selectSidenavSelection));
 
   constructor(public store: Store<State>) {
   }

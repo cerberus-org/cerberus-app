@@ -15,7 +15,7 @@ export interface State {
   gettingStarted: fromGettingStarted.State;
   model: fromModel.State;
   router: fromRouter.RouterReducerState;
-  settings: fromSettings.State;
+  settings: fromSettings.SettingsState;
 }
 
 export const reducers: ActionReducerMap<State> = {
