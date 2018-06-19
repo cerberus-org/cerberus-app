@@ -16,7 +16,6 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatSidenavModule,
-  MatSlideToggleModule,
   MatSnackBarModule,
   MatStepperModule,
   MatTabsModule,
@@ -61,7 +60,6 @@ import {
   LoginComponent,
   OrganizationDashboardComponent,
 } from './containers';
-import { DataDisplayModule } from './data-display/data-display.module';
 import {
   AuthEffects,
   CheckInEffects,
@@ -91,7 +89,6 @@ import { VerificationGuard } from './verification-guard';
 
 @NgModule({
   imports: [
-    DataDisplayModule,
     PublicDashboardModule,
     SettingsModule,
     SharedModule,

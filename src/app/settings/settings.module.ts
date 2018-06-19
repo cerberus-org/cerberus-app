@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule, MatIconModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
 import { ReportsFormComponent } from '../components';
-import { DataDisplayModule } from '../data-display/data-display.module';
 
 import { SharedModule } from '../shared/shared.module';
 import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
@@ -16,7 +15,6 @@ import { VolunteerSettingsComponent } from './containers/volunteer-settings/volu
 @NgModule({
   imports: [
     CommonModule,
-    DataDisplayModule,
     FormsModule,
     MatDatepickerModule,
     MatIconModule,
