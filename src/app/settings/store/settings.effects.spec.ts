@@ -4,11 +4,11 @@ import { cold, hot } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 
-import * as AuthActions from '../actions/auth.actions';
-import * as SettingsActions from '../actions/settings.actions';
-import { getTestUsers, testOrganizations } from '../models';
-import { CsvService, SnackBarService } from '../services';
-import { mockServiceProviders } from '../services/mock-service-providers';
+import * as AuthActions from '../../actions/auth.actions';
+import * as SettingsActions from './settings.actions';
+import { getTestUsers, testOrganizations } from '../../models/index';
+import { CsvService, SnackBarService } from '../../services/index';
+import { mockServiceProviders } from '../../services/mock-service-providers';
 import { SettingsEffects } from './settings.effects';
 
 describe('SettingsEffects', () => {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import * as SettingsActions from '../../../actions/settings.actions';
+import * as SettingsActions from '../../store/settings.actions';
 import { Organization, Report, Volunteer } from '../../../models';
 import { State } from '../../../reducers';
 

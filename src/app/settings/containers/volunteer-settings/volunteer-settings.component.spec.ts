@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
-import * as SettingsActions from '../../../actions/settings.actions';
+import * as SettingsActions from '../../store/settings.actions';
 import { testVolunteers } from '../../../models';
 import { reducers } from '../../../reducers';
 

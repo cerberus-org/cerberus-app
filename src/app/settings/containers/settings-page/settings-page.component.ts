@@ -3,10 +3,10 @@ import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
 import * as AppActions from '../../../actions/app.actions';
-import * as SettingsActions from '../../../actions/settings.actions';
 import { isAdmin } from '../../../functions';
 import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
 import { State } from '../../../reducers';
+import * as SettingsActions from '../../store/settings.actions';
 import * as SettingsSelectors from '../../store/settings.selectors';
 
 @Component({

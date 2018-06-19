@@ -1,5 +1,4 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as SettingsActions from '../actions/settings.actions';
+import * as SettingsActions from './settings.actions';
 
 export interface SettingsState {
   sidenavSelection: string;
