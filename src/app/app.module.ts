@@ -45,14 +45,11 @@ import {
   LoaderComponent,
   NewVolunteerFormComponent,
   OrganizationConfirmComponent,
-  OrganizationFormComponent,
   PasswordDialogComponent,
-  ReportsFormComponent,
   ServicesAgreementComponent,
   ServicesAgreementDialogComponent,
   SidenavComponent,
   SignatureFieldComponent,
-  UserFormComponent,
   VolunteerMenuComponent,
 } from './components';
 import {
@@ -63,7 +60,6 @@ import {
   JoinPageComponent,
   LoginComponent,
   OrganizationDashboardComponent,
-  PublicOrganizationDashboardComponent,
 } from './containers';
 import { DataDisplayModule } from './data-display/data-display.module';
 import {
@@ -89,20 +85,16 @@ import {
   VisitService,
   VolunteerService,
 } from './services';
-import {
-  OrganizationSettingsComponent,
-  ReportsComponent,
-  RolesComponent,
-  SettingsPageComponent,
-  UserSettingsComponent,
-  VolunteerSettingsComponent,
-} from './settings';
+import { SettingsModule } from './settings/settings.module';
+import { SharedModule } from './shared/shared.module';
 import { VerificationGuard } from './verification-guard';
 
 @NgModule({
   imports: [
     DataDisplayModule,
     PublicDashboardModule,
+    SettingsModule,
+    SharedModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
@@ -134,7 +126,6 @@ import { VerificationGuard } from './verification-guard';
     MatRadioModule,
     MatSelectModule,
     MatSidenavModule,
-    MatSlideToggleModule,
     MatSnackBarModule,
     MatTabsModule,
     MatToolbarModule,
@@ -154,27 +145,18 @@ import { VerificationGuard } from './verification-guard';
     LoginComponent,
     FindOrganizationComponent,
     NewVolunteerFormComponent,
-    OrganizationFormComponent,
     OrganizationConfirmComponent,
     OrganizationDashboardComponent,
     PasswordDialogComponent,
-    SettingsPageComponent,
     SignatureFieldComponent,
-    UserFormComponent,
     VolunteerMenuComponent,
     SidenavComponent,
-    ReportsFormComponent,
     JoinPageComponent,
     EmailDialogComponent,
     HomeComponent,
     ServicesAgreementComponent,
     ServicesAgreementDialogComponent,
     LoaderComponent,
-    UserSettingsComponent,
-    OrganizationSettingsComponent,
-    VolunteerSettingsComponent,
-    RolesComponent,
-    ReportsComponent,
   ],
   providers: [
     AuthService,

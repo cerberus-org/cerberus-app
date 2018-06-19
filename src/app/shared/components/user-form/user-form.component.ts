@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { User } from '../../models';
+import { User } from '../../../models/index';
 
 @Component({
   selector: 'app-user-form',

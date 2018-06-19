@@ -1,10 +1,42 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule, MatIconModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
+import { ReportsFormComponent } from '../components';
+import { DataDisplayModule } from '../data-display/data-display.module';
+
+import { SharedModule } from '../shared/shared.module';
+import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
+import { ReportsComponent } from './containers/reports/reports.component';
+import { RolesComponent } from './containers/roles/roles.component';
+import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
+import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
+import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    DataDisplayModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatIconModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    ReactiveFormsModule,
+    SharedModule,
   ],
-  declarations: []
+  declarations: [
+    OrganizationSettingsComponent,
+    RolesComponent,
+    ReportsComponent,
+    ReportsFormComponent,
+    SettingsPageComponent,
+    UserSettingsComponent,
+    VolunteerSettingsComponent,
+  ],
+  exports: [
+    SettingsPageComponent,
+  ],
 })
-export class SettingsModule { }
+export class SettingsModule {
+}

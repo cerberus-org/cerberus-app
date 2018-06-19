@@ -11,7 +11,7 @@ import {
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { Report, testReports } from '../../models';
+import { Report, testReports } from '../../../models/index';
 import { ReportsFormComponent } from './reports-form.component';
 
 describe('ReportsFormComponent', () => {
