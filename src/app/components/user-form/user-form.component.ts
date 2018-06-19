@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { User } from '../../models';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
 })
-export class UserFormComponent implements OnChanges, OnDestroy {
+export class UserFormComponent implements OnInit, OnDestroy {
   @Input() passwordRequired;
   @Input() title: string;
   // Initial user used to pre populate form
@@ -26,7 +26,7 @@ export class UserFormComponent implements OnChanges, OnDestroy {
     this.hideConfirmPwd = true;
   }
 
-  ngOnChanges(): void {
+  ngOnInit(): void {
     this.formGroup = this.createForm();
     this.formSubscription = this.subscribeToForm();
     // Emit User if form is valid after creation

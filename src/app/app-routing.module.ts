@@ -11,6 +11,7 @@ import {
 } from './containers';
 import { LoginGuard } from './login-guard';
 import { SettingsPageComponent } from './settings/containers/settings-page/settings-page.component';
+import { VerificationGuard } from './verification-guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,11 +20,9 @@ const routes: Routes = [
   { path: 'checkout/:id', component: CheckInComponent, canActivate: [LoginGuard] },
   { path: 'start', component: GettingStartedComponent },
   { path: 'join', component: JoinPageComponent },
-  // { path: 'settings', component: SettingsPageComponent, canActivate: [VerificationGuard] },
-  { path: 'settings', component: SettingsPageComponent },
+  { path: 'settings', component: SettingsPageComponent, canActivate: [VerificationGuard] },
   { path: 'public-dashboard/:name', component: PublicOrganizationDashboardComponent },
-  // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: '**', redirectTo: 'settings', pathMatch: 'full' },
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({

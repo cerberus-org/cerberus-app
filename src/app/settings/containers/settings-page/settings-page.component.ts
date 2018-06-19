@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 
@@ -29,10 +29,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   organizationChanges: Organization;
 
-  constructor(
-    public store: Store<State>,
-    private changeDetectorRef: ChangeDetectorRef,
-  ) {
+  constructor(public store: Store<State>) {
   }
 
   ngOnInit() {
@@ -48,7 +45,6 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     this.settingsSubscription = this.store.select('settings')
       .subscribe((state) => {
         this.sidenavSelection = state.sidenavSelection;
-        this.changeDetectorRef.markForCheck();
       });
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
   }
