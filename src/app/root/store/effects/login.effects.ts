@@ -4,7 +4,9 @@ import { Action } from '@ngrx/store';
 import { User as FirebaseUser } from 'firebase';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { AuthService, SnackBarService, UserService } from '../../../services';
+import { UserService } from '../../../data/services/user.service';
+import { AuthService } from '../../../services/auth.service';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as LoginActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
 

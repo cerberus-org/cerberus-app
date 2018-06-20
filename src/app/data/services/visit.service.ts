@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
 import { empty, Observable, of } from 'rxjs';
-import { testVisits, Visit } from '../models';
+import { testVisits, Visit } from '../../models/index';
 import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
+import { ErrorService } from '../../shared/services/error.service';
 import Timestamp = firebase.firestore.Timestamp;
 
 @Injectable()

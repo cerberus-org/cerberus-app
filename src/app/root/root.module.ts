@@ -20,19 +20,11 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import 'hammerjs';
 import { environment } from '../../environments/environment';
 import { CheckInModule } from '../check-in/check-in.module';
+import { DataModule } from '../data/data.module';
 import { HomeModule } from '../home/home.module';
 import { PublicDashboardModule } from '../public-dashboard/public-dashboard.module';
-import {
-  AuthService,
-  CsvService,
-  ErrorService,
-  OrganizationService,
-  SiteService,
-  SnackBarService,
-  UserService,
-  VisitService,
-  VolunteerService,
-} from '../services';
+import { AuthService } from '../services/auth.service';
+import { CsvService } from '../services/csv.service';
 import { SettingsModule } from '../settings/settings.module';
 import { SharedModule } from '../shared/shared.module';
 import { SignUpModule } from '../sign-up/sign-up.module';
@@ -82,11 +74,12 @@ import { reducers } from './store/reducers';
     StoreRouterConnectingModule,
     // Cerberus Modules
     CheckInModule,
+    DataModule,
+    HomeModule,
     PublicDashboardModule,
-    SignUpModule,
     SettingsModule,
     SharedModule,
-    HomeModule,
+    SignUpModule,
   ],
   declarations: [
     RootComponent,
@@ -97,15 +90,8 @@ import { reducers } from './store/reducers';
   providers: [
     AuthService,
     CsvService,
-    ErrorService,
     LoginGuard,
-    OrganizationService,
-    SiteService,
-    SnackBarService,
-    UserService,
     VerificationGuard,
-    VisitService,
-    VolunteerService,
   ],
   bootstrap: [RootComponent],
 })

@@ -3,7 +3,8 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { OrganizationService, UserService } from '../../../services';
+import { OrganizationService } from '../../../data/services/organization.service';
+import { UserService } from '../../../data/services/user.service';
 import * as AuthActions from '../actions/auth.actions';
 
 @Injectable()

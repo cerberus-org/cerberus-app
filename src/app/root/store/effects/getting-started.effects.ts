@@ -3,8 +3,11 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { OrganizationService } from '../../../data/services/organization.service';
+import { SiteService } from '../../../data/services/site.service';
 import { Organization, Site } from '../../../models';
-import { AuthService, OrganizationService, SiteService, SnackBarService } from '../../../services';
+import { AuthService } from '../../../services/auth.service';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';
 

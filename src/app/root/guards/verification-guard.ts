@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthService } from '../../services';
+import { AuthService } from '../../services/auth.service';
 import * as RouterActions from '../store/actions/router.actions';
 import { State } from '../store/reducers';
 

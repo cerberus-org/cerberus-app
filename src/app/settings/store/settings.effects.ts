@@ -3,17 +3,15 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
+import { OrganizationService } from '../../data/services/organization.service';
+import { UserService } from '../../data/services/user.service';
+import { VisitService } from '../../data/services/visit.service';
+import { VolunteerService } from '../../data/services/volunteer.service';
 import { getVisitsWithVolunteerNames } from '../../functions';
 import * as AuthActions from '../../root/store/actions/auth.actions';
-import {
-  AuthService,
-  CsvService,
-  OrganizationService,
-  SnackBarService,
-  UserService,
-  VisitService,
-  VolunteerService,
-} from '../../services';
+import { AuthService } from '../../services/auth.service';
+import { CsvService } from '../../services/csv.service';
+import { SnackBarService } from '../../shared/services/snack-bar.service';
 import * as SettingsActions from './settings.actions';
 
 @Injectable()

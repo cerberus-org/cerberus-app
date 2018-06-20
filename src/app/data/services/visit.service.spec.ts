@@ -2,8 +2,8 @@ import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { from } from 'rxjs';
-import { ErrorService, MockErrorService, VisitService } from '.';
-import { getTestVisits, Visit } from '../models';
+import { ErrorService, MockErrorService, VisitService } from '../../services/index';
+import { getTestVisits, Visit } from '../../models/index';
 import createSpy = jasmine.createSpy;
 
 describe('VisitService', () => {

@@ -1,6 +1,6 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
@@ -27,6 +27,8 @@ import { ServicesAgreementDialogComponent } from './components/services-agreemen
 import { ServicesAgreementComponent } from './components/services-agreement/services-agreement.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { FindOrganizationComponent } from './containers/find-organization/find-organization.component';
+import { ErrorService } from './services/error.service';
+import { SnackBarService } from './services/snack-bar.service';
 
 @NgModule({
   imports: [
@@ -63,6 +65,10 @@ import { FindOrganizationComponent } from './containers/find-organization/find-o
   entryComponents: [
     PasswordDialogComponent, ServicesAgreementDialogComponent,
   ],
+  providers: [
+    ErrorService,
+    SnackBarService,
+  ],
   exports: [
     DataDisplayComponent,
     DataTableComponent,
@@ -74,5 +80,4 @@ import { FindOrganizationComponent } from './containers/find-organization/find-o
     UserFormComponent,
   ],
 })
-export class SharedModule {
-}
+export class SharedModule {}

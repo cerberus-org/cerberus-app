@@ -3,7 +3,9 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { SnackBarService, VisitService, VolunteerService } from '../../../services';
+import { VisitService } from '../../../data/services/visit.service';
+import { VolunteerService } from '../../../data/services/volunteer.service';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as CheckInActions from '../actions/check-in.actions';
 import * as RouterActions from '../actions/router.actions';
 

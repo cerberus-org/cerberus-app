@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ErrorService } from './error.service';
+import { ErrorService } from '../../shared/services/error.service';
 
 @Injectable()
 export abstract class BaseService<T extends { id: string }> {
