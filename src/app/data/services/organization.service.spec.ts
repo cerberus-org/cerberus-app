@@ -1,7 +1,10 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { ErrorService, MockErrorService, OrganizationService } from '../../services/index';
-import { Organization, testOrganizations } from '../../models/index';
+import { MockErrorService } from '../../mock/classes/error.service.mock';
+import { mockOrganizations } from '../../mock/objects/organization.mock';
+import { Organization } from '../../models';
+import { ErrorService } from '../../shared/services/error.service';
+import { OrganizationService } from './organization.service';
 
 describe('OrganizationService', () => {
   let service: OrganizationService;
@@ -17,7 +20,7 @@ describe('OrganizationService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(OrganizationService);
-    organization = Object.assign({}, testOrganizations[0]);
+    organization = Object.assign({}, mockOrganizations[0]);
     organization.name = 'jefferson sPCA';
     organization.description = 'the Jefferson SPCA exists to support the Jefferson Parish Animal Shelter.';
   }));
@@ -28,11 +31,11 @@ describe('OrganizationService', () => {
 
   it('should convert data coming from the database', () => {
     const converted = service.convertIn(organization);
-    expect(converted).toEqual(testOrganizations[0]);
+    expect(converted).toEqual(mockOrganizations[0]);
   });
 
   it('should convert data going to the database', () => {
     const converted = service.convertOut(organization);
-    expect(converted).toEqual(testOrganizations[0]);
+    expect(converted).toEqual(mockOrganizations[0]);
   });
 });

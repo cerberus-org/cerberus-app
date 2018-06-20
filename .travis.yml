@@ -33,7 +33,7 @@ install:
   - yarn install
 
 script:
-  - yarn run test:ci
+  - yarn run mock:ci
   - yarn run lint
   - yarn run build:dev
 

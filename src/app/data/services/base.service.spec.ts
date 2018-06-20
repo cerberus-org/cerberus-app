@@ -2,10 +2,11 @@ import { getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
-import { empty, from } from 'rxjs';
-import { getTestVolunteers } from '../../models/index';
+import { EMPTY, from } from 'rxjs';
+import { MockErrorService } from '../../mock/classes/error.service.mock';
+import { getMockVolunteers } from '../../mock/objects/volunteer.mock';
+import { ErrorService } from '../../shared/services/error.service';
 import { BaseService } from './base.service';
-import { ErrorService, MockErrorService } from '../../shared/services/error.service';
 import createSpy = jasmine.createSpy;
 
 describe('BaseService', () => {
@@ -35,7 +36,7 @@ describe('BaseService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(BaseService);
-    testVolunteers = getTestVolunteers();
+    testVolunteers = getMockVolunteers();
   });
 
   it('should be created', inject([BaseService], (baseService: BaseService<any>) => {
@@ -136,7 +137,7 @@ describe('BaseService', () => {
 
   class AngularFirestoreStub {
     collection(path, queryFn) {
-      let items = getTestVolunteers();
+      let items = getMockVolunteers();
       // Run query function to call spies if provided
       if (queryFn) {
         queryFn({
@@ -169,10 +170,10 @@ describe('BaseService', () => {
             Promise.resolve()
           )),
           delete: deleteSpy = createSpy('delete').and.callFake(() => (
-            Promise.resolve(empty())
+            Promise.resolve(EMPTY)
           )),
           update: updateSpy = createSpy('update').and.callFake(() => (
-            Promise.resolve(empty())
+            Promise.resolve(EMPTY)
           )),
         })),
         valueChanges: valueChangesSpy = createSpy('valueChanges').and.callFake(

@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatVerticalStepper } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../../auth/services/auth.service';
 import { OrganizationService } from '../../../data/services/organization.service';
 import { HeaderOptions, Organization, User } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { State } from '../../../root/store/reducers';
-import { AuthService } from '../../../auth/services/auth.service';
 import { ErrorService } from '../../../shared/services/error.service';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 

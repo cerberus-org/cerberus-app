@@ -1,17 +1,15 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
-import {
-  AuthService,
-  ErrorService,
-  MockErrorService,
-  MockOrganizationService,
-  MockUserService,
-  OrganizationService,
-  UserService,
-} from '../../services';
-import { testUsers } from '../../models/index';
-import { reducers } from '../../root/store/reducers/index';
+import { OrganizationService } from '../../data/services/organization.service';
+import { UserService } from '../../data/services/user.service';
+import { MockErrorService } from '../../mock/classes/error.service.mock';
+import { MockOrganizationService } from '../../mock/classes/organization.service.mock';
+import { MockUserService } from '../../mock/classes/user.service.mock';
+import { mockUsers } from '../../mock/objects/user.mock';
+import { reducers } from '../../root/store/reducers';
+import { ErrorService } from '../../shared/services/error.service';
+import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -33,7 +31,7 @@ describe('AuthService', () => {
     const testbed = getTestBed();
     service = testbed.get(AuthService);
     afUser = {
-      uid: testUsers[0].id,
+      uid: mockUsers[0].id,
       displayName: 'tlmader',
       email: 'tlmader.dev@gmail.com',
     };

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
-import { empty, Observable, of } from 'rxjs';
 import { upperAllFirst } from '../../functions';
-import { Organization, testOrganizations } from '../../models';
-import { BaseService } from './base.service';
+import { Organization } from '../../models';
 import { ErrorService } from '../../shared/services/error.service';
+import { BaseService } from './base.service';
 
 @Injectable()
 export class OrganizationService extends BaseService<Organization> {
@@ -48,36 +47,5 @@ export class OrganizationService extends BaseService<Organization> {
    */
   convertIn(organization: Organization): Organization {
     return this.capitalizeOrganizaton(organization);
-  }
-}
-
-export class MockOrganizationService extends OrganizationService {
-
-  constructor() {
-    super(null, null);
-  }
-
-  getAll(): Observable<Organization[]> {
-    return of(testOrganizations);
-  }
-
-  getByKey(key: string, value: string): Observable<Organization[]> {
-    return of(testOrganizations.filter(organization => organization[key] === value));
-  }
-
-  getById(id: string): Observable<Organization> {
-    return of(testOrganizations.find(organization => organization.id === id));
-  }
-
-  add(organization: Organization): Observable<Organization> {
-    return of(organization);
-  }
-
-  update(organization: any): Observable<any> {
-    return of(Promise.resolve());
-  }
-
-  delete(organization: any): Observable<any> {
-    return empty();
   }
 }

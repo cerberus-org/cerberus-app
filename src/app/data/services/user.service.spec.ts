@@ -1,7 +1,10 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { ErrorService, MockErrorService, UserService } from '../../services/index';
-import { getTestUsers, User } from '../../models/index';
+import { MockErrorService } from '../../mock/classes/error.service.mock';
+import { getMockUsers } from '../../mock/objects/user.mock';
+import { User } from '../../models';
+import { ErrorService } from '../../shared/services/error.service';
+import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
@@ -17,7 +20,7 @@ describe('UserService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(UserService);
-    testUser = getTestUsers()[0];
+    testUser = getMockUsers()[0];
     testUser.firstName = 'tED';
     testUser.lastName = 'mAdEr';
   }));
@@ -28,12 +31,12 @@ describe('UserService', () => {
 
   it('should convert data coming from the database', () => {
     const converted = service.convertIn(testUser);
-    expect(converted).toEqual(getTestUsers()[0]);
+    expect(converted).toEqual(getMockUsers()[0]);
   });
 
   it('should convert data going to the database', () => {
     const converted = service.convertOut(testUser);
-    const userClone = getTestUsers()[0];
+    const userClone = getMockUsers()[0];
     delete userClone.email;
     delete userClone.password;
     expect(converted).toEqual(userClone);

@@ -1,7 +1,10 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { ErrorService, MockErrorService, VolunteerService } from '../../services/index';
-import { testVolunteers, Volunteer } from '../../models/index';
+import { MockErrorService } from '../../mock/classes/error.service.mock';
+import { mockVolunteers } from '../../mock/objects/volunteer.mock';
+import { Volunteer } from '../../models';
+import { ErrorService } from '../../shared/services/error.service';
+import { VolunteerService } from './volunteer.service';
 
 describe('VolunteerService', () => {
   let service: VolunteerService;
@@ -17,7 +20,7 @@ describe('VolunteerService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(VolunteerService);
-    volunteer = Object.assign({}, testVolunteers[0]);
+    volunteer = Object.assign({}, mockVolunteers[0]);
     volunteer.firstName = 'tED';
     volunteer.lastName = 'mAdEr';
     volunteer.petName = 'miMI';
@@ -29,11 +32,11 @@ describe('VolunteerService', () => {
 
   it('should convert data coming from the database', () => {
     const converted = service.convertIn(volunteer);
-    expect(converted).toEqual(testVolunteers[0]);
+    expect(converted).toEqual(mockVolunteers[0]);
   });
 
   it('should convert data going to the database', () => {
     const converted = service.convertOut(volunteer);
-    expect(converted).toEqual(testVolunteers[0]);
+    expect(converted).toEqual(mockVolunteers[0]);
   });
 });

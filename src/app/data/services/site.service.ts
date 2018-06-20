@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { empty, Observable, of } from 'rxjs';
 import { upperAllFirst } from '../../functions';
-import { Site, testSites } from '../../models';
-import { BaseService } from './base.service';
+import { Site } from '../../models';
 import { ErrorService } from '../../shared/services/error.service';
+import { BaseService } from './base.service';
 
 @Injectable()
 export class SiteService extends BaseService<Site> {
@@ -48,36 +47,5 @@ export class SiteService extends BaseService<Site> {
    */
   convertIn(site: Site): Site {
     return this.capitalizeSite(site);
-  }
-}
-
-export class MockSiteService extends SiteService {
-
-  constructor() {
-    super(null, null);
-  }
-
-  getAll(): Observable<Site[]> {
-    return of(testSites);
-  }
-
-  getByKey(key: string, value: string): Observable<Site[]> {
-    return of(testSites.filter(site => site[key] === value));
-  }
-
-  getById(id: string): Observable<Site> {
-    return of(testSites.find(site => site.id === id));
-  }
-
-  add(site: Site): Observable<Site> {
-    return of(site);
-  }
-
-  update(site: any): Observable<any> {
-    return of(Promise.resolve());
-  }
-
-  delete(site: any): Observable<any> {
-    return empty();
   }
 }

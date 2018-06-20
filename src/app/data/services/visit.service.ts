@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
-import { empty, Observable, of } from 'rxjs';
-import { testVisits, Visit } from '../../models/index';
-import { BaseService } from './base.service';
+import { Observable } from 'rxjs';
+import { Visit } from '../../models/index';
 import { ErrorService } from '../../shared/services/error.service';
+import { BaseService } from './base.service';
 import Timestamp = firebase.firestore.Timestamp;
 
 @Injectable()
@@ -56,50 +56,5 @@ export class VisitService extends BaseService<Visit> {
       endedAt: visit.endedAt ? (visit.endedAt as any as Timestamp).toDate() : null,
       signature: visit.signature ? JSON.parse(visit.signature) : null,
     });
-  }
-}
-
-export class MockVisitService extends VisitService {
-
-  constructor() {
-    super(null, null);
-  }
-
-  getByOrganizationIdAndDateRange(
-    organizationId: string,
-    startDate: Date,
-    endDate: Date,
-    snapshot?: boolean,
-  ): Observable<Visit[]> {
-    return of(testVisits
-      .filter(visit =>
-        visit.startedAt >= startDate &&
-        (!visit.endedAt || visit.endedAt <= endDate) &&
-        visit.organizationId === organizationId,
-      ));
-  }
-
-  getAll(): Observable<Visit[]> {
-    return of(testVisits);
-  }
-
-  getByKey(key: string, value: string): Observable<Visit[]> {
-    return of(testVisits.filter(visit => visit[key] === value));
-  }
-
-  getById(id: string): Observable<Visit> {
-    return of(testVisits.find(visit => visit.id === id));
-  }
-
-  add(visit: Visit): Observable<Visit> {
-    return of(visit);
-  }
-
-  update(visit: any): Observable<any> {
-    return of(Promise.resolve());
-  }
-
-  delete(visit: any): Observable<any> {
-    return empty();
   }
 }

@@ -1,5 +1,5 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
-import { CsvService } from '../../services';
+import { CsvService } from './csv.service';
 
 describe('CsvService', () => {
   let service: CsvService;

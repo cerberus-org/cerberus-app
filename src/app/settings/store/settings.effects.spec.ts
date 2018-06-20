@@ -2,10 +2,12 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
-import { getTestUsers, testOrganizations } from '../../models';
+import { getMockOrganizations } from '../../mock/objects/organization.mock';
+import { getMockUsers } from '../../mock/objects/user.mock';
+import { mockServiceProviders } from '../../mock/providers.mock';
 import * as AuthActions from '../../root/store/actions/auth.actions';
-import { CsvService, SnackBarService } from '../../services';
-import { mockServiceProviders } from '../../test/mock-service-providers';
+import { SnackBarService } from '../../shared/services/snack-bar.service';
+import { CsvService } from '../services/csv.service';
 import * as SettingsActions from './settings.actions';
 import { SettingsEffects } from './settings.effects';
 
@@ -19,14 +21,15 @@ describe('SettingsEffects', () => {
       providers: [
         SettingsEffects,
         provideMockActions(() => actions),
-      ].concat(mockServiceProviders),
+        ...mockServiceProviders,
+      ],
     });
     effects = TestBed.get(SettingsEffects);
   }));
 
   describe('updateOrganization$', () => {
     it('should dispatch AuthActions.UpdateOrganization', (() => {
-      const organization = testOrganizations[0];
+      const organization = getMockOrganizations()[0];
       actions = hot('a', {
         a: new SettingsActions.UpdateOrganization(organization),
       });
@@ -49,7 +52,7 @@ describe('SettingsEffects', () => {
 
   describe('updateUser$', () => {
     it('should dispatch AuthActions.UpdateUser', (() => {
-      const user = getTestUsers()[0];
+      const user = getMockUsers()[0];
       actions = hot('a', {
         a: new SettingsActions.UpdateUser(user),
       });

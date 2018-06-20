@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import { merge, Observable, of, Subscription } from 'rxjs';
-import { map } from 'rxjs/internal/operators';
+import { map } from 'rxjs/operators';
 import { ColumnOptions } from '../../../models';
 
 /**

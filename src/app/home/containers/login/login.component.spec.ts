@@ -53,7 +53,7 @@ describe('LoginComponent', () => {
 
     it('should validate valid email', () => {
       const control = component.loginForm.controls['email'];
-      control.setValue('test@gmail.com');
+      control.setValue('mock@gmail.com');
       expect(control.valid).toBeTruthy();
       expect(control.errors).toBeFalsy();
     });
@@ -67,7 +67,7 @@ describe('LoginComponent', () => {
 
     it('should validate email that ends in a period is invalid', () => {
       const control = component.loginForm.controls['email'];
-      control.setValue('test@gmail.com.');
+      control.setValue('mock@gmail.com.');
       expect(control.valid).toBeFalsy();
       expect(control.errors).toBeTruthy();
     });

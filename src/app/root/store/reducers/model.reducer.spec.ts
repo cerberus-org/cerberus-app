@@ -1,5 +1,7 @@
-import { sortVisitsByStartedAt } from '../../../functions/helpers.functions';
-import { testSites, testVisits, testVolunteers } from '../../../models';
+import { sortVisitsByStartedAt } from '../../../functions';
+import { mockSites } from '../../../mock/objects/site.mock';
+import { mockVisits } from '../../../mock/objects/visit.mock';
+import { mockVolunteers } from '../../../mock/objects/volunteer.mock';
 import * as ModelActions from '../actions/model.actions';
 import * as fromModel from './model.reducer';
 
@@ -8,9 +10,9 @@ describe('modelReducer', () => {
     it('sets the sites', () => {
       const state = fromModel.reducer(
         fromModel.initialState,
-        new ModelActions.LoadSitesSuccess(testSites),
+        new ModelActions.LoadSitesSuccess(mockSites),
       );
-      expect(state.sites).toEqual(testSites);
+      expect(state.sites).toEqual(mockSites);
     });
   });
 
@@ -18,9 +20,9 @@ describe('modelReducer', () => {
     it('sets the visits, sorted by date', () => {
       const state = fromModel.reducer(
         fromModel.initialState,
-        new ModelActions.LoadVisitsSuccess(testVisits),
+        new ModelActions.LoadVisitsSuccess(mockVisits),
       );
-      expect(state.visits).toEqual(sortVisitsByStartedAt(testVisits));
+      expect(state.visits).toEqual(sortVisitsByStartedAt(mockVisits));
     });
   });
 
@@ -28,9 +30,9 @@ describe('modelReducer', () => {
     it('sets the volunteers', () => {
       const state = fromModel.reducer(
         fromModel.initialState,
-        new ModelActions.LoadVolunteersSuccess(testVolunteers),
+        new ModelActions.LoadVolunteersSuccess(mockVolunteers),
       );
-      expect(state.volunteers).toEqual(testVolunteers);
+      expect(state.volunteers).toEqual(mockVolunteers);
     });
   });
 });

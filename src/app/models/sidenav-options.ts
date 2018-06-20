@@ -11,11 +11,3 @@ export class SidenavOptions {
     this.action = action;
   }
 }
-
-export const testSidenavOptions: SidenavOptions[] = [
-  {
-    label: 'Go',
-    icon: 'forward',
-    action: null,
-  },
-];

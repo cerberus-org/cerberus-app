@@ -1,4 +1,6 @@
-import { getTestUsers, testOrganizations } from '../../../models';
+///<reference path="../../../mock/objects/organization.mock.ts"/>
+import { mockOrganizations } from '../../../mock/objects/organization.mock';
+import { getMockUsers } from '../../../mock/objects/user.mock';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as fromGettingStarted from './getting-started.reducer';
 
@@ -29,9 +31,9 @@ describe('dataDisplayReducer', () => {
     it('updates the valid organization', () => {
       const state = fromGettingStarted.reducer(
         fromGettingStarted.initialState,
-        new GettingStartedActions.UpdateValidOrganization(testOrganizations[0]),
+        new GettingStartedActions.UpdateValidOrganization(mockOrganizations[0]),
       );
-      expect(state.validOrganization).toEqual(testOrganizations[0]);
+      expect(state.validOrganization).toEqual(mockOrganizations[0]);
     });
   });
 
@@ -40,9 +42,9 @@ describe('dataDisplayReducer', () => {
     it('updates the valid organization', () => {
       const state = fromGettingStarted.reducer(
         fromGettingStarted.initialState,
-        new GettingStartedActions.UpdateValidUser(getTestUsers()[0]),
+        new GettingStartedActions.UpdateValidUser(getMockUsers()[0]),
       );
-      expect(state.validUser).toEqual(getTestUsers()[0]);
+      expect(state.validUser).toEqual(getMockUsers()[0]);
     });
   });
 });

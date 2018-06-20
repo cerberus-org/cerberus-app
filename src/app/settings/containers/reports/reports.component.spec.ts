@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { testOrganizations, testReports, testVolunteers } from '../../../models';
+import { getMockOrganizations } from '../../../mock/objects/organization.mock';
+import { mockReports } from '../../../mock/objects/report.mock';
+import { getMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { reducers } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/settings.actions';
 import { ReportsComponent } from './reports.component';
@@ -34,24 +36,24 @@ describe('ReportsComponent', () => {
   });
 
   it('should handle validReport events by setting validReport', () => {
-    component.onValidReport(testReports[0]);
-    expect(component.validReport).toEqual(testReports[0]);
+    component.onValidReport(mockReports[0]);
+    expect(component.validReport).toEqual(mockReports[0]);
   });
 
   it(
     'should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport',
     () => {
       spyOn(component.store, 'dispatch');
-      component.validReport = testReports[0];
-      component.currentOrganization = testOrganizations[0];
-      component.volunteers = testVolunteers;
+      component.validReport = mockReports[0];
+      component.currentOrganization = getMockOrganizations()[0];
+      component.volunteers = getMockVolunteers();
       component.onSubmitReport();
       expect(component.store.dispatch)
         .toHaveBeenCalledWith(new SettingsActions.GenerateVisitHistoryReport({
-          startedAt: testReports[0].startedAt,
-          endedAt: testReports[0].endedAt,
-          organizationId: testOrganizations[0].id,
-          volunteers: testVolunteers,
+          startedAt: mockReports[0].startedAt,
+          endedAt: mockReports[0].endedAt,
+          organizationId: getMockOrganizations()[0].id,
+          volunteers: getMockVolunteers(),
         }));
     },
   );

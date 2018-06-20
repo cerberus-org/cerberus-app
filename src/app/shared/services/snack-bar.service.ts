@@ -62,12 +62,3 @@ export class SnackBarService {
     this.open('Unsuccessful login.');
   }
 }
-
-export class MockSnackBarService extends SnackBarService {
-
-  constructor() {
-    super(null);
-  }
-
-  open(message: string): void { }
-}

@@ -1,5 +1,7 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
-import { ErrorService, MockSnackBarService, SnackBarService } from '../../services/index';
+import { MockSnackBarService } from '../../mock/classes/snack-bar.service.mock';
+import { ErrorService } from './error.service';
+import { SnackBarService } from './snack-bar.service';
 
 describe('ErrorService', () => {
   let service: ErrorService = null;
@@ -21,7 +23,7 @@ describe('ErrorService', () => {
 
   it('should handle a Firebase error', () => {
     spyOn(service.snackBarService, 'open');
-    const error = { code: '404', message: 'This is a test.', name: '', stack: undefined };
+    const error = { code: '404', message: 'This is a mock.', name: '', stack: undefined };
     const obs = service.handleFirebaseError(error);
     expect(service.snackBarService.open).toHaveBeenCalledWith(error.message);
     expect(obs).toBeTruthy();
@@ -29,7 +31,7 @@ describe('ErrorService', () => {
 
   it('should handle a Firebase error on unsuccessful login', () => {
     spyOn(service.snackBarService, 'signInError');
-    const error = { code: '404', message: 'This is a test.', name: '', stack: undefined };
+    const error = { code: '404', message: 'This is a mock.', name: '', stack: undefined };
     const obs = service.handleLoginError(error);
     expect(service.snackBarService.signInError).toHaveBeenCalled();
     expect(obs).toBeTruthy();

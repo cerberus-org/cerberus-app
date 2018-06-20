@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User as FirebaseUser } from 'firebase';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { UserService } from '../../data/services/user.service';
-import { testFirebaseUsers, User } from '../../models';
+import { User } from '../../models';
 import * as AuthActions from '../../root/store/actions/auth.actions';
 import { State } from '../../root/store/reducers';
 import { ErrorService } from '../../shared/services/error.service';
@@ -107,28 +107,5 @@ export class AuthService {
           : new AuthActions.LoadDataSuccess({ user: null, organization: null }),
       );
     });
-  }
-}
-
-export class MockAuthService extends AuthService {
-
-  constructor() {
-    super(null, null, null, null);
-  }
-
-  createUser(user: User): Observable<User> {
-    return of(user);
-  }
-
-  updateUser(user: User): Observable<User> {
-    return of(user);
-  }
-
-  signIn(email: string, password: string): Observable<any> {
-    return of(testFirebaseUsers[0]);
-  }
-
-  signOut(): Observable<FirebaseUser> {
-    return of(null);
   }
 }

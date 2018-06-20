@@ -8,7 +8,9 @@ import {
   MatListModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { testOrganizations, testVolunteers, Volunteer } from '../../../models';
+import { mockOrganizations } from '../../../mock/objects/organization.mock';
+import { mockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { Volunteer } from '../../../models';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 
 describe('NewVolunteerFormComponent', () => {
@@ -49,10 +51,10 @@ describe('NewVolunteerFormComponent', () => {
 
   it('should emit a new volunteer on submit', () => {
     spyOn(component.newVolunteer, 'emit');
-    const organizationId = testOrganizations[0].id;
-    const firstName = testVolunteers[0].firstName;
-    const lastName = testVolunteers[0].lastName;
-    const petName = testVolunteers[0].petName;
+    const organizationId = mockOrganizations[0].id;
+    const firstName = mockVolunteers[0].firstName;
+    const lastName = mockVolunteers[0].lastName;
+    const petName = mockVolunteers[0].petName;
     component.organizationId = organizationId;
     component.formGroup.controls['firstName'].setValue(firstName);
     component.formGroup.controls['lastName'].setValue(lastName);

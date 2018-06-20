@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/internal/operators';
+import { map } from 'rxjs/operators';
 import { canSelectRole, getRoleOptions, isLastOwner } from '../../../functions';
 import { ColumnOptions, User } from '../../../models';
 import { State } from '../../../root/store/reducers';

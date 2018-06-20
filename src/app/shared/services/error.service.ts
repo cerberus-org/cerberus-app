@@ -25,18 +25,3 @@ export class ErrorService {
     return of(null).pipe(filter(e => !!e));
   }
 }
-
-export class MockErrorService extends ErrorService {
-
-  constructor() {
-    super(null);
-  }
-
-  handleFirebaseError(error: FirebaseError) {
-    return of(null).pipe(filter(e => !!e));
-  }
-
-  handleLoginError(error: FirebaseError) {
-    return of(null).pipe(filter(e => !!e));
-  }
-}

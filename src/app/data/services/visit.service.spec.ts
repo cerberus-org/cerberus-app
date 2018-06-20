@@ -2,8 +2,11 @@ import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { from } from 'rxjs';
-import { ErrorService, MockErrorService, VisitService } from '../../services/index';
-import { getTestVisits, Visit } from '../../models/index';
+import { MockErrorService } from '../../mock/classes/error.service.mock';
+import { getMockVisits } from '../../mock/objects/visit.mock';
+import { Visit } from '../../models';
+import { ErrorService } from '../../shared/services/error.service';
+import { VisitService } from './visit.service';
 import createSpy = jasmine.createSpy;
 
 describe('VisitService', () => {
@@ -27,7 +30,7 @@ describe('VisitService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(VisitService);
-    testVisit = Object.assign({}, getTestVisits()[0]);
+    testVisit = Object.assign({}, getMockVisits()[0]);
   }));
 
   it('should be created', inject([VisitService], (visitService: VisitService) => {
@@ -39,7 +42,7 @@ describe('VisitService', () => {
     const endedAt = new Date('2017-07-03');
     service.getByOrganizationIdAndDateRange(testVisit.organizationId, startedAt, endedAt, true)
       .subscribe((visits) => {
-        const testVisits = getTestVisits();
+        const testVisits = getMockVisits();
         expect(snapshotChangesSpy).toHaveBeenCalled();
         expect(whereSpy).toHaveBeenCalledWith(
           'organizationId',
@@ -73,7 +76,7 @@ describe('VisitService', () => {
 
   class AngularFirestoreStub {
     collection(path, queryFn) {
-      let items = getTestVisits();
+      let items = getMockVisits();
       // Run query function to call spies if provided
       if (queryFn) {
         queryFn({

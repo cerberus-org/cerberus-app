@@ -9,6 +9,7 @@ import { UserService } from '../../data/services/user.service';
 import { VisitService } from '../../data/services/visit.service';
 import { VolunteerService } from '../../data/services/volunteer.service';
 import { getVisitsWithVolunteerNames } from '../../functions';
+import { Organization, User, Visit } from '../../models';
 import * as AuthActions from '../../root/store/actions/auth.actions';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { CsvService } from '../services/csv.service';
@@ -45,7 +46,7 @@ export class SettingsEffects {
           true,
         )
         .pipe(
-          tap((visits) => {
+          tap((visits: Visit[]) => {
             this.csvService.downloadAsCsv(
               getVisitsWithVolunteerNames(visits, payload.volunteers), 'VisitHistory.csv', new Map([
                 ['name', 'Name'],
@@ -66,7 +67,7 @@ export class SettingsEffects {
   updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)
     .pipe(
       map((action: SettingsActions.UpdateOrganization) => action.payload),
-      switchMap(organization => this.organizationService.update(organization)
+      switchMap((organization: Organization) => this.organizationService.update(organization)
         .pipe(
           map(() => {
             this.snackBarService.updateOrganizationSuccess();
@@ -83,7 +84,7 @@ export class SettingsEffects {
   updateRole$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ROLE)
     .pipe(
       map((action: SettingsActions.UpdateRole) => action.payload),
-      switchMap(user => this.userService.update(user)
+      switchMap((user: User) => this.userService.update(user)
         .pipe(
           tap(() => {
             this.snackBarService.updateUserSuccess();
@@ -99,7 +100,7 @@ export class SettingsEffects {
   updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
     .pipe(
       map((action: SettingsActions.UpdateUser) => action.payload),
-      switchMap(user => this.authService.updateUser(user)
+      switchMap((user: User) => this.authService.updateUser(user)
         .pipe(
           map(() => {
             this.snackBarService.updateUserSuccess();

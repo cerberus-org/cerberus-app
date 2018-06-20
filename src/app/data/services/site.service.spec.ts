@@ -1,7 +1,10 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { ErrorService, MockErrorService, SiteService } from '../../services/index';
-import { Site, testSites } from '../../models/index';
+import { MockErrorService } from '../../mock/classes/error.service.mock';
+import { mockSites } from '../../mock/objects/site.mock';
+import { Site } from '../../models';
+import { ErrorService } from '../../shared/services/error.service';
+import { SiteService } from './site.service';
 
 describe('SiteService', () => {
   let service: SiteService;
@@ -17,7 +20,7 @@ describe('SiteService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(SiteService);
-    site = Object.assign({}, testSites[0]);
+    site = Object.assign({}, mockSites[0]);
     site.name = 'jefferson sPCA animal shelter';
     site.address = '1 humane way, new orleans, lA 70123';
   }));
@@ -28,11 +31,11 @@ describe('SiteService', () => {
 
   it('should convert coming from the database', () => {
     const converted = service.convertIn(site);
-    expect(converted).toEqual(testSites[0]);
+    expect(converted).toEqual(mockSites[0]);
   });
 
   it('should convert data going to the database', () => {
     const converted = service.convertOut(site);
-    expect(converted).toEqual(testSites[0]);
+    expect(converted).toEqual(mockSites[0]);
   });
 });

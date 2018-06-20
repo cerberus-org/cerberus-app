@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { testOrganizations } from '../../../models';
+import { getMockOrganizations } from '../../../mock/objects/organization.mock';
 import { reducers } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/settings.actions';
 import { OrganizationSettingsComponent } from './organization-settings.component';
@@ -34,13 +34,13 @@ describe('OrganizationSettingsComponent', () => {
   });
 
   it('should handle organizationChanges events by setting organizationChanges', () => {
-    component.onValidOrganization(testOrganizations[0]);
-    expect(component.organizationChanges).toEqual(testOrganizations[0]);
+    component.onValidOrganization(getMockOrganizations()[0]);
+    expect(component.organizationChanges).toEqual(getMockOrganizations()[0]);
   });
 
   it('should handle updateOrganization events by dispatching SettingsActions.UpdateOrganization', () => {
     spyOn(component.store, 'dispatch');
-    const organization = Object.assign({}, testOrganizations[0], { name: 'Edited' });
+    const organization = Object.assign({}, getMockOrganizations()[0], { name: 'Edited' });
     component.onSubmitOrganization(organization);
     expect(component.store.dispatch)
       .toHaveBeenCalledWith(new SettingsActions.UpdateOrganization(organization));

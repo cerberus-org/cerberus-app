@@ -3,9 +3,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { testLoginCredentials } from '../../../models';
-import { SnackBarService } from '../../../services';
-import { mockServiceProviders } from '../../../test/mock-service-providers';
+import { mockLoginCredentials } from '../../../mock/objects/user.mock';
+import { mockServiceProviders } from '../../../mock/providers.mock';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as LogInActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
 import { LoginEffects } from './login.effects';
@@ -22,7 +22,8 @@ describe('LoginEffects', () => {
       providers: [
         LoginEffects,
         provideMockActions(() => actions),
-      ].concat(mockServiceProviders),
+        ...mockServiceProviders,
+      ],
     });
     effects = TestBed.get(LoginEffects);
   }));
@@ -30,7 +31,7 @@ describe('LoginEffects', () => {
   describe('login$', () => {
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new LogInActions.LogIn(testLoginCredentials),
+        a: new LogInActions.LogIn(mockLoginCredentials),
       });
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] }),

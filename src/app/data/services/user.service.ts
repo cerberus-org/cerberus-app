@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
-import { empty, Observable, of } from 'rxjs';
-import { getTestUsers, User } from '../../models/index';
-import { BaseService } from './base.service';
+import { User } from '../../models';
 import { ErrorService } from '../../shared/services/error.service';
+import { BaseService } from './base.service';
 
 @Injectable()
 export class UserService extends BaseService<User> {
@@ -52,36 +51,5 @@ export class UserService extends BaseService<User> {
    */
   convertIn(user: User): User {
     return this.capitalizeUser(user);
-  }
-}
-
-export class MockUserService extends UserService {
-
-  constructor() {
-    super(null, null);
-  }
-
-  getAll(): Observable<User[]> {
-    return of(getTestUsers());
-  }
-
-  getByKey(key: string, value: string): Observable<User[]> {
-    return of(getTestUsers().filter(user => user[key] === value));
-  }
-
-  getById(id: string): Observable<User> {
-    return of(getTestUsers().find(user => user.id === id));
-  }
-
-  add(user: User): Observable<User> {
-    return of(user);
-  }
-
-  update(user: any): Observable<any> {
-    return of(Promise.resolve());
-  }
-
-  delete(user: any): Observable<any> {
-    return empty();
   }
 }

@@ -3,9 +3,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { testVisits, testVolunteers } from '../../../models';
-import { SnackBarService } from '../../../services';
-import { mockServiceProviders } from '../../../test/mock-service-providers';
+import { mockVisits } from '../../../mock/objects/visit.mock';
+import { mockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { mockServiceProviders } from '../../../mock/providers.mock';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as CheckInActions from '../actions/check-in.actions';
 import * as RouterActions from '../actions/router.actions';
 import { CheckInEffects } from './check-in.effects';
@@ -22,7 +23,8 @@ describe('CheckInEffects', () => {
       providers: [
         CheckInEffects,
         provideMockActions(() => actions),
-      ].concat(mockServiceProviders),
+        ...mockServiceProviders,
+      ],
     });
     effects = TestBed.get(CheckInEffects);
   }));
@@ -30,7 +32,7 @@ describe('CheckInEffects', () => {
   describe('submitNewVolunteer$', () => {
     it('should dispatch CheckInActions.SubmitNewVolunteerSuccess', () => {
       actions = hot('a', {
-        a: new CheckInActions.SubmitNewVolunteer(testVolunteers[0]),
+        a: new CheckInActions.SubmitNewVolunteer(mockVolunteers[0]),
       });
       const expected = cold('b', {
         b: new CheckInActions.SubmitNewVolunteerSuccess(),
@@ -49,7 +51,7 @@ describe('CheckInEffects', () => {
   describe('checkIn$', () => {
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new CheckInActions.CheckIn(testVisits[0]),
+        a: new CheckInActions.CheckIn(mockVisits[0]),
       });
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] }),
@@ -68,7 +70,7 @@ describe('CheckInEffects', () => {
   describe('checkOut$', () => {
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new CheckInActions.CheckOut(testVisits[0]),
+        a: new CheckInActions.CheckOut(mockVisits[0]),
       });
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] }),

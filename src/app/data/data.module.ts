@@ -12,6 +12,7 @@ import { VolunteerService } from './services/volunteer.service';
   imports: [
     AngularFirestoreModule,
     CommonModule,
+    // Cerberus modules
     SharedModule,
   ],
   declarations: [],

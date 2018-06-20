@@ -49,16 +49,3 @@ export class CsvService {
     return str;
   }
 }
-
-export class MockCsvService extends CsvService {
-
-  constructor() {
-    super();
-  }
-
-  downloadAsCsv(): void {}
-
-  covertToCommaSeparatedString(data: any[], propertiesToColumnTitles: Map<string, string>): string {
-    return 'a, b, c';
-  }
-}
