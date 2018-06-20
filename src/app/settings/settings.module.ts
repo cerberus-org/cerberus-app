@@ -9,7 +9,6 @@ import {
   MatNativeDateModule,
   MatSlideToggleModule,
 } from '@angular/material';
-
 import { SharedModule } from '../shared/shared.module';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';

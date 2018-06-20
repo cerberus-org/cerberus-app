@@ -3,9 +3,8 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import { getTestUsers, testOrganizations } from '../../models';
-
 import * as AuthActions from '../../root/store/actions/auth.actions';
-import { CsvService, SnackBarService } from '../../services/index';
+import { CsvService, SnackBarService } from '../../services';
 import { mockServiceProviders } from '../../services/mock-service-providers';
 import * as SettingsActions from './settings.actions';
 import { SettingsEffects } from './settings.effects';

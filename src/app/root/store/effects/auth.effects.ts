@@ -4,7 +4,6 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { OrganizationService, UserService } from '../../../services';
-
 import * as AuthActions from '../actions/auth.actions';
 
 @Injectable()

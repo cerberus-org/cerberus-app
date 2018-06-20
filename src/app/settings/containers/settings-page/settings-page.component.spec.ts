@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-
 import { reducers } from '../../../root/store/reducers';
 import { SettingsPageComponent } from './settings-page.component';
 

@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule, MatListModule } from '@angular/material';
-
 import { OrganizationConfirmComponent } from './organization-confirm.component';
 
 describe('OrganizationConfirmComponent', () => {
@@ -9,11 +8,11 @@ describe('OrganizationConfirmComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OrganizationConfirmComponent],
       imports: [
         MatIconModule,
         MatListModule,
       ],
+      declarations: [OrganizationConfirmComponent],
     })
       .compileComponents();
   }));

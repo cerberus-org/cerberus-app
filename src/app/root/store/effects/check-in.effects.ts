@@ -4,7 +4,6 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { SnackBarService, VisitService, VolunteerService } from '../../../services';
-
 import * as CheckInActions from '../actions/check-in.actions';
 import * as RouterActions from '../actions/router.actions';
 

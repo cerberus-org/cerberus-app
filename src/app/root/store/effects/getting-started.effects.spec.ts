@@ -2,12 +2,11 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-
+import { getTestUsers, testOrganizations } from '../../../models';
+import { SnackBarService } from '../../../services';
+import { mockServiceProviders } from '../../../services/mock-service-providers';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';
-import { getTestUsers, testOrganizations } from '../models';
-import { SnackBarService } from '../services';
-import { mockServiceProviders } from '../services/mock-service-providers';
 import { GettingStartedEffects } from './getting-started.effects';
 
 describe('GettingStartedEffects', () => {

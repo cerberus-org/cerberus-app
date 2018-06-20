@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { empty, Observable, of } from 'rxjs';
-
 import { upperAllFirst } from '../functions';
 import { Organization, testOrganizations } from '../models';
 import { BaseService } from './base.service';

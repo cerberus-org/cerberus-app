@@ -4,7 +4,6 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { OrganizationService, SiteService, UserService, VisitService, VolunteerService } from '../../../services';
-
 import * as ModelActions from '../actions/model.actions';
 
 @Injectable()

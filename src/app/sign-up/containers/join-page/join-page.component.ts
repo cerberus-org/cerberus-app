@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatVerticalStepper } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-
 import { HeaderOptions, Organization, User } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';

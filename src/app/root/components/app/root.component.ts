@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { isAdmin } from '../../../functions';
 import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
-
 import * as LoginActions from '../../store/actions/login.actions';
 import * as ModelActions from '../../store/actions/model.actions';
 import * as RouterActions from '../../store/actions/router.actions';

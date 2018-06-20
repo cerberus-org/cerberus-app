@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { getTestUsers, User } from '../../../models';
 import { UserFormComponent } from './user-form.component';
 
@@ -12,13 +11,13 @@ describe('UserFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UserFormComponent],
       imports: [
         MatInputModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
         MatIconModule,
       ],
+      declarations: [UserFormComponent],
     })
       .compileComponents();
   }));

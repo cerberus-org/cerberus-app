@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-
 import { CheckInComponent } from '../check-in/containers/check-in/check-in.component';
 import { OrganizationDashboardComponent } from '../check-in/containers/organization-dashboard/organization-dashboard.component';
 import { HomeComponent } from '../home/containers/home/home.component';

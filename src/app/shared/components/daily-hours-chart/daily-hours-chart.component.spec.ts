@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChartsModule } from 'ng2-charts';
-
-import { testVisits } from '../../models';
+import { testVisits } from '../../../models';
 import { DailyHoursChartComponent } from './daily-hours-chart.component';
 
 describe('DailyHoursChartComponent', () => {
@@ -11,11 +10,11 @@ describe('DailyHoursChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        DailyHoursChartComponent,
-      ],
       imports: [
         ChartsModule,
+      ],
+      declarations: [
+        DailyHoursChartComponent,
       ],
     })
       .compileComponents();

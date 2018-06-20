@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MatCardModule, MatCheckboxModule, MatTabsModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServicesAgreementComponent } from './services-agreement.component';
@@ -10,13 +9,13 @@ describe('ServicesAgreementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ServicesAgreementComponent],
       imports: [
         MatCardModule,
         MatCheckboxModule,
         MatTabsModule,
         BrowserAnimationsModule,
       ],
+      declarations: [ServicesAgreementComponent],
     })
     .compileComponents();
   }));

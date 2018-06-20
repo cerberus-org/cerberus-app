@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-
 import { Organization } from '../../../models';
 import { State } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/settings.actions';

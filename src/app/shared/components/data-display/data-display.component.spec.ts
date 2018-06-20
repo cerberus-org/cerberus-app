@@ -4,8 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { getTestVisits } from '../../../models';
-
-import { reducers } from '../../../root/store/reducers/index';
+import { reducers } from '../../../root/store/reducers';
 import { DataDisplayComponent } from './data-display.component';
 
 describe('DataDisplayComponent', () => {
@@ -14,6 +13,12 @@ describe('DataDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        NoopAnimationsModule,
+        MatIconModule,
+        MatTabsModule,
+        StoreModule.forRoot(reducers),
+      ],
       declarations: [
         DataDisplayComponent,
         MockComponent({ selector: 'app-daily-hours-chart', inputs: ['visits'] }),
@@ -21,12 +26,6 @@ describe('DataDisplayComponent', () => {
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
         }),
-      ],
-      imports: [
-        NoopAnimationsModule,
-        MatIconModule,
-        MatTabsModule,
-        StoreModule.forRoot(reducers),
       ],
     })
       .compileComponents();

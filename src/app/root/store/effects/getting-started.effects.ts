@@ -3,7 +3,6 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-
 import { Organization, Site } from '../../../models';
 import { AuthService, OrganizationService, SiteService, SnackBarService } from '../../../services';
 import * as GettingStartedActions from '../actions/getting-started.actions';

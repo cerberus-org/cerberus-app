@@ -2,7 +2,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatListModule, MatSidenavModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { SidenavComponent } from './sidenav.component';
 
 describe('SidenavComponent', () => {
@@ -11,13 +10,13 @@ describe('SidenavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        SidenavComponent,
-      ],
       imports: [
         MatListModule,
         MatSidenavModule,
         NoopAnimationsModule,
+      ],
+      declarations: [
+        SidenavComponent,
       ],
       providers: [
         MediaMatcher,

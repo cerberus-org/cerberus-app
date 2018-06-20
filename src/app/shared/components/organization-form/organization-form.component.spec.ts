@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { Organization, testOrganizations } from '../../../models';
 import { OrganizationFormComponent } from './organization-form.component';
 
@@ -12,12 +11,12 @@ describe('OrganizationFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OrganizationFormComponent],
       imports: [
         MatInputModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
       ],
+      declarations: [OrganizationFormComponent],
     })
       .compileComponents();
   }));

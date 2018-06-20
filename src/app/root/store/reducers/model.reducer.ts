@@ -1,4 +1,4 @@
-import { sortVisitsByStartedAt } from '../../../functions/helpers.functions';
+import { sortVisitsByStartedAt } from '../../../functions';
 import { Organization, Site, User, Visit, Volunteer } from '../../../models';
 import * as ModelActions from '../actions/model.actions';
 

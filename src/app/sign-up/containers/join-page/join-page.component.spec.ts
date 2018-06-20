@@ -3,12 +3,11 @@ import { MatCheckboxModule, MatStepperModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-
-import { JoinPageComponent } from '../../../containers/index';
 import { getTestUsers, testOrganizations } from '../../../models';
-import { reducers } from '../../../root/store/reducers/index';
-import { AuthService, SnackBarService } from '../../../services/index';
+import { reducers } from '../../../root/store/reducers';
+import { AuthService, SnackBarService } from '../../../services';
 import { mockServiceProviders } from '../../../services/mock-service-providers';
+import { JoinPageComponent } from './join-page.component';
 
 describe('JoinPageComponent', () => {
   let component: JoinPageComponent;
@@ -16,16 +15,17 @@ describe('JoinPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [JoinPageComponent,
-        MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
+      imports: [
+        BrowserAnimationsModule,
+        MatCheckboxModule,
+        MatStepperModule,
+        StoreModule.forRoot(reducers),
+      ],
+      declarations: [
+        JoinPageComponent,
+        MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
         MockComponent({ selector: 'app-find-organization', inputs: ['showTitle', 'showInputIconButton'] }),
         MockComponent({ selector: 'app-services-agreement', inputs: ['showTitle'] }),
-      ],
-      imports: [
-        StoreModule.forRoot(reducers),
-        MatStepperModule,
-        MatCheckboxModule,
-        BrowserAnimationsModule,
       ],
       providers: [].concat(mockServiceProviders),
     })

@@ -8,7 +8,6 @@ import {
   MatStepperModule,
   MatTabsModule,
 } from '@angular/material';
-
 import { SharedModule } from '../shared/shared.module';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';

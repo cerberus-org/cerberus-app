@@ -8,7 +8,6 @@ import {
   MatListModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { testOrganizations, testVolunteers, Volunteer } from '../../../models';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 

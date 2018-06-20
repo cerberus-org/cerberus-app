@@ -4,8 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MockComponent } from 'ng2-mock-component';
-import { reducers } from '../../store/reducers/index';
-
+import { reducers } from '../../store/reducers';
 import { RootComponent } from './root.component';
 
 describe('RootComponent', () => {

@@ -4,7 +4,6 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { getVisitsWithVolunteerNames } from '../../functions';
-
 import * as AuthActions from '../../root/store/actions/auth.actions';
 import {
   AuthService,

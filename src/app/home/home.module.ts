@@ -10,7 +10,6 @@ import {
   MatInputModule,
   MatTabsModule,
 } from '@angular/material';
-
 import { SharedModule } from '../shared/shared.module';
 import { EmailDialogComponent } from './components/email-dialog/email-dialog.component';
 import { HomeComponent } from './containers/home/home.component';

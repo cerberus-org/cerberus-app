@@ -3,7 +3,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { empty, from } from 'rxjs';
-
 import { getTestVolunteers } from '../models';
 import { BaseService } from './base.service';
 import { ErrorService, MockErrorService } from './error.service';

@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../services/index';
-
+import { AuthService } from '../../services';
 import * as RouterActions from '../store/actions/router.actions';
-import { State } from '../store/reducers/index';
+import { State } from '../store/reducers';
 
 @Injectable()
 export class LoginGuard implements CanActivate {

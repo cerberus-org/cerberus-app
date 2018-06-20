@@ -4,8 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-
-import { reducers } from '../../../root/store/reducers/index';
+import { reducers } from '../../../root/store/reducers';
 import { GettingStartedComponent } from './getting-started.component';
 
 describe('GettingStartedComponent', () => {
@@ -14,14 +13,6 @@ describe('GettingStartedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        GettingStartedComponent,
-        MockComponent({ selector: 'app-about-us' }),
-        MockComponent({ selector: 'app-organization-form' }),
-        MockComponent({ selector: 'app-user-form', inputs: ['passwordRequired'] }),
-        MockComponent({ selector: 'app-organization-confirm', inputs: ['organization', 'user'] }),
-        MockComponent({ selector: 'app-services-agreement', inputs: ['showTitle'] }),
-      ],
       imports: [
         MatButtonModule,
         MatTabsModule,
@@ -29,6 +20,14 @@ describe('GettingStartedComponent', () => {
         MatCheckboxModule,
         RouterTestingModule,
         StoreModule.forRoot(reducers),
+      ],
+      declarations: [
+        GettingStartedComponent,
+        MockComponent({ selector: 'app-about-us' }),
+        MockComponent({ selector: 'app-organization-form' }),
+        MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
+        MockComponent({ selector: 'app-organization-confirm', inputs: ['organization', 'user'] }),
+        MockComponent({ selector: 'app-services-agreement', inputs: ['showTitle'] }),
       ],
     })
       .compileComponents();

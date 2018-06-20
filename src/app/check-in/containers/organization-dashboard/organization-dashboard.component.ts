@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { HeaderOptions, SidenavOptions, Site, Visit } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { State } from '../../../root/store/reducers/index';
+import { State } from '../../../root/store/reducers';
 
 @Component({
   selector: 'app-organization-dashboard',

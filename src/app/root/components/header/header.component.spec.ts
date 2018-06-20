@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule, MatToolbarModule } from '@angular/material';
-
 import { testHeaderOptions } from '../../../models';
 import { HeaderComponent } from './header.component';
 

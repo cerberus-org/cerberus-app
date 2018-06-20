@@ -3,7 +3,6 @@ import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { isAdmin } from '../../../functions';
 import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
-
 import * as AppActions from '../../../root/store/actions/app.actions';
 import { State } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/settings.actions';

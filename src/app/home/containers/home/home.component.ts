@@ -3,10 +3,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Organization } from '../../../models';
-
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { State } from '../../../root/store/reducers/index';
+import { State } from '../../../root/store/reducers';
 
 @Component({
   selector: 'app-home',

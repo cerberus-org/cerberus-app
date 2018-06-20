@@ -5,7 +5,6 @@ import { User as FirebaseUser } from 'firebase';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthService, SnackBarService, UserService } from '../../../services';
-
 import * as LoginActions from '../actions/login.actions';
 import * as RouterActions from '../actions/router.actions';
 

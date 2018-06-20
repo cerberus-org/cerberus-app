@@ -3,7 +3,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatInputModule, MatRadioModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
-
 import { testVisits, testVolunteers } from '../../../models';
 import { CheckInFormComponent } from './check-in-form.component';
 

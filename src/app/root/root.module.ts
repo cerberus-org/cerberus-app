@@ -18,7 +18,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import 'hammerjs';
-
 import { environment } from '../../environments/environment';
 import { CheckInModule } from '../check-in/check-in.module';
 import { HomeModule } from '../home/home.module';
@@ -33,7 +32,7 @@ import {
   UserService,
   VisitService,
   VolunteerService,
-} from '../services/index';
+} from '../services';
 import { SettingsModule } from '../settings/settings.module';
 import { SharedModule } from '../shared/shared.module';
 import { SignUpModule } from '../sign-up/sign-up.module';
@@ -44,7 +43,6 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { LoginGuard } from './guards/login-guard';
 import { VerificationGuard } from './guards/verification-guard';
 import { routes } from './root.routes';
-
 import {
   AuthEffects,
   CheckInEffects,
@@ -53,8 +51,8 @@ import {
   ModelEffects,
   RouterEffects,
   SettingsEffects,
-} from './store/effects/index';
-import { reducers } from './store/reducers/index';
+} from './store/effects';
+import { reducers } from './store/reducers';
 
 @NgModule({
   imports: [

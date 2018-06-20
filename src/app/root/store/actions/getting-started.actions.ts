@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-
 import { Organization, User } from '../../../models/index';
 
 export const NEXT_STEP = '[Getting Started] Next step';

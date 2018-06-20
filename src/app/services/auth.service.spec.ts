@@ -1,7 +1,6 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
-
 import {
   AuthService,
   ErrorService,

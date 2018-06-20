@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-
 import { Visit, Volunteer } from '../../../models/index';
 
 export const CHECK_IN = '[Check-In] Check in';

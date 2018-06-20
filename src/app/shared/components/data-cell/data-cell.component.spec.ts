@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSelectModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { testColumnOptions } from '../../models';
+import { testColumnOptions } from '../../../models';
 import { DataCellComponent } from './data-cell.component';
 
 describe('DataCellComponent', () => {
@@ -11,12 +10,12 @@ describe('DataCellComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        DataCellComponent,
-      ],
       imports: [
         MatSelectModule,
         NoopAnimationsModule,
+      ],
+      declarations: [
+        DataCellComponent,
       ],
     })
       .compileComponents();

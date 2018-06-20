@@ -13,7 +13,6 @@ import {
   MatStepperModule,
 } from '@angular/material';
 import { SignaturePadModule } from 'angular2-signaturepad';
-
 import { SharedModule } from '../shared/shared.module';
 import { CheckInFormComponent } from './components/check-in-form/check-in-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';

@@ -4,7 +4,6 @@ import { MatIconModule, MatListModule, MatPaginatorModule, MatTableModule } from
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs';
-
 import { getTestVisits, getTestVolunteers, testColumnOptions } from '../../../models';
 import { DataTableComponent, DataTableSource } from './data-table.component';
 
@@ -14,10 +13,6 @@ describe('DataTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        DataTableComponent,
-        MockComponent({ selector: 'app-data-cell', inputs: ['column', 'row'] }),
-      ],
       imports: [
         CdkTableModule,
         MatIconModule,
@@ -25,6 +20,10 @@ describe('DataTableComponent', () => {
         MatPaginatorModule,
         MatTableModule,
         NoopAnimationsModule,
+      ],
+      declarations: [
+        DataTableComponent,
+        MockComponent({ selector: 'app-data-cell', inputs: ['column', 'row'] }),
       ],
     })
       .compileComponents();

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
-
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as LoginActions from '../../../root/store/actions/login.actions';
 import { State } from '../../../root/store/reducers';

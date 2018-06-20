@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { HeaderOptions, Visit, Volunteer } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as CheckInActions from '../../../root/store/actions/check-in.actions';
