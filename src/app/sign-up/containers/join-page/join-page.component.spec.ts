@@ -5,8 +5,8 @@ import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
 import { JoinPageComponent } from '../../../containers/index';
-import { getTestUsers, testOrganizations } from '../../../models/index';
-import { reducers } from '../../../reducers/index';
+import { getTestUsers, testOrganizations } from '../../../models';
+import { reducers } from '../../../root/store/reducers/index';
 import { AuthService, SnackBarService } from '../../../services/index';
 import { mockServiceProviders } from '../../../services/mock-service-providers';
 

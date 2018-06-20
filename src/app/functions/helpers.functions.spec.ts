@@ -1,4 +1,4 @@
-import { testVisits, testVolunteers } from '../models';
+import { testVisits, testVolunteers } from '../models/index';
 import { formatDuration } from './date-format.functions';
 import {
   everyVolunteerMatchesName,

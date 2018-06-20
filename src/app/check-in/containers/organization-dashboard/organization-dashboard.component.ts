@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as AppActions from '../../../actions/app.actions';
-import * as RouterActions from '../../../actions/router.actions';
-import { HeaderOptions, SidenavOptions, Site, Visit } from '../../../models/index';
-import { State } from '../../../reducers/index';
+import { HeaderOptions, SidenavOptions, Site, Visit } from '../../../models';
+import * as AppActions from '../../../root/store/actions/app.actions';
+import * as RouterActions from '../../../root/store/actions/router.actions';
+import { State } from '../../../root/store/reducers/index';
 
 @Component({
   selector: 'app-organization-dashboard',

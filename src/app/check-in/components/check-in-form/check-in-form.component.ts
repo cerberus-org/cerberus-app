@@ -22,7 +22,7 @@ import {
   getUniqueFullNames,
 } from '../../../functions/index';
 
-import { Visit, Volunteer } from '../../../models/index';
+import { Visit, Volunteer } from '../../../models';
 import { SignatureFieldComponent } from '../signature-field/signature-field.component';
 
 @Component({

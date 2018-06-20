@@ -3,8 +3,8 @@ import { MatAutocomplete } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import { Organization } from '../../../models/index';
-import { State } from '../../../reducers/index';
+import { Organization } from '../../../models';
+import { State } from '../../../root/store/reducers/index';
 
 @Component({
   selector: 'app-find-organization',

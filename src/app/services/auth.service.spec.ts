@@ -12,7 +12,7 @@ import {
   UserService,
 } from '.';
 import { testUsers } from '../models';
-import { reducers } from '../reducers';
+import { reducers } from '../root/store/reducers';
 
 describe('AuthService', () => {
   let service: AuthService;

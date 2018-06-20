@@ -6,7 +6,8 @@ import {
   MatCardModule,
   MatDialogModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule,
+  MatIconModule,
+  MatInputModule,
   MatTabsModule,
 } from '@angular/material';
 

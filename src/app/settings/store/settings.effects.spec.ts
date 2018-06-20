@@ -2,9 +2,9 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
+import { getTestUsers, testOrganizations } from '../../models';
 
-import * as AuthActions from '../../actions/auth.actions';
-import { getTestUsers, testOrganizations } from '../../models/index';
+import * as AuthActions from '../../root/store/actions/auth.actions';
 import { CsvService, SnackBarService } from '../../services/index';
 import { mockServiceProviders } from '../../services/mock-service-providers';
 import * as SettingsActions from './settings.actions';

@@ -5,11 +5,11 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import * as AppActions from '../../../actions/app.actions';
-import * as CheckInActions from '../../../actions/check-in.actions';
+import { HeaderOptions, Visit, Volunteer } from '../../../models';
+import * as AppActions from '../../../root/store/actions/app.actions';
+import * as CheckInActions from '../../../root/store/actions/check-in.actions';
+import { State } from '../../../root/store/reducers';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
-import { HeaderOptions, Visit, Volunteer } from '../../../models/index';
-import { State } from '../../../reducers/index';
 
 @Component({
   selector: 'app-check-in',
@@ -29,9 +29,11 @@ export class CheckInComponent implements OnInit, OnDestroy {
   checkInOutFormTitle: string;
   checkInOutStepperTitle: string;
 
-  constructor(private store: Store<State>,
-              private activatedRoute: ActivatedRoute,
-              public dialog: MatDialog) {
+  constructor(
+    private store: Store<State>,
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog,
+  ) {
     this.checkInOutFormTitle = 'Test';
   }
 

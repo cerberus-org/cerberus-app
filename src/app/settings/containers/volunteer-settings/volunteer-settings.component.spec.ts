@@ -3,7 +3,7 @@ import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 
 import { testVolunteers } from '../../../models';
-import { reducers } from '../../../reducers';
+import { reducers } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/settings.actions';
 import { VolunteerSettingsComponent } from './volunteer-settings.component';
 

@@ -4,9 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import * as RouterActions from '../../../actions/router.actions';
-import { testOrganizations } from '../../../models/index';
-import { reducers } from '../../../reducers/index';
+import { testOrganizations } from '../../../models';
+import * as RouterActions from '../../../root/store/actions/router.actions';
+import { reducers } from '../../../root/store/reducers/index';
 
 import { HomeComponent } from './home.component';
 

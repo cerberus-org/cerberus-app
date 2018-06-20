@@ -3,9 +3,9 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-
-import * as AuthActions from '../../actions/auth.actions';
 import { getVisitsWithVolunteerNames } from '../../functions';
+
+import * as AuthActions from '../../root/store/actions/auth.actions';
 import {
   AuthService,
   CsvService,

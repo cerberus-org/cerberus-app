@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { Organization, Report, Volunteer } from '../../../models';
-import { State } from '../../../reducers';
+import { State } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/settings.actions';
 
 @Component({

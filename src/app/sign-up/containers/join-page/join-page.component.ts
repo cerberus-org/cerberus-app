@@ -3,11 +3,11 @@ import { MatVerticalStepper } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import * as AppActions from '../../../actions/app.actions';
-import * as RouterActions from '../../../actions/router.actions';
-import { HeaderOptions, Organization, User } from '../../../models/index';
-import { State } from '../../../reducers/index';
-import { AuthService, ErrorService, OrganizationService, SnackBarService } from '../../../services/index';
+import { HeaderOptions, Organization, User } from '../../../models';
+import * as AppActions from '../../../root/store/actions/app.actions';
+import * as RouterActions from '../../../root/store/actions/router.actions';
+import { State } from '../../../root/store/reducers';
+import { AuthService, ErrorService, OrganizationService, SnackBarService } from '../../../services';
 
 @Component({
   selector: 'app-join-page',

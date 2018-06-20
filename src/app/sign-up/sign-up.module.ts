@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
-  MatButtonModule, MatCheckboxModule, MatIconModule, MatListModule, MatStepperModule,
+  MatButtonModule,
+  MatCheckboxModule,
+  MatIconModule,
+  MatListModule,
+  MatStepperModule,
   MatTabsModule,
 } from '@angular/material';
 

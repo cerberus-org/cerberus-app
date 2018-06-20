@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Subscription } from 'rxjs';
 import { isURL } from 'validator';
 
-import { Organization } from '../../../models/index';
+import { Organization } from '../../../models';
 
 @Component({
   selector: 'app-organization-form',

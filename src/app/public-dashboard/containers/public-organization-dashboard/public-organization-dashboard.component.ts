@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { HeaderOptions, Organization, Visit } from '../../../models';
 
-import * as AppActions from '../../../actions/app.actions';
-import { HeaderOptions, Organization, Visit } from '../../../models/index';
-import { State } from '../../../reducers/index';
+import * as AppActions from '../../../root/store/actions/app.actions';
+import { State } from '../../../root/store/reducers/index';
 import { ErrorService, OrganizationService, VisitService } from '../../../services/index';
 
 @Component({

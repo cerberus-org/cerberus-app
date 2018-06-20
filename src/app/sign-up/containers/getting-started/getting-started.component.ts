@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { HeaderOptions, Organization, User } from '../../../models';
 
-import * as AppActions from '../../../actions/app.actions';
-import * as GettingStartedActions from '../../../actions/getting-started.actions';
-import { HeaderOptions, Organization, User } from '../../../models/index';
-import { State } from '../../../reducers/index';
+import * as AppActions from '../../../root/store/actions/app.actions';
+import * as GettingStartedActions from '../../../root/store/actions/getting-started.actions';
+import { State } from '../../../root/store/reducers/index';
 
 @Component({
   selector: 'app-getting-started',

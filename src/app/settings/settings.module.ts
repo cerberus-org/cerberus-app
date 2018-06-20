@@ -3,12 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
-  MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule,
+  MatDatepickerModule,
+  MatIconModule,
+  MatInputModule,
+  MatNativeDateModule,
   MatSlideToggleModule,
 } from '@angular/material';
-import { ReportsFormComponent } from '../components';
 
 import { SharedModule } from '../shared/shared.module';
+import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
 import { ReportsComponent } from './containers/reports/reports.component';
 import { RolesComponent } from './containers/roles/roles.component';

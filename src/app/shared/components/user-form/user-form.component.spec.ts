@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { getTestUsers, User } from '../../../models/index';
+import { getTestUsers, User } from '../../../models';
 import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {

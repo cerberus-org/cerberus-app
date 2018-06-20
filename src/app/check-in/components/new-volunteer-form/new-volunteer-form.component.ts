@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-
 import { MatDialog } from '@angular/material';
-import { ServicesAgreementDialogComponent } from '../../../components/index';
-import { Volunteer } from '../../../models/index';
+
+import { Volunteer } from '../../../models';
+import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 
 @Component({
   selector: 'app-new-volunteer-form',

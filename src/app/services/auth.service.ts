@@ -4,10 +4,10 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { User as FirebaseUser } from 'firebase';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-
-import * as AuthActions from '../actions/auth.actions';
 import { testFirebaseUsers, User } from '../models';
-import { State } from '../reducers';
+
+import * as AuthActions from '../root/store/actions/auth.actions';
+import { State } from '../root/store/reducers';
 import { ErrorService } from './error.service';
 import { UserService } from './user.service';
 

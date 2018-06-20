@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { Organization } from '../../../models';
 
-import * as AppActions from '../../../actions/app.actions';
-import * as RouterActions from '../../../actions/router.actions';
-import { Organization } from '../../../models/index';
-import { State } from '../../../reducers/index';
+import * as AppActions from '../../../root/store/actions/app.actions';
+import * as RouterActions from '../../../root/store/actions/router.actions';
+import { State } from '../../../root/store/reducers/index';
 
 @Component({
   selector: 'app-home',

@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 
-import { reducers } from '../../../reducers/index';
+import { reducers } from '../../../root/store/reducers/index';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {

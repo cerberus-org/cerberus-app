@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-
-import * as AppActions from '../../../actions/app.actions';
 import { isAdmin } from '../../../functions';
 import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
-import { State } from '../../../reducers';
+
+import * as AppActions from '../../../root/store/actions/app.actions';
+import { State } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/settings.actions';
 import * as SettingsSelectors from '../../store/settings.selectors';
 

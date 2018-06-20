@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
-import * as AppActions from '../../../actions/app.actions';
-import * as LoginActions from '../../../actions/login.actions';
-import { EmailDialogComponent } from '../../../components/index';
-import { State } from '../../../reducers';
+
+import * as AppActions from '../../../root/store/actions/app.actions';
+import * as LoginActions from '../../../root/store/actions/login.actions';
+import { State } from '../../../root/store/reducers';
+import { EmailDialogComponent } from '../../components/email-dialog/email-dialog.component';
 
 @Component({
   selector: 'app-login',
