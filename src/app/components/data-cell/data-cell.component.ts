@@ -11,6 +11,7 @@ export class DataCellComponent implements OnChanges {
   @Input() column: ColumnOptions;
   @Input() row: any;
   @Output() selectOption = new EventEmitter<string>();
+  @Output() selectedTime = new EventEmitter<string>();
   selected: string;
   selectOptions: string[];
 
@@ -39,8 +40,8 @@ export class DataCellComponent implements OnChanges {
     return 'TEXT_ONLY';
   }
 
-  onTimeChange(): void {
-    console.log('test');
+  onTimeChange(val: any): void {
+    this.selectedTime.emit(val.target.value);
   }
 
   getDate(val): String {

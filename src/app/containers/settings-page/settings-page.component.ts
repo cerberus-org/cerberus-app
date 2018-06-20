@@ -79,12 +79,12 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       (row: Visit) => row.id,
     ),
     new ColumnOptions(
-      'start',
+      'startedAt',
       'Start',
       (row: Visit) => row.startedAt,
     ),
     {
-      columnDef: 'end',
+      columnDef: 'endedAt',
       header: 'End',
       cell: (row: Visit) => row.endedAt,
       timePicker: true,

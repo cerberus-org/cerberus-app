@@ -7,7 +7,7 @@
       {{selectOption}}
     </mat-option>
   </mat-select>
-  <input *ngSwitchCase="'TIME_PICKER'" [value]="getDate(column.cell(row))" type="time" (click)="onTimeChange($event)">
+  <input matInput *ngSwitchCase="'TIME_PICKER'" [value]="getDate(column.cell(row))" type="time" (click)="onTimeChange($event)">
   <ng-template ngSwitchDefault>
     {{column.cell(row)}}
   </ng-template>
