@@ -37,6 +37,7 @@ import { OrganizationDashboardComponent } from './containers/organization-dashbo
     ReactiveFormsModule,
     RouterModule.forChild(checkInRoutes),
     SignaturePadModule,
+    // Cerberus modules
     SharedModule,
   ],
   declarations: [

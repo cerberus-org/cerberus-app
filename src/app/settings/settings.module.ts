@@ -9,6 +9,7 @@ import {
   MatNativeDateModule,
   MatSlideToggleModule,
 } from '@angular/material';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
@@ -17,6 +18,7 @@ import { RolesComponent } from './containers/roles/roles.component';
 import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
+import { settingsRoutes } from './settings.routes';
 
 @NgModule({
   imports: [
@@ -29,6 +31,8 @@ import { VolunteerSettingsComponent } from './containers/volunteer-settings/volu
     MatInputModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
+    RouterModule.forChild(settingsRoutes),
+    // Cerberus Modules
     SharedModule,
   ],
   declarations: [

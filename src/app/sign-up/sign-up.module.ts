@@ -8,11 +8,13 @@ import {
   MatStepperModule,
   MatTabsModule,
 } from '@angular/material';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
 import { GettingStartedComponent } from './containers/getting-started/getting-started.component';
 import { JoinPageComponent } from './containers/join-page/join-page.component';
+import { signUpRoutes } from './sign-up.routes';
 
 @NgModule({
   imports: [
@@ -23,6 +25,7 @@ import { JoinPageComponent } from './containers/join-page/join-page.component';
     MatListModule,
     MatStepperModule,
     MatTabsModule,
+    RouterModule.forChild(signUpRoutes),
     // Cerberus Modules
     SharedModule,
   ],

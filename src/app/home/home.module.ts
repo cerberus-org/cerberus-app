@@ -10,10 +10,12 @@ import {
   MatInputModule,
   MatTabsModule,
 } from '@angular/material';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { EmailDialogComponent } from './components/email-dialog/email-dialog.component';
 import { HomeComponent } from './containers/home/home.component';
 import { LoginComponent } from './containers/login/login.component';
+import { homeRoutes } from './home.routes';
 
 @NgModule({
   imports: [
@@ -27,6 +29,7 @@ import { LoginComponent } from './containers/login/login.component';
     MatInputModule,
     MatTabsModule,
     ReactiveFormsModule,
+    RouterModule.forChild(homeRoutes),
     // Cerberus modules
     SharedModule,
   ],
