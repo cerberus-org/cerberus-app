@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
-import {ColumnOptions} from '../../models';
+import { ColumnOptions } from '../../models';
 
 @Component({
   selector: 'app-data-cell',
@@ -37,5 +37,24 @@ export class DataCellComponent implements OnChanges {
       return 'TIME_PICKER';
     }
     return 'TEXT_ONLY';
+  }
+
+  onTimeChange(): void {
+    console.log('test');
+  }
+
+  getDate(val): String {
+    if (val) {
+      const date = new Date(val);
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      const ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      hours = hours.toString().length === 1 ? '0' + hours : hours;
+      return hours + ':' + minutes;
+    }
+    return '';
   }
 }

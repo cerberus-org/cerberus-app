@@ -5,7 +5,7 @@ export class ColumnOptions {
   selectOptions?: Function;
   timePicker?: Boolean;
 
-  constructor(columnDef: string, header: string, cell: Function, selectOptions?: Function, timePicker?: Boolean = false) {
+  constructor(columnDef: string, header: string, cell: Function, selectOptions: Function = null, timePicker: Boolean = false) {
     this.columnDef = columnDef;
     this.header = header;
     this.cell = cell;
