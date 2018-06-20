@@ -6,7 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { MockComponent } from 'ng2-mock-component';
 
 import { AppComponent } from './app.component';
-import { reducers } from './reducers';
+import { reducers } from './reducers/index';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

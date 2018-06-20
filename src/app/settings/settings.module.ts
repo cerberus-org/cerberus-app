@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule, MatIconModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule,
+  MatSlideToggleModule,
+} from '@angular/material';
 import { ReportsFormComponent } from '../components';
 
 import { SharedModule } from '../shared/shared.module';
@@ -16,7 +20,9 @@ import { VolunteerSettingsComponent } from './containers/volunteer-settings/volu
   imports: [
     CommonModule,
     FormsModule,
+    MatButtonModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatIconModule,
     MatInputModule,
     MatSlideToggleModule,

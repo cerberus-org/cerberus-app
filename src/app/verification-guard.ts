@@ -3,8 +3,8 @@ import { CanActivate } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as RouterActions from './actions/router.actions';
-import { State } from './reducers';
-import { AuthService } from './services';
+import { State } from './reducers/index';
+import { AuthService } from './services/index';
 
 /**
  * This guard is used in conjunction with verification dialog.

@@ -6,10 +6,10 @@ import { Subscription } from 'rxjs';
 import * as LoginActions from './actions/login.actions';
 import * as ModelActions from './actions/model.actions';
 import * as RouterActions from './actions/router.actions';
-import { PasswordDialogComponent, SidenavComponent } from './components';
-import { isAdmin } from './functions';
-import { HeaderOptions, Organization, SidenavOptions, User } from './models';
-import { State } from './reducers';
+import { PasswordDialogComponent, SidenavComponent } from './components/index';
+import { isAdmin } from './functions/index';
+import { HeaderOptions, Organization, SidenavOptions, User } from './models/index';
+import { State } from './reducers/index';
 
 @Component({
   selector: 'app-root',
