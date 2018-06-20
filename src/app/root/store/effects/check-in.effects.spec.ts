@@ -5,7 +5,7 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { testVisits, testVolunteers } from '../../../models';
 import { SnackBarService } from '../../../services';
-import { mockServiceProviders } from '../../../services/mock-service-providers';
+import { mockServiceProviders } from '../../../test/mock-service-providers';
 import * as CheckInActions from '../actions/check-in.actions';
 import * as RouterActions from '../actions/router.actions';
 import { CheckInEffects } from './check-in.effects';

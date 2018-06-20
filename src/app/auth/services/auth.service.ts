@@ -4,11 +4,11 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { User as FirebaseUser } from 'firebase';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { testFirebaseUsers, User } from '../models';
-import * as AuthActions from '../root/store/actions/auth.actions';
-import { State } from '../root/store/reducers';
-import { ErrorService } from '../shared/services/error.service';
-import { UserService } from '../data/services/user.service';
+import { UserService } from '../../data/services/user.service';
+import { testFirebaseUsers, User } from '../../models';
+import * as AuthActions from '../../root/store/actions/auth.actions';
+import { State } from '../../root/store/reducers';
+import { ErrorService } from '../../shared/services/error.service';
 
 @Injectable()
 export class AuthService {

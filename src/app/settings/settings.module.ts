@@ -18,6 +18,7 @@ import { RolesComponent } from './containers/roles/roles.component';
 import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
+import { CsvService } from './services/csv.service';
 import { settingsRoutes } from './settings.routes';
 
 @NgModule({
@@ -46,6 +47,9 @@ import { settingsRoutes } from './settings.routes';
   ],
   exports: [
     SettingsPageComponent,
+  ],
+  providers: [
+    CsvService,
   ],
 })
 export class SettingsModule {

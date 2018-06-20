@@ -6,7 +6,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { getTestUsers, testOrganizations } from '../../../models';
 import { reducers } from '../../../root/store/reducers';
 import { AuthService, SnackBarService } from '../../../services';
-import { mockServiceProviders } from '../../../services/mock-service-providers';
+import { mockServiceProviders } from '../../../test/mock-service-providers';
 import { JoinPageComponent } from './join-page.component';
 
 describe('JoinPageComponent', () => {

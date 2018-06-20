@@ -4,7 +4,7 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import { filterByOrganizationId } from '../../../functions';
 import { testOrganizations, testSites, testVisits, testVolunteers } from '../../../models';
-import { mockServiceProviders } from '../../../services/mock-service-providers';
+import { mockServiceProviders } from '../../../test/mock-service-providers';
 import * as ModelActions from '../actions/model.actions';
 import { ModelEffects } from './model.effects';
 

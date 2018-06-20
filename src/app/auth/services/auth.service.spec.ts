@@ -9,9 +9,9 @@ import {
   MockUserService,
   OrganizationService,
   UserService,
-} from '.';
-import { testUsers } from '../models';
-import { reducers } from '../root/store/reducers';
+} from '../../services';
+import { testUsers } from '../../models/index';
+import { reducers } from '../../root/store/reducers/index';
 
 describe('AuthService', () => {
   let service: AuthService;

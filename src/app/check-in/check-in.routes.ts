@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { LoginGuard } from '../root/guards/login-guard';
+import { LoginGuard } from '../auth/guards/login-guard';
 import { CheckInComponent } from './containers/check-in/check-in.component';
 import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
 

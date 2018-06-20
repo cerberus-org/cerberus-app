@@ -3,7 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import { getTestUsers, testFirebaseUsers, testOrganizations } from '../../../models';
-import { mockServiceProviders } from '../../../services/mock-service-providers';
+import { mockServiceProviders } from '../../../test/mock-service-providers';
 import * as AuthActions from '../actions/auth.actions';
 import { AuthEffects } from './auth.effects';
 

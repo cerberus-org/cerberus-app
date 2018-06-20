@@ -4,7 +4,7 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { getTestUsers, testOrganizations } from '../../../models';
 import { SnackBarService } from '../../../services';
-import { mockServiceProviders } from '../../../services/mock-service-providers';
+import { mockServiceProviders } from '../../../test/mock-service-providers';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';
 import { GettingStartedEffects } from './getting-started.effects';

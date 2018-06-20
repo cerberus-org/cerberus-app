@@ -6,7 +6,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { OrganizationService } from '../../../data/services/organization.service';
 import { SiteService } from '../../../data/services/site.service';
 import { Organization, Site } from '../../../models';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../auth/services/auth.service';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';

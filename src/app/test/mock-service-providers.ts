@@ -1,12 +1,12 @@
-import { AuthService, MockAuthService } from './auth.service';
-import { CsvService, MockCsvService } from './csv.service';
-import { ErrorService, MockErrorService } from '../shared/services/error.service';
+import { AuthService, MockAuthService } from '../auth/services/auth.service';
 import { MockOrganizationService, OrganizationService } from '../data/services/organization.service';
 import { MockSiteService, SiteService } from '../data/services/site.service';
-import { MockSnackBarService, SnackBarService } from '../shared/services/snack-bar.service';
 import { MockUserService, UserService } from '../data/services/user.service';
 import { MockVisitService, VisitService } from '../data/services/visit.service';
 import { MockVolunteerService, VolunteerService } from '../data/services/volunteer.service';
+import { CsvService, MockCsvService } from '../settings/services/csv.service';
+import { ErrorService, MockErrorService } from '../shared/services/error.service';
+import { MockSnackBarService, SnackBarService } from '../shared/services/snack-bar.service';
 
 export const mockServiceProviders = [
   { provide: AuthService, useClass: MockAuthService },

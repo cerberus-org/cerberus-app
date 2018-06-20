@@ -17,6 +17,8 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
+import { LoginGuard } from '../auth/guards/login-guard';
+import { VerificationGuard } from '../auth/guards/verification-guard';
 import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-hours-chart.component';
 import { DataCellComponent } from './components/data-cell/data-cell.component';
 import { DataDisplayComponent } from './components/data-display/data-display.component';
