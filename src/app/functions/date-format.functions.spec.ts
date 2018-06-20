@@ -1,4 +1,4 @@
-import { testVisits } from '../models';
+import { testVisits } from '../models/index';
 import { formatDuration, formatTime } from './date-format.functions';
 
 describe('date-format.functions', () => {

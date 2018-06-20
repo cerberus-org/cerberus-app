@@ -1,4 +1,4 @@
-import { User } from '../models';
+import { User } from '../models/index';
 
 export const isAdmin = (user: User) => ['Admin', 'Owner'].includes(user.role);
 

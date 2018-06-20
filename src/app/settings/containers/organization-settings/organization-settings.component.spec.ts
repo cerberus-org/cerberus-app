@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-
 import { testOrganizations } from '../../../models';
-import { reducers } from '../../../reducers';
+import { reducers } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/settings.actions';
 import { OrganizationSettingsComponent } from './organization-settings.component';
 

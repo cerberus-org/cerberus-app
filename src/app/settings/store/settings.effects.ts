@@ -3,9 +3,8 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-
-import * as AuthActions from '../../actions/auth.actions';
 import { getVisitsWithVolunteerNames } from '../../functions';
+import * as AuthActions from '../../root/store/actions/auth.actions';
 import {
   AuthService,
   CsvService,
@@ -63,7 +62,7 @@ export class SettingsEffects {
 
   /**
    * Listen for the UpdateOrganization action, update organization,
-   * then dispatch an action to app store and display success snack bar.
+   * then dispatch an action to root store and display success snack bar.
    */
   @Effect()
   updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)

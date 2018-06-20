@@ -1,5 +1,4 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
-
 import { ErrorService, MockSnackBarService, SnackBarService } from '.';
 
 describe('ErrorService', () => {

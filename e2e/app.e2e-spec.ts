@@ -1,6 +1,6 @@
 import { CerberusAppPage } from './app.po';
 
-describe('cerberus-app App', () => {
+describe('cerberus-root App', () => {
   let page: CerberusAppPage;
 
   beforeEach(() => {
@@ -9,6 +9,6 @@ describe('cerberus-app App', () => {
 
   it('should display login message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    expect(page.getParagraphText()).toEqual('Welcome to root!!');
   });
 });

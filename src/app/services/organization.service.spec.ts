@@ -1,6 +1,5 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
-
 import { ErrorService, MockErrorService, OrganizationService } from '.';
 import { Organization, testOrganizations } from '../models';
 

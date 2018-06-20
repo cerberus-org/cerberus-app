@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-
 import { ColumnOptions, Volunteer } from '../../../models';
-import { State } from '../../../reducers';
+import { State } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/settings.actions';
 
 @Component({
