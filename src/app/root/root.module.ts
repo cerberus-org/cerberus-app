@@ -36,9 +36,9 @@ import {
 import { SettingsModule } from '../settings/settings.module';
 import { SharedModule } from '../shared/shared.module';
 import { SignUpModule } from '../sign-up/sign-up.module';
-import { RootComponent } from './components/app/root.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { RootComponent } from './components/root/root.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { LoginGuard } from './guards/login-guard';
 import { VerificationGuard } from './guards/verification-guard';
@@ -109,5 +109,5 @@ import { reducers } from './store/reducers';
   ],
   bootstrap: [RootComponent],
 })
-export class AppModule {
+export class RootModule {
 }

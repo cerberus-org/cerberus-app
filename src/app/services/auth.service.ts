@@ -97,7 +97,7 @@ export class AuthService {
   }
 
   /**
-   * If the page is reloaded or the state of the user changes dispatch an action to load data to the app store.
+   * If the page is reloaded or the state of the user changes dispatch an action to load data to the root store.
    */
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged((user) => {

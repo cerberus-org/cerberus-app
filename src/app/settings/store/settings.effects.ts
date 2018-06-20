@@ -62,7 +62,7 @@ export class SettingsEffects {
 
   /**
    * Listen for the UpdateOrganization action, update organization,
-   * then dispatch an action to app store and display success snack bar.
+   * then dispatch an action to root store and display success snack bar.
    */
   @Effect()
   updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)

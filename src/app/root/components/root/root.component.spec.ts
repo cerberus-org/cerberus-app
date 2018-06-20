@@ -17,7 +17,7 @@ describe('RootComponent', () => {
       ],
       declarations: [
         RootComponent,
-        MockComponent({ selector: 'app-footer' }),
+        MockComponent({ selector: 'root-footer' }),
         MockComponent({
           selector: 'app-header',
           inputs: ['headerOptions', 'showLogOut', 'showSidenavToggle'],
@@ -32,7 +32,7 @@ describe('RootComponent', () => {
       .compileComponents();
   }));
 
-  it('should create the app', async(() => {
+  it('should create the root', async(() => {
     const fixture = TestBed.createComponent(RootComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();

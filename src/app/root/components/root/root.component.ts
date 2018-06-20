@@ -57,7 +57,7 @@ export class RootComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handles the next app store state.
+   * Handles the next root store state.
    * @param appState - the next state
    */
   onNextAppState = (appState) => {
