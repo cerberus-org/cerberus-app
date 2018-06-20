@@ -3,8 +3,11 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import { getMockOrganizations } from '../../mock/objects/organization.mock';
+import { mockReports } from '../../mock/objects/report.mock';
 import { getMockUsers } from '../../mock/objects/user.mock';
+import { getMockVolunteers } from '../../mock/objects/volunteer.mock';
 import { mockServiceProviders } from '../../mock/providers.mock';
+import { Organization, User } from '../../models';
 import * as AuthActions from '../../root/store/actions/auth.actions';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { CsvService } from '../services/csv.service';
@@ -28,11 +31,16 @@ describe('SettingsEffects', () => {
   }));
 
   describe('updateOrganization$', () => {
-    it('should dispatch AuthActions.UpdateOrganization', (() => {
-      const organization = getMockOrganizations()[0];
+    let organization: Organization;
+
+    beforeEach(async(() => {
+      organization = getMockOrganizations()[0];
       actions = hot('a', {
         a: new SettingsActions.UpdateOrganization(organization),
       });
+    }));
+
+    it('should dispatch AuthActions.UpdateOrganization', (() => {
       const expected = cold('b', {
         b: new AuthActions.UpdateOrganization(organization),
       });
@@ -40,10 +48,7 @@ describe('SettingsEffects', () => {
     }));
 
     it('should open the updateOrganizationSuccess snackbar', () => {
-      const updateOrganizationSuccessSpy = spyOn(
-        TestBed.get(SnackBarService),
-        'updateOrganizationSuccess',
-      );
+      const updateOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateOrganizationSuccess');
       effects.updateOrganization$.subscribe(() => {
         expect(updateOrganizationSuccessSpy).toHaveBeenCalled();
       });
@@ -51,11 +56,16 @@ describe('SettingsEffects', () => {
   });
 
   describe('updateUser$', () => {
-    it('should dispatch AuthActions.UpdateUser', (() => {
-      const user = getMockUsers()[0];
+    let user: User;
+
+    beforeEach(async(() => {
+      user = getMockUsers()[0];
       actions = hot('a', {
         a: new SettingsActions.UpdateUser(user),
       });
+    }));
+
+    it('should dispatch AuthActions.UpdateUser', (() => {
       const expected = cold('b', {
         b: new AuthActions.UpdateUser(user),
       });
@@ -71,6 +81,17 @@ describe('SettingsEffects', () => {
   });
 
   describe('generateVisitHistoryReport$', () => {
+    beforeEach(async(() => {
+      actions = hot('a', {
+        a: new SettingsActions.GenerateVisitHistoryReport({
+          startedAt: new Date(),
+          endedAt: new Date(),
+          organizationId: getMockOrganizations()[0].id,
+          volunteers: getMockVolunteers(),
+        }),
+      });
+    }));
+
     it('should emit download csv, on success', (() => {
       const downloadCsvSpy = spyOn(TestBed.get(CsvService), 'downloadAsCsv');
       effects.generateVisitHistoryReport$.subscribe(() => {

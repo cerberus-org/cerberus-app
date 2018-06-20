@@ -9,24 +9,44 @@ export const mockUsers: User[] = [
     lastName: 'Mader',
     email: 'tlmader.dev@gmail.com',
     password: 'password',
-    role: 'owner',
+    role: 'Owner',
   }, {
     id: '5961327dfba1ca1b64b8945b',
     organizationId: '59a7055733bfe28af47cff40',
     firstName: 'Hillary',
     lastName: 'Lynn',
-    email: 'harurang@gmail.com',
-    password: null,
-    role: 'member',
+    email: 'hilllynn.dev@gmail.com',
+    password: 'testtest',
+    role: 'Member',
+  }, {
+    id: '5961327dfba1ca1b64b8945c',
+    organizationId: '59a7055733bfe28af47cff40',
+    firstName: 'Locked',
+    lastName: 'User',
+    email: 'lockeduser@gmail.com',
+    password: 'iamlocked',
+    role: 'Locked',
   },
 ];
 
 export const getMockUsers = (): User[] => _.cloneDeep(mockUsers);
 
-export const mockLoginCredentials: any = [{
-  email: 'Test@gmail.com',
-  password: 'test',
-}];
+export const mockLoginCredentials: any = [
+  {
+    email: 'tlmader.dev@gmail.com',
+    password: 'test',
+  },
+  {
+    email: 'hilllynn.dev@gmail.com',
+    password: 'testtest',
+  },
+  {
+    email: 'lockeduser@gmail.com',
+    password: 'iamlocked',
+  },
+];
+
+export const getMockLoginCredentials = (): User[] => _.cloneDeep(mockLoginCredentials);
 
 export const mockFirebaseUsers: any[] = [
   {
@@ -34,4 +54,16 @@ export const mockFirebaseUsers: any[] = [
     email: 'tlmader.dev@gmail.com',
     password: 'password',
   },
+  {
+    uid: '5961327dfba1ca1b64b8945b',
+    email: 'hilllynn.dev@gmail.com',
+    password: 'testtest',
+  },
+  {
+    uid: '5961327dfba1ca1b64b8945c',
+    email: 'lockeduser@gmail.com',
+    password: 'iamlocked',
+  },
 ];
+
+export const getMockFirebaseUsers = (): User[] => _.cloneDeep(mockFirebaseUsers);

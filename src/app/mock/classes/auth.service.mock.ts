@@ -1,8 +1,8 @@
 import { User as FirebaseUser } from 'firebase';
-import { Observable, of } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { User } from '../../models';
-import { mockFirebaseUsers } from '../objects/user.mock';
+import { getMockFirebaseUsers } from '../objects/user.mock';
 
 export class MockAuthService extends AuthService {
 
@@ -18,8 +18,12 @@ export class MockAuthService extends AuthService {
     return of(user);
   }
 
+  resetPassword(email: string): Observable<{}> {
+    return of(null);
+  }
+
   signIn(email: string, password: string): Observable<any> {
-    return of(mockFirebaseUsers[0]);
+    return of(getMockFirebaseUsers().find(user => user.email === email));
   }
 
   signOut(): Observable<FirebaseUser> {

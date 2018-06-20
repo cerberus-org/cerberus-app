@@ -30,10 +30,13 @@ describe('CheckInEffects', () => {
   }));
 
   describe('submitNewVolunteer$', () => {
-    it('should dispatch CheckInActions.SubmitNewVolunteerSuccess', () => {
+    beforeEach(() => {
       actions = hot('a', {
         a: new CheckInActions.SubmitNewVolunteer(mockVolunteers[0]),
       });
+    });
+
+    it('should dispatch CheckInActions.SubmitNewVolunteerSuccess', () => {
       const expected = cold('b', {
         b: new CheckInActions.SubmitNewVolunteerSuccess(),
       });
@@ -49,10 +52,13 @@ describe('CheckInEffects', () => {
   });
 
   describe('checkIn$', () => {
-    it('should dispatch RouterActions.Go', () => {
+    beforeEach(() => {
       actions = hot('a', {
         a: new CheckInActions.CheckIn(mockVisits[0]),
       });
+    });
+
+    it('should dispatch RouterActions.Go', () => {
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] }),
       });
@@ -68,10 +74,13 @@ describe('CheckInEffects', () => {
   });
 
   describe('checkOut$', () => {
-    it('should dispatch RouterActions.Go', () => {
+    beforeEach(() => {
       actions = hot('a', {
         a: new CheckInActions.CheckOut(mockVisits[0]),
       });
+    });
+
+    it('should dispatch RouterActions.Go', () => {
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] }),
       });

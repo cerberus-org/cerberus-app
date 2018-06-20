@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { getMockOrganizations } from '../../../mock/objects/organization.mock';
 import { getMockUsers } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
+import { User } from '../../../models';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import * as LoginActions from '../actions/login.actions';
@@ -26,13 +27,17 @@ describe('GettingStartedEffects', () => {
   }));
 
   describe('gettingStarted$', () => {
-    it('should dispatch LoginActions.LogIn', () => {
-      const organization = getMockOrganizations()[0];
-      const user = getMockUsers()[0];
+    let user: User;
 
+    beforeEach(async(() => {
+      const organization = getMockOrganizations()[0];
+      user = getMockUsers()[0];
       actions = hot('a', {
         a: new GettingStartedActions.Submit({ organization, user }),
       });
+    }));
+
+    it('should dispatch LoginActions.LogIn', () => {
       const expected = cold('b', {
         b: new LoginActions.LogIn(user),
       });
