@@ -12,8 +12,10 @@ import {
   MatRadioModule,
   MatStepperModule,
 } from '@angular/material';
+import { RouterModule } from '@angular/router';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SharedModule } from '../shared/shared.module';
+import { checkInRoutes } from './check-in.routes';
 import { CheckInFormComponent } from './components/check-in-form/check-in-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { SignatureFieldComponent } from './components/signature-field/signature-field.component';
@@ -33,6 +35,7 @@ import { OrganizationDashboardComponent } from './containers/organization-dashbo
     MatRadioModule,
     MatStepperModule,
     ReactiveFormsModule,
+    RouterModule.forChild(checkInRoutes),
     SignaturePadModule,
     SharedModule,
   ],
@@ -45,6 +48,7 @@ import { OrganizationDashboardComponent } from './containers/organization-dashbo
   ],
   exports: [
     OrganizationDashboardComponent,
+    RouterModule,
   ],
 })
 export class CheckInModule {
