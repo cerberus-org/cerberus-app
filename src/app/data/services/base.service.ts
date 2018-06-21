@@ -29,10 +29,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @param {AngularFirestoreCollection<T extends {id: string}>} collection
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
-  protected getDataFromCollection(
-    snapshot: boolean,
-    collection: AngularFirestoreCollection<T>,
-  ): Observable<T[]> {
+  protected getDocsFromCollection(snapshot: boolean, collection: AngularFirestoreCollection<T>): Observable<T[]> {
     return (
       snapshot
         ? collection.snapshotChanges().pipe(
@@ -40,11 +37,11 @@ export abstract class BaseService<T extends { id: string }> {
           actions.map((action: DocumentChangeAction<T>) => {
             const data = action.payload.doc.data() as T;
             const id = action.payload.doc.id;
-            return this.convertIn(Object.assign(data, { id }));
+            return this.mapDocToObject(Object.assign(data, { id }));
           })
         )))
         : collection.valueChanges().pipe(
-        map((items: T[]) => items.map((item: T) => this.convertIn(item))))
+        map((items: T[]) => items.map((item: T) => this.mapDocToObject(item))))
     ).pipe(
       catchError(error => this.errorService.handleFirebaseError(error)));
   }
@@ -55,7 +52,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
   getAll(snapshot?: boolean): Observable<T[]> {
-    return this.getDataFromCollection(snapshot, this.collection());
+    return this.getDocsFromCollection(snapshot, this.collection());
   }
 
   /**
@@ -66,7 +63,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
   getByKey(key: string, value: string, snapshot?: boolean): Observable<T[]> {
-    return this.getDataFromCollection(
+    return this.getDocsFromCollection(
       snapshot,
       this.collection(ref => ref.where(key, '==', value)),
     );
@@ -80,7 +77,7 @@ export abstract class BaseService<T extends { id: string }> {
   getById(id: string): Observable<T> {
     return from(
       this.collection().doc(id).ref.get()
-        .then(snapshot => this.convertIn(snapshot.data())),
+        .then(snapshot => this.mapDocToObject(snapshot.data())),
     ).pipe(
       catchError(error => this.errorService.handleFirebaseError(error)));
   }
@@ -95,13 +92,13 @@ export abstract class BaseService<T extends { id: string }> {
     return from(
       id
         ? this.collection().doc(id)
-          .set(this.convertOut(item))
-          .then(() => this.convertIn(Object.assign({}, item, { id })))
-        : this.collection().add(Object.assign({}, this.convertOut(item)))
+          .set(this.mapObjectToDoc(item))
+          .then(() => this.mapDocToObject(Object.assign({}, item, { id })))
+        : this.collection().add(Object.assign({}, this.mapObjectToDoc(item)))
           .then(
             ref => ref.get()
               .then(
-                snapshot => this.convertIn(Object.assign({}, snapshot.data(), { id: snapshot.id }))),
+                snapshot => this.mapDocToObject(Object.assign({}, snapshot.data(), { id: snapshot.id }))),
           ),
     ).pipe(
       catchError(error => this.errorService.handleFirebaseError(error)));
@@ -114,7 +111,7 @@ export abstract class BaseService<T extends { id: string }> {
    */
   update(item: T): Observable<any> {
     return from(
-      this.collection().doc(item.id).update(this.convertOut(item)),
+      this.collection().doc(item.id).update(this.mapObjectToDoc(item)),
     ).pipe(
       catchError(error => this.errorService.handleFirebaseError(error)));
   }
@@ -132,20 +129,20 @@ export abstract class BaseService<T extends { id: string }> {
   }
 
   /**
-   * Override this function to perform conversions for data received from the database.
+   * Override this function to perform conversions for documents received from the database.
    * @param data
    * @returns {any}
    */
-  protected convertIn(data) {
+  protected mapDocToObject(data) {
     return data;
   }
 
   /**
-   * Override this function to perform conversions for data to be sent to the database.
+   * Override this function to perform conversions for objects to be sent as documents to the database.
    * @param data
    * @return {any}
    */
-  protected convertOut(data) {
+  protected mapObjectToDoc(data) {
     return data;
   }
 }

@@ -30,12 +30,12 @@ describe('OrganizationService', () => {
   }));
 
   it('should convert data coming from the database', () => {
-    const converted = service.convertIn(organization);
+    const converted = service.mapDocToObject(organization);
     expect(converted).toEqual(mockOrganizations[0]);
   });
 
   it('should convert data going to the database', () => {
-    const converted = service.convertOut(organization);
+    const converted = service.mapObjectToDoc(organization);
     expect(converted).toEqual(mockOrganizations[0]);
   });
 });

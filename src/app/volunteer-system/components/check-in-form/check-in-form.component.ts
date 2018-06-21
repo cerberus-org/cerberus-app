@@ -20,7 +20,7 @@ import {
   findVolunteerByFullName,
   findVolunteerByPetName,
   getUniqueFullNames,
-} from '../../../functions/index';
+} from '../../../functions';
 import { Visit, Volunteer } from '../../../models';
 import { SignatureFieldComponent } from '../signature-field/signature-field.component';
 

@@ -18,7 +18,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @param volunteer
    * @returns {any}
    */
-  convertOut(volunteer: Volunteer): Volunteer {
+  mapObjectToDoc(volunteer: Volunteer): Volunteer {
     return this.capitalize(volunteer);
   }
 
@@ -27,7 +27,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @param volunteer
    * @returns {any}
    */
-  convertIn(volunteer: Volunteer): Volunteer {
+  mapDocToObject(volunteer: Volunteer): Volunteer {
     return this.capitalize(volunteer);
   }
 

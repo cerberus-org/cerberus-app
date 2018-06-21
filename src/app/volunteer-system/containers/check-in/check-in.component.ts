@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { HeaderOptions, Visit, Volunteer } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
-import { State } from '../../../root/store/reducers/index';
+import { RootState } from '../../../root/store/reducers';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import * as CheckInActions from '../../store/actions/check-in.actions';
 
@@ -30,7 +30,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
   checkInOutStepperTitle: string;
 
   constructor(
-    private store: Store<State>,
+    private store: Store<RootState>,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
   ) {

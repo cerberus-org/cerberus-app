@@ -24,7 +24,7 @@ export class VisitService extends BaseService<Visit> {
     endDate: Date,
     snapshot?: boolean,
   ): Observable<Visit[]> {
-    return this.getDataFromCollection(
+    return this.getDocsFromCollection(
       snapshot,
       this.collection(ref => ref
         .where('organizationId', '==', organizationId)
@@ -37,7 +37,7 @@ export class VisitService extends BaseService<Visit> {
    * @param visit
    * @returns {any}
    */
-  convertOut(visit: Visit): Visit {
+  mapObjectToDoc(visit: Visit): Visit {
     return Object.assign({}, visit, {
       startedAt: new Date(visit.startedAt),
       endedAt: visit.endedAt ? new Date(visit.endedAt) : null,
@@ -49,7 +49,7 @@ export class VisitService extends BaseService<Visit> {
    * Override to convert startedAt and endedAt (asserts types as Timestamp) into Dates and to destringify signature.
    * @param visit
    */
-  convertIn(visit: Visit): Visit {
+  mapDocToObject(visit: Visit): Visit {
     return Object.assign({}, visit, {
       // Double assertion to treat as Timestamp, since Firebase no longer returns a string
       startedAt: (visit.startedAt as any as Timestamp).toDate(),

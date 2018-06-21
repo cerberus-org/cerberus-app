@@ -35,7 +35,7 @@ export class OrganizationService extends BaseService<Organization> {
    * @param {Organization} organization - the organization to capitalize properties for
    * @returns {Organization} - a new organization with capitalized properties
    */
-  convertOut(organization: Organization): Organization {
+  mapObjectToDoc(organization: Organization): Organization {
     return this.capitalizeOrganizaton(organization);
   }
 
@@ -45,7 +45,7 @@ export class OrganizationService extends BaseService<Organization> {
    * @param {Organization} organization - the organization to capitalize properties for
    * @returns {Organization} - a new organization with capitalized properties
    */
-  convertIn(organization: Organization): Organization {
+  mapDocToObject(organization: Organization): Organization {
     return this.capitalizeOrganizaton(organization);
   }
 }

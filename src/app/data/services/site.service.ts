@@ -35,7 +35,7 @@ export class SiteService extends BaseService<Site> {
    * @param {Site} site - the site to capitalize properties for
    * @returns {Site} - a new site with capitalized properties
    */
-  convertOut(site: Site): Site {
+  mapObjectToDoc(site: Site): Site {
     return this.capitalizeSite(site);
   }
 
@@ -45,7 +45,7 @@ export class SiteService extends BaseService<Site> {
    * @param {Site} site - the site to capitalize properties for
    * @returns {Site} - a new site with capitalized properties
    */
-  convertIn(site: Site): Site {
+  mapDocToObject(site: Site): Site {
     return this.capitalizeSite(site);
   }
 }

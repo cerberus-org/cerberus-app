@@ -1,16 +1,16 @@
 import * as CheckInActions from '../actions/check-in.actions';
 
-export interface State {
+export interface CheckInReducerState {
   selectedTabIndex: number;
 }
 
-export const initialState: State = {
+export const initialState: CheckInReducerState = {
   selectedTabIndex: 0,
 };
 
 export type Action = CheckInActions.All;
 
-export function checkInReducer(state = initialState, action: Action): State {
+export function checkInReducer(state = initialState, action: Action): CheckInReducerState {
 
   switch (action.type) {
 

@@ -36,7 +36,7 @@ export class UserService extends BaseService<User> {
    * @param {User} user - the user to capitalize properties for
    * @returns {User} - a new user with capitalized properties
    */
-  convertOut(user: User): User {
+  mapObjectToDoc(user: User): User {
     const userClone = _.cloneDeep(user);
     delete userClone.password;
     delete userClone.email;
@@ -49,7 +49,7 @@ export class UserService extends BaseService<User> {
    * @param {User} user - the user to capitalize properties for
    * @returns {User} - a new user with capitalized properties
    */
-  convertIn(user: User): User {
+  mapDocToObject(user: User): User {
     return this.capitalizeUser(user);
   }
 }

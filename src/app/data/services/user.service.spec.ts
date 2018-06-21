@@ -30,12 +30,12 @@ describe('UserService', () => {
   }));
 
   it('should convert data coming from the database', () => {
-    const converted = service.convertIn(testUser);
+    const converted = service.mapDocToObject(testUser);
     expect(converted).toEqual(getMockUsers()[0]);
   });
 
   it('should convert data going to the database', () => {
-    const converted = service.convertOut(testUser);
+    const converted = service.mapObjectToDoc(testUser);
     const userClone = getMockUsers()[0];
     delete userClone.email;
     delete userClone.password;

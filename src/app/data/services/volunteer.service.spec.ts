@@ -31,12 +31,12 @@ describe('VolunteerService', () => {
   }));
 
   it('should convert data coming from the database', () => {
-    const converted = service.convertIn(volunteer);
+    const converted = service.mapDocToObject(volunteer);
     expect(converted).toEqual(mockVolunteers[0]);
   });
 
   it('should convert data going to the database', () => {
-    const converted = service.convertOut(volunteer);
+    const converted = service.mapObjectToDoc(volunteer);
     expect(converted).toEqual(mockVolunteers[0]);
   });
 });

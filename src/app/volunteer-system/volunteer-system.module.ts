@@ -17,20 +17,22 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SharedModule } from '../shared/shared.module';
-import { checkInRoutes } from './check-in.routes';
+import { volunteerSystemRoutes } from './volunteer-system.routes';
 import { CheckInFormComponent } from './components/check-in-form/check-in-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { SignatureFieldComponent } from './components/signature-field/signature-field.component';
 import { CheckInComponent } from './containers/check-in/check-in.component';
 import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
+import { volunteerSystemEffects } from './store/effects';
 import { CheckInEffects } from './store/effects/check-in.effects';
+import { volunteerSystemReducers } from './store/reducers';
 import { checkInReducer } from './store/reducers/check-in.reducer';
 
 @NgModule({
   imports: [
-    RouterModule.forChild(checkInRoutes),
-    StoreModule.forFeature('checkIn', checkInReducer),
-    EffectsModule.forFeature([CheckInEffects]),
+    RouterModule.forChild(volunteerSystemRoutes),
+    StoreModule.forFeature('checkIn', volunteerSystemReducers),
+    EffectsModule.forFeature(volunteerSystemEffects),
     CommonModule,
     MatAutocompleteModule,
     MatButtonModule,
@@ -58,5 +60,5 @@ import { checkInReducer } from './store/reducers/check-in.reducer';
     RouterModule,
   ],
 })
-export class CheckInModule {
+export class VolunteerSystemModule {
 }

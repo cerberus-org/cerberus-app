@@ -9,15 +9,22 @@ import {
   MatTabsModule,
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared/shared.module';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
 import { GettingStartedComponent } from './containers/getting-started/getting-started.component';
 import { JoinPageComponent } from './containers/join-page/join-page.component';
 import { signUpRoutes } from './sign-up.routes';
+import { signUpEffects } from './store/effects';
+import { signUpReducers } from './store/reducers';
 
 @NgModule({
   imports: [
+    RouterModule.forChild(signUpRoutes),
+    StoreModule.forFeature(signUpReducers),
+    EffectsModule.forFeature(signUpEffects),
     CommonModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -25,7 +32,6 @@ import { signUpRoutes } from './sign-up.routes';
     MatListModule,
     MatStepperModule,
     MatTabsModule,
-    RouterModule.forChild(signUpRoutes),
     // Cerberus Modules
     SharedModule,
   ],

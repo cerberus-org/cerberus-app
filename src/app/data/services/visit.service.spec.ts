@@ -61,14 +61,14 @@ describe('VisitService', () => {
   // TODO: Update using Firestore Timestamps for dates
   xit('should convert coming from the database', () => {
     testVisit.signature = JSON.stringify(testVisit.signature);
-    const converted = service.convertIn(testVisit);
+    const converted = service.mapDocToObject(testVisit);
     expect(converted.startedAt).toEqual(jasmine.any(Date));
     expect(converted.endedAt).toEqual(jasmine.any(Date));
     expect(converted.signature).toEqual(jasmine.any(Array));
   });
 
   it('should convert data going to the database', () => {
-    const converted = service.convertOut(testVisit);
+    const converted = service.mapObjectToDoc(testVisit);
     expect(converted.startedAt).toEqual(jasmine.any(Date));
     expect(converted.endedAt).toEqual(jasmine.any(Date));
     expect(converted.signature).toEqual(jasmine.any(String));
