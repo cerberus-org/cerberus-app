@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { User } from '../../../models';
-import { State } from '../../../root/store/reducers/index';
+import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
@@ -17,10 +17,10 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   userChanges: User;
   currentUser: User;
 
-  constructor(public store: Store<RootState>) { }
+  constructor(public store$: Store<RootState>) { }
 
   ngOnInit() {
-    this.sessionSubscription = this.store.pipe(select(selectSessionReducerState))
+    this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
       .subscribe((state) => {
         this.currentUser = state.user;
       });
@@ -44,7 +44,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
    * Handles submission of user form by dispatching an UpdateUser action.
    */
   onSubmitUser(user: User) {
-    this.store.dispatch(new SettingsActions.UpdateUser(
+    this.store$.dispatch(new SettingsActions.UpdateUser(
       Object.assign({}, this.currentUser, user),
     ));
   }

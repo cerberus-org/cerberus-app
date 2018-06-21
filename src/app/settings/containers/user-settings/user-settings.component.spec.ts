@@ -39,10 +39,10 @@ describe('UserSettingsComponent', () => {
   });
 
   it('should handle submitUser events by dispatching SettingsActions.UpdateUser', () => {
-    spyOn(component.store, 'dispatch');
+    spyOn(component.store$, 'dispatch');
     const user = Object.assign({}, getMockUsers()[0], { firstName: 'Edited' });
     component.onSubmitUser(user);
-    expect(component.store.dispatch)
+    expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new SettingsActions.UpdateUser(user));
   });
 });

@@ -25,7 +25,7 @@ export class GettingStartedEffects {
   submit$: Observable<Action> = this.actions
     .ofType(GettingStartedActions.SUBMIT)
     .pipe(
-      withLatestFrom(this.store.select(selectGettingStartedReducerState)),
+      withLatestFrom(this.store$.select(selectGettingStartedReducerState)),
       switchMap((state: GettingStartedReducerState) => this.organizationService.add(state.validOrganization)
         .pipe(
           switchMap((createdOrganization: Organization) => forkJoin(
@@ -48,7 +48,7 @@ export class GettingStartedEffects {
     );
 
   constructor(
-    private store: Store<SignUpState>,
+    private store$: Store<SignUpState>,
     private actions: Actions,
     private authService: AuthService,
     private organizationService: OrganizationService,

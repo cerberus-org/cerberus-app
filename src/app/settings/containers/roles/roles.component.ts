@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { canSelectRole, getRoleOptions, isLastOwner } from '../../../functions';
 import { ColumnOptions, User } from '../../../models';
-import { State } from '../../../root/store/reducers/index';
+import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
@@ -43,14 +43,14 @@ export class RolesComponent implements OnInit {
     ),
   ];
 
-  constructor(public store: Store<RootState>) { }
+  constructor(public store$: Store<RootState>) { }
 
   ngOnInit() {
-    this.sessionSubscription = this.store.pipe(select(selectSessionReducerState))
+    this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
       .subscribe((state) => {
         this.currentUser = state.user;
       });
-    const model$ = this.store.select('model');
+    const model$ = this.store$.select('model');
     this.users$ = model$.pipe(map(state => state.users));
     this.modelSubscription = model$
       .subscribe((state) => {
@@ -70,7 +70,7 @@ export class RolesComponent implements OnInit {
   }
 
   onUpdateUser(user: User) {
-    this.store.dispatch(
+    this.store$.dispatch(
       user.id === this.currentUser.id
         ? new SettingsActions.UpdateUser(user)
         : new SettingsActions.UpdateRole(user),

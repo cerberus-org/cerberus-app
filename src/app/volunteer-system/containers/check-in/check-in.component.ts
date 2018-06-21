@@ -30,7 +30,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
   checkInOutStepperTitle: string;
 
   constructor(
-    private store: Store<RootState>,
+    private store$: Store<RootState>,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
   ) {
@@ -46,7 +46,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
       0 : 2;
 
     this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.sessionSubscription = this.store
+    this.sessionSubscription = this.store$
       .pipe(
         select(selectSessionReducerState),
         map(state => state.organization),
@@ -54,7 +54,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
       .subscribe((organization) => {
         if (organization) {
           this.organizationId = organization.id;
-          this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
+          this.store$.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
             organization.name,
             'business',
             '/dashboard',
@@ -63,13 +63,13 @@ export class CheckInComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.modelSubscription = this.store.select('model')
+    this.modelSubscription = this.store$.select('model')
       .subscribe((state) => {
         this.visits = state.visits;
         this.volunteers = state.volunteers;
       });
 
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store$.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   isCheckIn(url): boolean {
@@ -86,15 +86,15 @@ export class CheckInComponent implements OnInit, OnDestroy {
   }
 
   onCheckIn(visit: Visit): void {
-    this.store.dispatch(new CheckInActions.CheckIn(visit));
+    this.store$.dispatch(new CheckInActions.CheckIn(visit));
   }
 
   onCheckOut(visit: Visit): void {
-    this.store.dispatch(new CheckInActions.CheckOut(visit));
+    this.store$.dispatch(new CheckInActions.CheckOut(visit));
   }
 
   onNewVolunteer(volunteer: Volunteer): void {
-    this.store.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
+    this.store$.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
   }
 
   onIsExistingVolunteer(isExisitingVolunteer: boolean): void {

@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<RootState>,
+    private store$: Store<RootState>,
     private dialog: MatDialog,
   ) {}
 
@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
     this.hidePwd = true;
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store$.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   onLogin() {
-    this.store.dispatch(new AuthActions.LogIn({
+    this.store$.dispatch(new AuthActions.LogIn({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
     }));
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     const dialog = this.dialog.open(EmailDialogComponent);
     dialog.afterClosed().subscribe((email) => {
       if (email) {
-        this.store.dispatch(new AuthActions.ResetPassword(email));
+        this.store$.dispatch(new AuthActions.ResetPassword(email));
       }
     });
   }

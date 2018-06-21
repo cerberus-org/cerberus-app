@@ -20,17 +20,17 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
   sites: Site[];
   visits$: Observable<Visit[]>;
 
-  constructor(private store: Store<RootState>) {}
+  constructor(private store$: Store<RootState>) {}
 
   ngOnInit(): void {
-    this.sessionSubscription = this.store
+    this.sessionSubscription = this.store$
       .pipe(
         select(selectSessionReducerState),
         map(state => state.organization),
       )
       .subscribe((organization) => {
         if (organization) {
-          this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
+          this.store$.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
             organization.name,
             'business',
             null,
@@ -39,14 +39,14 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.visits$ = this.store.select('model').pipe(
+    this.visits$ = this.store$.select('model').pipe(
       map(state => state.visits));
 
-    this.modelSubscription = this.store.select('model').pipe(
+    this.modelSubscription = this.store$.select('model').pipe(
       map(state => state.sites))
       .subscribe((sites) => {
         if (sites) {
-          this.store.dispatch(new AppActions.SetSidenavOptions(
+          this.store$.dispatch(new AppActions.SetSidenavOptions(
             sites.reduce(
               (options, site) => options.concat(
                 [

@@ -34,7 +34,7 @@ export class RootComponent implements OnInit, OnDestroy {
   constructor(
     private afAuth: AngularFireAuth,
     private changeDetectorRef: ChangeDetectorRef,
-    private store: Store<RootState>,
+    private store$: Store<RootState>,
     private dialog: MatDialog,
   ) {
     this.state = {
@@ -51,11 +51,11 @@ export class RootComponent implements OnInit, OnDestroy {
     this.afAuth.auth.onAuthStateChanged((user) => {
       this.state = Object.assign(this.state, { isLoading: !!user });
     });
-    this.appSubscription = this.store.select('app').subscribe(this.onNextAppState);
-    this.sessionSubscription = this.store.pipe(select(selectSessionReducerState))
+    this.appSubscription = this.store$.select('app').subscribe(this.onNextAppState);
+    this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
       .subscribe(this.onNextSessionState);
-    this.modelSubscription = this.store.select('model').subscribe(this.onNextModelState);
-    this.store.dispatch(new ModelActions.LoadOrganizations());
+    this.modelSubscription = this.store$.select('model').subscribe(this.onNextModelState);
+    this.store$.dispatch(new ModelActions.LoadOrganizations());
   }
 
   /**
@@ -80,17 +80,17 @@ export class RootComponent implements OnInit, OnDestroy {
     Object.assign(this.state, { ...sessionState, isLoading: !!sessionState.user });
     if (sessionState.organization) {
       const organizationId = sessionState.organization.id;
-      this.store.dispatch(new ModelActions.LoadSites(organizationId));
-      this.store.dispatch(new ModelActions.LoadVisits(organizationId));
-      this.store.dispatch(new ModelActions.LoadVolunteers(organizationId));
+      this.store$.dispatch(new ModelActions.LoadSites(organizationId));
+      this.store$.dispatch(new ModelActions.LoadVisits(organizationId));
+      this.store$.dispatch(new ModelActions.LoadVolunteers(organizationId));
       if (isAdmin(sessionState.user)) {
-        this.store.dispatch(new ModelActions.LoadUsers(organizationId));
+        this.store$.dispatch(new ModelActions.LoadUsers(organizationId));
       }
     }
   }
 
   /**
-   * Handles the next model store state.
+   * Handles the next model store$ state.
    * @param modelState - the next state
    */
   onNextModelState = (modelState) => {
@@ -122,7 +122,7 @@ export class RootComponent implements OnInit, OnDestroy {
   }
 
   onSelectIndex(index: number) {
-    this.store.dispatch(this.state.sidenavOptions[index].action);
+    this.store$.dispatch(this.state.sidenavOptions[index].action);
   }
 
   /**
@@ -135,13 +135,13 @@ export class RootComponent implements OnInit, OnDestroy {
         this.sidenav.toggle();
         break;
       case 'back':
-        this.store.dispatch(new RouterActions.Back());
+        this.store$.dispatch(new RouterActions.Back());
         break;
       case 'settings':
         this.openAndSubscribeToDialog();
         break;
       case 'logOut':
-        this.store.dispatch(new AuthActions.LogOut());
+        this.store$.dispatch(new AuthActions.LogOut());
         break;
     }
   }
@@ -155,7 +155,7 @@ export class RootComponent implements OnInit, OnDestroy {
     dialog.afterClosed().subscribe((pwd) => {
       if (pwd) {
         // Once the Observable is returned dispatch an effect
-        this.store.dispatch(new AuthActions.VerifyPassword({
+        this.store$.dispatch(new AuthActions.VerifyPassword({
           email: this.state.user.email,
           password: pwd,
         }));

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as RouterActions from '../../root/store/actions/router.actions';
-import { State } from '../../root/store/reducers/index';
+import { RootState } from '../../root/store/reducers';
 import { AuthService } from '../services/auth.service';
 
 /**
@@ -13,8 +13,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable()
 export class VerificationGuard implements CanActivate {
 
-  constructor(private authService: AuthService,
-              private store: Store<State>) {}
+  constructor(private authService: AuthService, private store$: Store<RootState>) {}
 
   /**
    * When a user attempts to access the admin page via URL,
@@ -29,7 +28,7 @@ export class VerificationGuard implements CanActivate {
       this.authService.setPwdVerification(false);
       return true;
     }
-    this.store.dispatch(
+    this.store$.dispatch(
       new RouterActions.Go({ path: ['/dashboard'] }),
     );
     return false;

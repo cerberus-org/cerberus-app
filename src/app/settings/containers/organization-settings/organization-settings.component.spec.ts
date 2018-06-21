@@ -39,10 +39,10 @@ describe('OrganizationSettingsComponent', () => {
   });
 
   it('should handle updateOrganization events by dispatching SettingsActions.UpdateOrganization', () => {
-    spyOn(component.store, 'dispatch');
+    spyOn(component.store$, 'dispatch');
     const organization = Object.assign({}, getMockOrganizations()[0], { name: 'Edited' });
     component.onSubmitOrganization(organization);
-    expect(component.store.dispatch)
+    expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new SettingsActions.UpdateOrganization(organization));
   });
 });

@@ -23,7 +23,7 @@ import { signUpReducers } from './store/reducers';
 @NgModule({
   imports: [
     RouterModule.forChild(signUpRoutes),
-    StoreModule.forFeature(signUpReducers),
+    StoreModule.forFeature('signUp', signUpReducers),
     EffectsModule.forFeature(signUpEffects),
     CommonModule,
     MatButtonModule,

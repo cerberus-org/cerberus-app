@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { ColumnOptions, Volunteer } from '../../../models';
-import { State } from '../../../root/store/reducers/index';
+import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
@@ -32,10 +32,10 @@ export class VolunteerSettingsComponent implements OnInit {
     ),
   ];
 
-  constructor(public store: Store<RootState>) { }
+  constructor(public store$: Store<RootState>) { }
 
   ngOnInit() {
-    this.modelSubscription = this.store.select('model')
+    this.modelSubscription = this.store$.select('model')
       .subscribe((state) => {
         this.volunteers = state.volunteers;
       });
@@ -52,6 +52,6 @@ export class VolunteerSettingsComponent implements OnInit {
    * @param volunteer - the volunteer to be deleted
    */
   onDeleteVolunteer(volunteer: Volunteer) {
-    this.store.dispatch(new SettingsActions.DeleteVolunteer(volunteer));
+    this.store$.dispatch(new SettingsActions.DeleteVolunteer(volunteer));
   }
 }

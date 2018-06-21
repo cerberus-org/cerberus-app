@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { Organization, Report, Volunteer } from '../../../models';
-import { State } from '../../../root/store/reducers/index';
+import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
@@ -18,14 +18,14 @@ export class ReportsComponent implements OnInit {
   private modelSubscription: Subscription;
   volunteers: Volunteer[];
 
-  constructor(public store: Store<RootState>) { }
+  constructor(public store$: Store<RootState>) { }
 
   ngOnInit() {
-    this.sessionSubscription = this.store.pipe(select(selectSessionReducerState))
+    this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
       .subscribe((state) => {
         this.currentOrganization = state.organization;
       });
-    this.modelSubscription = this.store.select('model')
+    this.modelSubscription = this.store$.select('model')
       .subscribe((state) => {
         this.volunteers = state.volunteers;
       });
@@ -53,7 +53,7 @@ export class ReportsComponent implements OnInit {
    */
   onSubmitReport() {
     if (this.validReport.title === 'Visit History') {
-      this.store.dispatch(new SettingsActions.GenerateVisitHistoryReport({
+      this.store$.dispatch(new SettingsActions.GenerateVisitHistoryReport({
         startedAt: this.validReport.startedAt,
         endedAt: this.validReport.endedAt,
         organizationId: this.currentOrganization.id,

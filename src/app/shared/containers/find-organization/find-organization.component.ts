@@ -3,7 +3,7 @@ import { MatAutocomplete } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Organization } from '../../../models';
-import { State } from '../../../root/store/reducers/index';
+import { RootState } from '../../../root/store/reducers';
 
 @Component({
   selector: 'app-find-organization',
@@ -23,10 +23,10 @@ export class FindOrganizationComponent implements OnInit {
   @Input() showTitle;
   @Input() showInputIconButton;
 
-  constructor(public store: Store<RootState>) { }
+  constructor(public store$: Store<RootState>) { }
 
   ngOnInit() {
-    this.modelSubscription = this.store.select('model')
+    this.modelSubscription = this.store$.select('model')
       .subscribe((state) => {
         if (state.organizations) {
           this.organizations = state.organizations;

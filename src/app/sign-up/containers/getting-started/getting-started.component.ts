@@ -27,34 +27,34 @@ export class GettingStartedComponent implements OnInit {
   userFormTitle: string = 'Create an account to access your organization.';
   organizationFormTitle: string = 'Tell us about your organization.';
 
-  state$: Observable<GettingStartedContainerState> = this.store.pipe(select(selectGettingStartedContainerState));
+  state$: Observable<GettingStartedContainerState> = this.store$.pipe(select(selectGettingStartedContainerState));
 
-  constructor(private store: Store<SignUpState>) {
+  constructor(private store$: Store<SignUpState>) {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store$.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
+    this.store$.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   onValidOrganization(organization: Organization): void {
-    this.store.dispatch(new GettingStartedActions.UpdateValidOrganization(organization));
+    this.store$.dispatch(new GettingStartedActions.UpdateValidOrganization(organization));
   }
 
   onValidUser(user: User): void {
-    this.store.dispatch(new GettingStartedActions.UpdateValidUser(user));
+    this.store$.dispatch(new GettingStartedActions.UpdateValidUser(user));
   }
 
   onCheckTos(isChecked: boolean) {
-    this.store.dispatch(new GettingStartedActions.UpdateTosChecked(isChecked));
+    this.store$.dispatch(new GettingStartedActions.UpdateTosChecked(isChecked));
   }
 
   onNext(step): void {
-    this.store.dispatch(new GettingStartedActions.NextStep(step));
+    this.store$.dispatch(new GettingStartedActions.NextStep(step));
     this.tabGroup.selectedIndex = step;
   }
 
   onSubmit(): void {
-    this.store.dispatch(new GettingStartedActions.Submit());
+    this.store$.dispatch(new GettingStartedActions.Submit());
   }
 }

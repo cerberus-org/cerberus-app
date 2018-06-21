@@ -37,10 +37,10 @@ describe('VolunteerSettingsComponent', () => {
   });
 
   it('should handle deleteVolunteer events by dispatching SettingsActions.DeleteVolunteer', () => {
-    spyOn(component.store, 'dispatch');
+    spyOn(component.store$, 'dispatch');
     const volunteer = getMockVolunteers()[0];
     component.onDeleteVolunteer(volunteer);
-    expect(component.store.dispatch)
+    expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new SettingsActions.DeleteVolunteer(volunteer));
   });
 });

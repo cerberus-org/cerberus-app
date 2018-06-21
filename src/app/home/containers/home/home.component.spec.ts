@@ -50,23 +50,23 @@ describe('HomeComponent', () => {
   });
 
   it('should handle onLiveData events by dispatching RouterActions.Go', () => {
-    spyOn(component.store, 'dispatch');
+    spyOn(component.store$, 'dispatch');
     component.onInputIconButtonClick(mockOrganizations[0].name);
-    expect(component.store.dispatch)
+    expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/public-dashboard/' + mockOrganizations[0].name] }));
   });
 
   it('should handle onNewOrganization events by dispatching RouterActions.Go', () => {
-    spyOn(component.store, 'dispatch');
+    spyOn(component.store$, 'dispatch');
     component.onNewOrganization();
-    expect(component.store.dispatch)
+    expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/start'] }));
   });
 
   it('should handle onJoinOrganization events by dispatching RouterActions.Go', () => {
-    spyOn(component.store, 'dispatch');
+    spyOn(component.store$, 'dispatch');
     component.onJoinOrganization();
-    expect(component.store.dispatch)
+    expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/join'] }));
   });
 });

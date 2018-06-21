@@ -20,7 +20,7 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private errorService: ErrorService,
     private userService: UserService,
-    private store: Store<RootState>,
+    private store$: Store<RootState>,
   ) {
     this.pwdVerification = false;
     if (afAuth) {
@@ -97,11 +97,11 @@ export class AuthService {
   }
 
   /**
-   * If the page is reloaded or the state of the user changes dispatch an action to load data to the root store.
+   * If the page is reloaded or the state of the user changes dispatch an action to load data to the root store$.
    */
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged((user) => {
-      this.store.dispatch(
+      this.store$.dispatch(
         user
           ? new SessionActions.LoadData(user)
           : new SessionActions.LoadDataSuccess({ user: null, organization: null }),

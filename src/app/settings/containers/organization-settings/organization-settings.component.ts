@@ -17,10 +17,10 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   currentOrganization: Organization;
   organizationChanges: Organization;
 
-  constructor(public store: Store<RootState>) { }
+  constructor(public store$: Store<RootState>) { }
 
   ngOnInit() {
-    this.sessionSubscription = this.store.pipe(select(selectSessionReducerState))
+    this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
       .subscribe((state) => {
         this.currentOrganization = state.organization;
       });
@@ -44,7 +44,7 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
    * Handles submission of organization form by dispatching an UpdateOrganization action.
    */
   onSubmitOrganization(organization: Organization) {
-    this.store.dispatch(new SettingsActions.UpdateOrganization(
+    this.store$.dispatch(new SettingsActions.UpdateOrganization(
       Object.assign({}, this.currentOrganization, organization),
     ));
   }

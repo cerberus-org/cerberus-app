@@ -18,13 +18,13 @@ import { AngularFireModule } from 'angularfire2';
 import 'hammerjs';
 import { environment } from '../../environments/environment';
 import { AuthModule } from '../auth/auth.module';
-import { CheckInModule } from '../check-in/check-in.module';
 import { DataModule } from '../data/data.module';
 import { HomeModule } from '../home/home.module';
 import { PublicDashboardModule } from '../public-dashboard/public-dashboard.module';
 import { SettingsModule } from '../settings/settings.module';
 import { SharedModule } from '../shared/shared.module';
 import { SignUpModule } from '../sign-up/sign-up.module';
+import { VolunteerSystemModule } from '../volunteer-system/volunteer-system.module';
 import { HeaderComponent } from './components/header/header.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { RootComponent } from './components/root/root.component';
@@ -51,13 +51,13 @@ import { rootReducers } from './store/reducers';
     StoreRouterConnectingModule,
     // Cerberus Modules
     AuthModule,
-    CheckInModule,
     DataModule,
     HomeModule,
     PublicDashboardModule,
     SettingsModule,
     SharedModule,
     SignUpModule,
+    VolunteerSystemModule,
   ],
   declarations: [
     RootComponent,

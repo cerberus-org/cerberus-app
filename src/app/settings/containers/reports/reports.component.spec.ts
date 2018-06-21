@@ -43,12 +43,12 @@ describe('ReportsComponent', () => {
   it(
     'should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport',
     () => {
-      spyOn(component.store, 'dispatch');
+      spyOn(component.store$, 'dispatch');
       component.validReport = mockReports[0];
       component.currentOrganization = getMockOrganizations()[0];
       component.volunteers = getMockVolunteers();
       component.onSubmitReport();
-      expect(component.store.dispatch)
+      expect(component.store$.dispatch)
         .toHaveBeenCalledWith(new SettingsActions.GenerateVisitHistoryReport({
           startedAt: mockReports[0].startedAt,
           endedAt: mockReports[0].endedAt,

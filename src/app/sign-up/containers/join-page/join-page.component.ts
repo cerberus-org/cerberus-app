@@ -7,7 +7,7 @@ import { OrganizationService } from '../../../data/services/organization.service
 import { HeaderOptions, Organization, User } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { State } from '../../../root/store/reducers/index';
+import { RootState } from '../../../root/store/reducers';
 import { ErrorService } from '../../../shared/services/error.service';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 
@@ -38,21 +38,21 @@ export class JoinPageComponent implements OnInit {
     private authService: AuthService,
     private organizationService: OrganizationService,
     private errorService: ErrorService,
-    private store: Store<State>,
+    private store$: Store<RootState>,
     private snackBarService: SnackBarService,
   ) {
     this.userFormTitle = 'Please enter your information.';
   }
 
   ngOnInit() {
-    this.modelSubscription = this.store.select('model')
+    this.modelSubscription = this.store$.select('model')
       .subscribe((state) => {
         if (state.organizations) {
           this.organizations = state.organizations;
         }
       });
-    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store$.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
+    this.store$.dispatch(new AppActions.SetSidenavOptions(null));
   }
 
   /**
@@ -100,7 +100,7 @@ export class JoinPageComponent implements OnInit {
         .subscribe(() => {
           this.authService.signOut();
           this.snackBarService.requestToJoinOrganizationSuccess();
-          this.store.dispatch(new RouterActions.Go({ path: ['/home'] }));
+          this.store$.dispatch(new RouterActions.Go({ path: ['/home'] }));
         });
     } else {
       this.snackBarService.invalidOrganization();
