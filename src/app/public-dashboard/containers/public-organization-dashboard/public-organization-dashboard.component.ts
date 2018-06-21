@@ -5,7 +5,7 @@ import { OrganizationService } from '../../../data/services/organization.service
 import { VisitService } from '../../../data/services/visit.service';
 import { HeaderOptions, Organization, Visit } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
-import { State } from '../../../root/store/reducers';
+import { State } from '../../../root/store/reducers/index';
 import { ErrorService } from '../../../shared/services/error.service';
 
 @Component({

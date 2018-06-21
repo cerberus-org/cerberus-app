@@ -9,7 +9,7 @@ export const initialState: SettingsState = {
 };
 export type Action = SettingsActions.All;
 
-export function reducer(state = initialState, action: Action): SettingsState {
+export function settingsReducer(state = initialState, action: Action): SettingsState {
   switch (action.type) {
 
     case SettingsActions.LOAD_PAGE: {

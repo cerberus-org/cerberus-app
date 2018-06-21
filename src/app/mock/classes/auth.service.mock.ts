@@ -1,5 +1,5 @@
 import { User as FirebaseUser } from 'firebase';
-import { EMPTY, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { User } from '../../models';
 import { getMockFirebaseUsers } from '../objects/user.mock';

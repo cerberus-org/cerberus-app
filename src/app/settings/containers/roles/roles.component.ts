@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { getSessionState } from '../../../auth/store/selectors/session.selectors';
 import { canSelectRole, getRoleOptions, isLastOwner } from '../../../functions';
 import { ColumnOptions, User } from '../../../models';
-import { State } from '../../../root/store/reducers';
+import { State } from '../../../root/store/reducers/index';
 import * as SettingsActions from '../../store/settings.actions';
 
 @Component({
@@ -13,7 +14,7 @@ import * as SettingsActions from '../../store/settings.actions';
   styleUrls: ['./roles.component.scss'],
 })
 export class RolesComponent implements OnInit {
-  private authSubscription: Subscription;
+  private sessionSubscription: Subscription;
   private modelSubscription: Subscription;
   users: User[];
   users$: Observable<User[]>;
@@ -45,7 +46,7 @@ export class RolesComponent implements OnInit {
   constructor(public store: Store<State>) { }
 
   ngOnInit() {
-    this.authSubscription = this.store.select('auth')
+    this.sessionSubscription = this.store.pipe(select(getSessionState))
       .subscribe((state) => {
         this.currentUser = state.user;
       });
@@ -60,8 +61,8 @@ export class RolesComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
+    if (this.sessionSubscription) {
+      this.sessionSubscription.unsubscribe();
     }
     if (this.modelSubscription) {
       this.modelSubscription.unsubscribe();

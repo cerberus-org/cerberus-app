@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { mockServiceProviders } from '../../../mock/providers.mock';
-import { reducers } from '../../../root/store/reducers';
+import { reducers } from '../../../root/store/reducers/index';
 import { OrganizationDashboardComponent } from './organization-dashboard.component';
 
 describe('OrganizationDashboardComponent', () => {

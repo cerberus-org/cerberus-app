@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { getSessionState } from '../../../auth/store/selectors/session.selectors';
 import { Organization, Report, Volunteer } from '../../../models';
-import { State } from '../../../root/store/reducers';
+import { State } from '../../../root/store/reducers/index';
 import * as SettingsActions from '../../store/settings.actions';
 
 @Component({
@@ -12,7 +13,7 @@ import * as SettingsActions from '../../store/settings.actions';
 })
 export class ReportsComponent implements OnInit {
   validReport: any;
-  private authSubscription: Subscription;
+  private sessionSubscription: Subscription;
   currentOrganization: Organization;
   private modelSubscription: Subscription;
   volunteers: Volunteer[];
@@ -20,7 +21,7 @@ export class ReportsComponent implements OnInit {
   constructor(public store: Store<State>) { }
 
   ngOnInit() {
-    this.authSubscription = this.store.select('auth')
+    this.sessionSubscription = this.store.pipe(select(getSessionState))
       .subscribe((state) => {
         this.currentOrganization = state.organization;
       });
@@ -31,8 +32,8 @@ export class ReportsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
+    if (this.sessionSubscription) {
+      this.sessionSubscription.unsubscribe();
     }
     if (this.modelSubscription) {
       this.modelSubscription.unsubscribe();

@@ -29,7 +29,7 @@ describe('ModelEffects', () => {
   }));
 
   describe('loadSites$', () => {
-    it('should dispatch AuthActions.LoadSitesSuccess', (() => {
+    it('should dispatch SessionActions.LoadSitesSuccess', (() => {
       actions = hot('a', {
         a: new ModelActions.LoadSites(organizationId),
       });
@@ -43,7 +43,7 @@ describe('ModelEffects', () => {
   });
 
   describe('loadVisits$', () => {
-    it('should dispatch AuthActions.LoadVisitsSuccess', (() => {
+    it('should dispatch SessionActions.LoadVisitsSuccess', (() => {
       actions = hot('a', {
         a: new ModelActions.LoadVisits(organizationId),
       });
@@ -57,7 +57,7 @@ describe('ModelEffects', () => {
   });
 
   describe('loadVolunteers$', () => {
-    it('should dispatch AuthActions.LoadVolunteersSuccess', (() => {
+    it('should dispatch SessionActions.LoadVolunteersSuccess', (() => {
       actions = hot('a', {
         a: new ModelActions.LoadVolunteers(organizationId),
       });

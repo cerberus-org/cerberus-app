@@ -1,15 +1,16 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Subscription } from 'rxjs';
+import * as AuthActions from '../../../auth/store/actions/auth.actions';
+import { getSessionState } from '../../../auth/store/selectors/session.selectors';
 import { isAdmin } from '../../../functions';
 import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
-import * as LoginActions from '../../store/actions/login.actions';
 import * as ModelActions from '../../store/actions/model.actions';
 import * as RouterActions from '../../store/actions/router.actions';
-import { State } from '../../store/reducers';
+import { RootState } from '../../store/reducers';
 import { SidenavComponent } from '../sidenav/sidenav.component';
 
 @Component({
@@ -27,13 +28,13 @@ export class RootComponent implements OnInit, OnDestroy {
     isLoading: Boolean;
   };
   appSubscription: Subscription;
-  authSubscription: Subscription;
+  sessionSubscription: Subscription;
   modelSubscription: Subscription;
 
   constructor(
     private afAuth: AngularFireAuth,
     private changeDetectorRef: ChangeDetectorRef,
-    private store: Store<State>,
+    private store: Store<RootState>,
     private dialog: MatDialog,
   ) {
     this.state = {
@@ -51,7 +52,8 @@ export class RootComponent implements OnInit, OnDestroy {
       this.state = Object.assign(this.state, { isLoading: !!user });
     });
     this.appSubscription = this.store.select('app').subscribe(this.onNextAppState);
-    this.authSubscription = this.store.select('auth').subscribe(this.onNextAuthState);
+    this.sessionSubscription = this.store.pipe(select(getSessionState))
+      .subscribe(this.onNextSessionState);
     this.modelSubscription = this.store.select('model').subscribe(this.onNextModelState);
     this.store.dispatch(new ModelActions.LoadOrganizations());
   }
@@ -71,17 +73,17 @@ export class RootComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handles the next auth store state.
-   * @param authState - the next state
+   * Handles the next session store state.
+   * @param sessionState - the next state
    */
-  onNextAuthState = (authState) => {
-    Object.assign(this.state, { ...authState, isLoading: !!authState.user });
-    if (authState.organization) {
-      const organizationId = authState.organization.id;
+  onNextSessionState = (sessionState) => {
+    Object.assign(this.state, { ...sessionState, isLoading: !!sessionState.user });
+    if (sessionState.organization) {
+      const organizationId = sessionState.organization.id;
       this.store.dispatch(new ModelActions.LoadSites(organizationId));
       this.store.dispatch(new ModelActions.LoadVisits(organizationId));
       this.store.dispatch(new ModelActions.LoadVolunteers(organizationId));
-      if (isAdmin(authState.user)) {
+      if (isAdmin(sessionState.user)) {
         this.store.dispatch(new ModelActions.LoadUsers(organizationId));
       }
     }
@@ -114,8 +116,8 @@ export class RootComponent implements OnInit, OnDestroy {
     if (this.appSubscription) {
       this.appSubscription.unsubscribe();
     }
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
+    if (this.sessionSubscription) {
+      this.sessionSubscription.unsubscribe();
     }
   }
 
@@ -139,7 +141,7 @@ export class RootComponent implements OnInit, OnDestroy {
         this.openAndSubscribeToDialog();
         break;
       case 'logOut':
-        this.store.dispatch(new LoginActions.LogOut());
+        this.store.dispatch(new AuthActions.LogOut());
         break;
     }
   }
@@ -153,7 +155,7 @@ export class RootComponent implements OnInit, OnDestroy {
     dialog.afterClosed().subscribe((pwd) => {
       if (pwd) {
         // Once the Observable is returned dispatch an effect
-        this.store.dispatch(new LoginActions.VerifyPassword({
+        this.store.dispatch(new AuthActions.VerifyPassword({
           email: this.state.user.email,
           password: pwd,
         }));

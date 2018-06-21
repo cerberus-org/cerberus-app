@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Organization, Site, User, Visit, Volunteer } from '../../../models/index';
+import { Organization, Site, User, Visit, Volunteer } from '../../../models';
 
 export const LOAD_SITES = '[Model] Load sites';
 export const LOAD_SITES_SUCCESS = '[Model] Load sites success';

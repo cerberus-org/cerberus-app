@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { HeaderOptions, Organization, User } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
-import * as GettingStartedActions from '../../../root/store/actions/getting-started.actions';
-import { State } from '../../../root/store/reducers';
+import { State } from '../../../root/store/reducers/index';
+import * as GettingStartedActions from '../../store/getting-started.actions';
 
 @Component({
   selector: 'app-getting-started',

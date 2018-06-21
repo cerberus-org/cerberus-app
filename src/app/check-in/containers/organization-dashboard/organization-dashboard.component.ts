@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { getSessionState } from '../../../auth/store/selectors/session.selectors';
 import { HeaderOptions, SidenavOptions, Site, Visit } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { State } from '../../../root/store/reducers';
+import { RootState } from '../../../root/store/reducers';
 
 @Component({
   selector: 'app-organization-dashboard',
@@ -13,18 +14,20 @@ import { State } from '../../../root/store/reducers';
   styleUrls: ['./organization-dashboard.component.scss'],
 })
 export class OrganizationDashboardComponent implements OnInit, OnDestroy {
-  private appSubscription: Subscription;
+  private sessionSubscription: Subscription;
   private modelSubscription: Subscription;
 
   sites: Site[];
   visits$: Observable<Visit[]>;
 
-  constructor(private store: Store<State>) {
-  }
+  constructor(private store: Store<RootState>) {}
 
   ngOnInit(): void {
-    this.appSubscription = this.store.select('auth').pipe(
-      map(state => state.organization))
+    this.sessionSubscription = this.store
+      .pipe(
+        select(getSessionState),
+        map(state => state.organization),
+      )
       .subscribe((organization) => {
         if (organization) {
           this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
@@ -67,8 +70,8 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.appSubscription) {
-      this.appSubscription.unsubscribe();
+    if (this.sessionSubscription) {
+      this.sessionSubscription.unsubscribe();
     }
     if (this.modelSubscription) {
       this.modelSubscription.unsubscribe();

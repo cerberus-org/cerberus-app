@@ -3,7 +3,7 @@ import { MatAutocomplete } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Organization } from '../../../models';
-import { State } from '../../../root/store/reducers';
+import { State } from '../../../root/store/reducers/index';
 
 @Component({
   selector: 'app-find-organization',

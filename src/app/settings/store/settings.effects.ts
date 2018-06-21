@@ -4,13 +4,13 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from '../../auth/services/auth.service';
+import * as SessionActions from '../../auth/store/actions/session.actions';
 import { OrganizationService } from '../../data/services/organization.service';
 import { UserService } from '../../data/services/user.service';
 import { VisitService } from '../../data/services/visit.service';
 import { VolunteerService } from '../../data/services/volunteer.service';
 import { getVisitsWithVolunteerNames } from '../../functions';
 import { Organization, User, Visit } from '../../models';
-import * as AuthActions from '../../root/store/actions/auth.actions';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { CsvService } from '../services/csv.service';
 import * as SettingsActions from './settings.actions';
@@ -71,7 +71,7 @@ export class SettingsEffects {
         .pipe(
           map(() => {
             this.snackBarService.updateOrganizationSuccess();
-            return new AuthActions.UpdateOrganization(organization);
+            return new SessionActions.UpdateOrganization(organization);
           }),
         )),
     );
@@ -94,7 +94,7 @@ export class SettingsEffects {
 
   /**
    * Listen for the UpdateUser action, update user,
-   * then dispatch AuthActions.UpdateUser and display a success snack bar.
+   * then dispatch SessionActions.UpdateUser and display a success snack bar.
    */
   @Effect()
   updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
@@ -104,7 +104,7 @@ export class SettingsEffects {
         .pipe(
           map(() => {
             this.snackBarService.updateUserSuccess();
-            return new AuthActions.UpdateUser(user);
+            return new SessionActions.UpdateUser(user);
           }),
         )),
     );

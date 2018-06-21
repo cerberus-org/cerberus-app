@@ -1,4 +1,4 @@
-import * as CheckInActions from '../actions/check-in.actions';
+import * as CheckInActions from './check-in.actions';
 import * as fromCheckIn from './check-in.reducer';
 
 describe('checkInReducer', () => {

@@ -2,7 +2,7 @@ import { sortVisitsByStartedAt } from '../../../functions';
 import { Organization, Site, User, Visit, Volunteer } from '../../../models';
 import * as ModelActions from '../actions/model.actions';
 
-export interface State {
+export interface ModelReducerState {
   sites: Site[];
   users: User[];
   visits: Visit[];
@@ -10,7 +10,7 @@ export interface State {
   organizations: Organization[];
 }
 
-export const initialState: State = {
+export const initialState: ModelReducerState = {
   sites: [],
   users: [],
   visits: [],
@@ -20,10 +20,8 @@ export const initialState: State = {
 
 export type Action = ModelActions.All;
 
-export function reducer(state = initialState, action: Action): State {
-
+export function modelReducer(state = initialState, action: Action): ModelReducerState {
   switch (action.type) {
-
     case ModelActions.LOAD_SITES_SUCCESS: {
       return Object.assign({}, state, {
         sites: action.payload,

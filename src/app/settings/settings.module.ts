@@ -10,6 +10,8 @@ import {
   MatSlideToggleModule,
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared/shared.module';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
@@ -20,9 +22,14 @@ import { UserSettingsComponent } from './containers/user-settings/user-settings.
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
 import { CsvService } from './services/csv.service';
 import { settingsRoutes } from './settings.routes';
+import { SettingsEffects } from './store/settings.effects';
+import { settingsReducer } from './store/settings.reducer';
 
 @NgModule({
   imports: [
+    RouterModule.forChild(settingsRoutes),
+    StoreModule.forFeature('settings', settingsReducer),
+    EffectsModule.forFeature([SettingsEffects]),
     CommonModule,
     FormsModule,
     MatButtonModule,
@@ -32,7 +39,6 @@ import { settingsRoutes } from './settings.routes';
     MatInputModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
-    RouterModule.forChild(settingsRoutes),
     // Cerberus Modules
     SharedModule,
   ],

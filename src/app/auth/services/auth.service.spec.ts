@@ -7,7 +7,7 @@ import { MockErrorService } from '../../mock/classes/error.service.mock';
 import { MockOrganizationService } from '../../mock/classes/organization.service.mock';
 import { MockUserService } from '../../mock/classes/user.service.mock';
 import { mockUsers } from '../../mock/objects/user.mock';
-import { reducers } from '../../root/store/reducers';
+import { reducers } from '../../root/store/reducers/index';
 import { ErrorService } from '../../shared/services/error.service';
 import { AuthService } from './auth.service';
 

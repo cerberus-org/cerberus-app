@@ -5,13 +5,13 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { getMockLoginCredentials } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
+import * as RouterActions from '../../../root/store/actions/router.actions';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
-import * as LogInActions from '../actions/login.actions';
-import * as RouterActions from '../actions/router.actions';
-import { LoginEffects } from './login.effects';
+import * as AuthActions from '../actions/auth.actions';
+import { AuthEffects } from './auth.effects';
 
-describe('LoginEffects', () => {
-  let effects: LoginEffects;
+describe('AuthEffects', () => {
+  let effects: AuthEffects;
   let actions: Observable<any>;
 
   beforeEach(async(() => {
@@ -20,19 +20,19 @@ describe('LoginEffects', () => {
         RouterTestingModule,
       ],
       providers: [
-        LoginEffects,
+        AuthEffects,
         provideMockActions(() => actions),
         ...mockServiceProviders,
       ],
     });
-    effects = TestBed.get(LoginEffects);
+    effects = TestBed.get(AuthEffects);
   }));
 
   describe('login$', () => {
 
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new LogInActions.LogIn(getMockLoginCredentials()[0]),
+        a: new AuthActions.LogIn(getMockLoginCredentials()[0]),
       });
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] }),
@@ -42,7 +42,7 @@ describe('LoginEffects', () => {
 
     it('should open the accountNotVerified snackbar if role is locked', () => {
       actions = hot('a', {
-        a: new LogInActions.LogIn(getMockLoginCredentials()[2]),
+        a: new AuthActions.LogIn(getMockLoginCredentials()[2]),
       });
       const accountNotVerifiedSpy = spyOn(TestBed.get(SnackBarService), 'accountNotVerified');
       effects.login$.subscribe(() => {
@@ -52,7 +52,7 @@ describe('LoginEffects', () => {
 
     it('should open the loginSuccess snackbar', () => {
       actions = hot('a', {
-        a: new LogInActions.LogIn(getMockLoginCredentials()[0]),
+        a: new AuthActions.LogIn(getMockLoginCredentials()[0]),
       });
       const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'loginSuccess');
       effects.login$.subscribe(() => {
@@ -64,7 +64,7 @@ describe('LoginEffects', () => {
   describe('verifyPassword$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new LogInActions.VerifyPassword({ email: '', password: '' }),
+        a: new AuthActions.VerifyPassword({ email: '', password: '' }),
       });
     }));
 
@@ -79,7 +79,7 @@ describe('LoginEffects', () => {
   describe('logout$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new LogInActions.LogOut(),
+        a: new AuthActions.LogOut(),
       });
     }));
 
@@ -101,7 +101,7 @@ describe('LoginEffects', () => {
   describe('resetPassword$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new LogInActions.ResetPassword(getMockLoginCredentials()[0].email),
+        a: new AuthActions.ResetPassword(getMockLoginCredentials()[0].email),
       });
     }));
 

@@ -7,7 +7,7 @@ import { OrganizationService } from '../../../data/services/organization.service
 import { HeaderOptions, Organization, User } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { State } from '../../../root/store/reducers';
+import { State } from '../../../root/store/reducers/index';
 import { ErrorService } from '../../../shared/services/error.service';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 

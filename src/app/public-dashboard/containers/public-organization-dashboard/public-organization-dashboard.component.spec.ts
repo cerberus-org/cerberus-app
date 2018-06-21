@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { mockServiceProviders } from '../../../mock/providers.mock';
-import { reducers } from '../../../root/store/reducers';
+import { reducers } from '../../../root/store/reducers/index';
 import { PublicOrganizationDashboardComponent } from './public-organization-dashboard.component';
 
 describe('PublicOrganizationDashboardComponent', () => {

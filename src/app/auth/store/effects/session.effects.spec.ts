@@ -2,17 +2,17 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
-import { AuthModule } from '../../../auth/auth.module';
 import { DataModule } from '../../../data/data.module';
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
 import { getMockUsers, mockFirebaseUsers } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { SharedModule } from '../../../shared/shared.module';
-import * as AuthActions from '../actions/auth.actions';
-import { AuthEffects } from './auth.effects';
+import { AuthModule } from '../../auth.module';
+import * as SessionActions from '../actions/session.actions';
+import { SessionEffects } from './session.effects';
 
-describe('AuthEffects', () => {
-  let effects: AuthEffects;
+describe('SessionEffects', () => {
+  let effects: SessionEffects;
   let actions: Observable<any>;
 
   beforeEach(async(() => {
@@ -24,21 +24,21 @@ describe('AuthEffects', () => {
         SharedModule,
       ],
       providers: [
-        AuthEffects,
+        SessionEffects,
         provideMockActions(() => actions),
         ...mockServiceProviders,
       ],
     });
-    effects = TestBed.get(AuthEffects);
+    effects = TestBed.get(SessionEffects);
   }));
 
   describe('loadData$', () => {
-    it('should dispatch AuthActions.LoadDataSuccess', (() => {
+    it('should dispatch SessionActions.LoadDataSuccess', (() => {
       actions = hot('a', {
-        a: new AuthActions.LoadData(mockFirebaseUsers[0]),
+        a: new SessionActions.LoadData(mockFirebaseUsers[0]),
       });
       const expected = cold('b', {
-        b: new AuthActions.LoadDataSuccess({
+        b: new SessionActions.LoadDataSuccess({
           user: getMockUsers()[0],
           organization: mockOrganizations[0],
         }),

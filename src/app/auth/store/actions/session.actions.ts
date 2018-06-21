@@ -2,10 +2,10 @@ import { Action } from '@ngrx/store';
 import { User as FirebaseUser } from 'firebase';
 import { Organization, User } from '../../../models/index';
 
-export const LOAD_DATA = '[Auth] Load data';
-export const LOAD_DATA_SUCCESS = '[Auth] Load data success';
-export const UPDATE_ORGANIZATION = '[Auth] Update organization';
-export const UPDATE_USER = '[Auth] Update user';
+export const LOAD_DATA = '[Session] Load data';
+export const LOAD_DATA_SUCCESS = '[Session] Load data success';
+export const UPDATE_ORGANIZATION = '[Session] Update organization';
+export const UPDATE_USER = '[Session] Update user';
 
 export class LoadData implements Action {
   readonly type = LOAD_DATA;

@@ -4,7 +4,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { getMockOrganizations } from '../../../mock/objects/organization.mock';
 import { mockReports } from '../../../mock/objects/report.mock';
 import { getMockVolunteers } from '../../../mock/objects/volunteer.mock';
-import { reducers } from '../../../root/store/reducers';
+import { reducers } from '../../../root/store/reducers/index';
 import * as SettingsActions from '../../store/settings.actions';
 import { ReportsComponent } from './reports.component';
 

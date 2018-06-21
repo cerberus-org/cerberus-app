@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { HeaderOptions, SidenavOptions } from '../../../models/index';
+import { HeaderOptions, SidenavOptions } from '../../../models';
 
 export const SET_ENABLE_LOADER = '[App] Set Enable Loader';
 export const SET_HEADER_OPTIONS = '[App] Set Header Options';

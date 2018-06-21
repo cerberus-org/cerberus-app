@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { getSessionState } from '../../../auth/store/selectors/session.selectors';
 import { Organization } from '../../../models';
-import { State } from '../../../root/store/reducers';
+import { State } from '../../../root/store/reducers/index';
 import * as SettingsActions from '../../store/settings.actions';
 
 @Component({
@@ -12,22 +13,22 @@ import * as SettingsActions from '../../store/settings.actions';
 })
 export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   organizationFormTitle = 'Update your organization info.';
-  private authSubscription: Subscription;
+  private sessionSubscription: Subscription;
   currentOrganization: Organization;
   organizationChanges: Organization;
 
   constructor(public store: Store<State>) { }
 
   ngOnInit() {
-    this.authSubscription = this.store.select('auth')
+    this.sessionSubscription = this.store.pipe(select(getSessionState))
       .subscribe((state) => {
         this.currentOrganization = state.organization;
       });
   }
 
   ngOnDestroy(): void {
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
+    if (this.sessionSubscription) {
+      this.sessionSubscription.unsubscribe();
     }
   }
 

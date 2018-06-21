@@ -1,5 +1,5 @@
-import { Organization, User } from '../../../models';
-import * as GettingStartedActions from '../actions/getting-started.actions';
+import { Organization, User } from '../../models/index';
+import * as GettingStartedActions from './getting-started.actions';
 
 export interface State {
   step: number;

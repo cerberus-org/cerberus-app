@@ -4,14 +4,14 @@ import { Action } from '@ngrx/store';
 import { User as FirebaseUser } from 'firebase';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { AuthService } from '../../../auth/services/auth.service';
 import { UserService } from '../../../data/services/user.service';
+import * as RouterActions from '../../../root/store/actions/router.actions';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
-import * as LoginActions from '../actions/login.actions';
-import * as RouterActions from '../actions/router.actions';
+import { AuthService } from '../../services/auth.service';
+import * as AuthActions from '../actions/auth.actions';
 
 @Injectable()
-export class LoginEffects {
+export class AuthEffects {
 
   /**
    * Listen for the LogIn action, log the afUser in, retrieve User,
@@ -20,9 +20,9 @@ export class LoginEffects {
    */
   @Effect()
   login$: Observable<Action> = this.actions
-    .ofType(LoginActions.LOG_IN)
+    .ofType(AuthActions.LOG_IN)
     .pipe(
-      map((action: LoginActions.LogIn) => action.payload),
+      map((action: AuthActions.LogIn) => action.payload),
       switchMap(payload => this.authService.signIn(payload.email, payload.password)
         .pipe(
           switchMap((firebaseUser: FirebaseUser) => this.userService.getById(firebaseUser.uid)
@@ -47,8 +47,8 @@ export class LoginEffects {
    */
   @Effect()
   verifyPassword$: Observable<Action> = this.actions
-    .ofType(LoginActions.VERIFY_PASSWORD).pipe(
-      map((action: LoginActions.VerifyPassword) => action.payload),
+    .ofType(AuthActions.VERIFY_PASSWORD).pipe(
+      map((action: AuthActions.VerifyPassword) => action.payload),
       switchMap(payload => this.authService.signIn(payload.email, payload.password)
         .pipe(
           map(() => {
@@ -65,7 +65,7 @@ export class LoginEffects {
    */
   @Effect()
   logout$: Observable<Action> = this.actions
-    .ofType(LoginActions.LOG_OUT)
+    .ofType(AuthActions.LOG_OUT)
     .pipe(
       switchMap(() => this.authService.signOut()
         .pipe(
@@ -83,9 +83,9 @@ export class LoginEffects {
    */
   @Effect({ dispatch: false })
   resetPassword$: Observable<{}> = this.actions
-    .ofType(LoginActions.RESET_PASSWORD)
+    .ofType(AuthActions.RESET_PASSWORD)
     .pipe(
-      switchMap((action: LoginActions.ResetPassword) => this.authService.resetPassword(action.payload)
+      switchMap((action: AuthActions.ResetPassword) => this.authService.resetPassword(action.payload)
         .pipe(
           tap(() => {
             this.snackBarService.resetPassword();

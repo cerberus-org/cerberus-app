@@ -1,4 +1,4 @@
-import * as CheckInActions from '../actions/check-in.actions';
+import * as CheckInActions from './check-in.actions';
 
 export interface State {
   selectedTabIndex: number;
@@ -10,7 +10,7 @@ export const initialState: State = {
 
 export type Action = CheckInActions.All;
 
-export function reducer(state = initialState, action: Action): State {
+export function checkInReducer(state = initialState, action: Action): State {
 
   switch (action.type) {
 

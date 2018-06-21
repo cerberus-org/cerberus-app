@@ -6,9 +6,9 @@ import { from, Observable } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { UserService } from '../../data/services/user.service';
 import { User } from '../../models';
-import * as AuthActions from '../../root/store/actions/auth.actions';
-import { State } from '../../root/store/reducers';
+import { RootState } from '../../root/store/reducers';
 import { ErrorService } from '../../shared/services/error.service';
+import * as SessionActions from '../store/actions/session.actions';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +20,7 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private errorService: ErrorService,
     private userService: UserService,
-    private store: Store<State>,
+    private store: Store<RootState>,
   ) {
     this.pwdVerification = false;
     if (afAuth) {
@@ -103,8 +103,8 @@ export class AuthService {
     this.afAuth.auth.onAuthStateChanged((user) => {
       this.store.dispatch(
         user
-          ? new AuthActions.LoadData(user)
-          : new AuthActions.LoadDataSuccess({ user: null, organization: null }),
+          ? new SessionActions.LoadData(user)
+          : new SessionActions.LoadDataSuccess({ user: null, organization: null }),
       );
     });
   }

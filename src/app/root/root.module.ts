@@ -30,32 +30,17 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { RootComponent } from './components/root/root.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { routes } from './root.routes';
-import {
-  AuthEffects,
-  CheckInEffects,
-  GettingStartedEffects,
-  LoginEffects,
-  ModelEffects,
-  RouterEffects,
-  SettingsEffects,
-} from './store/effects';
-import { reducers } from './store/reducers';
+import { rootEffects } from './store/effects';
+import { rootReducers } from './store/reducers';
 
 @NgModule({
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot(routes),
+    StoreModule.forRoot(rootReducers),
+    EffectsModule.forRoot(rootEffects),
     BrowserAnimationsModule,
     BrowserModule,
-    EffectsModule.forRoot([
-      AuthEffects,
-      CheckInEffects,
-      GettingStartedEffects,
-      LoginEffects,
-      ModelEffects,
-      RouterEffects,
-      SettingsEffects,
-    ]),
     MatButtonModule,
     MatIconModule,
     MatListModule,
@@ -63,7 +48,6 @@ import { reducers } from './store/reducers';
     MatSidenavModule,
     MatSnackBarModule,
     MatToolbarModule,
-    StoreModule.forRoot(reducers),
     StoreRouterConnectingModule,
     // Cerberus Modules
     AuthModule,

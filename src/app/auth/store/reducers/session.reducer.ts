@@ -1,36 +1,36 @@
-import { Organization, User } from '../../../models';
-import * as AuthActions from '../actions/auth.actions';
+import { Organization, User } from '../../../models/index';
+import * as SessionActions from '../actions/session.actions';
 
-export interface State {
+export interface SessionReducerState {
   organization: Organization;
   user: User;
 }
 
-export const initialState: State = {
+export const initialState: SessionReducerState = {
   organization: undefined,
   user: undefined,
 };
 
-export type Action = AuthActions.All;
+export type Action = SessionActions.All;
 
-export function reducer(state = initialState, action: Action): State {
+export function sessionReducer(state = initialState, action: Action): SessionReducerState {
 
   switch (action.type) {
 
-    case AuthActions.LOAD_DATA_SUCCESS: {
+    case SessionActions.LOAD_DATA_SUCCESS: {
       return Object.assign({}, state, {
         user: action.payload.user,
         organization: action.payload.organization,
       });
     }
 
-    case AuthActions.UPDATE_ORGANIZATION: {
+    case SessionActions.UPDATE_ORGANIZATION: {
       return Object.assign({}, state, {
         organization: action.payload,
       });
     }
 
-    case AuthActions.UPDATE_USER: {
+    case SessionActions.UPDATE_USER: {
       return Object.assign({}, state, {
         user: action.payload,
       });

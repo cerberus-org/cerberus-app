@@ -2,13 +2,12 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
+import * as SessionActions from '../../auth/store/actions/session.actions';
 import { getMockOrganizations } from '../../mock/objects/organization.mock';
-import { mockReports } from '../../mock/objects/report.mock';
 import { getMockUsers } from '../../mock/objects/user.mock';
 import { getMockVolunteers } from '../../mock/objects/volunteer.mock';
 import { mockServiceProviders } from '../../mock/providers.mock';
 import { Organization, User } from '../../models';
-import * as AuthActions from '../../root/store/actions/auth.actions';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { CsvService } from '../services/csv.service';
 import * as SettingsActions from './settings.actions';
@@ -40,9 +39,9 @@ describe('SettingsEffects', () => {
       });
     }));
 
-    it('should dispatch AuthActions.UpdateOrganization', (() => {
+    it('should dispatch SessionActions.UpdateOrganization', (() => {
       const expected = cold('b', {
-        b: new AuthActions.UpdateOrganization(organization),
+        b: new SessionActions.UpdateOrganization(organization),
       });
       expect(effects.updateOrganization$).toBeObservable(expected);
     }));
@@ -65,9 +64,9 @@ describe('SettingsEffects', () => {
       });
     }));
 
-    it('should dispatch AuthActions.UpdateUser', (() => {
+    it('should dispatch SessionActions.UpdateUser', (() => {
       const expected = cold('b', {
-        b: new AuthActions.UpdateUser(user),
+        b: new SessionActions.UpdateUser(user),
       });
       expect(effects.updateUser$).toBeObservable(expected);
     }));

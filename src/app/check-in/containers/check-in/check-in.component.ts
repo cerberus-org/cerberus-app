@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatVerticalStepper } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { getSessionState } from '../../../auth/store/selectors/session.selectors';
 import { HeaderOptions, Visit, Volunteer } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
-import * as CheckInActions from '../../../root/store/actions/check-in.actions';
-import { State } from '../../../root/store/reducers';
+import { State } from '../../../root/store/reducers/index';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
+import * as CheckInActions from '../../store/check-in.actions';
 
 @Component({
   selector: 'app-check-in',
@@ -16,7 +17,7 @@ import { ServicesAgreementDialogComponent } from '../../../shared/components/ser
   styleUrls: ['./check-in.component.scss'],
 })
 export class CheckInComponent implements OnInit, OnDestroy {
-  private appSubscription: Subscription;
+  private sessionSubscription: Subscription;
   private modelSubscription: Subscription;
 
   @ViewChild('stepper') stepper: MatVerticalStepper;
@@ -45,8 +46,11 @@ export class CheckInComponent implements OnInit, OnDestroy {
       0 : 2;
 
     this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.appSubscription = this.store.select('auth')
-      .pipe(map(state => state.organization))
+    this.sessionSubscription = this.store
+      .pipe(
+        select(getSessionState),
+        map(state => state.organization),
+      )
       .subscribe((organization) => {
         if (organization) {
           this.organizationId = organization.id;
@@ -73,8 +77,8 @@ export class CheckInComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.appSubscription) {
-      this.appSubscription.unsubscribe();
+    if (this.sessionSubscription) {
+      this.sessionSubscription.unsubscribe();
     }
     if (this.modelSubscription) {
       this.modelSubscription.unsubscribe();
