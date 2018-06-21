@@ -3,17 +3,17 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { AuthService } from '../../auth/services/auth.service';
-import * as SessionActions from '../../auth/store/actions/session.actions';
-import { OrganizationService } from '../../data/services/organization.service';
-import { UserService } from '../../data/services/user.service';
-import { VisitService } from '../../data/services/visit.service';
-import { VolunteerService } from '../../data/services/volunteer.service';
-import { getVisitsWithVolunteerNames } from '../../functions';
-import { Organization, User, Visit } from '../../models';
-import { SnackBarService } from '../../shared/services/snack-bar.service';
-import { CsvService } from '../services/csv.service';
-import * as SettingsActions from './settings.actions';
+import { AuthService } from '../../../auth/services/auth.service';
+import * as SessionActions from '../../../auth/store/actions/session.actions';
+import { OrganizationService } from '../../../data/services/organization.service';
+import { UserService } from '../../../data/services/user.service';
+import { VisitService } from '../../../data/services/visit.service';
+import { VolunteerService } from '../../../data/services/volunteer.service';
+import { getVisitsWithVolunteerNames } from '../../../functions/index';
+import { Organization, User, Visit } from '../../../models/index';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import { CsvService } from '../../services/csv.service';
+import * as SettingsActions from '../actions/settings.actions';
 
 @Injectable()
 export class SettingsEffects {

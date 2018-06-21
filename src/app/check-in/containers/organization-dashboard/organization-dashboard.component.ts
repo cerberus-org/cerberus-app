@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getSessionState } from '../../../auth/store/selectors/session.selectors';
+import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { HeaderOptions, SidenavOptions, Site, Visit } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
@@ -25,7 +25,7 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sessionSubscription = this.store
       .pipe(
-        select(getSessionState),
+        select(selectSessionReducerState),
         map(state => state.organization),
       )
       .subscribe((organization) => {

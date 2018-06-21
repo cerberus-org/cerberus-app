@@ -1,4 +1,4 @@
-import * as SettingsActions from './settings.actions';
+import * as SettingsActions from '../actions/settings.actions';
 import * as fromSettings from './settings.reducer';
 
 describe('settingsReducer', () => {

@@ -3,7 +3,7 @@ import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { getMockOrganizations } from '../../../mock/objects/organization.mock';
 import { reducers } from '../../../root/store/reducers/index';
-import * as SettingsActions from '../../store/settings.actions';
+import * as SettingsActions from '../../store/actions/settings.actions';
 import { OrganizationSettingsComponent } from './organization-settings.component';
 
 describe('OrganizationSettingsComponent', () => {

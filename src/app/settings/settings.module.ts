@@ -22,14 +22,14 @@ import { UserSettingsComponent } from './containers/user-settings/user-settings.
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
 import { CsvService } from './services/csv.service';
 import { settingsRoutes } from './settings.routes';
-import { SettingsEffects } from './store/settings.effects';
-import { settingsReducer } from './store/settings.reducer';
+import { settingsEffects } from './store/effects';
+import { settingsReducers } from './store/reducers';
 
 @NgModule({
   imports: [
     RouterModule.forChild(settingsRoutes),
-    StoreModule.forFeature('settings', settingsReducer),
-    EffectsModule.forFeature([SettingsEffects]),
+    StoreModule.forFeature('settings', settingsReducers),
+    EffectsModule.forFeature(settingsEffects),
     CommonModule,
     FormsModule,
     MatButtonModule,

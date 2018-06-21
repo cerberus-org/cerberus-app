@@ -4,12 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getSessionState } from '../../../auth/store/selectors/session.selectors';
+import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { HeaderOptions, Visit, Volunteer } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import { State } from '../../../root/store/reducers/index';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
-import * as CheckInActions from '../../store/check-in.actions';
+import * as CheckInActions from '../../store/actions/check-in.actions';
 
 @Component({
   selector: 'app-check-in',
@@ -48,7 +48,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
     this.sessionSubscription = this.store
       .pipe(
-        select(getSessionState),
+        select(selectSessionReducerState),
         map(state => state.organization),
       )
       .subscribe((organization) => {

@@ -5,7 +5,7 @@ import { getMockOrganizations } from '../../../mock/objects/organization.mock';
 import { mockReports } from '../../../mock/objects/report.mock';
 import { getMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { reducers } from '../../../root/store/reducers/index';
-import * as SettingsActions from '../../store/settings.actions';
+import * as SettingsActions from '../../store/actions/settings.actions';
 import { ReportsComponent } from './reports.component';
 
 describe('ReportsComponent', () => {

@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Subscription } from 'rxjs';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
-import { getSessionState } from '../../../auth/store/selectors/session.selectors';
+import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { isAdmin } from '../../../functions';
 import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
@@ -52,7 +52,7 @@ export class RootComponent implements OnInit, OnDestroy {
       this.state = Object.assign(this.state, { isLoading: !!user });
     });
     this.appSubscription = this.store.select('app').subscribe(this.onNextAppState);
-    this.sessionSubscription = this.store.pipe(select(getSessionState))
+    this.sessionSubscription = this.store.pipe(select(selectSessionReducerState))
       .subscribe(this.onNextSessionState);
     this.modelSubscription = this.store.select('model').subscribe(this.onNextModelState);
     this.store.dispatch(new ModelActions.LoadOrganizations());

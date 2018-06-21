@@ -23,7 +23,7 @@ export class FindOrganizationComponent implements OnInit {
   @Input() showTitle;
   @Input() showInputIconButton;
 
-  constructor(public store: Store<State>) { }
+  constructor(public store: Store<RootState>) { }
 
   ngOnInit() {
     this.modelSubscription = this.store.select('model')

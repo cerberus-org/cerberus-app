@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   organizations: Organization[];
 
   constructor(
-    public store: Store<State>,
+    public store: Store<RootState>,
     private router: Router,
   ) {}
 

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getSessionState } from '../../../auth/store/selectors/session.selectors';
+import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { canSelectRole, getRoleOptions, isLastOwner } from '../../../functions';
 import { ColumnOptions, User } from '../../../models';
 import { State } from '../../../root/store/reducers/index';
-import * as SettingsActions from '../../store/settings.actions';
+import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
   selector: 'app-roles',
@@ -43,10 +43,10 @@ export class RolesComponent implements OnInit {
     ),
   ];
 
-  constructor(public store: Store<State>) { }
+  constructor(public store: Store<RootState>) { }
 
   ngOnInit() {
-    this.sessionSubscription = this.store.pipe(select(getSessionState))
+    this.sessionSubscription = this.store.pipe(select(selectSessionReducerState))
       .subscribe((state) => {
         this.currentUser = state.user;
       });

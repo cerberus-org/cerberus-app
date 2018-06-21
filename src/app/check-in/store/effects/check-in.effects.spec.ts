@@ -3,12 +3,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { mockVisits } from '../../mock/objects/visit.mock';
-import { mockVolunteers } from '../../mock/objects/volunteer.mock';
-import { mockServiceProviders } from '../../mock/providers.mock';
-import * as RouterActions from '../../root/store/actions/router.actions';
-import { SnackBarService } from '../../shared/services/snack-bar.service';
-import * as CheckInActions from './check-in.actions';
+import { mockVisits } from '../../../mock/objects/visit.mock';
+import { mockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { mockServiceProviders } from '../../../mock/providers.mock';
+import * as RouterActions from '../../../root/store/actions/router.actions';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import * as CheckInActions from '../actions/check-in.actions';
 import { CheckInEffects } from './check-in.effects';
 
 describe('CheckInEffects', () => {

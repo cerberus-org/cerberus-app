@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { getSessionState } from '../../../auth/store/selectors/session.selectors';
+import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { Organization } from '../../../models';
-import { State } from '../../../root/store/reducers/index';
-import * as SettingsActions from '../../store/settings.actions';
+import { RootState } from '../../../root/store/reducers';
+import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
   selector: 'app-organization-settings',
@@ -17,10 +17,10 @@ export class OrganizationSettingsComponent implements OnInit, OnDestroy {
   currentOrganization: Organization;
   organizationChanges: Organization;
 
-  constructor(public store: Store<State>) { }
+  constructor(public store: Store<RootState>) { }
 
   ngOnInit() {
-    this.sessionSubscription = this.store.pipe(select(getSessionState))
+    this.sessionSubscription = this.store.pipe(select(selectSessionReducerState))
       .subscribe((state) => {
         this.currentOrganization = state.organization;
       });

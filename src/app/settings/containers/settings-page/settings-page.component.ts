@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { getSessionState } from '../../../auth/store/selectors/session.selectors';
+import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { isAdmin } from '../../../functions';
 import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import { State } from '../../../root/store/reducers/index';
-import * as SettingsActions from '../../store/settings.actions';
-import * as SettingsSelectors from '../../store/settings.selectors';
+import * as SettingsActions from '../../store/actions/settings.actions';
+import * as SettingsSelectors from '../../store/selectors/settings.selectors';
 
 @Component({
   selector: 'app-settings-page',
@@ -24,13 +24,13 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   private sessionSubscription: Subscription;
   sidenavSelection$: Observable<string> = this.store.pipe(select(SettingsSelectors.selectSidenavSelection));
 
-  constructor(public store: Store<State>) {
+  constructor(public store: Store<RootState>) {
   }
 
   ngOnInit() {
     this.store.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
     this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.sessionSubscription = this.store.pipe(select(getSessionState))
+    this.sessionSubscription = this.store.pipe(select(selectSessionReducerState))
       .subscribe((state) => {
         if (state.user) {
           this.store.dispatch(new AppActions.SetSidenavOptions(

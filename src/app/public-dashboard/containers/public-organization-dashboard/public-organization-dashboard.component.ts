@@ -20,7 +20,7 @@ export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    public store: Store<State>,
+    public store: Store<RootState>,
     private organizationService: OrganizationService,
     private visitService: VisitService,
     private errorService: ErrorService,

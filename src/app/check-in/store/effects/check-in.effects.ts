@@ -3,11 +3,11 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { VisitService } from '../../data/services/visit.service';
-import { VolunteerService } from '../../data/services/volunteer.service';
-import * as RouterActions from '../../root/store/actions/router.actions';
-import { SnackBarService } from '../../shared/services/snack-bar.service';
-import * as CheckInActions from './check-in.actions';
+import { VisitService } from '../../../data/services/visit.service';
+import { VolunteerService } from '../../../data/services/volunteer.service';
+import * as RouterActions from '../../../root/store/actions/router.actions';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import * as CheckInActions from '../actions/check-in.actions';
 
 @Injectable()
 export class CheckInEffects {

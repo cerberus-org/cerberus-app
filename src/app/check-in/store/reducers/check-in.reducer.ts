@@ -1,4 +1,4 @@
-import * as CheckInActions from './check-in.actions';
+import * as CheckInActions from '../actions/check-in.actions';
 
 export interface State {
   selectedTabIndex: number;

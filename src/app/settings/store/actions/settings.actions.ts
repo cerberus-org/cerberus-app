@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Organization, User, Volunteer } from '../../models';
+import { Organization, User, Volunteer } from '../../../models';
 
 export const DELETE_VOLUNTEER = '[Settings] Delete volunteer';
 export const DELETE_VOLUNTEER_SUCCESS = '[Settings] Delete volunteer success';

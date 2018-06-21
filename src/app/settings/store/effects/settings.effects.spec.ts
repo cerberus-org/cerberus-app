@@ -2,15 +2,15 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
-import * as SessionActions from '../../auth/store/actions/session.actions';
-import { getMockOrganizations } from '../../mock/objects/organization.mock';
-import { getMockUsers } from '../../mock/objects/user.mock';
-import { getMockVolunteers } from '../../mock/objects/volunteer.mock';
-import { mockServiceProviders } from '../../mock/providers.mock';
-import { Organization, User } from '../../models';
-import { SnackBarService } from '../../shared/services/snack-bar.service';
-import { CsvService } from '../services/csv.service';
-import * as SettingsActions from './settings.actions';
+import * as SessionActions from '../../../auth/store/actions/session.actions';
+import { getMockOrganizations } from '../../../mock/objects/organization.mock';
+import { getMockUsers } from '../../../mock/objects/user.mock';
+import { getMockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { mockServiceProviders } from '../../../mock/providers.mock';
+import { Organization, User } from '../../../models/index';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import { CsvService } from '../../services/csv.service';
+import * as SettingsActions from '../actions/settings.actions';
 import { SettingsEffects } from './settings.effects';
 
 describe('SettingsEffects', () => {
