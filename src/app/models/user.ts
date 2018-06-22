@@ -11,14 +11,14 @@ export class User {
   lastName: string;
   email: string;
   password: string;
-  role: string;
+  role?: string;
 
   constructor(
     firstName: string,
     lastName: string,
     email: string,
     password: string,
-    role: string,
+    role?: string,
   ) {
     this.firstName = firstName;
     this.lastName = lastName;

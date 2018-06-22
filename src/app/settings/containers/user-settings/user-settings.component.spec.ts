@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { getMockUsers } from '../../../mock/objects/user.mock';
-import { reducers } from '../../../root/store/reducers/index';
+import { rootReducers } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { UserSettingsComponent } from './user-settings.component';
 
@@ -13,7 +13,7 @@ describe('UserSettingsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(rootReducers),
       ],
       declarations: [
         UserSettingsComponent,
@@ -33,9 +33,9 @@ describe('UserSettingsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle userChanges events by setting userChanges', () => {
+  it('should handle userEdits events by setting userEdits', () => {
     component.onValidUser(getMockUsers()[0]);
-    expect(component.userChanges).toEqual(getMockUsers()[0]);
+    expect(component.userEdits).toEqual(getMockUsers()[0]);
   });
 
   it('should handle submitUser events by dispatching SettingsActions.UpdateUser', () => {

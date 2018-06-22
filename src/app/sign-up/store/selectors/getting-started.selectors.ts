@@ -28,6 +28,7 @@ export interface GettingStartedContainerState {
   maxEnabledStep: number;
   validOrganization: Organization;
   validUser: User;
+  tosIsChecked: boolean;
 }
 
 export const selectGettingStartedContainerState = createSelector(
@@ -37,5 +38,6 @@ export const selectGettingStartedContainerState = createSelector(
     maxEnabledStep,
     validOrganization: state.validOrganization,
     validUser: state.validUser,
+    tosIsChecked: state.tosIsChecked,
   }),
 );

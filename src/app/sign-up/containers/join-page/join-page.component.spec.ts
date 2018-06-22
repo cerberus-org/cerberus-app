@@ -44,7 +44,7 @@ describe('JoinPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle userChanges events by setting userChanges', () => {
+  it('should handle userEdits events by setting userEdits', () => {
     component.onValidUser(getMockUsers()[0]);
     expect(component.validUser).toEqual(getMockUsers()[0]);
   });

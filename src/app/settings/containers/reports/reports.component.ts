@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
+import { Observable, Subscription } from 'rxjs';
+import { selectSessionOrganization, selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { Organization, Report, Volunteer } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
@@ -12,19 +12,14 @@ import * as SettingsActions from '../../store/actions/settings.actions';
   styleUrls: ['./reports.component.scss'],
 })
 export class ReportsComponent implements OnInit {
-  validReport: any;
-  private sessionSubscription: Subscription;
-  currentOrganization: Organization;
   private modelSubscription: Subscription;
+  validReport: any;
+  currentOrganization: Organization;
   volunteers: Volunteer[];
 
   constructor(public store$: Store<RootState>) { }
 
   ngOnInit() {
-    this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
-      .subscribe((state) => {
-        this.currentOrganization = state.organization;
-      });
     this.modelSubscription = this.store$.select('model')
       .subscribe((state) => {
         this.volunteers = state.volunteers;
@@ -32,9 +27,6 @@ export class ReportsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.sessionSubscription) {
-      this.sessionSubscription.unsubscribe();
-    }
     if (this.modelSubscription) {
       this.modelSubscription.unsubscribe();
     }
@@ -56,7 +48,6 @@ export class ReportsComponent implements OnInit {
       this.store$.dispatch(new SettingsActions.GenerateVisitHistoryReport({
         startedAt: this.validReport.startedAt,
         endedAt: this.validReport.endedAt,
-        organizationId: this.currentOrganization.id,
         volunteers: this.volunteers,
       }));
     }

@@ -1,51 +1,35 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
+import { Observable } from 'rxjs/index';
+import { selectSessionUser, } from '../../../auth/store/selectors/session.selectors';
 import { User } from '../../../models';
-import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
+import { SettingsState } from '../../store/reducers';
 
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
   styleUrls: ['./user-settings.component.scss'],
 })
-export class UserSettingsComponent implements OnInit, OnDestroy {
-  private sessionSubscription: Subscription;
+export class UserSettingsComponent {
   userFormTitle = 'Update your user info.';
-  userChanges: User;
-  currentUser: User;
+  userEdits: User;
+  sessionUser$: Observable<User> = this.store$.pipe(select(selectSessionUser));
 
-  constructor(public store$: Store<RootState>) { }
-
-  ngOnInit() {
-    this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
-      .subscribe((state) => {
-        this.currentUser = state.user;
-      });
-  }
-
-  ngOnDestroy(): void {
-    if (this.sessionSubscription) {
-      this.sessionSubscription.unsubscribe();
-    }
-  }
+  constructor(public store$: Store<SettingsState>) {}
 
   /**
-   * Handles userChanges events by setting userChanges.
+   * Handles validUser events by setting userEdits.
    * @param user - a valid user when valid, null when invalid
    */
   onValidUser(user: User) {
-    this.userChanges = user;
+    this.userEdits = user;
   }
 
   /**
    * Handles submission of user form by dispatching an UpdateUser action.
    */
   onSubmitUser(user: User) {
-    this.store$.dispatch(new SettingsActions.UpdateUser(
-      Object.assign({}, this.currentUser, user),
-    ));
+    this.store$.dispatch(new SettingsActions.UpdateUser(user));
   }
 }

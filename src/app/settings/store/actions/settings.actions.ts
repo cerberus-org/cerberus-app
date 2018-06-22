@@ -7,6 +7,7 @@ export const GENERATE_VISIT_HISTORY_REPORT = '[Settings] Generate visit history 
 export const LOAD_PAGE = '[Settings] Load page';
 export const LOAD_VOLUNTEERS_PAGE = '[Settings] Load volunteers page';
 export const LOAD_VOLUNTEERS_PAGE_SUCCESS = '[Settings] Load volunteers page success';
+export const SET_SETTINGS_SIDENAV_OPTIONS = '[Settings] Set settings sidenav options';
 export const UPDATE_ROLE = '[Settings] Update role';
 export const UPDATE_ORGANIZATION = '[Settings] Update organization';
 export const UPDATE_USER = '[Settings] Update user';
@@ -21,6 +22,16 @@ export class DeleteVolunteerSuccess implements Action {
   readonly type = DELETE_VOLUNTEER_SUCCESS;
 
   constructor(public payload: Volunteer) {}
+}
+
+export class GenerateVisitHistoryReport implements Action {
+  readonly type = GENERATE_VISIT_HISTORY_REPORT;
+
+  constructor(public payload: {
+    startedAt: Date,
+    endedAt: Date,
+    volunteers: Volunteer[],
+  }) {}
 }
 
 export class LoadPage implements Action {
@@ -41,6 +52,12 @@ export class LoadVolunteersPageSuccess implements Action {
   constructor(public payload: Volunteer[]) {}
 }
 
+export class SetSettingsSidenavOptions implements Action {
+  readonly type = SET_SETTINGS_SIDENAV_OPTIONS;
+
+  constructor() {}
+}
+
 export class UpdateOrganization implements Action {
   readonly type = UPDATE_ORGANIZATION;
 
@@ -59,17 +76,6 @@ export class UpdateRole implements Action {
   constructor(public payload: User) {}
 }
 
-export class GenerateVisitHistoryReport implements Action {
-  readonly type = GENERATE_VISIT_HISTORY_REPORT;
-
-  constructor(public payload: {
-    startedAt: Date,
-    endedAt: Date,
-    organizationId: string,
-    volunteers: Volunteer[],
-  }) {}
-}
-
 export type All
   = DeleteVolunteer
   | DeleteVolunteerSuccess
@@ -77,6 +83,7 @@ export type All
   | LoadPage
   | LoadVolunteersPage
   | LoadVolunteersPageSuccess
+  | SetSettingsSidenavOptions
   | UpdateRole
   | UpdateOrganization
   | UpdateUser;

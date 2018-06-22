@@ -32,7 +32,7 @@ describe('OrganizationFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit a organizationChanges event on valid form values', () => {
+  it('should emit a validOrganization event on valid form values', () => {
     spyOn(component.validOrganization, 'emit');
     const name = mockOrganizations[0].name;
     const website = mockOrganizations[0].website;

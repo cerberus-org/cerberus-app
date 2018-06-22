@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
+import { SessionState } from 'http2';
+import { Observable } from 'rxjs';
+import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
 import { Organization } from '../../../models';
-import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
@@ -11,41 +11,25 @@ import * as SettingsActions from '../../store/actions/settings.actions';
   templateUrl: './organization-settings.component.html',
   styleUrls: ['./organization-settings.component.scss'],
 })
-export class OrganizationSettingsComponent implements OnInit, OnDestroy {
+export class OrganizationSettingsComponent {
   organizationFormTitle = 'Update your organization info.';
-  private sessionSubscription: Subscription;
-  currentOrganization: Organization;
-  organizationChanges: Organization;
+  organizationEdits: Organization;
+  sessionOrganization$: Observable<Organization> = this.store$.pipe(select(selectSessionOrganization));
 
-  constructor(public store$: Store<RootState>) { }
-
-  ngOnInit() {
-    this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
-      .subscribe((state) => {
-        this.currentOrganization = state.organization;
-      });
-  }
-
-  ngOnDestroy(): void {
-    if (this.sessionSubscription) {
-      this.sessionSubscription.unsubscribe();
-    }
-  }
+  constructor(public store$: Store<SessionState>) {}
 
   /**
-   * Handles organizationChanges events by setting organizationChanges.
+   * Handles validOrganization events by setting organizationEdits.
    * @param organization - a valid organization when valid, null when invalid
    */
   onValidOrganization(organization: Organization) {
-    this.organizationChanges = organization;
+    this.organizationEdits = organization;
   }
 
   /**
    * Handles submission of organization form by dispatching an UpdateOrganization action.
    */
   onSubmitOrganization(organization: Organization) {
-    this.store$.dispatch(new SettingsActions.UpdateOrganization(
-      Object.assign({}, this.currentOrganization, organization),
-    ));
+    this.store$.dispatch(new SettingsActions.UpdateOrganization(organization));
   }
 }

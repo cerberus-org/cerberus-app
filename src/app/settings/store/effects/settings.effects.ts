@@ -1,22 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../../auth/services/auth.service';
 import * as SessionActions from '../../../auth/store/actions/session.actions';
+import { selectSessionOrganization, selectSessionUser } from '../../../auth/store/selectors/session.selectors';
 import { OrganizationService } from '../../../data/services/organization.service';
 import { UserService } from '../../../data/services/user.service';
 import { VisitService } from '../../../data/services/visit.service';
 import { VolunteerService } from '../../../data/services/volunteer.service';
-import { getVisitsWithVolunteerNames } from '../../../functions/index';
-import { Organization, User, Visit } from '../../../models/index';
+import { getVisitsWithVolunteerNames } from '../../../functions';
+import { SidenavOptions, User, Visit } from '../../../models';
+import * as AppActions from '../../../root/store/actions/app.actions';
+import { RootState } from '../../../root/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { CsvService } from '../../services/csv.service';
 import * as SettingsActions from '../actions/settings.actions';
+import { selectSettingsSidenavOptions } from '../selectors/settings.selectors';
 
 @Injectable()
 export class SettingsEffects {
+
+  /**
+   * Sets the sidenav options based on the session user. After dispatch, AppActions.SetSidenavOptions will continue to
+   * be dispatched on session user changes.
+   * @type {Observable<SetSidenavOptions>}
+   */
+  @Effect()
+  setSidenavOptions$: Observable<Action> = this.actions.ofType(SettingsActions.SET_SETTINGS_SIDENAV_OPTIONS)
+    .pipe(
+      switchMap(() => this.store$.pipe(select(selectSettingsSidenavOptions))
+        .pipe(
+          map((sidenavOptions: SidenavOptions[]) => new AppActions.SetSidenavOptions(sidenavOptions)),
+        ),
+      ),
+    );
 
   /**
    * Listen for the deleteVolunteer action then delete the volunteer in the payload.
@@ -38,9 +57,10 @@ export class SettingsEffects {
     .ofType(SettingsActions.GENERATE_VISIT_HISTORY_REPORT)
     .pipe(
       map((action: SettingsActions.GenerateVisitHistoryReport) => action.payload),
-      switchMap(payload => this.visitService
+      withLatestFrom(this.store$.pipe(select(selectSessionOrganization))),
+      switchMap(([payload, organization]) => this.visitService
         .getByOrganizationIdAndDateRange(
-          payload.organizationId,
+          organization.id,
           payload.startedAt,
           payload.endedAt,
           true,
@@ -60,20 +80,46 @@ export class SettingsEffects {
     );
 
   /**
-   * Listen for the UpdateOrganization action, update organization,
-   * then dispatch an action to root store and display success snack bar.
+   * Listens for SettingsActions.UpdateOrganization. Applies organization changes against current organization in
+   * session, then displays a success snack bar and dispatches SessionActions.UpdateOrganization.
    */
   @Effect()
   updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)
     .pipe(
       map((action: SettingsActions.UpdateOrganization) => action.payload),
-      switchMap((organization: Organization) => this.organizationService.update(organization)
-        .pipe(
-          map(() => {
-            this.snackBarService.updateOrganizationSuccess();
-            return new SessionActions.UpdateOrganization(organization);
-          }),
-        )),
+      withLatestFrom(this.store$.pipe(select(selectSessionOrganization))),
+      switchMap(([organizationEdits, sessionOrganization]) => {
+        const editedOrganization = { ...sessionOrganization, ...organizationEdits };
+        return this.organizationService.update(editedOrganization)
+          .pipe(
+            map(() => {
+              this.snackBarService.updateOrganizationSuccess();
+              return new SessionActions.UpdateOrganization(editedOrganization);
+            }),
+          );
+      }),
+    );
+
+  /**
+   * Listens for SettingsActions.UpdateUser. Applies user changes against current user in session, then displays a
+   * success snack bar and dispatches SessionActions.UpdateUser.
+   */
+  @Effect()
+  updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
+    .pipe(
+      map((action: SettingsActions.UpdateUser) => action.payload),
+      withLatestFrom(this.store$.pipe(select(selectSessionUser))),
+      switchMap(([userEdits, sessionUser]) => {
+        delete userEdits.role;
+        const editedUser = { ...sessionUser, ...userEdits };
+        return this.authService.updateUser(editedUser)
+          .pipe(
+            map(() => {
+              this.snackBarService.updateUserSuccess();
+              return new SessionActions.UpdateUser(editedUser);
+            }),
+          );
+      }),
     );
 
   /**
@@ -92,24 +138,8 @@ export class SettingsEffects {
         )),
     );
 
-  /**
-   * Listen for the UpdateUser action, update user,
-   * then dispatch SessionActions.UpdateUser and display a success snack bar.
-   */
-  @Effect()
-  updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
-    .pipe(
-      map((action: SettingsActions.UpdateUser) => action.payload),
-      switchMap((user: User) => this.authService.updateUser(user)
-        .pipe(
-          map(() => {
-            this.snackBarService.updateUserSuccess();
-            return new SessionActions.UpdateUser(user);
-          }),
-        )),
-    );
-
   constructor(
+    private store$: Store<RootState>,
     private actions: Actions,
     private authService: AuthService,
     private organizationService: OrganizationService,

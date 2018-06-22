@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTabGroup } from '@angular/material';
+import { MatCheckboxChange, MatTabGroup } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { HeaderOptions, Organization, User } from '../../../models';
@@ -17,20 +17,18 @@ import {
   styleUrls: ['./getting-started.component.scss'],
 })
 export class GettingStartedComponent implements OnInit {
-  @ViewChild('tabGroup') tabGroup: MatTabGroup;
   private headerOptions: HeaderOptions = new HeaderOptions(
     'Getting Started',
     'wb_sunny',
     '/home',
     true,
   );
+  @ViewChild('tabGroup') private tabGroup: MatTabGroup;
   userFormTitle: string = 'Create an account to access your organization.';
   organizationFormTitle: string = 'Tell us about your organization.';
-
   state$: Observable<GettingStartedContainerState> = this.store$.pipe(select(selectGettingStartedContainerState));
 
-  constructor(private store$: Store<SignUpState>) {
-  }
+  constructor(private store$: Store<SignUpState>) {}
 
   ngOnInit(): void {
     this.store$.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
@@ -45,8 +43,8 @@ export class GettingStartedComponent implements OnInit {
     this.store$.dispatch(new GettingStartedActions.UpdateValidUser(user));
   }
 
-  onCheckTos(isChecked: boolean) {
-    this.store$.dispatch(new GettingStartedActions.UpdateTosChecked(isChecked));
+  onCheckTos($event: MatCheckboxChange) {
+    this.store$.dispatch(new GettingStartedActions.UpdateTosChecked($event.checked));
   }
 
   onNext(step): void {

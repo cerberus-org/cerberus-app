@@ -78,8 +78,8 @@ export abstract class BaseService<T extends { id: string }> {
     return from(
       this.collection().doc(id).ref.get()
         .then(snapshot => this.mapDocToObject(snapshot.data())),
-    ).pipe(
-      catchError(error => this.errorService.handleFirebaseError(error)));
+    )
+      .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
   }
 
   /**
@@ -100,8 +100,8 @@ export abstract class BaseService<T extends { id: string }> {
               .then(
                 snapshot => this.mapDocToObject(Object.assign({}, snapshot.data(), { id: snapshot.id }))),
           ),
-    ).pipe(
-      catchError(error => this.errorService.handleFirebaseError(error)));
+    )
+      .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
   }
 
   /**
@@ -112,8 +112,8 @@ export abstract class BaseService<T extends { id: string }> {
   update(item: T): Observable<any> {
     return from(
       this.collection().doc(item.id).update(this.mapObjectToDoc(item)),
-    ).pipe(
-      catchError(error => this.errorService.handleFirebaseError(error)));
+    )
+      .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
   }
 
   /**
@@ -124,8 +124,8 @@ export abstract class BaseService<T extends { id: string }> {
   delete(item: T): Observable<any> {
     return from(
       this.collection().doc(item.id).delete(),
-    ).pipe(
-      catchError(error => this.errorService.handleFirebaseError(error)));
+    )
+      .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
   }
 
   /**

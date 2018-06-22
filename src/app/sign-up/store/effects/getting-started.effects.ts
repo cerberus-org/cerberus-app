@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { Action, Store } from '@ngrx/store';
+import { Action, select, Store } from '@ngrx/store';
 import { forkJoin, Observable } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/internal/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../../auth/services/auth.service';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { OrganizationService } from '../../../data/services/organization.service';
@@ -11,7 +11,6 @@ import { Organization, Site } from '../../../models';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import { SignUpState } from '../reducers';
-import { GettingStartedReducerState } from '../reducers/getting-started.reducer';
 import { selectGettingStartedReducerState } from '../selectors/getting-started.selectors';
 
 @Injectable()
@@ -25,8 +24,8 @@ export class GettingStartedEffects {
   submit$: Observable<Action> = this.actions
     .ofType(GettingStartedActions.SUBMIT)
     .pipe(
-      withLatestFrom(this.store$.select(selectGettingStartedReducerState)),
-      switchMap((state: GettingStartedReducerState) => this.organizationService.add(state.validOrganization)
+      withLatestFrom(this.store$.pipe(select(selectGettingStartedReducerState))),
+      switchMap(([action, state]) => this.organizationService.add(state.validOrganization)
         .pipe(
           switchMap((createdOrganization: Organization) => forkJoin(
             // Use the ID from the created organization for the site and user
@@ -36,14 +35,13 @@ export class GettingStartedEffects {
               organizationId: createdOrganization.id,
               role: 'Owner',
             }),
-            )
-              .pipe(
-                map(() => {
-                  this.snackBarService.addOrganizationSuccess();
-                  return new AuthActions.LogIn(state.validUser);
-                }),
-              ),
-          ),
+          )
+            .pipe(
+              map(() => {
+                this.snackBarService.addOrganizationSuccess();
+                return new AuthActions.LogIn(state.validUser);
+              }),
+            )),
         )),
     );
 

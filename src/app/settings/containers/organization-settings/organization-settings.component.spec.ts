@@ -33,9 +33,9 @@ describe('OrganizationSettingsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle organizationChanges events by setting organizationChanges', () => {
+  it('should handle organizationEdits events by setting organizationEdits', () => {
     component.onValidOrganization(getMockOrganizations()[0]);
-    expect(component.organizationChanges).toEqual(getMockOrganizations()[0]);
+    expect(component.organizationEdits).toEqual(getMockOrganizations()[0]);
   });
 
   it('should handle updateOrganization events by dispatching SettingsActions.UpdateOrganization', () => {

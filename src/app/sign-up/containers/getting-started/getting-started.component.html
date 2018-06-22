@@ -23,7 +23,7 @@
         mat-raised-button
         color="primary"
         (click)="onNext(2)"
-        [disabled]="(state$ | async)?.maxEnabledStep < 1"
+        [disabled]="!(state$ | async)?.validOrganization"
       >
         Next
       </button>
@@ -66,7 +66,7 @@
       <button
         mat-raised-button
         color="primary"
-        [disabled]="!isTosChecked"
+        [disabled]="!(state$ | async)?.tosIsChecked"
         (click)="onNext(4)"
       >
         Next
