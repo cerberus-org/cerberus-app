@@ -93,7 +93,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   users$: Observable<User[]>;
   volunteers$: Observable<Volunteer[]>;
-  visits$: Observable<Volunteer[]>;
+  visits$: Observable<Visit[]>;
   currentOrganization: Organization;
   currentUser: User;
   currentUserFromModel: User; // Used for user table
@@ -275,11 +275,11 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  onDeleteUser(user: User) {
-    console.log('Not yet implemented');
+  onUpdateVisit(visit: Visit) {
+    console.log(visit);
   }
 
-  onTimeSelected(time: String) {
-    console.log(time);
+  onDeleteUser(user: User) {
+    console.log('Not yet implemented');
   }
 }

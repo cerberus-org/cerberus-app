@@ -66,6 +66,6 @@
   <app-data-table
     [data$]="visits$"
     [columnOptions]="visitTableOptions"
-    (timeSelected)="onTimeSelected($event)">
+    (updateItem)="onUpdateVisit($event)">
   </app-data-table>
 </div>
