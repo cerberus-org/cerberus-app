@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Organization, User, Volunteer } from '../models';
+import {Organization, User, Visit, Volunteer} from '../models';
 
 export const DELETE_VOLUNTEER = '[Settings] Delete volunteer';
 export const DELETE_VOLUNTEER_SUCCESS = '[Settings] Delete volunteer success';
@@ -10,6 +10,7 @@ export const LOAD_VOLUNTEERS_PAGE_SUCCESS = '[Settings] Load volunteers page suc
 export const UPDATE_ROLE = '[Settings] Update role';
 export const UPDATE_ORGANIZATION = '[Settings] Update organization';
 export const UPDATE_USER = '[Settings] Update user';
+export const UPDATE_VISIT = '[Settings] Update visit';
 
 export class DeleteVolunteer implements Action {
   readonly type = DELETE_VOLUNTEER;
@@ -51,6 +52,12 @@ export class UpdateUser implements Action {
   readonly type = UPDATE_USER;
 
   constructor(public payload: User) {}
+}
+
+export class UpdateVisit implements Action {
+  readonly type = UPDATE_VISIT;
+
+  constructor(public payload: Visit) {}
 }
 
 export class UpdateRole implements Action {

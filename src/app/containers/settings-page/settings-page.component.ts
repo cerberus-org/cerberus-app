@@ -276,7 +276,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
   }
 
   onUpdateVisit(visit: Visit) {
-    console.log(visit);
+    this.store.dispatch(new SettingsActions.UpdateVisit(visit));
   }
 
   onDeleteUser(user: User) {

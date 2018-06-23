@@ -111,6 +111,18 @@ export class SettingsEffects {
         )),
     );
 
+  @Effect({ dispatch: false })
+  updateVisit$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_VISIT)
+    .pipe(
+      map((action: SettingsActions.UpdateVisit) => action.payload),
+      switchMap(visit => this.visitService.update(visit)
+        .pipe(
+          tap(() => {
+            this.snackBarService.updateVisitSuccess();
+          }),
+        )),
+    );
+
   constructor(
     private actions: Actions,
     private authService: AuthService,
