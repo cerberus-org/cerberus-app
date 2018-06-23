@@ -22,7 +22,7 @@ export class ReportsFormComponent implements OnInit {
     this.toggles = [];
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.formGroup = this.createForm();
     this.formSubscription = this.subscribeToForm();
   }

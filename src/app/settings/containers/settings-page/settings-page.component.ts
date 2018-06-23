@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { HeaderOptions } from '../../../models';
+import { Observable, Subscription } from 'rxjs';
+import { HeaderOptions, SidenavOptions } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { SettingsState } from '../../store/reducers';
-import * as SettingsSelectors from '../../store/selectors/settings.selectors';
+import { selectSettingsSidenavOptions, selectSettingsSidenavSelection } from '../../store/selectors/settings.selectors';
 
 @Component({
   selector: 'app-settings-page',
@@ -19,13 +19,24 @@ export class SettingsPageComponent implements OnInit {
     '/dashboard',
     false,
   );
-  sidenavSelection$: Observable<string> = this.store$.pipe(select(SettingsSelectors.selectSettingsSidenavSelection));
+  private sidenavSubscription: Subscription;
+  sidenavSelection$: Observable<string>;
 
   constructor(public store$: Store<SettingsState>) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.sidenavSubscription = this.store$.pipe(select(selectSettingsSidenavOptions))
+      .subscribe((sidenavOptions: SidenavOptions[]) => {
+        this.store$.dispatch(new AppActions.SetSidenavOptions(sidenavOptions));
+      });
+    this.sidenavSelection$ = this.store$.pipe(select(selectSettingsSidenavSelection));
     this.store$.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
-    this.store$.dispatch(new SettingsActions.SetSettingsSidenavOptions());
     this.store$.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
+  }
+
+  ngOnDestroy() {
+    if (this.sidenavSubscription) {
+      this.sidenavSubscription.unsubscribe();
+    }
   }
 }

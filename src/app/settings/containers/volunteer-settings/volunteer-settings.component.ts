@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { ColumnOptions, Volunteer } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
+import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
 import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
@@ -10,10 +11,7 @@ import * as SettingsActions from '../../store/actions/settings.actions';
   templateUrl: './volunteer-settings.component.html',
   styleUrls: ['./volunteer-settings.component.scss'],
 })
-export class VolunteerSettingsComponent implements OnInit {
-  private modelSubscription: Subscription;
-  volunteers$: Observable<Volunteer[]>;
-  volunteers: Volunteer[];
+export class VolunteerSettingsComponent {
   volunteerTableOptions: ColumnOptions[] = [
     new ColumnOptions(
       'firstName',
@@ -31,21 +29,9 @@ export class VolunteerSettingsComponent implements OnInit {
       (row: Volunteer) => row.petName,
     ),
   ];
+  volunteers$: Observable<Volunteer[]> = this.store$.pipe(select(selectModelVolunteers));
 
-  constructor(public store$: Store<RootState>) { }
-
-  ngOnInit() {
-    this.modelSubscription = this.store$.select('model')
-      .subscribe((state) => {
-        this.volunteers = state.volunteers;
-      });
-  }
-
-  ngOnDestroy(): void {
-    if (this.modelSubscription) {
-      this.modelSubscription.unsubscribe();
-    }
-  }
+  constructor(public store$: Store<RootState>) {}
 
   /**
    * Handles deleteVolunteer events by dispatching a DeleteVolunteer action.

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
@@ -12,17 +12,21 @@ import { RolesContainerState, selectRolesContainerState } from '../../store/sele
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.scss'],
 })
-export class RolesComponent {
-  state$: Observable<RolesContainerState> = this.store$.pipe(select(selectRolesContainerState));
+export class RolesComponent implements OnInit {
+  state$: Observable<RolesContainerState>;
 
   constructor(public store$: Store<RootState>) {}
+
+  ngOnInit(): void {
+    this.state$ = this.store$.pipe(select(selectRolesContainerState));
+  }
 
   onUpdateUser(user: User) {
     this.store$.dispatch(new SettingsActions.UpdateRole(user));
   }
 
-  onDeleteUser(user: User) {
-    console.log('Not yet implemented');
+  onDeleteUser($event) {
+    console.log('Not yet implemented', $event);
   }
 
   get users$() {

@@ -26,7 +26,7 @@ export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
     private errorService: ErrorService,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscription = this.organizationService.getByKey('name', this.getOrganizationNameByUrl(), true)
       .subscribe(
         (organizations: Organization[]) => {

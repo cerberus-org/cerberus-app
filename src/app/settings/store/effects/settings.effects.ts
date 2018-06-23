@@ -11,31 +11,15 @@ import { UserService } from '../../../data/services/user.service';
 import { VisitService } from '../../../data/services/visit.service';
 import { VolunteerService } from '../../../data/services/volunteer.service';
 import { getVisitsWithVolunteerNames } from '../../../functions';
-import { SidenavOptions, User, Visit } from '../../../models';
-import * as AppActions from '../../../root/store/actions/app.actions';
+import { User, Visit } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
+import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { CsvService } from '../../services/csv.service';
 import * as SettingsActions from '../actions/settings.actions';
-import { selectSettingsSidenavOptions } from '../selectors/settings.selectors';
 
 @Injectable()
 export class SettingsEffects {
-
-  /**
-   * Sets the sidenav options based on the session user. After dispatch, AppActions.SetSidenavOptions will continue to
-   * be dispatched on session user changes.
-   * @type {Observable<SetSidenavOptions>}
-   */
-  @Effect()
-  setSidenavOptions$: Observable<Action> = this.actions.ofType(SettingsActions.SET_SETTINGS_SIDENAV_OPTIONS)
-    .pipe(
-      switchMap(() => this.store$.pipe(select(selectSettingsSidenavOptions))
-        .pipe(
-          map((sidenavOptions: SidenavOptions[]) => new AppActions.SetSidenavOptions(sidenavOptions)),
-        ),
-      ),
-    );
 
   /**
    * Listen for the deleteVolunteer action then delete the volunteer in the payload.
@@ -66,9 +50,10 @@ export class SettingsEffects {
           true,
         )
         .pipe(
-          tap((visits: Visit[]) => {
+          withLatestFrom(this.store$.pipe(select(selectModelVolunteers))),
+          tap(([visits, volunteers]) => {
             this.csvService.downloadAsCsv(
-              getVisitsWithVolunteerNames(visits, payload.volunteers), 'VisitHistory.csv', new Map([
+              getVisitsWithVolunteerNames(visits, volunteers), 'VisitHistory.csv', new Map([
                 ['name', 'Name'],
                 ['startedAt', 'Started At'],
                 ['endedAt', 'Ended At'],

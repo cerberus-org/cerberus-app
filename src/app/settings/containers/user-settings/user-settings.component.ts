@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/index';
-import { selectSessionUser, } from '../../../auth/store/selectors/session.selectors';
+import { selectSessionUser } from '../../../auth/store/selectors/session.selectors';
 import { User } from '../../../models';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { SettingsState } from '../../store/reducers';
@@ -11,12 +11,16 @@ import { SettingsState } from '../../store/reducers';
   templateUrl: './user-settings.component.html',
   styleUrls: ['./user-settings.component.scss'],
 })
-export class UserSettingsComponent {
+export class UserSettingsComponent implements OnInit {
   userFormTitle = 'Update your user info.';
   userEdits: User;
-  sessionUser$: Observable<User> = this.store$.pipe(select(selectSessionUser));
+  sessionUser$: Observable<User>;
 
   constructor(public store$: Store<SettingsState>) {}
+
+  ngOnInit(): void {
+    this.sessionUser$ = this.store$.pipe(select(selectSessionUser));
+  }
 
   /**
    * Handles validUser events by setting userEdits.

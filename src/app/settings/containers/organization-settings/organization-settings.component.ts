@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { SessionState } from 'http2';
 import { Observable } from 'rxjs';
+import { SessionReducerState } from '../../../auth/store/reducers/session.reducer';
 import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
 import { Organization } from '../../../models';
 import * as SettingsActions from '../../store/actions/settings.actions';
@@ -11,12 +11,16 @@ import * as SettingsActions from '../../store/actions/settings.actions';
   templateUrl: './organization-settings.component.html',
   styleUrls: ['./organization-settings.component.scss'],
 })
-export class OrganizationSettingsComponent {
+export class OrganizationSettingsComponent implements OnInit {
   organizationFormTitle = 'Update your organization info.';
   organizationEdits: Organization;
-  sessionOrganization$: Observable<Organization> = this.store$.pipe(select(selectSessionOrganization));
+  sessionOrganization$: Observable<Organization>;
 
-  constructor(public store$: Store<SessionState>) {}
+  constructor(public store$: Store<SessionReducerState>) {}
+
+  ngOnInit(): void {
+    this.sessionOrganization$ = this.store$.pipe(select(selectSessionOrganization));
+  }
 
   /**
    * Handles validOrganization events by setting organizationEdits.

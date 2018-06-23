@@ -11,5 +11,5 @@ export class ServicesAgreementComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 }

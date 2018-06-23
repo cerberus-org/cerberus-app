@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatVerticalStepper } from '@angular/material';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth.service';
 import { OrganizationService } from '../../../data/services/organization.service';
@@ -8,6 +8,7 @@ import { HeaderOptions, Organization, User } from '../../../models';
 import * as AppActions from '../../../root/store/actions/app.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { RootState } from '../../../root/store/reducers';
+import { selectModelOrganizations } from '../../../root/store/selectors/model.selectors';
 import { ErrorService } from '../../../shared/services/error.service';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 
@@ -44,12 +45,10 @@ export class JoinPageComponent implements OnInit {
     this.userFormTitle = 'Please enter your information.';
   }
 
-  ngOnInit() {
-    this.modelSubscription = this.store$.select('model')
-      .subscribe((state) => {
-        if (state.organizations) {
-          this.organizations = state.organizations;
-        }
+  ngOnInit(): void {
+    this.modelSubscription = this.store$.pipe(select(selectModelOrganizations))
+      .subscribe((organizations) => {
+        this.organizations = organizations;
       });
     this.store$.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
     this.store$.dispatch(new AppActions.SetSidenavOptions(null));

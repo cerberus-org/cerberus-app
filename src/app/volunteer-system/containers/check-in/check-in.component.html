@@ -23,10 +23,10 @@
       <div>
         <app-check-in-form
           [title]="checkInOutFormTitle"
-          [organizationId]="organizationId"
+          [organizationId]="(state$ | async)?.sessionOrganizationId"
           [siteId]="siteId"
-          [visits]="visits"
-          [volunteers]="volunteers"
+          [visits]="(state$ | async)?.visits"
+          [volunteers]="(state$ | async)?.volunteers"
           (checkIn)="onCheckIn($event)"
           (checkOut)="onCheckOut($event)">
         </app-check-in-form>

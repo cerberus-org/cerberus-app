@@ -12,7 +12,7 @@ export class PasswordDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<PasswordDialogComponent>) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.hidePwd = true;
   }
 

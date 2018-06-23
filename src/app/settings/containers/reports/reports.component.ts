@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { selectSessionOrganization, selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
+import { Observable } from 'rxjs';
 import { Organization, Report, Volunteer } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
+import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
 import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
@@ -12,24 +12,14 @@ import * as SettingsActions from '../../store/actions/settings.actions';
   styleUrls: ['./reports.component.scss'],
 })
 export class ReportsComponent implements OnInit {
-  private modelSubscription: Subscription;
   validReport: any;
   currentOrganization: Organization;
-  volunteers: Volunteer[];
+  volunteers$: Observable<Volunteer[]> = this.store$.pipe(select(selectModelVolunteers));
 
   constructor(public store$: Store<RootState>) { }
 
-  ngOnInit() {
-    this.modelSubscription = this.store$.select('model')
-      .subscribe((state) => {
-        this.volunteers = state.volunteers;
-      });
-  }
-
-  ngOnDestroy(): void {
-    if (this.modelSubscription) {
-      this.modelSubscription.unsubscribe();
-    }
+  ngOnInit(): void {
+    this.volunteers$ = this.store$.pipe(select(selectModelVolunteers));
   }
 
   /**
@@ -48,7 +38,6 @@ export class ReportsComponent implements OnInit {
       this.store$.dispatch(new SettingsActions.GenerateVisitHistoryReport({
         startedAt: this.validReport.startedAt,
         endedAt: this.validReport.endedAt,
-        volunteers: this.volunteers,
       }));
     }
   }

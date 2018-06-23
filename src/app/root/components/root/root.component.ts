@@ -46,7 +46,7 @@ export class RootComponent implements OnInit, OnDestroy {
     };
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Enable loader on login
     this.afAuth.auth.onAuthStateChanged((user) => {
       this.state = Object.assign(this.state, { isLoading: !!user });

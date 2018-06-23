@@ -13,7 +13,7 @@ export class EmailDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<PasswordDialogComponent>) { }
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
   /**
    * Close dialog and pass back data.

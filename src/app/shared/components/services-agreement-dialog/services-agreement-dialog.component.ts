@@ -10,7 +10,7 @@ export class ServicesAgreementDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ServicesAgreementDialogComponent>) { }
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
   close() {
     this.dialogRef.close();

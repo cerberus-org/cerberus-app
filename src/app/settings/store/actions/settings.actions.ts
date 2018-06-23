@@ -30,7 +30,6 @@ export class GenerateVisitHistoryReport implements Action {
   constructor(public payload: {
     startedAt: Date,
     endedAt: Date,
-    volunteers: Volunteer[],
   }) {}
 }
 
