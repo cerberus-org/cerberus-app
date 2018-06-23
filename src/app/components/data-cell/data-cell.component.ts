@@ -41,7 +41,9 @@ export class DataCellComponent implements OnChanges {
   }
 
   onTimeChange(val: any): void {
-    this.selectedTime.emit(val.target.value);
+    if (val && val.target && val.target.value) {
+      this.selectedTime.emit(val.target.value);
+    }
   }
 
   getTime(val): String {
@@ -49,12 +51,11 @@ export class DataCellComponent implements OnChanges {
       const date = new Date(val);
       let hours = date.getHours();
       const minutes = date.getMinutes();
-      const ampm = hours >= 12 ? 'pm' : 'am';
       hours = hours % 12;
       hours = hours ? hours : 12; // the hour '0' should be '12'
-      const min = minutes < 10 ? '0' + minutes : minutes;
-      const hou = hours.toString().length === 1 ? '0' + hours : hours;
-      return hou + ':' + min;
+      const minutesString = minutes < 10 ? '0' + minutes : minutes;
+      const hourString = hours.toString().length === 1 ? '0' + hours : hours;
+      return hourString + ':' + minutesString;
     }
     return '';
   }
