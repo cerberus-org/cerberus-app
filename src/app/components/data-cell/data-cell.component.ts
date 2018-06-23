@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
+import { convertToTimeString } from '../../functions';
 import { ColumnOptions } from '../../models';
 
 @Component({
@@ -46,17 +47,7 @@ export class DataCellComponent implements OnChanges {
     }
   }
 
-  getTime(val): String {
-    if (val) {
-      const date = new Date(val);
-      let hours = date.getHours();
-      const minutes = date.getMinutes();
-      hours = hours % 12;
-      hours = hours ? hours : 12; // the hour '0' should be '12'
-      const minutesString = minutes < 10 ? '0' + minutes : minutes;
-      const hourString = hours.toString().length === 1 ? '0' + hours : hours;
-      return hourString + ':' + minutesString;
-    }
-    return '';
+  getTime(val: string): String {
+    return convertToTimeString(val);
   }
 }
