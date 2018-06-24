@@ -4,7 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { getMockVisits } from '../../../mock/objects/visit.mock';
-import { reducers } from '../../../root/store/reducers/index';
+import { rootReducers } from '../../../root/store/reducers';
 import { DataDisplayComponent } from './data-display.component';
 
 describe('DataDisplayComponent', () => {
@@ -17,7 +17,7 @@ describe('DataDisplayComponent', () => {
         NoopAnimationsModule,
         MatIconModule,
         MatTabsModule,
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(rootReducers),
       ],
       declarations: [
         DataDisplayComponent,

@@ -1,12 +1,12 @@
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
+import { StoreModule } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
-import { getMockOrganizations } from '../../../mock/objects/organization.mock';
 import { getMockUsers } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
-import { User } from '../../../models/index';
+import { rootReducers } from '../../../root/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import { GettingStartedEffects } from './getting-started.effects';
@@ -22,24 +22,23 @@ describe('GettingStartedEffects', () => {
         provideMockActions(() => actions),
         ...mockServiceProviders,
       ],
+      imports: [
+        StoreModule.forRoot(rootReducers),
+      ],
     });
     effects = TestBed.get(GettingStartedEffects);
   }));
 
   describe('gettingStarted$', () => {
-    let user: User;
-
     beforeEach(async(() => {
-      const organization = getMockOrganizations()[0];
-      user = getMockUsers()[0];
       actions = hot('a', {
-        a: new GettingStartedActions.Submit({ organization, user }),
+        a: new GettingStartedActions.Submit(),
       });
     }));
 
     it('should dispatch SessionActions.LogIn', () => {
       const expected = cold('b', {
-        b: new AuthActions.LogIn(user),
+        b: new AuthActions.LogIn(getMockUsers()[0]),
       });
       expect(effects.submit$).toBeObservable(expected);
     });

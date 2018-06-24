@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
+import { authReducers } from '../../../auth/store/reducers';
 import { getMockOrganizations } from '../../../mock/objects/organization.mock';
-import { reducers } from '../../../root/store/reducers/index';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { OrganizationSettingsComponent } from './organization-settings.component';
 
@@ -12,12 +12,12 @@ describe('OrganizationSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot(reducers),
-      ],
       declarations: [
         OrganizationSettingsComponent,
         MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
+      ],
+      imports: [
+        StoreModule.forFeature('auth', authReducers),
       ],
     })
       .compileComponents();

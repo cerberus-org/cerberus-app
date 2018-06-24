@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ColumnOptions, Volunteer } from '../../../models';
@@ -11,7 +11,7 @@ import * as SettingsActions from '../../store/actions/settings.actions';
   templateUrl: './volunteer-settings.component.html',
   styleUrls: ['./volunteer-settings.component.scss'],
 })
-export class VolunteerSettingsComponent {
+export class VolunteerSettingsComponent implements OnInit {
   volunteerTableOptions: ColumnOptions[] = [
     new ColumnOptions(
       'firstName',
@@ -29,9 +29,13 @@ export class VolunteerSettingsComponent {
       (row: Volunteer) => row.petName,
     ),
   ];
-  volunteers$: Observable<Volunteer[]> = this.store$.pipe(select(selectModelVolunteers));
+  volunteers$: Observable<Volunteer[]>;
 
   constructor(public store$: Store<RootState>) {}
+
+  ngOnInit(): void {
+    this.volunteers$ = this.store$.pipe(select(selectModelVolunteers));
+  }
 
   /**
    * Handles deleteVolunteer events by dispatching a DeleteVolunteer action.

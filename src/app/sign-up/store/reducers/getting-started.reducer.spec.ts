@@ -1,4 +1,3 @@
-///<reference path="../../../mock/objects/organization.mock.ts"/>
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
 import { getMockUsers } from '../../../mock/objects/user.mock';
 import * as GettingStartedActions from '../actions/getting-started.actions';

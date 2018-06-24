@@ -6,7 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./services-agreement.component.scss'],
 })
 export class ServicesAgreementComponent implements OnInit {
-
   @Input() showTitle: boolean;
 
   constructor() { }

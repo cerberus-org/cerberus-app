@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatAutocompleteModule, MatIconModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from '../../../root/store/reducers/index';
+import { rootReducers } from '../../../root/store/reducers';
 import { FindOrganizationComponent } from './find-organization.component';
 
 describe('FindOrganizationComponent', () => {
@@ -15,7 +15,7 @@ describe('FindOrganizationComponent', () => {
         MatAutocompleteModule,
         MatInputModule,
         MatIconModule,
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(rootReducers),
         BrowserAnimationsModule,
       ],
       declarations: [FindOrganizationComponent],

@@ -4,6 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MockComponent } from 'ng2-mock-component';
+import { AuthModule } from '../../../auth/auth.module';
+import { authReducers } from '../../../auth/store/reducers';
 import { rootReducers } from '../../store/reducers';
 import { RootComponent } from './root.component';
 
@@ -13,6 +15,7 @@ describe('RootComponent', () => {
       imports: [
         RouterTestingModule,
         StoreModule.forRoot(rootReducers),
+        StoreModule.forFeature('auth', authReducers),
         MatDialogModule,
       ],
       declarations: [

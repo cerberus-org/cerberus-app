@@ -1,10 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { getMockOrganizations } from '../../../mock/objects/organization.mock';
 import { mockReports } from '../../../mock/objects/report.mock';
-import { getMockVolunteers } from '../../../mock/objects/volunteer.mock';
-import { reducers } from '../../../root/store/reducers/index';
+import { rootReducers } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { ReportsComponent } from './reports.component';
 
@@ -15,7 +13,7 @@ describe('ReportsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(rootReducers),
       ],
       declarations: [
         ReportsComponent,
@@ -44,17 +42,13 @@ describe('ReportsComponent', () => {
     'should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport',
     () => {
       spyOn(component.store$, 'dispatch');
-      component.validReport = mockReports[0];
-      component.currentOrganization = getMockOrganizations()[0];
-      component.volunteers = getMockVolunteers();
       component.onSubmitReport();
-      expect(component.store$.dispatch)
-        .toHaveBeenCalledWith(new SettingsActions.GenerateVisitHistoryReport({
+      expect(component.store$.dispatch).toHaveBeenCalledWith(
+        new SettingsActions.GenerateVisitHistoryReport({
           startedAt: mockReports[0].startedAt,
           endedAt: mockReports[0].endedAt,
-          organizationId: getMockOrganizations()[0].id,
-          volunteers: getMockVolunteers(),
-        }));
+        }),
+      );
     },
   );
 });

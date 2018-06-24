@@ -8,8 +8,11 @@ import * as AppActions from '../../../root/store/actions/app.actions';
 import { RootState } from '../../../root/store/reducers';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import * as CheckInActions from '../../store/actions/check-in.actions';
-import { CheckInContainerState, selectCheckInContainerState } from '../../store/selectors/check-in.selectors';
-import { selectOrganizationDashboardHeaderOptions } from '../../store/selectors/organization-dashboard.selectors';
+import {
+  CheckInContainerState,
+  selectCheckInContainerState,
+  selectCheckInHeaderOptions,
+} from '../../store/selectors/check-in.selectors';
 
 @Component({
   selector: 'app-check-in',
@@ -45,7 +48,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.stepper.selectedIndex = this.isCheckIn(window.location.href) ?
       0 : 2;
     this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.headerSubscription = this.store$.pipe(select(selectOrganizationDashboardHeaderOptions))
+    this.headerSubscription = this.store$.pipe(select(selectCheckInHeaderOptions))
       .subscribe((headerOptions) => {
         this.store$.dispatch(new AppActions.SetHeaderOptions(headerOptions));
       });

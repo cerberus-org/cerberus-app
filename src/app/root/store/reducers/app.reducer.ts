@@ -6,14 +6,14 @@ export interface AppReducerState {
   sidenavOptions: SidenavOptions[];
 }
 
-export const initialState: AppReducerState = {
+export const initialAppReducerState: AppReducerState = {
   headerOptions: null,
   sidenavOptions: [],
 };
 
 export type Action = AppActions.All;
 
-export function appReducer(state = initialState, action: Action): AppReducerState {
+export function appReducer(state = initialAppReducerState, action: Action): AppReducerState {
   switch (action.type) {
     case AppActions.SET_HEADER_OPTIONS: {
       return {

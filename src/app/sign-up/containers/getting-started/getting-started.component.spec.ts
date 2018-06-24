@@ -4,7 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { signUpReducers } from '../../store/reducers';
+import { rootReducers } from '../../../root/store/reducers';
 import { GettingStartedComponent } from './getting-started.component';
 
 describe('GettingStartedComponent', () => {
@@ -19,7 +19,7 @@ describe('GettingStartedComponent', () => {
         NoopAnimationsModule,
         MatCheckboxModule,
         RouterTestingModule,
-        StoreModule.forFeature('signUp', signUpReducers),
+        StoreModule.forRoot(rootReducers),
       ],
       declarations: [
         GettingStartedComponent,

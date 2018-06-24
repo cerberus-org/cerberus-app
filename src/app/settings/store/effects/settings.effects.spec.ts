@@ -1,16 +1,19 @@
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
+import { StoreModule } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import * as SessionActions from '../../../auth/store/actions/session.actions';
+import { authReducers } from '../../../auth/store/reducers';
 import { getMockOrganizations } from '../../../mock/objects/organization.mock';
 import { getMockUsers } from '../../../mock/objects/user.mock';
-import { getMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
-import { Organization, User } from '../../../models/index';
+import { Organization, User } from '../../../models';
+import { rootReducers } from '../../../root/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { CsvService } from '../../services/csv.service';
 import * as SettingsActions from '../actions/settings.actions';
+import { settingsReducer } from '../reducers/settings.reducer';
 import { SettingsEffects } from './settings.effects';
 
 describe('SettingsEffects', () => {
@@ -24,6 +27,10 @@ describe('SettingsEffects', () => {
         SettingsEffects,
         provideMockActions(() => actions),
         ...mockServiceProviders,
+      ],
+      imports: [
+        StoreModule.forFeature('auth', authReducers),
+        StoreModule.forRoot(rootReducers),
       ],
     });
     effects = TestBed.get(SettingsEffects);
@@ -85,8 +92,6 @@ describe('SettingsEffects', () => {
         a: new SettingsActions.GenerateVisitHistoryReport({
           startedAt: new Date(),
           endedAt: new Date(),
-          organizationId: getMockOrganizations()[0].id,
-          volunteers: getMockVolunteers(),
         }),
       });
     }));

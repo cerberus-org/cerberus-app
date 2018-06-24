@@ -18,15 +18,15 @@ describe('SessionEffects', () => {
   beforeEach(async(() => {
     actions = of('');
     TestBed.configureTestingModule({
-      imports: [
-        AuthModule,
-        DataModule,
-        SharedModule,
-      ],
       providers: [
         SessionEffects,
         provideMockActions(() => actions),
         ...mockServiceProviders,
+      ],
+      imports: [
+        AuthModule,
+        DataModule,
+        SharedModule,
       ],
     });
     effects = TestBed.get(SessionEffects);

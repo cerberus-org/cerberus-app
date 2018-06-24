@@ -7,7 +7,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
 import { getMockUsers } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
-import { reducers } from '../../../root/store/reducers/index';
+import { rootReducers } from '../../../root/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { JoinPageComponent } from './join-page.component';
 
@@ -21,7 +21,7 @@ describe('JoinPageComponent', () => {
         BrowserAnimationsModule,
         MatCheckboxModule,
         MatStepperModule,
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(rootReducers),
       ],
       declarations: [
         JoinPageComponent,

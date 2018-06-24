@@ -4,7 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { reducers } from '../../../root/store/reducers/index';
+import { rootReducers } from '../../../root/store/reducers';
 import { CheckInComponent } from './check-in.component';
 
 describe('CheckInComponent', () => {
@@ -31,7 +31,7 @@ describe('CheckInComponent', () => {
         RouterTestingModule,
         MatStepperModule,
         MatDialogModule,
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(rootReducers),
       ],
     })
       .compileComponents();

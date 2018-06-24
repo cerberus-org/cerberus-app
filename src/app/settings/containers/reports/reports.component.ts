@@ -13,7 +13,6 @@ import * as SettingsActions from '../../store/actions/settings.actions';
 })
 export class ReportsComponent implements OnInit {
   validReport: any;
-  currentOrganization: Organization;
   volunteers$: Observable<Volunteer[]> = this.store$.pipe(select(selectModelVolunteers));
 
   constructor(public store$: Store<RootState>) { }

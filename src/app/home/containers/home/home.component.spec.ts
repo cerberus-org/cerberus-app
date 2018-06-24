@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { reducers } from '../../../root/store/reducers/index';
+import { rootReducers } from '../../../root/store/reducers';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
@@ -26,7 +26,7 @@ describe('HomeComponent', () => {
         MatIconModule,
         MatTabsModule,
         MatCardModule,
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(rootReducers),
         RouterTestingModule,
         BrowserAnimationsModule,
       ],
@@ -44,9 +44,9 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle validInput events by setting organizationName', () => {
+  it('should handle validInput events by setting findOrganizationValue', () => {
     component.onValidInput(mockOrganizations[0].name);
-    expect(component.organizationName).toEqual(mockOrganizations[0].name);
+    expect(component.findOrganizationValue).toEqual(mockOrganizations[0].name);
   });
 
   it('should handle onLiveData events by dispatching RouterActions.Go', () => {

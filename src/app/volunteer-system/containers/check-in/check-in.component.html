@@ -2,6 +2,7 @@
   <mat-horizontal-stepper #stepper>
     <!--Is existing volunteer-->
     <mat-step>
+      <ng-template matStepLabel>Start here</ng-template>
       <div class="container-center loose start-container">
         <button on-click="onIsExistingVolunteer(false)" mat-raised-button color="accent">I am a new volunteer.</button>
         <button on-click="onIsExistingVolunteer(true)" mat-raised-button color="accent">I am an existing volunteer.</button>
@@ -9,7 +10,7 @@
     </mat-step>
     <!--New volunteer form-->
     <mat-step>
-      <ng-template matStepLabel>New Volunteer</ng-template>
+      <ng-template matStepLabel>New volunteer</ng-template>
       <div>
         <app-new-volunteer-form
           [organizationId]="organizationId"

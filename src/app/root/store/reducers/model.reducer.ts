@@ -10,7 +10,7 @@ export interface ModelReducerState {
   organizations: Organization[];
 }
 
-export const initialState: ModelReducerState = {
+export const initialModelReducerState: ModelReducerState = {
   sites: [],
   users: [],
   visits: [],
@@ -20,7 +20,7 @@ export const initialState: ModelReducerState = {
 
 export type Action = ModelActions.All;
 
-export function modelReducer(state = initialState, action: Action): ModelReducerState {
+export function modelReducer(state = initialModelReducerState, action: Action): ModelReducerState {
   switch (action.type) {
     case ModelActions.LOAD_SITES_SUCCESS: {
       return {
