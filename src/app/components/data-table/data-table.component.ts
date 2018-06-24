@@ -146,7 +146,9 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   addItemToItems(item): void {
     const index = this.getIndex(this.itemsEdited, item.id);
-    this.itemsEdited.splice(index, 1);
+    if (index !== undefined) {
+      this.itemsEdited.splice(index, 1);
+    }
     this.itemsEdited.push(item);
   }
 

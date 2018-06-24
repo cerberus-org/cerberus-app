@@ -115,7 +115,7 @@ export class SettingsEffects {
   updateVisits$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_VISITS)
     .pipe(
       map((action: SettingsActions.UpdateVisits) => action.payload),
-      switchMap(visits => this.visitService.update(visits)
+      switchMap(visits => this.visitService.batchUpdate(visits)
         .pipe(
           tap(() => {
             this.snackBarService.updateVisitsSuccess();

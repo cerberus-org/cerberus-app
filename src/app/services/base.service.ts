@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
+import {
+  AngularFirestore, AngularFirestoreCollection, DocumentChangeAction,
+  QueryFn
+} from 'angularfire2/firestore';
 import { from } from 'rxjs';
 import { Observable } from 'rxjs/index';
 import { catchError, map } from 'rxjs/operators';
@@ -119,6 +122,16 @@ export abstract class BaseService<T extends { id: string }> {
       this.collection().doc(item.id).update(this.convertOut(item)),
     ).pipe(
       catchError(error => this.errorService.handleFirebaseError(error)));
+  }
+
+  batchUpdate(items: any[]): Observable<any> {
+    const batch = this.db.firestore.batch();
+    items.forEach((item) => {
+      batch.update(this.db.firestore.collection('Visit').doc(item.id), { endedAt: item.endedAt });
+    });
+    return from(
+      batch.commit(),
+    );
   }
 
   /**
