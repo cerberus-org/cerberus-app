@@ -26,8 +26,8 @@ export class SnackBarService {
     this.open('Volunteer successfully signed up.');
   }
 
-  updateVisitSuccess(): void {
-    this.open('Visit was successfully updated');
+  updateVisitsSuccess(): void {
+    this.open('Visits was successfully updated');
   }
 
   updateUserSuccess(): void {
