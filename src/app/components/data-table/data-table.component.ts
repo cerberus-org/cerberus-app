@@ -75,9 +75,11 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() isReadOnly: Boolean;
   @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
+  @Output() updateMultipleItems = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
   @Output() timeSelected = new EventEmitter<any>();
   displayedColumns: string[];
+  itemsEdited: any[];
   initialPageSize: number;
   dataSource: DataTableSource;
 
@@ -97,6 +99,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    * Sets the initial page size and columns to display.
    */
   ngOnInit(): void {
+    this.itemsEdited = [];
     // Determine initial page size using inner height of window at component init
     const surroundingElementsPx = 224;
     const cellPx = 49;
@@ -131,10 +134,28 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   onSelectTime(value, item, key): void {
     const itemCopy = Object.assign({}, item);
-    // If endedAt is null, set to started at so we can call setHours on a defined value
+    // If endedAt is null, set to startedAt so we can call setHours on a defined value
     itemCopy.endedAt = item.endedAt ? item.endedAt : item.startedAt;
     itemCopy.endedAt.setHours(value.split(':')[0], value.split(':')[1], 0);
-    this.updateItem.emit(itemCopy);
+    this.addItemToItems(itemCopy);
+  }
+
+  updateItems(items) {
+    this.updateMultipleItems.emit(items);
+  }
+
+  addItemToItems(item): void {
+    const index = this.getIndex(this.itemsEdited, item.id);
+    this.itemsEdited.splice(index, 1);
+    this.itemsEdited.push(item);
+  }
+
+  getIndex(list: any[], id: string): number {
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].id === id) {
+        return i;
+      }
+    }
   }
 
   /**
@@ -148,6 +169,10 @@ export class DataTableComponent implements OnInit, OnChanges {
   displayUpdateButton(column, columnOptions, isReadOnly) {
     return column === columnOptions[columnOptions.length - 1]
       && !isReadOnly ? true : false;
+  }
+
+  isItemsEdited(itemsEdited): boolean {
+    return itemsEdited && itemsEdited.length !== 0 ? true : false;
   }
 
   /**
