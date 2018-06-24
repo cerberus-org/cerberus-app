@@ -14,7 +14,7 @@
     </ng-container>
     <!--Table with delete option-->
     <ng-container *ngIf="showDelete" cdkColumnDef="delete">
-      <mat-header-cell *cdkHeaderCellDef>Delete</mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef>{{column.header}}<button mat-button *ngIf="displayUpdateButton(column.columnDef, displayedColumns, isReadOnly)" class="update-button">Update</button></mat-header-cell>
       <mat-cell *cdkCellDef="let row">
         <button mat-icon-button color="warn" (click)="onClickDelete(row)">
           <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>
