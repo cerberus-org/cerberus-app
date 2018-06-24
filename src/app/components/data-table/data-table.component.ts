@@ -72,6 +72,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
+  @Input() isReadOnly: Boolean;
   @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
@@ -134,6 +135,19 @@ export class DataTableComponent implements OnInit, OnChanges {
     itemCopy.endedAt = item.endedAt ? item.endedAt : item.startedAt;
     itemCopy.endedAt.setHours(value.split(':')[0], value.split(':')[1], 0);
     this.updateItem.emit(itemCopy);
+  }
+
+  /**
+   * Display update button if it is the last column option and isReadOnly is false.
+   *
+   * @param columnHeader
+   * @param columnOptions
+   * @param isReadOnly
+   * @returns {boolean | boolean}
+   */
+  displayUpdateButton(column, columnOptions, isReadOnly) {
+    return column === columnOptions[columnOptions.length - 1]
+      && !isReadOnly ? true : false;
   }
 
   /**
