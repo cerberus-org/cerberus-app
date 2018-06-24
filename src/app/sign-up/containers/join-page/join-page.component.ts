@@ -94,8 +94,11 @@ export class JoinPageComponent implements OnInit {
   onJoinOrganization() {
     const organization = this.getOrganizationByName(this.validInput);
     if (organization) {
-      this.authService.createUser(
-        Object.assign({}, this.validUser, { organizationId: organization.id, role: 'unverified' }))
+      this.authService.createUser({
+        ...this.validUser,
+        organizationId: organization.id,
+        role: 'unverified',
+      })
         .subscribe(() => {
           this.authService.signOut();
           this.snackBarService.requestToJoinOrganizationSuccess();

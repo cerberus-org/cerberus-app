@@ -96,7 +96,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
       return;
     }
     if (this.activeVisit) {
-      const visit = Object.assign({}, this.activeVisit, { endedAt: new Date() });
+      const visit = { ...this.activeVisit, endedAt: new Date() };
       this.checkOut.emit(visit);
     } else {
       const visit = new Visit(

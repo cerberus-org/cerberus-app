@@ -15,9 +15,7 @@ export function checkInReducer(state = initialState, action: Action): CheckInRed
   switch (action.type) {
 
     case CheckInActions.SUBMIT_NEW_VOLUNTEER_SUCCESS: {
-      return Object.assign({}, state, {
-        selectedTabIndex: 0,
-      });
+      return { ...state, selectedTabIndex: 0 };
     }
 
     default: {

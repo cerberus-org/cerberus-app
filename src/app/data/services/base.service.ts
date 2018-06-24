@@ -91,8 +91,7 @@ export abstract class BaseService<T extends { id: string }> {
   add(item: T, id?: string): Observable<T> {
     return from(
       id
-        ? this.collection().doc(id)
-          .set(this.mapObjectToDoc(item))
+        ? this.collection().doc(id).set(this.mapObjectToDoc(item))
           .then(() => this.mapDocToObject(Object.assign({}, item, { id })))
         : this.collection().add(Object.assign({}, this.mapObjectToDoc(item)))
           .then(

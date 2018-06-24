@@ -15,8 +15,9 @@ export class VolunteerService extends BaseService<Volunteer> {
 
   /**
    * Capitalize the firstName, lastName, and petName of the newVolunteer going to the database.
-   * @param volunteer
-   * @returns {any}
+   *
+   * @param {Volunteer} volunteer - the volunteer to be sent
+   * @returns {Volunteer} - the volunteer with capitalized properties
    */
   mapObjectToDoc(volunteer: Volunteer): Volunteer {
     return this.capitalize(volunteer);
@@ -24,8 +25,9 @@ export class VolunteerService extends BaseService<Volunteer> {
 
   /**
    * Capitalize the firstName, lastName, and petName of the newVolunteer coming from the database.
-   * @param volunteer
-   * @returns {any}
+   *
+   * @param {Volunteer} volunteer - the volunteer received
+   * @returns {Volunteer} - the volunteer with capitalized properties
    */
   mapDocToObject(volunteer: Volunteer): Volunteer {
     return this.capitalize(volunteer);
@@ -33,17 +35,16 @@ export class VolunteerService extends BaseService<Volunteer> {
 
   /**
    * Handles capitalization logic for volunteers.
-   * @param volunteer
-   * @returns {any}
+   *
+   * @param {Volunteer} volunteer - the volunteer to capitalize properties for
+   * @returns {Volunteer} - the volunteer with capitalized properties
    */
   private capitalize(volunteer: Volunteer): Volunteer {
-    volunteer.firstName = _.capitalize(volunteer.firstName);
-    volunteer.lastName = _.capitalize(volunteer.lastName);
-    volunteer.petName = _.capitalize(volunteer.petName);
-    return Object.assign({}, volunteer, {
+    return {
+      ...volunteer,
       firstName: _.capitalize(volunteer.firstName),
       lastName: _.capitalize(volunteer.lastName),
       petName: _.capitalize(volunteer.petName),
-    });
+    };
   }
 }

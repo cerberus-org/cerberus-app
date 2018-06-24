@@ -30,7 +30,7 @@ describe('VisitService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(VisitService);
-    testVisit = Object.assign({}, getMockVisits()[0]);
+    testVisit = getMockVisits()[0];
   }));
 
   it('should be created', inject([VisitService], (visitService: VisitService) => {

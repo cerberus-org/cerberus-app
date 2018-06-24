@@ -23,10 +23,11 @@ export class SiteService extends BaseService<Site> {
    * @returns {Site} - a new site with capitalized properties
    */
   private capitalizeSite(site: Site): Site {
-    return Object.assign({}, site, {
+    return {
+      ...site,
       name: upperAllFirst(site.name),
       address: upperAllFirst(site.address),
-    });
+    };
   }
 
   /**

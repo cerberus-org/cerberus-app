@@ -23,33 +23,38 @@ export type Action = ModelActions.All;
 export function modelReducer(state = initialState, action: Action): ModelReducerState {
   switch (action.type) {
     case ModelActions.LOAD_SITES_SUCCESS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         sites: action.payload,
-      });
+      };
     }
 
     case ModelActions.LOAD_USERS_SUCCESS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         users: action.payload,
-      });
+      };
     }
 
     case ModelActions.LOAD_VISITS_SUCCESS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         visits: sortVisitsByStartedAt(action.payload),
-      });
+      };
     }
 
     case ModelActions.LOAD_VOLUNTEERS_SUCCESS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         volunteers: action.payload,
-      });
+      };
     }
 
     case ModelActions.LOAD_ORGANIZATIONS_SUCCESS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         organizations: action.payload,
-      });
+      };
     }
 
     default: {

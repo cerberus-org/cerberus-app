@@ -6,13 +6,14 @@ import { selectModelSites } from '../../../root/store/selectors/model.selectors'
 
 export const selectOrganizationDashboardHeaderOptions = createSelector(
   selectSessionOrganization,
-  (organization: Organization): HeaderOptions =>
-    new HeaderOptions(
+  (organization: Organization): HeaderOptions => organization
+    ? new HeaderOptions(
       organization.name,
       'business',
       null,
       true,
-    ),
+    )
+    : null,
 );
 
 export const selectOrganizationDashboardSidenavOptions = createSelector(

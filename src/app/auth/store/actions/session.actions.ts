@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { User as FirebaseUser } from 'firebase';
-import { Organization, User } from '../../../models/index';
+import { Organization, User } from '../../../models';
 
 export const LOAD_DATA = '[Session] Load data';
 export const LOAD_DATA_SUCCESS = '[Session] Load data success';

@@ -11,6 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material';
+import * as _ from 'lodash';
 import { merge, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ColumnOptions } from '../../../models';
@@ -132,8 +133,8 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param key - the property to modify
    */
   onSelectOption(value, item, key): void {
-    const itemCopy = Object.assign({}, item);
-    itemCopy[key] = value;
-    this.updateItem.emit(itemCopy);
+    const itemClone = _.cloneDeep(item);
+    itemClone[key] = value;
+    this.updateItem.emit(itemClone);
   }
 }

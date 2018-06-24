@@ -23,10 +23,11 @@ export class UserService extends BaseService<User> {
    * @returns {User} - a new user with capitalized properties
    */
   private capitalizeUser(user: User): User {
-    return Object.assign({}, user, {
+    return {
+      ...user,
       firstName: _.capitalize(user.firstName),
       lastName: _.capitalize(user.lastName),
-    });
+    };
   }
 
   /**

@@ -17,7 +17,7 @@ describe('dataDisplayReducer', () => {
     });
 
     it('does not maxVisitedStep when the next maxVisitedStep is less than the previous', () => {
-      const initialState = Object.assign({}, fromGettingStarted.initialState, { step: 2 });
+      const initialState = { ...fromGettingStarted.initialState, step: 2 };
       const state = fromGettingStarted.gettingStartedReducer(
         initialState,
         new GettingStartedActions.NextStep(1),

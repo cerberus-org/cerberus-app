@@ -49,7 +49,7 @@ export class RootComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Enable loader on login
     this.afAuth.auth.onAuthStateChanged((user) => {
-      this.state = Object.assign(this.state, { isLoading: !!user });
+      this.state = { ...this.state, isLoading: !!user };
     });
     this.appSubscription = this.store$.select('app').subscribe(this.onNextAppState);
     this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
@@ -63,7 +63,7 @@ export class RootComponent implements OnInit, OnDestroy {
    * @param appState - the next state
    */
   onNextAppState = (appState) => {
-    this.state = Object.assign(this.state, { ...appState });
+    this.state = { ...this.state, ...appState };
     /**
      * TODO:
      * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is
@@ -77,7 +77,11 @@ export class RootComponent implements OnInit, OnDestroy {
    * @param sessionState - the next state
    */
   onNextSessionState = (sessionState) => {
-    Object.assign(this.state, { ...sessionState, isLoading: !!sessionState.user });
+    this.state = {
+      ...this.state,
+      ...sessionState,
+      isLoading: !!sessionState.user,
+    };
     if (sessionState.organization) {
       const organizationId = sessionState.organization.id;
       this.store$.dispatch(new ModelActions.LoadSites(organizationId));
@@ -98,14 +102,15 @@ export class RootComponent implements OnInit, OnDestroy {
     if (this.state.user && this.state.organization) {
       setTimeout(
         () => {
-          this.state = Object.assign(this.state, {
+          this.state = {
+            ...this.state,
             // Disable loader when model is loaded
             isLoading: (
               !modelState.sites.length
-              || !modelState.visits.length
-              || !modelState.volunteers.length
+              && !modelState.visits.length
+              && !modelState.volunteers.length
             ),
-          });
+          };
         },
         500,
       );

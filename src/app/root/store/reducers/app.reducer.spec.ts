@@ -1,16 +1,17 @@
 import { mockHeaderOptions } from '../../../mock/objects/header-options.mock';
 import { mockSidenavOptions } from '../../../mock/objects/sidenav-options.mock';
 import * as AppActions from '../actions/app.actions';
-import { appReducer } from './app.reducer';
+import { appReducer, initialState } from './app.reducer';
 
 describe('appReducer', () => {
   let testState;
 
   beforeEach(() => {
-    testState = Object.assign({}, fromApp.initialState, {
+    testState = {
+      ...initialState,
       sidenavOptions: ['a', 'b'],
       headerOptions: mockHeaderOptions[0],
-    });
+    };
   });
 
   describe('SET_HEADER_OPTIONS', () => {

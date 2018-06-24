@@ -14,9 +14,10 @@ export function settingsReducer(state = initialState, action: Action): SettingsR
   switch (action.type) {
 
     case SettingsActions.LOAD_PAGE: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         sidenavSelection: action.payload,
-      });
+      };
     }
 
     default: {

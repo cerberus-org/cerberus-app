@@ -16,15 +16,17 @@ export type Action = AppActions.All;
 export function appReducer(state = initialState, action: Action): AppReducerState {
   switch (action.type) {
     case AppActions.SET_HEADER_OPTIONS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         headerOptions: action.payload,
-      });
+      };
     }
 
     case AppActions.SET_SIDENAV_OPTIONS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         sidenavOptions: action.payload,
-      });
+      };
     }
 
     default: {

@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Site } from '../../models';
 
 export const mockSites: Site[] = [
@@ -14,3 +15,5 @@ export const mockSites: Site[] = [
     address: '2701 Lapalco Blvd, Harvey, LA 70058',
   },
 ];
+
+export const getMockSites = (): Site[] => _.cloneDeep(mockSites);

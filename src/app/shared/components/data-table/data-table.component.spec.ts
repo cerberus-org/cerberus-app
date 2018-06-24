@@ -63,7 +63,7 @@ describe('DataTableComponent', () => {
     const value = 'Admin';
     const item = getMockVolunteers()[0];
     const key = 'role';
-    const expected = Object.assign({}, item, { role: value });
+    const expected = { ...item, role: value };
     component.onSelectOption(value, item, key);
     expect(component.updateItem.emit).toHaveBeenCalledWith(expected);
   });

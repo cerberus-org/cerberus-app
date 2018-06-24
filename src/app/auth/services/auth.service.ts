@@ -40,7 +40,7 @@ export class AuthService {
     return from(this.afAuth.auth
       .createUserWithEmailAndPassword(user.email, user.password))
       .pipe(
-        switchMap(afUser => this.userService.add(user, afUser.uid)),
+        switchMap((firebaseUser: FirebaseUser) => this.userService.add(user, firebaseUser.uid)),
         catchError(error => this.errorService.handleFirebaseError(error)),
       );
   }
@@ -100,7 +100,7 @@ export class AuthService {
    * If the page is reloaded or the state of the user changes dispatch an action to load data to the root store$.
    */
   observeStateChanges(): void {
-    this.afAuth.auth.onAuthStateChanged((user) => {
+    this.afAuth.auth.onAuthStateChanged((user: FirebaseUser) => {
       this.store$.dispatch(
         user
           ? new SessionActions.LoadData(user)
