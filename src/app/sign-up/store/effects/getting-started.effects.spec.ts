@@ -7,6 +7,7 @@ import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { getMockOrganizations } from '../../../mock/objects/organization.mock';
 import { getMockUsers } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { rootReducers } from '../../../root/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as GettingStartedActions from '../actions/getting-started.actions';
@@ -32,17 +33,7 @@ describe('GettingStartedEffects', () => {
         ...mockServiceProviders,
       ],
       imports: [
-        StoreModule.forRoot(rootReducers),
-        StoreModule.forFeature('signUp', signUpReducers, {
-          initialState: {
-            gettingStarted: {
-              maxVisitedStep: 4,
-              validOrganization: getMockOrganizations()[0],
-              validUser: getMockUsers()[0],
-              tosIsChecked: true,
-            },
-          },
-        }),
+        ...mockStoreModules,
       ],
     });
     effects = TestBed.get(GettingStartedEffects);

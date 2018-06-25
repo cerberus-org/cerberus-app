@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { getMockVolunteers } from '../../../mock/objects/volunteer.mock';
-import { rootReducers } from '../../../root/store/reducers';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { VolunteerSettingsComponent } from './volunteer-settings.component';
 
@@ -13,7 +12,7 @@ describe('VolunteerSettingsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(rootReducers),
+        ...mockStoreModules,
       ],
       declarations: [
         VolunteerSettingsComponent,

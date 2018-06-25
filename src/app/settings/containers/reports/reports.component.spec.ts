@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { mockReports } from '../../../mock/objects/report.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { rootReducers } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { ReportsComponent } from './reports.component';
@@ -12,12 +13,12 @@ describe('ReportsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot(rootReducers),
-      ],
       declarations: [
         ReportsComponent,
         MockComponent({ selector: 'app-reports-form' }),
+      ],
+      imports: [
+        ...mockStoreModules,
       ],
     })
       .compileComponents();

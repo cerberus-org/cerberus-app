@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { authReducers } from '../../../auth/store/reducers';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { rootReducers } from '../../../root/store/reducers';
 import { RolesComponent } from './roles.component';
 
@@ -19,8 +20,7 @@ describe('RolesComponent', () => {
         }),
       ],
       imports: [
-        StoreModule.forRoot(rootReducers),
-        StoreModule.forFeature('auth', authReducers),
+        ...mockStoreModules,
       ],
     })
       .compileComponents();

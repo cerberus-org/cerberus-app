@@ -1,9 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { authReducers } from '../../../auth/store/reducers';
 import { getMockUsers } from '../../../mock/objects/user.mock';
-import { rootReducers } from '../../../root/store/reducers';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { UserSettingsComponent } from './user-settings.component';
 
@@ -18,8 +16,7 @@ describe('UserSettingsComponent', () => {
         MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
       ],
       imports: [
-        StoreModule.forRoot(rootReducers),
-        StoreModule.forFeature('auth', authReducers),
+        ...mockStoreModules,
       ],
     })
       .compileComponents();
