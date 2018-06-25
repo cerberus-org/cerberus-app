@@ -5,16 +5,16 @@ import { rootReducers } from '../root/store/reducers';
 import { initialModelReducerState } from '../root/store/reducers/model.reducer';
 import { settingsReducers } from '../settings/store/reducers';
 import { signUpReducers } from '../sign-up/store/reducers';
-import { getMockOrganizations } from './objects/organization.mock';
-import { getMockUsers } from './objects/user.mock';
-import { getMockVolunteers } from './objects/volunteer.mock';
+import { createMockOrganizations } from './objects/organization.mock';
+import { createMockUsers } from './objects/user.mock';
+import { createMockVolunteers } from './objects/volunteer.mock';
 
 export const mockStoreModules = [
   StoreModule.forRoot(rootReducers, {
     initialState: {
       model: {
         ...initialModelReducerState,
-        volunteers: getMockVolunteers(),
+        volunteers: createMockVolunteers(),
       },
     },
   }),
@@ -22,8 +22,8 @@ export const mockStoreModules = [
     initialState: {
       session: {
         ...initialSessionReducerState,
-        organization: getMockOrganizations()[0],
-        user: getMockUsers()[0],
+        organization: createMockOrganizations()[0],
+        user: createMockUsers()[0],
       },
     },
   }),
@@ -32,8 +32,8 @@ export const mockStoreModules = [
     initialState: {
       gettingStarted: {
         maxVisitedStep: 4,
-        validOrganization: getMockOrganizations()[0],
-        validUser: getMockUsers()[0],
+        validOrganization: createMockOrganizations()[0],
+        validUser: createMockUsers()[0],
         tosIsChecked: true,
       },
     },

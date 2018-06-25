@@ -29,7 +29,7 @@ export const mockUsers: User[] = [
   },
 ];
 
-export const getMockUsers = (): User[] => _.cloneDeep(mockUsers);
+export const createMockUsers = (users: User[] = mockUsers): User[] => _.cloneDeep(users);
 
 export const mockLoginCredentials: any = [
   {
@@ -46,7 +46,7 @@ export const mockLoginCredentials: any = [
   },
 ];
 
-export const getMockLoginCredentials = (): User[] => _.cloneDeep(mockLoginCredentials);
+export const createMockLoginCredentials = (loginCredentials = mockLoginCredentials): User[] => _.cloneDeep(loginCredentials);
 
 export const mockFirebaseUsers: any[] = [
   {
@@ -66,4 +66,4 @@ export const mockFirebaseUsers: any[] = [
   },
 ];
 
-export const getMockFirebaseUsers = (): User[] => _.cloneDeep(mockFirebaseUsers);
+export const createMockFirebaseUsers = (firebaseUsers = mockFirebaseUsers): User[] => _.cloneDeep(firebaseUsers);

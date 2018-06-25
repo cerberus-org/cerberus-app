@@ -1,5 +1,5 @@
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
-import { getMockUsers } from '../../../mock/objects/user.mock';
+import { createMockUsers } from '../../../mock/objects/user.mock';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import { gettingStartedReducer, initialGettingStartedReducerState } from './getting-started.reducer';
 
@@ -41,9 +41,9 @@ describe('gettingStartedReducer', () => {
     it('updates the valid organization', () => {
       const state = gettingStartedReducer(
         initialGettingStartedReducerState,
-        new GettingStartedActions.UpdateValidUser(getMockUsers()[0]),
+        new GettingStartedActions.UpdateValidUser(createMockUsers()[0]),
       );
-      expect(state.validUser).toEqual(getMockUsers()[0]);
+      expect(state.validUser).toEqual(createMockUsers()[0]);
     });
   });
 });

@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { HeaderOptions } from '../../models';
 
 export const mockHeaderOptions: HeaderOptions[] = [
@@ -8,3 +9,6 @@ export const mockHeaderOptions: HeaderOptions[] = [
     showSettings: true,
   },
 ];
+
+export const createMockReports = (headerOptions: HeaderOptions[] = mockHeaderOptions): HeaderOptions[] =>
+  _.cloneDeep(headerOptions);

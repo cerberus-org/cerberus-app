@@ -3,7 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { from } from 'rxjs';
 import { MockErrorService } from '../../mock/classes/error.service.mock';
-import { getMockVisits } from '../../mock/objects/visit.mock';
+import { createMockVisits } from '../../mock/objects/visit.mock';
 import { Visit } from '../../models';
 import { ErrorService } from '../../shared/services/error.service';
 import { VisitService } from './visit.service';
@@ -30,7 +30,7 @@ describe('VisitService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(VisitService);
-    testVisit = getMockVisits()[0];
+    testVisit = createMockVisits()[0];
   }));
 
   it('should be created', inject([VisitService], (visitService: VisitService) => {
@@ -42,7 +42,7 @@ describe('VisitService', () => {
     const endedAt = new Date('2017-07-03');
     service.getByOrganizationIdAndDateRange(testVisit.organizationId, startedAt, endedAt, true)
       .subscribe((visits) => {
-        const testVisits = getMockVisits();
+        const testVisits = createMockVisits();
         expect(snapshotChangesSpy).toHaveBeenCalled();
         expect(whereSpy).toHaveBeenCalledWith(
           'organizationId',
@@ -76,7 +76,7 @@ describe('VisitService', () => {
 
   class AngularFirestoreStub {
     collection(path, queryFn) {
-      let items = getMockVisits();
+      let items = createMockVisits();
       // Run query function to call spies if provided
       if (queryFn) {
         queryFn({

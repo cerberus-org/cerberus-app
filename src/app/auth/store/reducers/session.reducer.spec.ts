@@ -1,5 +1,5 @@
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
-import { getMockUsers } from '../../../mock/objects/user.mock';
+import { createMockUsers } from '../../../mock/objects/user.mock';
 import * as SessionActions from '../actions/session.actions';
 import { sessionReducer } from './session.reducer';
 
@@ -10,9 +10,9 @@ describe('layoutReducer', () => {
     it('loads the User and Organization', () => {
       const state = sessionReducer(
         undefined,
-        new SessionActions.LoadDataSuccess({ user: getMockUsers()[0], organization: mockOrganizations[0] }),
+        new SessionActions.LoadDataSuccess({ user: createMockUsers()[0], organization: mockOrganizations[0] }),
       );
-      expect(state.user).toEqual(getMockUsers()[0]);
+      expect(state.user).toEqual(createMockUsers()[0]);
       expect(state.organization).toEqual(mockOrganizations[0]);
     });
   });
@@ -33,9 +33,9 @@ describe('layoutReducer', () => {
     it('updates the user', () => {
       const state = sessionReducer(
         undefined,
-        new SessionActions.UpdateUser(getMockUsers()[0]),
+        new SessionActions.UpdateUser(createMockUsers()[0]),
       );
-      expect(state.user).toEqual(getMockUsers()[0]);
+      expect(state.user).toEqual(createMockUsers()[0]);
     });
   });
 });

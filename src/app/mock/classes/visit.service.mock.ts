@@ -1,7 +1,7 @@
 import { EMPTY, Observable, of } from 'rxjs';
 import { VisitService } from '../../data/services/visit.service';
 import { Visit } from '../../models';
-import { getMockVisits } from '../objects/visit.mock';
+import { createMockVisits } from '../objects/visit.mock';
 
 export class MockVisitService extends VisitService {
 
@@ -15,7 +15,7 @@ export class MockVisitService extends VisitService {
     endDate: Date,
     snapshot?: boolean,
   ): Observable<Visit[]> {
-    return of(getMockVisits()
+    return of(createMockVisits()
       .filter(visit =>
         visit.startedAt >= startDate &&
         (!visit.endedAt || visit.endedAt <= endDate) &&
@@ -24,15 +24,15 @@ export class MockVisitService extends VisitService {
   }
 
   getAll(): Observable<Visit[]> {
-    return of(getMockVisits());
+    return of(createMockVisits());
   }
 
   getByKey(key: string, value: string): Observable<Visit[]> {
-    return of(getMockVisits().filter(visit => visit[key] === value));
+    return of(createMockVisits().filter(visit => visit[key] === value));
   }
 
   getById(id: string): Observable<Visit> {
-    return of(getMockVisits().find(visit => visit.id === id));
+    return of(createMockVisits().find(visit => visit.id === id));
   }
 
   add(visit: Visit): Observable<Visit> {

@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { AuthService } from '../../../auth/services/auth.service';
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
-import { getMockUsers } from '../../../mock/objects/user.mock';
+import { createMockUsers } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
@@ -46,8 +46,8 @@ describe('JoinPageComponent', () => {
   });
 
   it('should handle userEdits events by setting userEdits', () => {
-    component.onValidUser(getMockUsers()[0]);
-    expect(component.validUser).toEqual(getMockUsers()[0]);
+    component.onValidUser(createMockUsers()[0]);
+    expect(component.validUser).toEqual(createMockUsers()[0]);
   });
 
   it('should get Organization by name', () => {

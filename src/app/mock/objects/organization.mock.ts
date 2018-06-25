@@ -16,4 +16,4 @@ export const mockOrganizations: Organization[] = [
   },
 ];
 
-export const getMockOrganizations = (): Organization[] => _.cloneDeep(mockOrganizations);
+export const createMockOrganizations = (): Organization[] => _.cloneDeep(mockOrganizations);

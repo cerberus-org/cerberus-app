@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { getMockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { VolunteerSettingsComponent } from './volunteer-settings.component';
@@ -37,7 +37,7 @@ describe('VolunteerSettingsComponent', () => {
 
   it('should handle deleteVolunteer events by dispatching SettingsActions.DeleteVolunteer', () => {
     spyOn(component.store$, 'dispatch');
-    const volunteer = getMockVolunteers()[0];
+    const volunteer = createMockVolunteers()[0];
     component.onDeleteVolunteer(volunteer);
     expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new SettingsActions.DeleteVolunteer(volunteer));

@@ -5,8 +5,8 @@ import { Observable, of } from 'rxjs';
 import { filterByOrganizationId } from '../../../functions';
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
 import { mockSites } from '../../../mock/objects/site.mock';
-import { getMockVisits } from '../../../mock/objects/visit.mock';
-import { getMockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { createMockVisits } from '../../../mock/objects/visit.mock';
+import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import * as ModelActions from '../actions/model.actions';
 import { ModelEffects } from './model.effects';
@@ -49,7 +49,7 @@ describe('ModelEffects', () => {
       });
       const expected = cold('b', {
         b: new ModelActions.LoadVisitsSuccess(
-          filterByOrganizationId(getMockVisits(), organizationId),
+          filterByOrganizationId(createMockVisits(), organizationId),
         ),
       });
       expect(effects.loadVisits$).toBeObservable(expected);
@@ -63,7 +63,7 @@ describe('ModelEffects', () => {
       });
       const expected = cold('b', {
         b: new ModelActions.LoadVolunteersSuccess(
-          filterByOrganizationId(getMockVolunteers(), organizationId),
+          filterByOrganizationId(createMockVolunteers(), organizationId),
         ),
       });
       expect(effects.loadVolunteers$).toBeObservable(expected);

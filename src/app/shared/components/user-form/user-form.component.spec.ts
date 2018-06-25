@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { getMockUsers } from '../../../mock/objects/user.mock';
+import { createMockUsers } from '../../../mock/objects/user.mock';
 import { User } from '../../../models';
 import { UserFormComponent } from './user-form.component';
 
@@ -36,7 +36,7 @@ describe('UserFormComponent', () => {
 
   it('should emit a validUser event on valid form values', () => {
     spyOn(component.validUser, 'emit');
-    const testUser = getMockUsers()[0];
+    const testUser = createMockUsers()[0];
     const firstName = testUser.firstName;
     const lastName = testUser.lastName;
     const email = testUser.email;

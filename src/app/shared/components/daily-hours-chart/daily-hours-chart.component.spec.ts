@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChartsModule } from 'ng2-charts';
-import { getMockVisits } from '../../../mock/objects/visit.mock';
+import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { DailyHoursChartComponent } from './daily-hours-chart.component';
 
 describe('DailyHoursChartComponent', () => {
@@ -32,7 +32,7 @@ describe('DailyHoursChartComponent', () => {
   });
 
   it('should set up the line chart labels', () => {
-    const latest = getMockVisits()[4].startedAt;
+    const latest = createMockVisits()[4].startedAt;
     const labels = component.setupLineChartLabels(latest, 5, 'ddd MMM D', 'days');
     expect(labels.length).toEqual(5);
     labels.forEach((label, index) =>
@@ -40,7 +40,7 @@ describe('DailyHoursChartComponent', () => {
   });
 
   it('should set up the line chart data', () => {
-    const lineChartData = component.setupLineChartData(getMockVisits(), testLabels)[0];
+    const lineChartData = component.setupLineChartData(createMockVisits(), testLabels)[0];
     expect(lineChartData.data.length).toEqual(5);
     expect(lineChartData.data[0]).toEqual('0.000');
     expect(lineChartData.data[1]).toEqual('10.000');

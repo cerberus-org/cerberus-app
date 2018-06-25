@@ -1,4 +1,5 @@
-import { SidenavOptions } from '../../models';
+import * as _ from 'lodash';
+import { Report, SidenavOptions } from '../../models';
 
 export const mockSidenavOptions: SidenavOptions[] = [
   {
@@ -7,3 +8,6 @@ export const mockSidenavOptions: SidenavOptions[] = [
     action: null,
   },
 ];
+
+export const createMockReports = (sidenavOptions: SidenavOptions[] = mockSidenavOptions): SidenavOptions[] =>
+  _.cloneDeep(sidenavOptions);

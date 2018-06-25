@@ -2,7 +2,7 @@ import { User as FirebaseUser } from 'firebase';
 import { Observable, of } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { User } from '../../models';
-import { getMockFirebaseUsers } from '../objects/user.mock';
+import { createMockFirebaseUsers } from '../objects/user.mock';
 
 export class MockAuthService extends AuthService {
 
@@ -23,7 +23,7 @@ export class MockAuthService extends AuthService {
   }
 
   signIn(email: string, password: string): Observable<any> {
-    return of(getMockFirebaseUsers().find(user => user.email === email));
+    return of(createMockFirebaseUsers().find(user => user.email === email));
   }
 
   signOut(): Observable<FirebaseUser> {

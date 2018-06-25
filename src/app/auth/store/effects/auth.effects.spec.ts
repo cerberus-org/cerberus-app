@@ -4,7 +4,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { StoreModule } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { getMockLoginCredentials } from '../../../mock/objects/user.mock';
+import { createMockLoginCredentials } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { rootReducers } from '../../../root/store/reducers';
@@ -35,7 +35,7 @@ describe('AuthEffects', () => {
 
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(getMockLoginCredentials()[0]),
+        a: new AuthActions.LogIn(createMockLoginCredentials()[0]),
       });
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] }),
@@ -45,7 +45,7 @@ describe('AuthEffects', () => {
 
     it('should open the accountNotVerified snackbar if role is locked', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(getMockLoginCredentials()[2]),
+        a: new AuthActions.LogIn(createMockLoginCredentials()[2]),
       });
       const accountNotVerifiedSpy = spyOn(TestBed.get(SnackBarService), 'accountNotVerified');
       effects.login$.subscribe(() => {
@@ -55,7 +55,7 @@ describe('AuthEffects', () => {
 
     it('should open the loginSuccess snackbar', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(getMockLoginCredentials()[0]),
+        a: new AuthActions.LogIn(createMockLoginCredentials()[0]),
       });
       const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'loginSuccess');
       effects.login$.subscribe(() => {
@@ -104,7 +104,7 @@ describe('AuthEffects', () => {
   describe('resetPassword$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.ResetPassword(getMockLoginCredentials()[0].email),
+        a: new AuthActions.ResetPassword(createMockLoginCredentials()[0].email),
       });
     }));
 

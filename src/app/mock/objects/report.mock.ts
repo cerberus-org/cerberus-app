@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Report } from '../../models';
 
 export const mockReports: Report[] = [
@@ -12,3 +13,5 @@ export const mockReports: Report[] = [
     title: 'Def',
   },
 ];
+
+export const createMockReports = (reports: Report[] = mockReports): Report[] => _.cloneDeep(reports);

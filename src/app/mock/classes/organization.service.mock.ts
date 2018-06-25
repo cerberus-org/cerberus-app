@@ -1,7 +1,7 @@
 import { EMPTY, Observable, of } from 'rxjs';
 import { OrganizationService } from '../../data/services/organization.service';
 import { Organization } from '../../models';
-import { getMockOrganizations } from '../objects/organization.mock';
+import { createMockOrganizations } from '../objects/organization.mock';
 
 export class MockOrganizationService extends OrganizationService {
 
@@ -10,15 +10,15 @@ export class MockOrganizationService extends OrganizationService {
   }
 
   getAll(): Observable<Organization[]> {
-    return of(getMockOrganizations());
+    return of(createMockOrganizations());
   }
 
   getByKey(key: string, value: string): Observable<Organization[]> {
-    return of(getMockOrganizations().filter(organization => organization[key] === value));
+    return of(createMockOrganizations().filter(organization => organization[key] === value));
   }
 
   getById(id: string): Observable<Organization> {
-    return of(getMockOrganizations().find(organization => organization.id === id));
+    return of(createMockOrganizations().find(organization => organization.id === id));
   }
 
   add(organization: Organization): Observable<Organization> {

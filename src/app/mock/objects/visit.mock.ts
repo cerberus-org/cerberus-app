@@ -65,4 +65,4 @@ export const mockVisits: Visit[] = [
   },
 ];
 
-export const getMockVisits = (): Visit[] => _.cloneDeep(mockVisits);
+export const createMockVisits = (visits: Visit[] = mockVisits): Visit[] => _.cloneDeep(visits);

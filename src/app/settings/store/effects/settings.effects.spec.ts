@@ -3,8 +3,8 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import * as SessionActions from '../../../auth/store/actions/session.actions';
-import { getMockOrganizations } from '../../../mock/objects/organization.mock';
-import { getMockUsers } from '../../../mock/objects/user.mock';
+import { createMockOrganizations } from '../../../mock/objects/organization.mock';
+import { createMockUsers } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { Organization } from '../../../models';
@@ -37,7 +37,7 @@ describe('SettingsEffects', () => {
     let organization: Organization;
 
     beforeEach(async(() => {
-      organization = getMockOrganizations()[1];
+      organization = createMockOrganizations()[1];
       actions = hot('a', {
         a: new SettingsActions.UpdateOrganization(organization),
       });
@@ -62,7 +62,7 @@ describe('SettingsEffects', () => {
 
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new SettingsActions.UpdateUser({ ...getMockUsers()[1], role: undefined }),
+        a: new SettingsActions.UpdateUser({ ...createMockUsers()[1], role: undefined }),
       });
     }));
 
@@ -70,7 +70,7 @@ describe('SettingsEffects', () => {
       'should dispatch SessionActions.UpdateUser with the edited user and without changes to the role property',
       (() => {
         const expected = cold('b', {
-          b: new SessionActions.UpdateUser({ ...getMockUsers()[1], role: getMockUsers()[0].role }),
+          b: new SessionActions.UpdateUser({ ...createMockUsers()[1], role: createMockUsers()[0].role }),
         });
         expect(effects.updateUser$).toBeObservable(expected);
       }),

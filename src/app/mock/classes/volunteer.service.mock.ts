@@ -1,7 +1,7 @@
 import { EMPTY, Observable, of } from 'rxjs';
 import { VolunteerService } from '../../data/services/volunteer.service';
 import { Volunteer } from '../../models';
-import { getMockVolunteers } from '../objects/volunteer.mock';
+import { createMockVolunteers } from '../objects/volunteer.mock';
 
 export class MockVolunteerService extends VolunteerService {
 
@@ -10,15 +10,15 @@ export class MockVolunteerService extends VolunteerService {
   }
 
   getAll(): Observable<Volunteer[]> {
-    return of(getMockVolunteers());
+    return of(createMockVolunteers());
   }
 
   getByKey(key: string, value: string): Observable<Volunteer[]> {
-    return of(getMockVolunteers().filter(volunteer => volunteer[key] === value));
+    return of(createMockVolunteers().filter(volunteer => volunteer[key] === value));
   }
 
   getById(id: string): Observable<Volunteer> {
-    return of(getMockVolunteers().find(volunteer => volunteer.id === id));
+    return of(createMockVolunteers().find(volunteer => volunteer.id === id));
   }
 
   add(volunteer: Volunteer): Observable<Volunteer> {

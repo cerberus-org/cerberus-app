@@ -16,4 +16,4 @@ export const mockSites: Site[] = [
   },
 ];
 
-export const getMockSites = (): Site[] => _.cloneDeep(mockSites);
+export const createMockSites = (sites: Site[] = mockSites): Site[] => _.cloneDeep(sites);

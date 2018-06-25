@@ -21,4 +21,4 @@ export const mockVolunteers: Volunteer[] = [{
   petName: 'Gam-Gam',
 }];
 
-export const getMockVolunteers = (): Volunteer[] => _.cloneDeep(mockVolunteers);
+export const createMockVolunteers = (volunteers: Volunteer[] = mockVolunteers): Volunteer[] => _.cloneDeep(volunteers);

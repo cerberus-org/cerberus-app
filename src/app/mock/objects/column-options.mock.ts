@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { ColumnOptions } from '../../models';
 
 export const mockColumnOptions: ColumnOptions[] = [
@@ -13,3 +14,6 @@ export const mockColumnOptions: ColumnOptions[] = [
     cell: () => {},
   },
 ];
+
+export const createMockColumnOptions = (columnOptions: ColumnOptions[] = mockColumnOptions): ColumnOptions[] =>
+  _.cloneDeep(columnOptions);

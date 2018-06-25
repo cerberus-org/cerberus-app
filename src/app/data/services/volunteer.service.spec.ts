@@ -1,7 +1,7 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { MockErrorService } from '../../mock/classes/error.service.mock';
-import { getMockVolunteers, mockVolunteers } from '../../mock/objects/volunteer.mock';
+import { createMockVolunteers, mockVolunteers } from '../../mock/objects/volunteer.mock';
 import { Volunteer } from '../../models';
 import { ErrorService } from '../../shared/services/error.service';
 import { VolunteerService } from './volunteer.service';
@@ -20,7 +20,7 @@ describe('VolunteerService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(VolunteerService);
-    volunteer = getMockVolunteers()[0];
+    volunteer = createMockVolunteers()[0];
     volunteer.firstName = 'tED';
     volunteer.lastName = 'mAdEr';
     volunteer.petName = 'miMI';
