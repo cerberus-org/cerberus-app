@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 import { HeaderOptions, SidenavOptions } from '../../../models';
 
-export const SET_HEADER_OPTIONS = '[App] Set Header Options';
-export const SET_SIDENAV_OPTIONS = '[App] Set Sidenav Options';
+export const SET_HEADER_OPTIONS = '[Layout] Set Header Options';
+export const SET_SIDENAV_OPTIONS = '[Layout] Set Sidenav Options';
 
 export class SetHeaderOptions implements Action {
   readonly type = SET_HEADER_OPTIONS;

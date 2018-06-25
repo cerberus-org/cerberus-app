@@ -3,6 +3,7 @@ import { authReducers } from '../auth/store/reducers';
 import { initialSessionReducerState } from '../auth/store/reducers/session.reducer';
 import { rootReducers } from '../root/store/reducers';
 import { initialModelReducerState } from '../root/store/reducers/model.reducer';
+import { settingsReducers } from '../settings/store/reducers';
 import { signUpReducers } from '../sign-up/store/reducers';
 import { getMockOrganizations } from './objects/organization.mock';
 import { getMockUsers } from './objects/user.mock';
@@ -26,6 +27,7 @@ export const mockStoreModules = [
       },
     },
   }),
+  StoreModule.forFeature('settings', settingsReducers),
   StoreModule.forFeature('signUp', signUpReducers, {
     initialState: {
       gettingStarted: {

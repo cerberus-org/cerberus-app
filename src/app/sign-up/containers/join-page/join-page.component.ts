@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth.service';
 import { OrganizationService } from '../../../data/services/organization.service';
 import { HeaderOptions, Organization, User } from '../../../models';
-import * as AppActions from '../../../root/store/actions/app.actions';
+import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { RootState } from '../../../root/store/reducers';
 import { selectModelOrganizations } from '../../../root/store/selectors/model.selectors';
@@ -50,8 +50,8 @@ export class JoinPageComponent implements OnInit {
       .subscribe((organizations) => {
         this.organizations = organizations;
       });
-    this.store$.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.store$.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store$.dispatch(new LayoutActions.SetHeaderOptions(this.headerOptions));
+    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
   }
 
   /**

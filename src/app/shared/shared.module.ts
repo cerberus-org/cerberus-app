@@ -31,11 +31,23 @@ import { ErrorService } from './services/error.service';
 import { SnackBarService } from './services/snack-bar.service';
 
 @NgModule({
+  declarations: [
+    DailyHoursChartComponent,
+    DataCellComponent,
+    DataDisplayComponent,
+    DataTableComponent,
+    FindOrganizationComponent,
+    OrganizationFormComponent,
+    PasswordDialogComponent,
+    ServicesAgreementComponent,
+    ServicesAgreementDialogComponent,
+    UserFormComponent,
+  ],
   imports: [
+    CommonModule,
     BrowserAnimationsModule,
     CdkTableModule,
     ChartsModule,
-    CommonModule,
     FormsModule,
     MatAutocompleteModule,
     MatButtonModule,
@@ -49,18 +61,6 @@ import { SnackBarService } from './services/snack-bar.service';
     MatTableModule,
     MatTabsModule,
     ReactiveFormsModule,
-  ],
-  declarations: [
-    DailyHoursChartComponent,
-    DataCellComponent,
-    DataDisplayComponent,
-    DataTableComponent,
-    FindOrganizationComponent,
-    OrganizationFormComponent,
-    PasswordDialogComponent,
-    ServicesAgreementComponent,
-    ServicesAgreementDialogComponent,
-    UserFormComponent,
   ],
   entryComponents: [
     PasswordDialogComponent, ServicesAgreementDialogComponent,

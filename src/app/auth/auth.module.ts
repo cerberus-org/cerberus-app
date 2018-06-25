@@ -12,16 +12,16 @@ import { authEffects } from './store/effects';
 import { authReducers } from './store/reducers';
 
 @NgModule({
+  declarations: [],
   imports: [
+    CommonModule,
     StoreModule.forFeature('auth', authReducers),
     EffectsModule.forFeature(authEffects),
     AngularFireAuthModule,
-    CommonModule,
     // Cerberus modules
     DataModule,
     SharedModule,
   ],
-  declarations: [],
   providers: [
     AuthService,
     LoginGuard,

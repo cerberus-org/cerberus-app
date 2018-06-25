@@ -9,13 +9,13 @@ import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 
 @NgModule({
+  declarations: [],
   imports: [
-    AngularFirestoreModule,
     CommonModule,
+    AngularFirestoreModule,
     // Cerberus modules
     SharedModule,
   ],
-  declarations: [],
   providers: [
     OrganizationService,
     SiteService,

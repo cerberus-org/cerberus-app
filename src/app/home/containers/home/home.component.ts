@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import * as AppActions from '../../../root/store/actions/app.actions';
+import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { RootState } from '../../../root/store/reducers';
 
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   constructor(public store$: Store<RootState>) {}
 
   ngOnInit(): void {
-    this.store$.dispatch(new AppActions.SetHeaderOptions(null));
+    this.store$.dispatch(new LayoutActions.SetHeaderOptions(null));
   }
 
   onValidInput(organizationName: string): void {

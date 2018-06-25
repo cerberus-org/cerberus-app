@@ -1,28 +1,28 @@
 import { HeaderOptions, SidenavOptions } from '../../../models';
-import * as AppActions from '../actions/app.actions';
+import * as LayoutActions from '../actions/layout.actions';
 
-export interface AppReducerState {
+export interface LayoutReducerState {
   headerOptions: HeaderOptions;
   sidenavOptions: SidenavOptions[];
 }
 
-export const initialAppReducerState: AppReducerState = {
+export const initialLayoutReducerState: LayoutReducerState = {
   headerOptions: null,
   sidenavOptions: [],
 };
 
-export type Action = AppActions.All;
+export type Action = LayoutActions.All;
 
-export function appReducer(state = initialAppReducerState, action: Action): AppReducerState {
+export function layoutReducer(state = initialLayoutReducerState, action: Action): LayoutReducerState {
   switch (action.type) {
-    case AppActions.SET_HEADER_OPTIONS: {
+    case LayoutActions.SET_HEADER_OPTIONS: {
       return {
         ...state,
         headerOptions: action.payload,
       };
     }
 
-    case AppActions.SET_SIDENAV_OPTIONS: {
+    case LayoutActions.SET_SIDENAV_OPTIONS: {
       return {
         ...state,
         sidenavOptions: action.payload,

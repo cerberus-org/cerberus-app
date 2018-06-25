@@ -1,16 +1,16 @@
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { ActionReducerMap } from '@ngrx/store';
-import { appReducer, AppReducerState } from './app.reducer';
+import { layoutReducer, LayoutReducerState } from './layout.reducer';
 import { modelReducer, ModelReducerState } from './model.reducer';
 
 export interface RootState {
-  app: AppReducerState;
+  layout: LayoutReducerState;
   model: ModelReducerState;
   router: RouterReducerState;
 }
 
 export const rootReducers: ActionReducerMap<RootState> = {
-  app: appReducer,
+  layout: layoutReducer,
   model: modelReducer,
   router: routerReducer,
 };

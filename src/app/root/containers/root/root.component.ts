@@ -8,10 +8,10 @@ import { selectSessionReducerState } from '../../../auth/store/selectors/session
 import { isAdmin } from '../../../functions';
 import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
+import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import * as ModelActions from '../../store/actions/model.actions';
 import * as RouterActions from '../../store/actions/router.actions';
 import { RootState } from '../../store/reducers';
-import { SidenavComponent } from '../sidenav/sidenav.component';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +27,7 @@ export class RootComponent implements OnInit, OnDestroy {
     user: User;
     isLoading: Boolean;
   };
-  appSubscription: Subscription;
+  layoutSubscription: Subscription;
   sessionSubscription: Subscription;
   modelSubscription: Subscription;
 
@@ -51,7 +51,7 @@ export class RootComponent implements OnInit, OnDestroy {
     this.afAuth.auth.onAuthStateChanged((user) => {
       this.state = { ...this.state, isLoading: !!user };
     });
-    this.appSubscription = this.store$.select('app').subscribe(this.onNextAppState);
+    this.layoutSubscription = this.store$.select('layout').subscribe(this.onNextLayoutState);
     this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
       .subscribe(this.onNextSessionState);
     this.modelSubscription = this.store$.select('model').subscribe(this.onNextModelState);
@@ -59,11 +59,11 @@ export class RootComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handles the next root store state.
-   * @param appState - the next state
+   * Handles the next layout state.
+   * @param layoutState - the next state
    */
-  onNextAppState = (appState) => {
-    this.state = { ...this.state, ...appState };
+  onNextLayoutState = (layoutState) => {
+    this.state = { ...this.state, ...layoutState };
     /**
      * TODO:
      * ExpressionChangedAfterItHasBeenCheckedError is thrown if the following line is
@@ -118,8 +118,8 @@ export class RootComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.appSubscription) {
-      this.appSubscription.unsubscribe();
+    if (this.layoutSubscription) {
+      this.layoutSubscription.unsubscribe();
     }
     if (this.sessionSubscription) {
       this.sessionSubscription.unsubscribe();

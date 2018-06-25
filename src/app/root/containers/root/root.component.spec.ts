@@ -4,9 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MockComponent } from 'ng2-mock-component';
-import { AuthModule } from '../../../auth/auth.module';
-import { authReducers } from '../../../auth/store/reducers';
-import { rootReducers } from '../../store/reducers';
+import { authReducers } from '../../../auth/store/reducers/index';
+import { rootReducers } from '../../store/reducers/index';
 import { RootComponent } from './root.component';
 
 describe('RootComponent', () => {
@@ -20,7 +19,7 @@ describe('RootComponent', () => {
       ],
       declarations: [
         RootComponent,
-        MockComponent({ selector: 'root-footer' }),
+        MockComponent({ selector: 'app-footer' }),
         MockComponent({
           selector: 'app-header',
           inputs: ['headerOptions', 'showLogOut', 'showSidenavToggle'],

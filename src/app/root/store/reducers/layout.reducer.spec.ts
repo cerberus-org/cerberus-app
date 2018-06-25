@@ -1,14 +1,14 @@
 import { mockHeaderOptions } from '../../../mock/objects/header-options.mock';
 import { mockSidenavOptions } from '../../../mock/objects/sidenav-options.mock';
-import * as AppActions from '../actions/app.actions';
-import { appReducer, initialAppReducerState } from './app.reducer';
+import * as LayoutActions from '../actions/layout.actions';
+import { initialLayoutReducerState, layoutReducer } from './layout.reducer';
 
-describe('appReducer', () => {
+describe('layoutReducer', () => {
   let testState;
 
   beforeEach(() => {
     testState = {
-      ...initialAppReducerState,
+      ...initialLayoutReducerState,
       sidenavOptions: ['a', 'b'],
       headerOptions: mockHeaderOptions[0],
     };
@@ -17,9 +17,9 @@ describe('appReducer', () => {
   describe('SET_HEADER_OPTIONS', () => {
 
     it('sets the header options', () => {
-      const state = appReducer(
+      const state = layoutReducer(
         undefined,
-        new AppActions.SetHeaderOptions(mockHeaderOptions[0]),
+        new LayoutActions.SetHeaderOptions(mockHeaderOptions[0]),
       );
       expect(state.headerOptions).toEqual(mockHeaderOptions[0]);
     });
@@ -28,9 +28,9 @@ describe('appReducer', () => {
   describe('SET_SIDENAV_OPTIONS', () => {
 
     it('sets the sidenav options', () => {
-      const state = appReducer(
+      const state = layoutReducer(
         undefined,
-        new AppActions.SetSidenavOptions(mockSidenavOptions),
+        new LayoutActions.SetSidenavOptions(mockSidenavOptions),
       );
       expect(state.sidenavOptions).toEqual(mockSidenavOptions);
     });

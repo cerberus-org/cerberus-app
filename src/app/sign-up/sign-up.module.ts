@@ -21,6 +21,12 @@ import { signUpEffects } from './store/effects';
 import { signUpReducers } from './store/reducers';
 
 @NgModule({
+  declarations: [
+    AboutUsComponent,
+    OrganizationConfirmComponent,
+    GettingStartedComponent,
+    JoinPageComponent,
+  ],
   imports: [
     RouterModule.forChild(signUpRoutes),
     StoreModule.forFeature('signUp', signUpReducers),
@@ -34,12 +40,6 @@ import { signUpReducers } from './store/reducers';
     MatTabsModule,
     // Cerberus Modules
     SharedModule,
-  ],
-  declarations: [
-    AboutUsComponent,
-    OrganizationConfirmComponent,
-    GettingStartedComponent,
-    JoinPageComponent,
   ],
   exports: [
     GettingStartedComponent,

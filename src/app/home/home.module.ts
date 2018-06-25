@@ -18,6 +18,11 @@ import { LoginComponent } from './containers/login/login.component';
 import { homeRoutes } from './home.routes';
 
 @NgModule({
+  declarations: [
+    EmailDialogComponent,
+    HomeComponent,
+    LoginComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -32,11 +37,6 @@ import { homeRoutes } from './home.routes';
     RouterModule.forChild(homeRoutes),
     // Cerberus modules
     SharedModule,
-  ],
-  declarations: [
-    EmailDialogComponent,
-    HomeComponent,
-    LoginComponent,
   ],
   exports: [
     HomeComponent,

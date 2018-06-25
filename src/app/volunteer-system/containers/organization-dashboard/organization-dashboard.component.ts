@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Visit } from '../../../models';
-import * as AppActions from '../../../root/store/actions/app.actions';
+import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import { RootState } from '../../../root/store/reducers';
 import { selectModelVisits } from '../../../root/store/selectors/model.selectors';
 import {
@@ -26,11 +26,11 @@ export class OrganizationDashboardComponent implements OnInit, OnDestroy {
     this.visits$ = this.store$.pipe(select(selectModelVisits));
     this.headerSubscription = this.store$.pipe(select(selectOrganizationDashboardHeaderOptions))
       .subscribe((headerOptions) => {
-        this.store$.dispatch(new AppActions.SetHeaderOptions(headerOptions));
+        this.store$.dispatch(new LayoutActions.SetHeaderOptions(headerOptions));
       });
     this.sidenavSubscription = this.store$.pipe(select(selectOrganizationDashboardSidenavOptions))
       .subscribe((sidenavOptions) => {
-        this.store$.dispatch(new AppActions.SetSidenavOptions(sidenavOptions));
+        this.store$.dispatch(new LayoutActions.SetSidenavOptions(sidenavOptions));
       });
   }
 

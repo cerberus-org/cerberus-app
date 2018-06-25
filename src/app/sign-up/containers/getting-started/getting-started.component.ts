@@ -3,7 +3,7 @@ import { MatCheckboxChange, MatTabGroup } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { HeaderOptions, Organization, User } from '../../../models';
-import * as AppActions from '../../../root/store/actions/app.actions';
+import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import * as GettingStartedActions from '../../store/actions/getting-started.actions';
 import { SignUpState } from '../../store/reducers';
 import {
@@ -31,8 +31,8 @@ export class GettingStartedComponent implements OnInit {
   constructor(private store$: Store<SignUpState>) {}
 
   ngOnInit(): void {
-    this.store$.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.store$.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store$.dispatch(new LayoutActions.SetHeaderOptions(this.headerOptions));
+    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
   }
 
   onValidOrganization(organization: Organization): void {

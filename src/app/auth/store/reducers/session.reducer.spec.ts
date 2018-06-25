@@ -3,7 +3,7 @@ import { getMockUsers } from '../../../mock/objects/user.mock';
 import * as SessionActions from '../actions/session.actions';
 import { sessionReducer } from './session.reducer';
 
-describe('appReducer', () => {
+describe('layoutReducer', () => {
 
   describe('LOAD_DATA_SUCCESS', () => {
 

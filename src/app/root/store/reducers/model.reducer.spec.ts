@@ -3,7 +3,7 @@ import { mockSites } from '../../../mock/objects/site.mock';
 import { mockVisits } from '../../../mock/objects/visit.mock';
 import { mockVolunteers } from '../../../mock/objects/volunteer.mock';
 import * as ModelActions from '../actions/model.actions';
-import { initialModelReducerState, modelReducer } from './model.reducer';
+import { modelReducer } from './model.reducer';
 
 describe('modelReducer', () => {
   describe('LOAD_SITES_SUCCESS', () => {

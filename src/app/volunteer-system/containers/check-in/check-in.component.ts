@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Visit, Volunteer } from '../../../models';
-import * as AppActions from '../../../root/store/actions/app.actions';
+import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import { RootState } from '../../../root/store/reducers';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import * as CheckInActions from '../../store/actions/check-in.actions';
@@ -50,10 +50,10 @@ export class CheckInComponent implements OnInit, OnDestroy {
     this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
     this.headerSubscription = this.store$.pipe(select(selectCheckInHeaderOptions))
       .subscribe((headerOptions) => {
-        this.store$.dispatch(new AppActions.SetHeaderOptions(headerOptions));
+        this.store$.dispatch(new LayoutActions.SetHeaderOptions(headerOptions));
       });
     this.state$ = this.store$.pipe(select(selectCheckInContainerState));
-    this.store$.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
   }
 
   isCheckIn(url): boolean {

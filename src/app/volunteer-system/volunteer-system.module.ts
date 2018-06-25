@@ -27,11 +27,18 @@ import { volunteerSystemReducers } from './store/reducers';
 import { volunteerSystemRoutes } from './volunteer-system.routes';
 
 @NgModule({
+  declarations: [
+    CheckInComponent,
+    CheckInFormComponent,
+    NewVolunteerFormComponent,
+    OrganizationDashboardComponent,
+    SignatureFieldComponent,
+  ],
   imports: [
+    CommonModule,
     RouterModule.forChild(volunteerSystemRoutes),
     StoreModule.forFeature('checkIn', volunteerSystemReducers),
     EffectsModule.forFeature(volunteerSystemEffects),
-    CommonModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -45,13 +52,6 @@ import { volunteerSystemRoutes } from './volunteer-system.routes';
     SignaturePadModule,
     // Cerberus modules
     SharedModule,
-  ],
-  declarations: [
-    CheckInComponent,
-    CheckInFormComponent,
-    NewVolunteerFormComponent,
-    OrganizationDashboardComponent,
-    SignatureFieldComponent,
   ],
   exports: [
     OrganizationDashboardComponent,
