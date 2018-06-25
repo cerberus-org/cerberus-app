@@ -48,7 +48,7 @@ describe('UserFormComponent', () => {
     component.formGroup.controls['password'].setValue(password);
     component.formGroup.controls['confirmPassword'].setValue(confirmPassword);
     expect(component.validUser.emit)
-      .toHaveBeenCalledWith(new User(firstName, lastName, email, password, null));
+      .toHaveBeenCalledWith(new User(firstName, lastName, email, password, undefined));
   });
 
   describe('firstName control', () => {

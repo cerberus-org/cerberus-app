@@ -41,6 +41,7 @@ describe('ReportsComponent', () => {
   it(
     'should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport',
     () => {
+      component.validReport = mockReports[0];
       spyOn(component.store$, 'dispatch');
       component.onSubmitReport();
       expect(component.store$.dispatch).toHaveBeenCalledWith(

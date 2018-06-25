@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Organization, Report, Volunteer } from '../../../models';
+import { Report, Volunteer } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
 import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
 import * as SettingsActions from '../../store/actions/settings.actions';
@@ -12,7 +12,7 @@ import * as SettingsActions from '../../store/actions/settings.actions';
   styleUrls: ['./reports.component.scss'],
 })
 export class ReportsComponent implements OnInit {
-  validReport: any;
+  validReport: Report;
   volunteers$: Observable<Volunteer[]> = this.store$.pipe(select(selectModelVolunteers));
 
   constructor(public store$: Store<RootState>) { }

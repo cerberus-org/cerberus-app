@@ -6,14 +6,14 @@ export interface SessionReducerState {
   user: User;
 }
 
-export const initialState: SessionReducerState = {
+export const initialSessionReducerState: SessionReducerState = {
   organization: undefined,
   user: undefined,
 };
 
 export type Action = SessionActions.All;
 
-export function sessionReducer(state = initialState, action: Action): SessionReducerState {
+export function sessionReducer(state = initialSessionReducerState, action: Action): SessionReducerState {
 
   switch (action.type) {
 

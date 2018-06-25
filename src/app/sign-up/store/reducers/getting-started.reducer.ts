@@ -8,7 +8,7 @@ export interface GettingStartedReducerState {
   tosIsChecked: boolean;
 }
 
-export const initialState: GettingStartedReducerState = {
+export const initialGettingStartedReducerState: GettingStartedReducerState = {
   maxVisitedStep: 0,
   validOrganization: null,
   validUser: null,
@@ -17,7 +17,7 @@ export const initialState: GettingStartedReducerState = {
 
 export type Action = GettingStartedActions.All;
 
-export function gettingStartedReducer(state = initialState, action: Action): GettingStartedReducerState {
+export function gettingStartedReducer(state = initialGettingStartedReducerState, action: Action): GettingStartedReducerState {
   switch (action.type) {
 
     /**

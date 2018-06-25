@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
+import { authReducers } from '../../../auth/store/reducers';
 import { getMockUsers } from '../../../mock/objects/user.mock';
 import { rootReducers } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
@@ -12,12 +13,13 @@ describe('UserSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot(rootReducers),
-      ],
       declarations: [
         UserSettingsComponent,
         MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
+      ],
+      imports: [
+        StoreModule.forRoot(rootReducers),
+        StoreModule.forFeature('auth', authReducers),
       ],
     })
       .compileComponents();

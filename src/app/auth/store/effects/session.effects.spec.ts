@@ -1,13 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
+import { StoreModule } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import { DataModule } from '../../../data/data.module';
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
 import { getMockUsers, mockFirebaseUsers } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
+import { rootReducers } from '../../../root/store/reducers';
 import { SharedModule } from '../../../shared/shared.module';
-import { AuthModule } from '../../auth.module';
 import * as SessionActions from '../actions/session.actions';
 import { SessionEffects } from './session.effects';
 
@@ -24,9 +25,9 @@ describe('SessionEffects', () => {
         ...mockServiceProviders,
       ],
       imports: [
-        AuthModule,
         DataModule,
         SharedModule,
+        StoreModule.forRoot(rootReducers),
       ],
     });
     effects = TestBed.get(SessionEffects);

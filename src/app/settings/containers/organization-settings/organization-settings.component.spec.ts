@@ -3,6 +3,7 @@ import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { authReducers } from '../../../auth/store/reducers';
 import { getMockOrganizations } from '../../../mock/objects/organization.mock';
+import { rootReducers } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { OrganizationSettingsComponent } from './organization-settings.component';
 
@@ -17,6 +18,7 @@ describe('OrganizationSettingsComponent', () => {
         MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
       ],
       imports: [
+        StoreModule.forRoot(rootReducers),
         StoreModule.forFeature('auth', authReducers),
       ],
     })

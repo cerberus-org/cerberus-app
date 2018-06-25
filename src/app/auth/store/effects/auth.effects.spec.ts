@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 import { getMockLoginCredentials } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import * as RouterActions from '../../../root/store/actions/router.actions';
+import { rootReducers } from '../../../root/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as AuthActions from '../actions/auth.actions';
-import { authReducers } from '../reducers';
 import { AuthEffects } from './auth.effects';
 
 describe('AuthEffects', () => {
@@ -25,7 +25,7 @@ describe('AuthEffects', () => {
       ],
       imports: [
         RouterTestingModule,
-        StoreModule.forFeature('auth', authReducers),
+        StoreModule.forRoot(rootReducers),
       ],
     });
     effects = TestBed.get(AuthEffects);

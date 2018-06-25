@@ -25,32 +25,37 @@ export class GettingStartedEffects {
     .ofType(GettingStartedActions.SUBMIT)
     .pipe(
       withLatestFrom(this.store$.pipe(select(selectGettingStartedReducerState))),
-      switchMap(([action, state]) => this.organizationService.add(state.validOrganization)
-        .pipe(
-          switchMap((createdOrganization: Organization) => forkJoin(
-            // Use the ID from the created organization for the site and user
-            this.siteService.add(new Site(createdOrganization.id, createdOrganization.name, null)),
-            this.authService.createUser({
-              ...state.validUser,
-              organizationId: createdOrganization.id,
-              role: 'Owner',
-            }),
-          )
-            .pipe(
-              map(() => {
-                this.snackBarService.addOrganizationSuccess();
-                return new AuthActions.LogIn(state.validUser);
+      switchMap(([action, state]) => {
+        console.log('state', state);
+        return this.organizationService.add(state.validOrganization)
+          .pipe(
+            switchMap((createdOrganization: Organization) => forkJoin(
+              // Use the ID from the created organization for the site and user
+              this.siteService.add(new Site(createdOrganization.id, createdOrganization.name, null)),
+              this.authService.createUser({
+                ...state.validUser,
+                organizationId: createdOrganization.id,
+                role: 'Owner',
               }),
-            )),
-        )),
+            )
+              .pipe(
+                map(() => {
+                  this.snackBarService.addOrganizationSuccess();
+                  return new AuthActions.LogIn(state.validUser);
+                }),
+              )),
+          );
+      }),
     );
 
   constructor(
-    private store$: Store<SignUpState>,
+    public store$: Store<SignUpState>,
     private actions: Actions,
     private authService: AuthService,
     private organizationService: OrganizationService,
     private siteService: SiteService,
     private snackBarService: SnackBarService,
-  ) {}
+  ) {
+
+  }
 }
