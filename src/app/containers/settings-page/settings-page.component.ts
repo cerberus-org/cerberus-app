@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import * as AppActions from '../../actions/app.actions';
 import * as SettingsActions from '../../actions/settings.actions';
-import { canSelectRole, getRoleOptions, isAdmin, isLastOwner } from '../../functions';
+import {canSelectRole, formatDate, formatTime, getRoleOptions, isAdmin, isLastOwner} from '../../functions';
 import { ColumnOptions, HeaderOptions, Organization, Report, SidenavOptions, User, Visit, Volunteer } from '../../models';
 import { State } from '../../reducers';
 
@@ -81,7 +81,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     new ColumnOptions(
       'startedAt',
       'Start',
-      (row: Visit) => row.startedAt,
+      (row: Visit) => formatDate(row.startedAt, row.timezone),
     ),
     {
       columnDef: 'endedAt',

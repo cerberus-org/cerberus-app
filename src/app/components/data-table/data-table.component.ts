@@ -142,6 +142,7 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   updateItems(items) {
     this.updateMultipleItems.emit(items);
+    this.itemsEdited = [];
   }
 
   /**

@@ -3,7 +3,7 @@
     <!--Table with no delete option-->
     <ng-container *ngFor="let column of columnOptions" [cdkColumnDef]="column.columnDef">
       <mat-header-cell *cdkHeaderCellDef>{{column.header}}
-        <button mat-button [disabled]="!isItemsEdited(itemsEdited)" *ngIf="displayUpdateButton(column.columnDef, displayedColumns, isReadOnly)" color="accent" class="update-button" (click)="updateItems(itemsEdited)">Update</button>
+        <button mat-button [disabled]="!isItemsEdited(itemsEdited)" *ngIf="displayUpdateButton(column.columnDef, displayedColumns, isReadOnly)" color="accent" class="update-button" (click)="updateItems(itemsEdited)">Save</button>
       </mat-header-cell>
       <mat-cell *cdkCellDef="let row">
         <app-data-cell
@@ -17,7 +17,7 @@
     <!--Table with delete option-->
     <ng-container *ngIf="showDelete" cdkColumnDef="delete">
       <mat-header-cell *cdkHeaderCellDef>{{column.header}}
-        <button mat-button [disabled]="!isItemsEdited(itemsEdited)" *ngIf="displayUpdateButton(column.columnDef, displayedColumns, isReadOnly)" color="accent" class="update-button" (click)="updateItems(itemsEdited)">Update</button>
+        <button mat-button [disabled]="!isItemsEdited(itemsEdited)" *ngIf="displayUpdateButton(column.columnDef, displayedColumns, isReadOnly)" color="accent" class="update-button" (click)="updateItems(itemsEdited)">Save</button>
       </mat-header-cell>
       <mat-cell *cdkCellDef="let row">
         <button mat-icon-button color="warn" (click)="onClickDelete(row)">
