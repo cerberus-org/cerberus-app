@@ -15,6 +15,7 @@ import { merge, of, Subscription } from 'rxjs';
 import { Observable } from 'rxjs/index';
 import { map } from 'rxjs/operators';
 
+import {createMap, getIndex} from "../../functions";
 import { ColumnOptions } from '../../models';
 
 /**
@@ -82,6 +83,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   itemsEdited: any[];
   initialPageSize: number;
   dataSource: DataTableSource;
+  mapOfData: Map<string, any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -92,6 +94,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data$']) {
       this.dataSource = new DataTableSource(changes['data$'].currentValue, this.paginator);
+      this.mapOfData = createMap(this.dataSource.data);
     }
   }
 
@@ -151,26 +154,11 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param item
    */
   addItemToItems(item): void {
-    const index = this.getIndex(this.itemsEdited, item.id);
+    const index = getIndex(this.itemsEdited, item.id);
     if (index !== undefined) {
       this.itemsEdited.splice(index, 1);
     }
     this.itemsEdited.push(item);
-  }
-
-  /**
-   * Return index of object given list of values and object id.
-   *
-   * @param {any[]} list
-   * @param {string} id
-   * @returns {number}
-   */
-  getIndex(list: any[], id: string): number {
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].id === id) {
-        return i;
-      }
-    }
   }
 
   /**
