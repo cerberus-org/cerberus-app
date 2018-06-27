@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule, MatToolbarModule } from '@angular/material';
-import { testHeaderOptions } from '../../../models';
+import { mockHeaderOptions } from '../../../mock/objects/header-options.mock';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -23,7 +23,7 @@ describe('HeaderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-    component.headerOptions = testHeaderOptions[0];
+    component.headerOptions = mockHeaderOptions[0];
     fixture.detectChanges();
   });
 
@@ -56,7 +56,7 @@ describe('HeaderComponent', () => {
   });
 
   it('should get the title', () => {
-    expect(component.title).toEqual(testHeaderOptions[0].title);
+    expect(component.title).toEqual(mockHeaderOptions[0].title);
   });
 
   it('should use "Loading..." while the title is null', () => {
@@ -65,14 +65,14 @@ describe('HeaderComponent', () => {
   });
 
   it('should get the headerOptions icon', () => {
-    expect(component.icon).toEqual(testHeaderOptions[0].icon);
+    expect(component.icon).toEqual(mockHeaderOptions[0].icon);
   });
 
   it('should show the back button if previousUrl is set', () => {
-    expect(component.showBack).toEqual(!!testHeaderOptions[0].previousUrl);
+    expect(component.showBack).toEqual(!!mockHeaderOptions[0].previousUrl);
   });
 
   it('should show the settings button if showSettings is true', () => {
-    expect(component.showSettings).toEqual(testHeaderOptions[0].showSettings);
+    expect(component.showSettings).toEqual(mockHeaderOptions[0].showSettings);
   });
 });

@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { testOrganizations, testReports, testVolunteers } from '../../../models';
-import { reducers } from '../../../root/store/reducers';
-import * as SettingsActions from '../../store/settings.actions';
+import { mockReports } from '../../../mock/objects/report.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
+import * as SettingsActions from '../../store/actions/settings.actions';
 import { ReportsComponent } from './reports.component';
 
 describe('ReportsComponent', () => {
@@ -12,12 +11,12 @@ describe('ReportsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot(reducers),
-      ],
       declarations: [
         ReportsComponent,
         MockComponent({ selector: 'app-reports-form' }),
+      ],
+      imports: [
+        ...mockStoreModules,
       ],
     })
       .compileComponents();
@@ -34,25 +33,22 @@ describe('ReportsComponent', () => {
   });
 
   it('should handle validReport events by setting validReport', () => {
-    component.onValidReport(testReports[0]);
-    expect(component.validReport).toEqual(testReports[0]);
+    component.onValidReport(mockReports[0]);
+    expect(component.validReport).toEqual(mockReports[0]);
   });
 
   it(
     'should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport',
     () => {
-      spyOn(component.store, 'dispatch');
-      component.validReport = testReports[0];
-      component.currentOrganization = testOrganizations[0];
-      component.volunteers = testVolunteers;
+      component.validReport = mockReports[0];
+      spyOn(component.store$, 'dispatch');
       component.onSubmitReport();
-      expect(component.store.dispatch)
-        .toHaveBeenCalledWith(new SettingsActions.GenerateVisitHistoryReport({
-          startedAt: testReports[0].startedAt,
-          endedAt: testReports[0].endedAt,
-          organizationId: testOrganizations[0].id,
-          volunteers: testVolunteers,
-        }));
+      expect(component.store$.dispatch).toHaveBeenCalledWith(
+        new SettingsActions.GenerateVisitHistoryReport({
+          startedAt: mockReports[0].startedAt,
+          endedAt: mockReports[0].endedAt,
+        }),
+      );
     },
   );
 });

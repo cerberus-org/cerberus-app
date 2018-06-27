@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { testVolunteers } from '../../../models';
-import { reducers } from '../../../root/store/reducers';
-import * as SettingsActions from '../../store/settings.actions';
+import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
+import * as SettingsActions from '../../store/actions/settings.actions';
 import { VolunteerSettingsComponent } from './volunteer-settings.component';
 
 describe('VolunteerSettingsComponent', () => {
@@ -12,15 +11,15 @@ describe('VolunteerSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot(reducers),
-      ],
       declarations: [
         VolunteerSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
         }),
+      ],
+      imports: [
+        ...mockStoreModules,
       ],
     })
       .compileComponents();
@@ -37,10 +36,10 @@ describe('VolunteerSettingsComponent', () => {
   });
 
   it('should handle deleteVolunteer events by dispatching SettingsActions.DeleteVolunteer', () => {
-    spyOn(component.store, 'dispatch');
-    const volunteer = testVolunteers[0];
+    spyOn(component.store$, 'dispatch');
+    const volunteer = createMockVolunteers()[0];
     component.onDeleteVolunteer(volunteer);
-    expect(component.store.dispatch)
+    expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new SettingsActions.DeleteVolunteer(volunteer));
   });
 });

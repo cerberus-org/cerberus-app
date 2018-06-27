@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { Organization, Report, Volunteer } from '../../../models';
-import { State } from '../../../root/store/reducers';
-import * as SettingsActions from '../../store/settings.actions';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Report, Volunteer } from '../../../models';
+import { RootState } from '../../../root/store/reducers';
+import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
+import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
   selector: 'app-reports',
@@ -11,32 +12,13 @@ import * as SettingsActions from '../../store/settings.actions';
   styleUrls: ['./reports.component.scss'],
 })
 export class ReportsComponent implements OnInit {
-  validReport: any;
-  private authSubscription: Subscription;
-  currentOrganization: Organization;
-  private modelSubscription: Subscription;
-  volunteers: Volunteer[];
+  validReport: Report;
+  volunteers$: Observable<Volunteer[]> = this.store$.pipe(select(selectModelVolunteers));
 
-  constructor(public store: Store<State>) { }
+  constructor(public store$: Store<RootState>) { }
 
-  ngOnInit() {
-    this.authSubscription = this.store.select('auth')
-      .subscribe((state) => {
-        this.currentOrganization = state.organization;
-      });
-    this.modelSubscription = this.store.select('model')
-      .subscribe((state) => {
-        this.volunteers = state.volunteers;
-      });
-  }
-
-  ngOnDestroy(): void {
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
-    }
-    if (this.modelSubscription) {
-      this.modelSubscription.unsubscribe();
-    }
+  ngOnInit(): void {
+    this.volunteers$ = this.store$.pipe(select(selectModelVolunteers));
   }
 
   /**
@@ -52,11 +34,9 @@ export class ReportsComponent implements OnInit {
    */
   onSubmitReport() {
     if (this.validReport.title === 'Visit History') {
-      this.store.dispatch(new SettingsActions.GenerateVisitHistoryReport({
+      this.store$.dispatch(new SettingsActions.GenerateVisitHistoryReport({
         startedAt: this.validReport.startedAt,
         endedAt: this.validReport.endedAt,
-        organizationId: this.currentOrganization.id,
-        volunteers: this.volunteers,
       }));
     }
   }

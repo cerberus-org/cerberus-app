@@ -4,9 +4,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { testOrganizations } from '../../../models';
+import { mockOrganizations } from '../../../mock/objects/organization.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { reducers } from '../../../root/store/reducers';
+import { rootReducers } from '../../../root/store/reducers';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
@@ -26,9 +27,9 @@ describe('HomeComponent', () => {
         MatIconModule,
         MatTabsModule,
         MatCardModule,
-        StoreModule.forRoot(reducers),
         RouterTestingModule,
         BrowserAnimationsModule,
+        ...mockStoreModules,
       ],
     })
     .compileComponents();
@@ -44,29 +45,29 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle validInput events by setting organizationName', () => {
-    component.onValidInput(testOrganizations[0].name);
-    expect(component.organizationName).toEqual(testOrganizations[0].name);
+  it('should handle validInput events by setting findOrganizationValue', () => {
+    component.onValidInput(mockOrganizations[0].name);
+    expect(component.findOrganizationValue).toEqual(mockOrganizations[0].name);
   });
 
   it('should handle onLiveData events by dispatching RouterActions.Go', () => {
-    spyOn(component.store, 'dispatch');
-    component.onInputIconButtonClick(testOrganizations[0].name);
-    expect(component.store.dispatch)
-      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/public-dashboard/' + testOrganizations[0].name] }));
+    spyOn(component.store$, 'dispatch');
+    component.onInputIconButtonClick(mockOrganizations[0].name);
+    expect(component.store$.dispatch)
+      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/public-dashboard/' + mockOrganizations[0].name] }));
   });
 
   it('should handle onNewOrganization events by dispatching RouterActions.Go', () => {
-    spyOn(component.store, 'dispatch');
+    spyOn(component.store$, 'dispatch');
     component.onNewOrganization();
-    expect(component.store.dispatch)
+    expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/start'] }));
   });
 
   it('should handle onJoinOrganization events by dispatching RouterActions.Go', () => {
-    spyOn(component.store, 'dispatch');
+    spyOn(component.store$, 'dispatch');
     component.onJoinOrganization();
-    expect(component.store.dispatch)
+    expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/join'] }));
   });
 });

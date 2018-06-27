@@ -9,7 +9,8 @@ import {
   MatSlideToggleModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Report, testReports } from '../../../models';
+import { mockReports } from '../../../mock/objects/report.mock';
+import { Report } from '../../../models';
 import { ReportsFormComponent } from './reports-form.component';
 
 describe('ReportsFormComponent', () => {
@@ -45,9 +46,9 @@ describe('ReportsFormComponent', () => {
 
   it('should emit a validReport event on valid form values', () => {
     spyOn(component.validReport, 'emit');
-    const start = testReports[0].startedAt;
-    const end = testReports[0].endedAt;
-    const selectedReport = testReports[0].title;
+    const start = mockReports[0].startedAt;
+    const end = mockReports[0].endedAt;
+    const selectedReport = mockReports[0].title;
     component.formGroup.controls['start'].setValue(start);
     component.formGroup.controls['end'].setValue(end);
     component.formGroup.controls['selectedReport'].setValue(selectedReport);
@@ -64,7 +65,7 @@ describe('ReportsFormComponent', () => {
 
     it('should accept a valid start date', (() => {
       const control = component.formGroup.controls['start'];
-      control.setValue(testReports[0].startedAt);
+      control.setValue(mockReports[0].startedAt);
       expect(control.valid).toBeTruthy();
     }));
   });
@@ -79,7 +80,7 @@ describe('ReportsFormComponent', () => {
 
     it('should accept a valid end date', (() => {
       const control = component.formGroup.controls['end'];
-      control.setValue(testReports[0].endedAt);
+      control.setValue(mockReports[0].endedAt);
       expect(control.valid).toBeTruthy();
     }));
   });
@@ -94,7 +95,7 @@ describe('ReportsFormComponent', () => {
 
     it('should accept a valid title', (() => {
       const control = component.formGroup.controls['selectedReport'];
-      control.setValue(testReports[0].title);
+      control.setValue(mockReports[0].title);
       expect(control.valid).toBeTruthy();
     }));
   });

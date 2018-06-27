@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Organization } from '../../../models';
-import * as AppActions from '../../../root/store/actions/app.actions';
+import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { State } from '../../../root/store/reducers';
+import { RootState } from '../../../root/store/reducers';
 
 @Component({
   selector: 'app-home',
@@ -13,39 +11,28 @@ import { State } from '../../../root/store/reducers';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
-  organizationName: string;
+  findOrganizationValue: string;
   modelSubscription: Subscription;
-  organizations: Organization[];
 
-  constructor(
-    public store: Store<State>,
-    private router: Router,
-  ) {}
+  constructor(public store$: Store<RootState>) {}
 
-  ngOnInit() {
-    this.modelSubscription = this.store.select('model')
-      .subscribe((state) => {
-        if (state.organizations) {
-          this.organizations = state.organizations;
-        }
-      });
-    this.store.dispatch(new AppActions.SetHeaderOptions(null));
+  ngOnInit(): void {
+    this.store$.dispatch(new LayoutActions.SetHeaderOptions(null));
   }
 
   onValidInput(organizationName: string): void {
-    this.organizationName = organizationName;
+    this.findOrganizationValue = organizationName;
   }
 
   onInputIconButtonClick(organizationName: string) {
-    this.store.dispatch(new RouterActions.Go({ path: ['/public-dashboard/' + organizationName] }));
+    this.store$.dispatch(new RouterActions.Go({ path: ['/public-dashboard/' + organizationName] }));
   }
 
   onNewOrganization() {
-    this.store.dispatch(new RouterActions.Go({ path: ['/start'] }));
+    this.store$.dispatch(new RouterActions.Go({ path: ['/start'] }));
   }
 
   onJoinOrganization() {
-    this.store.dispatch(new RouterActions.Go({ path: ['/join'] }));
+    this.store$.dispatch(new RouterActions.Go({ path: ['/join'] }));
   }
 }

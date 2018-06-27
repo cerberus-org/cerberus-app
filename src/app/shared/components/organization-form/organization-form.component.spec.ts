@@ -2,7 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Organization, testOrganizations } from '../../../models';
+import { mockOrganizations } from '../../../mock/objects/organization.mock';
+import { Organization } from '../../../models';
 import { OrganizationFormComponent } from './organization-form.component';
 
 describe('OrganizationFormComponent', () => {
@@ -31,11 +32,11 @@ describe('OrganizationFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit a organizationChanges event on valid form values', () => {
+  it('should emit a validOrganization event on valid form values', () => {
     spyOn(component.validOrganization, 'emit');
-    const name = testOrganizations[0].name;
-    const website = testOrganizations[0].website;
-    const description = testOrganizations[0].description;
+    const name = mockOrganizations[0].name;
+    const website = mockOrganizations[0].website;
+    const description = mockOrganizations[0].description;
     component.formGroup.controls['name'].setValue(name);
     component.formGroup.controls['website'].setValue(website);
     component.formGroup.controls['description'].setValue(description);
@@ -120,7 +121,7 @@ describe('OrganizationFormComponent', () => {
 
     it('should accept a valid description', (() => {
       const control = component.formGroup.controls['description'];
-      control.setValue('This is a test.');
+      control.setValue('This is a mock.');
       expect(control.valid).toBeTruthy();
     }));
   });

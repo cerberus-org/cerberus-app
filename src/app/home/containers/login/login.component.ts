@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
-import * as AppActions from '../../../root/store/actions/app.actions';
-import * as LoginActions from '../../../root/store/actions/login.actions';
-import { State } from '../../../root/store/reducers';
+import * as AuthActions from '../../../auth/store/actions/auth.actions';
+import * as LayoutActions from '../../../root/store/actions/layout.actions';
+import { RootState } from '../../../root/store/reducers';
 import { EmailDialogComponent } from '../../components/email-dialog/email-dialog.component';
 
 @Component({
@@ -21,21 +21,21 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<State>,
+    private store$: Store<RootState>,
     private dialog: MatDialog,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required],
     });
     this.hidePwd = true;
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
   }
 
   onLogin() {
-    this.store.dispatch(new LoginActions.LogIn({
+    this.store$.dispatch(new AuthActions.LogIn({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
     }));
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     const dialog = this.dialog.open(EmailDialogComponent);
     dialog.afterClosed().subscribe((email) => {
       if (email) {
-        this.store.dispatch(new LoginActions.ResetPassword(email));
+        this.store$.dispatch(new AuthActions.ResetPassword(email));
       }
     });
   }

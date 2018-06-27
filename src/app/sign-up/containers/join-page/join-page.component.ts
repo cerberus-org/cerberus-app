@@ -1,12 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatVerticalStepper } from '@angular/material';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../../auth/services/auth.service';
+import { OrganizationService } from '../../../data/services/organization.service';
 import { HeaderOptions, Organization, User } from '../../../models';
-import * as AppActions from '../../../root/store/actions/app.actions';
+import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { State } from '../../../root/store/reducers';
-import { AuthService, ErrorService, OrganizationService, SnackBarService } from '../../../services';
+import { RootState } from '../../../root/store/reducers';
+import { selectModelOrganizations } from '../../../root/store/selectors/model.selectors';
+import { ErrorService } from '../../../shared/services/error.service';
+import { SnackBarService } from '../../../shared/services/snack-bar.service';
 
 @Component({
   selector: 'app-join-page',
@@ -35,21 +39,19 @@ export class JoinPageComponent implements OnInit {
     private authService: AuthService,
     private organizationService: OrganizationService,
     private errorService: ErrorService,
-    private store: Store<State>,
+    private store$: Store<RootState>,
     private snackBarService: SnackBarService,
   ) {
     this.userFormTitle = 'Please enter your information.';
   }
 
-  ngOnInit() {
-    this.modelSubscription = this.store.select('model')
-      .subscribe((state) => {
-        if (state.organizations) {
-          this.organizations = state.organizations;
-        }
+  ngOnInit(): void {
+    this.modelSubscription = this.store$.pipe(select(selectModelOrganizations))
+      .subscribe((organizations) => {
+        this.organizations = organizations;
       });
-    this.store.dispatch(new AppActions.SetHeaderOptions(this.headerOptions));
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store$.dispatch(new LayoutActions.SetHeaderOptions(this.headerOptions));
+    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
   }
 
   /**
@@ -92,12 +94,15 @@ export class JoinPageComponent implements OnInit {
   onJoinOrganization() {
     const organization = this.getOrganizationByName(this.validInput);
     if (organization) {
-      this.authService.createUser(
-        Object.assign({}, this.validUser, { organizationId: organization.id, role: 'unverified' }))
+      this.authService.createUser({
+        ...this.validUser,
+        organizationId: organization.id,
+        role: 'unverified',
+      })
         .subscribe(() => {
           this.authService.signOut();
           this.snackBarService.requestToJoinOrganizationSuccess();
-          this.store.dispatch(new RouterActions.Go({ path: ['/home'] }));
+          this.store$.dispatch(new RouterActions.Go({ path: ['/home'] }));
         });
     } else {
       this.snackBarService.invalidOrganization();

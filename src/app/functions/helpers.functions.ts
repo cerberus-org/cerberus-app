@@ -122,13 +122,12 @@ export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunte
     },
     new Map<string, Volunteer>(),
   );
-  return visits.map(visit => Object.assign(
-    {},
-    visit,
-    { duration: visit.endedAt ? formatDuration(visit.startedAt, visit.endedAt, visit.timezone) : '' },
-    { endedAt: visit.endedAt ? visit.endedAt : '(no check-out)' },
-    { name: getFullName(volunteersById.get(visit.volunteerId)) },
-  ));
+  return visits.map(visit => ({
+    ...visit,
+    duration: visit.endedAt ? formatDuration(visit.startedAt, visit.endedAt, visit.timezone) : '',
+    endedAt: visit.endedAt ? visit.endedAt : '(no check-out)',
+    name: getFullName(volunteersById.get(visit.volunteerId)),
+  }));
 };
 
 /**

@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { OrganizationService } from '../../../data/services/organization.service';
+import { VisitService } from '../../../data/services/visit.service';
 import { HeaderOptions, Organization, Visit } from '../../../models';
-import * as AppActions from '../../../root/store/actions/app.actions';
-import { State } from '../../../root/store/reducers';
-import { ErrorService, OrganizationService, VisitService } from '../../../services';
+import * as LayoutActions from '../../../root/store/actions/layout.actions';
+import { RootState } from '../../../root/store/reducers';
+import { ErrorService } from '../../../shared/services/error.service';
 
 @Component({
   selector: 'app-public-organization-dashboard',
@@ -18,13 +20,13 @@ export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    public store: Store<State>,
+    public store$: Store<RootState>,
     private organizationService: OrganizationService,
     private visitService: VisitService,
     private errorService: ErrorService,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscription = this.organizationService.getByKey('name', this.getOrganizationNameByUrl(), true)
       .subscribe(
         (organizations: Organization[]) => {
@@ -33,7 +35,7 @@ export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
             this.organization = organization;
             this.visits$ = this.visitService.getByKey('organizationId', organization.id, true);
           }
-          this.store.dispatch(new AppActions.SetHeaderOptions(new HeaderOptions(
+          this.store$.dispatch(new LayoutActions.SetHeaderOptions(new HeaderOptions(
             organization ? organization.name : '',
             null,
             '/dashboard',
@@ -46,7 +48,7 @@ export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
           this.errorService.handleFirebaseError(error);
         },
       );
-    this.store.dispatch(new AppActions.SetSidenavOptions(null));
+    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
   }
 
   public getOrganizationNameByUrl(): string {

@@ -11,12 +11,3 @@ export class HeaderOptions {
     this.showSettings = showSettings;
   }
 }
-
-export const testHeaderOptions: HeaderOptions[] = [
-  {
-    title: 'Welcome',
-    icon: 'sun',
-    previousUrl: '/home',
-    showSettings: true,
-  },
-];

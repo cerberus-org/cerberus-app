@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { getTestUsers } from '../../../models';
-import { reducers } from '../../../root/store/reducers';
-import * as SettingsActions from '../../store/settings.actions';
+import { createMockUsers } from '../../../mock/objects/user.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
+import * as SettingsActions from '../../store/actions/settings.actions';
 import { UserSettingsComponent } from './user-settings.component';
 
 describe('UserSettingsComponent', () => {
@@ -12,12 +11,12 @@ describe('UserSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot(reducers),
-      ],
       declarations: [
         UserSettingsComponent,
         MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
+      ],
+      imports: [
+        ...mockStoreModules,
       ],
     })
       .compileComponents();
@@ -33,16 +32,16 @@ describe('UserSettingsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle userChanges events by setting userChanges', () => {
-    component.onValidUser(getTestUsers()[0]);
-    expect(component.userChanges).toEqual(getTestUsers()[0]);
+  it('should handle userEdits events by setting userEdits', () => {
+    component.onValidUser(createMockUsers()[0]);
+    expect(component.userEdits).toEqual(createMockUsers()[0]);
   });
 
   it('should handle submitUser events by dispatching SettingsActions.UpdateUser', () => {
-    spyOn(component.store, 'dispatch');
-    const user = Object.assign({}, getTestUsers()[0], { firstName: 'Edited' });
+    spyOn(component.store$, 'dispatch');
+    const user = { ...createMockUsers()[0], firstName: 'Edited' };
     component.onSubmitUser(user);
-    expect(component.store.dispatch)
+    expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new SettingsActions.UpdateUser(user));
   });
 });

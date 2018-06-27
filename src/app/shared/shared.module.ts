@@ -27,13 +27,27 @@ import { ServicesAgreementDialogComponent } from './components/services-agreemen
 import { ServicesAgreementComponent } from './components/services-agreement/services-agreement.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { FindOrganizationComponent } from './containers/find-organization/find-organization.component';
+import { ErrorService } from './services/error.service';
+import { SnackBarService } from './services/snack-bar.service';
 
 @NgModule({
+  declarations: [
+    DailyHoursChartComponent,
+    DataCellComponent,
+    DataDisplayComponent,
+    DataTableComponent,
+    FindOrganizationComponent,
+    OrganizationFormComponent,
+    PasswordDialogComponent,
+    ServicesAgreementComponent,
+    ServicesAgreementDialogComponent,
+    UserFormComponent,
+  ],
   imports: [
+    CommonModule,
     BrowserAnimationsModule,
     CdkTableModule,
     ChartsModule,
-    CommonModule,
     FormsModule,
     MatAutocompleteModule,
     MatButtonModule,
@@ -48,20 +62,12 @@ import { FindOrganizationComponent } from './containers/find-organization/find-o
     MatTabsModule,
     ReactiveFormsModule,
   ],
-  declarations: [
-    DailyHoursChartComponent,
-    DataCellComponent,
-    DataDisplayComponent,
-    DataTableComponent,
-    FindOrganizationComponent,
-    OrganizationFormComponent,
-    PasswordDialogComponent,
-    ServicesAgreementComponent,
-    ServicesAgreementDialogComponent,
-    UserFormComponent,
-  ],
   entryComponents: [
     PasswordDialogComponent, ServicesAgreementDialogComponent,
+  ],
+  providers: [
+    ErrorService,
+    SnackBarService,
   ],
   exports: [
     DataDisplayComponent,
@@ -74,5 +80,4 @@ import { FindOrganizationComponent } from './containers/find-organization/find-o
     UserFormComponent,
   ],
 })
-export class SharedModule {
-}
+export class SharedModule {}

@@ -4,7 +4,8 @@ import { MatDialogModule, MatIconModule, MatInputModule, MatListModule } from '@
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from '../../../root/store/reducers';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
+import { rootReducers } from '../../../root/store/reducers';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
@@ -22,7 +23,7 @@ describe('LoginComponent', () => {
         MatInputModule,
         MatListModule,
         MatDialogModule,
-        StoreModule.forRoot(reducers),
+        ...mockStoreModules,
       ],
     })
       .compileComponents();
@@ -53,7 +54,7 @@ describe('LoginComponent', () => {
 
     it('should validate valid email', () => {
       const control = component.loginForm.controls['email'];
-      control.setValue('test@gmail.com');
+      control.setValue('mock@gmail.com');
       expect(control.valid).toBeTruthy();
       expect(control.errors).toBeFalsy();
     });
@@ -67,7 +68,7 @@ describe('LoginComponent', () => {
 
     it('should validate email that ends in a period is invalid', () => {
       const control = component.loginForm.controls['email'];
-      control.setValue('test@gmail.com.');
+      control.setValue('mock@gmail.com.');
       expect(control.valid).toBeFalsy();
       expect(control.errors).toBeTruthy();
     });

@@ -3,8 +3,9 @@ import { MatIconModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { getTestVisits } from '../../../models';
-import { reducers } from '../../../root/store/reducers';
+import { createMockVisits } from '../../../mock/objects/visit.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
+import { rootReducers } from '../../../root/store/reducers';
 import { DataDisplayComponent } from './data-display.component';
 
 describe('DataDisplayComponent', () => {
@@ -13,12 +14,6 @@ describe('DataDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NoopAnimationsModule,
-        MatIconModule,
-        MatTabsModule,
-        StoreModule.forRoot(reducers),
-      ],
       declarations: [
         DataDisplayComponent,
         MockComponent({ selector: 'app-daily-hours-chart', inputs: ['visits'] }),
@@ -26,6 +21,12 @@ describe('DataDisplayComponent', () => {
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
         }),
+      ],
+      imports: [
+        NoopAnimationsModule,
+        MatIconModule,
+        MatTabsModule,
+        ...mockStoreModules,
       ],
     })
       .compileComponents();
@@ -42,10 +43,10 @@ describe('DataDisplayComponent', () => {
   });
 
   it('should highlight active visits with the correct color', () => {
-    expect(component.getVisitRowColor(getTestVisits()[3])).toEqual('#ccff99');
+    expect(component.getVisitRowColor(createMockVisits()[3])).toEqual('#ccff99');
   });
 
   it('should not highlight completed visits', () => {
-    expect(component.getVisitRowColor(getTestVisits()[0])).toEqual('');
+    expect(component.getVisitRowColor(createMockVisits()[0])).toEqual('');
   });
 });

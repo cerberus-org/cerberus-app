@@ -1,0 +1,3 @@
+ignore:
+  - "src/*.ts"
+  - "src/app/mock/**/*"

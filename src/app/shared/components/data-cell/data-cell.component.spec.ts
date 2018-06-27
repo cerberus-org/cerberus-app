@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSelectModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { testColumnOptions } from '../../../models';
+import { mockColumnOptions } from '../../../mock/objects/column-options.mock';
 import { DataCellComponent } from './data-cell.component';
 
 describe('DataCellComponent', () => {
@@ -24,7 +24,7 @@ describe('DataCellComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DataCellComponent);
     component = fixture.componentInstance;
-    component.column = testColumnOptions[0];
+    component.column = mockColumnOptions[0];
     fixture.detectChanges();
   });
 

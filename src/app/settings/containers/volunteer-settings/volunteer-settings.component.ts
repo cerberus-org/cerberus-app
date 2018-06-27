@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { ColumnOptions, Volunteer } from '../../../models';
-import { State } from '../../../root/store/reducers';
-import * as SettingsActions from '../../store/settings.actions';
+import { RootState } from '../../../root/store/reducers';
+import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
+import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({
   selector: 'app-volunteer-settings',
@@ -11,9 +12,6 @@ import * as SettingsActions from '../../store/settings.actions';
   styleUrls: ['./volunteer-settings.component.scss'],
 })
 export class VolunteerSettingsComponent implements OnInit {
-  private modelSubscription: Subscription;
-  volunteers$: Observable<Volunteer[]>;
-  volunteers: Volunteer[];
   volunteerTableOptions: ColumnOptions[] = [
     new ColumnOptions(
       'firstName',
@@ -31,20 +29,12 @@ export class VolunteerSettingsComponent implements OnInit {
       (row: Volunteer) => row.petName,
     ),
   ];
+  volunteers$: Observable<Volunteer[]>;
 
-  constructor(public store: Store<State>) { }
+  constructor(public store$: Store<RootState>) {}
 
-  ngOnInit() {
-    this.modelSubscription = this.store.select('model')
-      .subscribe((state) => {
-        this.volunteers = state.volunteers;
-      });
-  }
-
-  ngOnDestroy(): void {
-    if (this.modelSubscription) {
-      this.modelSubscription.unsubscribe();
-    }
+  ngOnInit(): void {
+    this.volunteers$ = this.store$.pipe(select(selectModelVolunteers));
   }
 
   /**
@@ -52,6 +42,6 @@ export class VolunteerSettingsComponent implements OnInit {
    * @param volunteer - the volunteer to be deleted
    */
   onDeleteVolunteer(volunteer: Volunteer) {
-    this.store.dispatch(new SettingsActions.DeleteVolunteer(volunteer));
+    this.store$.dispatch(new SettingsActions.DeleteVolunteer(volunteer));
   }
 }

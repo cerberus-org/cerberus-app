@@ -1,0 +1,52 @@
+<form class="container-center loose"
+      [formGroup]="formGroup"
+      (ngSubmit)="submit()">
+  <div class="container-center">
+    <h2>{{title}}</h2>
+  </div>
+  <div class="container-center field-container">
+    <mat-form-field>
+      <input matInput
+             placeholder="Name"
+             [matAutocomplete]="autocomplete"
+             formControlName="name">
+    </mat-form-field>
+    <mat-autocomplete>
+      <mat-option *ngFor="let name of autocompleteNames" [value]="name">{{name}}</mat-option>
+    </mat-autocomplete>
+  </div>
+  <!--Show the pet name selection if multiple volunteers have the same name-->
+  <div *ngIf="showPetNameForm" class="container-center pets-container" [@fadeInTrigger]="fadeInState">
+    <mat-radio-group formControlName="petName" [(ngModel)]="selectedPetName">
+      <mat-radio-button class="pets-button"
+                        *ngFor="let volunteer of filteredVolunteers"
+                        [value]="volunteer.petName"
+                        (change)="onPetNameChange(volunteer.petName)">
+        <i class="material-icons">pets</i> {{volunteer.petName}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <!--Show the next maxVisitedStep when a volunteer has been selected-->
+  <ng-container *ngIf="selectedVolunteer">
+    <!--If volunteer has been selected, show the signature and button group-->
+    <ng-container *ngIf="!activeVisit; else checkOut">
+      <div class="container-center" [@fadeInTrigger]="fadeInState">
+        <app-signature-field formControlName="signatureField"></app-signature-field>
+      </div>
+      <div class="container-center actions-container" [@fadeInTrigger]="fadeInState">
+        <button mat-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">
+          Clear
+        </button>
+        <button matStepperNext mat-raised-button color="primary" [disabled]="formGroup.invalid">
+          Check in
+        </button>
+      </div>
+    </ng-container>
+    <!--Show the check out button if there is currently an active visit-->
+    <ng-template #checkOut>
+      <div class="container-center check-out-container" [@fadeInTrigger]="fadeInState">
+        <button matStepperNext mat-raised-button color="primary">Check out</button>
+      </div>
+    </ng-template>
+  </ng-container>
+</form>
