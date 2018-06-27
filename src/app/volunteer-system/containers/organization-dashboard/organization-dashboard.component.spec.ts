@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { mockServiceProviders } from '../../../mock/providers.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { rootReducers } from '../../../root/store/reducers';
 import { OrganizationDashboardComponent } from './organization-dashboard.component';
 
@@ -12,13 +13,13 @@ describe('OrganizationDashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        StoreModule.forRoot(rootReducers),
-      ],
       declarations: [
         OrganizationDashboardComponent,
         MockComponent({ selector: 'app-data-display', inputs: ['visits$'] }),
+      ],
+      imports: [
+        RouterTestingModule,
+        ...mockStoreModules,
       ],
       providers: [
         ...mockServiceProviders,

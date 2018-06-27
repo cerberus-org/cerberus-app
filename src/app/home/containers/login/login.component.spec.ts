@@ -4,6 +4,7 @@ import { MatDialogModule, MatIconModule, MatInputModule, MatListModule } from '@
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { rootReducers } from '../../../root/store/reducers';
 import { LoginComponent } from './login.component';
 
@@ -22,7 +23,7 @@ describe('LoginComponent', () => {
         MatInputModule,
         MatListModule,
         MatDialogModule,
-        StoreModule.forRoot(rootReducers),
+        ...mockStoreModules,
       ],
     })
       .compileComponents();

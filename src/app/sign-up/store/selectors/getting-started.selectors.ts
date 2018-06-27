@@ -18,23 +18,23 @@ export const selectMaxEnabledStep = createSelector(
   (state: GettingStartedReducerState) =>
     [true, !!state.validOrganization, !!state.validUser, state.tosIsChecked]
       .reduce(
-        (maxEnabledStep, condition): number =>
-          condition && maxEnabledStep < state.maxVisitedStep ? maxEnabledStep + 1 : maxEnabledStep,
+        (maxEnabledStep, condition, index): number =>
+          condition && maxEnabledStep === index && maxEnabledStep < state.maxVisitedStep ? maxEnabledStep + 1 : maxEnabledStep,
         0,
       ),
 );
 
-export interface GettingStartedContainerState {
+export interface GettingStartedPageState {
   maxEnabledStep: number;
   validOrganization: Organization;
   validUser: User;
   tosIsChecked: boolean;
 }
 
-export const selectGettingStartedContainerState = createSelector(
+export const selectGettingStartedPageState = createSelector(
   selectGettingStartedReducerState,
   selectMaxEnabledStep,
-  (state: GettingStartedReducerState, maxEnabledStep: number): GettingStartedContainerState => ({
+  (state: GettingStartedReducerState, maxEnabledStep: number): GettingStartedPageState => ({
     maxEnabledStep,
     validOrganization: state.validOrganization,
     validUser: state.validUser,

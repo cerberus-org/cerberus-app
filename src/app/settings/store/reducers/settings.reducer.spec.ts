@@ -5,7 +5,7 @@ describe('settingsReducer', () => {
   describe('LOAD_PAGE', () => {
     it('sets the sidenav selection', () => {
       const state = fromSettings.settingsReducer(
-        fromSettings.initialState,
+        fromSettings.initialSettingsReducerState,
         new SettingsActions.LoadPage('organization'),
       );
       expect(state.sidenavSelection).toEqual('organization');

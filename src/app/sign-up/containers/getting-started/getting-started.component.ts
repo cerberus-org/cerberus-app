@@ -7,8 +7,8 @@ import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import * as GettingStartedActions from '../../store/actions/getting-started.actions';
 import { SignUpState } from '../../store/reducers';
 import {
-  GettingStartedContainerState,
-  selectGettingStartedContainerState,
+  GettingStartedPageState,
+  selectGettingStartedPageState,
 } from '../../store/selectors/getting-started.selectors';
 
 @Component({
@@ -26,7 +26,7 @@ export class GettingStartedComponent implements OnInit {
   @ViewChild('tabGroup') private tabGroup: MatTabGroup;
   userFormTitle: string = 'Create an account to access your organization.';
   organizationFormTitle: string = 'Tell us about your organization.';
-  state$: Observable<GettingStartedContainerState> = this.store$.pipe(select(selectGettingStartedContainerState));
+  state$: Observable<GettingStartedPageState> = this.store$.pipe(select(selectGettingStartedPageState));
 
   constructor(private store$: Store<SignUpState>) {}
 

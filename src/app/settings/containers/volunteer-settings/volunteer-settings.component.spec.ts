@@ -11,15 +11,15 @@ describe('VolunteerSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        ...mockStoreModules,
-      ],
       declarations: [
         VolunteerSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
         }),
+      ],
+      imports: [
+        ...mockStoreModules,
       ],
     })
       .compileComponents();

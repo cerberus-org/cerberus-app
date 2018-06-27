@@ -30,13 +30,13 @@ export const selectRolesColumnOptions = createSelector(
   ],
 );
 
-export interface RolesContainerState {
+export interface RolesPageState {
   users: User[];
   columnOptions: ColumnOptions[];
 }
 
-export const selectRolesContainerState = createSelector(
+export const selectRolesPageState = createSelector(
   selectModelUsers,
   selectRolesColumnOptions,
-  (users: User[], columnOptions: ColumnOptions[]): RolesContainerState => ({ users, columnOptions }),
+  (users: User[], columnOptions: ColumnOptions[]): RolesPageState => ({ users, columnOptions }),
 );

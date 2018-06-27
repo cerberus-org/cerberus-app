@@ -5,18 +5,13 @@ import { StoreModule } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MockComponent } from 'ng2-mock-component';
 import { authReducers } from '../../../auth/store/reducers/index';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { rootReducers } from '../../store/reducers/index';
 import { RootComponent } from './root.component';
 
 describe('RootComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        StoreModule.forRoot(rootReducers),
-        StoreModule.forFeature('auth', authReducers),
-        MatDialogModule,
-      ],
       declarations: [
         RootComponent,
         MockComponent({ selector: 'app-footer' }),
@@ -26,6 +21,11 @@ describe('RootComponent', () => {
         }),
         MockComponent({ selector: 'app-loader', inputs: ['text'] }),
         MockComponent({ selector: 'app-sidenav', inputs: ['sidenavOptions'] }),
+      ],
+      imports: [
+        RouterTestingModule,
+        MatDialogModule,
+        ...mockStoreModules,
       ],
       providers: [
         { provide: AngularFireAuth, useValue: null },

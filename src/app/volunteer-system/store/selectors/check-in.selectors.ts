@@ -24,14 +24,13 @@ export interface CheckInContainerState {
 
 export const selectCheckInHeaderOptions = createSelector(
   selectSessionOrganization,
-  (organization: Organization): HeaderOptions => organization
-    ? new HeaderOptions(
-      organization.name,
+  (organization: Organization): HeaderOptions =>
+    new HeaderOptions(
+      !!organization ? organization.name : 'Organization missing!',
       'business',
       'dashboard',
       true,
-    )
-    : null,
+    ),
 );
 
 export const selectCheckInContainerState = createSelector(

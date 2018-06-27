@@ -7,6 +7,7 @@ import { MockErrorService } from '../../mock/classes/error.service.mock';
 import { MockOrganizationService } from '../../mock/classes/organization.service.mock';
 import { MockUserService } from '../../mock/classes/user.service.mock';
 import { mockUsers } from '../../mock/objects/user.mock';
+import { mockStoreModules } from '../../mock/store-modules.mock';
 import { ErrorService } from '../../shared/services/error.service';
 import { authReducers } from '../store/reducers';
 import { AuthService } from './auth.service';
@@ -25,7 +26,7 @@ describe('AuthService', () => {
         { provide: UserService, useClass: MockUserService },
       ],
       imports: [
-        StoreModule.forRoot(authReducers),
+        ...mockStoreModules,
       ],
     });
     const testbed = getTestBed();

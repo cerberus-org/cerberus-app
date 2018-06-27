@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { rootReducers } from '../../../root/store/reducers';
 import { HomeComponent } from './home.component';
@@ -26,9 +27,9 @@ describe('HomeComponent', () => {
         MatIconModule,
         MatTabsModule,
         MatCardModule,
-        StoreModule.forRoot(rootReducers),
         RouterTestingModule,
         BrowserAnimationsModule,
+        ...mockStoreModules,
       ],
     })
     .compileComponents();

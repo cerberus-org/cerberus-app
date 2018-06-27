@@ -2,7 +2,7 @@ import { User } from '../models/index';
 
 export const isAdmin = (user: User) => ['Admin', 'Owner'].includes(user.role);
 
-const USER_ROLES = ['Locked', 'Member', 'Admin', 'Owner'];
+export const USER_ROLES = ['Locked', 'Member', 'Admin', 'Owner'];
 
 const getRoleValue = (role: string): number => USER_ROLES.indexOf(role);
 

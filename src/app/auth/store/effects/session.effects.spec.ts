@@ -7,6 +7,7 @@ import { DataModule } from '../../../data/data.module';
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
 import { createMockUsers, mockFirebaseUsers } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { rootReducers } from '../../../root/store/reducers';
 import { SharedModule } from '../../../shared/shared.module';
 import * as SessionActions from '../actions/session.actions';
@@ -27,7 +28,7 @@ describe('SessionEffects', () => {
       imports: [
         DataModule,
         SharedModule,
-        StoreModule.forRoot(rootReducers),
+        ...mockStoreModules,
       ],
     });
     effects = TestBed.get(SessionEffects);

@@ -4,13 +4,13 @@ export interface SettingsReducerState {
   sidenavSelection: string;
 }
 
-export const initialState: SettingsReducerState = {
+export const initialSettingsReducerState: SettingsReducerState = {
   sidenavSelection: 'user',
 };
 
 export type Action = SettingsActions.All;
 
-export function settingsReducer(state = initialState, action: Action): SettingsReducerState {
+export function settingsReducer(state = initialSettingsReducerState, action: Action): SettingsReducerState {
   switch (action.type) {
 
     case SettingsActions.LOAD_PAGE: {

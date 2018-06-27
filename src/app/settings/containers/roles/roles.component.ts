@@ -5,7 +5,7 @@ import { map } from 'rxjs/internal/operators';
 import { User } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
-import { RolesContainerState, selectRolesContainerState } from '../../store/selectors/roles.selectors';
+import { RolesPageState, selectRolesPageState } from '../../store/selectors/roles.selectors';
 
 @Component({
   selector: 'app-roles',
@@ -13,12 +13,12 @@ import { RolesContainerState, selectRolesContainerState } from '../../store/sele
   styleUrls: ['./roles.component.scss'],
 })
 export class RolesComponent implements OnInit {
-  state$: Observable<RolesContainerState>;
+  state$: Observable<RolesPageState>;
 
   constructor(public store$: Store<RootState>) {}
 
   ngOnInit(): void {
-    this.state$ = this.store$.pipe(select(selectRolesContainerState));
+    this.state$ = this.store$.pipe(select(selectRolesPageState));
   }
 
   onUpdateUser(user: User) {

@@ -4,13 +4,13 @@ export interface CheckInReducerState {
   selectedTabIndex: number;
 }
 
-export const initialState: CheckInReducerState = {
+export const initialCheckInReducerState: CheckInReducerState = {
   selectedTabIndex: 0,
 };
 
 export type Action = CheckInActions.All;
 
-export function checkInReducer(state = initialState, action: Action): CheckInReducerState {
+export function checkInReducer(state = initialCheckInReducerState, action: Action): CheckInReducerState {
 
   switch (action.type) {
 

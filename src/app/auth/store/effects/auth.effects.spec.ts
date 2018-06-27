@@ -6,6 +6,7 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { createMockLoginCredentials } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { rootReducers } from '../../../root/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
@@ -25,7 +26,7 @@ describe('AuthEffects', () => {
       ],
       imports: [
         RouterTestingModule,
-        StoreModule.forRoot(rootReducers),
+        ...mockStoreModules,
       ],
     });
     effects = TestBed.get(AuthEffects);
