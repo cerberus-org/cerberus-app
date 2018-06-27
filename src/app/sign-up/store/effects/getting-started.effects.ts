@@ -26,7 +26,6 @@ export class GettingStartedEffects {
     .pipe(
       withLatestFrom(this.store$.pipe(select(selectGettingStartedReducerState))),
       switchMap(([action, state]) => {
-        console.log('state', state);
         return this.organizationService.add(state.validOrganization)
           .pipe(
             switchMap((createdOrganization: Organization) => forkJoin(

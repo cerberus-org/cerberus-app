@@ -24,7 +24,6 @@ export class SessionEffects {
               email: firebaseUser.email,
               id: firebaseUser.uid,
             };
-            console.log(user);
             return this.organizationService.getById(user.organizationId)
               .pipe(
                 map(organization => new SessionActions.LoadDataSuccess({

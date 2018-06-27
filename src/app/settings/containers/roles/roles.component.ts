@@ -26,7 +26,7 @@ export class RolesComponent implements OnInit {
   }
 
   onDeleteUser($event) {
-    console.log('Not yet implemented', $event);
+    // TODO: Implement me
   }
 
   get users$() {
