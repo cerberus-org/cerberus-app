@@ -83,7 +83,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   itemsEdited: any[];
   initialPageSize: number;
   dataSource: DataTableSource;
-  mapOfData: Map<string, any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -94,7 +93,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data$']) {
       this.dataSource = new DataTableSource(changes['data$'].currentValue, this.paginator);
-      this.mapOfData = createMap(this.dataSource.data);
     }
   }
 
@@ -135,6 +133,13 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.deleteItem.emit(item);
   }
 
+  /**
+   * Handles the event the time is changed.
+   *
+   * @param value
+   * @param item
+   * @param key
+   */
   onSelectTime(value, item, key): void {
     const itemCopy = Object.assign({}, item);
     // If endedAt is null, set to startedAt so we can call setHours on a defined value
@@ -143,6 +148,11 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.addItemToItems(itemCopy);
   }
 
+  /**
+   * Handles the event the user wants to update multiple items.
+   *
+   * @param items
+   */
   updateItems(items) {
     this.updateMultipleItems.emit(items);
     this.itemsEdited = [];
