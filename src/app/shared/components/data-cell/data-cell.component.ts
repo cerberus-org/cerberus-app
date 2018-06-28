@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { convertToTimeString } from '../../../functions';
 import { ColumnOptions } from '../../../models';
 
 @Component({
@@ -27,7 +28,6 @@ export class DataCellComponent implements OnChanges {
   onSelectionChange(value: string): void {
     this.selectOption.emit(value);
   }
-
 
   get inputType(): string {
     if (this.selectOptions && this.selectOptions.length) {

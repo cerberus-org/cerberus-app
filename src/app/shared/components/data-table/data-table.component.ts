@@ -14,8 +14,8 @@ import { MatPaginator } from '@angular/material';
 import * as _ from 'lodash';
 import { merge, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { getIndex } from '../../../functions';
 import { ColumnOptions } from '../../../models';
-import { createMap, getIndex } from '../../functions';
 
 /**
  * Provides what data should be rendered in the table.

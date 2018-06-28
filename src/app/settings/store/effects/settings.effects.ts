@@ -123,6 +123,24 @@ export class SettingsEffects {
         )),
     );
 
+  /**
+   * Listen for updateVisits action, update visits,
+   * then display a success snack bar.
+   *
+   * @type {Observable<any>}
+   */
+  @Effect({ dispatch: false })
+  updateVisits$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_VISITS)
+    .pipe(
+      map((action: SettingsActions.UpdateVisits) => action.payload),
+      switchMap(visits => this.visitService.batchUpdate(visits)
+        .pipe(
+          tap(() => {
+            this.snackBarService.updateVisitsSuccess();
+          }),
+        )),
+    );
+
   constructor(
     private store$: Store<RootState>,
     private actions: Actions,

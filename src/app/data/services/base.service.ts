@@ -116,6 +116,41 @@ export abstract class BaseService<T extends { id: string }> {
   }
 
   /**
+   * Performs a batch update for items passed in.
+   *
+   * @param {T[]} items - updated items
+   * @returns {Observable<any>}
+   */
+  batchUpdate(items: T[]): Observable<any> {
+    const batch = this.db.firestore.batch();
+    items.forEach((item) => {
+      batch.update(this.db.firestore.collection(this.collectionName).doc(item.id), this.getItemWithoutArrayProperties(item));
+    });
+    return from(
+      batch.commit(),
+    )
+      .pipe(
+        catchError(error => this.errorService.handleFirebaseError(error)));
+  }
+
+  /**
+   * Angular Fire cannot do batch updates for objects that have arrays as properties.
+   * Remove properties of type array and return updated item.
+   *
+   * @param item
+   * @returns {any}
+   */
+  getItemWithoutArrayProperties(item) {
+    const itemCopy = item;
+    Object.keys(itemCopy).forEach((property) => {
+      if (Array.isArray(itemCopy[property])) {
+        delete itemCopy[property];
+      }
+    });
+    return itemCopy;
+  }
+
+  /**
    * Deletes an entire document. Does not delete any nested collections.
    * @param item - the item to be deleted
    * @returns {Observable<any>} - an empty Observable that emits when completed.

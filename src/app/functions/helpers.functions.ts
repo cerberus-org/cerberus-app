@@ -2,6 +2,39 @@ import { Visit, Volunteer } from '../models/index';
 import { formatDuration } from './date-format.functions';
 
 /**
+ * Return index of object given list of values and object id.
+ *
+ * @param {any[]} list
+ * @param {string} id
+ * @returns {number}
+ */
+export const getIndex = (list: any[], id: string): number => {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].id === id) {
+      return i;
+    }
+  }
+};
+
+/**
+ * Create a map of data given an array of data.
+ * Data can be accessed using keyword 'get'.
+ * i.e. map.get('123');
+ *
+ * @param {any[]} data
+ * @returns {Map<string, any>}
+ */
+export const createMap = (data: any[]): Map<string, any> => {
+  const map = new Map<string, string>();
+  if (data) {
+    data.forEach((item) => {
+      map.set(item.id, item);
+    });
+  }
+  return map;
+};
+
+/**
  * Checks if an array of volunteers have the same full name (case-insensitive).
  *
  * @param volunteers - the list of volunteers
