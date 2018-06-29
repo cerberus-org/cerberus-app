@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import * as SessionActions from '../../../auth/store/actions/session.actions';
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
 import { createMockUsers } from '../../../mock/objects/user.mock';
+import { mockVisits } from '../../../mock/objects/visit.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { Organization } from '../../../models';
@@ -12,7 +13,6 @@ import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { CsvService } from '../../services/csv.service';
 import * as SettingsActions from '../actions/settings.actions';
 import { SettingsEffects } from './settings.effects';
-import {mockVisits} from "../../../mock/objects/visit.mock";
 
 describe('SettingsEffects', () => {
   let effects: SettingsEffects;
@@ -109,6 +109,16 @@ describe('SettingsEffects', () => {
         a: new SettingsActions.UpdateVisits(mockVisits),
       });
     }));
+
+    it(
+      'should dispatch SettingsActions.UpdateVisits with updated visits',
+      (() => {
+        const expected = cold('b', {
+          b: new SettingsActions.UpdateVisits(mockVisits),
+        });
+        expect(effects.updateVisits$).toBeObservable(expected);
+      }),
+    );
 
     it('should open the updateVisitsSuccess snackbar', (() => {
       const updateVisitsSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateVisitsSuccess');

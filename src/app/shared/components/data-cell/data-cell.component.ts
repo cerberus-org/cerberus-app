@@ -45,7 +45,7 @@ export class DataCellComponent implements OnChanges {
     }
   }
 
-  getTime(val: string): String {
-    return convertToTimeString(val);
+  getTime(date: string): String {
+    return convertToTimeString(date);
   }
 }

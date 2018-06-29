@@ -24,7 +24,7 @@ export const formatDuration = (startedAt: Date, endedAt: Date, timezone: string)
 /**
  * Accept Date string and convert to time string (e.g 1:35 PM).
  *
- * @param {string} dateString
+ * @param {string} date
  * @returns {string} time
  */
 export const convertToTimeString = (dateString: string): string => {
