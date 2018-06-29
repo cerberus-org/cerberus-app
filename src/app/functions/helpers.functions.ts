@@ -172,3 +172,20 @@ export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunte
 export const sortVisitsByStartedAt = (visits: Visit[]): Visit[] => {
   return visits.slice().sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime());
 };
+
+/**
+ * Angular Fire cannot do batch updates for objects that have arrays as properties.
+ * Remove properties of type array and return updated item.
+ *
+ * @param item
+ * @returns {any}
+ */
+export const getItemWithoutArrayProperties = (item: any): any => {
+  const itemCopy = item;
+  Object.keys(itemCopy).forEach((property) => {
+    if (Array.isArray(itemCopy[property])) {
+      delete itemCopy[property];
+    }
+  });
+  return itemCopy;
+};

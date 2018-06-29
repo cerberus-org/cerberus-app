@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { getItemWithoutArrayProperties } from '../../functions';
 import { ErrorService } from '../../shared/services/error.service';
 
 @Injectable()
@@ -124,30 +125,13 @@ export abstract class BaseService<T extends { id: string }> {
   batchUpdate(items: T[]): Observable<any> {
     const batch = this.db.firestore.batch();
     items.forEach((item) => {
-      batch.update(this.db.firestore.collection(this.collectionName).doc(item.id), this.getItemWithoutArrayProperties(item));
+      batch.update(this.db.firestore.collection(this.collectionName).doc(item.id), getItemWithoutArrayProperties(item));
     });
     return from(
       batch.commit(),
     )
       .pipe(
         catchError(error => this.errorService.handleFirebaseError(error)));
-  }
-
-  /**
-   * Angular Fire cannot do batch updates for objects that have arrays as properties.
-   * Remove properties of type array and return updated item.
-   *
-   * @param item
-   * @returns {any}
-   */
-  getItemWithoutArrayProperties(item) {
-    const itemCopy = item;
-    Object.keys(itemCopy).forEach((property) => {
-      if (Array.isArray(itemCopy[property])) {
-        delete itemCopy[property];
-      }
-    });
-    return itemCopy;
   }
 
   /**

@@ -18,7 +18,7 @@ describe('date-format.functions', () => {
 
   it('should convert date to time', () => {
     const time = convertToTimeString('2018-04-27T08:05:00.103Z');
-    expect(time).toEqual('03:05');
+    expect(time).toEqual('08:05');
   });
 
   it('should return empty string', () => {

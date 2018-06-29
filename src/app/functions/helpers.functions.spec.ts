@@ -7,7 +7,7 @@ import {
   filterVolunteersByName,
   findActiveVisit,
   findVolunteerByFullName,
-  findVolunteerByPetName, getIndex,
+  findVolunteerByPetName, getIndex, getItemWithoutArrayProperties,
   getUniqueFullNames,
   getVisitsWithVolunteerNames,
 } from './helpers.functions';
@@ -87,5 +87,9 @@ describe('helpers.functions', () => {
 
   it('should create empty map if array is undefined', () => {
     expect(createMap(null).get('1')).toEqual(undefined);
+  });
+
+  it('should remove values of type array from an obejct', () => {
+    expect(getItemWithoutArrayProperties({ a: 'test', b: ['a', 'b'] })).toEqual({ a: 'test' });
   });
 });
