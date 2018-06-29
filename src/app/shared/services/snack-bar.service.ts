@@ -31,7 +31,7 @@ export class SnackBarService {
   }
 
   updateVisitsSuccess(): void {
-    this.open('Visits was successfully updated');
+    this.open('Visits were successfully updated');
   }
 
   updateOrganizationSuccess(): void {

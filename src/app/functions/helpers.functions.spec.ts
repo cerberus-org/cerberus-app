@@ -2,11 +2,12 @@ import { mockVisits } from '../mock/objects/visit.mock';
 import { createMockVolunteers } from '../mock/objects/volunteer.mock';
 import { formatDuration } from './date-format.functions';
 import {
+  createMap,
   everyVolunteerMatchesName,
   filterVolunteersByName,
   findActiveVisit,
   findVolunteerByFullName,
-  findVolunteerByPetName,
+  findVolunteerByPetName, getIndex,
   getUniqueFullNames,
   getVisitsWithVolunteerNames,
 } from './helpers.functions';
@@ -67,5 +68,15 @@ describe('helpers.functions', () => {
     const volunteer = createMockVolunteers()[0];
     const selected = findActiveVisit(mockVisits, volunteer);
     expect(selected).toEqual(mockVisits[3]);
+  });
+
+  it('should get index of item', () => {
+    const arr = [{ id: '1', value: 'a' }, { id: '2', value: 'b' }, { id: '3', value: 'c' }];
+    expect(getIndex(arr, '2')).toEqual(1);
+  });
+
+  it('should create map', () => {
+    const arr = [{ id: '1', value: 'a' }, { id: '2', value: 'b' }, { id: '3', value: 'c' }];
+    expect(createMap(arr).get('1')).toEqual(arr[0]);
   });
 });

@@ -25,7 +25,7 @@ export const getIndex = (list: any[], id: string): number => {
  * @returns {Map<string, any>}
  */
 export const createMap = (data: any[]): Map<string, any> => {
-  const map = new Map<string, string>();
+  const map = new Map<string, any>();
   if (data) {
     data.forEach((item) => {
       map.set(item.id, item);

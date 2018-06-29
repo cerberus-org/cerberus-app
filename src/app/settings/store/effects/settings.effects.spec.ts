@@ -111,7 +111,7 @@ describe('SettingsEffects', () => {
     }));
 
     it('should open the updateVisitsSuccess snackbar', (() => {
-      const updateVisitsSuccessSpy = spyOn(TestBed.get(CsvService), 'updateVisitsSuccess');
+      const updateVisitsSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateVisitsSuccess');
       effects.updateVisits$.subscribe(() => {
         expect(updateVisitsSuccessSpy).toHaveBeenCalled();
       });
