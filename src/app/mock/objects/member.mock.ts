@@ -27,20 +27,3 @@ export const mockMembers: Member[] = [
 ];
 
 export const createMockMembers = (members: Member[] = mockMembers): Member[] => _.cloneDeep(members);
-
-export const mockUsers: any[] = [
-  {
-    uid: 'Fc59YPNibdPXlIjdRuBRIrizClI2',
-    email: 'tlmader.dev@gmail.com',
-  },
-  {
-    uid: '5961327dfba1ca1b64b8945b',
-    email: 'hilllynn.dev@gmail.com',
-  },
-  {
-    uid: '5961327dfba1ca1b64b8945c',
-    email: 'lockeduser@gmail.com',
-  },
-];
-
-export const createMockUsers = (users = mockUsers): Member[] => _.cloneDeep(users);

@@ -1,7 +1,7 @@
 import { createMockCredentials } from '../../../mock/objects/credentials.mock';
-import { createMockOrganizations } from '../../../mock/objects/organization.mock';
 import { createMockMembers } from '../../../mock/objects/member.mock';
-import { Organization, Member } from '../../../models';
+import { createMockOrganizations } from '../../../mock/objects/organization.mock';
+import { Member, Organization } from '../../../models';
 import { Credentials } from '../../../models/credentials';
 import { initialGettingStartedReducerState } from '../reducers/getting-started.reducer';
 import {

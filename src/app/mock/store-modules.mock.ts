@@ -5,8 +5,8 @@ import { rootReducers } from '../root/store/reducers';
 import { initialModelReducerState } from '../root/store/reducers/model.reducer';
 import { settingsReducers } from '../settings/store/reducers';
 import { signUpReducers } from '../sign-up/store/reducers';
-import { createMockOrganizations } from './objects/organization.mock';
 import { createMockMembers } from './objects/member.mock';
+import { createMockOrganizations } from './objects/organization.mock';
 import { createMockVolunteers } from './objects/volunteer.mock';
 
 export const mockStoreModules = [

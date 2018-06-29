@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Report, SidenavOptions } from '../../models';
+import { SidenavOptions } from '../../models';
 
 export const mockSidenavOptions: SidenavOptions[] = [
   {

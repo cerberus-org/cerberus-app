@@ -1,6 +1,6 @@
+import { createMockMembers } from '../../../mock/objects/member.mock';
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
 import { createMockSites } from '../../../mock/objects/site.mock';
-import { createMockMembers } from '../../../mock/objects/member.mock';
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { initialModelReducerState } from '../reducers/model.reducer';

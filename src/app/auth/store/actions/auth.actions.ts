@@ -1,27 +1,25 @@
 import { Action } from '@ngrx/store';
+import { Credentials } from '../../../models/credentials';
 
-export const LOG_IN = '[Auth] Log in';
-export const LOG_OUT = '[Auth] Log out';
+export const SIGN_IN = '[Auth] Sign in';
+export const SIGN_OUT = '[Auth] Sign out';
 export const VERIFY_PASSWORD = '[Auth] Verify Password';
 export const RESET_PASSWORD = '[Auth] Reset Password';
 
-export class LogIn implements Action {
-  readonly type = LOG_IN;
+export class SignIn implements Action {
+  readonly type = SIGN_IN;
 
-  constructor(public payload: {
-    email: string,
-    password: string,
-  }) {}
+  constructor(public payload: Credentials) {}
 }
 
-export class LogOut implements Action {
-  readonly type = LOG_OUT;
+export class SignOut implements Action {
+  readonly type = SIGN_OUT;
 }
 
 export class VerifyPassword implements Action {
   readonly type = VERIFY_PASSWORD;
 
-  constructor(public payload: { email: string, password: string }) {}
+  constructor(public payload: Credentials) {}
 }
 
 export class ResetPassword implements Action {
@@ -31,7 +29,7 @@ export class ResetPassword implements Action {
 }
 
 export type All
-  = LogIn
-  | LogOut
+  = SignIn
+  | SignOut
   | VerifyPassword
   | ResetPassword;

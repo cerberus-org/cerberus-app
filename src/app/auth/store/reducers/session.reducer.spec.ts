@@ -1,5 +1,5 @@
-import { mockOrganizations } from '../../../mock/objects/organization.mock';
 import { createMockMembers } from '../../../mock/objects/member.mock';
+import { mockOrganizations } from '../../../mock/objects/organization.mock';
 import * as SessionActions from '../actions/session.actions';
 import { sessionReducer } from './session.reducer';
 

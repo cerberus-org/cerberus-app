@@ -4,8 +4,8 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { createMockCredentials } from '../../../mock/objects/credentials.mock';
-import { createMockOrganizations } from '../../../mock/objects/organization.mock';
 import { createMockMembers } from '../../../mock/objects/member.mock';
+import { createMockOrganizations } from '../../../mock/objects/organization.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
@@ -44,9 +44,9 @@ describe('GettingStartedEffects', () => {
       });
     }));
 
-    it('should dispatch AuthActions.LogIn', () => {
+    it('should dispatch AuthActions.SignIn', () => {
       const expected = cold('b', {
-        b: new AuthActions.LogIn(createMockCredentials()[0]),
+        b: new AuthActions.SignIn(createMockCredentials()[0]),
       });
       expect(effects.submit$).toBeObservable(expected);
     });

@@ -20,6 +20,10 @@ export function sessionReducer(state = initialSessionReducerState, action: Actio
 
   switch (action.type) {
 
+    case SessionActions.CLEAR_DATA: {
+      return { ...initialSessionReducerState };
+    }
+
     case SessionActions.LOAD_DATA_SUCCESS: {
       const { member, organization } = action.payload;
       return { ...state, member, organization };

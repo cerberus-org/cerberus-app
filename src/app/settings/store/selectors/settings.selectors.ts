@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { selectSessionMember } from '../../../auth/store/selectors/session.selectors';
 import { isAdmin } from '../../../functions';
-import { SidenavOptions, Member } from '../../../models';
+import { Member, SidenavOptions } from '../../../models';
 import * as SettingsActions from '../actions/settings.actions';
 import { SettingsState } from '../reducers';
 import { SettingsReducerState } from '../reducers/settings.reducer';

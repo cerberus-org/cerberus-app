@@ -1,7 +1,7 @@
 import { AuthService } from '../auth/services/auth.service';
+import { MemberService } from '../data/services/member.service';
 import { OrganizationService } from '../data/services/organization.service';
 import { SiteService } from '../data/services/site.service';
-import { MemberService } from '../data/services/member.service';
 import { VisitService } from '../data/services/visit.service';
 import { VolunteerService } from '../data/services/volunteer.service';
 import { CsvService } from '../settings/services/csv.service';

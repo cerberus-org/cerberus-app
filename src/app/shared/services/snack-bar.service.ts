@@ -10,11 +10,11 @@ export class SnackBarService {
     this.snackBar.open(message, '', { duration: 3000 });
   }
 
-  loginSuccess(name: string): void {
+  signInSuccess(name: string): void {
     this.open(`Welcome, ${name}.`);
   }
 
-  logoutSuccess(): void {
+  signOutSuccess(): void {
     this.open('You have been successfully logged out.');
   }
 

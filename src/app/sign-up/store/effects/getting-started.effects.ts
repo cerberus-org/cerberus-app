@@ -19,7 +19,7 @@ export class GettingStartedEffects {
 
   /**
    * Listen for the Submit action, create the validOrganization, user, validMember, and site,
-   * then emit the success snack bar and loginSuccess with the created validMember.
+   * then emit the success snack bar and signInSuccess with the created validMember.
    */
   @Effect()
   submit$: Observable<Action> = this.actions
@@ -45,7 +45,7 @@ export class GettingStartedEffects {
                   .pipe(
                     map(() => {
                       this.snackBarService.addOrganizationSuccess();
-                      return new AuthActions.LogIn(validCredentials);
+                      return new AuthActions.SignIn(validCredentials);
                     }),
                   )),
               )),

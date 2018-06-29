@@ -1,11 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { rootReducers } from '../../../root/store/reducers';
 import { DataDisplayComponent } from './data-display.component';
 
 describe('DataDisplayComponent', () => {

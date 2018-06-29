@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth.service';
 import { OrganizationService } from '../../../data/services/organization.service';
-import { HeaderOptions, Organization, Member } from '../../../models';
+import { HeaderOptions, Member, Organization } from '../../../models';
 import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { RootState } from '../../../root/store/reducers';

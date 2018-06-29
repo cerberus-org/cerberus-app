@@ -1,9 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatAutocompleteModule, MatIconModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { rootReducers } from '../../../root/store/reducers';
 import { FindOrganizationComponent } from './find-organization.component';
 
 describe('FindOrganizationComponent', () => {

@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { isAdmin } from '../../../functions';
-import { HeaderOptions, Organization, SidenavOptions, Member } from '../../../models';
+import { HeaderOptions, Member, Organization, SidenavOptions } from '../../../models';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import * as ModelActions from '../../store/actions/model.actions';
@@ -146,7 +146,7 @@ export class RootComponent implements OnInit, OnDestroy {
         this.openAndSubscribeToDialog();
         break;
       case 'logOut':
-        this.store$.dispatch(new AuthActions.LogOut());
+        this.store$.dispatch(new AuthActions.SignOut());
         break;
     }
   }

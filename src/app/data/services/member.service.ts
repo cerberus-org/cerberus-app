@@ -19,38 +19,35 @@ export class MemberService extends BaseService<Member> {
   /**
    * Handles capitalization logic for members.
    *
-   * @param {Member} user - the validMember to capitalize properties for
-   * @returns {Member} - a new validMember with capitalized properties
+   * @param {Member} member - the member to capitalize properties for
+   * @returns {Member} - a new member with capitalized properties
    */
-  private capitalizeUser(user: Member): Member {
+  private capitalizeMember(member: Member): Member {
     return {
-      ...user,
-      firstName: _.capitalize(user.firstName),
-      lastName: _.capitalize(user.lastName),
+      ...member,
+      firstName: _.capitalize(member.firstName),
+      lastName: _.capitalize(member.lastName),
     };
   }
 
   /**
    * Deletes the email and password properties and capitalizes the firstName and lastName of the
-   * validMember going to the database.
+   * member going to the database.
    *
-   * @param {Member} user - the validMember to capitalize properties for
+   * @param {Member} member - the validMember to capitalize properties for
    * @returns {Member} - a new validMember with capitalized properties
    */
-  mapObjectToDoc(user: Member): Member {
-    const userClone = _.cloneDeep(user);
-    delete userClone.password;
-    delete userClone.email;
-    return this.capitalizeUser(userClone);
+  mapObjectToDoc(member: Member): Member {
+    return this.capitalizeMember(member);
   }
 
   /**
-   * Capitalize the firstName and lastName of the validMember coming from the database.
+   * Capitalize the firstName and lastName of the member coming from the database.
    *
-   * @param {Member} user - the validMember to capitalize properties for
-   * @returns {Member} - a new validMember with capitalized properties
+   * @param {Member} member - the member to capitalize properties for
+   * @returns {Member} - a new member with capitalized properties
    */
-  mapDocToObject(user: Member): Member {
-    return this.capitalizeUser(user);
+  mapDocToObject(member: Member): Member {
+    return this.capitalizeMember(member);
   }
 }

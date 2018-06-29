@@ -86,8 +86,8 @@ export class SettingsEffects {
     );
 
   /**
-   * Listens for SettingsActions.SetUser. Applies validMember changes against current validMember in session, then displays a
-   * success snack bar and dispatches SessionActions.SetUser.
+   * Listens for SettingsActions.SetUser. Applies validMember changes against current validMember in session, then
+   * displays a success snack bar and dispatches SessionActions.SetUser.
    */
   @Effect()
   updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)

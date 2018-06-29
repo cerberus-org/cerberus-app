@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { User } from 'firebase';
 import { Member, Organization } from '../../../models';
 
+export const CLEAR_DATA = '[Session] Clear data';
 export const LOAD_DATA = '[Session] Load data';
 export const LOAD_DATA_SUCCESS = '[Session] Load data success';
 export const SET_ORGANIZATION = '[Session] Set validOrganization';
@@ -44,8 +45,18 @@ export class SetUser implements Action {
   constructor(public payload: { member: Member, user: User }) {}
 }
 
+/**
+ * Clears all session data.
+ */
+export class ClearData implements Action {
+  readonly type = CLEAR_DATA;
+
+  constructor() {}
+}
+
 export type All
-  = LoadData
+  = ClearData
+  | LoadData
   | LoadDataSuccess
   | SetOrganization
   | SetUser;

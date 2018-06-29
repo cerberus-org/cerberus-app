@@ -30,34 +30,34 @@ describe('AuthEffects', () => {
     effects = TestBed.get(AuthEffects);
   }));
 
-  describe('login$', () => {
+  describe('signIn$', () => {
 
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(createMockCredentials()[0]),
+        a: new AuthActions.SignIn(createMockCredentials()[0]),
       });
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] }),
       });
-      expect(effects.login$).toBeObservable(expected);
+      expect(effects.signIn$).toBeObservable(expected);
     });
 
     it('should open the accountNotVerified snackbar if role is locked', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(createMockCredentials()[2]),
+        a: new AuthActions.SignIn(createMockCredentials()[2]),
       });
       const accountNotVerifiedSpy = spyOn(TestBed.get(SnackBarService), 'accountNotVerified');
-      effects.login$.subscribe(() => {
+      effects.signIn$.subscribe(() => {
         expect(accountNotVerifiedSpy).toHaveBeenCalled();
       });
     });
 
-    it('should open the loginSuccess snackbar', () => {
+    it('should open the signInSuccess snackbar', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(createMockCredentials()[0]),
+        a: new AuthActions.SignIn(createMockCredentials()[0]),
       });
-      const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'loginSuccess');
-      effects.login$.subscribe(() => {
+      const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'signInSuccess');
+      effects.signIn$.subscribe(() => {
         expect(loginSuccessSpy).toHaveBeenCalled();
       });
     });
@@ -78,10 +78,10 @@ describe('AuthEffects', () => {
     });
   });
 
-  describe('logout$', () => {
+  describe('signOut$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.LogOut(),
+        a: new AuthActions.SignOut(),
       });
     }));
 
@@ -89,12 +89,12 @@ describe('AuthEffects', () => {
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/home'] }),
       });
-      expect(effects.logout$).toBeObservable(expected);
+      expect(effects.signOut$).toBeObservable(expected);
     });
 
-    it('should open the logoutSuccess snackbar', () => {
-      const logoutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'logoutSuccess');
-      effects.logout$.subscribe(() => {
+    it('should open the signOutSuccess snackbar', () => {
+      const logoutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'signOutSuccess');
+      effects.signOut$.subscribe(() => {
         expect(logoutSuccessSpy).toHaveBeenCalled();
       });
     });

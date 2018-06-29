@@ -38,8 +38,7 @@ export class AuthService {
   }
 
   createUser(credentials: Credentials): Observable<User> {
-    return from(this.afAuth.auth
-      .createUserWithEmailAndPassword(credentials.email, credentials.password))
+    return from(this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password))
       .pipe(
         catchError(error => this.errorService.handleFirebaseError(error)),
       );
@@ -48,8 +47,7 @@ export class AuthService {
   resetPassword(email: string): Observable<{}> {
     // Do not handle Firebase error for security purposes.
     // We do not want the validMember to know if any email does or does not exist.
-    return from(this.afAuth.auth
-      .sendPasswordResetEmail(email));
+    return from(this.afAuth.auth.sendPasswordResetEmail(email));
   }
 
   /**
@@ -77,12 +75,12 @@ export class AuthService {
       );
   }
 
-  signIn(email: string, password: string): Observable<FirebaseUser> {
+  signIn(credentials: Credentials): Observable<User> {
     // Do not use Firebase error for security purposes.
     // We do not want the validMember to know if any account does or does not exist.
     return from(
-      this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      // Now returns validMember property nested inside an object
+      this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
+      // Now returns user property nested inside an object
         .then(res => res.user),
     )
       .pipe(catchError(error => this.errorService.handleLoginError(error)));
@@ -92,11 +90,11 @@ export class AuthService {
    * If the validMember is not logged in, authState returns null.
    * @returns {Observable<boolean>}
    */
-  isLoggedIn(): Observable<boolean> {
+  isSignedIn(): Observable<boolean> {
     return this.afAuth.authState.pipe(map(auth => !!auth));
   }
 
-  signOut(): Observable<FirebaseUser> {
+  signOut(): Observable<User> {
     return from(this.afAuth.auth.signOut());
   }
 
@@ -104,11 +102,11 @@ export class AuthService {
    * If the page is reloaded or the state of the validMember changes dispatch an action to load data to the root store$.
    */
   observeStateChanges(): void {
-    this.afAuth.auth.onAuthStateChanged((user: FirebaseUser) => {
+    this.afAuth.auth.onAuthStateChanged((user: User) => {
       this.store$.dispatch(
         user
           ? new SessionActions.LoadData(user)
-          : new SessionActions.LoadDataSuccess({ member: null, organization: null }),
+          : new SessionActions.ClearData(),
       );
     });
   }
