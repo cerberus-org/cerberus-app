@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
+import { mockVisits } from '../../../mock/objects/visit.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
+import * as SettingsActions from '../../store/actions/settings.actions';
 import { VisitsComponent } from './visits.component';
-import {mockReports} from "../../../mock/objects/report.mock";
-import * as SettingsActions from "../../store/actions/settings.actions";
-import {mockVisits} from "../../../mock/objects/visit.mock";
 
 describe('RolesComponent', () => {
   let component: VisitsComponent;

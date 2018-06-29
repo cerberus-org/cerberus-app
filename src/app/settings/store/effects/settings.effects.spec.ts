@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import * as SessionActions from '../../../auth/store/actions/session.actions';
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
 import { createMockUsers } from '../../../mock/objects/user.mock';
-import {createMockVisits, mockVisits} from '../../../mock/objects/visit.mock';
+import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { Organization } from '../../../models';

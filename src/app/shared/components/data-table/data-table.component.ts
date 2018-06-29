@@ -162,7 +162,7 @@ export class DataTableComponent implements OnInit, OnChanges {
     const itemCopy = Object.assign({}, item);
     // If endedAt is null, set to startedAt so we can call setHours on a defined value
     itemCopy.endedAt = item.endedAt ? item.endedAt : item.startedAt;
-    itemCopy.endedAt.setHours(time.split(':')[0], time.split(':')[1], 0);
+    itemCopy.endedAt.setHours(Number(time.split(':')[0]), Number(time.split(':')[1]), 0);
     return itemCopy;
   }
 
