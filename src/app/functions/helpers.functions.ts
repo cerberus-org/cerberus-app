@@ -9,7 +9,7 @@ import { formatDuration } from './date-format.functions';
  * @returns {number}
  */
 export const getIndex = (list: any[], id: string): number => {
-  for (let i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i += 1) {
     if (list[i].id === id) {
       return i;
     }

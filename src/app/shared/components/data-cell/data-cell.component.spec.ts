@@ -38,4 +38,22 @@ describe('DataCellComponent', () => {
     component.onSelectionChange(value);
     expect(component.selectOption.emit).toHaveBeenCalledWith(value);
   });
+
+  it('should get input type for SELECT', () => {
+    component.selectOptions = ['a', 'b'];
+    component.column.timePicker = null;
+    expect(component.inputType).toEqual('SELECT');
+  });
+
+  it('should get input type for TIME_PICKER', () => {
+    component.selectOptions = null;
+    component.column.timePicker = true;
+    expect(component.inputType).toEqual('TIME_PICKER');
+  });
+
+  it('should get input type for TEXT_ONLY', () => {
+    component.selectOptions = null;
+    component.column.timePicker = false;
+    expect(component.inputType).toEqual('TEXT_ONLY');
+  });
 });

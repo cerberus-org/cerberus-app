@@ -5,7 +5,7 @@ import { map } from 'rxjs/internal/operators';
 import { Visit } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
-import {selectVisitsPageState, VisitsPageState} from '../../store/selectors/visits.selectors';
+import { selectVisitsPageState, VisitsPageState } from '../../store/selectors/visits.selectors';
 
 @Component({
   selector: 'app-visits',
