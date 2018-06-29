@@ -37,10 +37,10 @@ describe('GettingStartedEffects', () => {
     effects = TestBed.get(GettingStartedEffects);
   }));
 
-  describe('submit$', () => {
+  describe('joinOrganization$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new GettingStartedActions.Submit(),
+        a: new GettingStartedActions.CreateOrganization(),
       });
     }));
 
@@ -48,12 +48,12 @@ describe('GettingStartedEffects', () => {
       const expected = cold('b', {
         b: new AuthActions.SignIn(createMockCredentials()[0]),
       });
-      expect(effects.submit$).toBeObservable(expected);
+      expect(effects.createOrganization$).toBeObservable(expected);
     });
 
-    it('should open the addOrganizationSuccess snackbar', () => {
-      const addOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'addOrganizationSuccess');
-      effects.submit$.subscribe(() => {
+    it('should open the createOrganizationSuccess snackbar', () => {
+      const addOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'createOrganizationSuccess');
+      effects.createOrganization$.subscribe(() => {
         expect(addOrganizationSuccessSpy).toHaveBeenCalled();
       });
     });

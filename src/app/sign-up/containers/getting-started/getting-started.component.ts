@@ -36,6 +36,10 @@ export class GettingStartedComponent implements OnInit {
     this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
   }
 
+  onCheckJoinOrganization($event: MatCheckboxChange) {
+    this.store$.dispatch(new GettingStartedActions.SetJoinExistingOrganization($event.checked));
+  }
+
   onValidOrganization(organization: Organization): void {
     this.store$.dispatch(new GettingStartedActions.SetValidOrganization(organization));
   }

@@ -4,6 +4,7 @@ import * as GettingStartedActions from '../actions/getting-started.actions';
 
 export interface GettingStartedReducerState {
   maxVisitedStep: number;
+  joinExistingOrganization: boolean;
   validOrganization: Organization;
   validCredentials: Credentials;
   validMember: Member;
@@ -12,6 +13,7 @@ export interface GettingStartedReducerState {
 
 export const initialGettingStartedReducerState: GettingStartedReducerState = {
   maxVisitedStep: 0,
+  joinExistingOrganization: false,
   validOrganization: null,
   validCredentials: null,
   validMember: null,
@@ -25,7 +27,6 @@ export function gettingStartedReducer(
   action: Action,
 ): GettingStartedReducerState {
   switch (action.type) {
-
     /**
      * Sets the selected tab to the next maxVisitedStep and only updates state.maxVisitedStep
      * if the next maxVisitedStep is greater than the previous.
@@ -33,6 +34,15 @@ export function gettingStartedReducer(
      */
     case GettingStartedActions.NEXT_STEP: {
       return { ...state, maxVisitedStep: Math.max(state.maxVisitedStep, action.payload) };
+    }
+
+    /**
+     * Sets the selected tab to the next maxVisitedStep and only updates state.maxVisitedStep
+     * if the next maxVisitedStep is greater than the previous.
+     * action.payload - the next maxVisitedStep
+     */
+    case GettingStartedActions.SET_JOIN_EXISTING_ORGANIZATION: {
+      return { ...state, joinExistingOrganization: action.payload, validOrganization: null };
     }
 
     /**

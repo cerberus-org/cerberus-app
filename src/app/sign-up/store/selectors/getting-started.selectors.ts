@@ -26,6 +26,7 @@ export const selectMaxEnabledStep = createSelector(
 
 export interface GettingStartedPageState {
   maxEnabledStep: number;
+  joinExistingOrganization: boolean;
   validOrganization: Organization;
   validCredentials: Credentials;
   validMember: Member;
@@ -36,10 +37,11 @@ export const selectGettingStartedPageState = createSelector(
   selectGettingStartedReducerState,
   selectMaxEnabledStep,
   (
-    { validOrganization, validCredentials, validMember, tosIsChecked },
+    { joinExistingOrganization, validOrganization, validCredentials, validMember, tosIsChecked },
     maxEnabledStep: number,
   ): GettingStartedPageState => ({
     maxEnabledStep,
+    joinExistingOrganization,
     validOrganization,
     validCredentials,
     validMember,

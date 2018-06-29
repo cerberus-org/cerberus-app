@@ -18,7 +18,7 @@ export class SnackBarService {
     this.open('You have been successfully logged out.');
   }
 
-  addOrganizationSuccess(): void {
+  createOrganizationSuccess(): void {
     this.open('Your validOrganization was successfully added.');
   }
 
@@ -46,7 +46,7 @@ export class SnackBarService {
     this.open('Volunteer successfully checked out.');
   }
 
-  requestToJoinOrganizationSuccess(): void {
+  joinOrganizationSuccess(): void {
     this.open('Successfully requested to join an validOrganization.');
   }
 

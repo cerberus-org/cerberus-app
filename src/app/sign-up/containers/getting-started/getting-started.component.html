@@ -14,10 +14,21 @@
     label="2. Your Organization"
     [disabled]="(state$ | async)?.maxEnabledStep < 1"
   >
-    <app-organization-form
-      (validOrganization)="onValidOrganization($event)"
-      [title]="organizationFormTitle">
-    </app-organization-form>
+    <mat-checkbox (change)="onCheckJoinOrganization($event)">
+      <div>I am joining an existing organization.</div>
+    </mat-checkbox>
+    <app-find-organization
+      *ngIf="(state$ | async)?.joinExistingOrganization; else createOrganization"
+      [showTitle]="true"
+      [showInputIconButton]="false"
+      (validOrganization)="onValidOrganization($event)">
+    </app-find-organization>
+    <ng-template #createOrganization>
+      <app-organization-form
+        (validOrganization)="onValidOrganization($event)"
+        [title]="organizationFormTitle">
+      </app-organization-form>
+    </ng-template>
     <div class="container-submit">
       <button
         mat-raised-button
