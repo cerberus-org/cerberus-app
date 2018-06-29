@@ -35,15 +35,15 @@ describe('SessionEffects', () => {
 
   describe('loadData$', () => {
     it('should dispatch SessionActions.LoadDataSuccess', (() => {
-      const user = createMockUsers()[0];
+      const userInfo = createMockUsers()[0];
       actions = hot('a', {
-        a: new SessionActions.LoadData(user),
+        a: new SessionActions.LoadData(userInfo),
       });
       const expected = cold('b', {
         b: new SessionActions.LoadDataSuccess({
+          userInfo,
           member: createMockMembers()[0],
           organization: createMockOrganizations()[0],
-          user: user,
         }),
       });
       expect(effects.loadData$).toBeObservable(expected);

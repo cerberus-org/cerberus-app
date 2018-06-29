@@ -1,4 +1,4 @@
-import { User } from 'firebase';
+import { UserInfo } from 'firebase';
 import { Observable, of } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { Credentials } from '../../models/credentials';
@@ -10,11 +10,11 @@ export class MockAuthService extends AuthService {
     super(null, null, null, null);
   }
 
-  createUser(credentials: Credentials): Observable<User> {
+  createUser(credentials: Credentials): Observable<UserInfo> {
     return of(createMockUsers().find(user => user.email === credentials.email));
   }
 
-  updateUser(credentials: Credentials): Observable<User> {
+  updateUser(credentials: Credentials): Observable<UserInfo> {
     return of({ ...createMockUsers()[0], credentials });
   }
 
@@ -26,7 +26,7 @@ export class MockAuthService extends AuthService {
     return of(createMockUsers().find(user => user.email === credentials.email));
   }
 
-  signOut(): Observable<User> {
+  signOut(): Observable<UserInfo> {
     return of(null);
   }
 }

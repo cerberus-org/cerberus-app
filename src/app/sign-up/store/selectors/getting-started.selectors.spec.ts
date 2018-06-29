@@ -48,7 +48,7 @@ describe('GettingStartedSelectors', () => {
         .toEqual(1);
     });
 
-    it('should return 2 if all steps are visited but the user data is invalid', () => {
+    it('should return 2 if all steps are visited but the userInfo data is invalid', () => {
       expect(selectMaxEnabledStep.projector({
         maxVisitedStep: 4,
         validOrganization: organization,

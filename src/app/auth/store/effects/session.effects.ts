@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { User } from 'firebase';
+import { UserInfo } from 'firebase';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { MemberService } from '../../../data/services/member.service';
@@ -16,14 +16,14 @@ export class SessionEffects {
   loadData$: Observable<Action> = this.actions.ofType(SessionActions.LOAD_DATA)
     .pipe(
       map((action: SessionActions.LoadData) => action.payload),
-      switchMap((user: User) => this.userService.getById(user.uid)
+      switchMap((userInfo: UserInfo) => this.userService.getById(userInfo.uid)
         .pipe(
           switchMap((member: Member) => {
             return this.organizationService.getById(member.organizationId)
               .pipe(
                 map(organization => new SessionActions.LoadDataSuccess({
                   member,
-                  user,
+                  userInfo,
                   organization: { ...organization, id: member.organizationId },
                 })),
               );

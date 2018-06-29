@@ -18,7 +18,7 @@ import { selectGettingStartedReducerState } from '../selectors/getting-started.s
 export class GettingStartedEffects {
 
   /**
-   * Listen for the Submit action, create the validOrganization, user, validMember, and site,
+   * Listen for the Submit action, create the validOrganization, userInfo, validMember, and site,
    * then emit the success snack bar and signInSuccess with the created validMember.
    */
   @Effect()

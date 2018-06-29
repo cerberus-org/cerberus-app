@@ -1,17 +1,17 @@
-import { User } from 'firebase';
+import { UserInfo } from 'firebase';
 import { Member, Organization } from '../../../models';
 import * as SessionActions from '../actions/session.actions';
 
 export interface SessionReducerState {
   organization: Organization;
   member: Member;
-  user: User;
+  userInfo: UserInfo;
 }
 
 export const initialSessionReducerState: SessionReducerState = {
   organization: undefined,
   member: undefined,
-  user: undefined,
+  userInfo: undefined,
 };
 
 export type Action = SessionActions.All;
@@ -34,8 +34,8 @@ export function sessionReducer(state = initialSessionReducerState, action: Actio
     }
 
     case SessionActions.SET_USER: {
-      const { member, user } = action.payload;
-      return { ...state, member, user };
+      const { member, userInfo } = action.payload;
+      return { ...state, member, userInfo };
     }
 
     default: {

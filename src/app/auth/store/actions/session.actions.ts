@@ -1,21 +1,21 @@
 import { Action } from '@ngrx/store';
-import { User } from 'firebase';
+import { UserInfo } from 'firebase';
 import { Member, Organization } from '../../../models';
 
 export const CLEAR_DATA = '[Session] Clear data';
 export const LOAD_DATA = '[Session] Load data';
 export const LOAD_DATA_SUCCESS = '[Session] Load data success';
 export const SET_ORGANIZATION = '[Session] Set validOrganization';
-export const SET_USER = '[Session] Set user';
+export const SET_USER = '[Session] Set userInfo';
 
 export class LoadData implements Action {
   readonly type = LOAD_DATA;
 
-  constructor(public payload: User) {}
+  constructor(public payload: UserInfo) {}
 }
 
 /**
- * Sets the session data when the user logs in.
+ * Sets the session data when the userInfo logs in.
  */
 export class LoadDataSuccess implements Action {
   readonly type = LOAD_DATA_SUCCESS;
@@ -23,7 +23,7 @@ export class LoadDataSuccess implements Action {
   constructor(public payload: {
     member: Member,
     organization: Organization,
-    user: User,
+    userInfo: UserInfo,
   }) {}
 }
 
@@ -37,12 +37,12 @@ export class SetOrganization implements Action {
 }
 
 /**
- * Sets the session user.
+ * Sets the session member and userInfo.
  */
 export class SetUser implements Action {
   readonly type = SET_USER;
 
-  constructor(public payload: { member: Member, user: User }) {}
+  constructor(public payload: { member: Member, userInfo: UserInfo }) {}
 }
 
 /**

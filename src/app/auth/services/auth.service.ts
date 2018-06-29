@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { User } from 'firebase';
+import { User, UserInfo } from 'firebase';
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MemberService } from '../../data/services/member.service';
@@ -37,7 +37,7 @@ export class AuthService {
     return this.pwdVerification;
   }
 
-  createUser(credentials: Credentials): Observable<User> {
+  createUser(credentials: Credentials): Observable<UserInfo> {
     return from(this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password))
       .pipe(
         catchError(error => this.errorService.handleFirebaseError(error)),
@@ -56,7 +56,7 @@ export class AuthService {
    * @param credentials
    * @returns {Observable<Member>}
    */
-  updateUser(credentials: Credentials): Observable<User> {
+  updateUser(credentials: Credentials): Observable<UserInfo> {
     const currentUser: User = this.afAuth.auth.currentUser;
     const { password, email } = credentials;
     const updates = [];
@@ -68,19 +68,19 @@ export class AuthService {
     }
     return from(
       Promise.all(updates)
-        .then((): User => ({ ...currentUser, email })),
+        .then((): UserInfo => (Object.assign({}, currentUser, email))),
     )
       .pipe(
         catchError(error => this.errorService.handleFirebaseError(error)),
       );
   }
 
-  signIn(credentials: Credentials): Observable<User> {
+  signIn(credentials: Credentials): Observable<UserInfo> {
     // Do not use Firebase error for security purposes.
     // We do not want the validMember to know if any account does or does not exist.
     return from(
       this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
-      // Now returns user property nested inside an object
+      // Now returns userInfo property nested inside an object
         .then(res => res.user),
     )
       .pipe(catchError(error => this.errorService.handleLoginError(error)));
@@ -94,7 +94,7 @@ export class AuthService {
     return this.afAuth.authState.pipe(map(auth => !!auth));
   }
 
-  signOut(): Observable<User> {
+  signOut(): Observable<UserInfo> {
     return from(this.afAuth.auth.signOut());
   }
 
