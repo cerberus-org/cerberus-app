@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs';
 import { mockColumnOptions } from '../../../mock/objects/column-options.mock';
-import { createMockVisits } from '../../../mock/objects/visit.mock';
+import { createMockVisits, mockVisits } from '../../../mock/objects/visit.mock';
 import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { DataTableComponent, DataTableSource } from './data-table.component';
 
@@ -70,5 +70,52 @@ describe('DataTableComponent', () => {
 
   it('should sets background-color to an empty string on default', () => {
     expect(component.getRowColor(createMockVisits()[0])).toEqual('');
+  });
+
+  it('should sets background-color to an empty string on default', () => {
+    expect(component.getRowColor(createMockVisits()[0])).toEqual('');
+  });
+
+  it('should call getUpdatedItemWithTime and addItemToItemsEdited onSelectTime', () => {
+    spyOn(component, 'getUpdatedItemWithTime');
+    spyOn(component, 'addItemToItemsEdited');
+    component.onSelectTime('3:00', mockVisits[0]);
+    expect(component.getUpdatedItemWithTime).toHaveBeenCalled();
+    expect(component.addItemToItemsEdited).toHaveBeenCalled();
+  });
+
+  it('should call emit updateMultipleItems onUpdateItems', () => {
+    spyOn(component.updateMultipleItems, 'emit');
+    component.onUpdateItems([mockVisits[0], mockVisits[1]]);
+    expect(component.updateMultipleItems.emit).toHaveBeenCalledWith([mockVisits[0], mockVisits[1]]);
+  });
+
+  it('should add item to itemsEdited when addItemsToItemsEdited is called', () => {
+    component.itemsEdited = [];
+    component.addItemToItemsEdited(mockVisits[0]);
+    expect(component.itemsEdited).toEqual([mockVisits[0]]);
+  });
+
+  it('should remove pre-exiting updated item from itemsEdited and add most recently updated item to itemsEdited when addItemsToItemsEdited is called', () => {
+    component.itemsEdited = [mockVisits[0]];
+    const mostRecentlyUpdatedItem = component.getUpdatedItemWithTime('3:00', mockVisits[0]);
+    component.addItemToItemsEdited(mostRecentlyUpdatedItem);
+    expect(component.itemsEdited[0]).toEqual(mostRecentlyUpdatedItem);
+    expect(component.itemsEdited.length).toEqual(1);
+  });
+
+  it('should return item with updated time', () => {
+    const updatedItem = component.getUpdatedItemWithTime('3:00', mockVisits[0]);
+    expect(updatedItem.endedAt.getHours()).toBe(3);
+    expect(updatedItem.endedAt.getMinutes()).toBe(0);
+    expect(updatedItem.endedAt.getSeconds()).toBe(0);
+  });
+
+  it('should display update button', () => {
+    expect(component.displayUpdateButton('b', ['a', 'b'], false)).toBe(true);
+  });
+
+  it('should not display update button', () => {
+    expect(component.displayUpdateButton('a', ['a', 'b'], false)).toBe(false);
   });
 });

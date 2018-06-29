@@ -11,11 +11,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material';
-import * as _ from 'lodash';
 import { merge, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getIndex } from '../../../functions';
-import { ColumnOptions } from '../../../models';
+import { ColumnOptions, Visit } from '../../../models';
 
 /**
  * Provides what data should be rendered in the table.
@@ -137,14 +136,9 @@ export class DataTableComponent implements OnInit, OnChanges {
    *
    * @param value
    * @param item
-   * @param key
    */
-  onSelectTime(value, item, key): void {
-    const itemCopy = Object.assign({}, item);
-    // If endedAt is null, set to startedAt so we can call setHours on a defined value
-    itemCopy.endedAt = item.endedAt ? item.endedAt : item.startedAt;
-    itemCopy.endedAt.setHours(value.split(':')[0], value.split(':')[1], 0);
-    this.addItemToItems(itemCopy);
+  onSelectTime(value, item): void {
+    this.addItemToItemsEdited(this.getUpdatedItemWithTime(value, item));
   }
 
   /**
@@ -152,17 +146,32 @@ export class DataTableComponent implements OnInit, OnChanges {
    *
    * @param items
    */
-  updateItems(items) {
+  onUpdateItems(items: any[]) {
     this.updateMultipleItems.emit(items);
     this.itemsEdited = [];
   }
 
   /**
-   * Remove visit if it matches the item passed in and then add item passed in.
+   * Set time on item date and return.
+   *
+   * @param {string} time - string e.g. "3:00"
+   * @param {Visit} item
+   * @returns {{} & Visit}
+   */
+  getUpdatedItemWithTime(time: string, item: Visit) {
+    const itemCopy = Object.assign({}, item);
+    // If endedAt is null, set to startedAt so we can call setHours on a defined value
+    itemCopy.endedAt = item.endedAt ? item.endedAt : item.startedAt;
+    itemCopy.endedAt.setHours(time.split(':')[0], time.split(':')[1], 0);
+    return itemCopy;
+  }
+
+  /**
+   * Add item to itemsEdited and remove pre-existing item if exists.
    *
    * @param item
    */
-  addItemToItems(item): void {
+  addItemToItemsEdited(item: any): void {
     const index = getIndex(this.itemsEdited, item.id);
     if (index !== undefined) {
       this.itemsEdited.splice(index, 1);
@@ -181,10 +190,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   displayUpdateButton(column, columnOptions, isReadOnly) {
     return column === columnOptions[columnOptions.length - 1]
     && !isReadOnly ? true : false;
-  }
-
-  isItemsEdited(itemsEdited): boolean {
-    return itemsEdited && itemsEdited.length !== 0 ? true : false;
   }
 
   /**
