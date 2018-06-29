@@ -60,7 +60,7 @@ export class AuthEffects {
     );
 
   /**
-   * Listen for the SignOut action, log the validMember out,
+   * Listen for the SignOut action, log the user out,
    * navigate to login page on success.
    * @type {Observable<any>}
    */
@@ -79,7 +79,7 @@ export class AuthEffects {
 
   /**
    * Listen for the ResetPassword action,
-   * send email to validMember and display snackbar.
+   * send email to user and display snackbar.
    * @type {Observable<any>}
    */
   @Effect({ dispatch: false })

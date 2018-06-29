@@ -82,7 +82,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   }
 
   /**
-   * After the validMember has finished drawing, save the signature as an array of point groups.
+   * After the user has finished drawing, save the signature as an array of point groups.
    */
   public drawComplete(): void {
     this.signature = this.signaturePad.toData();

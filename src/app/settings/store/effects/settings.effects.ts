@@ -65,7 +65,7 @@ export class SettingsEffects {
     );
 
   /**
-   * Listens for SettingsActions.SetOrganization. Applies validOrganization changes against current validOrganization in
+   * Listens for SettingsActions.SetOrganization. Applies organization changes against current organization in
    * session, then displays a success snack bar and dispatches SessionActions.SetOrganization.
    */
   @Effect()
@@ -86,7 +86,7 @@ export class SettingsEffects {
     );
 
   /**
-   * Listens for SettingsActions.SetUser. Applies validMember changes against current validMember in session, then
+   * Listens for SettingsActions.SetUser. Applies user changes against current user in session, then
    * displays a success snack bar and dispatches SessionActions.SetUser.
    */
   @Effect()
@@ -98,15 +98,15 @@ export class SettingsEffects {
         this.memberService.update(member),
       )
         .pipe(
-          map(([user]) => {
+          map(([userInfo]) => {
             this.snackBarService.updateUserSuccess();
-            return new SessionActions.SetUser({ member, user });
+            return new SessionActions.SetUser({ member, userInfo });
           }),
         )),
     );
 
   /**
-   * Listen for the updateRole action, update a validMember's role,
+   * Listen for the updateRole action, update a member's role,
    * then display a success snack bar.
    */
   @Effect({ dispatch: false })

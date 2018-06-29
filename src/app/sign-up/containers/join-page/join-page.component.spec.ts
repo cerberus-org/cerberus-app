@@ -57,7 +57,7 @@ describe('JoinPageComponent', () => {
 
   describe('onJoinOrganization', () => {
 
-    it('should log out validMember and display requestToJoinOrganizationSuccess snack bar on success', () => {
+    it('should log the user out and display requestToJoinOrganizationSuccess snack bar on success', () => {
       component.organizations = mockOrganizations;
       component.validInput = mockOrganizations[0].name;
       component.isTosChecked = true;

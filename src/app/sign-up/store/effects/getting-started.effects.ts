@@ -18,8 +18,8 @@ import { selectGettingStartedReducerState } from '../selectors/getting-started.s
 export class GettingStartedEffects {
 
   /**
-   * Listen for the Submit action, create the validOrganization, userInfo, validMember, and site,
-   * then emit the success snack bar and signInSuccess with the created validMember.
+   * Listen for the Submit action, create the organization, user, member, and site,
+   * then emit the success snack bar and dispatch AuthActions.SignIn with the valid credentials.
    */
   @Effect()
   submit$: Observable<Action> = this.actions

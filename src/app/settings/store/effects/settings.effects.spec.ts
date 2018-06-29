@@ -68,7 +68,7 @@ describe('SettingsEffects', () => {
     }));
 
     it(
-      'should dispatch SessionActions.SetUser with the edited validMember and without changes to the role property',
+      'should dispatch SessionActions.SetUser with the edited member and without changes to the role property',
       (() => {
         const expected = cold('b', {
           b: new SessionActions.SetUser({ ...createMockMembers()[1], role: createMockMembers()[0].role }),

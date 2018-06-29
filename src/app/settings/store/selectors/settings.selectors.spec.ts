@@ -28,14 +28,14 @@ describe('SettingsSelectors', () => {
   });
 
   describe('selectSettingsSidenavOptions', () => {
-    it('it should select the correct sidenav options for a non-admin validMember', () => {
+    it('it should select the correct sidenav options for a non-admin member', () => {
       expect(selectSettingsSidenavOptions.projector(createMockMembers()[0]))
         .toEqual(arrayContaining([
           objectContaining({ label: 'User' }),
         ]));
     });
 
-    it('it should select the correct sidenav options for an admin validMember', () => {
+    it('it should select the correct sidenav options for an admin member', () => {
       expect(selectSettingsSidenavOptions.projector(createMockMembers()[0]))
         .toEqual(arrayContaining([
           objectContaining({ label: 'User' }),

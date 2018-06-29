@@ -30,7 +30,7 @@ describe('layoutReducer', () => {
 
   describe('SET_USER', () => {
 
-    it('updates the validMember', () => {
+    it('updates the member', () => {
       const state = sessionReducer(
         undefined,
         new SessionActions.SetUser(createMockMembers()[0]),

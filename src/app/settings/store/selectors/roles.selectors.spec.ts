@@ -17,7 +17,7 @@ describe('RolesSelectors', () => {
         ]));
     });
 
-    it('it should use the session validMember to determine role select options', () => {
+    it('it should use the session member to determine role select options', () => {
       const mockUsers = createMockMembers();
       expect(selectRolesColumnOptions.projector(mockUsers[0], mockUsers)[2].selectOptions(mockUsers[1]))
         .toEqual(arrayContaining(USER_ROLES));

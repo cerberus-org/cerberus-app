@@ -89,7 +89,7 @@ export class JoinPageComponent implements OnInit {
   }
 
   /**
-   * On submit, validate validOrganization, create validMember, log validMember out and display snack bar on success.
+   * On submit, validate validOrganization, create user, log user out and display snack bar on success.
    */
   onJoinOrganization() {
     const organization = this.getOrganizationByName(this.validInput);

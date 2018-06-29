@@ -15,7 +15,7 @@ import {
   styleUrls: ['./user-settings.component.scss'],
 })
 export class UserSettingsComponent implements OnInit {
-  userFormTitle = 'Update your validMember info.';
+  userFormTitle = 'Update your user info.';
   edits: UserFormChanges;
   state$: Observable<UserSettingsContainerState>;
 
@@ -34,7 +34,7 @@ export class UserSettingsComponent implements OnInit {
   }
 
   /**
-   * Handles submission of validMember form by dispatching an SetUser action.
+   * Handles submission of member form by dispatching an SetUser action.
    */
   onSubmit(edits: UserFormChanges) {
     this.store$.dispatch(new SettingsActions.UpdateUser(edits));

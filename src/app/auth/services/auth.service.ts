@@ -46,12 +46,12 @@ export class AuthService {
 
   resetPassword(email: string): Observable<{}> {
     // Do not handle Firebase error for security purposes.
-    // We do not want the validMember to know if any email does or does not exist.
+    // We do not want the user to know if any email does or does not exist.
     return from(this.afAuth.auth.sendPasswordResetEmail(email));
   }
 
   /**
-   * Updates validMember data. Only updates the Firebase validMember if password or email are provided.
+   * Updates user data. Only updates the Firebase user if password or email are provided.
    *
    * @param credentials
    * @returns {Observable<Member>}
@@ -77,7 +77,7 @@ export class AuthService {
 
   signIn(credentials: Credentials): Observable<UserInfo> {
     // Do not use Firebase error for security purposes.
-    // We do not want the validMember to know if any account does or does not exist.
+    // We do not want the user to know if any account does or does not exist.
     return from(
       this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
       // Now returns userInfo property nested inside an object
@@ -87,7 +87,7 @@ export class AuthService {
   }
 
   /**
-   * If the validMember is not logged in, authState returns null.
+   * If the user is not logged in, authState returns null.
    * @returns {Observable<boolean>}
    */
   isSignedIn(): Observable<boolean> {
@@ -99,7 +99,7 @@ export class AuthService {
   }
 
   /**
-   * If the page is reloaded or the state of the validMember changes dispatch an action to load data to the root store$.
+   * If the page is reloaded or the state of the user changes dispatch an action to load data to the root store$.
    */
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged((user: User) => {

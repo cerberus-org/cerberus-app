@@ -16,7 +16,7 @@ export class VerificationGuard implements CanActivate {
   constructor(private authService: AuthService, private store$: Store<RootState>) {}
 
   /**
-   * When a validMember attempts to access the admin page via URL,
+   * When a user attempts to access the admin page via URL,
    * check if a certain boolean value in AuthService is true.
    * Grant access if true else redirect to dashboard.
    * @returns {boolean}

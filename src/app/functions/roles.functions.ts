@@ -22,10 +22,10 @@ const areSameUser = (currentUser: Member, otherUser: Member): boolean => (
 
 /**
  * Compares the roles between two members and returns true
- * if validMember A has a greater role than validMember B.
+ * if member A has a greater role than member B.
  * Returns true if currentUser and otherUser have the same ID.
- * @param currentUser - the current validMember
- * @param otherUser - the validMember to compare against
+ * @param currentUser - the current member
+ * @param otherUser - the member to compare against
  * @returns {boolean} true if greater, false if lesser
  */
 export const canSelectRole = (currentUser: Member, otherUser: Member): boolean => (
@@ -37,12 +37,12 @@ export const canSelectRole = (currentUser: Member, otherUser: Member): boolean =
 );
 
 /**
- * Gets available role select options for a given validMember, based on the current validMember's role.
+ * Gets available role select options for a given member, based on the current member's role.
  * Owners will be able to select the "Owner" role for other members.
  * Users will not be able to select the "Locked" option for themselves.
- * @param currentUser - the current validMember who will select an option
- * @param otherUser - the validMember to get available roles for
- * @returns {string[]} - the available options for the given validMember
+ * @param currentUser - the current member who will select an option
+ * @param otherUser - the member to get available roles for
+ * @returns {string[]} - the available options for the given member
  */
 export const getRoleOptions = (currentUser: Member, otherUser: Member): string[] => {
   if (!isAdmin(currentUser) || isGreaterRole(otherUser.role, currentUser.role)) {

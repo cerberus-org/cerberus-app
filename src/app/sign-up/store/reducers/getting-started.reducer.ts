@@ -36,16 +36,16 @@ export function gettingStartedReducer(
     }
 
     /**
-     * Updates the valid validOrganization.
-     * action.payload - the valid validOrganization
+     * Updates the valid organization.
+     * action.payload - the valid organization
      */
     case GettingStartedActions.SET_VALID_ORGANIZATION: {
       return { ...state, validOrganization: action.payload };
     }
 
     /**
-     * Updates the valid validMember.
-     * action.payload - the valid validMember
+     * Updates the valid credentials and member.
+     * action.payload - the valid credentials and member
      */
     case GettingStartedActions.SET_VALID_USER_FORM_CHANGES: {
       const { credentials, member } = action.payload;
@@ -54,7 +54,7 @@ export function gettingStartedReducer(
 
     /**
      * Updates the TOS checked status.
-     * action.payload - the valid validMember
+     * action.payload - the checked state
      */
     case GettingStartedActions.SET_TOS_CHECKED: {
       return { ...state, tosIsChecked: action.payload };

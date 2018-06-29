@@ -34,8 +34,8 @@ export class MemberService extends BaseService<Member> {
    * Deletes the email and password properties and capitalizes the firstName and lastName of the
    * member going to the database.
    *
-   * @param {Member} member - the validMember to capitalize properties for
-   * @returns {Member} - a new validMember with capitalized properties
+   * @param {Member} member - the member to capitalize properties for
+   * @returns {Member} - a new member with capitalized properties
    */
   mapObjectToDoc(member: Member): Member {
     return this.capitalizeMember(member);
