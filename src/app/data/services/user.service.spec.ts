@@ -1,42 +1,42 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { MockErrorService } from '../../mock/classes/error.service.mock';
-import { createMockUsers } from '../../mock/objects/user.mock';
-import { User } from '../../models';
+import { createMockMembers } from '../../mock/objects/member.mock';
+import { Member } from '../../models';
 import { ErrorService } from '../../shared/services/error.service';
-import { UserService } from './user.service';
+import { MemberService } from './member.service';
 
-describe('UserService', () => {
-  let service: UserService;
-  let testUser: User;
+describe('MemberService', () => {
+  let service: MemberService;
+  let testUser: Member;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        UserService,
+        MemberService,
         { provide: AngularFirestore, useValue: null },
         { provide: ErrorService, useClass: MockErrorService },
       ],
     });
     const testbed = getTestBed();
-    service = testbed.get(UserService);
-    testUser = createMockUsers()[0];
+    service = testbed.get(MemberService);
+    testUser = createMockMembers()[0];
     testUser.firstName = 'tED';
     testUser.lastName = 'mAdEr';
   }));
 
-  it('should be created', inject([UserService], (userService: UserService) => {
+  it('should be created', inject([MemberService], (userService: MemberService) => {
     expect(userService).toBeTruthy();
   }));
 
   it('should convert data coming from the database', () => {
     const converted = service.mapDocToObject(testUser);
-    expect(converted).toEqual(createMockUsers()[0]);
+    expect(converted).toEqual(createMockMembers()[0]);
   });
 
   it('should convert data going to the database', () => {
     const converted = service.mapObjectToDoc(testUser);
-    const userClone = createMockUsers()[0];
+    const userClone = createMockMembers()[0];
     delete userClone.email;
     delete userClone.password;
     expect(converted).toEqual(userClone);

@@ -1,6 +1,6 @@
-import { User } from '../models/index';
+import { Member } from '../models/index';
 
-export const isAdmin = (user: User) => ['Admin', 'Owner'].includes(user.role);
+export const isAdmin = (user: Member) => ['Admin', 'Owner'].includes(user.role);
 
 export const USER_ROLES = ['Locked', 'Member', 'Admin', 'Owner'];
 
@@ -12,23 +12,23 @@ const isGreaterRole = (roleA: string, roleB: string): boolean => (
 
 const isOwner = (user): boolean => getRoleValue(user.role) === 3;
 
-export const isLastOwner = (currentUser: User, users: User[]): boolean => (
+export const isLastOwner = (currentUser: Member, users: Member[]): boolean => (
   isOwner(currentUser) && users.filter(user => isOwner(user)).length === 1
 );
 
-const areSameUser = (currentUser: User, otherUser: User): boolean => (
+const areSameUser = (currentUser: Member, otherUser: Member): boolean => (
   currentUser.id === otherUser.id
 );
 
 /**
- * Compares the roles between two users and returns true
- * if user A has a greater role than user B.
+ * Compares the roles between two members and returns true
+ * if validMember A has a greater role than validMember B.
  * Returns true if currentUser and otherUser have the same ID.
- * @param currentUser - the current user
- * @param otherUser - the user to compare against
+ * @param currentUser - the current validMember
+ * @param otherUser - the validMember to compare against
  * @returns {boolean} true if greater, false if lesser
  */
-export const canSelectRole = (currentUser: User, otherUser: User): boolean => (
+export const canSelectRole = (currentUser: Member, otherUser: Member): boolean => (
   isAdmin(currentUser)
   && (
     areSameUser(currentUser, otherUser)
@@ -37,18 +37,18 @@ export const canSelectRole = (currentUser: User, otherUser: User): boolean => (
 );
 
 /**
- * Gets available role select options for a given user, based on the current user's role.
- * Owners will be able to select the "Owner" role for other users.
+ * Gets available role select options for a given validMember, based on the current validMember's role.
+ * Owners will be able to select the "Owner" role for other members.
  * Users will not be able to select the "Locked" option for themselves.
- * @param currentUser - the current user who will select an option
- * @param otherUser - the user to get available roles for
- * @returns {string[]} - the available options for the given user
+ * @param currentUser - the current validMember who will select an option
+ * @param otherUser - the validMember to get available roles for
+ * @returns {string[]} - the available options for the given validMember
  */
-export const getRoleOptions = (currentUser: User, otherUser: User): string[] => {
+export const getRoleOptions = (currentUser: Member, otherUser: Member): string[] => {
   if (!isAdmin(currentUser) || isGreaterRole(otherUser.role, currentUser.role)) {
     return null;
   }
-  // Filter out greater roles (use all for owners) and include current user's role
+  // Filter out greater roles (use all for owners) and include current validMember's role
   const roles = (
     isOwner(currentUser)
       ? USER_ROLES
@@ -58,7 +58,7 @@ export const getRoleOptions = (currentUser: User, otherUser: User): string[] => 
       ))
   )
     .slice();
-  // Remove the "Locked" option for the current user
+  // Remove the "Locked" option for the current validMember
   if (areSameUser(currentUser, otherUser)) {
     roles.shift();
   }

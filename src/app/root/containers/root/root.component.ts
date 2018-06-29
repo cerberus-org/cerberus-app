@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { isAdmin } from '../../../functions';
-import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
+import { HeaderOptions, Organization, SidenavOptions, Member } from '../../../models';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import * as ModelActions from '../../store/actions/model.actions';
@@ -24,7 +24,7 @@ export class RootComponent implements OnInit, OnDestroy {
     headerOptions: HeaderOptions;
     sidenavOptions: SidenavOptions[];
     organization: Organization
-    user: User;
+    user: Member;
     isLoading: Boolean;
   };
   layoutSubscription: Subscription;
@@ -88,7 +88,7 @@ export class RootComponent implements OnInit, OnDestroy {
       this.store$.dispatch(new ModelActions.LoadVisits(organizationId));
       this.store$.dispatch(new ModelActions.LoadVolunteers(organizationId));
       if (isAdmin(sessionState.user)) {
-        this.store$.dispatch(new ModelActions.LoadUsers(organizationId));
+        this.store$.dispatch(new ModelActions.LoadMembers(organizationId));
       }
     }
   }

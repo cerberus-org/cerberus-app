@@ -1,10 +1,10 @@
 import { sortVisitsByStartedAt } from '../../../functions';
-import { Organization, Site, User, Visit, Volunteer } from '../../../models';
+import { Organization, Site, Member, Visit, Volunteer } from '../../../models';
 import * as ModelActions from '../actions/model.actions';
 
 export interface ModelReducerState {
   sites: Site[];
-  users: User[];
+  members: Member[];
   visits: Visit[];
   volunteers: Volunteer[];
   organizations: Organization[];
@@ -12,7 +12,7 @@ export interface ModelReducerState {
 
 export const initialModelReducerState: ModelReducerState = {
   sites: [],
-  users: [],
+  members: [],
   visits: [],
   volunteers: [],
   organizations: [],
@@ -29,10 +29,10 @@ export function modelReducer(state = initialModelReducerState, action: Action): 
       };
     }
 
-    case ModelActions.LOAD_USERS_SUCCESS: {
+    case ModelActions.LOAD_MEMBERS_SUCCESS: {
       return {
         ...state,
-        users: action.payload,
+        members: action.payload,
       };
     }
 

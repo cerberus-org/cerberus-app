@@ -5,7 +5,7 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import { DataModule } from '../../../data/data.module';
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockUsers, mockFirebaseUsers } from '../../../mock/objects/user.mock';
+import { createMockMembers, mockUsers } from '../../../mock/objects/member.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { rootReducers } from '../../../root/store/reducers';
@@ -37,11 +37,11 @@ describe('SessionEffects', () => {
   describe('loadData$', () => {
     it('should dispatch SessionActions.LoadDataSuccess', (() => {
       actions = hot('a', {
-        a: new SessionActions.LoadData(mockFirebaseUsers[0]),
+        a: new SessionActions.LoadData(mockUsers[0]),
       });
       const expected = cold('b', {
         b: new SessionActions.LoadDataSuccess({
-          user: createMockUsers()[0],
+          member: createMockMembers()[0],
           organization: mockOrganizations[0],
         }),
       });

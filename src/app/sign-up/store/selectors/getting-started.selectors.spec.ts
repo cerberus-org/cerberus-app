@@ -1,6 +1,8 @@
+import { createMockCredentials } from '../../../mock/objects/credentials.mock';
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
-import { Organization, User } from '../../../models';
+import { createMockMembers } from '../../../mock/objects/member.mock';
+import { Organization, Member } from '../../../models';
+import { Credentials } from '../../../models/credentials';
 import { initialGettingStartedReducerState } from '../reducers/getting-started.reducer';
 import {
   selectGettingStartedPageState,
@@ -21,11 +23,13 @@ describe('GettingStartedSelectors', () => {
 
   describe('selectMaxEnabledStep', () => {
     let organization: Organization;
-    let user: User;
+    let credentials: Credentials;
+    let member: Member;
 
     beforeEach(() => {
       organization = createMockOrganizations()[0];
-      user = createMockUsers()[0];
+      credentials = createMockCredentials()[0];
+      member = createMockMembers()[0];
     });
 
     it('should initially return 0', () => {
@@ -33,21 +37,23 @@ describe('GettingStartedSelectors', () => {
         .toEqual(0);
     });
 
-    it('should return 1 if all steps are visited but the organization is invalid', () => {
+    it('should return 1 if all steps are visited but the validOrganization is invalid', () => {
       expect(selectMaxEnabledStep.projector({
         maxVisitedStep: 4,
         validOrganization: null,
-        validUser: user,
+        validCredentials: credentials,
+        validMember: member,
         tosIsChecked: true,
       }))
         .toEqual(1);
     });
 
-    it('should return 2 if all steps are visited but the user is invalid', () => {
+    it('should return 2 if all steps are visited but the user data is invalid', () => {
       expect(selectMaxEnabledStep.projector({
         maxVisitedStep: 4,
         validOrganization: organization,
-        validUser: null,
+        validCredentials: null,
+        validMember: null,
         tosIsChecked: true,
       }))
         .toEqual(2);
@@ -57,7 +63,8 @@ describe('GettingStartedSelectors', () => {
       expect(selectMaxEnabledStep.projector({
         maxVisitedStep: 4,
         validOrganization: organization,
-        validUser: user,
+        validCredentials: credentials,
+        validMember: member,
         tosIsChecked: false,
       }))
         .toEqual(3);
@@ -67,7 +74,8 @@ describe('GettingStartedSelectors', () => {
       expect(selectMaxEnabledStep.projector({
         maxVisitedStep: 4,
         validOrganization: organization,
-        validUser: user,
+        validCredentials: credentials,
+        validMember: member,
         tosIsChecked: true,
       }))
         .toEqual(4);
@@ -76,12 +84,14 @@ describe('GettingStartedSelectors', () => {
 
   describe('selectGettingStartedPageState', () => {
     it('should select the GettingStarted page state', () => {
+      const { validOrganization, validCredentials, validMember, tosIsChecked } = initialGettingStartedReducerState;
       expect(selectGettingStartedPageState.projector(initialGettingStartedReducerState, 4))
         .toEqual({
+          validOrganization,
+          validCredentials,
+          validMember,
+          tosIsChecked,
           maxEnabledStep: 4,
-          validOrganization: initialGettingStartedReducerState.validOrganization,
-          validUser: initialGettingStartedReducerState.validUser,
-          tosIsChecked: initialGettingStartedReducerState.tosIsChecked,
         });
     });
   });

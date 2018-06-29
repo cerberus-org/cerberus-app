@@ -1,5 +1,6 @@
-import { mockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockCredentials } from '../../../mock/objects/credentials.mock';
+import { createMockMembers } from '../../../mock/objects/member.mock';
+import { createMockOrganizations } from '../../../mock/objects/organization.mock';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import { gettingStartedReducer, initialGettingStartedReducerState } from './getting-started.reducer';
 
@@ -25,25 +26,29 @@ describe('gettingStartedReducer', () => {
     });
   });
 
-  describe('UPDATE_VALID_ORGANIZATION', () => {
+  describe('SET_VALID_ORGANIZATION', () => {
 
-    it('updates the valid organization', () => {
+    it('updates the valid validOrganization', () => {
+      const organization = createMockOrganizations()[0];
       const state = gettingStartedReducer(
         initialGettingStartedReducerState,
-        new GettingStartedActions.UpdateValidOrganization(mockOrganizations[0]),
+        new GettingStartedActions.SetValidOrganization(organization),
       );
-      expect(state.validOrganization).toEqual(mockOrganizations[0]);
+      expect(state.validOrganization).toEqual(organization);
     });
   });
 
-  describe('UPDATE_VALID_USER', () => {
+  describe('SET_VALID_USER_FORM_CHANGES', () => {
 
-    it('updates the valid organization', () => {
+    it('updates the valid validOrganization', () => {
+      const credentials = createMockCredentials()[0];
+      const member = createMockMembers()[0];
       const state = gettingStartedReducer(
         initialGettingStartedReducerState,
-        new GettingStartedActions.UpdateValidUser(createMockUsers()[0]),
+        new GettingStartedActions.SetValidUserFormChanges({ credentials, member }),
       );
-      expect(state.validUser).toEqual(createMockUsers()[0]);
+      expect(state.validCredentials).toEqual(credentials);
+      expect(state.validMember).toEqual(member);
     });
   });
 });

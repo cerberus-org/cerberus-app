@@ -4,7 +4,7 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import * as SessionActions from '../../../auth/store/actions/session.actions';
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockMembers } from '../../../mock/objects/member.mock';
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
@@ -44,9 +44,9 @@ describe('SettingsEffects', () => {
       });
     }));
 
-    it('should dispatch SessionActions.UpdateOrganization', () => {
+    it('should dispatch SessionActions.SetOrganization', () => {
       const expected = cold('b', {
-        b: new SessionActions.UpdateOrganization(organization),
+        b: new SessionActions.SetOrganization(organization),
       });
       expect(effects.updateOrganization$).toBeObservable(expected);
     });
@@ -63,15 +63,15 @@ describe('SettingsEffects', () => {
 
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new SettingsActions.UpdateUser({ ...createMockUsers()[1], role: undefined }),
+        a: new SettingsActions.UpdateUser({ ...createMockMembers()[1], role: undefined }),
       });
     }));
 
     it(
-      'should dispatch SessionActions.UpdateUser with the edited user and without changes to the role property',
+      'should dispatch SessionActions.SetUser with the edited validMember and without changes to the role property',
       (() => {
         const expected = cold('b', {
-          b: new SessionActions.UpdateUser({ ...createMockUsers()[1], role: createMockUsers()[0].role }),
+          b: new SessionActions.SetUser({ ...createMockMembers()[1], role: createMockMembers()[0].role }),
         });
         expect(effects.updateUser$).toBeObservable(expected);
       }),

@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { User as FirebaseUser } from 'firebase';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { UserService } from '../../../data/services/user.service';
+import { MemberService } from '../../../data/services/member.service';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { AuthService } from '../../services/auth.service';
@@ -14,7 +14,7 @@ import * as AuthActions from '../actions/auth.actions';
 export class AuthEffects {
 
   /**
-   * Listen for the LogIn action, log the afUser in, retrieve User,
+   * Listen for the LogIn action, log the afUser in, retrieve Member,
    * display success snackbar and navigate to settings page on success.
    * @type {Observable<any>}
    */
@@ -59,7 +59,7 @@ export class AuthEffects {
     );
 
   /**
-   * Listen for the LogOut action, log the user out,
+   * Listen for the LogOut action, log the validMember out,
    * navigate to login page on success.
    * @type {Observable<any>}
    */
@@ -78,7 +78,7 @@ export class AuthEffects {
 
   /**
    * Listen for the ResetPassword action,
-   * send email to user and display snackbar.
+   * send email to validMember and display snackbar.
    * @type {Observable<any>}
    */
   @Effect({ dispatch: false })
@@ -96,7 +96,7 @@ export class AuthEffects {
   constructor(
     private actions: Actions,
     private authService: AuthService,
-    private userService: UserService,
+    private userService: MemberService,
     private snackBarService: SnackBarService,
   ) {}
 }

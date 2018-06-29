@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { getFormattedVisits } from '../../../functions';
-import { Organization, Site, User, Visit, Volunteer } from '../../../models';
+import { Organization, Site, Member, Visit, Volunteer } from '../../../models';
 import { ModelReducerState } from '../reducers/model.reducer';
 
 export const selectModelReducerState = createFeatureSelector<ModelReducerState>('model');
@@ -17,7 +17,7 @@ export const selectModelSites = createSelector(
 
 export const selectModelUsers = createSelector(
   selectModelReducerState,
-  (state: ModelReducerState): User[] => state.users,
+  (state: ModelReducerState): Member[] => state.members,
 );
 
 export const selectModelVisits = createSelector(

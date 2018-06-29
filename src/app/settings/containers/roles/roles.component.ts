@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
-import { User } from '../../../models';
+import { Member } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
-import { RolesPageState, selectRolesPageState } from '../../store/selectors/roles.selectors';
+import { RolesContainerState, selectRolesContainerState } from '../../store/selectors/roles.selectors';
 
 @Component({
   selector: 'app-roles',
@@ -13,15 +13,15 @@ import { RolesPageState, selectRolesPageState } from '../../store/selectors/role
   styleUrls: ['./roles.component.scss'],
 })
 export class RolesComponent implements OnInit {
-  state$: Observable<RolesPageState>;
+  state$: Observable<RolesContainerState>;
 
   constructor(public store$: Store<RootState>) {}
 
   ngOnInit(): void {
-    this.state$ = this.store$.pipe(select(selectRolesPageState));
+    this.state$ = this.store$.pipe(select(selectRolesContainerState));
   }
 
-  onUpdateUser(user: User) {
+  onUpdateUser(user: Member) {
     this.store$.dispatch(new SettingsActions.UpdateRole(user));
   }
 
@@ -29,7 +29,7 @@ export class RolesComponent implements OnInit {
     // TODO: Implement me
   }
 
-  get users$() {
-    return this.state$.pipe(map(state => state.users));
+  get members$() {
+    return this.state$.pipe(map(state => state.members));
   }
 }

@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth.service';
 import { OrganizationService } from '../../../data/services/organization.service';
-import { HeaderOptions, Organization, User } from '../../../models';
+import { HeaderOptions, Organization, Member } from '../../../models';
 import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { RootState } from '../../../root/store/reducers';
@@ -29,7 +29,7 @@ export class JoinPageComponent implements OnInit {
   @ViewChild('stepper') stepper: MatVerticalStepper;
 
   validInput: string;
-  validUser: User;
+  validMember: Member;
   userFormTitle: string;
   organizations: Organization[];
   modelSubscription: Subscription;
@@ -55,12 +55,12 @@ export class JoinPageComponent implements OnInit {
   }
 
   /**
-   * Handles validUser events by setting validUser.
+   * Handles validChanges events by setting validChanges.
    *
-   * @param {User} user
+   * @param {Member} user
    */
-  onValidUser(user: User) {
-    this.validUser = user;
+  onValidMember(user: Member) {
+    this.validMember = user;
   }
 
   /**
@@ -89,13 +89,13 @@ export class JoinPageComponent implements OnInit {
   }
 
   /**
-   * On submit, validate organization, create user, log user out and display snack bar on success.
+   * On submit, validate validOrganization, create validMember, log validMember out and display snack bar on success.
    */
   onJoinOrganization() {
     const organization = this.getOrganizationByName(this.validInput);
     if (organization) {
       this.authService.createUser({
-        ...this.validUser,
+        ...this.validMember,
         organizationId: organization.id,
         role: 'unverified',
       })

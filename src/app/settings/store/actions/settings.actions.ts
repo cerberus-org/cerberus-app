@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
-import { Organization, User, Visit, Volunteer } from '../../../models';
+import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
+import { Organization, Member, Visit, Volunteer } from '../../../models';
 
 export const DELETE_VOLUNTEER = '[Settings] Delete volunteer';
 export const DELETE_VOLUNTEER_SUCCESS = '[Settings] Delete volunteer success';
@@ -67,13 +68,13 @@ export class UpdateOrganization implements Action {
 export class UpdateUser implements Action {
   readonly type = UPDATE_USER;
 
-  constructor(public payload: User) {}
+  constructor(public payload: UserFormChanges) {}
 }
 
 export class UpdateRole implements Action {
   readonly type = UPDATE_ROLE;
 
-  constructor(public payload: User) {}
+  constructor(public payload: Member) {}
 }
 
 export class UpdateVisits implements Action {

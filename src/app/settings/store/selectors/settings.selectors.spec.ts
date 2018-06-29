@@ -1,4 +1,4 @@
-import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockMembers } from '../../../mock/objects/member.mock';
 import { initialSettingsReducerState } from '../reducers/settings.reducer';
 import {
   selectSettingsReducerState,
@@ -28,15 +28,15 @@ describe('SettingsSelectors', () => {
   });
 
   describe('selectSettingsSidenavOptions', () => {
-    it('it should select the correct sidenav options for a non-admin user', () => {
-      expect(selectSettingsSidenavOptions.projector(createMockUsers()[0]))
+    it('it should select the correct sidenav options for a non-admin validMember', () => {
+      expect(selectSettingsSidenavOptions.projector(createMockMembers()[0]))
         .toEqual(arrayContaining([
           objectContaining({ label: 'User' }),
         ]));
     });
 
-    it('it should select the correct sidenav options for an admin user', () => {
-      expect(selectSettingsSidenavOptions.projector(createMockUsers()[0]))
+    it('it should select the correct sidenav options for an admin validMember', () => {
+      expect(selectSettingsSidenavOptions.projector(createMockMembers()[0]))
         .toEqual(arrayContaining([
           objectContaining({ label: 'User' }),
           objectContaining({ label: 'Organization' }),

@@ -3,8 +3,9 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
+import { createMockCredentials } from '../../../mock/objects/credentials.mock';
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockMembers } from '../../../mock/objects/member.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
@@ -20,7 +21,7 @@ describe('GettingStartedEffects', () => {
     spyOn(selectGettingStartedReducerState, 'projector').and.returnValue({
       maxVisitedStep: 4,
       validOrganization: createMockOrganizations()[0],
-      validUser: createMockUsers()[0],
+      validUser: createMockMembers()[0],
       tosIsChecked: true,
     });
     TestBed.configureTestingModule({
@@ -45,7 +46,7 @@ describe('GettingStartedEffects', () => {
 
     it('should dispatch AuthActions.LogIn', () => {
       const expected = cold('b', {
-        b: new AuthActions.LogIn(createMockUsers()[0]),
+        b: new AuthActions.LogIn(createMockCredentials()[0]),
       });
       expect(effects.submit$).toBeObservable(expected);
     });

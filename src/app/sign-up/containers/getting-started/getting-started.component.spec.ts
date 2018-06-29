@@ -16,7 +16,7 @@ describe('GettingStartedComponent', () => {
         GettingStartedComponent,
         MockComponent({ selector: 'app-about-us' }),
         MockComponent({ selector: 'app-organization-form' }),
-        MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
+        MockComponent({ selector: 'app-user-form', inputs: ['initialMember', 'passwordRequired'] }),
         MockComponent({ selector: 'app-organization-confirm', inputs: ['organization', 'user'] }),
         MockComponent({ selector: 'app-services-agreement', inputs: ['showTitle'] }),
       ],

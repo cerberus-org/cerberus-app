@@ -1,23 +1,29 @@
-import { Organization, User } from '../../../models';
+import { Member, Organization } from '../../../models';
+import { Credentials } from '../../../models/credentials';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 
 export interface GettingStartedReducerState {
   maxVisitedStep: number;
   validOrganization: Organization;
-  validUser: User;
+  validCredentials: Credentials;
+  validMember: Member;
   tosIsChecked: boolean;
 }
 
 export const initialGettingStartedReducerState: GettingStartedReducerState = {
   maxVisitedStep: 0,
   validOrganization: null,
-  validUser: null,
+  validCredentials: null,
+  validMember: null,
   tosIsChecked: false,
 };
 
 export type Action = GettingStartedActions.All;
 
-export function gettingStartedReducer(state = initialGettingStartedReducerState, action: Action): GettingStartedReducerState {
+export function gettingStartedReducer(
+  state = initialGettingStartedReducerState,
+  action: Action,
+): GettingStartedReducerState {
   switch (action.type) {
 
     /**
@@ -26,31 +32,31 @@ export function gettingStartedReducer(state = initialGettingStartedReducerState,
      * action.payload - the next maxVisitedStep
      */
     case GettingStartedActions.NEXT_STEP: {
-      const next = action.payload;
-      return { ...state, maxVisitedStep: Math.max(state.maxVisitedStep, next) };
+      return { ...state, maxVisitedStep: Math.max(state.maxVisitedStep, action.payload) };
     }
 
     /**
-     * Updates the valid organization.
-     * action.payload - the valid organization
+     * Updates the valid validOrganization.
+     * action.payload - the valid validOrganization
      */
-    case GettingStartedActions.UPDATE_VALID_ORGANIZATION: {
+    case GettingStartedActions.SET_VALID_ORGANIZATION: {
       return { ...state, validOrganization: action.payload };
     }
 
     /**
-     * Updates the valid user.
-     * action.payload - the valid user
+     * Updates the valid validMember.
+     * action.payload - the valid validMember
      */
-    case GettingStartedActions.UPDATE_VALID_USER: {
-      return { ...state, validUser: action.payload };
+    case GettingStartedActions.SET_VALID_USER_FORM_CHANGES: {
+      const { credentials, member } = action.payload;
+      return { ...state, validCredentials: credentials, validMember: member };
     }
 
     /**
      * Updates the TOS checked status.
-     * action.payload - the valid user
+     * action.payload - the valid validMember
      */
-    case GettingStartedActions.UPDATE_TOS_CHECKED: {
+    case GettingStartedActions.SET_TOS_CHECKED: {
       return { ...state, tosIsChecked: action.payload };
     }
 

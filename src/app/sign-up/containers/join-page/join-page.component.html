@@ -1,18 +1,18 @@
 <mat-horizontal-stepper #stepper>
-  <!--user form-->
+  <!--validMember form-->
   <mat-step>
     <div class="container-center loose">
       <app-user-form
         [title]="userFormTitle"
-        (validUser)="onValidUser($event)"
+        (validChanges)="onValidMember($event)"
         [passwordRequired]="true">
       </app-user-form>
     </div>
     <div class="container-submit">
-      <button mat-raised-button color="primary" [disabled]="!validUser" (click)="onNext(1)">Next</button>
+      <button mat-raised-button color="primary" [disabled]="!validMember" (click)="onNext(1)">Next</button>
     </div>
   </mat-step>
-  <!--find organization-->
+  <!--find validOrganization-->
   <mat-step>
     <div class="container-center loose">
       <app-find-organization
@@ -25,7 +25,7 @@
       <button mat-raised-button
               type="button"
               color="primary"
-              [disabled]="!validUser || !validInput"
+              [disabled]="!validMember || !validInput"
               (click)="onNext(2)">Next
       </button>
     </div>
@@ -44,7 +44,7 @@
       <button mat-raised-button
               type="button"
               color="primary"
-              [disabled]="!validUser || !validInput || !isTosChecked"
+              [disabled]="!validMember || !validInput || !isTosChecked"
               (click)="onJoinOrganization($event)">Request to Join
       </button>
     </div>

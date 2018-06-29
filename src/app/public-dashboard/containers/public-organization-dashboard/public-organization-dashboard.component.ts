@@ -41,7 +41,7 @@ export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
             '/dashboard',
             false,
           )));
-          // Only display error after attempting to fetch organization
+          // Only display error after attempting to fetch validOrganization
           this.showNotFound = organizations.length === 0;
         },
         (error: any) => {

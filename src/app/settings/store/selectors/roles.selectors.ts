@@ -1,28 +1,28 @@
 import { createSelector } from '@ngrx/store';
-import { selectSessionUser } from '../../../auth/store/selectors/session.selectors';
+import { selectSessionMember } from '../../../auth/store/selectors/session.selectors';
 import { canSelectRole, getRoleOptions, isLastOwner } from '../../../functions';
-import { ColumnOptions, User } from '../../../models';
+import { ColumnOptions, Member } from '../../../models';
 import { selectModelUsers } from '../../../root/store/selectors/model.selectors';
 
 export const selectRolesColumnOptions = createSelector(
-  selectSessionUser,
+  selectSessionMember,
   selectModelUsers,
-  (sessionUser: User, modelUsers: User[]): ColumnOptions[] => [
+  (sessionUser: Member, modelUsers: Member[]): ColumnOptions[] => [
     new ColumnOptions(
       'firstName',
       'First Name',
-      (row: User) => row.firstName,
+      (row: Member) => row.firstName,
     ),
     new ColumnOptions(
       'lastName',
       'Last Name',
-      (row: User) => row.lastName,
+      (row: Member) => row.lastName,
     ),
     new ColumnOptions(
       'role',
       'Role',
-      (row: User) => row.role,
-      (row: User) =>
+      (row: Member) => row.role,
+      (row: Member) =>
         canSelectRole(sessionUser, row) && !isLastOwner(row, modelUsers)
           ? getRoleOptions(sessionUser, row)
           : null,
@@ -30,13 +30,13 @@ export const selectRolesColumnOptions = createSelector(
   ],
 );
 
-export interface RolesPageState {
-  users: User[];
+export interface RolesContainerState {
+  members: Member[];
   columnOptions: ColumnOptions[];
 }
 
-export const selectRolesPageState = createSelector(
+export const selectRolesContainerState = createSelector(
   selectModelUsers,
   selectRolesColumnOptions,
-  (users: User[], columnOptions: ColumnOptions[]): RolesPageState => ({ users, columnOptions }),
+  (members: Member[], columnOptions: ColumnOptions[]): RolesContainerState => ({ members, columnOptions }),
 );

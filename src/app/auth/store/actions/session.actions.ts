@@ -1,50 +1,51 @@
 import { Action } from '@ngrx/store';
-import { User as FirebaseUser } from 'firebase';
-import { Organization, User } from '../../../models';
+import { User } from 'firebase';
+import { Member, Organization } from '../../../models';
 
 export const LOAD_DATA = '[Session] Load data';
 export const LOAD_DATA_SUCCESS = '[Session] Load data success';
-export const UPDATE_ORGANIZATION = '[Session] Update organization';
-export const UPDATE_USER = '[Session] Update user';
+export const SET_ORGANIZATION = '[Session] Set validOrganization';
+export const SET_USER = '[Session] Set user';
 
 export class LoadData implements Action {
   readonly type = LOAD_DATA;
 
-  constructor(public payload: FirebaseUser) {}
+  constructor(public payload: User) {}
 }
 
 /**
- * Used when user initially logs in.
+ * Sets the session data when the user logs in.
  */
 export class LoadDataSuccess implements Action {
   readonly type = LOAD_DATA_SUCCESS;
 
   constructor(public payload: {
-    user: User,
+    member: Member,
     organization: Organization,
+    user: User,
   }) {}
 }
 
 /**
- * Used when Organization is updated.
+ * Sets the session validOrganization.
  */
-export class UpdateOrganization implements Action {
-  readonly type = UPDATE_ORGANIZATION;
+export class SetOrganization implements Action {
+  readonly type = SET_ORGANIZATION;
 
   constructor(public payload: Organization) {}
 }
 
 /**
- * Used when User is updated.
+ * Sets the session user.
  */
-export class UpdateUser implements Action {
-  readonly type = UPDATE_USER;
+export class SetUser implements Action {
+  readonly type = SET_USER;
 
-  constructor(public payload: User) {}
+  constructor(public payload: { member: Member, user: User }) {}
 }
 
 export type All
   = LoadData
   | LoadDataSuccess
-  | UpdateOrganization
-  | UpdateUser;
+  | SetOrganization
+  | SetUser;

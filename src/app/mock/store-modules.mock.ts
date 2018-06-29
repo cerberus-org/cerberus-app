@@ -6,7 +6,7 @@ import { initialModelReducerState } from '../root/store/reducers/model.reducer';
 import { settingsReducers } from '../settings/store/reducers';
 import { signUpReducers } from '../sign-up/store/reducers';
 import { createMockOrganizations } from './objects/organization.mock';
-import { createMockUsers } from './objects/user.mock';
+import { createMockMembers } from './objects/member.mock';
 import { createMockVolunteers } from './objects/volunteer.mock';
 
 export const mockStoreModules = [
@@ -23,7 +23,7 @@ export const mockStoreModules = [
       session: {
         ...initialSessionReducerState,
         organization: createMockOrganizations()[0],
-        user: createMockUsers()[0],
+        user: createMockMembers()[0],
       },
     },
   }),
@@ -33,7 +33,7 @@ export const mockStoreModules = [
       gettingStarted: {
         maxVisitedStep: 4,
         validOrganization: createMockOrganizations()[0],
-        validUser: createMockUsers()[0],
+        validUser: createMockMembers()[0],
         tosIsChecked: true,
       },
     },

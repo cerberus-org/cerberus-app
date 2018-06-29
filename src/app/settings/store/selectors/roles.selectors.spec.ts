@@ -1,14 +1,14 @@
 import { USER_ROLES } from '../../../functions';
 import { createMockColumnOptions } from '../../../mock/objects/column-options.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
-import { selectRolesColumnOptions, selectRolesPageState } from './roles.selectors';
+import { createMockMembers } from '../../../mock/objects/member.mock';
+import { selectRolesColumnOptions, selectRolesContainerState } from './roles.selectors';
 import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;
 
 describe('RolesSelectors', () => {
   describe('selectRolesColumnOptions', () => {
     it('it should select column options for the Roles page', () => {
-      const mockUsers = createMockUsers();
+      const mockUsers = createMockMembers();
       expect(selectRolesColumnOptions.projector(mockUsers[0], mockUsers))
         .toEqual(arrayContaining([
           objectContaining({ columnDef: 'firstName', header: 'First Name' }),
@@ -17,18 +17,18 @@ describe('RolesSelectors', () => {
         ]));
     });
 
-    it('it should use the session user to determine role select options', () => {
-      const mockUsers = createMockUsers();
+    it('it should use the session validMember to determine role select options', () => {
+      const mockUsers = createMockMembers();
       expect(selectRolesColumnOptions.projector(mockUsers[0], mockUsers)[2].selectOptions(mockUsers[1]))
         .toEqual(arrayContaining(USER_ROLES));
     });
   });
 
-  describe('selectRolesPageState', () => {
+  describe('selectRolesContainerState', () => {
     it('it should select the Roles page state', () => {
-      const mockUsers = createMockUsers();
+      const mockUsers = createMockMembers();
       const mockColumnOptions = createMockColumnOptions();
-      expect(selectRolesPageState.projector(mockUsers, mockColumnOptions))
+      expect(selectRolesContainerState.projector(mockUsers, mockColumnOptions))
         .toEqual({
           users: mockUsers,
           columnOptions: mockColumnOptions,

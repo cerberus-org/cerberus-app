@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { AuthService } from '../../../auth/services/auth.service';
 import { mockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockMembers } from '../../../mock/objects/member.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
@@ -18,7 +18,7 @@ describe('JoinPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         JoinPageComponent,
-        MockComponent({ selector: 'app-user-form', inputs: ['initialUser', 'passwordRequired'] }),
+        MockComponent({ selector: 'app-user-form', inputs: ['initialMember', 'passwordRequired'] }),
         MockComponent({ selector: 'app-find-organization', inputs: ['showTitle', 'showInputIconButton'] }),
         MockComponent({ selector: 'app-services-agreement', inputs: ['showTitle'] }),
       ],
@@ -45,9 +45,9 @@ describe('JoinPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle userEdits events by setting userEdits', () => {
-    component.onValidUser(createMockUsers()[0]);
-    expect(component.validUser).toEqual(createMockUsers()[0]);
+  it('should handle edits events by setting edits', () => {
+    component.onValidMember(createMockMembers()[0]);
+    expect(component.validMember).toEqual(createMockMembers()[0]);
   });
 
   it('should get Organization by name', () => {
@@ -57,7 +57,7 @@ describe('JoinPageComponent', () => {
 
   describe('onJoinOrganization', () => {
 
-    it('should log out user and display requestToJoinOrganizationSuccess snack bar on success', () => {
+    it('should log out validMember and display requestToJoinOrganizationSuccess snack bar on success', () => {
       component.organizations = mockOrganizations;
       component.validInput = mockOrganizations[0].name;
       component.isTosChecked = true;

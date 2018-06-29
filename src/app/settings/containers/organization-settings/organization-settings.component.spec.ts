@@ -37,7 +37,7 @@ describe('OrganizationSettingsComponent', () => {
     expect(component.organizationEdits).toEqual(createMockOrganizations()[0]);
   });
 
-  it('should handle updateOrganization events by dispatching SettingsActions.UpdateOrganization', () => {
+  it('should handle updateOrganization events by dispatching SettingsActions.SetOrganization', () => {
     spyOn(component.store$, 'dispatch');
     const organization = { ...createMockOrganizations()[0], name: 'Edited' };
     component.onSubmitOrganization(organization);

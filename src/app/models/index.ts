@@ -4,6 +4,6 @@ export * from './organization';
 export * from './report';
 export * from './sidenav-options';
 export * from './site';
-export * from './user';
+export * from './member';
 export * from './visit';
 export * from './volunteer';

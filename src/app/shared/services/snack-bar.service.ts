@@ -19,7 +19,7 @@ export class SnackBarService {
   }
 
   addOrganizationSuccess(): void {
-    this.open('Your organization was successfully added.');
+    this.open('Your validOrganization was successfully added.');
   }
 
   signUpSuccess(): void {
@@ -27,7 +27,7 @@ export class SnackBarService {
   }
 
   updateUserSuccess(): void {
-    this.open('User information successfully updated.');
+    this.open('Member information successfully updated.');
   }
 
   updateVisitsSuccess(): void {
@@ -47,11 +47,11 @@ export class SnackBarService {
   }
 
   requestToJoinOrganizationSuccess(): void {
-    this.open('Successfully requested to join an organization.');
+    this.open('Successfully requested to join an validOrganization.');
   }
 
   invalidOrganization(): void {
-    this.open('Invalid organization.');
+    this.open('Invalid validOrganization.');
   }
 
   accountNotVerified(): void {
@@ -59,7 +59,7 @@ export class SnackBarService {
   }
 
   resetPassword(): void {
-    this.open('If your email is associated with an organization, you will receive an email.');
+    this.open('If your email is associated with an validOrganization, you will receive an email.');
   }
 
   signInError(): void {

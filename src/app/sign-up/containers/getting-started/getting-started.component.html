@@ -34,7 +34,7 @@
     [disabled]="(state$ | async)?.maxEnabledStep < 2"
   >
     <app-user-form
-      (validUser)="onValidUser($event)"
+      (validChanges)="onValidUserFormChanges($event)"
       [title]="userFormTitle"
       [passwordRequired]="true"
     >
@@ -44,7 +44,7 @@
         mat-raised-button
         color="primary"
         (click)="onNext(3)"
-        [disabled]="!(state$ | async)?.validUser"
+        [disabled]="!(state$ | async)?.validMember || !(state$ | async)?.validCredentials"
       >
         Next
       </button>
@@ -79,7 +79,8 @@
   >
     <app-organization-confirm
       [organization]="(state$ | async)?.validOrganization"
-      [user]="(state$ | async)?.validUser"
+      [email]="(state$ | async)?.validCredentials.email"
+      [member]="(state$ | async)?.validMember"
     >
     </app-organization-confirm>
     <div class="container-submit">

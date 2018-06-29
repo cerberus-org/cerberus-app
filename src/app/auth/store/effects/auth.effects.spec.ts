@@ -1,14 +1,12 @@
 import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { StoreModule } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { createMockLoginCredentials } from '../../../mock/objects/user.mock';
+import { createMockCredentials } from '../../../mock/objects/credentials.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { rootReducers } from '../../../root/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as AuthActions from '../actions/auth.actions';
 import { AuthEffects } from './auth.effects';
@@ -36,7 +34,7 @@ describe('AuthEffects', () => {
 
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(createMockLoginCredentials()[0]),
+        a: new AuthActions.LogIn(createMockCredentials()[0]),
       });
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] }),
@@ -46,7 +44,7 @@ describe('AuthEffects', () => {
 
     it('should open the accountNotVerified snackbar if role is locked', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(createMockLoginCredentials()[2]),
+        a: new AuthActions.LogIn(createMockCredentials()[2]),
       });
       const accountNotVerifiedSpy = spyOn(TestBed.get(SnackBarService), 'accountNotVerified');
       effects.login$.subscribe(() => {
@@ -56,7 +54,7 @@ describe('AuthEffects', () => {
 
     it('should open the loginSuccess snackbar', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(createMockLoginCredentials()[0]),
+        a: new AuthActions.LogIn(createMockCredentials()[0]),
       });
       const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'loginSuccess');
       effects.login$.subscribe(() => {
@@ -105,7 +103,7 @@ describe('AuthEffects', () => {
   describe('resetPassword$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.ResetPassword(createMockLoginCredentials()[0].email),
+        a: new AuthActions.ResetPassword(createMockCredentials()[0].email),
       });
     }));
 

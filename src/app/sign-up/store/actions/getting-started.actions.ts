@@ -1,10 +1,11 @@
 import { Action } from '@ngrx/store';
-import { Organization, User } from '../../../models';
+import { Organization } from '../../../models';
+import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 
 export const NEXT_STEP = '[Getting Started] Next maxVisitedStep';
-export const UPDATE_VALID_ORGANIZATION = '[Getting Started] Update valid organization';
-export const UPDATE_VALID_USER = '[Getting Started] Update valid user';
-export const UPDATE_TOS_CHECKED = '[Getting Started] Update TOS checked';
+export const SET_VALID_ORGANIZATION = '[Getting Started] Set valid validOrganization';
+export const SET_VALID_USER_FORM_CHANGES = '[Getting Started] Set valid validMember';
+export const SET_TOS_CHECKED = '[Getting Started] Set TOS checked';
 export const SUBMIT = '[Getting Started] Submit';
 
 export class NextStep implements Action {
@@ -13,20 +14,20 @@ export class NextStep implements Action {
   constructor(public payload: number) {}
 }
 
-export class UpdateValidOrganization implements Action {
-  readonly type = UPDATE_VALID_ORGANIZATION;
+export class SetValidOrganization implements Action {
+  readonly type = SET_VALID_ORGANIZATION;
 
   constructor(public payload: Organization) {}
 }
 
-export class UpdateValidUser implements Action {
-  readonly type = UPDATE_VALID_USER;
+export class SetValidUserFormChanges implements Action {
+  readonly type = SET_VALID_USER_FORM_CHANGES;
 
-  constructor(public payload: User) {}
+  constructor(public payload: UserFormChanges) {}
 }
 
-export class UpdateTosChecked implements Action {
-  readonly type = UPDATE_TOS_CHECKED;
+export class SetTosChecked implements Action {
+  readonly type = SET_TOS_CHECKED;
 
   constructor(public payload: boolean) {}
 }
@@ -39,7 +40,7 @@ export class Submit implements Action {
 
 export type All
   = NextStep
-  | UpdateValidOrganization
-  | UpdateValidUser
-  | UpdateTosChecked
+  | SetValidOrganization
+  | SetValidUserFormChanges
+  | SetTosChecked
   | Submit;

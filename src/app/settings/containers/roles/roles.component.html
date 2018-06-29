@@ -1,5 +1,5 @@
 <app-data-table
-  [data$]="users$"
+  [data$]="members$"
   [isReadOnly]="true"
   [columnOptions]="(state$ | async).columnOptions"
   (deleteItem)="onDeleteUser($event)"

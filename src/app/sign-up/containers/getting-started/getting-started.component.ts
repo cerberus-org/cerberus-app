@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange, MatTabGroup } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { HeaderOptions, Organization, User } from '../../../models';
+import { HeaderOptions, Organization } from '../../../models';
 import * as LayoutActions from '../../../root/store/actions/layout.actions';
+import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 import * as GettingStartedActions from '../../store/actions/getting-started.actions';
 import { SignUpState } from '../../store/reducers';
 import {
@@ -24,8 +25,8 @@ export class GettingStartedComponent implements OnInit {
     true,
   );
   @ViewChild('tabGroup') private tabGroup: MatTabGroup;
-  userFormTitle: string = 'Create an account to access your organization.';
-  organizationFormTitle: string = 'Tell us about your organization.';
+  userFormTitle: string = 'Create an account to access your validOrganization.';
+  organizationFormTitle: string = 'Tell us about your validOrganization.';
   state$: Observable<GettingStartedPageState> = this.store$.pipe(select(selectGettingStartedPageState));
 
   constructor(private store$: Store<SignUpState>) {}
@@ -36,15 +37,15 @@ export class GettingStartedComponent implements OnInit {
   }
 
   onValidOrganization(organization: Organization): void {
-    this.store$.dispatch(new GettingStartedActions.UpdateValidOrganization(organization));
+    this.store$.dispatch(new GettingStartedActions.SetValidOrganization(organization));
   }
 
-  onValidUser(user: User): void {
-    this.store$.dispatch(new GettingStartedActions.UpdateValidUser(user));
+  onValidUserFormChanges(userFormChanges: UserFormChanges): void {
+    this.store$.dispatch(new GettingStartedActions.SetValidUserFormChanges(userFormChanges));
   }
 
   onCheckTos($event: MatCheckboxChange) {
-    this.store$.dispatch(new GettingStartedActions.UpdateTosChecked($event.checked));
+    this.store$.dispatch(new GettingStartedActions.SetTosChecked($event.checked));
   }
 
   onNext(step): void {

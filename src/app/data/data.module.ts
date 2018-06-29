@@ -4,7 +4,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { SharedModule } from '../shared/shared.module';
 import { OrganizationService } from './services/organization.service';
 import { SiteService } from './services/site.service';
-import { UserService } from './services/user.service';
+import { MemberService } from './services/member.service';
 import { VisitService } from './services/visit.service';
 import { VolunteerService } from './services/volunteer.service';
 
@@ -19,7 +19,7 @@ import { VolunteerService } from './services/volunteer.service';
   providers: [
     OrganizationService,
     SiteService,
-    UserService,
+    MemberService,
     VisitService,
     VolunteerService,
   ],

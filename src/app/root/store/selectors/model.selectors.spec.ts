@@ -1,6 +1,6 @@
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
 import { createMockSites } from '../../../mock/objects/site.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockMembers } from '../../../mock/objects/member.mock';
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { initialModelReducerState } from '../reducers/model.reducer';
@@ -29,12 +29,12 @@ describe('ModelSelectors', () => {
       .toEqual(createMockSites());
   });
 
-  it('should select users', () => {
+  it('should select members', () => {
     expect(selectModelUsers.projector({
       ...initialModelReducerState,
-      users: createMockUsers(),
+      users: createMockMembers(),
     }))
-      .toEqual(createMockUsers());
+      .toEqual(createMockMembers());
   });
 
   it('should select visits', () => {

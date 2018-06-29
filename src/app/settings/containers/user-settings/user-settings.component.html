@@ -1,15 +1,16 @@
 <app-user-form
   [title]="userFormTitle"
-  [initialUser]="(sessionUser$ | async)"
+  [initialMember]="(state$ | async)?.member"
+  [initialEmail]="" ]="(state$ | async)?.email"
   [passwordRequired]="false"
-  (validUser)="onValidUser($event)">
+  (validChanges)="onValidChanges($event)">
 </app-user-form>
 <div class="container-submit">
   <button
     mat-raised-button
     color="primary"
-    (click)="onSubmitUser(userEdits)"
-    [disabled]="!userEdits">
+    (click)="onSubmit(edits)"
+    [disabled]="!edits">
     Submit
   </button>
 </div>

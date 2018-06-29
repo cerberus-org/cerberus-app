@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
-import { User } from '../../models';
+import { Member } from '../../models';
 import { ErrorService } from '../../shared/services/error.service';
 import { BaseService } from './base.service';
 
 @Injectable()
-export class UserService extends BaseService<User> {
-  collectionName = 'users';
+export class MemberService extends BaseService<Member> {
+  collectionName = 'members';
 
   constructor(
     protected db: AngularFirestore,
@@ -17,12 +17,12 @@ export class UserService extends BaseService<User> {
   }
 
   /**
-   * Handles capitalization logic for users.
+   * Handles capitalization logic for members.
    *
-   * @param {User} user - the user to capitalize properties for
-   * @returns {User} - a new user with capitalized properties
+   * @param {Member} user - the validMember to capitalize properties for
+   * @returns {Member} - a new validMember with capitalized properties
    */
-  private capitalizeUser(user: User): User {
+  private capitalizeUser(user: Member): Member {
     return {
       ...user,
       firstName: _.capitalize(user.firstName),
@@ -32,12 +32,12 @@ export class UserService extends BaseService<User> {
 
   /**
    * Deletes the email and password properties and capitalizes the firstName and lastName of the
-   * user going to the database.
+   * validMember going to the database.
    *
-   * @param {User} user - the user to capitalize properties for
-   * @returns {User} - a new user with capitalized properties
+   * @param {Member} user - the validMember to capitalize properties for
+   * @returns {Member} - a new validMember with capitalized properties
    */
-  mapObjectToDoc(user: User): User {
+  mapObjectToDoc(user: Member): Member {
     const userClone = _.cloneDeep(user);
     delete userClone.password;
     delete userClone.email;
@@ -45,12 +45,12 @@ export class UserService extends BaseService<User> {
   }
 
   /**
-   * Capitalize the firstName and lastName of the user coming from the database.
+   * Capitalize the firstName and lastName of the validMember coming from the database.
    *
-   * @param {User} user - the user to capitalize properties for
-   * @returns {User} - a new user with capitalized properties
+   * @param {Member} user - the validMember to capitalize properties for
+   * @returns {Member} - a new validMember with capitalized properties
    */
-  mapDocToObject(user: User): User {
+  mapDocToObject(user: Member): Member {
     return this.capitalizeUser(user);
   }
 }

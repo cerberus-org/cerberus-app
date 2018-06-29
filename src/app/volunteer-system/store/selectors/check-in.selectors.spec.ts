@@ -31,7 +31,7 @@ describe('CheckInSelectors', () => {
       organization = createMockOrganizations()[0];
     });
 
-    it('should set the title based on the session organization', () => {
+    it('should set the title based on the session validOrganization', () => {
       expect(selectCheckInHeaderOptions.projector(organization))
         .toEqual(objectContaining({
           title: organization.name,
