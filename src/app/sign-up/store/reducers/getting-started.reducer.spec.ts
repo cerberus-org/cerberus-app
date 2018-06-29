@@ -38,14 +38,14 @@ describe('gettingStartedReducer', () => {
     });
   });
 
-  describe('SET_VALID_USER_FORM_CHANGES', () => {
+  describe('SET_VALID_MEMBER_AND_USER_INFO', () => {
 
     it('updates the valid validOrganization', () => {
       const credentials = createMockCredentials()[0];
       const member = createMockMembers()[0];
       const state = gettingStartedReducer(
         initialGettingStartedReducerState,
-        new GettingStartedActions.SetValidUserFormChanges({ credentials, member }),
+        new GettingStartedActions.SetValidMemberAndUserInfo({ credentials, member }),
       );
       expect(state.validCredentials).toEqual(credentials);
       expect(state.validMember).toEqual(member);

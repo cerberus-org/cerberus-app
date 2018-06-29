@@ -41,7 +41,7 @@ export class GettingStartedComponent implements OnInit {
   }
 
   onValidUserFormChanges(userFormChanges: UserFormChanges): void {
-    this.store$.dispatch(new GettingStartedActions.SetValidUserFormChanges(userFormChanges));
+    this.store$.dispatch(new GettingStartedActions.SetValidMemberAndUserInfo(userFormChanges));
   }
 
   onCheckTos($event: MatCheckboxChange) {

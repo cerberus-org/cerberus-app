@@ -4,7 +4,7 @@ import { UserFormChanges } from '../../../shared/components/user-form/user-form.
 
 export const NEXT_STEP = '[Getting Started] Next maxVisitedStep';
 export const SET_VALID_ORGANIZATION = '[Getting Started] Set valid organization';
-export const SET_VALID_USER_FORM_CHANGES = '[Getting Started] Set valid user form changes';
+export const SET_VALID_MEMBER_AND_USER_INFO = '[Getting Started] Set valid member and user info';
 export const SET_TOS_CHECKED = '[Getting Started] Set TOS checked state';
 export const SUBMIT = '[Getting Started] Submit';
 
@@ -20,8 +20,8 @@ export class SetValidOrganization implements Action {
   constructor(public payload: Organization) {}
 }
 
-export class SetValidUserFormChanges implements Action {
-  readonly type = SET_VALID_USER_FORM_CHANGES;
+export class SetValidMemberAndUserInfo implements Action {
+  readonly type = SET_VALID_MEMBER_AND_USER_INFO;
 
   constructor(public payload: UserFormChanges) {}
 }
@@ -41,6 +41,6 @@ export class Submit implements Action {
 export type All
   = NextStep
   | SetValidOrganization
-  | SetValidUserFormChanges
+  | SetValidMemberAndUserInfo
   | SetTosChecked
   | Submit;

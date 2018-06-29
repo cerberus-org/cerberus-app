@@ -46,7 +46,7 @@ describe('JoinPageComponent', () => {
   });
 
   it('should handle edits events by setting edits', () => {
-    component.onValidMember(createMockMembers()[0]);
+    component.onValidUserFormChanges(createMockMembers()[0]);
     expect(component.validMember).toEqual(createMockMembers()[0]);
   });
 

@@ -9,6 +9,7 @@ import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { RootState } from '../../../root/store/reducers';
 import { selectModelOrganizations } from '../../../root/store/selectors/model.selectors';
+import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 import { ErrorService } from '../../../shared/services/error.service';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 
@@ -57,9 +58,9 @@ export class JoinPageComponent implements OnInit {
   /**
    * Handles validChanges events by setting validChanges.
    *
-   * @param {Member} user
+   * @param {UserFormChanges} userFormChanges
    */
-  onValidMember(user: Member) {
+  onValidUserFormChanges(userFormChanges: UserFormChanges) {
     this.validMember = user;
   }
 

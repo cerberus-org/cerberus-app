@@ -47,7 +47,7 @@ export function gettingStartedReducer(
      * Updates the valid credentials and member.
      * action.payload - the valid credentials and member
      */
-    case GettingStartedActions.SET_VALID_USER_FORM_CHANGES: {
+    case GettingStartedActions.SET_VALID_MEMBER_AND_USER_INFO: {
       const { credentials, member } = action.payload;
       return { ...state, validCredentials: credentials, validMember: member };
     }
