@@ -43,6 +43,10 @@ export class MockVisitService extends VisitService {
     return of(Promise.resolve());
   }
 
+  batchUpdate(visits: Visit[]): Observable<any> {
+    return of(Promise.resolve());
+  }
+
   delete(visit: any): Observable<any> {
     return EMPTY;
   }

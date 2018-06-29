@@ -39,6 +39,20 @@ describe('DataCellComponent', () => {
     expect(component.selectOption.emit).toHaveBeenCalledWith(value);
   });
 
+  it('should handle onTimeChange by emitting the selectedTime event', () => {
+    spyOn(component.selectedTime, 'emit');
+    const val = { target: { value: '3:00 ' } };
+    component.onTimeChange(val);
+    expect(component.selectedTime.emit).toHaveBeenCalledWith(val.target.value);
+  });
+
+  it('should handle onTimeChange by not emitting the selectedTime event if time is undefined', () => {
+    spyOn(component.selectedTime, 'emit');
+    const val = { target: { value: null } };
+    component.onTimeChange(val);
+    expect(component.selectedTime.emit).not.toHaveBeenCalled();
+  });
+
   it('should get input type for SELECT', () => {
     component.selectOptions = ['a', 'b'];
     component.column.timePicker = null;

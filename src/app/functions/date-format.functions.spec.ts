@@ -20,4 +20,9 @@ describe('date-format.functions', () => {
     const time = convertToTimeString('2018-04-27T08:05:00.103Z');
     expect(time).toEqual('03:05');
   });
+
+  it('should return empty string', () => {
+    const time = convertToTimeString(null);
+    expect(time).toEqual('');
+  });
 });
