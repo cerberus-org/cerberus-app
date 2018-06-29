@@ -12,6 +12,7 @@ import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { CsvService } from '../../services/csv.service';
 import * as SettingsActions from '../actions/settings.actions';
 import { SettingsEffects } from './settings.effects';
+import {mockVisits} from "../../../mock/objects/visit.mock";
 
 describe('SettingsEffects', () => {
   let effects: SettingsEffects;
@@ -98,6 +99,21 @@ describe('SettingsEffects', () => {
       const downloadCsvSpy = spyOn(TestBed.get(CsvService), 'downloadAsCsv');
       effects.generateVisitHistoryReport$.subscribe(() => {
         expect(downloadCsvSpy).toHaveBeenCalled();
+      });
+    }));
+  });
+
+  describe('updateVisits$', () => {
+    beforeEach(async(() => {
+      actions = hot('a', {
+        a: new SettingsActions.UpdateVisits(mockVisits),
+      });
+    }));
+
+    it('should open the updateVisitsSuccess snackbar', (() => {
+      const updateVisitsSuccessSpy = spyOn(TestBed.get(CsvService), 'updateVisitsSuccess');
+      effects.updateVisits$.subscribe(() => {
+        expect(updateVisitsSuccessSpy).toHaveBeenCalled();
       });
     }));
   });
