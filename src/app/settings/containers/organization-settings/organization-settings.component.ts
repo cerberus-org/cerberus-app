@@ -12,7 +12,7 @@ import * as SettingsActions from '../../store/actions/settings.actions';
   styleUrls: ['./organization-settings.component.scss'],
 })
 export class OrganizationSettingsComponent implements OnInit {
-  organizationFormTitle = 'Update your validOrganization info.';
+  organizationFormTitle = 'Update your organization info.';
   organizationEdits: Organization;
   sessionOrganization$: Observable<Organization>;
 
@@ -24,14 +24,14 @@ export class OrganizationSettingsComponent implements OnInit {
 
   /**
    * Handles validOrganization events by setting organizationEdits.
-   * @param organization - a valid validOrganization when valid, null when invalid
+   * @param organization - an organization when valid, null when invalid
    */
   onValidOrganization(organization: Organization) {
     this.organizationEdits = organization;
   }
 
   /**
-   * Handles submission of validOrganization form by dispatching an SetOrganization action.
+   * Handles submission of organization form by dispatching an SetOrganization action.
    */
   onSubmitOrganization(organization: Organization) {
     this.store$.dispatch(new SettingsActions.UpdateOrganization(organization));

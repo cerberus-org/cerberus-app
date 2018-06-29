@@ -16,7 +16,7 @@ describe('OrganizationDashboardSelectors', () => {
       organization = createMockOrganizations()[0];
     });
 
-    it('should set the title based on the session validOrganization', () => {
+    it('should set the title based on the session organization', () => {
       expect(selectOrganizationDashboardHeaderOptions.projector(organization))
         .toEqual(objectContaining({
           title: organization.name,

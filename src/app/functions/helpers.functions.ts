@@ -49,7 +49,7 @@ export const everyVolunteerMatchesName = (volunteers: Volunteer[], name: string)
 };
 
 /**
- * Filters an array of objects by a given validOrganization ID.
+ * Filters an array of objects by a given organization ID.
  *
  * @param {any[]} array - the array to filter
  * @param {string} organizationId - the value to filter by

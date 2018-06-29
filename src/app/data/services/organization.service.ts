@@ -20,8 +20,8 @@ export class OrganizationService extends BaseService<Organization> {
   /**
    * Handles capitalization logic for organizations.
    *
-   * @param {Organization} organization - the validOrganization to capitalize properties for
-   * @returns {Organization} - a new validOrganization with capitalized properties
+   * @param {Organization} organization - the organization to capitalize properties for
+   * @returns {Organization} - a new organization with capitalized properties
    */
   private capitalizeOrganizaton(organization: Organization): Organization {
     organization.name = upperAllFirst(organization.name);
@@ -30,20 +30,20 @@ export class OrganizationService extends BaseService<Organization> {
   }
 
   /**
-   * Capitalize the name and description of the validOrganization going to the database.
+   * Capitalize the name and description of the organization going to the database.
    *
-   * @param {Organization} organization - the validOrganization to capitalize properties for
-   * @returns {Organization} - a new validOrganization with capitalized properties
+   * @param {Organization} organization - the organization to capitalize properties for
+   * @returns {Organization} - a new organization with capitalized properties
    */
   mapObjectToDoc(organization: Organization): Organization {
     return this.capitalizeOrganizaton(organization);
   }
 
   /**
-   * Capitalize the name and description of the validOrganization coming from the database.
+   * Capitalize the name and description of the organization coming from the database.
    *
-   * @param {Organization} organization - the validOrganization to capitalize properties for
-   * @returns {Organization} - a new validOrganization with capitalized properties
+   * @param {Organization} organization - the organization to capitalize properties for
+   * @returns {Organization} - a new organization with capitalized properties
    */
   mapDocToObject(organization: Organization): Organization {
     return this.capitalizeOrganizaton(organization);

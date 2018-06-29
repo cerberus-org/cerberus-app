@@ -46,9 +46,9 @@ export class GettingStartedEffects {
       withLatestFrom(this.store$.pipe(select(selectGettingStartedReducerState))),
       switchMap(([action, { validOrganization, validCredentials, validMember }]) => {
         return this.organizationService.add(validOrganization)
-        // 1. Create the validOrganization first
+        // 1. Create the organization first
           .pipe(
-            // 2. Create the User and the default Site, using the generated ID from the created validOrganization
+            // 2. Create the User and the default Site, using the generated ID from the created organization
             switchMap((createdOrganization: Organization) => forkJoin(
               this.authService.createUser(validCredentials),
               this.siteService.add(new Site(createdOrganization.id, createdOrganization.name, null)),

@@ -1,7 +1,7 @@
 <app-user-form
   [title]="userFormTitle"
   [initialMember]="(state$ | async)?.member"
-  [initialEmail]="" ]="(state$ | async)?.email"
+  [initialEmail]="(state$ | async)?.email"
   [passwordRequired]="false"
   (validChanges)="onValidChanges($event)">
 </app-user-form>

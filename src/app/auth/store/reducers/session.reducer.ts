@@ -25,15 +25,15 @@ export function sessionReducer(state = initialSessionReducerState, action: Actio
     }
 
     case SessionActions.LOAD_DATA_SUCCESS: {
-      const { member, organization } = action.payload;
-      return { ...state, member, organization };
+      const { member, organization, userInfo } = action.payload;
+      return { ...state, member, organization, userInfo };
     }
 
     case SessionActions.SET_ORGANIZATION: {
       return { ...state, organization: action.payload };
     }
 
-    case SessionActions.SET_USER: {
+    case SessionActions.SET_MEMBER_AND_USER_INFO: {
       const { member, userInfo } = action.payload;
       return { ...state, member, userInfo };
     }

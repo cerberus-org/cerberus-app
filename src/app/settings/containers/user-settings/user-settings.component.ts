@@ -34,7 +34,7 @@ export class UserSettingsComponent implements OnInit {
   }
 
   /**
-   * Handles submission of member form by dispatching an SetUser action.
+   * Handles submission of member form by dispatching an SetMemberAndUserInfo action.
    */
   onSubmit(edits: UserFormChanges) {
     this.store$.dispatch(new SettingsActions.UpdateUser(edits));

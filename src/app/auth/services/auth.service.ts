@@ -13,7 +13,6 @@ import * as SessionActions from '../store/actions/session.actions';
 
 @Injectable()
 export class AuthService {
-
   pwdVerification: boolean;
   user: Member;
 
@@ -40,6 +39,7 @@ export class AuthService {
   createUser(credentials: Credentials): Observable<UserInfo> {
     return from(this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password))
       .pipe(
+        map(userCredential => userCredential.user as UserInfo),
         catchError(error => this.errorService.handleFirebaseError(error)),
       );
   }
@@ -105,7 +105,7 @@ export class AuthService {
     this.afAuth.auth.onAuthStateChanged((user: User) => {
       this.store$.dispatch(
         user
-          ? new SessionActions.LoadData(user)
+          ? new SessionActions.LoadData(user as UserInfo)
           : new SessionActions.ClearData(),
       );
     });

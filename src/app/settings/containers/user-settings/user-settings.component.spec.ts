@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
+import { createMockCredentials } from '../../../mock/objects/credentials.mock';
 import { createMockMembers } from '../../../mock/objects/member.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as SettingsActions from '../../store/actions/settings.actions';
@@ -33,15 +34,22 @@ describe('UserSettingsComponent', () => {
   });
 
   it('should handle edits events by setting edits', () => {
-    component.onValidChanges(createMockMembers()[0]);
-    expect(component.edits).toEqual(createMockMembers()[0]);
+    const edits = {
+      member: createMockMembers()[0],
+      credentials: createMockCredentials()[0],
+    };
+    component.onValidChanges(edits);
+    expect(component.edits).toEqual(edits);
   });
 
-  it('should handle submitUser events by dispatching SettingsActions.SetUser', () => {
+  it('should handle submitUser events by dispatching SettingsActions.SetMemberAndUserInfo', () => {
     spyOn(component.store$, 'dispatch');
-    const user = { ...createMockMembers()[0], firstName: 'Edited' };
-    component.onSubmit(user);
+    const edits = {
+      member: createMockMembers()[0],
+      credentials: createMockCredentials()[0],
+    };
+    component.onSubmit(edits);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new SettingsActions.UpdateUser(user));
+      .toHaveBeenCalledWith(new SettingsActions.UpdateUser(edits));
   });
 });

@@ -28,7 +28,7 @@ describe('gettingStartedReducer', () => {
 
   describe('SET_VALID_ORGANIZATION', () => {
 
-    it('updates the valid validOrganization', () => {
+    it('updates the valid organization', () => {
       const organization = createMockOrganizations()[0];
       const state = gettingStartedReducer(
         initialGettingStartedReducerState,
@@ -40,7 +40,7 @@ describe('gettingStartedReducer', () => {
 
   describe('SET_VALID_MEMBER_AND_USER_INFO', () => {
 
-    it('updates the valid validOrganization', () => {
+    it('updates the valid organization', () => {
       const credentials = createMockCredentials()[0];
       const member = createMockMembers()[0];
       const state = gettingStartedReducer(

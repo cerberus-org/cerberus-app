@@ -5,8 +5,8 @@ import { Member, Organization } from '../../../models';
 export const CLEAR_DATA = '[Session] Clear data';
 export const LOAD_DATA = '[Session] Load data';
 export const LOAD_DATA_SUCCESS = '[Session] Load data success';
-export const SET_ORGANIZATION = '[Session] Set validOrganization';
-export const SET_USER = '[Session] Set userInfo';
+export const SET_ORGANIZATION = '[Session] Set organization';
+export const SET_MEMBER_AND_USER_INFO = '[Session] Set userInfo';
 
 export class LoadData implements Action {
   readonly type = LOAD_DATA;
@@ -28,7 +28,7 @@ export class LoadDataSuccess implements Action {
 }
 
 /**
- * Sets the session validOrganization.
+ * Sets the session organization.
  */
 export class SetOrganization implements Action {
   readonly type = SET_ORGANIZATION;
@@ -39,8 +39,8 @@ export class SetOrganization implements Action {
 /**
  * Sets the session member and userInfo.
  */
-export class SetUser implements Action {
-  readonly type = SET_USER;
+export class SetMemberAndUserInfo implements Action {
+  readonly type = SET_MEMBER_AND_USER_INFO;
 
   constructor(public payload: { member: Member, userInfo: UserInfo }) {}
 }
@@ -59,4 +59,4 @@ export type All
   | LoadData
   | LoadDataSuccess
   | SetOrganization
-  | SetUser;
+  | SetMemberAndUserInfo;

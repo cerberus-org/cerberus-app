@@ -90,7 +90,7 @@
   >
     <app-organization-confirm
       [organization]="(state$ | async)?.validOrganization"
-      [email]="(state$ | async)?.validCredentials.email"
+      [email]="((state$ | async)?.validCredentials)?.email"
       [member]="(state$ | async)?.validMember"
     >
     </app-organization-confirm>

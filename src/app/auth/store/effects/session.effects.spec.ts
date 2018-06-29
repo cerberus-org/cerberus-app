@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { DataModule } from '../../../data/data.module';
 import { createMockMembers } from '../../../mock/objects/member.mock';
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockUserInfo } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { SharedModule } from '../../../shared/shared.module';
@@ -35,7 +35,7 @@ describe('SessionEffects', () => {
 
   describe('loadData$', () => {
     it('should dispatch SessionActions.LoadDataSuccess', (() => {
-      const userInfo = createMockUsers()[0];
+      const userInfo = createMockUserInfo()[0];
       actions = hot('a', {
         a: new SessionActions.LoadData(userInfo),
       });

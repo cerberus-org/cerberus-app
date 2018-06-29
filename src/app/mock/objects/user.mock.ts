@@ -15,4 +15,4 @@ export const mockUsers: any[] = [
   },
 ];
 
-export const createMockUsers = (users = mockUsers): any[] => _.cloneDeep(users);
+export const createMockUserInfo = (users = mockUsers): any[] => _.cloneDeep(users);

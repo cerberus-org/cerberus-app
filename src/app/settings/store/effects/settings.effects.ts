@@ -32,7 +32,7 @@ export class SettingsEffects {
     );
 
   /**
-   * Listen for the GenerateVisitHistoryReport, get visits by date range and validOrganization,
+   * Listen for the GenerateVisitHistoryReport, get visits by date range and organization,
    * then download data as csv.
    * @type {Observable<Visit[]>}
    */
@@ -86,8 +86,8 @@ export class SettingsEffects {
     );
 
   /**
-   * Listens for SettingsActions.SetUser. Applies user changes against current user in session, then
-   * displays a success snack bar and dispatches SessionActions.SetUser.
+   * Listens for SettingsActions.SetMemberAndUserInfo. Applies user changes against current user in session, then
+   * displays a success snack bar and dispatches SessionActions.SetMemberAndUserInfo.
    */
   @Effect()
   updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
@@ -100,7 +100,7 @@ export class SettingsEffects {
         .pipe(
           map(([userInfo]) => {
             this.snackBarService.updateUserSuccess();
-            return new SessionActions.SetUser({ member, userInfo });
+            return new SessionActions.SetMemberAndUserInfo({ member, userInfo });
           }),
         )),
     );

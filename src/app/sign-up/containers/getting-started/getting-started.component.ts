@@ -25,8 +25,8 @@ export class GettingStartedComponent implements OnInit {
     true,
   );
   @ViewChild('tabGroup') private tabGroup: MatTabGroup;
-  userFormTitle: string = 'Create an account to access your validOrganization.';
-  organizationFormTitle: string = 'Tell us about your validOrganization.';
+  userFormTitle: string = 'Create an account to access your organization.';
+  organizationFormTitle: string = 'Tell us about your organization.';
   state$: Observable<GettingStartedPageState> = this.store$.pipe(select(selectGettingStartedPageState));
 
   constructor(private store$: Store<SignUpState>) {}

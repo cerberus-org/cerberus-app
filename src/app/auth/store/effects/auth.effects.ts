@@ -25,9 +25,9 @@ export class AuthEffects {
       map((action: AuthActions.SignIn) => action.payload),
       switchMap((credentials: Credentials) => this.authService.signIn(credentials)
         .pipe(
-          switchMap(({ uid }) => this.userService.getById(uid)
+          switchMap(({ uid }) => this.memberService.getByKey('userUid', uid)
             .pipe(
-              map(({ firstName, role }) => {
+              map(([{ firstName, role }]) => {
                 if (role === 'Locked') {
                   this.authService.signOut();
                   this.snackBarService.accountNotVerified();
@@ -98,7 +98,7 @@ export class AuthEffects {
   constructor(
     private actions: Actions,
     private authService: AuthService,
-    private userService: MemberService,
+    private memberService: MemberService,
     private snackBarService: SnackBarService,
   ) {}
 }

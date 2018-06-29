@@ -37,7 +37,7 @@ describe('GettingStartedSelectors', () => {
         .toEqual(0);
     });
 
-    it('should return 1 if all steps are visited but the validOrganization is invalid', () => {
+    it('should return 1 if all steps are visited but the organization is invalid', () => {
       expect(selectMaxEnabledStep.projector({
         maxVisitedStep: 4,
         validOrganization: null,

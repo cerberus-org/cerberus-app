@@ -13,7 +13,7 @@ import { selectModelOrganizations } from '../../../root/store/selectors/model.se
 })
 export class FindOrganizationComponent implements OnInit, OnDestroy {
   private organizationsSubscription: Subscription;
-  filteredOrganizations: Organization[];
+  filteredOrganizations: Organization[] = [];
   organizations: Organization[];
 
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
