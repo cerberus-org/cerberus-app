@@ -24,6 +24,7 @@ import { CsvService } from './services/csv.service';
 import { settingsRoutes } from './settings.routes';
 import { settingsEffects } from './store/effects';
 import { settingsReducers } from './store/reducers';
+import { VisitsComponent } from './containers/visits/visits.component';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { settingsReducers } from './store/reducers';
     SettingsPageComponent,
     UserSettingsComponent,
     VolunteerSettingsComponent,
+    VisitsComponent,
   ],
   exports: [
     SettingsPageComponent,

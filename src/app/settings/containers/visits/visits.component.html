@@ -1,0 +1,6 @@
+<app-data-table
+  [data$]="visits$"
+  [isReadOnly]="false"
+  [columnOptions]="(state$ | async).columnOptions"
+  (updateMultipleItems)="onUpdateVisits($event)">
+</app-data-table>
