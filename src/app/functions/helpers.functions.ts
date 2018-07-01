@@ -146,7 +146,7 @@ export const getUniqueFullNames = (volunteers: Volunteer[]): string[] => {
  * @param {Volunteer[]} volunteers
  * @returns {any[]}
  */
-export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunteer[]) => {
+export const getFormattedVisits = (visits: Visit[], volunteers: Volunteer[]): any[] => {
   // Create map for O(1) lookup
   const volunteersById = volunteers.reduce(
     (map, volunteer) => {
@@ -157,8 +157,8 @@ export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunte
   );
   return visits.map(visit => ({
     ...visit,
-    duration: visit.endedAt ? formatDuration(visit.startedAt, visit.endedAt, visit.timezone) : '',
     endedAt: visit.endedAt ? visit.endedAt : '(no check-out)',
+    duration: visit.endedAt ? formatDuration(visit.startedAt, visit.endedAt, visit.timezone) : '',
     name: getFullName(volunteersById.get(visit.volunteerId)),
   }));
 };

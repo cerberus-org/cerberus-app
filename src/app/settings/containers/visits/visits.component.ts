@@ -26,7 +26,7 @@ export class VisitsComponent implements OnInit {
     this.store$.dispatch(new SettingsActions.UpdateVisits(visits));
   }
 
-  get visits$() {
-    return this.state$.pipe(map(state => state.visits));
+  get formattedVisits$() {
+    return this.state$.pipe(map(state => state.formattedVisits));
   }
 }

@@ -9,7 +9,7 @@ import {
   findVolunteerByFullName,
   findVolunteerByPetName, getIndex, getItemWithoutArrayProperties,
   getUniqueFullNames,
-  getVisitsWithVolunteerNames,
+  getFormattedVisits,
 } from './helpers.functions';
 
 describe('helpers.functions', () => {
@@ -21,7 +21,7 @@ describe('helpers.functions', () => {
       name: volunteers[0].firstName + ' ' + volunteers[0].lastName,
       duration: formatDuration(visits[0].startedAt, visits[0].endedAt, visits[0].timezone),
     }];
-    const formatted = getVisitsWithVolunteerNames(visits, volunteers);
+    const formatted = getFormattedVisits(visits, volunteers);
     expect(formatted).toEqual(expected);
   });
 
