@@ -29,12 +29,11 @@ export class AuthEffects {
             .pipe(
               map(([{ firstName, role }]) => {
                 if (role === 'Locked') {
-                  this.authService.signOut();
                   this.snackBarService.accountNotVerified();
-                } else {
-                  this.snackBarService.signInSuccess(firstName);
-                  return new RouterActions.Go({ path: ['/dashboard'] });
+                  return new RouterActions.Go({ path: ['/home'] });
                 }
+                this.snackBarService.signInSuccess(firstName);
+                return new RouterActions.Go({ path: ['/dashboard'] });
               }),
             )),
         )),

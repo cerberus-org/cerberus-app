@@ -85,14 +85,14 @@ export class GettingStartedEffects {
           .pipe(
             // 3. Create the Member using the UID from the created User
             switchMap((createdUser: UserInfo) => this.memberService.add({
-              ...new Member(validMember.firstName, validMember.lastName, 'Owner'),
+              ...new Member(validMember.firstName, validMember.lastName, 'Locked'),
               userUid: createdUser.uid,
               organizationId: validOrganization.id,
             })
               .pipe(
                 map(() => {
                   this.snackBarService.joinOrganizationSuccess();
-                  return new RouterActions.Go({ path: [''] });
+                  return new RouterActions.Go({ path: ['/home'] });
                 }),
               )),
           )),

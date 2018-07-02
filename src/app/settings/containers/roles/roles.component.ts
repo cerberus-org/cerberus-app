@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators';
-import { Member } from '../../../models';
+import { ColumnOptions, Member } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
-import { RolesContainerState, selectRolesContainerState } from '../../store/selectors/roles.selectors';
+import { MemberWithRoleOptions, selectMembersWithRoleOptions } from '../../store/selectors/roles.selectors';
 
 @Component({
   selector: 'app-roles',
@@ -13,12 +12,30 @@ import { RolesContainerState, selectRolesContainerState } from '../../store/sele
   styleUrls: ['./roles.component.scss'],
 })
 export class RolesComponent implements OnInit {
-  state$: Observable<RolesContainerState>;
+  columnOptions: ColumnOptions[] = [
+    new ColumnOptions(
+      'firstName',
+      'First Name',
+      (row: MemberWithRoleOptions) => row.firstName,
+    ),
+    new ColumnOptions(
+      'lastName',
+      'Last Name',
+      (row: MemberWithRoleOptions) => row.lastName,
+    ),
+    new ColumnOptions(
+      'role',
+      'Role',
+      (row: MemberWithRoleOptions) => row.role,
+      (row: MemberWithRoleOptions) => row.roleOptions,
+    ),
+  ];
+  members$: Observable<MemberWithRoleOptions[]>;
 
   constructor(public store$: Store<RootState>) {}
 
   ngOnInit(): void {
-    this.state$ = this.store$.pipe(select(selectRolesContainerState));
+    this.members$ = this.store$.pipe(select(selectMembersWithRoleOptions));
   }
 
   onUpdateUser(user: Member) {
@@ -27,9 +44,5 @@ export class RolesComponent implements OnInit {
 
   onDeleteUser($event) {
     // TODO: Implement me
-  }
-
-  get members$() {
-    return this.state$.pipe(map(state => state.members));
   }
 }

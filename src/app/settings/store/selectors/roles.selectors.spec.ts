@@ -1,4 +1,4 @@
-import { USER_ROLES } from '../../../functions';
+import { MEMBER_ROLES } from '../../../functions';
 import { createMockColumnOptions } from '../../../mock/objects/column-options.mock';
 import { createMockMembers } from '../../../mock/objects/member.mock';
 import { selectRolesColumnOptions, selectRolesContainerState } from './roles.selectors';
@@ -20,7 +20,7 @@ describe('RolesSelectors', () => {
     it('it should use the session member to determine role select options', () => {
       const mockUsers = createMockMembers();
       expect(selectRolesColumnOptions.projector(mockUsers[0], mockUsers)[2].selectOptions(mockUsers[1]))
-        .toEqual(arrayContaining(USER_ROLES));
+        .toEqual(arrayContaining(MEMBER_ROLES));
     });
   });
 

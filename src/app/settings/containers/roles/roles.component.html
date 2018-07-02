@@ -1,7 +1,7 @@
 <app-data-table
   [data$]="members$"
+  [columnOptions]="columnOptions"
   [isReadOnly]="true"
-  [columnOptions]="(state$ | async).columnOptions"
   (deleteItem)="onDeleteUser($event)"
   (updateItem)="onUpdateUser($event)">
 </app-data-table>

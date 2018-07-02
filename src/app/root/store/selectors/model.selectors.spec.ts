@@ -7,7 +7,7 @@ import { initialModelReducerState } from '../reducers/model.reducer';
 import {
   selectModelOrganizations,
   selectModelSites,
-  selectModelUsers,
+  selectModelMembers,
   selectModelVisits,
   selectModelVolunteers,
 } from './model.selectors';
@@ -30,7 +30,7 @@ describe('ModelSelectors', () => {
   });
 
   it('should select members', () => {
-    expect(selectModelUsers.projector({
+    expect(selectModelMembers.projector({
       ...initialModelReducerState,
       users: createMockMembers(),
     }))

@@ -49,11 +49,8 @@ export class FindOrganizationComponent implements OnInit, OnDestroy {
    */
   onOrganizationInputNameChanges(organizations: Organization[], input: string): void {
     this.filteredOrganizations = this.filterOrganizationsByName(organizations, input);
-    this.validOrganization.emit(
-      this.filteredOrganizations.length === 1
-        ? this.filteredOrganizations[0]
-        : null,
-    );
+    const matchingOrganization = this.filteredOrganizations.find(organization => organization.name === input);
+    this.validOrganization.emit(!!matchingOrganization ? matchingOrganization : null);
   }
 
   get disableIconButton(): boolean {
