@@ -4,6 +4,9 @@ import { AuthService } from '../../auth/services/auth.service';
 import { Credentials } from '../../models/credentials';
 import { createMockUserInfo } from '../objects/user.mock';
 
+const getUserInfoByCredentials = credentials =>
+  createMockUserInfo().find(user => user.email === credentials.email);
+
 export class MockAuthService extends AuthService {
 
   constructor() {
@@ -11,19 +14,19 @@ export class MockAuthService extends AuthService {
   }
 
   createUser(credentials: Credentials): Observable<UserInfo> {
-    return of(createMockUserInfo().find(user => user.email === credentials.email));
+    return of(getUserInfoByCredentials(credentials));
   }
 
   updateUser(credentials: Credentials): Observable<UserInfo> {
-    return of({ ...createMockUserInfo()[0], credentials });
+    return of({ ...createMockUserInfo()[0], email: credentials.email });
   }
 
   resetPassword(email: string): Observable<{}> {
     return of(null);
   }
 
-  signIn(credentials: Credentials): Observable<any> {
-    return of(createMockUserInfo().find(user => user.email === credentials.email));
+  signIn(credentials: Credentials): Observable<UserInfo> {
+    return of(getUserInfoByCredentials(credentials));
   }
 
   signOut(): Observable<UserInfo> {

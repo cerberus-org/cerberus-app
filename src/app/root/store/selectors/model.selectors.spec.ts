@@ -5,9 +5,9 @@ import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { initialModelReducerState } from '../reducers/model.reducer';
 import {
+  selectModelMembers,
   selectModelOrganizations,
   selectModelSites,
-  selectModelMembers,
   selectModelVisits,
   selectModelVolunteers,
 } from './model.selectors';

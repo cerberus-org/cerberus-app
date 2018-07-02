@@ -8,7 +8,6 @@ import {
   MatListModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { mockOrganizations } from '../../../mock/objects/organization.mock';
 import { mockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { Volunteer } from '../../../models';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
@@ -50,18 +49,15 @@ describe('NewVolunteerFormComponent', () => {
   });
 
   it('should emit a new volunteer on submit', () => {
-    spyOn(component.newVolunteer, 'emit');
-    const organizationId = mockOrganizations[0].id;
+    const emitSpy = spyOn(component.newVolunteer, 'emit');
     const firstName = mockVolunteers[0].firstName;
     const lastName = mockVolunteers[0].lastName;
     const petName = mockVolunteers[0].petName;
-    component.organizationId = organizationId;
     component.formGroup.controls['firstName'].setValue(firstName);
     component.formGroup.controls['lastName'].setValue(lastName);
     component.formGroup.controls['petName'].setValue(petName);
     component.submit();
-    expect(component.newVolunteer.emit)
-      .toHaveBeenCalledWith(new Volunteer(organizationId, firstName, lastName, petName));
+    expect(emitSpy).toHaveBeenCalledWith(new Volunteer(firstName, lastName, petName));
   });
 
   ['firstName', 'lastName', 'petName'].forEach((form) => {

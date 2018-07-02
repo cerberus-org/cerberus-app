@@ -12,8 +12,7 @@
   },
   "files": [
     "test.ts",
-    "polyfills.ts",
-    "node_modules/angularfire2/firebase3.d.ts"
+    "polyfills.ts"
   ],
   "include": [
     "**/*.spec.ts",
