@@ -41,7 +41,6 @@ import { SignatureFieldComponent } from '../signature-field/signature-field.comp
   ],
 })
 export class CheckInFormComponent implements OnInit, OnDestroy {
-  @Input() organizationId: string;
   @Input() siteId: string;
   @Input() visits: Visit[];
   @Input() volunteers: Volunteer[];
@@ -100,7 +99,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
       this.checkOut.emit(visit);
     } else {
       const visit = new Visit(
-        this.organizationId,
         this.siteId,
         this.selectedVolunteer.id,
         new Date(),

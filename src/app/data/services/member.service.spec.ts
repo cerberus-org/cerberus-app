@@ -8,7 +8,7 @@ import { MemberService } from './member.service';
 
 describe('MemberService', () => {
   let service: MemberService;
-  let testUser: Member;
+  let member: Member;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,9 +20,9 @@ describe('MemberService', () => {
     });
     const testbed = getTestBed();
     service = testbed.get(MemberService);
-    testUser = createMockMembers()[0];
-    testUser.firstName = 'tED';
-    testUser.lastName = 'mAdEr';
+    member = createMockMembers()[0];
+    member.firstName = 'tED';
+    member.lastName = 'mAdEr';
   }));
 
   it('should be created', inject([MemberService], (userService: MemberService) => {
@@ -30,15 +30,13 @@ describe('MemberService', () => {
   }));
 
   it('should convert data coming from the database', () => {
-    const converted = service.mapDocToObject(testUser);
+    const converted = service.mapDocToObject(member);
     expect(converted).toEqual(createMockMembers()[0]);
   });
 
   it('should convert data going to the database', () => {
-    const converted = service.mapObjectToDoc(testUser);
+    const converted = service.mapObjectToDoc(member);
     const userClone = createMockMembers()[0];
-    delete userClone.email;
-    delete userClone.password;
     expect(converted).toEqual(userClone);
   });
 });

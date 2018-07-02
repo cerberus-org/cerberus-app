@@ -3,6 +3,7 @@ import { createMockOrganizations, mockOrganizations } from '../../../mock/object
 import { createMockUserInfo } from '../../../mock/objects/user.mock';
 import * as SessionActions from '../actions/session.actions';
 import { sessionReducer } from './session.reducer';
+import objectContaining = jasmine.objectContaining;
 
 describe('layoutReducer', () => {
 
@@ -42,7 +43,7 @@ describe('layoutReducer', () => {
         undefined,
         new SessionActions.SetMemberAndUserInfo({ member, userInfo }),
       );
-      expect(state.member).toEqual({ member, userInfo });
+      expect(state).toEqual(objectContaining({ member, userInfo }));
     });
   });
 });
