@@ -4,7 +4,7 @@ import { convertToTimeString, formatDuration, formatTime } from './date-format.f
 describe('date-format.functions', () => {
   it('should format times', () => {
     const formatted = formatTime(mockVisits[0].startedAt, mockVisits[0].timezone);
-    expect(formatted).toEqual('5:45 am');
+    expect(formatted).toEqual('5:45 AM');
   });
 
   it('should format durations with an end date', () => {

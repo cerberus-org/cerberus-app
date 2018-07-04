@@ -1,9 +1,10 @@
 import { createSelector } from '@ngrx/store';
-import {formatDate, formatTime} from '../../../functions';
+import { formatDate, formatTime } from '../../../functions';
 import { ColumnOptions } from '../../../models';
-import { selectFormattedModelVisits } from '../../../root/store/selectors/model.selectors';
+import { selectFormattedModelVisits, selectModelVisits } from '../../../root/store/selectors/model.selectors';
 
 export const selectVisitsColumnOptions = createSelector(
+  selectModelVisits,
   (): ColumnOptions[] => [
     new ColumnOptions(
       'name',
