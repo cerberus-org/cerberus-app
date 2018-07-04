@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { formatDate } from '../../../functions';
+import {formatDate, formatTime} from '../../../functions';
 import { ColumnOptions } from '../../../models';
 import { selectFormattedModelVisits } from '../../../root/store/selectors/model.selectors';
 
@@ -11,14 +11,14 @@ export const selectVisitsColumnOptions = createSelector(
       (row: any) => row.name,
     ),
     new ColumnOptions(
-      'duration',
-      'Duration',
-      (row: any) => row.duration,
+      'date',
+      'Date',
+      (row: any) => formatDate(row.startedAt, row.timezone),
     ),
     new ColumnOptions(
       'startedAt',
       'Start',
-      (row: any) => formatDate(row.startedAt, row.timezone),
+      (row: any) => formatTime(row.startedAt, row.timezone),
     ),
     {
       columnDef: 'endedAt',
@@ -26,6 +26,11 @@ export const selectVisitsColumnOptions = createSelector(
       cell: (row: any) => row.endedAt,
       timePicker: true,
     },
+    new ColumnOptions(
+      'duration',
+      'Duration',
+      (row: any) => row.duration,
+    ),
   ],
 );
 

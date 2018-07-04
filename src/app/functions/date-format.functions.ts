@@ -12,7 +12,7 @@ export const formatDate = (date: Date, timezone: string): string => (
 );
 
 export const formatTime = (date: Date, timezone: string): string => (
-  date ? moment(date).tz(timezone).format('h:mm a') : 'Active!'
+  date ? moment(date).tz(timezone).format('h:mm A') : 'Active!'
 );
 
 export const formatDuration = (startedAt: Date, endedAt: Date, timezone: string): string => (
