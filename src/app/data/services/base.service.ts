@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { getItemWithoutArrayProperties } from '../../functions';
 import { ErrorService } from '../../shared/services/error.service';
 
 @Injectable()
@@ -113,6 +114,24 @@ export abstract class BaseService<T extends { id: string }> {
       this.collection().doc(item.id).update(this.mapObjectToDoc(item)),
     )
       .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
+  }
+
+  /**
+   * Performs a batch update for items passed in.
+   *
+   * @param {T[]} items - updated items
+   * @returns {Observable<any>}
+   */
+  batchUpdate(items: T[]): Observable<any> {
+    const batch = this.db.firestore.batch();
+    items.forEach((item) => {
+      batch.update(this.db.firestore.collection(this.collectionName).doc(item.id), getItemWithoutArrayProperties(item));
+    });
+    return from(
+      batch.commit(),
+    )
+      .pipe(
+        catchError(error => this.errorService.handleFirebaseError(error)));
   }
 
   /**

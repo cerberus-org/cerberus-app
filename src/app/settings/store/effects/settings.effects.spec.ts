@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import * as SessionActions from '../../../auth/store/actions/session.actions';
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
 import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { Organization } from '../../../models';
@@ -98,6 +99,21 @@ describe('SettingsEffects', () => {
       const downloadCsvSpy = spyOn(TestBed.get(CsvService), 'downloadAsCsv');
       effects.generateVisitHistoryReport$.subscribe(() => {
         expect(downloadCsvSpy).toHaveBeenCalled();
+      });
+    }));
+  });
+
+  describe('updateVisits$', () => {
+    beforeEach(async(() => {
+      actions = hot('a', {
+        a: new SettingsActions.UpdateVisits(createMockVisits()),
+      });
+    }));
+
+    it('should open the updateVisitsSuccess snackbar', (() => {
+      const updateVisitsSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateVisitsSuccess');
+      effects.updateVisits$.subscribe(() => {
+        expect(updateVisitsSuccessSpy).toHaveBeenCalled();
       });
     }));
   });

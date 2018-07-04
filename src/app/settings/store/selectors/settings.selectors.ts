@@ -51,6 +51,11 @@ export const selectSettingsSidenavOptions = createSelector(
           'lock_outline',
           new SettingsActions.LoadPage('ROLES'),
         ),
+        new SidenavOptions(
+          'Visits',
+          'done_all',
+          new SettingsActions.LoadPage('VISITS'),
+        ),
       ]
       : sidenavOptions;
   },

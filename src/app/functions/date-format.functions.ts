@@ -12,7 +12,7 @@ export const formatDate = (date: Date, timezone: string): string => (
 );
 
 export const formatTime = (date: Date, timezone: string): string => (
-  date ? moment(date).tz(timezone).format('h:mm a') : 'Active!'
+  date ? moment(date).tz(timezone).format('h:mm A') : 'Active!'
 );
 
 export const formatDuration = (startedAt: Date, endedAt: Date, timezone: string): string => (
@@ -20,3 +20,23 @@ export const formatDuration = (startedAt: Date, endedAt: Date, timezone: string)
     ? moment(startedAt).tz(timezone).to(endedAt, true)
     : moment(startedAt).tz(timezone).toNow(true)
 );
+
+/**
+ * Accept Date string and convert to time string (e.g 1:35 PM).
+ *
+ * @param {string} date
+ * @returns {string} time
+ */
+export const convertToTimeString = (dateString: string): string => {
+  if (dateString) {
+    const date = new Date(dateString);
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const minutesString = minutes < 10 ? '0' + minutes : minutes;
+    const hourString = hours.toString().length === 1 ? '0' + hours : hours;
+    return hourString + ':' + minutesString;
+  }
+  return '';
+};

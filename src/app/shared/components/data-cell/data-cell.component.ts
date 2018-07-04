@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { convertToTimeString } from '../../../functions';
 import { ColumnOptions } from '../../../models';
 
 @Component({
@@ -10,6 +11,7 @@ export class DataCellComponent implements OnChanges {
   @Input() column: ColumnOptions;
   @Input() row: any;
   @Output() selectOption = new EventEmitter<string>();
+  @Output() selectedTime = new EventEmitter<string>();
   selected: string;
   selectOptions: string[];
 
@@ -25,5 +27,25 @@ export class DataCellComponent implements OnChanges {
 
   onSelectionChange(value: string): void {
     this.selectOption.emit(value);
+  }
+
+  get inputType(): string {
+    if (this.selectOptions && this.selectOptions.length) {
+      return 'SELECT';
+    }
+    if (this.column.timePicker) {
+      return 'TIME_PICKER';
+    }
+    return 'TEXT_ONLY';
+  }
+
+  onTimeChange(val: any): void {
+    if (val && val.target && val.target.value) {
+      this.selectedTime.emit(val.target.value);
+    }
+  }
+
+  getTime(date: string): String {
+    return convertToTimeString(date);
   }
 }

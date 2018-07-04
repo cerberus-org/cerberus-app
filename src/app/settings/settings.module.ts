@@ -19,6 +19,7 @@ import { ReportsComponent } from './containers/reports/reports.component';
 import { RolesComponent } from './containers/roles/roles.component';
 import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
+import { VisitsComponent } from './containers/visits/visits.component';
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
 import { CsvService } from './services/csv.service';
 import { settingsRoutes } from './settings.routes';
@@ -50,6 +51,7 @@ import { settingsReducers } from './store/reducers';
     SettingsPageComponent,
     UserSettingsComponent,
     VolunteerSettingsComponent,
+    VisitsComponent,
   ],
   exports: [
     SettingsPageComponent,

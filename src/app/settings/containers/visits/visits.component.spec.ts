@@ -1,16 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
+import { mockVisits } from '../../../mock/objects/visit.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { RolesComponent } from './roles.component';
+import * as SettingsActions from '../../store/actions/settings.actions';
+import { VisitsComponent } from './visits.component';
 
 describe('RolesComponent', () => {
-  let component: RolesComponent;
-  let fixture: ComponentFixture<RolesComponent>;
+  let component: VisitsComponent;
+  let fixture: ComponentFixture<VisitsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        RolesComponent,
+        VisitsComponent,
         MockComponent({
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor', 'isReadOnly'],
@@ -24,7 +26,7 @@ describe('RolesComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RolesComponent);
+    fixture = TestBed.createComponent(VisitsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -32,4 +34,15 @@ describe('RolesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it(
+    'should handle onUpdateVisits events by dispatching SettingsActions.UpdateVisits',
+    () => {
+      spyOn(component.store$, 'dispatch');
+      component.onUpdateVisits(mockVisits);
+      expect(component.store$.dispatch).toHaveBeenCalledWith(
+        new SettingsActions.UpdateVisits(mockVisits),
+      );
+    },
+  );
 });

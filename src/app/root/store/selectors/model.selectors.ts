@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { getFormattedVisits } from '../../../functions';
 import { Organization, Site, User, Visit, Volunteer } from '../../../models';
 import { ModelReducerState } from '../reducers/model.reducer';
 
@@ -27,4 +28,10 @@ export const selectModelVisits = createSelector(
 export const selectModelVolunteers = createSelector(
   selectModelReducerState,
   (state: ModelReducerState): Volunteer[] => state.volunteers,
+);
+
+export const selectFormattedModelVisits = createSelector(
+  selectModelVisits,
+  selectModelVolunteers,
+  (visits: Visit[], volunteers: Volunteer[]): any[] => getFormattedVisits(visits, volunteers),
 );

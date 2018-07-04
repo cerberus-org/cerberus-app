@@ -11,10 +11,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material';
-import * as _ from 'lodash';
 import { merge, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ColumnOptions } from '../../../models';
+import { getIndex } from '../../../functions';
+import { ColumnOptions, Visit } from '../../../models';
 
 /**
  * Provides what data should be rendered in the table.
@@ -71,10 +71,14 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
+  @Input() isReadOnly: Boolean;
   @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
+  @Output() updateMultipleItems = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
+  @Output() timeSelected = new EventEmitter<any>();
   displayedColumns: string[];
+  itemsEdited: any[];
   initialPageSize: number;
   dataSource: DataTableSource;
 
@@ -94,6 +98,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    * Sets the initial page size and columns to display.
    */
   ngOnInit(): void {
+    this.itemsEdited = [];
     // Determine initial page size using inner height of window at component init
     const surroundingElementsPx = 224;
     const cellPx = 49;
@@ -127,14 +132,75 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   /**
+   * Handles the event the time is changed.
+   *
+   * @param value
+   * @param item
+   */
+  onSelectTime(value, item): void {
+    this.addItemToItemsEdited(this.getUpdatedItemWithTime(value, item));
+  }
+
+  /**
+   * Handles the event the user wants to update multiple items.
+   *
+   * @param items
+   */
+  onUpdateItems(items: any[]) {
+    this.updateMultipleItems.emit(items);
+    this.itemsEdited = [];
+  }
+
+  /**
+   * Set time on item date and return.
+   *
+   * @param {string} time - string e.g. "3:00"
+   * @param {Visit} item
+   * @returns {{} & Visit}
+   */
+  getUpdatedItemWithTime(time: string, item: Visit) {
+    const itemCopy = Object.assign({}, item);
+    // If endedAt is null, set to startedAt so we can call setHours on a defined value
+    itemCopy.endedAt = item.endedAt && item.endedAt.toString() !== '(no check-out)' ? item.endedAt : item.startedAt;
+    itemCopy.endedAt.setHours(Number(time.split(':')[0]), Number(time.split(':')[1]), 0);
+    return itemCopy;
+  }
+
+  /**
+   * Add item to itemsEdited and remove pre-existing item if exists.
+   *
+   * @param item
+   */
+  addItemToItemsEdited(item: any): void {
+    const index = getIndex(this.itemsEdited, item.id);
+    if (index !== undefined) {
+      this.itemsEdited.splice(index, 1);
+    }
+    this.itemsEdited.push(item);
+  }
+
+  /**
+   * Display update button if it is the last column option and isReadOnly is false.
+   *
+   * @param columnHeader
+   * @param columnOptions
+   * @param isReadOnly
+   * @returns {boolean | boolean}
+   */
+  displayUpdateButton(column, columnOptions, isReadOnly) {
+    return column === columnOptions[columnOptions.length - 1]
+    && !isReadOnly ? true : false;
+  }
+
+  /**
    * Handles select option events by emitting the item modified with the selected option.
    * @param value - the value to apply
    * @param item - the table item to modify
    * @param key - the property to modify
    */
   onSelectOption(value, item, key): void {
-    const itemClone = _.cloneDeep(item);
-    itemClone[key] = value;
-    this.updateItem.emit(itemClone);
+    const itemCopy = Object.assign({}, item);
+    itemCopy[key] = value;
+    this.updateItem.emit(itemCopy);
   }
 }

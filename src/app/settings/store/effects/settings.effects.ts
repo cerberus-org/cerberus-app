@@ -10,7 +10,7 @@ import { OrganizationService } from '../../../data/services/organization.service
 import { UserService } from '../../../data/services/user.service';
 import { VisitService } from '../../../data/services/visit.service';
 import { VolunteerService } from '../../../data/services/volunteer.service';
-import { getVisitsWithVolunteerNames } from '../../../functions';
+import { getFormattedVisits } from '../../../functions';
 import { User, Visit } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
 import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
@@ -53,7 +53,7 @@ export class SettingsEffects {
           withLatestFrom(this.store$.pipe(select(selectModelVolunteers))),
           tap(([visits, volunteers]) => {
             this.csvService.downloadAsCsv(
-              getVisitsWithVolunteerNames(visits, volunteers), 'VisitHistory.csv', new Map([
+              getFormattedVisits(visits, volunteers), 'VisitHistory.csv', new Map([
                 ['name', 'Name'],
                 ['startedAt', 'Started At'],
                 ['endedAt', 'Ended At'],
@@ -119,6 +119,24 @@ export class SettingsEffects {
         .pipe(
           tap(() => {
             this.snackBarService.updateUserSuccess();
+          }),
+        )),
+    );
+
+  /**
+   * Listen for updateVisits action, update visits,
+   * then display a success snack bar.
+   *
+   * @type {Observable<any>}
+   */
+  @Effect({ dispatch: false })
+  updateVisits$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_VISITS)
+    .pipe(
+      map((action: SettingsActions.UpdateVisits) => action.payload),
+      switchMap(visits => this.visitService.batchUpdate(visits)
+        .pipe(
+          tap(() => {
+            this.snackBarService.updateVisitsSuccess();
           }),
         )),
     );

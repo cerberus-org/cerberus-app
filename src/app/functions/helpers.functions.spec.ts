@@ -2,13 +2,14 @@ import { mockVisits } from '../mock/objects/visit.mock';
 import { createMockVolunteers } from '../mock/objects/volunteer.mock';
 import { formatDuration } from './date-format.functions';
 import {
+  createMap,
   everyVolunteerMatchesName,
   filterVolunteersByName,
   findActiveVisit,
   findVolunteerByFullName,
-  findVolunteerByPetName,
+  findVolunteerByPetName, getFormattedVisits, getIndex,
+  getItemWithoutArrayProperties,
   getUniqueFullNames,
-  getVisitsWithVolunteerNames,
 } from './helpers.functions';
 
 describe('helpers.functions', () => {
@@ -20,7 +21,7 @@ describe('helpers.functions', () => {
       name: volunteers[0].firstName + ' ' + volunteers[0].lastName,
       duration: formatDuration(visits[0].startedAt, visits[0].endedAt, visits[0].timezone),
     }];
-    const formatted = getVisitsWithVolunteerNames(visits, volunteers);
+    const formatted = getFormattedVisits(visits, volunteers);
     expect(formatted).toEqual(expected);
   });
 
@@ -67,5 +68,28 @@ describe('helpers.functions', () => {
     const volunteer = createMockVolunteers()[0];
     const selected = findActiveVisit(mockVisits, volunteer);
     expect(selected).toEqual(mockVisits[3]);
+  });
+
+  it('should get index of item', () => {
+    const arr = [{ id: '1', value: 'a' }, { id: '2', value: 'b' }, { id: '3', value: 'c' }];
+    expect(getIndex(arr, '2')).toEqual(1);
+  });
+
+  it('should not get index of item if id does not exist', () => {
+    const arr = [{ id: '1', value: 'a' }, { id: '2', value: 'b' }, { id: '3', value: 'c' }];
+    expect(getIndex(arr, '22')).toEqual(undefined);
+  });
+
+  it('should create map', () => {
+    const arr = [{ id: '1', value: 'a' }, { id: '2', value: 'b' }, { id: '3', value: 'c' }];
+    expect(createMap(arr).get('1')).toEqual(arr[0]);
+  });
+
+  it('should create empty map if array is undefined', () => {
+    expect(createMap(null).get('1')).toEqual(undefined);
+  });
+
+  it('should remove values of type array from an obejct', () => {
+    expect(getItemWithoutArrayProperties({ a: 'test', b: ['a', 'b'] })).toEqual({ a: 'test' });
   });
 });

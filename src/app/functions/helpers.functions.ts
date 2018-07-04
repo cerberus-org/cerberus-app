@@ -2,6 +2,39 @@ import { Visit, Volunteer } from '../models/index';
 import { formatDuration } from './date-format.functions';
 
 /**
+ * Return index of object given list of values and object id.
+ *
+ * @param {any[]} list
+ * @param {string} id
+ * @returns {number}
+ */
+export const getIndex = (list: any[], id: string): number => {
+  for (let i = 0; i < list.length; i += 1) {
+    if (list[i].id === id) {
+      return i;
+    }
+  }
+};
+
+/**
+ * Create a map of data given an array of data.
+ * Data can be accessed using keyword 'get'.
+ * i.e. map.get('123');
+ *
+ * @param {any[]} data
+ * @returns {Map<string, any>}
+ */
+export const createMap = (data: any[]): Map<string, any> => {
+  const map = new Map<string, any>();
+  if (data) {
+    data.forEach((item) => {
+      map.set(item.id, item);
+    });
+  }
+  return map;
+};
+
+/**
  * Checks if an array of volunteers have the same full name (case-insensitive).
  *
  * @param volunteers - the list of volunteers
@@ -113,7 +146,7 @@ export const getUniqueFullNames = (volunteers: Volunteer[]): string[] => {
  * @param {Volunteer[]} volunteers
  * @returns {any[]}
  */
-export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunteer[]) => {
+export const getFormattedVisits = (visits: Visit[], volunteers: Volunteer[]): any[] => {
   // Create map for O(1) lookup
   const volunteersById = volunteers.reduce(
     (map, volunteer) => {
@@ -124,8 +157,8 @@ export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunte
   );
   return visits.map(visit => ({
     ...visit,
-    duration: visit.endedAt ? formatDuration(visit.startedAt, visit.endedAt, visit.timezone) : '',
     endedAt: visit.endedAt ? visit.endedAt : '(no check-out)',
+    duration: visit.endedAt ? formatDuration(visit.startedAt, visit.endedAt, visit.timezone) : '',
     name: getFullName(volunteersById.get(visit.volunteerId)),
   }));
 };
@@ -138,4 +171,21 @@ export const getVisitsWithVolunteerNames = (visits: Visit[], volunteers: Volunte
  */
 export const sortVisitsByStartedAt = (visits: Visit[]): Visit[] => {
   return visits.slice().sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime());
+};
+
+/**
+ * Angular Fire cannot do batch updates for objects that have arrays as properties.
+ * Remove properties of type array and return updated item.
+ *
+ * @param item
+ * @returns {any}
+ */
+export const getItemWithoutArrayProperties = (item: any): any => {
+  const itemCopy = item;
+  Object.keys(itemCopy).forEach((property) => {
+    if (Array.isArray(itemCopy[property])) {
+      delete itemCopy[property];
+    }
+  });
+  return itemCopy;
 };
