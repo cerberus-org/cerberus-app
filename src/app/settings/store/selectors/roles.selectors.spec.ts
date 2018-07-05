@@ -5,7 +5,7 @@ import { selectMembersWithRoleOptions } from './roles.selectors';
 import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;
 
-describe('RolesSelectors', () => {
+fdescribe('RolesSelectors', () => {
   describe('selectMembersWithRoleOptions', () => {
     let members: Member[];
 
@@ -18,7 +18,7 @@ describe('RolesSelectors', () => {
         .toEqual(arrayContaining([
           objectContaining({
             ...members[0],
-            roles: arrayContaining([
+            roleOptions: arrayContaining([
               MEMBER_ROLE_MEMBER,
               MEMBER_ROLE_ADMIN,
               MEMBER_ROLE_OWNER,
@@ -26,7 +26,7 @@ describe('RolesSelectors', () => {
           }),
           objectContaining({
             ...members[1],
-            roles: arrayContaining([
+            roleOptions: arrayContaining([
               MEMBER_ROLE_LOCKED,
               MEMBER_ROLE_MEMBER,
               MEMBER_ROLE_ADMIN,
@@ -35,7 +35,7 @@ describe('RolesSelectors', () => {
           }),
           objectContaining({
             ...members[2],
-            roles: arrayContaining([
+            roleOptions: arrayContaining([
               MEMBER_ROLE_LOCKED,
               MEMBER_ROLE_MEMBER,
               MEMBER_ROLE_ADMIN,
@@ -51,30 +51,30 @@ describe('RolesSelectors', () => {
         .toEqual(arrayContaining([
           objectContaining({
             ...members[0],
-            roles: null,
+            roleOptions: null,
           }),
           objectContaining({
             ...members[1],
-            roles: null,
+            roleOptions: null,
           }),
           objectContaining({
             ...members[2],
-            roles: null,
+            roleOptions: null,
           }),
         ]));
     });
 
     it('it should not allow the last owner to change their role', () => {
       const members = createMockMembers();
-      expect(selectMembersWithRoleOptions.projector(members[1], members, 1))
+      expect(selectMembersWithRoleOptions.projector(members[0], members, 1))
         .toEqual(arrayContaining([
           objectContaining({
             ...members[0],
-            roles: null,
+            roleOptions: null,
           }),
           objectContaining({
             ...members[1],
-            roles: arrayContaining([
+            roleOptions: arrayContaining([
               MEMBER_ROLE_LOCKED,
               MEMBER_ROLE_MEMBER,
               MEMBER_ROLE_ADMIN,
@@ -83,7 +83,7 @@ describe('RolesSelectors', () => {
           }),
           objectContaining({
             ...members[2],
-            roles: arrayContaining([
+            roleOptions: arrayContaining([
               MEMBER_ROLE_LOCKED,
               MEMBER_ROLE_MEMBER,
               MEMBER_ROLE_ADMIN,

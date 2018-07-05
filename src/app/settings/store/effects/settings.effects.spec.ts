@@ -77,7 +77,7 @@ describe('SettingsEffects', () => {
     }));
 
     it(
-      'should dispatch SessionActions.SetMemberAndUserInfo with the edited member and without changes to the role property',
+      'should dispatch SessionActions.SetMemberAndUserInfo with the edited member',
       (() => {
         const expected = cold('b', {
           b: new SessionActions.SetMemberAndUserInfo({
@@ -85,10 +85,7 @@ describe('SettingsEffects', () => {
               ...createMockUserInfo()[0],
               email: credentialEdits.email,
             },
-            member: {
-              ...memberEdits,
-              role: createMockMembers()[0].role,
-            },
+            member: memberEdits,
           }),
         });
         expect(effects.updateUser$).toBeObservable(expected);

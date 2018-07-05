@@ -14,7 +14,7 @@ describe('UserSettingsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         UserSettingsComponent,
-        MockComponent({ selector: 'app-user-form', inputs: ['initialMember', 'passwordRequired'] }),
+        MockComponent({ selector: 'app-user-form', inputs: ['initialEmail', 'initialMember', 'passwordRequired'] }),
       ],
       imports: [
         ...mockStoreModules,

@@ -39,6 +39,7 @@ describe('GettingStartedSelectors', () => {
 
     it('should return 1 if all steps are visited but the organization is invalid', () => {
       expect(selectMaxEnabledStep.projector({
+        joinExistingOrganization: false,
         maxVisitedStep: 4,
         validOrganization: null,
         validCredentials: credentials,
@@ -50,6 +51,7 @@ describe('GettingStartedSelectors', () => {
 
     it('should return 2 if all steps are visited but the userInfo data is invalid', () => {
       expect(selectMaxEnabledStep.projector({
+        joinExistingOrganization: false,
         maxVisitedStep: 4,
         validOrganization: organization,
         validCredentials: null,
@@ -61,6 +63,7 @@ describe('GettingStartedSelectors', () => {
 
     it('should return 3 if all steps are visited but the TOS is unchecked', () => {
       expect(selectMaxEnabledStep.projector({
+        joinExistingOrganization: false,
         maxVisitedStep: 4,
         validOrganization: organization,
         validCredentials: credentials,
@@ -72,6 +75,7 @@ describe('GettingStartedSelectors', () => {
 
     it('should return 4 if all steps are visited and all data is valid', () => {
       expect(selectMaxEnabledStep.projector({
+        joinExistingOrganization: false,
         maxVisitedStep: 4,
         validOrganization: organization,
         validCredentials: credentials,
@@ -84,9 +88,10 @@ describe('GettingStartedSelectors', () => {
 
   describe('selectGettingStartedPageState', () => {
     it('should select the GettingStarted page state', () => {
-      const { validOrganization, validCredentials, validMember, tosIsChecked } = initialGettingStartedReducerState;
+      const { joinExistingOrganization, validOrganization, validCredentials, validMember, tosIsChecked } = initialGettingStartedReducerState;
       expect(selectGettingStartedPageState.projector(initialGettingStartedReducerState, 4))
         .toEqual({
+          joinExistingOrganization,
           validOrganization,
           validCredentials,
           validMember,

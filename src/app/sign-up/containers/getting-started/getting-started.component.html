@@ -89,9 +89,9 @@
     [disabled]="(state$ | async)?.maxEnabledStep < 4"
   >
     <app-organization-confirm
-      [organization]="(state$ | async)?.validOrganization"
       [email]="((state$ | async)?.validCredentials)?.email"
       [member]="(state$ | async)?.validMember"
+      [organization]="(state$ | async)?.validOrganization"
     >
     </app-organization-confirm>
     <div class="container-submit">
