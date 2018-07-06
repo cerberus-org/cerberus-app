@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { MEMBER_ROLE_OWNER } from '../../../functions';
-import { getFormattedVisits } from '../../../functions';
-import { Organization, Site, Member, Visit, Volunteer } from '../../../models';
+import { getFormattedVisits, MEMBER_ROLE_OWNER } from '../../../functions';
+import { Member, Organization, Site, Visit, Volunteer } from '../../../models';
 import { ModelReducerState } from '../reducers/model.reducer';
 
 export const selectModelReducerState = createFeatureSelector<ModelReducerState>('model');

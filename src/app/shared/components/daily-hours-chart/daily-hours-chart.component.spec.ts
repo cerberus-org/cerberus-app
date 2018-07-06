@@ -39,7 +39,7 @@ describe('DailyHoursChartComponent', () => {
       expect(label).toEqual(testLabels[index]));
   });
 
-  xit('should set up the line chart data', () => {
+  fit('should set up the line chart data', () => {
     const lineChartData = component.setupLineChartData(createMockVisits(), testLabels)[0];
     expect(lineChartData.data.length).toEqual(5);
     expect(lineChartData.data[0]).toEqual('0.000');
