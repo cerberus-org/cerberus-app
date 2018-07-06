@@ -14,9 +14,11 @@
     label="2. Your Organization"
     [disabled]="(state$ | async)?.maxEnabledStep < 1"
   >
-    <mat-checkbox (change)="onCheckJoinOrganization($event)">
-      <div>I am joining an existing organization.</div>
-    </mat-checkbox>
+    <div class="container-center loose">
+      <mat-checkbox (change)="onCheckJoinOrganization($event)">
+        I am joining an existing organization.
+      </mat-checkbox>
+    </div>
     <app-find-organization
       *ngIf="(state$ | async)?.joinExistingOrganization; else createOrganization"
       [showTitle]="true"

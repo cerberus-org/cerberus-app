@@ -40,20 +40,24 @@ input.capitalize {
   text-transform: capitalize;
 }
 
+.header-spacing {
+  padding-top: 4rem;
+}
+
+.container-submit {
+  display: grid;
+  justify-items: end;
+  margin: 2rem;
+}
+
 .container-center {
   width: 100%;
   display: grid;
   justify-content: center;
 }
 
-.header-spacing {
-  padding-top: 4rem;
-}
-
-.container-inline {
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 0.5rem;
+.container-margins {
+  margin: 2rem;
 }
 
 .container-submit {

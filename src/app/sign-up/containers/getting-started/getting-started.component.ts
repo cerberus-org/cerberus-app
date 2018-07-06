@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange, MatTabGroup } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -29,7 +29,7 @@ export class GettingStartedComponent implements OnInit {
   organizationFormTitle: string = 'Tell us about your organization.';
   state$: Observable<GettingStartedPageState> = this.store$.pipe(select(selectGettingStartedPageState));
 
-  constructor(private store$: Store<SignUpState>) {}
+  constructor(private store$: Store<SignUpState>, private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.store$.dispatch(new LayoutActions.SetHeaderOptions(this.headerOptions));
@@ -38,6 +38,7 @@ export class GettingStartedComponent implements OnInit {
 
   onCheckJoinOrganization($event: MatCheckboxChange) {
     this.store$.dispatch(new GettingStartedActions.SetJoinExistingOrganization($event.checked));
+    this.changeDetectorRef.detectChanges();
   }
 
   onValidOrganization(organization: Organization): void {
