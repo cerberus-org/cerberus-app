@@ -8,6 +8,7 @@ import { signUpReducers } from '../sign-up/store/reducers';
 import { createMockCredentials } from './objects/credentials.mock';
 import { createMockMembers } from './objects/member.mock';
 import { createMockOrganizations } from './objects/organization.mock';
+import { createMockUserInfo } from './objects/user.mock';
 import { createMockVolunteers } from './objects/volunteer.mock';
 
 export const mockStoreModules = [
@@ -24,7 +25,8 @@ export const mockStoreModules = [
       session: {
         ...initialSessionReducerState,
         organization: createMockOrganizations()[0],
-        user: createMockMembers()[0],
+        member: createMockMembers()[0],
+        userInfo: createMockUserInfo()[0],
       },
     },
   }),

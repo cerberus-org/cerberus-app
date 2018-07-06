@@ -33,16 +33,16 @@ describe('UserSettingsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle edits events by setting edits', () => {
+  it('should handle edits events by setting edits', async(() => {
     const edits = {
       member: createMockMembers()[0],
       credentials: createMockCredentials()[0],
     };
     component.onValidChanges(edits);
     expect(component.edits).toEqual(edits);
-  });
+  }));
 
-  it('should handle submitUser events by dispatching SettingsActions.SetMemberAndUserInfo', () => {
+  it('should handle submitUser events by dispatching SettingsActions.SetMemberAndUserInfo', async(() => {
     spyOn(component.store$, 'dispatch');
     const edits = {
       member: createMockMembers()[0],
@@ -51,5 +51,5 @@ describe('UserSettingsComponent', () => {
     component.onSubmit(edits);
     expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new SettingsActions.UpdateUser(edits));
-  });
+  }));
 });
