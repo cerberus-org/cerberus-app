@@ -1,17 +1,19 @@
-import { mockVisits } from '../mock/objects/visit.mock';
+import { createMockVisits } from '../mock/objects/visit.mock';
 import { convertToTimeString, formatDuration, formatTime } from './date-format.functions';
 
 describe('date-format.functions', () => {
   it('should format times', () => {
-    const formatted = formatTime(mockVisits[0].startedAt, mockVisits[0].timezone);
+    const visit = createMockVisits()[0];
+    const formatted = formatTime(visit.startedAt, visit.timezone);
     expect(formatted).toEqual('5:45 AM');
   });
 
   it('should format durations with an end date', () => {
+    const visit = createMockVisits()[1];
     const formatted = formatDuration(
-      mockVisits[1].startedAt,
-      mockVisits[1].endedAt,
-      mockVisits[0].timezone,
+      visit.startedAt,
+      visit.endedAt,
+      visit.timezone,
     );
     expect(formatted).toEqual('6 hours');
   });

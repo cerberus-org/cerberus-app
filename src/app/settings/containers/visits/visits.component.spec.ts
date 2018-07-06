@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { mockVisits } from '../../../mock/objects/visit.mock';
+import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { VisitsComponent } from './visits.component';
@@ -38,10 +38,11 @@ describe('RolesComponent', () => {
   it(
     'should handle onUpdateVisits events by dispatching SettingsActions.UpdateVisits',
     () => {
+      const visits = createMockVisits();
       spyOn(component.store$, 'dispatch');
-      component.onUpdateVisits(mockVisits);
+      component.onUpdateVisits(visits);
       expect(component.store$.dispatch).toHaveBeenCalledWith(
-        new SettingsActions.UpdateVisits(mockVisits),
+        new SettingsActions.UpdateVisits(visits),
       );
     },
   );
