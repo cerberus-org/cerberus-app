@@ -12,22 +12,22 @@ import * as SettingsActions from '../../store/actions/settings.actions';
   styleUrls: ['./volunteer-settings.component.scss'],
 })
 export class VolunteerSettingsComponent implements OnInit {
-  volunteerTableOptions: ColumnOptions[] = [
-    new ColumnOptions(
-      'firstName',
-      'First Name',
-      (row: Volunteer) => row.firstName,
-    ),
-    new ColumnOptions(
-      'lastName',
-      'Last Name',
-      (row: Volunteer) => row.lastName,
-    ),
-    new ColumnOptions(
-      'petName',
-      'Pet Name',
-      (row: Volunteer) => row.petName,
-    ),
+  columnOptions: ColumnOptions[] = [
+    {
+      columnDef: 'firstName',
+      header: 'First Name',
+      cell: (row: Volunteer) => row.firstName,
+    },
+    {
+      columnDef: 'lastName',
+      header: 'Last Name',
+      cell: (row: Volunteer) => row.lastName,
+    },
+    {
+      columnDef: 'petName',
+      header: 'Pet Name',
+      cell: (row: Volunteer) => row.petName,
+    },
   ];
   volunteers$: Observable<Volunteer[]>;
 
