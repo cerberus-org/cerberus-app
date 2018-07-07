@@ -5,7 +5,7 @@ import { selectMembersWithRoleOptions } from './roles.selectors';
 import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;
 
-describe('RolesSelectors', () => {
+describe('roles.selectors', () => {
   describe('selectMembersWithRoleOptions', () => {
     let members: Member[];
 

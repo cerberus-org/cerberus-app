@@ -8,7 +8,7 @@ import {
 import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;
 
-describe('SettingsSelectors', () => {
+describe('settings.selectors', () => {
   describe('selectSettingsReducerState', () => {
     it('it should select the settingsReducer state', () => {
       const state = initialSettingsReducerState;

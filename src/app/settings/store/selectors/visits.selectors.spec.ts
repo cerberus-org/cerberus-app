@@ -4,7 +4,7 @@ import { selectVisitsColumnOptions, selectVisitsPageState } from './visits.selec
 import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;
 
-describe('VisitsSelectors', () => {
+describe('visits.selectors', () => {
   describe('selectVisitsColumnOptions', () => {
     it('it should select column options for the Visits page', () => {
       const mockVisits = createMockVisits();
