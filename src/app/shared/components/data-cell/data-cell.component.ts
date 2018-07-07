@@ -39,8 +39,8 @@ export class DataCellComponent implements OnChanges {
     return 'TEXT_ONLY';
   }
 
-  onTimeChange(val: any): void {
-    if (val && val.target && val.target.value) {
+  onTimeChange(val: any, date: string): void {
+    if (val && val.target && val.target.value && val.target.value !== this.getTime(date)) {
       this.selectedTime.emit(val.target.value);
     }
   }
