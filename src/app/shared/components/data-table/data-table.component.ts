@@ -71,7 +71,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
-  @Input() isReadOnly: Boolean;
+  @Input() isEditable: Boolean;
   @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
   @Output() updateMultipleItems = new EventEmitter<any>();
@@ -180,16 +180,16 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Display update button if it is the last column option and isReadOnly is false.
+   * Display update button if it is the last column option and isEditable is false.
    *
    * @param columnHeader
    * @param columnOptions
-   * @param isReadOnly
+   * @param isEditable
    * @returns {boolean | boolean}
    */
-  displayUpdateButton(column, columnOptions, isReadOnly) {
+  displayUpdateButton(column, columnOptions, isEditable) {
     return column === columnOptions[columnOptions.length - 1]
-    && !isReadOnly ? true : false;
+    && isEditable ? true : false;
   }
 
   /**

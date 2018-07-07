@@ -3,7 +3,7 @@
     <!--Table with no delete option-->
     <ng-container *ngFor="let column of columnOptions" [cdkColumnDef]="column.columnDef">
       <mat-header-cell *cdkHeaderCellDef>{{column.header}}
-        <button mat-button [disabled]="!(itemsEdited && itemsEdited.length !== 0)" *ngIf="displayUpdateButton(column.columnDef, displayedColumns, isReadOnly)" color="accent" class="update-button" (click)="onUpdateItems(itemsEdited)">Save</button>
+        <button mat-button [disabled]="!(itemsEdited && itemsEdited.length !== 0)" *ngIf="displayUpdateButton(column.columnDef, displayedColumns, isEditable)" color="accent" class="update-button" (click)="onUpdateItems(itemsEdited)">Save</button>
       </mat-header-cell>
       <mat-cell *cdkCellDef="let row">
         <app-data-cell
