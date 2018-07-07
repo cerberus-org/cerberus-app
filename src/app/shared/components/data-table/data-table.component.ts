@@ -139,36 +139,11 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param item
    */
   onSelectTime(value, item, column): void {
-    this.addItemToItemsEdited(this.getUpdatedItemWithTime(value, item), column);
+    this.addItemToItemsEdited(column.formatTimeInputValueToUpdatedValue(value, item), column);
   }
 
   /**
-   * Handles the event the user wants to update multiple items.
-   *
-   * @param items
-   */
-  onUpdateItems(items: any[]) {
-    this.updateMultipleItems.emit(items);
-    this.itemsEdited = [];
-  }
-
-  /**
-   * Set time on item date and return.
-   *
-   * @param {string} time - string e.g. "3:00"
-   * @param {Visit} item
-   * @returns {{} & VisitWithVolunteer}
-   */
-  getUpdatedItemWithTime(time: string, item: VisitWithVolunteer) {
-    const itemCopy = Object.assign({}, item);
-    // If endedAt is null, set to startedAt so we can call setHours on a defined value
-    itemCopy.endedAt = itemCopy.endedAt ? itemCopy.endedAt : new Date(itemCopy.startedAt);
-    itemCopy.endedAt.setHours(Number(time.split(':')[0]), Number(time.split(':')[1]), 0);
-    return itemCopy;
-  }
-
-  /**
-   * Add item to itemsEdited and remove pre-existing item if exists.
+   * Remove pre-existing item if exists and add item to itemsEdited if valid.
    *
    * @param item
    */
@@ -180,6 +155,16 @@ export class DataTableComponent implements OnInit, OnChanges {
     if (column.validator(item)) {
       this.itemsEdited.push(item);
     }
+  }
+
+  /**
+   * Handles the event the user wants to update multiple items.
+   *
+   * @param items
+   */
+  onUpdateItems(items: any[]) {
+    this.updateMultipleItems.emit(items);
+    this.itemsEdited = [];
   }
 
   /**

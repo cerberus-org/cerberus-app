@@ -33,6 +33,20 @@ export const selectVisitsColumnOptions = createSelector(
       validator: (visit: VisitWithVolunteer): boolean => {
         return new Date(visit.startedAt) < new Date(visit.endedAt); // true if startedAt is earlier
       },
+      /**
+       * Set time on item date and return.
+       *
+       * @param {string} time - string e.g. "3:00"
+       * @param {Visit} item
+       * @returns {{} & VisitWithVolunteer}
+       */
+      formatTimeInputValueToUpdatedValue: (time: string, visit: VisitWithVolunteer): VisitWithVolunteer => {
+        const visitCopy = Object.assign({}, visit);
+        // If endedAt is null, set to startedAt so we can call setHours on a defined value
+        visitCopy.endedAt = visitCopy.endedAt ? visitCopy.endedAt : new Date(visitCopy.startedAt);
+        visitCopy.endedAt.setHours(Number(time.split(':')[0]), Number(time.split(':')[1]), 0);
+        return visitCopy;
+      },
     },
     new ColumnOptions(
       'duration',
