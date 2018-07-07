@@ -4,6 +4,7 @@ export class ColumnOptions {
   cell: Function;
   selectOptions?: Function;
   timePicker?: Boolean;
+  validator?: Function;
 
   constructor(columnDef: string, header: string, cell: Function, selectOptions: Function = null, timePicker: Boolean = false) {
     this.columnDef = columnDef;

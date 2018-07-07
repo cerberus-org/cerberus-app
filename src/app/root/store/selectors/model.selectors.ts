@@ -1,7 +1,7 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { getFormattedVisits } from '../../../functions';
-import { Organization, Site, User, Visit, Volunteer } from '../../../models';
-import { ModelReducerState } from '../reducers/model.reducer';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {getFormattedVisits} from '../../../functions';
+import {Organization, Site, User, Visit, Volunteer} from '../../../models';
+import {ModelReducerState} from '../reducers/model.reducer';
 
 export const selectModelReducerState = createFeatureSelector<ModelReducerState>('model');
 
@@ -30,8 +30,16 @@ export const selectModelVolunteers = createSelector(
   (state: ModelReducerState): Volunteer[] => state.volunteers,
 );
 
-export const selectFormattedModelVisits = createSelector(
+export const selectVisitWithVolunteers = createSelector(
   selectModelVisits,
   selectModelVolunteers,
-  (visits: Visit[], volunteers: Volunteer[]): any[] => getFormattedVisits(visits, volunteers),
+  (visits: Visit[], volunteers: Volunteer[]): VisitWithVolunteer[] =>
+    visits.map(visit => ({
+      ...visit,
+      volunteer: volunteers.find(volunteer => volunteer.id === visit.volunteerId),
+    })),
 );
+
+export interface VisitWithVolunteer extends Visit {
+  volunteer: Volunteer;
+}

@@ -1,5 +1,5 @@
 import { mockVisits } from '../mock/objects/visit.mock';
-import { convertToTimeString, formatDuration, formatTime } from './date-format.functions';
+import { formatTimeInputValue, formatDuration, formatTime } from './date-format.functions';
 
 describe('date-format.functions', () => {
   it('should format times', () => {
@@ -17,12 +17,12 @@ describe('date-format.functions', () => {
   });
 
   it('should convert date to time', () => {
-    const time = convertToTimeString('2018-04-27T08:05:00.103Z');
+    const time = formatTimeInputValue('2018-04-27T08:05:00.103Z');
     expect(time).toEqual('08:05');
   });
 
   it('should return empty string', () => {
-    const time = convertToTimeString(null);
+    const time = formatTimeInputValue(null);
     expect(time).toEqual('');
   });
 });

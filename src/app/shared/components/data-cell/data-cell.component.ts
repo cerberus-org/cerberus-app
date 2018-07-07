@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { convertToTimeString } from '../../../functions';
+import { formatTimeInputValue } from '../../../functions';
 import { ColumnOptions } from '../../../models';
 
 @Component({
@@ -39,13 +39,9 @@ export class DataCellComponent implements OnChanges {
     return 'TEXT_ONLY';
   }
 
-  onTimeChange(val: any, date: string): void {
-    if (val && val.target && val.target.value && val.target.value !== this.getTime(date)) {
+  onTimeChange(val: any, lastValue: string): void {
+    if (val && val.target && val.target.value && val.target.value !== lastValue) {
       this.selectedTime.emit(val.target.value);
     }
-  }
-
-  getTime(date: string): String {
-    return convertToTimeString(date);
   }
 }

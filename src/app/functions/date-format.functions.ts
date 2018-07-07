@@ -28,6 +28,6 @@ export const formatDuration = (startedAt: Date, endedAt: Date, timezone: string)
  * @param {string} dateString
  * @returns {string} time
  */
-export const convertToTimeString = (dateString: string): string => {
-  return dateString ? moment(new Date(dateString)).tz('America/Chicago').format('HH:mm') : '';
+export const formatTimeInputValue = (date: Date, timezone: string = 'America/Chicago'): string => {
+  return date ? moment(date).tz(timezone).format('HH:mm') : '';
 };

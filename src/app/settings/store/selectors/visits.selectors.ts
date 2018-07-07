@@ -1,7 +1,11 @@
 import { createSelector } from '@ngrx/store';
-import { formatDate, formatTime } from '../../../functions';
+import { formatDate, formatDuration, formatTime, formatTimeInputValue, getFullName } from '../../../functions';
 import { ColumnOptions } from '../../../models';
-import { selectFormattedModelVisits, selectModelVisits } from '../../../root/store/selectors/model.selectors';
+import {
+  selectModelVisits,
+  selectVisitWithVolunteers,
+  VisitWithVolunteer,
+} from '../../../root/store/selectors/model.selectors';
 
 export const selectVisitsColumnOptions = createSelector(
   selectModelVisits,
@@ -9,28 +13,32 @@ export const selectVisitsColumnOptions = createSelector(
     new ColumnOptions(
       'name',
       'Name',
-      (row: any) => row.name,
+      (row: VisitWithVolunteer) => getFullName(row.volunteer),
     ),
     new ColumnOptions(
       'date',
       'Date',
-      (row: any) => formatDate(row.startedAt, row.timezone),
+      (row: VisitWithVolunteer) => formatDate(row.startedAt, row.timezone),
     ),
     new ColumnOptions(
       'startedAt',
       'Start',
-      (row: any) => formatTime(row.startedAt, row.timezone),
+      (row: VisitWithVolunteer) => formatTime(row.startedAt, row.timezone),
     ),
     {
       columnDef: 'endedAt',
       header: 'End',
-      cell: (row: any) => row.endedAt,
+      cell: (row: VisitWithVolunteer) => formatTimeInputValue(row.endedAt, row.timezone),
       timePicker: true,
+      validator: (row: VisitWithVolunteer, edits: VisitWithVolunteer): boolean => {
+        // return edits.endedAt < row.startedAt; // returns true if error
+        return true;
+      },
     },
     new ColumnOptions(
       'duration',
       'Duration',
-      (row: any) => row.duration,
+      (row: VisitWithVolunteer) => formatDuration(row.startedAt, row.endedAt, row.timezone),
     ),
   ],
 );
@@ -41,7 +49,7 @@ export interface VisitsPageState {
 }
 
 export const selectVisitsPageState = createSelector(
-  selectFormattedModelVisits,
+  selectVisitWithVolunteers,
   selectVisitsColumnOptions,
   (formattedVisits: any[], columnOptions: ColumnOptions[]): VisitsPageState => ({ formattedVisits, columnOptions }),
 );
