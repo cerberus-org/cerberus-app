@@ -53,11 +53,14 @@ input.capitalize {
 .container-center {
   width: 100%;
   display: grid;
+  align-items: center;
   justify-content: center;
 }
 
-.container-margins {
-  margin: 2rem;
+.container-inline {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 0.5rem;
 }
 
 .container-submit {
