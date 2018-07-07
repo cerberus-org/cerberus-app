@@ -1,7 +1,13 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { User } from '../../../models';
+import { Member } from '../../../models';
+import { Credentials } from '../../../models/credentials';
+
+export interface UserFormChanges {
+  member: Member;
+  credentials: Credentials;
+}
 
 @Component({
   selector: 'app-user-form',
@@ -11,10 +17,11 @@ import { User } from '../../../models';
 export class UserFormComponent implements OnInit, OnDestroy {
   @Input() passwordRequired;
   @Input() title: string;
-  // Initial user used to pre populate form
-  @Input() initialUser: User;
-  // User entered in form
-  @Output() validUser = new EventEmitter();
+  // Initial validMember used to pre populate form
+  @Input() initialMember: Member;
+  @Input() initialEmail: string;
+  // Member entered in form
+  @Output() validChanges = new EventEmitter<UserFormChanges>();
   formGroup: FormGroup;
   formSubscription: Subscription;
   hidePwd: boolean;
@@ -28,17 +35,21 @@ export class UserFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formGroup = this.createForm();
     this.formSubscription = this.subscribeToForm();
-    // Emit User if form is valid after creation
-    this.emitUserIfValid();
   }
 
-  emitUserIfValid(): void {
-    const value = this.formGroup.value;
-    if (this.formGroup.valid) {
-      this.validUser.emit(new User(value.firstName, value.lastName, value.email, value.password));
-    } else {
-      this.validUser.emit(null);
-    }
+  /**
+   * Subscribes to the form group and emit a new Member object if Member is valid.
+   */
+  subscribeToForm(): Subscription {
+    return this.formGroup.valueChanges.subscribe(() => this.onValueChanges());
+  }
+
+  onValueChanges(): void {
+    const { valid, value } = this.formGroup;
+    this.validChanges.emit({
+      credentials: valid ? { email: value.email, password: value.password } : null,
+      member: valid ? new Member(value.firstName, value.lastName) : null,
+    });
   }
 
   ngOnDestroy(): void {
@@ -48,23 +59,35 @@ export class UserFormComponent implements OnInit, OnDestroy {
   createForm(): FormGroup {
     return this.fb.group(
       {
-        // If user was passed in, pre populate form, else leave blank
-        firstName: [this.initialUser ? this.initialUser.firstName : '',
-          [Validators.minLength(2),
+        // If validMember was passed in, pre populate form, else leave blank
+        firstName: [
+          this.initialMember ? this.initialMember.firstName : '',
+          [
+            Validators.minLength(2),
             Validators.maxLength(35),
-            Validators.required]],
-        lastName: [this.initialUser ? this.initialUser.lastName : '',
-          [Validators.minLength(2),
-            Validators.maxLength(35),
-            Validators.required]],
-        email: [this.initialUser ? this.initialUser.email : '',
-          [Validators.maxLength(255),
             Validators.required,
-            Validators.email]],
-        password: ['',
-          [Validators.minLength(8),
+          ],
+        ],
+        lastName: [this.initialMember ? this.initialMember.lastName : '',
+          [Validators.minLength(2),
+            Validators.maxLength(35),
+            Validators.required]],
+        email: [
+          this.initialMember ? this.initialEmail : '',
+          [
+            Validators.maxLength(255),
+            Validators.required,
+            Validators.email,
+          ],
+        ],
+        password: [
+          '',
+          [
+            Validators.minLength(8),
             Validators.maxLength(128),
-            this.passwordRequiredValidator]],
+            this.passwordRequiredValidator,
+          ],
+        ],
         confirmPassword: [''],
       },
       { validator: this.matchingPasswords('password', 'confirmPassword') },
@@ -99,14 +122,5 @@ export class UserFormComponent implements OnInit, OnDestroy {
       }
       confirmPassword.setErrors(null);
     };
-  }
-
-  /**
-   * Subscribes to the form group and emit a new User object if User is valid.
-   */
-  subscribeToForm(): Subscription {
-    return this.formGroup.valueChanges.subscribe(() => {
-      this.emitUserIfValid();
-    });
   }
 }

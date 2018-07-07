@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../../auth/services/auth.service';
 import * as SessionActions from '../../../auth/store/actions/session.actions';
-import { selectSessionOrganization, selectSessionUser } from '../../../auth/store/selectors/session.selectors';
+import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
+import { MemberService } from '../../../data/services/member.service';
 import { OrganizationService } from '../../../data/services/organization.service';
-import { UserService } from '../../../data/services/user.service';
 import { VisitService } from '../../../data/services/visit.service';
 import { VolunteerService } from '../../../data/services/volunteer.service';
 import { getFormattedVisits } from '../../../functions';
-import { User, Visit } from '../../../models';
+import { Member, Visit } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
 import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
@@ -65,8 +65,8 @@ export class SettingsEffects {
     );
 
   /**
-   * Listens for SettingsActions.UpdateOrganization. Applies organization changes against current organization in
-   * session, then displays a success snack bar and dispatches SessionActions.UpdateOrganization.
+   * Listens for SettingsActions.SetOrganization. Applies organization changes against current organization in
+   * session, then displays a success snack bar and dispatches SessionActions.SetOrganization.
    */
   @Effect()
   updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)
@@ -79,43 +79,41 @@ export class SettingsEffects {
           .pipe(
             map(() => {
               this.snackBarService.updateOrganizationSuccess();
-              return new SessionActions.UpdateOrganization(editedOrganization);
+              return new SessionActions.SetOrganization(editedOrganization);
             }),
           );
       }),
     );
 
   /**
-   * Listens for SettingsActions.UpdateUser. Applies user changes against current user in session, then displays a
-   * success snack bar and dispatches SessionActions.UpdateUser.
+   * Listens for SettingsActions.SetMemberAndUserInfo. Applies user changes against current user in session, then
+   * displays a success snack bar and dispatches SessionActions.SetMemberAndUserInfo.
    */
   @Effect()
   updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
     .pipe(
       map((action: SettingsActions.UpdateUser) => action.payload),
-      withLatestFrom(this.store$.pipe(select(selectSessionUser))),
-      switchMap(([userEdits, sessionUser]) => {
-        delete userEdits.role;
-        const editedUser = { ...sessionUser, ...userEdits };
-        return this.authService.updateUser(editedUser)
-          .pipe(
-            map(() => {
-              this.snackBarService.updateUserSuccess();
-              return new SessionActions.UpdateUser(editedUser);
-            }),
-          );
-      }),
+      switchMap(({ credentials, member }) => forkJoin(
+        this.authService.updateUser(credentials),
+        this.memberService.update(member),
+      )
+        .pipe(
+          map(([userInfo]) => {
+            this.snackBarService.updateUserSuccess();
+            return new SessionActions.SetMemberAndUserInfo({ member, userInfo });
+          }),
+        )),
     );
 
   /**
-   * Listen for the updateRole action, update a user's role,
+   * Listen for the updateRole action, update a member's role,
    * then display a success snack bar.
    */
   @Effect({ dispatch: false })
   updateRole$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ROLE)
     .pipe(
       map((action: SettingsActions.UpdateRole) => action.payload),
-      switchMap((user: User) => this.userService.update(user)
+      switchMap((member: Member) => this.memberService.update(member)
         .pipe(
           tap(() => {
             this.snackBarService.updateUserSuccess();
@@ -147,7 +145,7 @@ export class SettingsEffects {
     private authService: AuthService,
     private organizationService: OrganizationService,
     private snackBarService: SnackBarService,
-    private userService: UserService,
+    private memberService: MemberService,
     private visitService: VisitService,
     private volunteerService: VolunteerService,
     private csvService: CsvService,

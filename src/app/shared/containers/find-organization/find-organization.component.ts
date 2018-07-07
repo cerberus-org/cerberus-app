@@ -13,12 +13,11 @@ import { selectModelOrganizations } from '../../../root/store/selectors/model.se
 })
 export class FindOrganizationComponent implements OnInit, OnDestroy {
   private organizationsSubscription: Subscription;
-  filteredOrganizations: Organization[];
+  filteredOrganizations: Organization[] = [];
   organizations: Organization[];
-  organizationName: String;
 
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
-  @Output() validInput = new EventEmitter();
+  @Output() validOrganization = new EventEmitter<Organization>();
   @Output() iconButtonClick = new EventEmitter();
   @Input() showTitle;
   @Input() showInputIconButton;
@@ -32,20 +31,13 @@ export class FindOrganizationComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.organizationsSubscription) {
       this.organizationsSubscription.unsubscribe();
     }
   }
 
-  emitInput(input: string) {
-    this.organizationName = input;
-    if (input) {
-      this.validInput.emit(input);
-    }
-  }
-
-  emitInputIconButtonClick() {
+  onIconButtonClick(): void {
     this.iconButtonClick.emit();
   }
 
@@ -55,9 +47,14 @@ export class FindOrganizationComponent implements OnInit, OnDestroy {
    * @param {Organization[]} organizations
    * @param {string} input
    */
-  onOrganizationInputNameChanges(organizations: Organization[], input: string) {
-    this.emitInput(input);
+  onOrganizationInputNameChanges(organizations: Organization[], input: string): void {
     this.filteredOrganizations = this.filterOrganizationsByName(organizations, input);
+    const matchingOrganization = this.filteredOrganizations.find(organization => organization.name === input);
+    this.validOrganization.emit(!!matchingOrganization ? matchingOrganization : null);
+  }
+
+  get disableIconButton(): boolean {
+    return this.filteredOrganizations.length !== 1;
   }
 
   /**

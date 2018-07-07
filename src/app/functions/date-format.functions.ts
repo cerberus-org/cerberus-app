@@ -24,19 +24,9 @@ export const formatDuration = (startedAt: Date, endedAt: Date, timezone: string)
 /**
  * Accept Date string and convert to time string (e.g 1:35 PM).
  *
- * @param {string} date
+ * @param {string} dateString
  * @returns {string} time
  */
-export const convertToTimeString = (dateString: string): string => {
-  if (dateString) {
-    const date = new Date(dateString);
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    const minutesString = minutes < 10 ? '0' + minutes : minutes;
-    const hourString = hours.toString().length === 1 ? '0' + hours : hours;
-    return hourString + ':' + minutesString;
-  }
-  return '';
-};
+export const convertToTimeString = (dateString: string): string =>
+  dateString ? moment(new Date(dateString)).tz('America/Chicago').format('HH:mm') : '';
+// TODO: accept a timezone param here

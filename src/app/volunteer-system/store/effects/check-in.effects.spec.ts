@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { mockVisits } from '../../../mock/objects/visit.mock';
 import { mockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as CheckInActions from '../actions/check-in.actions';
@@ -17,13 +18,14 @@ describe('CheckInEffects', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-      ],
       providers: [
         CheckInEffects,
         provideMockActions(() => actions),
         ...mockServiceProviders,
+      ],
+      imports: [
+        RouterTestingModule,
+        ...mockStoreModules,
       ],
     });
     effects = TestBed.get(CheckInEffects);

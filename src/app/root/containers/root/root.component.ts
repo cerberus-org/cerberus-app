@@ -2,16 +2,20 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@ang
 import { MatDialog } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { UserInfo } from 'firebase';
 import { Subscription } from 'rxjs';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
+import { SessionReducerState } from '../../../auth/store/reducers/session.reducer';
 import { selectSessionReducerState } from '../../../auth/store/selectors/session.selectors';
 import { isAdmin } from '../../../functions';
-import { HeaderOptions, Organization, SidenavOptions, User } from '../../../models';
+import { HeaderOptions, Member, Organization, SidenavOptions } from '../../../models';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import * as ModelActions from '../../store/actions/model.actions';
 import * as RouterActions from '../../store/actions/router.actions';
 import { RootState } from '../../store/reducers';
+import { LayoutReducerState } from '../../store/reducers/layout.reducer';
+import { ModelReducerState } from '../../store/reducers/model.reducer';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +28,8 @@ export class RootComponent implements OnInit, OnDestroy {
     headerOptions: HeaderOptions;
     sidenavOptions: SidenavOptions[];
     organization: Organization
-    user: User;
+    member: Member;
+    userInfo: UserInfo;
     isLoading: Boolean;
   };
   layoutSubscription: Subscription;
@@ -41,7 +46,8 @@ export class RootComponent implements OnInit, OnDestroy {
       headerOptions: null,
       sidenavOptions: [],
       organization: null,
-      user: null,
+      member: null,
+      userInfo: null,
       isLoading: true,
     };
   }
@@ -62,7 +68,7 @@ export class RootComponent implements OnInit, OnDestroy {
    * Handles the next layout state.
    * @param layoutState - the next state
    */
-  onNextLayoutState = (layoutState) => {
+  onNextLayoutState = (layoutState: LayoutReducerState) => {
     this.state = { ...this.state, ...layoutState };
     /**
      * TODO:
@@ -76,19 +82,19 @@ export class RootComponent implements OnInit, OnDestroy {
    * Handles the next session store state.
    * @param sessionState - the next state
    */
-  onNextSessionState = (sessionState) => {
+  onNextSessionState = (sessionState: SessionReducerState) => {
     this.state = {
       ...this.state,
       ...sessionState,
-      isLoading: !!sessionState.user,
+      isLoading: !!sessionState.userInfo,
     };
     if (sessionState.organization) {
       const organizationId = sessionState.organization.id;
       this.store$.dispatch(new ModelActions.LoadSites(organizationId));
       this.store$.dispatch(new ModelActions.LoadVisits(organizationId));
       this.store$.dispatch(new ModelActions.LoadVolunteers(organizationId));
-      if (isAdmin(sessionState.user)) {
-        this.store$.dispatch(new ModelActions.LoadUsers(organizationId));
+      if (isAdmin(sessionState.member)) {
+        this.store$.dispatch(new ModelActions.LoadMembers(organizationId));
       }
     }
   }
@@ -97,9 +103,9 @@ export class RootComponent implements OnInit, OnDestroy {
    * Handles the next model store$ state.
    * @param modelState - the next state
    */
-  onNextModelState = (modelState) => {
+  onNextModelState = (modelState: ModelReducerState) => {
     // Check if there is an active session before setting model
-    if (this.state.user && this.state.organization) {
+    if (this.state.userInfo && this.state.organization) {
       setTimeout(
         () => {
           this.state = {
@@ -146,7 +152,7 @@ export class RootComponent implements OnInit, OnDestroy {
         this.openAndSubscribeToDialog();
         break;
       case 'logOut':
-        this.store$.dispatch(new AuthActions.LogOut());
+        this.store$.dispatch(new AuthActions.SignOut());
         break;
     }
   }
@@ -161,7 +167,7 @@ export class RootComponent implements OnInit, OnDestroy {
       if (pwd) {
         // Once the Observable is returned dispatch an effect
         this.store$.dispatch(new AuthActions.VerifyPassword({
-          email: this.state.user.email,
+          email: this.state.userInfo.email,
           password: pwd,
         }));
       }
@@ -173,6 +179,6 @@ export class RootComponent implements OnInit, OnDestroy {
    * @returns {boolean} - true if logged in
    */
   get isLoggedIn() {
-    return !!this.state.user;
+    return !!this.state.userInfo;
   }
 }

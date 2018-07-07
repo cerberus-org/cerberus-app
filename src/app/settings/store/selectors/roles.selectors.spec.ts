@@ -1,38 +1,96 @@
-import { USER_ROLES } from '../../../functions';
-import { createMockColumnOptions } from '../../../mock/objects/column-options.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
-import { selectRolesColumnOptions, selectRolesPageState } from './roles.selectors';
+import { MEMBER_ROLE_ADMIN, MEMBER_ROLE_LOCKED, MEMBER_ROLE_MEMBER, MEMBER_ROLE_OWNER } from '../../../functions';
+import { createMockMembers } from '../../../mock/objects/member.mock';
+import { Member } from '../../../models';
+import { selectMembersWithRoleOptions } from './roles.selectors';
 import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;
 
-describe('RolesSelectors', () => {
-  describe('selectRolesColumnOptions', () => {
-    it('it should select column options for the Roles page', () => {
-      const mockUsers = createMockUsers();
-      expect(selectRolesColumnOptions.projector(mockUsers[0], mockUsers))
+describe('roles.selectors', () => {
+  describe('selectMembersWithRoleOptions', () => {
+    let members: Member[];
+
+    beforeEach(() => {
+      members = createMockMembers();
+    });
+
+    it('it should select members with role options based on session member', () => {
+      expect(selectMembersWithRoleOptions.projector(members[0], members, 2))
         .toEqual(arrayContaining([
-          objectContaining({ columnDef: 'firstName', header: 'First Name' }),
-          objectContaining({ columnDef: 'lastName', header: 'Last Name' }),
-          objectContaining({ columnDef: 'role', header: 'Role' }),
+          objectContaining({
+            ...members[0],
+            roleOptions: arrayContaining([
+              MEMBER_ROLE_MEMBER,
+              MEMBER_ROLE_ADMIN,
+              MEMBER_ROLE_OWNER,
+            ]),
+          }),
+          objectContaining({
+            ...members[1],
+            roleOptions: arrayContaining([
+              MEMBER_ROLE_LOCKED,
+              MEMBER_ROLE_MEMBER,
+              MEMBER_ROLE_ADMIN,
+              MEMBER_ROLE_OWNER,
+            ]),
+          }),
+          objectContaining({
+            ...members[2],
+            roleOptions: arrayContaining([
+              MEMBER_ROLE_LOCKED,
+              MEMBER_ROLE_MEMBER,
+              MEMBER_ROLE_ADMIN,
+              MEMBER_ROLE_OWNER,
+            ]),
+          }),
         ]));
     });
 
-    it('it should use the session user to determine role select options', () => {
-      const mockUsers = createMockUsers();
-      expect(selectRolesColumnOptions.projector(mockUsers[0], mockUsers)[2].selectOptions(mockUsers[1]))
-        .toEqual(arrayContaining(USER_ROLES));
+    it('it should select members without role options if session member is not an admin', () => {
+      const members = createMockMembers();
+      expect(selectMembersWithRoleOptions.projector(members[1], members, 2))
+        .toEqual(arrayContaining([
+          objectContaining({
+            ...members[0],
+            roleOptions: null,
+          }),
+          objectContaining({
+            ...members[1],
+            roleOptions: null,
+          }),
+          objectContaining({
+            ...members[2],
+            roleOptions: null,
+          }),
+        ]));
     });
-  });
 
-  describe('selectRolesPageState', () => {
-    it('it should select the Roles page state', () => {
-      const mockUsers = createMockUsers();
-      const mockColumnOptions = createMockColumnOptions();
-      expect(selectRolesPageState.projector(mockUsers, mockColumnOptions))
-        .toEqual({
-          users: mockUsers,
-          columnOptions: mockColumnOptions,
-        });
+    it('it should not allow the last owner to change their role', () => {
+      const members = createMockMembers();
+      expect(selectMembersWithRoleOptions.projector(members[0], members, 1))
+        .toEqual(arrayContaining([
+          objectContaining({
+            ...members[0],
+            roleOptions: null,
+          }),
+          objectContaining({
+            ...members[1],
+            roleOptions: arrayContaining([
+              MEMBER_ROLE_LOCKED,
+              MEMBER_ROLE_MEMBER,
+              MEMBER_ROLE_ADMIN,
+              MEMBER_ROLE_OWNER,
+            ]),
+          }),
+          objectContaining({
+            ...members[2],
+            roleOptions: arrayContaining([
+              MEMBER_ROLE_LOCKED,
+              MEMBER_ROLE_MEMBER,
+              MEMBER_ROLE_ADMIN,
+              MEMBER_ROLE_OWNER,
+            ]),
+          }),
+        ]));
     });
   });
 });

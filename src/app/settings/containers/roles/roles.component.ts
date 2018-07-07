@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators';
-import { User } from '../../../models';
+import { ColumnOptions, Member } from '../../../models';
 import { RootState } from '../../../root/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
-import { RolesPageState, selectRolesPageState } from '../../store/selectors/roles.selectors';
+import { MemberWithRoleOptions, selectMembersWithRoleOptions } from '../../store/selectors/roles.selectors';
 
 @Component({
   selector: 'app-roles',
@@ -13,23 +12,37 @@ import { RolesPageState, selectRolesPageState } from '../../store/selectors/role
   styleUrls: ['./roles.component.scss'],
 })
 export class RolesComponent implements OnInit {
-  state$: Observable<RolesPageState>;
+  columnOptions: ColumnOptions[] = [
+    new ColumnOptions(
+      'firstName',
+      'First Name',
+      (row: MemberWithRoleOptions) => row.firstName,
+    ),
+    new ColumnOptions(
+      'lastName',
+      'Last Name',
+      (row: MemberWithRoleOptions) => row.lastName,
+    ),
+    new ColumnOptions(
+      'role',
+      'Role',
+      (row: MemberWithRoleOptions) => row.role,
+      (row: MemberWithRoleOptions) => row.roleOptions,
+    ),
+  ];
+  members$: Observable<MemberWithRoleOptions[]>;
 
   constructor(public store$: Store<RootState>) {}
 
   ngOnInit(): void {
-    this.state$ = this.store$.pipe(select(selectRolesPageState));
+    this.members$ = this.store$.pipe(select(selectMembersWithRoleOptions));
   }
 
-  onUpdateUser(user: User) {
+  onUpdateUser(user: Member) {
     this.store$.dispatch(new SettingsActions.UpdateRole(user));
   }
 
   onDeleteUser($event) {
     // TODO: Implement me
-  }
-
-  get users$() {
-    return this.state$.pipe(map(state => state.users));
   }
 }

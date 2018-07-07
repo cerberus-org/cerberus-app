@@ -9,7 +9,6 @@ export class Visit {
   signature: any;
 
   constructor(
-    organizationId: string,
     siteId: string,
     volunteerId: string,
     startedAt: Date,
@@ -17,7 +16,6 @@ export class Visit {
     timezone: string,
     signature: any,
   ) {
-    this.organizationId = organizationId;
     this.siteId = siteId;
     this.volunteerId = volunteerId;
     this.startedAt = startedAt;

@@ -2,8 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { createMockUsers } from '../../../mock/objects/user.mock';
-import { User } from '../../../models';
+import { createMockCredentials } from '../../../mock/objects/credentials.mock';
+import { createMockMembers } from '../../../mock/objects/member.mock';
+import { Member } from '../../../models';
 import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {
@@ -34,21 +35,22 @@ describe('UserFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit a validUser event on valid form values', () => {
-    spyOn(component.validUser, 'emit');
-    const testUser = createMockUsers()[0];
-    const firstName = testUser.firstName;
-    const lastName = testUser.lastName;
-    const email = testUser.email;
-    const password = testUser.password;
-    const confirmPassword = testUser.password;
+  it('should emit a validChanges event on valid form values', () => {
+    spyOn(component.validChanges, 'emit');
+    const member = createMockMembers()[0];
+    const credentials = createMockCredentials()[0];
+    const { firstName, lastName } = member;
+    const { email, password } = credentials;
     component.formGroup.controls['firstName'].setValue(firstName);
     component.formGroup.controls['lastName'].setValue(lastName);
     component.formGroup.controls['email'].setValue(email);
     component.formGroup.controls['password'].setValue(password);
-    component.formGroup.controls['confirmPassword'].setValue(confirmPassword);
-    expect(component.validUser.emit)
-      .toHaveBeenCalledWith(new User(firstName, lastName, email, password, undefined));
+    component.formGroup.controls['confirmPassword'].setValue(password);
+    expect(component.validChanges.emit)
+      .toHaveBeenCalledWith({
+        credentials: { email, password },
+        member: new Member(firstName, lastName),
+      });
   });
 
   describe('firstName control', () => {

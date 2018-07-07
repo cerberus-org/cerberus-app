@@ -1,12 +1,9 @@
 import { async, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
-import { StoreModule } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MockComponent } from 'ng2-mock-component';
-import { authReducers } from '../../../auth/store/reducers/index';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { rootReducers } from '../../store/reducers/index';
 import { RootComponent } from './root.component';
 
 describe('RootComponent', () => {

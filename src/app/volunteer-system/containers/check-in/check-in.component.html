@@ -13,7 +13,6 @@
       <ng-template matStepLabel>New volunteer</ng-template>
       <div>
         <app-new-volunteer-form
-          [organizationId]="organizationId"
           (newVolunteer)="onNewVolunteer($event)">
         </app-new-volunteer-form>
       </div>
@@ -24,7 +23,6 @@
       <div>
         <app-check-in-form
           [title]="checkInOutFormTitle"
-          [organizationId]="(state$ | async)?.sessionOrganizationId"
           [siteId]="siteId"
           [visits]="(state$ | async)?.visits"
           [volunteers]="(state$ | async)?.volunteers"

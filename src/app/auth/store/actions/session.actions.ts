@@ -1,50 +1,62 @@
 import { Action } from '@ngrx/store';
-import { User as FirebaseUser } from 'firebase';
-import { Organization, User } from '../../../models';
+import { UserInfo } from 'firebase';
+import { Member, Organization } from '../../../models';
 
+export const CLEAR_DATA = '[Session] Clear data';
 export const LOAD_DATA = '[Session] Load data';
 export const LOAD_DATA_SUCCESS = '[Session] Load data success';
-export const UPDATE_ORGANIZATION = '[Session] Update organization';
-export const UPDATE_USER = '[Session] Update user';
+export const SET_ORGANIZATION = '[Session] Set organization';
+export const SET_MEMBER_AND_USER_INFO = '[Session] Set userInfo';
 
 export class LoadData implements Action {
   readonly type = LOAD_DATA;
 
-  constructor(public payload: FirebaseUser) {}
+  constructor(public payload: UserInfo) {}
 }
 
 /**
- * Used when user initially logs in.
+ * Sets the session data when the userInfo logs in.
  */
 export class LoadDataSuccess implements Action {
   readonly type = LOAD_DATA_SUCCESS;
 
   constructor(public payload: {
-    user: User,
+    member: Member,
     organization: Organization,
+    userInfo: UserInfo,
   }) {}
 }
 
 /**
- * Used when Organization is updated.
+ * Sets the session organization.
  */
-export class UpdateOrganization implements Action {
-  readonly type = UPDATE_ORGANIZATION;
+export class SetOrganization implements Action {
+  readonly type = SET_ORGANIZATION;
 
   constructor(public payload: Organization) {}
 }
 
 /**
- * Used when User is updated.
+ * Sets the session member and userInfo.
  */
-export class UpdateUser implements Action {
-  readonly type = UPDATE_USER;
+export class SetMemberAndUserInfo implements Action {
+  readonly type = SET_MEMBER_AND_USER_INFO;
 
-  constructor(public payload: User) {}
+  constructor(public payload: { member: Member, userInfo: UserInfo }) {}
+}
+
+/**
+ * Clears all session data.
+ */
+export class ClearData implements Action {
+  readonly type = CLEAR_DATA;
+
+  constructor() {}
 }
 
 export type All
-  = LoadData
+  = ClearData
+  | LoadData
   | LoadDataSuccess
-  | UpdateOrganization
-  | UpdateUser;
+  | SetOrganization
+  | SetMemberAndUserInfo;

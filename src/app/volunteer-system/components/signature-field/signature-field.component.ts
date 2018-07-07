@@ -75,13 +75,6 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   }
 
   /**
-   * Called after view has been initialized.
-   */
-  public ngAfterView(): void {
-    this.signaturePad.clear();
-  }
-
-  /**
    * After the user has finished drawing, save the signature as an array of point groups.
    */
   public drawComplete(): void {
@@ -91,13 +84,5 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   public clear(): void {
     this.signaturePad.clear();
     this.signature = '';
-  }
-
-  /**
-   * Sets the signature to pre existing signature.
-   * @param signature - the signature
-   */
-  public setSignatureToExistingSignature(signature): void {
-    this.signature = this.signaturePad.fromData(signature);
   }
 }

@@ -5,8 +5,8 @@ import {
   selectOrganizationDashboardHeaderOptions,
   selectOrganizationDashboardSidenavOptions,
 } from './organization-dashboard.selectors';
-import objectContaining = jasmine.objectContaining;
 import arrayContaining = jasmine.arrayContaining;
+import objectContaining = jasmine.objectContaining;
 
 describe('OrganizationDashboardSelectors', () => {
   describe('selectOrganizationDashboardHeaderOptions', () => {

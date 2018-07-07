@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Visit } from '../../models';
 import { ErrorService } from '../../shared/services/error.service';
 import { BaseService } from './base.service';
-import Timestamp = firebase.firestore.Timestamp;
 
 @Injectable()
 export class VisitService extends BaseService<Visit> {
@@ -54,8 +53,8 @@ export class VisitService extends BaseService<Visit> {
     return {
       ...visit,
       // Double assertion to treat as Timestamp, since Firebase no longer returns a string
-      startedAt: (visit.startedAt as any as Timestamp).toDate(),
-      endedAt: visit.endedAt ? (visit.endedAt as any as Timestamp).toDate() : null,
+      startedAt: (visit.startedAt as any as firebase.firestore.Timestamp).toDate(),
+      endedAt: visit.endedAt ? (visit.endedAt as any as firebase.firestore.Timestamp).toDate() : null,
       signature: visit.signature ? JSON.parse(visit.signature) : null,
     };
   }

@@ -1,14 +1,17 @@
-import { Organization, User } from '../../../models';
+import { UserInfo } from 'firebase';
+import { Member, Organization } from '../../../models';
 import * as SessionActions from '../actions/session.actions';
 
 export interface SessionReducerState {
   organization: Organization;
-  user: User;
+  member: Member;
+  userInfo: UserInfo;
 }
 
 export const initialSessionReducerState: SessionReducerState = {
   organization: undefined,
-  user: undefined,
+  member: undefined,
+  userInfo: undefined,
 };
 
 export type Action = SessionActions.All;
@@ -17,16 +20,22 @@ export function sessionReducer(state = initialSessionReducerState, action: Actio
 
   switch (action.type) {
 
-    case SessionActions.LOAD_DATA_SUCCESS: {
-      return { ...state, user: action.payload.user, organization: action.payload.organization };
+    case SessionActions.CLEAR_DATA: {
+      return { ...initialSessionReducerState };
     }
 
-    case SessionActions.UPDATE_ORGANIZATION: {
+    case SessionActions.LOAD_DATA_SUCCESS: {
+      const { member, organization, userInfo } = action.payload;
+      return { ...state, member, organization, userInfo };
+    }
+
+    case SessionActions.SET_ORGANIZATION: {
       return { ...state, organization: action.payload };
     }
 
-    case SessionActions.UPDATE_USER: {
-      return { ...state, user: action.payload };
+    case SessionActions.SET_MEMBER_AND_USER_INFO: {
+      const { member, userInfo } = action.payload;
+      return { ...state, member, userInfo };
     }
 
     default: {

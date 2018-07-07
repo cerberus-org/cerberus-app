@@ -15,7 +15,6 @@ import { SharedModule } from '../shared/shared.module';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
 import { GettingStartedComponent } from './containers/getting-started/getting-started.component';
-import { JoinPageComponent } from './containers/join-page/join-page.component';
 import { signUpRoutes } from './sign-up.routes';
 import { signUpEffects } from './store/effects';
 import { signUpReducers } from './store/reducers';
@@ -25,7 +24,6 @@ import { signUpReducers } from './store/reducers';
     AboutUsComponent,
     OrganizationConfirmComponent,
     GettingStartedComponent,
-    JoinPageComponent,
   ],
   imports: [
     RouterModule.forChild(signUpRoutes),
@@ -43,7 +41,6 @@ import { signUpReducers } from './store/reducers';
   ],
   exports: [
     GettingStartedComponent,
-    JoinPageComponent,
   ],
 })
 export class SignUpModule {

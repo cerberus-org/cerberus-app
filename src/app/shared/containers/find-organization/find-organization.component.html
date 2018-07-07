@@ -3,13 +3,16 @@
   <div class="container-center">
     <mat-form-field class="input-row">
       <div class="organization-name-input">
-        <input matInput
-               [matAutocomplete]="autocomplete"
-               (input)="onOrganizationInputNameChanges(organizations, organizationName.value)"
-               class="capitalize"
-               placeholder="Organization name"
-               #organizationName>
-        <button *ngIf="showInputIconButton" mat-icon-button color="accent" [disabled]="!organizationName.value" (click)="emitInputIconButtonClick()">
+        <input
+          matInput
+          [matAutocomplete]="autocomplete"
+          (input)="onOrganizationInputNameChanges(organizations, organizationName.value)"
+          class="capitalize"
+          placeholder="Organization name"
+          #organizationName
+        >
+        <button *ngIf="showInputIconButton" mat-icon-button color="accent" [disabled]="disableIconButton"
+                (click)="onIconButtonClick()">
           <mat-icon class="material-icons">forward</mat-icon>
         </button>
       </div>

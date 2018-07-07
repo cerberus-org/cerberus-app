@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
-import { Organization, User } from '../../../models';
+import { Member, Organization } from '../../../models';
+import { Credentials } from '../../../models/credentials';
 import { SignUpState } from '../reducers';
-import { GettingStartedReducerState } from '../reducers/getting-started.reducer';
 import { selectSignUpState } from './sign-up.selectors';
 
 export const selectGettingStartedReducerState = createSelector(
@@ -15,29 +15,36 @@ export const selectGettingStartedReducerState = createSelector(
  */
 export const selectMaxEnabledStep = createSelector(
   selectGettingStartedReducerState,
-  (state: GettingStartedReducerState) =>
-    [true, !!state.validOrganization, !!state.validUser, state.tosIsChecked]
+  ({ validOrganization, validCredentials, validMember, tosIsChecked, maxVisitedStep }) =>
+    [true, !!validOrganization, !!validCredentials || !!validMember, tosIsChecked]
       .reduce(
         (maxEnabledStep, condition, index): number =>
-          condition && maxEnabledStep === index && maxEnabledStep < state.maxVisitedStep ? maxEnabledStep + 1 : maxEnabledStep,
+          condition && maxEnabledStep === index && maxEnabledStep < maxVisitedStep ? maxEnabledStep + 1 : maxEnabledStep,
         0,
       ),
 );
 
 export interface GettingStartedPageState {
   maxEnabledStep: number;
+  joinExistingOrganization: boolean;
   validOrganization: Organization;
-  validUser: User;
+  validCredentials: Credentials;
+  validMember: Member;
   tosIsChecked: boolean;
 }
 
 export const selectGettingStartedPageState = createSelector(
   selectGettingStartedReducerState,
   selectMaxEnabledStep,
-  (state: GettingStartedReducerState, maxEnabledStep: number): GettingStartedPageState => ({
+  (
+    { joinExistingOrganization, validOrganization, validCredentials, validMember, tosIsChecked },
+    maxEnabledStep: number,
+  ): GettingStartedPageState => ({
     maxEnabledStep,
-    validOrganization: state.validOrganization,
-    validUser: state.validUser,
-    tosIsChecked: state.tosIsChecked,
+    joinExistingOrganization,
+    validOrganization,
+    validCredentials,
+    validMember,
+    tosIsChecked,
   }),
 );

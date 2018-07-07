@@ -1,7 +1,7 @@
 import { AuthService } from '../auth/services/auth.service';
+import { MemberService } from '../data/services/member.service';
 import { OrganizationService } from '../data/services/organization.service';
 import { SiteService } from '../data/services/site.service';
-import { UserService } from '../data/services/user.service';
 import { VisitService } from '../data/services/visit.service';
 import { VolunteerService } from '../data/services/volunteer.service';
 import { CsvService } from '../settings/services/csv.service';
@@ -24,7 +24,7 @@ export const mockServiceProviders = [
   { provide: OrganizationService, useClass: MockOrganizationService },
   { provide: SiteService, useClass: MockSiteService },
   { provide: SnackBarService, useClass: MockSnackBarService },
-  { provide: UserService, useClass: MockUserService },
+  { provide: MemberService, useClass: MockUserService },
   { provide: VisitService, useClass: MockVisitService },
   { provide: VolunteerService, useClass: MockVolunteerService },
 ];

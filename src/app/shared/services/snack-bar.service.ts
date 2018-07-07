@@ -10,15 +10,15 @@ export class SnackBarService {
     this.snackBar.open(message, '', { duration: 3000 });
   }
 
-  loginSuccess(name: string): void {
+  signInSuccess(name: string): void {
     this.open(`Welcome, ${name}.`);
   }
 
-  logoutSuccess(): void {
+  signOutSuccess(): void {
     this.open('You have been successfully logged out.');
   }
 
-  addOrganizationSuccess(): void {
+  createOrganizationSuccess(): void {
     this.open('Your organization was successfully added.');
   }
 
@@ -27,7 +27,7 @@ export class SnackBarService {
   }
 
   updateUserSuccess(): void {
-    this.open('User information successfully updated.');
+    this.open('Member information successfully updated.');
   }
 
   updateVisitsSuccess(): void {
@@ -46,7 +46,7 @@ export class SnackBarService {
     this.open('Volunteer successfully checked out.');
   }
 
-  requestToJoinOrganizationSuccess(): void {
+  joinOrganizationSuccess(): void {
     this.open('Successfully requested to join an organization.');
   }
 

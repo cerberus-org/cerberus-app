@@ -1,14 +1,12 @@
 import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { StoreModule } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { createMockLoginCredentials } from '../../../mock/objects/user.mock';
+import { createMockCredentials } from '../../../mock/objects/credentials.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as RouterActions from '../../../root/store/actions/router.actions';
-import { rootReducers } from '../../../root/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as AuthActions from '../actions/auth.actions';
 import { AuthEffects } from './auth.effects';
@@ -32,34 +30,34 @@ describe('AuthEffects', () => {
     effects = TestBed.get(AuthEffects);
   }));
 
-  describe('login$', () => {
+  describe('signIn$', () => {
 
     it('should dispatch RouterActions.Go', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(createMockLoginCredentials()[0]),
+        a: new AuthActions.SignIn(createMockCredentials()[0]),
       });
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/dashboard'] }),
       });
-      expect(effects.login$).toBeObservable(expected);
+      expect(effects.signIn$).toBeObservable(expected);
     });
 
     it('should open the accountNotVerified snackbar if role is locked', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(createMockLoginCredentials()[2]),
+        a: new AuthActions.SignIn(createMockCredentials()[2]),
       });
       const accountNotVerifiedSpy = spyOn(TestBed.get(SnackBarService), 'accountNotVerified');
-      effects.login$.subscribe(() => {
+      effects.signIn$.subscribe(() => {
         expect(accountNotVerifiedSpy).toHaveBeenCalled();
       });
     });
 
-    it('should open the loginSuccess snackbar', () => {
+    it('should open the signInSuccess snackbar', () => {
       actions = hot('a', {
-        a: new AuthActions.LogIn(createMockLoginCredentials()[0]),
+        a: new AuthActions.SignIn(createMockCredentials()[0]),
       });
-      const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'loginSuccess');
-      effects.login$.subscribe(() => {
+      const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'signInSuccess');
+      effects.signIn$.subscribe(() => {
         expect(loginSuccessSpy).toHaveBeenCalled();
       });
     });
@@ -80,10 +78,10 @@ describe('AuthEffects', () => {
     });
   });
 
-  describe('logout$', () => {
+  describe('signOut$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.LogOut(),
+        a: new AuthActions.SignOut(),
       });
     }));
 
@@ -91,12 +89,12 @@ describe('AuthEffects', () => {
       const expected = cold('b', {
         b: new RouterActions.Go({ path: ['/home'] }),
       });
-      expect(effects.logout$).toBeObservable(expected);
+      expect(effects.signOut$).toBeObservable(expected);
     });
 
-    it('should open the logoutSuccess snackbar', () => {
-      const logoutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'logoutSuccess');
-      effects.logout$.subscribe(() => {
+    it('should open the signOutSuccess snackbar', () => {
+      const logoutSuccessSpy = spyOn(TestBed.get(SnackBarService), 'signOutSuccess');
+      effects.signOut$.subscribe(() => {
         expect(logoutSuccessSpy).toHaveBeenCalled();
       });
     });
@@ -105,7 +103,7 @@ describe('AuthEffects', () => {
   describe('resetPassword$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.ResetPassword(createMockLoginCredentials()[0].email),
+        a: new AuthActions.ResetPassword(createMockCredentials()[0].email),
       });
     }));
 
