@@ -15,6 +15,7 @@ import { merge, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getIndex } from '../../../functions';
 import { ColumnOptions, Visit } from '../../../models';
+import { VisitWithVolunteer } from '../../../root/store/selectors/model.selectors';
 
 /**
  * Provides what data should be rendered in the table.
@@ -137,8 +138,8 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param value
    * @param item
    */
-  onSelectTime(value, item): void {
-    this.addItemToItemsEdited(this.getUpdatedItemWithTime(value, item));
+  onSelectTime(value, item, column): void {
+    this.addItemToItemsEdited(this.getUpdatedItemWithTime(value, item), column);
   }
 
   /**
@@ -156,12 +157,12 @@ export class DataTableComponent implements OnInit, OnChanges {
    *
    * @param {string} time - string e.g. "3:00"
    * @param {Visit} item
-   * @returns {{} & Visit}
+   * @returns {{} & VisitWithVolunteer}
    */
-  getUpdatedItemWithTime(time: string, item: Visit) {
+  getUpdatedItemWithTime(time: string, item: VisitWithVolunteer) {
     const itemCopy = Object.assign({}, item);
     // If endedAt is null, set to startedAt so we can call setHours on a defined value
-    itemCopy.endedAt = itemCopy.endedAt && itemCopy.endedAt.toString() !== '(no check-out)' ? itemCopy.endedAt : new Date(itemCopy.startedAt);
+    itemCopy.endedAt = itemCopy.endedAt ? itemCopy.endedAt : new Date(itemCopy.startedAt);
     itemCopy.endedAt.setHours(Number(time.split(':')[0]), Number(time.split(':')[1]), 0);
     return itemCopy;
   }
@@ -171,12 +172,14 @@ export class DataTableComponent implements OnInit, OnChanges {
    *
    * @param item
    */
-  addItemToItemsEdited(item: any): void {
+  addItemToItemsEdited(item: any, column: any): void {
     const index = getIndex(this.itemsEdited, item.id);
     if (index !== undefined) {
       this.itemsEdited.splice(index, 1);
     }
-    this.itemsEdited.push(item);
+    if (column.validator(item)) {
+      this.itemsEdited.push(item);
+    }
   }
 
   /**

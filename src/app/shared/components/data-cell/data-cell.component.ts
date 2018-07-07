@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { formatTimeInputValue } from '../../../functions';
 import { ColumnOptions } from '../../../models';
 
 @Component({

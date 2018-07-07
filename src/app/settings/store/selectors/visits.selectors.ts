@@ -30,9 +30,8 @@ export const selectVisitsColumnOptions = createSelector(
       header: 'End',
       cell: (row: VisitWithVolunteer) => formatTimeInputValue(row.endedAt, row.timezone),
       timePicker: true,
-      validator: (row: VisitWithVolunteer, edits: VisitWithVolunteer): boolean => {
-        // return edits.endedAt < row.startedAt; // returns true if error
-        return true;
+      validator: (visit: VisitWithVolunteer): boolean => {
+        return new Date(visit.startedAt) < new Date(visit.endedAt); // true if startedAt is earlier
       },
     },
     new ColumnOptions(
