@@ -161,7 +161,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   getUpdatedItemWithTime(time: string, item: Visit) {
     const itemCopy = Object.assign({}, item);
     // If endedAt is null, set to startedAt so we can call setHours on a defined value
-    itemCopy.endedAt = item.endedAt && item.endedAt.toString() !== '(no check-out)' ? item.endedAt : item.startedAt;
+    itemCopy.endedAt = itemCopy.endedAt && itemCopy.endedAt.toString() !== '(no check-out)' ? itemCopy.endedAt : new Date(itemCopy.startedAt);
     itemCopy.endedAt.setHours(Number(time.split(':')[0]), Number(time.split(':')[1]), 0);
     return itemCopy;
   }
