@@ -4,9 +4,11 @@ import { UserFormChanges } from '../../../shared/components/user-form/user-form.
 
 export const DELETE_VOLUNTEER = '[Settings] Delete volunteer';
 export const DELETE_VOLUNTEER_SUCCESS = '[Settings] Delete volunteer success';
+
 export const GENERATE_VISIT_HISTORY_REPORT = '[Settings] Generate visit history report';
+
 export const LOAD_PAGE = '[Settings] Load page';
-export const SET_SETTINGS_SIDENAV_OPTIONS = '[Settings] Set settings sidenav options';
+
 export const UPDATE_ROLE = '[Settings] Update role';
 export const UPDATE_ORGANIZATION = '[Settings] Update organization';
 export const UPDATE_USER = '[Settings] Update user';

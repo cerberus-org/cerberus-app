@@ -9,5 +9,5 @@ export const mockSidenavOptions: SidenavOptions[] = [
   },
 ];
 
-export const createMockReports = (sidenavOptions: SidenavOptions[] = mockSidenavOptions): SidenavOptions[] =>
+export const createMockSidenavOptions = (sidenavOptions: SidenavOptions[] = mockSidenavOptions): SidenavOptions[] =>
   _.cloneDeep(sidenavOptions);

@@ -1,11 +1,11 @@
 import { Action } from '@ngrx/store';
 import { Member, Organization, Site, Visit, Volunteer } from '../../../models';
 
-export const LOAD_SITES = '[Model] Load sites';
-export const LOAD_SITES_SUCCESS = '[Model] Load sites success';
-
 export const LOAD_MEMBERS = '[Model] Load members';
 export const LOAD_MEMBERS_SUCCESS = '[Model] Load members success';
+
+export const LOAD_SITES = '[Model] Load sites';
+export const LOAD_SITES_SUCCESS = '[Model] Load sites success';
 
 export const LOAD_VISITS = '[Model] Load visits';
 export const LOAD_VISITS_SUCCESS = '[Model] Load visits success';
@@ -15,18 +15,6 @@ export const LOAD_VOLUNTEERS_SUCCESS = '[Model] Load volunteers success';
 
 export const LOAD_ORGANIZATIONS = '[Model] Load organizations';
 export const LOAD_ORGANIZATIONS_SUCCESS = '[Model] Load organizations success';
-
-export class LoadSites implements Action {
-  readonly type = LOAD_SITES;
-
-  constructor(public payload: string) {}
-}
-
-export class LoadSitesSuccess implements Action {
-  readonly type = LOAD_SITES_SUCCESS;
-
-  constructor(public payload: Site[]) {}
-}
 
 export class LoadMembers implements Action {
   readonly type = LOAD_MEMBERS;
@@ -38,6 +26,18 @@ export class LoadMembersSuccess implements Action {
   readonly type = LOAD_MEMBERS_SUCCESS;
 
   constructor(public payload: Member[]) {}
+}
+
+export class LoadSites implements Action {
+  readonly type = LOAD_SITES;
+
+  constructor(public payload: string) {}
+}
+
+export class LoadSitesSuccess implements Action {
+  readonly type = LOAD_SITES_SUCCESS;
+
+  constructor(public payload: Site[]) {}
 }
 
 export class LoadVisits implements Action {
