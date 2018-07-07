@@ -5,6 +5,7 @@ import { rootReducers } from '../root/store/reducers';
 import { initialModelReducerState } from '../root/store/reducers/model.reducer';
 import { settingsReducers } from '../settings/store/reducers';
 import { signUpReducers } from '../sign-up/store/reducers';
+import { initialGettingStartedReducerState } from '../sign-up/store/reducers/getting-started.reducer';
 import { createMockCredentials } from './objects/credentials.mock';
 import { createMockMembers } from './objects/member.mock';
 import { createMockOrganizations } from './objects/organization.mock';
@@ -34,6 +35,7 @@ export const mockStoreModules = [
   StoreModule.forFeature('signUp', signUpReducers, {
     initialState: {
       gettingStarted: {
+        ...initialGettingStartedReducerState,
         maxVisitedStep: 4,
         joinExistingOrganization: false,
         validOrganization: createMockOrganizations()[0],
