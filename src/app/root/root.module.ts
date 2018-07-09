@@ -11,6 +11,7 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
@@ -36,6 +37,7 @@ import { rootReducers } from './store/reducers';
 @NgModule({
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
+    ServiceWorkerModule.register('/ngsw-worker.js'),
     RouterModule.forRoot(routes),
     StoreModule.forRoot(rootReducers),
     EffectsModule.forRoot(rootEffects),
