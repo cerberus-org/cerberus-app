@@ -82,7 +82,7 @@ export class AuthEffects {
    * @type {Observable<any>}
    */
   @Effect({ dispatch: false })
-  resetPassword$: Observable<{}> = this.actions
+  resetPassword$: Observable<void> = this.actions
     .ofType(AuthActions.RESET_PASSWORD)
     .pipe(
       map((action: AuthActions.ResetPassword) => action.payload),
