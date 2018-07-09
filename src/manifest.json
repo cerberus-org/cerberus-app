@@ -1,6 +1,7 @@
 {
-  "name": "cerberus-app",
-  "short_name": "cerberus-app",
+  "name": "Cerberus",
+  "short_name": "Cerberus",
+  "description": "Cerberus allows volunteers to sign in and out digitally and collects time data",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
