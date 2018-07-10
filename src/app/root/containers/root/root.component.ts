@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -8,6 +8,7 @@ import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { SidenavOptions } from '../../../models';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
+import { AppUpdateService } from '../../services/app-update.service';
 import * as ModelActions from '../../store/actions/model.actions';
 import * as RouterActions from '../../store/actions/router.actions';
 import { RootState } from '../../store/reducers';
@@ -28,6 +29,7 @@ export class RootComponent implements OnInit {
 
   constructor(
     private afAuth: AngularFireAuth,
+    private appUpdateService: AppUpdateService,
     private dialog: MatDialog,
     private store$: Store<RootState>,
   ) {

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
-import { SessionState } from 'http2';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { MemberService } from '../../../data/services/member.service';
@@ -10,6 +9,7 @@ import * as RouterActions from '../../../root/store/actions/router.actions';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { AuthService } from '../../services/auth.service';
 import * as AuthActions from '../actions/auth.actions';
+import { SessionReducerState } from '../reducers/session.reducer';
 import { selectSessionUserInfo } from '../selectors/session.selectors';
 
 @Injectable()
@@ -98,7 +98,7 @@ export class AuthEffects {
     );
 
   constructor(
-    private store$: Store<SessionState>,
+    private store$: Store<SessionReducerState>,
     private actions: Actions,
     private authService: AuthService,
     private memberService: MemberService,
