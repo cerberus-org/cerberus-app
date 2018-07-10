@@ -16,6 +16,7 @@ import * as RouterActions from '../../store/actions/router.actions';
 import { RootState } from '../../store/reducers';
 import { LayoutReducerState } from '../../store/reducers/layout.reducer';
 import { ModelReducerState } from '../../store/reducers/model.reducer';
+import { selectLayoutReducerState } from '../../store/selectors/layout.selectors';
 
 @Component({
   selector: 'app-root',
@@ -57,10 +58,12 @@ export class RootComponent implements OnInit, OnDestroy {
     this.afAuth.auth.onAuthStateChanged((user) => {
       this.state = { ...this.state, isLoading: !!user };
     });
-    this.layoutSubscription = this.store$.select('layout').subscribe(this.onNextLayoutState);
+    this.layoutSubscription = this.store$.pipe(select(selectLayoutReducerState))
+      .subscribe(this.onNextLayoutState);
     this.sessionSubscription = this.store$.pipe(select(selectSessionReducerState))
       .subscribe(this.onNextSessionState);
-    this.modelSubscription = this.store$.select('model').subscribe(this.onNextModelState);
+    this.modelSubscription = this.store$.select('model')
+      .subscribe(this.onNextModelState);
     this.store$.dispatch(new ModelActions.LoadOrganizations());
   }
 
