@@ -1,5 +1,15 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { SidenavOptions } from '../../../models';
 

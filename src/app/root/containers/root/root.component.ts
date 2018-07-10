@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Subscription } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { SidenavOptions } from '../../../models';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
@@ -28,21 +28,26 @@ export class RootComponent implements OnInit {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private changeDetectorRef: ChangeDetectorRef,
-    private store$: Store<RootState>,
     private dialog: MatDialog,
+    private store$: Store<RootState>,
   ) {
-    this.modelIsLoaded$ = this.store$.pipe(select(selectModelLoadedState));
-    this.layoutState$ = this.store$.pipe(select(selectLayoutReducerState));
   }
 
   ngOnInit(): void {
-    // Load all organizations
-    this.store$.dispatch(new ModelActions.LoadOrganizations());
     // Check if user is logged in to determine if loader should be displayed
     this.afAuth.auth.onAuthStateChanged((user) => {
       this.isLoggedIn = !!user;
     });
+    this.modelIsLoaded$ = this.store$.pipe(
+      delay(500), // Add delay to hide sidenav animation
+      select(selectModelLoadedState),
+    );
+    this.layoutState$ = this.store$.pipe(
+      delay(0), // Add delay to prevent change detection error
+      select(selectLayoutReducerState),
+    );
+    // Load all organizations
+    this.store$.dispatch(new ModelActions.LoadOrganizations());
   }
 
   onSelectIndex(option: SidenavOptions) {
@@ -62,7 +67,7 @@ export class RootComponent implements OnInit {
         this.store$.dispatch(new RouterActions.Back());
         break;
       case 'settings':
-        this.openAndSubscribeToDialog();
+        this.openAndSubscribeToPasswordDialog();
         break;
       case 'logOut':
         this.store$.dispatch(new AuthActions.SignOut());
@@ -74,12 +79,13 @@ export class RootComponent implements OnInit {
    * Open the dialog and subscribe to the observable that is returned on close
    * to extract the password. Once password is obtained dispatch the verify effect.
    */
-  openAndSubscribeToDialog() {
-    this.dialog.open(PasswordDialogComponent)
+  openAndSubscribeToPasswordDialog() {
+    const subscription = this.dialog.open(PasswordDialogComponent)
       .afterClosed()
       .subscribe((password) => {
         if (password) {
           this.store$.dispatch(new AuthActions.VerifyPassword(password));
+          subscription.unsubscribe();
         }
       });
   }
