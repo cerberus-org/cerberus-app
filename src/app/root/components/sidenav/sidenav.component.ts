@@ -11,7 +11,7 @@ import { SidenavOptions } from '../../../models';
 export class SidenavComponent implements OnChanges, OnDestroy {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
   @Input() sidenavOptions: SidenavOptions[];
-  @Output() selectIndex = new EventEmitter<number>();
+  @Output() selectOption = new EventEmitter<SidenavOptions>();
   mobileQuery: MediaQueryList;
   mode: string;
 
@@ -44,11 +44,11 @@ export class SidenavComponent implements OnChanges, OnDestroy {
   }
 
   /**
-   * Handles click events from an option by emitting the selectIndex event.
-   * @param index - the selected index.
+   * Handles click events from an option by emitting the selectOption event.
+   * @param {SidenavOptions} option - the selected option
    */
-  onClick(index: number): void {
-    this.selectIndex.emit(index);
+  onClick(option: SidenavOptions): void {
+    this.selectOption.emit(option);
   }
 
   /**

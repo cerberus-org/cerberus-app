@@ -46,18 +46,25 @@ export const selectFormattedModelVisits = createSelector(
 export const selectModelLoadingState = createSelector(
   selectSessionUserInfo,
   selectSessionOrganization,
-  selectModelMembers,
   selectModelSites,
   selectModelVisits,
   selectModelVolunteers,
   (
     userInfo: UserInfo,
     organization: Organization,
-    members: Member[],
     sites: Site[],
     visits: Visit[],
     volunteers: Volunteer[],
-  ): boolean => {
-    
-  },
-)
+  ): boolean => userInfo && organization && (sites === null || visits === null || volunteers === null),
+);
+
+export const selectModelLoadedState = createSelector(
+  selectModelSites,
+  selectModelVisits,
+  selectModelVolunteers,
+  (
+    sites: Site[],
+    visits: Visit[],
+    volunteers: Volunteer[],
+  ): boolean => sites !== null && visits !== null && volunteers !== null,
+);

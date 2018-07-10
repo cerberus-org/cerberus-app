@@ -35,10 +35,10 @@ describe('SidenavComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit a selectIndex event on click', () => {
-    spyOn(component.selectIndex, 'emit');
+  it('should emit a selectOption event on click', () => {
+    spyOn(component.selectOption, 'emit');
     component.onClick(0);
-    expect(component.selectIndex.emit).toHaveBeenCalledWith(0);
+    expect(component.selectOption.emit).toHaveBeenCalledWith(0);
   });
 
   it('should set the sidenav for small screens', () => {

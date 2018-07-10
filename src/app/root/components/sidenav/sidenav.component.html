@@ -2,8 +2,8 @@
   <mat-sidenav [mode]="mode">
     <mat-nav-list>
       <mat-list-item
-        *ngFor="let option of sidenavOptions; let i = index"
-        (click)="onClick(i)">
+        *ngFor="let option of sidenavOptions;"
+        (click)="onClick(option)">
         <i class="material-icons" *ngIf="option.icon">{{option.icon}}</i>
         {{option.label}}
       </mat-list-item>
