@@ -7,8 +7,8 @@ export class SnackBarService {
 
   constructor(private snackBar: MatSnackBar) { }
 
-  open(message: string, action: string = ''): MatSnackBarRef<SimpleSnackBar> {
-    return this.snackBar.open(message, action, { duration: 3000 });
+  open(message: string, action: string = '', duration: number = 5000): MatSnackBarRef<SimpleSnackBar> {
+    return this.snackBar.open(message, action, { duration });
   }
 
   signInSuccess(name: string): MatSnackBarRef<SimpleSnackBar> {
@@ -68,6 +68,6 @@ export class SnackBarService {
   }
 
   updateAvailable(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('A new version of Cerberus is available.', 'Reload');
+    return this.open('A new version of Cerberus is available.', 'Reload', 10000);
   }
 }

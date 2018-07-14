@@ -2,6 +2,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatListModule, MatSidenavModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createMockSidenavOptions } from '../../../mock/objects/sidenav-options.mock';
 import { SidenavComponent } from './sidenav.component';
 
 describe('SidenavComponent', () => {
@@ -37,8 +38,9 @@ describe('SidenavComponent', () => {
 
   it('should emit a selectOption event on click', () => {
     spyOn(component.selectOption, 'emit');
-    component.onClick(0);
-    expect(component.selectOption.emit).toHaveBeenCalledWith(0);
+    const option = createMockSidenavOptions()[0];
+    component.onClick(option);
+    expect(component.selectOption.emit).toHaveBeenCalledWith(option);
   });
 
   it('should set the sidenav for small screens', () => {

@@ -7,16 +7,27 @@ import { settingsReducers } from '../settings/store/reducers';
 import { signUpReducers } from '../sign-up/store/reducers';
 import { initialGettingStartedReducerState } from '../sign-up/store/reducers/getting-started.reducer';
 import { createMockCredentials } from './objects/credentials.mock';
+import { createMockHeaderOptions } from './objects/header-options.mock';
 import { createMockMembers } from './objects/member.mock';
 import { createMockOrganizations } from './objects/organization.mock';
+import { createMockSidenavOptions } from './objects/sidenav-options.mock';
+import { createMockSites } from './objects/site.mock';
 import { createMockUserInfo } from './objects/user.mock';
+import { createMockVisits } from './objects/visit.mock';
 import { createMockVolunteers } from './objects/volunteer.mock';
 
 export const mockStoreModules = [
   StoreModule.forRoot(rootReducers, {
     initialState: {
+      layout: {
+        headerOptions: createMockHeaderOptions()[0],
+        sidenavOptions: createMockSidenavOptions(),
+      },
       model: {
         ...initialModelReducerState,
+        members: createMockMembers(),
+        sites: createMockSites(),
+        visits: createMockVisits(),
         volunteers: createMockVolunteers(),
       },
     },

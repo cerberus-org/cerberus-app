@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar *ngIf="headerOptions" color="primary">
   <button *ngIf="showSidenavToggle" class="show-xs" mat-icon-button (click)="onSidenavToggle()">
     <mat-icon>menu</mat-icon>
   </button>
