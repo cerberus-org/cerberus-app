@@ -1,54 +1,59 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
-import { SidenavOptions } from '../../../models/index';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs/internal/Observable';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { SidenavOptions } from '../../../models';
+import * as LayoutActions from '../../store/actions/layout.actions';
+import { LayoutReducerState } from '../../store/reducers/layout.reducer';
+import { selectSidenavOptions, selectSidenavState, SidenavState } from '../../store/selectors/layout.selectors';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
 })
-export class SidenavComponent implements OnChanges, OnDestroy {
+export class SidenavComponent implements OnInit, OnDestroy {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
-  @Input() sidenavOptions: SidenavOptions[];
-  @Output() selectOption = new EventEmitter<SidenavOptions>();
+  sidenavState$: Observable<SidenavState>;
+  sidenavOptionsSubscription: Subscription;
   mobileQuery: MediaQueryList;
   mode: string;
 
   private mobileQueryListener: () => void;
 
-  constructor(media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.mobileQuery.addListener(() => this.setForScreen(this.mobileQuery.matches));
+  constructor(private media: MediaMatcher, private store$: Store<LayoutReducerState>) {
   }
 
-  /**
-   * Sets the sidenav on sidenavOptions changes.
-   * @param changes - contains sidenavOptions changes
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['sidenavOptions']) {
-      if (
-        changes['sidenavOptions'].isFirstChange()
-        || changes['sidenavOptions'].currentValue
-      ) {
+  ngOnInit(): void {
+    this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
+    this.mobileQuery.addListener(() => this.setForScreen(this.mobileQuery.matches));
+    this.sidenavState$ = this.store$.pipe(
+      select(selectSidenavState),
+    );
+    this.sidenavOptionsSubscription = this.store$.pipe(
+      select(selectSidenavOptions),
+    ).subscribe((options) => {
+      if (options && options.length) {
         this.setForScreen(this.mobileQuery.matches);
       } else {
-        this.sidenav.close();
+        this.store$.dispatch(new LayoutActions.SetSidenavOpened(false));
       }
-    }
+    });
   }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this.mobileQueryListener);
+    this.sidenavOptionsSubscription.unsubscribe();
   }
 
   /**
-   * Handles click events from an option by emitting the selectOption event.
+   * Handles click events from an option by dispatching the action for the selected option.
    * @param {SidenavOptions} option - the selected option
    */
   onClick(option: SidenavOptions): void {
-    this.selectOption.emit(option);
+    this.store$.dispatch(option.action);
   }
 
   /**
@@ -59,18 +64,11 @@ export class SidenavComponent implements OnChanges, OnDestroy {
     if (xs) {
       this.mode = 'over';
       this.sidenav.disableClose = false;
-      this.sidenav.close();
+      this.store$.dispatch(new LayoutActions.SetSidenavOpened(false));
     } else {
       this.mode = 'side';
       this.sidenav.disableClose = true;
-      this.sidenav.open();
+      this.store$.dispatch(new LayoutActions.SetSidenavOpened(true));
     }
-  }
-
-  /**
-   * Toggles the sidenav.
-   */
-  toggle(): void {
-    this.sidenav.toggle();
   }
 }

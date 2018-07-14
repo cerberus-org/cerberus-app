@@ -1,16 +1,7 @@
 <div class="container">
   <app-loader *ngIf="isLoggedIn && !(modelIsLoaded$ | async)" [text]="'Loading something cool... 😎'"></app-loader>
-  <app-header
-    class="hg__header"
-    [headerOptions]="(layoutState$ | async)?.headerOptions"
-    [showLogOut]="isLoggedIn"
-    [showSidenavToggle]="!!(layoutState$ | async)?.sidenavOptions"
-    (buttonClick)="onButtonClick($event)">
-  </app-header>
-  <app-sidenav
-    class="hg__main"
-    [sidenavOptions]="(layoutState$ | async)?.sidenavOptions"
-    (selectOption)="onSelectOption($event)">
+  <app-header *ngIf="isLoggedIn" class="hg__header"></app-header>
+  <app-sidenav class="hg__main">
     <router-outlet></router-outlet>
   </app-sidenav>
 </div>

@@ -1,10 +1,10 @@
-<mat-toolbar *ngIf="headerOptions" color="primary">
-  <button *ngIf="showSidenavToggle" class="show-xs" mat-icon-button (click)="onSidenavToggle()">
+<mat-toolbar *ngIf="(headerState$ | async)" color="primary">
+  <button *ngIf="(headerState$ | async)?.showToggleSidenav" class="show-xs" mat-icon-button (click)="onToggleSidenav()">
     <mat-icon>menu</mat-icon>
   </button>
-  <i class="material-icons title-icon hide-xs">{{icon}}</i>
-  <span class="title-text">{{title}}</span>
-  <div *ngIf="showBack">
+  <i class="material-icons title-icon hide-xs">{{(headerState$ | async)?.icon}}</i>
+  <span class="title-text">{{(headerState$ | async)?.title}}</span>
+  <div *ngIf="(headerState$ | async)?.previousUrl">
     <button mat-button class="hide-xs" (click)="onBack()">
       <i class="material-icons">keyboard_backspace</i> Back
     </button>
@@ -13,7 +13,7 @@
     </button>
   </div>
   <span class="spacer"></span>
-  <div *ngIf="showSettings">
+  <div *ngIf="(headerState$ | async)?.showSettings">
     <button mat-button class="hide-xs" (click)="onSettings()">
       <i class="material-icons">settings</i> Settings
     </button>
@@ -21,7 +21,7 @@
       <i class="material-icons">settings</i>
     </button>
   </div>
-  <div *ngIf="showLogOut">
+  <div *ngIf="(headerState$ | async)?.showLogOut">
     <button mat-button class="hide-xs" (click)="onLogOut()">
       <i class="material-icons">exit_to_app</i> Log out
     </button>

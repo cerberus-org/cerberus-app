@@ -33,8 +33,8 @@ describe('HeaderComponent', () => {
 
   it('should emit a buttonClick event on clicking sidenavToggle', () => {
     spyOn(component.buttonClick, 'emit');
-    component.onSidenavToggle();
-    expect(component.buttonClick.emit).toHaveBeenCalledWith('sidenav_toggle');
+    component.onToggleSidenav();
+    expect(component.buttonClick.emit).toHaveBeenCalledWith('toggle_sidenav');
   });
 
   it('should emit a buttonClick event on clicking back', () => {

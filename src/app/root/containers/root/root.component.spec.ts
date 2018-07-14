@@ -107,11 +107,11 @@ fdescribe('RootComponent', () => {
     expect(dispatch).toHaveBeenCalledWith(option.action);
   }));
 
-  fit('should handle buttonClick events from the header with value sidenav_toggle by toggling the sidenav', async(() => {
+  fit('should handle buttonClick events from the header with value toggle_sidenav by toggling the sidenav', async(() => {
     const toggle = spyOn(, 'toggle');
     fixture.detectChanges();
     const header = fixture.debugElement.query(By.css('app-header'));
-    header.triggerEventHandler('buttonClick', 'sidenav_toggle');
+    header.triggerEventHandler('buttonClick', 'toggle_sidenav');
     expect(toggle).toHaveBeenCalled();
   }));
 });

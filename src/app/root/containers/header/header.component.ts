@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { HeaderOptions } from '../../../models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs/internal/Observable';
+import { delay } from 'rxjs/operators';
+import * as AuthActions from '../../../auth/store/actions/auth.actions';
+import * as LayoutActions from '../../store/actions/layout.actions';
+import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
+import * as RouterActions from '../../store/actions/router.actions';
+import { LayoutReducerState } from '../../store/reducers/layout.reducer';
+import { HeaderState, selectHeaderState } from '../../store/selectors/layout.selectors';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -7,41 +16,47 @@ import { HeaderOptions } from '../../../models';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
-  @Input() headerOptions: HeaderOptions;
-  @Input() showLogOut: boolean;
-  @Input() showSidenavToggle: boolean;
+export class HeaderComponent implements OnInit {
+  @Input() headerState$: Observable<HeaderState>;
   @Output() buttonClick = new EventEmitter<string>();
 
-  onSidenavToggle(): void {
-    this.buttonClick.emit('sidenav_toggle');
+  constructor(private store$: Store<LayoutReducerState>, private dialog: MatDialog) {}
+
+  ngOnInit(): void {
+    this.headerState$ = this.store$.pipe(
+      delay(0),
+      select(selectHeaderState),
+    );
+  }
+
+  onToggleSidenav(): void {
+    this.store$.dispatch(new LayoutActions.ToggleSidenavOpened());
   }
 
   onBack(): void {
-    this.buttonClick.emit('back');
+    this.store$.dispatch(new RouterActions.Back());
   }
 
   onSettings(): void {
-    this.buttonClick.emit('settings');
+    this.openAndSubscribeToPasswordDialog();
   }
 
   onLogOut(): void {
-    this.buttonClick.emit('logOut');
+    this.store$.dispatch(new AuthActions.SignOut());
   }
 
-  get title(): string {
-    return this.headerOptions ? this.headerOptions.title : 'Loading...';
-  }
-
-  get icon(): string {
-    return this.headerOptions ? this.headerOptions.icon : '';
-  }
-
-  get showBack(): boolean {
-    return this.headerOptions && !!this.headerOptions.previousUrl;
-  }
-
-  get showSettings(): boolean {
-    return this.headerOptions && this.headerOptions.showSettings;
+  /**
+   * Open the dialog and subscribe to the observable that is returned on close
+   * to extract the password. Once password is obtained dispatch the verify effect.
+   */
+  openAndSubscribeToPasswordDialog() {
+    const subscription = this.dialog.open(PasswordDialogComponent)
+      .afterClosed()
+      .subscribe((password) => {
+        if (password) {
+          this.store$.dispatch(new AuthActions.VerifyPassword(password));
+          subscription.unsubscribe();
+        }
+      });
   }
 }

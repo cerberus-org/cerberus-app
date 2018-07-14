@@ -22,6 +22,7 @@ export const mockStoreModules = [
       layout: {
         headerOptions: createMockHeaderOptions()[0],
         sidenavOptions: createMockSidenavOptions(),
+        sidenavOpened: true,
       },
       model: {
         ...initialModelReducerState,
