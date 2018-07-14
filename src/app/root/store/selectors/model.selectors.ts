@@ -34,17 +34,3 @@ export const selectOwnerCount = createSelector(
   selectModelMembers,
   (members: Member[]): number => members.filter(member => member.role === MEMBER_ROLE_OWNER).length,
 );
-
-export const selectVisitWithVolunteers = createSelector(
-  selectModelVisits,
-  selectModelVolunteers,
-  (visits: Visit[], volunteers: Volunteer[]): VisitWithVolunteer[] =>
-    visits.map(visit => ({
-      ...visit,
-      volunteer: volunteers.find(volunteer => volunteer.id === visit.volunteerId),
-    })),
-);
-
-export interface VisitWithVolunteer extends Visit {
-  volunteer: Volunteer;
-}

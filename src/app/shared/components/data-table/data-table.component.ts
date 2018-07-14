@@ -14,8 +14,7 @@ import { MatPaginator } from '@angular/material';
 import { merge, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getIndex } from '../../../functions';
-import { ColumnOptions, Visit } from '../../../models';
-import { VisitWithVolunteer } from '../../../root/store/selectors/model.selectors';
+import { ColumnOptions } from '../../../models';
 
 /**
  * Provides what data should be rendered in the table.
@@ -139,7 +138,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param item
    */
   onSelectTime(value, item, column): void {
-    this.addItemToItemsEdited(column.updateItemWithTime(value, item), column);
+    this.addItemToItemsEdited(column.timePicker.updateItemWithTime(value, item), column);
   }
 
   /**
