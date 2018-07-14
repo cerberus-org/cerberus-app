@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Volunteer } from '../../../models';
@@ -10,7 +10,6 @@ import { ServicesAgreementDialogComponent } from '../../../shared/components/ser
   styleUrls: ['./new-volunteer-form.component.scss'],
 })
 export class NewVolunteerFormComponent {
-  @Input() organizationId: string;
   @Output() newVolunteer = new EventEmitter<Volunteer>();
   @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
   formGroup: FormGroup;
@@ -23,7 +22,6 @@ export class NewVolunteerFormComponent {
 
   submit(): void {
     const volunteer = new Volunteer(
-      this.organizationId,
       this.formGroup.value.firstName,
       this.formGroup.value.lastName,
       this.formGroup.value.petName,

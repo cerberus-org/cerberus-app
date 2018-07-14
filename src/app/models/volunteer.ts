@@ -5,8 +5,7 @@ export class Volunteer {
   lastName: string;
   petName: string;
 
-  constructor(organizationId: string, firstName: string, lastName: string, petName: string) {
-    this.organizationId = organizationId;
+  constructor(firstName: string, lastName: string, petName: string) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.petName = petName;

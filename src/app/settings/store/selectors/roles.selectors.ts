@@ -1,42 +1,21 @@
 import { createSelector } from '@ngrx/store';
-import { selectSessionUser } from '../../../auth/store/selectors/session.selectors';
-import { canSelectRole, getRoleOptions, isLastOwner } from '../../../functions';
-import { ColumnOptions, User } from '../../../models';
-import { selectModelUsers } from '../../../root/store/selectors/model.selectors';
+import { selectSessionMember } from '../../../auth/store/selectors/session.selectors';
+import { getRoleOptions } from '../../../functions';
+import { Member } from '../../../models';
+import { selectModelMembers, selectOwnerCount } from '../../../root/store/selectors/model.selectors';
 
-export const selectRolesColumnOptions = createSelector(
-  selectSessionUser,
-  selectModelUsers,
-  (sessionUser: User, modelUsers: User[]): ColumnOptions[] => [
-    new ColumnOptions(
-      'firstName',
-      'First Name',
-      (row: User) => row.firstName,
-    ),
-    new ColumnOptions(
-      'lastName',
-      'Last Name',
-      (row: User) => row.lastName,
-    ),
-    new ColumnOptions(
-      'role',
-      'Role',
-      (row: User) => row.role,
-      (row: User) =>
-        canSelectRole(sessionUser, row) && !isLastOwner(row, modelUsers)
-          ? getRoleOptions(sessionUser, row)
-          : null,
-    ),
-  ],
-);
-
-export interface RolesPageState {
-  users: User[];
-  columnOptions: ColumnOptions[];
+export interface MemberWithRoleOptions extends Member {
+  roleOptions: string[];
 }
 
-export const selectRolesPageState = createSelector(
-  selectModelUsers,
-  selectRolesColumnOptions,
-  (users: User[], columnOptions: ColumnOptions[]): RolesPageState => ({ users, columnOptions }),
+export const selectMembersWithRoleOptions = createSelector(
+  selectSessionMember,
+  selectModelMembers,
+  selectOwnerCount,
+  (sessionMember: Member, modelMembers: Member[], ownerCount: number): MemberWithRoleOptions[] => modelMembers.map(
+    member => ({
+      ...member,
+      roleOptions: getRoleOptions(sessionMember, member, ownerCount === 1),
+    }),
+  ),
 );

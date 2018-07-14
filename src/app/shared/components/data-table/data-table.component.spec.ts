@@ -5,13 +5,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs';
 import { mockColumnOptions } from '../../../mock/objects/column-options.mock';
-import { createMockVisits, mockVisits } from '../../../mock/objects/visit.mock';
-import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { createMockVisits } from '../../../mock/objects/visit.mock';
+import { Visit } from '../../../models';
 import { DataTableComponent, DataTableSource } from './data-table.component';
 
 describe('DataTableComponent', () => {
   let component: DataTableComponent;
   let fixture: ComponentFixture<DataTableComponent>;
+  let visits: Visit[];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -32,6 +33,7 @@ describe('DataTableComponent', () => {
   }));
 
   beforeEach(() => {
+    visits = createMockVisits();
     fixture = TestBed.createComponent(DataTableComponent);
     component = fixture.componentInstance;
     component.columnOptions = mockColumnOptions;
@@ -53,7 +55,7 @@ describe('DataTableComponent', () => {
 
   it('should handle clickDelete events by emitting a deleteItem event', () => {
     spyOn(component.deleteItem, 'emit');
-    const item = createMockVolunteers()[0];
+    const item = visits[0];
     component.onClickDelete(item);
     expect(component.deleteItem.emit).toHaveBeenCalledWith(item);
   });
@@ -61,7 +63,7 @@ describe('DataTableComponent', () => {
   it('should handle selectOption events by emitting an updateItem event', () => {
     spyOn(component.updateItem, 'emit');
     const value = 'Admin';
-    const item = createMockVolunteers()[0];
+    const item = visits[0];
     const key = 'role';
     const expected = { ...item, role: value };
     component.onSelectOption(value, item, key);
@@ -69,43 +71,46 @@ describe('DataTableComponent', () => {
   });
 
   it('should sets background-color to an empty string on default', () => {
-    expect(component.getRowColor(createMockVisits()[0])).toEqual('');
+    expect(component.getRowColor(visits[0])).toEqual('');
   });
 
   it('should sets background-color to an empty string on default', () => {
-    expect(component.getRowColor(createMockVisits()[0])).toEqual('');
+    expect(component.getRowColor(visits[0])).toEqual('');
   });
 
   it('should call getUpdatedItemWithTime and addItemToItemsEdited onSelectTime', () => {
     spyOn(component, 'getUpdatedItemWithTime');
     spyOn(component, 'addItemToItemsEdited');
-    component.onSelectTime('3:00', mockVisits[0]);
+    component.onSelectTime('3:00', visits[0]);
     expect(component.getUpdatedItemWithTime).toHaveBeenCalled();
     expect(component.addItemToItemsEdited).toHaveBeenCalled();
   });
 
   it('should call emit updateMultipleItems onUpdateItems', () => {
     spyOn(component.updateMultipleItems, 'emit');
-    component.onUpdateItems([mockVisits[0], mockVisits[1]]);
-    expect(component.updateMultipleItems.emit).toHaveBeenCalledWith([mockVisits[0], mockVisits[1]]);
+    component.onUpdateItems([visits[0], visits[1]]);
+    expect(component.updateMultipleItems.emit).toHaveBeenCalledWith([visits[0], visits[1]]);
   });
 
   it('should add item to itemsEdited when addItemsToItemsEdited is called', () => {
     component.itemsEdited = [];
-    component.addItemToItemsEdited(mockVisits[0]);
-    expect(component.itemsEdited).toEqual([mockVisits[0]]);
+    component.addItemToItemsEdited(visits[0]);
+    expect(component.itemsEdited).toEqual([visits[0]]);
   });
 
-  it('should remove pre-exiting updated item from itemsEdited and add most recently updated item to itemsEdited when addItemsToItemsEdited is called', () => {
-    component.itemsEdited = [mockVisits[0]];
-    const mostRecentlyUpdatedItem = component.getUpdatedItemWithTime('3:00', mockVisits[0]);
-    component.addItemToItemsEdited(mostRecentlyUpdatedItem);
-    expect(component.itemsEdited[0]).toEqual(mostRecentlyUpdatedItem);
-    expect(component.itemsEdited.length).toEqual(1);
-  });
+  it(
+    'should remove pre-exiting updated item from itemsEdited and add most recently updated item to itemsEdited when addItemsToItemsEdited is called',
+    () => {
+      component.itemsEdited = [visits[0]];
+      const mostRecentlyUpdatedItem = component.getUpdatedItemWithTime('3:00', visits[0]);
+      component.addItemToItemsEdited(mostRecentlyUpdatedItem);
+      expect(component.itemsEdited[0]).toEqual(mostRecentlyUpdatedItem);
+      expect(component.itemsEdited.length).toEqual(1);
+    },
+  );
 
   it('should return item with updated time', () => {
-    const updatedItem = component.getUpdatedItemWithTime('3:00', mockVisits[0]);
+    const updatedItem = component.getUpdatedItemWithTime('3:00', visits[0]);
     expect(updatedItem.endedAt.getHours()).toBe(3);
     expect(updatedItem.endedAt.getMinutes()).toBe(0);
     expect(updatedItem.endedAt.getSeconds()).toBe(0);

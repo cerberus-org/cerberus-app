@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
 import { VisitService } from '../../../data/services/visit.service';
 import { VolunteerService } from '../../../data/services/volunteer.service';
 import * as RouterActions from '../../../root/store/actions/router.actions';
+import { RootState } from '../../../root/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as CheckInActions from '../actions/check-in.actions';
 
@@ -21,13 +23,16 @@ export class CheckInEffects {
     .ofType(CheckInActions.SUBMIT_NEW_VOLUNTEER)
     .pipe(
       map((action: CheckInActions.SubmitNewVolunteer) => action.payload),
-      switchMap(volunteer => this.volunteerService.add(volunteer)
+      withLatestFrom(this.store$.pipe(select(selectSessionOrganization))),
+      switchMap(([volunteer, organization]) => this.volunteerService.add({
+        ...volunteer,
+        organizationId: organization.id,
+      })
         .pipe(
           map(() => {
             this.snackBarService.signUpSuccess();
             return new CheckInActions.SubmitNewVolunteerSuccess();
-          })),
-      ),
+          }))),
     );
 
   /**
@@ -39,13 +44,16 @@ export class CheckInEffects {
     .ofType(CheckInActions.CHECK_IN)
     .pipe(
       map((action: CheckInActions.CheckIn) => action.payload),
-      switchMap(visit => this.visitService.add(visit)
+      withLatestFrom(this.store$.pipe(select(selectSessionOrganization))),
+      switchMap(([visit, organization]) => this.visitService.add({
+        ...visit,
+        organizationId: organization.id,
+      })
         .pipe(
           map(() => {
             this.snackBarService.checkInSuccess();
             return new RouterActions.Go({ path: ['/dashboard'] });
-          })),
-      ),
+          }))),
     );
 
   /**
@@ -67,6 +75,7 @@ export class CheckInEffects {
     );
 
   constructor(
+    private store$: Store<RootState>,
     private actions: Actions,
     private snackBarService: SnackBarService,
     private visitService: VisitService,

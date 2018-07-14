@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { User as FirebaseUser } from 'firebase';
+import { User, UserInfo } from 'firebase';
 import { from, Observable } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { UserService } from '../../data/services/user.service';
-import { User } from '../../models';
+import { catchError, map } from 'rxjs/operators';
+import { MemberService } from '../../data/services/member.service';
+import { Member } from '../../models';
+import { Credentials } from '../../models/credentials';
 import { RootState } from '../../root/store/reducers';
 import { ErrorService } from '../../shared/services/error.service';
 import * as SessionActions from '../store/actions/session.actions';
 
 @Injectable()
 export class AuthService {
-
   pwdVerification: boolean;
-  user: User;
+  user: Member;
 
   constructor(
     private afAuth: AngularFireAuth,
     private errorService: ErrorService,
-    private userService: UserService,
+    private memberService: MemberService,
     private store$: Store<RootState>,
   ) {
     this.pwdVerification = false;
@@ -36,11 +36,10 @@ export class AuthService {
     return this.pwdVerification;
   }
 
-  createUser(user: User): Observable<{}> {
-    return from(this.afAuth.auth
-      .createUserWithEmailAndPassword(user.email, user.password))
+  createUser(credentials: Credentials): Observable<UserInfo> {
+    return from(this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password))
       .pipe(
-        switchMap((firebaseUser: FirebaseUser) => this.userService.add(user, firebaseUser.uid)),
+        map(userCredential => userCredential.user as UserInfo),
         catchError(error => this.errorService.handleFirebaseError(error)),
       );
   }
@@ -48,37 +47,40 @@ export class AuthService {
   resetPassword(email: string): Observable<{}> {
     // Do not handle Firebase error for security purposes.
     // We do not want the user to know if any email does or does not exist.
-    return from(this.afAuth.auth
-      .sendPasswordResetEmail(email));
+    return from(this.afAuth.auth.sendPasswordResetEmail(email));
   }
 
   /**
    * Updates user data. Only updates the Firebase user if password or email are provided.
-   * @param user
-   * @returns {Observable<User>}
+   *
+   * @param credentials
+   * @returns {Observable<Member>}
    */
-  updateUser(user: User): Observable<{}> {
-    const currentUser = this.afAuth.auth.currentUser;
+  updateUser(credentials: Credentials): Observable<UserInfo> {
+    const currentUser: User = this.afAuth.auth.currentUser;
+    const { password, email } = credentials;
     const updates = [];
-    if (user.password) {
-      updates.push(currentUser.updatePassword(user.password));
+    if (password) {
+      updates.push(currentUser.updatePassword(password));
     }
-    if (user.email) {
-      updates.push(currentUser.updateEmail(user.email));
+    if (email) {
+      updates.push(currentUser.updateEmail(email));
     }
-    return from(Promise.all(updates))
+    return from(
+      Promise.all(updates)
+        .then((): UserInfo => (Object.assign({}, currentUser, email))),
+    )
       .pipe(
-        switchMap(() => this.userService.update(user)),
         catchError(error => this.errorService.handleFirebaseError(error)),
       );
   }
 
-  signIn(email: string, password: string): Observable<FirebaseUser> {
+  signIn(credentials: Credentials): Observable<UserInfo> {
     // Do not use Firebase error for security purposes.
     // We do not want the user to know if any account does or does not exist.
     return from(
-      this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      // Now returns user property nested inside an object
+      this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
+      // Now returns userInfo property nested inside an object
         .then(res => res.user),
     )
       .pipe(catchError(error => this.errorService.handleLoginError(error)));
@@ -88,11 +90,11 @@ export class AuthService {
    * If the user is not logged in, authState returns null.
    * @returns {Observable<boolean>}
    */
-  isLoggedIn(): Observable<boolean> {
+  isSignedIn(): Observable<boolean> {
     return this.afAuth.authState.pipe(map(auth => !!auth));
   }
 
-  signOut(): Observable<FirebaseUser> {
+  signOut(): Observable<UserInfo> {
     return from(this.afAuth.auth.signOut());
   }
 
@@ -100,11 +102,11 @@ export class AuthService {
    * If the page is reloaded or the state of the user changes dispatch an action to load data to the root store$.
    */
   observeStateChanges(): void {
-    this.afAuth.auth.onAuthStateChanged((user: FirebaseUser) => {
+    this.afAuth.auth.onAuthStateChanged((user: User) => {
       this.store$.dispatch(
         user
-          ? new SessionActions.LoadData(user)
-          : new SessionActions.LoadDataSuccess({ user: null, organization: null }),
+          ? new SessionActions.LoadData(user as UserInfo)
+          : new SessionActions.ClearData(),
       );
     });
   }

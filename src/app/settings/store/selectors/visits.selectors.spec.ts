@@ -1,10 +1,10 @@
 import { createMockColumnOptions } from '../../../mock/objects/column-options.mock';
-import arrayContaining = jasmine.arrayContaining;
-import objectContaining = jasmine.objectContaining;
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { selectVisitsColumnOptions, selectVisitsPageState } from './visits.selectors';
+import arrayContaining = jasmine.arrayContaining;
+import objectContaining = jasmine.objectContaining;
 
-describe('VisitsSelectors', () => {
+describe('visits.selectors', () => {
   describe('selectVisitsColumnOptions', () => {
     it('it should select column options for the Visits page', () => {
       const mockVisits = createMockVisits();

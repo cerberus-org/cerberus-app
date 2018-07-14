@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/index';
-import { selectSessionUser } from '../../../auth/store/selectors/session.selectors';
-import { User } from '../../../models';
+import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { SettingsState } from '../../store/reducers';
+import {
+  selectUserSettingsContainerState,
+  UserSettingsContainerState,
+} from '../../store/selectors/user-settings.selectors';
 
 @Component({
   selector: 'app-user-settings',
@@ -13,27 +16,27 @@ import { SettingsState } from '../../store/reducers';
 })
 export class UserSettingsComponent implements OnInit {
   userFormTitle = 'Update your user info.';
-  userEdits: User;
-  sessionUser$: Observable<User>;
+  edits: UserFormChanges;
+  state$: Observable<UserSettingsContainerState>;
 
   constructor(public store$: Store<SettingsState>) {}
 
   ngOnInit(): void {
-    this.sessionUser$ = this.store$.pipe(select(selectSessionUser));
+    this.state$ = this.store$.pipe(select(selectUserSettingsContainerState));
   }
 
   /**
-   * Handles validUser events by setting userEdits.
-   * @param user - a valid user when valid, null when invalid
+   * Handles validChanges events by setting edits.
+   * @param {UserFormChanges} changes - a changes object when valid, null when invalid
    */
-  onValidUser(user: User) {
-    this.userEdits = user;
+  onValidChanges(changes: UserFormChanges) {
+    this.edits = changes;
   }
 
   /**
-   * Handles submission of user form by dispatching an UpdateUser action.
+   * Handles submission of member form by dispatching an SetMemberAndUserInfo action.
    */
-  onSubmitUser(user: User) {
-    this.store$.dispatch(new SettingsActions.UpdateUser(user));
+  onSubmit(edits: UserFormChanges) {
+    this.store$.dispatch(new SettingsActions.UpdateUser(edits));
   }
 }

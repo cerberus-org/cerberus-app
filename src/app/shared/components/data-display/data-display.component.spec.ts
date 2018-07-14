@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule, MatTabsModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { rootReducers } from '../../../root/store/reducers';
+import { Visit } from '../../../models';
 import { DataDisplayComponent } from './data-display.component';
 
 describe('DataDisplayComponent', () => {
   let component: DataDisplayComponent;
   let fixture: ComponentFixture<DataDisplayComponent>;
+  let visits: Visit[];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -36,17 +36,39 @@ describe('DataDisplayComponent', () => {
     fixture = TestBed.createComponent(DataDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    visits = createMockVisits();
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
+  // TODO: Find a way to spy on imported functions
+  it('should display the formatted date of a visit in the first table column', () => {
+    expect(component.visitTableColumnOptions[0].cell(visits[0]))
+      .toEqual('Thursday, June 29');
+  });
+
+  it('should display the formatted start time of a visit in the second table column', () => {
+    expect(component.visitTableColumnOptions[1].cell(visits[0]))
+      .toEqual('5:45 AM');
+  });
+
+  it('should display the formatted end time of a visit in the third table column', () => {
+    expect(component.visitTableColumnOptions[2].cell(visits[0]))
+      .toEqual('9:45 AM');
+  });
+
+  it('should display the formatted duration of a visit in the fourth table column', () => {
+    expect(component.visitTableColumnOptions[3].cell(visits[0]))
+      .toEqual('4 hours');
+  });
+
   it('should highlight active visits with the correct color', () => {
-    expect(component.getVisitRowColor(createMockVisits()[3])).toEqual('#ccff99');
+    expect(component.getVisitRowColor(visits[3])).toEqual('#ccff99');
   });
 
   it('should not highlight completed visits', () => {
-    expect(component.getVisitRowColor(createMockVisits()[0])).toEqual('');
+    expect(component.getVisitRowColor(visits[0])).toEqual('');
   });
 });

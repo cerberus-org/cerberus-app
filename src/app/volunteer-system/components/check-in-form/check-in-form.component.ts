@@ -41,7 +41,6 @@ import { SignatureFieldComponent } from '../signature-field/signature-field.comp
   ],
 })
 export class CheckInFormComponent implements OnInit, OnDestroy {
-  @Input() organizationId: string;
   @Input() siteId: string;
   @Input() visits: Visit[];
   @Input() volunteers: Volunteer[];
@@ -83,10 +82,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngAfterView(): void {
-    this.setSignatureOptions();
-  }
-
   /**
    * Constructs the visit with startedAt as no, and endedAt as null,
    * emits the onCheckIn or onCheckOut events, then resets the form.
@@ -100,7 +95,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
       this.checkOut.emit(visit);
     } else {
       const visit = new Visit(
-        this.organizationId,
         this.siteId,
         this.selectedVolunteer.id,
         new Date(),
@@ -217,17 +211,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  // Signature Field
-
-  /**
-   * Set signature pad properites.
-   */
-  setSignatureOptions(): void {
-    this.signatures.first.signaturePad.set('penColor', 'rgb(0, 0, 0)');
-    this.signatures.first.signaturePad.set('backgroundColor', 'rgb(255, 255, 255, 0)');
-    this.signatures.first.signaturePad.clear(); // clear() is needed to set the background color
-  }
-
   /**
    * Clears the signature.
    */
@@ -235,14 +218,5 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     if (this.signatures.first) {
       this.signatures.first.clear();
     }
-  }
-
-  /**
-   * Assigns signature to existing signature passed in.
-   * The signature will be displayed in the signature pad once set.
-   * @param signature
-   */
-  setSignature(signature): void {
-    this.signatures.first.signature.setSignatureToExistingSignature(signature);
   }
 }

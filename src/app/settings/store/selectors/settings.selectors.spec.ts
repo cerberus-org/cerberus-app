@@ -1,4 +1,4 @@
-import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockMembers } from '../../../mock/objects/member.mock';
 import { initialSettingsReducerState } from '../reducers/settings.reducer';
 import {
   selectSettingsReducerState,
@@ -8,7 +8,7 @@ import {
 import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;
 
-describe('SettingsSelectors', () => {
+describe('settings.selectors', () => {
   describe('selectSettingsReducerState', () => {
     it('it should select the settingsReducer state', () => {
       const state = initialSettingsReducerState;
@@ -28,15 +28,16 @@ describe('SettingsSelectors', () => {
   });
 
   describe('selectSettingsSidenavOptions', () => {
-    it('it should select the correct sidenav options for a non-admin user', () => {
-      expect(selectSettingsSidenavOptions.projector(createMockUsers()[0]))
-        .toEqual(arrayContaining([
-          objectContaining({ label: 'User' }),
-        ]));
+    it('it should select the correct sidenav options for a non-admin member', () => {
+      const sidenavOptions = selectSettingsSidenavOptions.projector(createMockMembers()[1]);
+      expect(sidenavOptions).toEqual(arrayContaining([
+        objectContaining({ label: 'User' }),
+      ]));
+      expect(sidenavOptions.length).toBe(1);
     });
 
-    it('it should select the correct sidenav options for an admin user', () => {
-      expect(selectSettingsSidenavOptions.projector(createMockUsers()[0]))
+    it('it should select the correct sidenav options for an admin member', () => {
+      expect(selectSettingsSidenavOptions.projector(createMockMembers()[0]))
         .toEqual(arrayContaining([
           objectContaining({ label: 'User' }),
           objectContaining({ label: 'Organization' }),

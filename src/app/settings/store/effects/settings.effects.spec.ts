@@ -3,12 +3,15 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import * as SessionActions from '../../../auth/store/actions/session.actions';
+import { createMockCredentials } from '../../../mock/objects/credentials.mock';
+import { createMockMembers } from '../../../mock/objects/member.mock';
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockUserInfo } from '../../../mock/objects/user.mock';
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { Organization } from '../../../models';
+import { Member, Organization } from '../../../models';
+import { Credentials } from '../../../models/credentials';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { CsvService } from '../../services/csv.service';
 import * as SettingsActions from '../actions/settings.actions';
@@ -44,9 +47,9 @@ describe('SettingsEffects', () => {
       });
     }));
 
-    it('should dispatch SessionActions.UpdateOrganization', () => {
+    it('should dispatch SessionActions.SetOrganization', () => {
       const expected = cold('b', {
-        b: new SessionActions.UpdateOrganization(organization),
+        b: new SessionActions.SetOrganization(organization),
       });
       expect(effects.updateOrganization$).toBeObservable(expected);
     });
@@ -60,18 +63,30 @@ describe('SettingsEffects', () => {
   });
 
   describe('updateUser$', () => {
-
+    let credentialEdits: Credentials;
+    let memberEdits: Member;
     beforeEach(async(() => {
+      credentialEdits = createMockCredentials()[1];
+      memberEdits = createMockMembers()[1];
       actions = hot('a', {
-        a: new SettingsActions.UpdateUser({ ...createMockUsers()[1], role: undefined }),
+        a: new SettingsActions.UpdateUser({
+          credentials: credentialEdits,
+          member: memberEdits,
+        }),
       });
     }));
 
     it(
-      'should dispatch SessionActions.UpdateUser with the edited user and without changes to the role property',
+      'should dispatch SessionActions.SetMemberAndUserInfo with the edited member',
       (() => {
         const expected = cold('b', {
-          b: new SessionActions.UpdateUser({ ...createMockUsers()[1], role: createMockUsers()[0].role }),
+          b: new SessionActions.SetMemberAndUserInfo({
+            userInfo: {
+              ...createMockUserInfo()[0],
+              email: credentialEdits.email,
+            },
+            member: memberEdits,
+          }),
         });
         expect(effects.updateUser$).toBeObservable(expected);
       }),

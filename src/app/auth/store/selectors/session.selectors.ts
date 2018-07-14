@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Organization, User } from '../../../models';
+import { UserInfo } from 'firebase';
+import { Member, Organization } from '../../../models';
 import { AuthState } from '../reducers';
 import { SessionReducerState } from '../reducers/session.reducer';
 
@@ -15,7 +16,12 @@ export const selectSessionOrganization = createSelector(
   (state: SessionReducerState): Organization => state.organization,
 );
 
-export const selectSessionUser = createSelector(
+export const selectSessionMember = createSelector(
   selectSessionReducerState,
-  (state: SessionReducerState): User => state.user,
+  (state: SessionReducerState): Member => state.member,
+);
+
+export const selectSessionUserInfo = createSelector(
+  selectSessionReducerState,
+  (state: SessionReducerState): UserInfo => state.userInfo,
 );

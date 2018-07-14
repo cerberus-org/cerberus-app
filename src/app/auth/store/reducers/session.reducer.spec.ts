@@ -1,41 +1,49 @@
-import { mockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
+import { createMockMembers } from '../../../mock/objects/member.mock';
+import { createMockOrganizations, mockOrganizations } from '../../../mock/objects/organization.mock';
+import { createMockUserInfo } from '../../../mock/objects/user.mock';
 import * as SessionActions from '../actions/session.actions';
 import { sessionReducer } from './session.reducer';
+import objectContaining = jasmine.objectContaining;
 
 describe('layoutReducer', () => {
 
   describe('LOAD_DATA_SUCCESS', () => {
 
-    it('loads the User and Organization', () => {
+    it('loads the Member and Organization', () => {
       const state = sessionReducer(
         undefined,
-        new SessionActions.LoadDataSuccess({ user: createMockUsers()[0], organization: mockOrganizations[0] }),
+        new SessionActions.LoadDataSuccess({
+          member: createMockMembers()[0],
+          organization: createMockOrganizations()[0],
+          userInfo: createMockUserInfo()[0],
+        }),
       );
-      expect(state.user).toEqual(createMockUsers()[0]);
+      expect(state.member).toEqual(createMockMembers()[0]);
       expect(state.organization).toEqual(mockOrganizations[0]);
     });
   });
 
-  describe('UPDATE_ORGANIZATION', () => {
+  describe('SET_ORGANIZATION', () => {
 
-    it('updates the organization', () => {
+    it('sets the organization', () => {
       const state = sessionReducer(
         undefined,
-        new SessionActions.UpdateOrganization(mockOrganizations[0]),
+        new SessionActions.SetOrganization(mockOrganizations[0]),
       );
       expect(state.organization).toEqual(mockOrganizations[0]);
     });
   });
 
-  describe('UPDATE_USER', () => {
+  describe('SET_MEMBER_AND_USER_INFO', () => {
 
-    it('updates the user', () => {
+    it('sets the member', () => {
+      const member = createMockMembers()[0];
+      const userInfo = createMockUserInfo()[0];
       const state = sessionReducer(
         undefined,
-        new SessionActions.UpdateUser(createMockUsers()[0]),
+        new SessionActions.SetMemberAndUserInfo({ member, userInfo }),
       );
-      expect(state.user).toEqual(createMockUsers()[0]);
+      expect(state).toEqual(objectContaining({ member, userInfo }));
     });
   });
 });

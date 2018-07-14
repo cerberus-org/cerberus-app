@@ -1,21 +1,20 @@
+import { createMockMembers } from '../../../mock/objects/member.mock';
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
 import { createMockSites } from '../../../mock/objects/site.mock';
-import { createMockUsers } from '../../../mock/objects/user.mock';
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
-import { initialModelReducerState } from '../reducers/model.reducer';
 import {
+  selectModelMembers,
   selectModelOrganizations,
   selectModelSites,
-  selectModelUsers,
   selectModelVisits,
   selectModelVolunteers,
+  selectOwnerCount,
 } from './model.selectors';
 
 describe('ModelSelectors', () => {
   it('should select organizations', () => {
     expect(selectModelOrganizations.projector({
-      ...initialModelReducerState,
       organizations: createMockOrganizations(),
     }))
       .toEqual(createMockOrganizations());
@@ -23,23 +22,20 @@ describe('ModelSelectors', () => {
 
   it('should select sites', () => {
     expect(selectModelSites.projector({
-      ...initialModelReducerState,
       sites: createMockSites(),
     }))
       .toEqual(createMockSites());
   });
 
-  it('should select users', () => {
-    expect(selectModelUsers.projector({
-      ...initialModelReducerState,
-      users: createMockUsers(),
+  it('should select members', () => {
+    expect(selectModelMembers.projector({
+      members: createMockMembers(),
     }))
-      .toEqual(createMockUsers());
+      .toEqual(createMockMembers());
   });
 
   it('should select visits', () => {
     expect(selectModelVisits.projector({
-      ...initialModelReducerState,
       visits: createMockVisits(),
     }))
       .toEqual(createMockVisits());
@@ -47,9 +43,13 @@ describe('ModelSelectors', () => {
 
   it('should select volunteers', () => {
     expect(selectModelVolunteers.projector({
-      ...initialModelReducerState,
       volunteers: createMockVolunteers(),
     }))
       .toEqual(createMockVolunteers());
+  });
+
+  it('should select the number of owners', () => {
+    expect(selectOwnerCount.projector(createMockMembers()))
+      .toEqual(1);
   });
 });

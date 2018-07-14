@@ -21,13 +21,16 @@ export const formatDuration = (startedAt: Date, endedAt: Date, timezone: string)
     : moment(startedAt).tz(timezone).toNow(true)
 );
 
+export const formatTimeInputValue = (date: Date, timezone: string = 'America/Chicago'): string => {
+  return date ? moment(date).tz(timezone).format('HH:mm') : '';
+};
+
 /**
  * Accept Date string and convert to time string (e.g 1:35 PM).
- * TODO: accept a timezone param here
  *
  * @param {string} dateString
  * @returns {string} time
  */
-export const formatTimeInputValue = (date: Date, timezone: string = 'America/Chicago'): string => {
-  return date ? moment(date).tz(timezone).format('HH:mm') : '';
+export const convertToTimeString = (dateString: string): string => {
+  return dateString ? moment(new Date(dateString)).tz('America/Chicago').format('HH:mm') : '';
 };

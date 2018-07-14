@@ -3,9 +3,9 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { MemberService } from '../../../data/services/member.service';
 import { OrganizationService } from '../../../data/services/organization.service';
 import { SiteService } from '../../../data/services/site.service';
-import { UserService } from '../../../data/services/user.service';
 import { VisitService } from '../../../data/services/visit.service';
 import { VolunteerService } from '../../../data/services/volunteer.service';
 import * as ModelActions from '../actions/model.actions';
@@ -29,17 +29,17 @@ export class ModelEffects {
     );
 
   /**
-   * Listen for the LoadUsers action, get the users by organizationId,
+   * Listen for the LoadMembers action, get the members by organizationId,
    * then dispatch the success action.
    */
   @Effect()
-  loadUsers$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_USERS)
+  loadMembers$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_MEMBERS)
     .pipe(
-      map((action: ModelActions.LoadUsers) => action.payload),
-      switchMap(organizationId => this.userService
+      map((action: ModelActions.LoadMembers) => action.payload),
+      switchMap(organizationId => this.memberService
         .getByKey('organizationId', organizationId, true)
         .pipe(
-          map(users => new ModelActions.LoadUsersSuccess(users)),
+          map(members => new ModelActions.LoadMembersSuccess(members)),
         )),
     );
 
@@ -87,7 +87,7 @@ export class ModelEffects {
   constructor(
     private actions: Actions,
     private siteService: SiteService,
-    private userService: UserService,
+    private memberService: MemberService,
     private visitService: VisitService,
     private volunteerService: VolunteerService,
     private organizationService: OrganizationService,

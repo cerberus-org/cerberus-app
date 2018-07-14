@@ -19,7 +19,6 @@ export const selectSelectedTabIndex = createSelector(
 export interface CheckInContainerState {
   visits: Visit[];
   volunteers: Volunteer[];
-  sessionOrganizationId: string;
 }
 
 export const selectCheckInHeaderOptions = createSelector(
@@ -36,10 +35,8 @@ export const selectCheckInHeaderOptions = createSelector(
 export const selectCheckInContainerState = createSelector(
   selectModelVisits,
   selectModelVolunteers,
-  selectSessionOrganization,
-  (visits: Visit[], volunteers: Volunteer[], organization: Organization): CheckInContainerState => ({
+  (visits: Visit[], volunteers: Volunteer[]): CheckInContainerState => ({
     visits,
     volunteers,
-    sessionOrganizationId: organization.id,
   }),
 );

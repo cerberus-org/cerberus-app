@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { formatDate, formatDuration, formatTime } from '../../../functions/index';
+import { formatDate, formatDuration, formatTime } from '../../../functions';
 import { ColumnOptions, Visit } from '../../../models';
 
 @Component({
@@ -9,7 +9,6 @@ import { ColumnOptions, Visit } from '../../../models';
   styleUrls: ['./data-display.component.scss'],
 })
 export class DataDisplayComponent implements OnInit {
-
   @Input() visits$: Observable<Visit[]>;
   visitTableColumnOptions: ColumnOptions[] = [
     {

@@ -24,14 +24,14 @@ export class OrganizationSettingsComponent implements OnInit {
 
   /**
    * Handles validOrganization events by setting organizationEdits.
-   * @param organization - a valid organization when valid, null when invalid
+   * @param organization - an organization when valid, null when invalid
    */
   onValidOrganization(organization: Organization) {
     this.organizationEdits = organization;
   }
 
   /**
-   * Handles submission of organization form by dispatching an UpdateOrganization action.
+   * Handles submission of organization form by dispatching an SetOrganization action.
    */
   onSubmitOrganization(organization: Organization) {
     this.store$.dispatch(new SettingsActions.UpdateOrganization(organization));

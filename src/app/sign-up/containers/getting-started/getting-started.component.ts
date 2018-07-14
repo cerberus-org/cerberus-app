@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange, MatTabGroup } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { HeaderOptions, Organization, User } from '../../../models';
+import { HeaderOptions, Organization } from '../../../models';
 import * as LayoutActions from '../../../root/store/actions/layout.actions';
+import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 import * as GettingStartedActions from '../../store/actions/getting-started.actions';
 import { SignUpState } from '../../store/reducers';
 import {
@@ -28,23 +29,28 @@ export class GettingStartedComponent implements OnInit {
   organizationFormTitle: string = 'Tell us about your organization.';
   state$: Observable<GettingStartedPageState> = this.store$.pipe(select(selectGettingStartedPageState));
 
-  constructor(private store$: Store<SignUpState>) {}
+  constructor(private store$: Store<SignUpState>, private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.store$.dispatch(new LayoutActions.SetHeaderOptions(this.headerOptions));
     this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
   }
 
-  onValidOrganization(organization: Organization): void {
-    this.store$.dispatch(new GettingStartedActions.UpdateValidOrganization(organization));
+  onCheckJoinOrganization($event: MatCheckboxChange) {
+    this.store$.dispatch(new GettingStartedActions.SetJoinExistingOrganization($event.checked));
+    this.changeDetectorRef.detectChanges();
   }
 
-  onValidUser(user: User): void {
-    this.store$.dispatch(new GettingStartedActions.UpdateValidUser(user));
+  onValidOrganization(organization: Organization): void {
+    this.store$.dispatch(new GettingStartedActions.SetValidOrganization(organization));
+  }
+
+  onValidUserFormChanges(userFormChanges: UserFormChanges): void {
+    this.store$.dispatch(new GettingStartedActions.SetValidMemberAndUserInfo(userFormChanges));
   }
 
   onCheckTos($event: MatCheckboxChange) {
-    this.store$.dispatch(new GettingStartedActions.UpdateTosChecked($event.checked));
+    this.store$.dispatch(new GettingStartedActions.SetTosChecked($event.checked));
   }
 
   onNext(step): void {

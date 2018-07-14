@@ -10,5 +10,5 @@ export const mockHeaderOptions: HeaderOptions[] = [
   },
 ];
 
-export const createMockReports = (headerOptions: HeaderOptions[] = mockHeaderOptions): HeaderOptions[] =>
+export const createMockHeaderOptions = (headerOptions: HeaderOptions[] = mockHeaderOptions): HeaderOptions[] =>
   _.cloneDeep(headerOptions);

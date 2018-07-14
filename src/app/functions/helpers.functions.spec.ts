@@ -7,7 +7,9 @@ import {
   filterVolunteersByName,
   findActiveVisit,
   findVolunteerByFullName,
-  findVolunteerByPetName, getFormattedVisits, getIndex,
+  findVolunteerByPetName,
+  getFormattedVisits,
+  getIndex,
   getItemWithoutArrayProperties,
   getUniqueFullNames,
 } from './helpers.functions';
