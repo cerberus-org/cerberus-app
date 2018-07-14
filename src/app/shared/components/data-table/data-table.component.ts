@@ -139,7 +139,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param item
    */
   onSelectTime(value, item, column): void {
-    this.addItemToItemsEdited(column.formatTimeInputValueToUpdatedValue(value, item), column);
+    this.addItemToItemsEdited(column.updateItemWithTime(value, item), column);
   }
 
   /**

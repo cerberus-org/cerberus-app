@@ -26,6 +26,18 @@ export const formatTimeInputValue = (date: Date, timezone: string = 'America/Chi
 };
 
 /**
+ * Set time on date (e.g. 3:00) and return updated date.
+ *
+ * @param {string} time
+ * @param {Date} date
+ * @returns {Date}
+ */
+export const updateDateWithTimeInput = (time: string, date: Date): Date => {
+  date.setHours(Number(time.split(':')[0]), Number(time.split(':')[1]), 0);
+  return date;
+};
+
+/**
  * Accept Date string and convert to time string (e.g 1:35 PM).
  *
  * @param {string} dateString
