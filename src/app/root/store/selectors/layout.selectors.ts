@@ -22,8 +22,8 @@ export const selectSidenavOpened = createSelector(
 );
 
 export interface HeaderState extends HeaderOptions {
-  showToggleSidenav: boolean;
   showLogOut: boolean;
+  showToggleSidenav: boolean;
 }
 
 export const selectHeaderState = createSelector(
@@ -32,8 +32,8 @@ export const selectHeaderState = createSelector(
   selectSessionUserInfo,
   (headerOptions: HeaderOptions, sidenavOptions: SidenavOptions[], userInfo: UserInfo): HeaderState => ({
     ...headerOptions,
-    showToggleSidenav: !!sidenavOptions,
     showLogOut: !!userInfo,
+    showToggleSidenav: !!sidenavOptions,
   }),
 );
 

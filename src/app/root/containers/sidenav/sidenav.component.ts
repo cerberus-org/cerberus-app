@@ -23,8 +23,10 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   private mobileQueryListener: () => void;
 
-  constructor(private media: MediaMatcher, private store$: Store<LayoutReducerState>) {
-  }
+  constructor(
+    private media: MediaMatcher,
+    private store$: Store<LayoutReducerState>,
+  ) {}
 
   ngOnInit(): void {
     this.mobileQuery = this.media.matchMedia('(max-width: 600px)');

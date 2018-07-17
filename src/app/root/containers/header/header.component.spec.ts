@@ -3,12 +3,13 @@ import { MatDialogModule, MatIconModule, MatToolbarModule } from '@angular/mater
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
+import { createMockHeaderOptions } from '../../../mock/objects/header-options.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as LayoutActions from '../../store/actions/layout.actions';
 import * as RouterActions from '../../store/actions/router.actions';
 import { HeaderComponent } from './header.component';
 
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
@@ -36,6 +37,16 @@ fdescribe('HeaderComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should select the header state', async(() => {
+    component.headerState$.subscribe((value) => {
+      expect(value).toEqual({
+        ...createMockHeaderOptions()[0],
+        showLogOut: true,
+        showToggleSidenav: true,
+      });
+    });
+  }));
 
   it('should handle clicks to the toggle sidenav button by dispatching LayoutActions.ToggleSidenavOpened', async(() => {
     const dispatch = spyOn(TestBed.get(Store), 'dispatch');

@@ -1,13 +1,21 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatListModule, MatSidenavModule } from '@angular/material';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs/internal/observable/of';
-import { createMockHeaderOptions } from '../../../mock/objects/header-options.mock';
 import { createMockSidenavOptions } from '../../../mock/objects/sidenav-options.mock';
+import { mockStoreModules } from '../../../mock/store-modules.mock';
 import * as LayoutActions from '../../store/actions/layout.actions';
 import { SidenavComponent } from './sidenav.component';
+
+class MockMediaMatcher {
+  matchMedia = () => ({
+    addListener: () => {},
+    removeListener: () => {},
+    matches: () => false,
+  })
+}
 
 describe('SidenavComponent', () => {
   let component: SidenavComponent;
@@ -19,12 +27,16 @@ describe('SidenavComponent', () => {
         MatListModule,
         MatSidenavModule,
         NoopAnimationsModule,
+        ...mockStoreModules,
       ],
       declarations: [
         SidenavComponent,
       ],
       providers: [
-        MediaMatcher,
+        {
+          provide: MediaMatcher,
+          useClass: MockMediaMatcher,
+        },
       ],
     })
       .compileComponents();
@@ -40,12 +52,28 @@ describe('SidenavComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit a selectOption event on click', () => {
+  it('should select the sidenav state', async(() => {
+    component.sidenavState$.subscribe((value) => {
+      expect(value.opened).toEqual(jasmine.any(Boolean));
+      expect(value.options).toEqual(createMockSidenavOptions());
+    });
+  }));
+
+  it('should handle clicks to a sidenav list item by dispatching the action property of the option', async(() => {
     const dispatch = spyOn(TestBed.get(Store), 'dispatch');
-    const option = createMockSidenavOptions()[0];
-    component.onClick(option);
-    expect(dispatch).toHaveBeenCalledWith(option.action);
-  });
+    const options = createMockSidenavOptions();
+    component.sidenavState$.subscribe(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        const items = fixture.debugElement.query(By.css('mat-nav-list')).children;
+        items[0].triggerEventHandler('click', {});
+        items[1].triggerEventHandler('click', {});
+        expect(dispatch).toHaveBeenCalledWith(options[0].action);
+        expect(dispatch).toHaveBeenCalledWith(options[1].action);
+      });
+    });
+  }));
 
   it('should set the sidenav for small screens', () => {
     const dispatch = spyOn(TestBed.get(Store), 'dispatch');

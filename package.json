@@ -9,7 +9,7 @@
     "build:dev": "ng build --prod -c dev",
     "build:staging": "ng build --prod -c staging",
     "build:prod": "ng build --prod",
-    "test": "ng test --code-coverage",
+    "test": "ng test --source-map=false",
     "test:ci": "ng test --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"

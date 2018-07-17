@@ -1,15 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material';
-import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MockComponent } from 'ng2-mock-component';
-import { createMockHeaderOptions } from '../../../mock/objects/header-options.mock';
-import { createMockSidenavOptions } from '../../../mock/objects/sidenav-options.mock';
 import { createMockUserInfo } from '../../../mock/objects/user.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { SidenavComponent } from '../sidenav/sidenav.component';
 import { AppUpdateService } from '../../services/app-update.service';
 import * as ModelActions from '../../store/actions/model.actions';
 import { RootComponent } from './root.component';
