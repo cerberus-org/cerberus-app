@@ -14,7 +14,7 @@ import { AppUpdateService } from '../../services/app-update.service';
 import * as ModelActions from '../../store/actions/model.actions';
 import { RootComponent } from './root.component';
 
-fdescribe('RootComponent', () => {
+describe('RootComponent', () => {
   let component: RootComponent;
   let fixture: ComponentFixture<RootComponent>;
 
@@ -72,16 +72,6 @@ fdescribe('RootComponent', () => {
     expect(component.isLoggedIn).toEqual(false);
   }));
 
-  it('should select the layout state during init', async(() => {
-    fixture.detectChanges();
-    component.layoutState$.subscribe((value) => {
-      expect(value).toEqual({
-        headerOptions: createMockHeaderOptions()[0],
-        sidenavOptions: createMockSidenavOptions(),
-      });
-    });
-  }));
-
   it('should select the model loaded state during ngOnInit', (done) => {
     // Use whenStable to wait for delay
     fixture.whenStable().then(() => {
@@ -97,21 +87,5 @@ fdescribe('RootComponent', () => {
     const dispatch = spyOn(TestBed.get(Store), 'dispatch');
     fixture.detectChanges();
     expect(dispatch).toHaveBeenCalledWith(new ModelActions.LoadOrganizations());
-  }));
-
-  it('should handle selectOption events from the sidenav component by dispatching the option value\'s action', async(() => {
-    const dispatch = spyOn(TestBed.get(Store), 'dispatch');
-    const option = createMockSidenavOptions()[0];
-    const sidenav = fixture.debugElement.query(By.css('app-sidenav'));
-    sidenav.triggerEventHandler('selectOption', option);
-    expect(dispatch).toHaveBeenCalledWith(option.action);
-  }));
-
-  fit('should handle buttonClick events from the header with value toggle_sidenav by toggling the sidenav', async(() => {
-    const toggle = spyOn(, 'toggle');
-    fixture.detectChanges();
-    const header = fixture.debugElement.query(By.css('app-header'));
-    header.triggerEventHandler('buttonClick', 'toggle_sidenav');
-    expect(toggle).toHaveBeenCalled();
   }));
 });

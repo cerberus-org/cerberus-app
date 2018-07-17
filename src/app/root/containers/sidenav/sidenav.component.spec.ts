@@ -2,7 +2,11 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatListModule, MatSidenavModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs/internal/observable/of';
+import { createMockHeaderOptions } from '../../../mock/objects/header-options.mock';
 import { createMockSidenavOptions } from '../../../mock/objects/sidenav-options.mock';
+import * as LayoutActions from '../../store/actions/layout.actions';
 import { SidenavComponent } from './sidenav.component';
 
 describe('SidenavComponent', () => {
@@ -37,31 +41,25 @@ describe('SidenavComponent', () => {
   });
 
   it('should emit a selectOption event on click', () => {
-    spyOn(component.selectOption, 'emit');
+    const dispatch = spyOn(TestBed.get(Store), 'dispatch');
     const option = createMockSidenavOptions()[0];
     component.onClick(option);
-    expect(component.selectOption.emit).toHaveBeenCalledWith(option);
+    expect(dispatch).toHaveBeenCalledWith(option.action);
   });
 
   it('should set the sidenav for small screens', () => {
-    spyOn(component.sidenav, 'close');
+    const dispatch = spyOn(TestBed.get(Store), 'dispatch');
     component.setForScreen(true);
     expect(component.mode).toEqual('over');
     expect(component.sidenav.disableClose).toBeFalsy();
-    expect(component.sidenav.close).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(new LayoutActions.SetSidenavOpened(false));
   });
 
   it('should set the sidenav for large screens', () => {
-    spyOn(component.sidenav, 'open');
+    const dispatch = spyOn(TestBed.get(Store), 'dispatch');
     component.setForScreen(false);
     expect(component.mode).toEqual('side');
     expect(component.sidenav.disableClose).toBeTruthy();
-    expect(component.sidenav.open).toHaveBeenCalled();
-  });
-
-  it('should toggle the sidenav', () => {
-    spyOn(component.sidenav, 'toggle');
-    component.toggle();
-    expect(component.sidenav.toggle).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(new LayoutActions.SetSidenavOpened(true));
   });
 });
