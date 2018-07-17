@@ -25,8 +25,13 @@ export class AppUpdateService implements OnDestroy {
       this.snackbarService.updateAvailable()
         .onAction()
         .subscribe(() => {
-          window.location.reload();
+          console.log('test');
+          this.reload();
         });
     });
+  }
+
+  reload(): void {
+    window.location.reload();
   }
 }

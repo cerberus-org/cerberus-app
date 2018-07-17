@@ -33,12 +33,11 @@ describe('BaseService', () => {
         { provide: ErrorService, useClass: MockErrorService },
       ],
     });
-    const testbed = getTestBed();
-    service = testbed.get(BaseService);
+    service = TestBed.get(BaseService);
   });
 
-  it('should be created', inject([BaseService], (baseService: BaseService<any>) => {
-    expect(baseService).toBeTruthy();
+  it('should be created', inject([BaseService], (injected: BaseService<any>) => {
+    expect(injected).toBeTruthy();
   }));
 
   describe('getAll', () => {
