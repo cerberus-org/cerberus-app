@@ -9,6 +9,7 @@
         <app-data-cell
           [column]="column"
           [row]="row"
+          [getFontColor]="getFontColor"
           (selectOption)="onSelectOption($event, row, column.columnDef)"
           (selectedTime)="onSelectTime($event, row, column)">
         </app-data-cell>

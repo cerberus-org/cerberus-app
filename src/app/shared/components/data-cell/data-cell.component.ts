@@ -9,6 +9,7 @@ import { ColumnOptions } from '../../../models';
 export class DataCellComponent implements OnChanges {
   @Input() column: ColumnOptions;
   @Input() row: any;
+  @Input() getFontColor: (any) => string = () => '';
   @Output() selectOption = new EventEmitter<string>();
   @Output() selectedTime = new EventEmitter<string>();
   selected: string;

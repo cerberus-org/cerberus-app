@@ -109,6 +109,12 @@ export class DataTableComponent implements OnInit, OnChanges {
     }
   }
 
+  getFontColor(column: any, row: any): string {
+    if (!column.validator(row)) {
+      return '#ff8984';
+    }
+  }
+
   /**
    * Getter for number of data items in the data source.
    * @returns {number} - the length of the data array in this.dataSource
