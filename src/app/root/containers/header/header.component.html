@@ -1,7 +1,7 @@
 <mat-toolbar *ngIf="(headerState$ | async)" color="primary">
   <button
-    id="back-button"
     *ngIf="(headerState$ | async)?.previousUrl"
+    id="back-button"
     mat-icon-button
     (click)="onBack()"
   >

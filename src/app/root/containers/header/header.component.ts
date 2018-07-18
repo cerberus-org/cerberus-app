@@ -4,8 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { delay } from 'rxjs/operators';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
-import * as LayoutActions from '../../store/actions/layout.actions';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
+import * as LayoutActions from '../../store/actions/layout.actions';
 import * as RouterActions from '../../store/actions/router.actions';
 import { LayoutReducerState } from '../../store/reducers/layout.reducer';
 import { HeaderState, selectHeaderState } from '../../store/selectors/layout.selectors';
@@ -20,7 +20,10 @@ export class HeaderComponent implements OnInit {
   @Input() headerState$: Observable<HeaderState>;
   @Output() buttonClick = new EventEmitter<string>();
 
-  constructor(private store$: Store<LayoutReducerState>, private dialog: MatDialog) {}
+  constructor(
+    private store$: Store<LayoutReducerState>,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.headerState$ = this.store$.pipe(

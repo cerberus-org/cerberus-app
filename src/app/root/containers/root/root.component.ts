@@ -24,8 +24,7 @@ export class RootComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private appUpdateService: AppUpdateService,
     private store$: Store<RootState>,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     // Check if user is logged in to determine if loader should be displayed
