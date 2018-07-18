@@ -1,4 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { UserInfo } from 'firebase';
+import { selectSessionOrganization, selectSessionUserInfo } from '../../../auth/store/selectors/session.selectors';
 import { getFormattedVisits, MEMBER_ROLE_OWNER } from '../../../functions';
 import { Member, Organization, Site, Visit, Volunteer } from '../../../models';
 import { ModelReducerState } from '../reducers/model.reducer';
@@ -39,4 +41,30 @@ export const selectFormattedModelVisits = createSelector(
   selectModelVisits,
   selectModelVolunteers,
   (visits: Visit[], volunteers: Volunteer[]): any[] => getFormattedVisits(visits, volunteers),
+);
+
+export const selectModelLoadingState = createSelector(
+  selectSessionUserInfo,
+  selectSessionOrganization,
+  selectModelSites,
+  selectModelVisits,
+  selectModelVolunteers,
+  (
+    userInfo: UserInfo,
+    organization: Organization,
+    sites: Site[],
+    visits: Visit[],
+    volunteers: Volunteer[],
+  ): boolean => userInfo && organization && (sites === null || visits === null || volunteers === null),
+);
+
+export const selectModelLoadedState = createSelector(
+  selectModelSites,
+  selectModelVisits,
+  selectModelVolunteers,
+  (
+    sites: Site[],
+    visits: Visit[],
+    volunteers: Volunteer[],
+  ): boolean => sites !== null && visits !== null && volunteers !== null,
 );

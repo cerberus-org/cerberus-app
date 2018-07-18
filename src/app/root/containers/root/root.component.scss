@@ -1,24 +1,25 @@
 @import '../../../../../node_modules/@angular/material/theming';
 @import '~styles.scss';
 
-.hg__header { grid-area: header; }
-.hg__main { grid-area: main; }
+.hg__header {
+  grid-area: header;
+}
+
+.hg__main {
+  grid-area: main;
+}
 
 .container {
   display: grid;
-  grid-template-areas:
-  "header"
-  "main";
-  height:100%;
+  grid-template-areas: "header" "main";
+  height: 100%;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
 }
 
 @media screen and (max-width: 600px) {
   .hg {
-    grid-template-areas:
-    "header"
-    "main";
+    grid-template-areas: "header" "main";
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
   }

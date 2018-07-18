@@ -21,7 +21,7 @@ export class MockAuthService extends AuthService {
     return of({ ...createMockUserInfo()[0], email: credentials.email });
   }
 
-  resetPassword(email: string): Observable<{}> {
+  resetPassword(email: string): Observable<void> {
     return of(null);
   }
 
@@ -29,7 +29,7 @@ export class MockAuthService extends AuthService {
     return of(getUserInfoByCredentials(credentials));
   }
 
-  signOut(): Observable<UserInfo> {
+  signOut(): Observable<void> {
     return of(null);
   }
 }

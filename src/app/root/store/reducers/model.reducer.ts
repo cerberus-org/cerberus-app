@@ -11,11 +11,11 @@ export interface ModelReducerState {
 }
 
 export const initialModelReducerState: ModelReducerState = {
-  sites: [],
-  members: [],
-  visits: [],
-  volunteers: [],
-  organizations: [],
+  sites: null,
+  members: null,
+  visits: null,
+  volunteers: null,
+  organizations: null,
 };
 
 export type Action = ModelActions.All;

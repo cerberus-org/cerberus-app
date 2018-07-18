@@ -8,6 +8,7 @@ import { createMockOrganizations } from '../../../mock/objects/organization.mock
 import { createMockUserInfo } from '../../../mock/objects/user.mock';
 import { mockServiceProviders } from '../../../mock/providers.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
+import * as ModelActions from '../../../root/store/actions/model.actions';
 import { SharedModule } from '../../../shared/shared.module';
 import * as SessionActions from '../actions/session.actions';
 import { SessionEffects } from './session.effects';
@@ -36,15 +37,20 @@ describe('SessionEffects', () => {
   describe('loadData$', () => {
     it('should dispatch SessionActions.LoadDataSuccess', (() => {
       const userInfo = createMockUserInfo()[0];
+      const member = createMockMembers()[0];
+      const organization = createMockOrganizations()[0];
       actions = hot('a', {
         a: new SessionActions.LoadData(userInfo),
       });
-      const expected = cold('b', {
+      const expected = cold('(bcde)', {
         b: new SessionActions.LoadDataSuccess({
           userInfo,
-          member: createMockMembers()[0],
-          organization: createMockOrganizations()[0],
+          member,
+          organization,
         }),
+        c: new ModelActions.LoadSites(member.organizationId),
+        d: new ModelActions.LoadVisits(member.organizationId),
+        e: new ModelActions.LoadVolunteers(member.organizationId),
       });
       expect(effects.loadData$).toBeObservable(expected);
     }));
