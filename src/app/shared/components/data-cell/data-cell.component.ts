@@ -10,6 +10,7 @@ export class DataCellComponent implements OnChanges {
   @Input() column: ColumnOptions;
   @Input() row: any;
   @Input() getFontColor: (any) => string = () => '';
+  @Input() isBold: boolean;
   @Output() selectOption = new EventEmitter<string>();
   @Output() selectedTime = new EventEmitter<string>();
   selected: string;

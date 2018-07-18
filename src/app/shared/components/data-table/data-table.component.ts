@@ -115,6 +115,10 @@ export class DataTableComponent implements OnInit, OnChanges {
     }
   }
 
+  getFontWeight(column: any, row: any): string {
+    return column.validator && !column.validator(row) || this.itemsEdited.filter(item => item.id === row.id).length ? 'bold' : '';
+  }
+
   /**
    * Getter for number of data items in the data source.
    * @returns {number} - the length of the data array in this.dataSource

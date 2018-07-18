@@ -10,6 +10,7 @@
           [column]="column"
           [row]="row"
           [getFontColor]="getFontColor"
+          [isBold]="getFontWeight(column, row)"
           (selectOption)="onSelectOption($event, row, column.columnDef)"
           (selectedTime)="onSelectTime($event, row, column)">
         </app-data-cell>
