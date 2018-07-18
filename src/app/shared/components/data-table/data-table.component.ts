@@ -79,6 +79,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Output() timeSelected = new EventEmitter<any>();
   displayedColumns: string[];
   itemsEdited: any[];
+  invalidItemsEdited: any[];
   initialPageSize: number;
   dataSource: DataTableSource;
 
@@ -99,6 +100,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   ngOnInit(): void {
     this.itemsEdited = [];
+    this.invalidItemsEdited = [];
     // Determine initial page size using inner height of window at component init
     const surroundingElementsPx = 224;
     const cellPx = 49;
@@ -157,12 +159,18 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param item
    */
   addItemToItemsEdited(item: any, column: any): void {
-    const index = getIndex(this.itemsEdited, item.id);
-    if (index !== undefined) {
-      this.itemsEdited.splice(index, 1);
+    const itemsEditedIndex = getIndex(this.itemsEdited, item.id);
+    const invalidItemsEditedIndex = getIndex(this.invalidItemsEdited, item.id);
+    if (itemsEditedIndex !== undefined) {
+      this.itemsEdited.splice(itemsEditedIndex, 1);
+    }
+    if (invalidItemsEditedIndex !== undefined) {
+      this.invalidItemsEdited.splice(invalidItemsEditedIndex, 1);
     }
     if (column.validator(item)) {
       this.itemsEdited.push(item);
+    } else {
+      this.invalidItemsEdited.push(item);
     }
   }
 
