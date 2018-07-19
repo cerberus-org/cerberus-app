@@ -43,6 +43,12 @@ input.capitalize {
 }
 
 .button {
+  &.button--large {
+    height: 4rem;
+    width: 20rem;
+    font-size: large;
+  }
+
   &.button--wide {
     width: 10rem;
   }
@@ -87,6 +93,12 @@ input.capitalize {
 .loose {
   margin-top: 1rem;
   grid-row-gap: 1rem;
+}
+
+.container {
+  &.container--row-gap {
+    grid-row-gap: 1rem;
+  }
 }
 
 .text-center {

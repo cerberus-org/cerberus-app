@@ -22,7 +22,7 @@ export class GettingStartedComponent implements OnInit {
     'Getting Started',
     'wb_sunny',
     '/home',
-    true,
+    false,
   );
   @ViewChild('tabGroup') private tabGroup: MatTabGroup;
   userFormTitle: string = 'Create an account to access your organization.';
