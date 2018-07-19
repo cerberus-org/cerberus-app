@@ -111,14 +111,31 @@ export class DataTableComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Determine font color of cell.
+   * If cell is invalid set to red.
+   *
+   * @param column
+   * @param row
+   * @returns {string}
+   */
   getFontColor(column: any, row: any): string {
-    if (!column.validator(row)) {
-      return '#ff8984';
+    if (this.invalidItemsEdited.filter(item => item.id === row.id).length) {
+      return '#f44336';
     }
   }
 
+  /**
+   * Determine font weigth of cell.
+   * If cell is edited set to bold.
+   *
+   * @param column
+   * @param row
+   * @returns {string}
+   */
   getFontWeight(column: any, row: any): string {
-    return column.validator && !column.validator(row) || this.itemsEdited.filter(item => item.id === row.id).length ? 'bold' : '';
+    return (this.invalidItemsEdited.filter(item => item.id === row.id).length ||
+      this.itemsEdited.filter(item => item.id === row.id).length) ? 'bold' : '';
   }
 
   /**
@@ -154,7 +171,8 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Remove pre-existing item if exists and add item to itemsEdited if valid.
+   * Remove pre-existing item if exists and add item to itemsEdited if valid
+   * otherwise add to invalidItemsEdited.
    *
    * @param item
    */
