@@ -35,20 +35,6 @@ export const createMap = (data: any[]): Map<string, any> => {
 };
 
 /**
- * Checks if an array of volunteers have the same full name (case-insensitive).
- *
- * @param volunteers - the list of volunteers
- * @param name - the name used to match
- * @returns {boolean} - true if all volunteers match the name
- */
-export const everyVolunteerMatchesName = (volunteers: Volunteer[], name: string): boolean => {
-  const nameLowerCase = name.toLowerCase();
-  return volunteers.every(volunteer => (
-    getFullName(volunteer).toLowerCase() === nameLowerCase
-  ));
-};
-
-/**
  * Filters an array of objects by a given organization ID.
  *
  * @param {any[]} array - the array to filter
@@ -68,7 +54,7 @@ export const filterByOrganizationId = (array: any[], organizationId: string) => 
  * @param name - the name to filter by
  * @returns {Volunteer[]} - the filtered list of volunteers
  */
-export const filterVolunteersByName = (volunteers: Volunteer[], name: string): Volunteer[] => {
+export const searchVolunteersByName = (volunteers: Volunteer[], name: string): Volunteer[] => {
   const nameLowerCase = name.toLowerCase();
   return volunteers.filter(volunteer => (
     getFullName(volunteer).toLowerCase().includes(nameLowerCase)
@@ -85,34 +71,6 @@ export const filterVolunteersByName = (volunteers: Volunteer[], name: string): V
 export const findActiveVisit = (visits: Visit[], volunteer: Volunteer): Visit => {
   return visits.find(visit => (
     visit.endedAt === null && volunteer.id === visit.volunteerId
-  ));
-};
-
-/**
- * Finds a volunteer by name (case-insensitive).
- *
- * @param volunteers - the list of volunteers
- * @param name - string used to search by name
- * @returns {undefined|Volunteer} - the newVolunteer or undefined if not found
- */
-export const findVolunteerByFullName = (volunteers: Volunteer[], name: string): Volunteer => {
-  const nameLowerCase = name.toLowerCase();
-  return volunteers.find(volunteer => (
-    getFullName(volunteer).toLowerCase() === nameLowerCase
-  ));
-};
-
-/**
- * Finds a volunteer by petName (case-insensitive).
- *
- * @param volunteers - the list of volunteers
- * @param petName - string used to search by petName
- * @returns {undefined|Volunteer} - the newVolunteer or undefined if not found
- */
-export const findVolunteerByPetName = (volunteers: Volunteer[], petName: string): Volunteer => {
-  const petNameLowerCase = petName.toLowerCase();
-  return volunteers.find(volunteer => (
-    volunteer.petName.toLowerCase() === petNameLowerCase
   ));
 };
 

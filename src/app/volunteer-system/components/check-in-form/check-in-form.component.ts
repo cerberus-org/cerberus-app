@@ -11,17 +11,10 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { MatAutocomplete, MatRadioChange } from '@angular/material';
+import { MatAutocomplete, MatAutocompleteSelectedEvent, MatRadioChange } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import {
-  everyVolunteerMatchesName,
-  filterVolunteersByName,
-  findActiveVisit,
-  findVolunteerByFullName,
-  findVolunteerByPetName,
-  getUniqueFullNames,
-} from '../../../functions';
+import { findActiveVisit, getFullName, getUniqueFullNames, searchVolunteersByName } from '../../../functions';
 import { Visit, Volunteer } from '../../../models';
 import { SignatureFieldComponent } from '../signature-field/signature-field.component';
 
@@ -56,9 +49,8 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   nameControlSubscription: Subscription;
   formGroup: FormGroup;
 
-  filteredVolunteers: Volunteer[];
+  matches: Volunteer[] = [];
   autocompleteNames: string[];
-  showPetNameForm: boolean;
   activeVisit: Visit;
   selectedVolunteer: Volunteer;
 
@@ -112,7 +104,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
       );
       this.checkIn.emit(visit);
     }
-    this.ngForm.resetForm();
   }
 
   // Form update flow
@@ -122,38 +113,47 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   resetForm(): void {
     this.selectedVolunteer = null;
+    this.matches = [];
+    this.activeVisit = null;
     this.clearSignature();
     this.formGroup.controls['petName'].updateValueAndValidity();
   }
 
   /**
-   * Updates filtered lists and selected data.
-   * Called in nameValidator because validator executes before formGroup value changes.
-   * @param name - string used to filter volunteers by name
+   * Updates state when the name field is changed.
+   * @param {string} name
    */
   onNameChange(name: string): void {
-    this.resetForm();
-    // Create the list of filtered volunteers by name
-    this.filteredVolunteers = filterVolunteersByName(this.volunteers, name);
-    this.autocompleteNames = getUniqueFullNames(this.filteredVolunteers);
-    // If multiple volunteers all match the name, set to true
-    this.showPetNameForm = this.filteredVolunteers.length > 1
-      && everyVolunteerMatchesName(this.filteredVolunteers, name);
-    // If one newVolunteer remains, select the newVolunteer that exactly matches the name
-    if (!this.showPetNameForm) {
-      this.selectedVolunteer = findVolunteerByFullName(this.filteredVolunteers, name);
+    if (!name) {
+      return;
     }
-    this.activeVisit = this.selectedVolunteer ? findActiveVisit(this.visits, this.selectedVolunteer) : null;
+    this.autocompleteNames = getUniqueFullNames(searchVolunteersByName(this.volunteers, name));
+    this.resetForm();
+  }
+
+  /**
+   * Updates state when a name option is selected.
+   * @param {MatAutocompleteSelectedEvent} event
+   */
+  onNameSelected(event: MatAutocompleteSelectedEvent): void {
+    const name = event.option.value.toLowerCase();
+    this.matches = this.volunteers.filter(volunteer => getFullName(volunteer).toLowerCase() === name);
+    if (this.matches.length === 1) {
+      this.selectedVolunteer = this.matches[0];
+      this.activeVisit = findActiveVisit(this.visits, this.selectedVolunteer);
+    }
     this.formGroup.controls['name'].updateValueAndValidity();
   }
 
   /**
    * Updates state when a pet name is selected.
-   * @param change
+   * @param {MatRadioChange} change
    */
-  onPetNameChange(change: MatRadioChange): void {
-    this.selectedVolunteer = findVolunteerByPetName(this.filteredVolunteers, change.value);
+  onPetNameSelected(change: MatRadioChange): void {
+    this.selectedVolunteer = change.value;
+    this.activeVisit = findActiveVisit(this.visits, this.selectedVolunteer);
     this.formGroup.controls['petName'].updateValueAndValidity();
+    this.clearSignature();
   }
 
   // FormGroup and validators
@@ -163,7 +163,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param control
    */
   nameValidator = (control: AbstractControl): { [key: string]: any } => {
-    return this.selectedVolunteer || this.showPetNameForm ? null : { noMatchByName: { value: control.value } };
+    return !control.value ? { noMatchByName: { value: control.value } } : null;
   }
 
   /**
@@ -171,7 +171,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param control
    */
   petNameValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !this.showPetNameForm || this.selectedVolunteer ? null : { noMatchByPetName: { value: control.value } };
+    return this.petNameIsRequired && !control.value ? { noMatchByPetName: { value: control.value } } : null;
   }
 
   /**
@@ -179,7 +179,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param control
    */
   signatureValidator = (control: AbstractControl): { [key: string]: any } => {
-    return this.activeVisit || control.value ? null : { noSignature: { value: control.value } };
+    return !this.activeVisit && !control.value ? { noSignature: { value: control.value } } : null;
   }
 
   /**
@@ -189,5 +189,9 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     if (this.signatures.first) {
       this.signatures.first.clear();
     }
+  }
+
+  get petNameIsRequired(): boolean {
+    return this.matches && this.matches.length > 1;
   }
 }

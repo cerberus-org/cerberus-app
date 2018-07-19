@@ -71,7 +71,7 @@ describe('CheckInFormComponent', () => {
 
     it('should return a noMatchByName error if newVolunteer is not selected and petName form is not shown', (() => {
       component.selectedVolunteer = null;
-      component.showPetNameForm = false;
+      component.petNameRequired = false;
       const control = component.formGroup.controls['name'];
       expect(control.errors['noMatchByName']).toBeTruthy();
     }));
@@ -84,7 +84,7 @@ describe('CheckInFormComponent', () => {
     }));
 
     it('should be valid (not required) if value is entered and petName form is shown', (() => {
-      component.showPetNameForm = true;
+      component.petNameRequired = true;
       const control = component.formGroup.controls['name'];
       control.setValue('Cerberus');
       expect(control.valid).toBeTruthy();
