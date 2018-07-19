@@ -136,11 +136,10 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param {MatAutocompleteSelectedEvent} event
    */
   onNameSelected(event: MatAutocompleteSelectedEvent): void {
-    const name = event.option.value.toLowerCase();
-    this.matches = this.volunteers.filter(volunteer => getFullName(volunteer).toLowerCase() === name);
+    this.matches = this.volunteers
+      .filter(volunteer => getFullName(volunteer).toLowerCase() === event.option.value.toLowerCase());
     if (this.matches.length === 1) {
-      this.selectedVolunteer = this.matches[0];
-      this.activeVisit = findActiveVisit(this.visits, this.selectedVolunteer);
+      this.selectVolunteer(this.matches[0]);
     }
     this.formGroup.controls['name'].updateValueAndValidity();
   }
@@ -150,11 +149,15 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param {MatRadioChange} change
    */
   onPetNameSelected(change: MatRadioChange): void {
-    this.selectedVolunteer = change.value;
-    this.activeVisit = findActiveVisit(this.visits, this.selectedVolunteer);
+    this.selectVolunteer(change.value);
     this.formGroup.controls['petName'].updateValueAndValidity();
     this.clearSignature();
   }
+
+  selectVolunteer(volunteer): void {
+    this.selectedVolunteer = volunteer;
+    this.activeVisit = findActiveVisit(this.visits, volunteer);
+  };
 
   // FormGroup and validators
 

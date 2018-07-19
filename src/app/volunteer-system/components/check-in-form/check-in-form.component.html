@@ -6,9 +6,10 @@
   <div class="container-center">
     <h2>{{title}}</h2>
   </div>
-  <div class="container-center field-container">
-    <mat-form-field class="input-row">
+  <div class="container-center name-container">
+    <mat-form-field class="name-container__form-field">
       <input
+        class="name-container__input"
         #nameInput
         matInput
         placeholder="Search by name"
@@ -30,20 +31,26 @@
   <!--Show the pet name selection if multiple volunteers have the same name-->
   <div
     *ngIf="petNameIsRequired"
-    class="pets-container container-center"
+    class="pet-name-container"
     [@fadeInTrigger]="fadeInState"
   >
-    <mat-radio-group
-      formControlName="petName"
-      (change)="onPetNameSelected($event)"
-    >
-      <mat-radio-button
-        *ngFor="let volunteer of matches"
-        [value]="volunteer"
+    <div class="container-center">
+      <p>There is more than one volunteer with your name. Help us by selecting your favorite pet's name.</p>
+    </div>
+    <div class="container-center">
+      <mat-radio-group
+        formControlName="petName"
+        (change)="onPetNameSelected($event)"
       >
-        <i class="material-icons">pets</i> {{volunteer.petName}}
-      </mat-radio-button>
-    </mat-radio-group>
+        <mat-radio-button
+          class="button button--margin"
+          *ngFor="let volunteer of matches"
+          [value]="volunteer"
+        >
+          <i class="material-icons">pets</i> {{volunteer.petName}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
   </div>
   <!--Show the next maxVisitedStep when a volunteer has been selected-->
   <ng-container *ngIf="selectedVolunteer">
@@ -54,14 +61,16 @@
       </div>
       <div class="container-center actions-container" [@fadeInTrigger]="fadeInState">
         <button
+          class="button button--wide button--margin"
           mat-raised-button
           color="accent"
           [disabled]="formGroup.invalid"
           (click)="clearSignature()"
         >
-          Clear
+          Clear signature
         </button>
         <button
+          class="button button--wide button--margin"
           matStepperNext
           mat-raised-button
           color="primary"
@@ -73,14 +82,20 @@
     </ng-container>
     <!--Show the check out button if there is currently an active visit-->
     <ng-template #checkOut>
-      <div class="container-center check-out-container" [@fadeInTrigger]="fadeInState">
-        <button
-          matStepperNext
-          mat-raised-button
-          color="primary"
-        >
-          Check out
-        </button>
+      <div class="check-out-container" [@fadeInTrigger]="fadeInState">
+        <div class="container-center">
+          <p>You are currently checked in.</p>
+        </div>
+        <div class="container-center">
+          <button
+            class="button button--wide button--margin"
+            matStepperNext
+            mat-raised-button
+            color="primary"
+          >
+            Check out
+          </button>
+        </div>
       </div>
     </ng-template>
   </ng-container>
