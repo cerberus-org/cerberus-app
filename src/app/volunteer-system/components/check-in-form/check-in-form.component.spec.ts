@@ -32,7 +32,7 @@ describe('CheckInFormComponent', () => {
     fixture = TestBed.createComponent(CheckInFormComponent);
     component = fixture.componentInstance;
     spyOn(component, 'subscribeToForm').and.stub();
-    spyOn(component, 'updateForm').and.stub();
+    spyOn(component, 'onNameChange').and.stub();
     fixture.detectChanges();
   });
 
