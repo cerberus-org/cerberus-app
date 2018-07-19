@@ -9,8 +9,8 @@
         <app-data-cell
           [column]="column"
           [row]="row"
-          [color]="getFontColor(column, row)"
-          [isBold]="getFontWeight(column, row)"
+          [color]="getCellFontColor(row)"
+          [isBold]="getCellFontWeight(row)"
           (selectOption)="onSelectOption($event, row, column.columnDef)"
           (selectedTime)="onSelectTime($event, row, column)">
         </app-data-cell>

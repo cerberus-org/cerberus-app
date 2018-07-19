@@ -119,10 +119,8 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param row
    * @returns {string}
    */
-  getFontColor(column: any, row: any): string {
-    if (this.invalidItemsEdited.filter(item => item.id === row.id).length) {
-      return '#f44336';
-    }
+  getCellFontColor(row: any): string {
+    return this.invalidItemsEdited.filter(item => item.id === row.id).length ? '#f44336' : '';
   }
 
   /**
@@ -133,7 +131,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param row
    * @returns {string}
    */
-  getFontWeight(column: any, row: any): string {
+  getCellFontWeight(row: any): string {
     return (this.invalidItemsEdited.filter(item => item.id === row.id).length ||
       this.itemsEdited.filter(item => item.id === row.id).length) ? 'bold' : '';
   }
@@ -166,8 +164,8 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param value
    * @param item
    */
-  onSelectTime(value, item, column): void {
-    this.addItemToItemsEdited(column.timePicker.updateItemWithTime(value, item), column);
+  onSelectTime(time, row, column): void {
+    this.addItemToItemsEditedOrInvalidItemsEdited(column.timePicker.updateItemWithTime(time, row), column);
   }
 
   /**
@@ -176,7 +174,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    *
    * @param item
    */
-  addItemToItemsEdited(item: any, column: any): void {
+  addItemToItemsEditedOrInvalidItemsEdited(item: any, column: any): void {
     const itemsEditedIndex = getIndex(this.itemsEdited, item.id);
     const invalidItemsEditedIndex = getIndex(this.invalidItemsEdited, item.id);
     if (itemsEditedIndex !== undefined) {
