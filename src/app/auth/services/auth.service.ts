@@ -44,7 +44,7 @@ export class AuthService {
       );
   }
 
-  resetPassword(email: string): Observable<{}> {
+  resetPassword(email: string): Observable<void> {
     // Do not handle Firebase error for security purposes.
     // We do not want the user to know if any email does or does not exist.
     return from(this.afAuth.auth.sendPasswordResetEmail(email));
@@ -94,7 +94,7 @@ export class AuthService {
     return this.afAuth.authState.pipe(map(auth => !!auth));
   }
 
-  signOut(): Observable<UserInfo> {
+  signOut(): Observable<void> {
     return from(this.afAuth.auth.signOut());
   }
 

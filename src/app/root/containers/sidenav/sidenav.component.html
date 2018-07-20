@@ -1,9 +1,13 @@
 <mat-sidenav-container class="container" [autosize]="true">
-  <mat-sidenav [mode]="mode">
+  <mat-sidenav
+    [mode]="mode"
+    [opened]="(sidenavState$ | async)?.opened"
+  >
     <mat-nav-list>
       <mat-list-item
-        *ngFor="let option of sidenavOptions; let i = index"
-        (click)="onClick(i)">
+        *ngFor="let option of (sidenavState$ | async)?.options;"
+        (click)="onClick(option)"
+      >
         <i class="material-icons" *ngIf="option.icon">{{option.icon}}</i>
         {{option.label}}
       </mat-list-item>

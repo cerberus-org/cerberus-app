@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { MemberService } from '../../../data/services/member.service';
 import { OrganizationService } from '../../../data/services/organization.service';
+import * as ModelActions from '../../../root/store/actions/model.actions';
 import * as SessionActions from '../actions/session.actions';
 
 @Injectable()
@@ -20,11 +21,17 @@ export class SessionEffects {
           switchMap(([member]) => {
             return this.organizationService.getById(member.organizationId)
               .pipe(
-                map(organization => new SessionActions.LoadDataSuccess({
-                  member,
-                  userInfo,
-                  organization: { ...organization, id: member.organizationId },
-                })),
+                switchMap(organization => [
+                  new SessionActions.LoadDataSuccess({
+                    member,
+                    userInfo,
+                    organization: { ...organization, id: member.organizationId },
+                  }),
+                  // Load model data
+                  new ModelActions.LoadSites(member.organizationId),
+                  new ModelActions.LoadVisits(member.organizationId),
+                  new ModelActions.LoadVolunteers(member.organizationId),
+                ]),
               );
           })),
       ),

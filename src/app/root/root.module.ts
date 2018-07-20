@@ -11,6 +11,7 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
@@ -25,10 +26,10 @@ import { SettingsModule } from '../settings/settings.module';
 import { SharedModule } from '../shared/shared.module';
 import { SignUpModule } from '../sign-up/sign-up.module';
 import { VolunteerSystemModule } from '../volunteer-system/volunteer-system.module';
-import { HeaderComponent } from './components/header/header.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { HeaderComponent } from './containers/header/header.component';
 import { RootComponent } from './containers/root/root.component';
+import { SidenavComponent } from './containers/sidenav/sidenav.component';
 import { routes } from './root.routes';
 import { rootEffects } from './store/effects';
 import { rootReducers } from './store/reducers';
@@ -36,6 +37,7 @@ import { rootReducers } from './store/reducers';
 @NgModule({
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
+    ServiceWorkerModule.register('/ngsw-worker.js'),
     RouterModule.forRoot(routes),
     StoreModule.forRoot(rootReducers),
     EffectsModule.forRoot(rootEffects),

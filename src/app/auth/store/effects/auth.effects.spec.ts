@@ -66,7 +66,7 @@ describe('AuthEffects', () => {
   describe('verifyPassword$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.VerifyPassword({ email: '', password: '' }),
+        a: new AuthActions.VerifyPassword(''),
       });
     }));
 

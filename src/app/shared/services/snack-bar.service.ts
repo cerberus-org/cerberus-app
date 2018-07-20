@@ -1,68 +1,73 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, SimpleSnackBar } from '@angular/material';
+import { MatSnackBarRef } from '@angular/material/snack-bar/typings/snack-bar-ref';
 
 @Injectable()
 export class SnackBarService {
 
   constructor(private snackBar: MatSnackBar) { }
 
-  open(message: string): void {
-    this.snackBar.open(message, '', { duration: 3000 });
+  open(message: string, action: string = '', duration: number = 5000): MatSnackBarRef<SimpleSnackBar> {
+    return this.snackBar.open(message, action, { duration });
   }
 
-  signInSuccess(name: string): void {
-    this.open(`Welcome, ${name}.`);
+  signInSuccess(name: string): MatSnackBarRef<SimpleSnackBar> {
+    return this.open(`Welcome, ${name}.`);
   }
 
-  signOutSuccess(): void {
-    this.open('You have been successfully logged out.');
+  signOutSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('You have been successfully logged out.');
   }
 
-  createOrganizationSuccess(): void {
-    this.open('Your organization was successfully added.');
+  createOrganizationSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Your organization was successfully added.');
   }
 
-  signUpSuccess(): void {
-    this.open('Volunteer successfully signed up.');
+  signUpSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Volunteer successfully signed up.');
   }
 
-  updateUserSuccess(): void {
-    this.open('Member information successfully updated.');
+  updateUserSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Member information successfully updated.');
   }
 
-  updateVisitsSuccess(): void {
-    this.open('Visits were successfully updated');
+  updateVisitsSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Visits were successfully updated');
   }
 
-  updateOrganizationSuccess(): void {
-    this.open('Organization information successfully updated.');
+  updateOrganizationSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Organization information successfully updated.');
   }
 
-  checkInSuccess(): void {
-    this.open('Volunteer successfully checked in.');
+  checkInSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Volunteer successfully checked in.');
   }
 
-  checkOutSuccess(): void {
-    this.open('Volunteer successfully checked out.');
+  checkOutSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Volunteer successfully checked out.');
   }
 
-  joinOrganizationSuccess(): void {
-    this.open('Successfully requested to join an organization.');
+  joinOrganizationSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Successfully requested to join an organization.');
   }
 
-  invalidOrganization(): void {
-    this.open('Invalid organization.');
+  invalidOrganization(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Invalid organization.');
   }
 
-  accountNotVerified(): void {
-    this.open('Your account has not been verified yet.');
+  accountNotVerified(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Your account has not been verified yet.');
   }
 
-  resetPassword(): void {
-    this.open('If your email is associated with an organization, you will receive an email.');
+  resetPassword(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('If your email is associated with an organization, you will receive an email.');
   }
 
-  signInError(): void {
-    this.open('Unsuccessful login.');
+  signInError(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Unsuccessful login.');
+  }
+
+  updateAvailable(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('A new version of Cerberus is available.', 'Reload', 10000);
   }
 }

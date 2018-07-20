@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { MemberService } from '../../../data/services/member.service';
 import { Credentials } from '../../../models/credentials';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { AuthService } from '../../services/auth.service';
 import * as AuthActions from '../actions/auth.actions';
+import { SessionReducerState } from '../reducers/session.reducer';
+import { selectSessionUserInfo } from '../selectors/session.selectors';
 
 @Injectable()
 export class AuthEffects {
@@ -49,7 +51,8 @@ export class AuthEffects {
     .ofType(AuthActions.VERIFY_PASSWORD)
     .pipe(
       map((action: AuthActions.VerifyPassword) => action.payload),
-      switchMap((credentials: Credentials) => this.authService.signIn(credentials)
+      withLatestFrom(this.store$.pipe(select(selectSessionUserInfo))),
+      switchMap(([password, { email }]) => this.authService.signIn({ password, email })
         .pipe(
           map(() => {
             this.authService.setPwdVerification(true);
@@ -82,7 +85,7 @@ export class AuthEffects {
    * @type {Observable<any>}
    */
   @Effect({ dispatch: false })
-  resetPassword$: Observable<{}> = this.actions
+  resetPassword$: Observable<void> = this.actions
     .ofType(AuthActions.RESET_PASSWORD)
     .pipe(
       map((action: AuthActions.ResetPassword) => action.payload),
@@ -95,6 +98,7 @@ export class AuthEffects {
     );
 
   constructor(
+    private store$: Store<SessionReducerState>,
     private actions: Actions,
     private authService: AuthService,
     private memberService: MemberService,

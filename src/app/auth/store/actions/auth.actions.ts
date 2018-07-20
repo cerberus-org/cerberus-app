@@ -19,7 +19,7 @@ export class SignOut implements Action {
 export class VerifyPassword implements Action {
   readonly type = VERIFY_PASSWORD;
 
-  constructor(public payload: Credentials) {}
+  constructor(public payload: string) {}
 }
 
 export class ResetPassword implements Action {

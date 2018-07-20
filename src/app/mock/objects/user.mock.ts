@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-export const mockUsers: any[] = [
+export const mockUserInfo: any[] = [
   {
     uid: 'Fc59YPNibdPXlIjdRuBRIrizClI2',
     email: 'tlmader.dev@gmail.com',
@@ -15,4 +15,4 @@ export const mockUsers: any[] = [
   },
 ];
 
-export const createMockUserInfo = (users = mockUsers): any[] => _.cloneDeep(users);
+export const createMockUserInfo = (users = mockUserInfo): any[] => _.cloneDeep(users);

@@ -18,7 +18,7 @@ export const selectOrganizationDashboardHeaderOptions = createSelector(
 
 export const selectOrganizationDashboardSidenavOptions = createSelector(
   selectModelSites,
-  (sites: Site[]): SidenavOptions[] => sites.reduce(
+  (sites: Site[]): SidenavOptions[] => sites && sites.reduce(
     (options, site) =>
       [
         ...options,

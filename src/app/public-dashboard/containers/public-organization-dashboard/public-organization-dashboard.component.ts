@@ -14,8 +14,8 @@ import { ErrorService } from '../../../shared/services/error.service';
   styleUrls: ['./public-organization-dashboard.component.scss'],
 })
 export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
-  private organization: Organization;
-  private visits$: Observable<Visit[]>;
+  organization: Organization;
+  visits$: Observable<Visit[]>;
   showNotFound: boolean;
   subscription: Subscription;
 

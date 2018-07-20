@@ -30,7 +30,7 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
   constructor(private data$: Observable<any[]>, private paginator: MatPaginator) {
     super();
     if (this.data$) {
-      this.subscription = this.data$.subscribe(data => this.data = data);
+      this.subscription = this.data$.subscribe(data => this.data = data || []);
     }
   }
 
