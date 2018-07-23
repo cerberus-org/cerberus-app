@@ -44,13 +44,13 @@ describe('HomeComponent', () => {
   });
 
   it('should handle validInput events by setting findOrganizationValue', () => {
-    component.onValidInput(mockOrganizations[0].name);
-    expect(component.findOrganizationValue).toEqual(mockOrganizations[0].name);
+    component.onValidOrganization(mockOrganizations[0]);
+    expect(component.organization).toEqual(mockOrganizations[0]);
   });
 
   it('should handle onLiveData events by dispatching RouterActions.Go', () => {
     spyOn(component.store$, 'dispatch');
-    component.onInputIconButtonClick(mockOrganizations[0].name);
+    component.onInputIconButtonClick(mockOrganizations[0]);
     expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/public-dashboard/' + mockOrganizations[0].name] }));
   });
