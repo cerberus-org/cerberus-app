@@ -6,7 +6,7 @@
   width: 100%;
   overflow-y: auto;
   display: grid;
-  grid-template-rows: auto $mat-paginator-height;
+  grid-template-rows: $mat-tab-bar-height auto $mat-paginator-height;
 
   .cdk-column-delete {
     max-width: 2.5rem;
@@ -16,7 +16,7 @@
 .container-header {
   display: flex;
   background-color: whitesmoke;
-  border-bottom-style: inset;
+  border-bottom-style: solid;
   border-bottom-width: .5px;
   border-bottom-color: rgba(0,0,0,.12);
 }

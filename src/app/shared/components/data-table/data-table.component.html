@@ -1,7 +1,7 @@
-<mat-toolbar class="container-header" *ngIf="isEditable">
-  <button mat-button class="container-header__button" [disabled]="itemsEdited.length === 0 || invalidItemsEdited.length !== 0" color="accent" (click)="onUpdateItems(itemsEdited)">Save</button>
-</mat-toolbar>
 <div class="container">
+  <mat-toolbar class="container-header" *ngIf="isEditable">
+    <button mat-button class="container-header__button" [disabled]="itemsEdited.length === 0 || invalidItemsEdited.length !== 0" color="accent" (click)="onUpdateItems(itemsEdited)">Save</button>
+  </mat-toolbar>
   <mat-table #table [dataSource]="dataSource">
     <!--Table with no delete option-->
     <ng-container *ngFor="let column of columnOptions" [cdkColumnDef]="column.columnDef">
