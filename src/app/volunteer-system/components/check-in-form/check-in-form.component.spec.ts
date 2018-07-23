@@ -113,6 +113,30 @@ describe('CheckInFormComponent', () => {
     expect(component.activeVisit).toEqual(visits[3]);
   }));
 
+  it('should clear the signature', async(() => {
+    fixture.detectChanges();
+    const reset = spyOn(component.formGroup.controls['signature'], 'reset');
+    component.clearSignature();
+    expect(reset).toHaveBeenCalled();
+  }));
+
+  it('should emit a checkIn event on submit if there is no active visit and a volunteer is selected', () => {
+    fixture.detectChanges();
+    component.formGroup.controls['signature'].setValue(null);
+    spyOn(component.checkIn, 'emit');
+    component.selectedVolunteer = mockVolunteers[0];
+    component.submit();
+    expect(component.checkIn.emit).toHaveBeenCalled();
+  });
+
+  it('should emit a checkOut event on submit if there is an active visit', () => {
+    spyOn(component.checkOut, 'emit');
+    component.selectedVolunteer = mockVolunteers[0];
+    component.activeVisit = mockVisits[0];
+    component.submit();
+    expect(component.checkOut.emit).toHaveBeenCalled();
+  });
+
   describe('name control', () => {
     let nameControl: AbstractControl;
 
@@ -178,22 +202,5 @@ describe('CheckInFormComponent', () => {
       component.activeVisit = createMockVisits()[0];
       expect(signatureControl.errors['signatureRequired']).toBeTruthy();
     }));
-  });
-
-  describe('submit', () => {
-    it('should emit a checkIn event on submit if there is no active visit and a volunteer is selected', () => {
-      spyOn(component.checkIn, 'emit');
-      component.selectedVolunteer = mockVolunteers[0];
-      component.submit();
-      expect(component.checkIn.emit).toHaveBeenCalled();
-    });
-
-    it('should emit a checkOut event on submit if there is an active visit', () => {
-      spyOn(component.checkOut, 'emit');
-      component.selectedVolunteer = mockVolunteers[0];
-      component.activeVisit = mockVisits[0];
-      component.submit();
-      expect(component.checkOut.emit).toHaveBeenCalled();
-    });
   });
 });

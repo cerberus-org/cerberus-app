@@ -30,15 +30,11 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   @Input() visits: Visit[];
   @Input() volunteers: Volunteer[];
   @Input() title: string;
-
   @Output() checkIn = new EventEmitter<Visit>();
   @Output() checkOut = new EventEmitter<Visit>();
 
-  @ViewChild(SignatureFieldComponent) signatureField: SignatureFieldComponent;
-
   nameControlSubscription: Subscription;
   formGroup: FormGroup;
-
   matches: Volunteer[] = [];
   autocompleteNames: string[];
   activeVisit: Visit = null;
@@ -52,7 +48,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
       petName: ['', this.petNameValidator],
-      signature: ['', this.signatureValidator],
+      signature: [[], this.signatureValidator],
     });
     this.nameControlSubscription = this.subscribeToNameChanges(this.formGroup.controls['name'].valueChanges);
   }
@@ -76,9 +72,6 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * emits the onCheckIn or onCheckOut events, then resets the form.
    */
   submit(): void {
-    if (!this.selectedVolunteer) {
-      return;
-    }
     if (this.activeVisit) {
       const visit = { ...this.activeVisit, endedAt: new Date() };
       this.checkOut.emit(visit);
@@ -89,7 +82,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
         new Date(),
         null,
         'America/Chicago',
-        this.signatureField ? this.signatureField.signature : null,
+        this.formGroup.controls['signature'].value,
       );
       this.checkIn.emit(visit);
     }
@@ -168,9 +161,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * Clears the signature.
    */
   clearSignature(): void {
-    if (this.signatureField) {
-      this.signatureField.clear();
-    }
+    this.formGroup.controls['signature'].reset();
   }
 
   get petNameIsRequired(): boolean {
