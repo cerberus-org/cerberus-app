@@ -68,8 +68,8 @@ export class VisitsComponent implements OnInit {
     this.state$ = this.store$.pipe(select(selectVisitWithVolunteers));
   }
 
-  onUpdateVisits(visits: Visit[]) {
-    this.store$.dispatch(new SettingsActions.UpdateVisits(visits));
+  onUpdateVisits(visits: VisitWithVolunteer[]) {
+    this.store$.dispatch(new SettingsActions.UpdateVisits(visits.filter(visit => delete visit.volunteer)));
   }
 
   get visitsWithVolunteers$() {
