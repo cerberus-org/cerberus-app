@@ -9,6 +9,7 @@
   <div class="container-center name-container">
     <mat-form-field class="name-container__form-field">
       <input
+        id="name-input"
         class="name-container__input"
         #nameInput
         matInput
@@ -17,7 +18,7 @@
         formControlName="name"
       >
     </mat-form-field>
-    <mat-autocomplete (optionSelected)="onNameSelected($event)">
+    <mat-autocomplete (optionSelected)="onNameSelected($event)" #autocomplete>
       <mat-optgroup [label]="'Please select your name below.'">
         <mat-option
           *ngFor="let name of autocompleteNames"
@@ -39,6 +40,7 @@
     </div>
     <div class="container-center">
       <mat-radio-group
+        id="pet-name-radio-group"
         formControlName="petName"
         (change)="onPetNameSelected($event)"
       >
@@ -55,7 +57,7 @@
   <!--Show the next maxVisitedStep when a volunteer has been selected-->
   <ng-container *ngIf="selectedVolunteer">
     <!--If volunteer has been selected, show the signature and button group-->
-    <ng-container *ngIf="!activeVisit; else checkOut">
+    <ng-container *ngIf="signatureIsRequired; else checkOut">
       <div class="container-center" [@fadeInTrigger]="fadeInState">
         <app-signature-field formControlName="signature"></app-signature-field>
       </div>

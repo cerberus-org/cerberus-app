@@ -1,18 +1,9 @@
 import { animate, state as animationsState, style, transition, trigger } from '@angular/animations';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  QueryList,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteSelectedEvent, MatRadioChange } from '@angular/material';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatAutocompleteSelectedEvent, MatRadioChange } from '@angular/material';
 import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs/index';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { findActiveVisit, getFullName, getUniqueFullNames, searchVolunteersByName } from '../../../functions';
 import { Visit, Volunteer } from '../../../models';
@@ -39,47 +30,45 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
   @Input() visits: Visit[];
   @Input() volunteers: Volunteer[];
   @Input() title: string;
+
   @Output() checkIn = new EventEmitter<Visit>();
   @Output() checkOut = new EventEmitter<Visit>();
 
-  @ViewChild(FormGroupDirective) ngForm: FormGroupDirective;
-  @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
-  @ViewChildren(SignatureFieldComponent) signatures: QueryList<SignatureFieldComponent>;
+  @ViewChild(SignatureFieldComponent) signatureField: SignatureFieldComponent;
 
   nameControlSubscription: Subscription;
   formGroup: FormGroup;
 
   matches: Volunteer[] = [];
   autocompleteNames: string[];
-  activeVisit: Visit;
-  selectedVolunteer: Volunteer;
+  activeVisit: Visit = null;
+  selectedVolunteer: Volunteer = null;
 
   fadeInState: string;
 
-  /**
-   * Creates the form group and subscribes on construction.
-   */
-  constructor(private fb: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.activeVisit = null;
-    this.selectedVolunteer = null;
-    this.formGroup = this.fb.group({
-      name: ['', [Validators.required, this.nameValidator]],
+    this.formGroup = this.formBuilder.group({
+      name: ['', Validators.required],
       petName: ['', this.petNameValidator],
       signature: ['', this.signatureValidator],
     });
-    this.nameControlSubscription = this.formGroup.controls['name'].valueChanges
-      .pipe(distinctUntilChanged())
-      .subscribe((value) => {
-        this.onNameChange(value);
-      });
+    this.nameControlSubscription = this.subscribeToNameChanges(this.formGroup.controls['name'].valueChanges);
   }
 
   ngOnDestroy(): void {
     if (this.nameControlSubscription) {
       this.nameControlSubscription.unsubscribe();
     }
+  }
+
+  subscribeToNameChanges(valueChanges$: Observable<string>): Subscription {
+    return valueChanges$
+      .pipe(distinctUntilChanged())
+      .subscribe((value) => {
+        this.onNameChange(value);
+      });
   }
 
   /**
@@ -100,7 +89,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
         new Date(),
         null,
         'America/Chicago',
-        this.signatures.first ? this.signatures.first.signature : null,
+        this.signatureField ? this.signatureField.signature : null,
       );
       this.checkIn.emit(visit);
     }
@@ -112,9 +101,9 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * Resets the form state.
    */
   resetForm(): void {
+    this.activeVisit = null;
     this.selectedVolunteer = null;
     this.matches = [];
-    this.activeVisit = null;
     this.clearSignature();
     this.formGroup.controls['petName'].updateValueAndValidity();
   }
@@ -150,23 +139,13 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   onPetNameSelected(change: MatRadioChange): void {
     this.selectVolunteer(change.value);
-    this.formGroup.controls['petName'].updateValueAndValidity();
     this.clearSignature();
+    this.formGroup.controls['petName'].updateValueAndValidity();
   }
 
   selectVolunteer(volunteer): void {
     this.selectedVolunteer = volunteer;
     this.activeVisit = findActiveVisit(this.visits, volunteer);
-  };
-
-  // FormGroup and validators
-
-  /**
-   * Validates if a matching newVolunteer is found by name (control.value).
-   * @param control
-   */
-  nameValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !control.value ? { noMatchByName: { value: control.value } } : null;
   }
 
   /**
@@ -174,7 +153,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param control
    */
   petNameValidator = (control: AbstractControl): { [key: string]: any } => {
-    return this.petNameIsRequired && !control.value ? { noMatchByPetName: { value: control.value } } : null;
+    return this.petNameIsRequired && !control.value ? { petNameRequired: { value: control.value } } : null;
   }
 
   /**
@@ -182,19 +161,23 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param control
    */
   signatureValidator = (control: AbstractControl): { [key: string]: any } => {
-    return !this.activeVisit && !control.value ? { noSignature: { value: control.value } } : null;
+    return this.signatureIsRequired && !control.value ? { signatureRequired: { value: control.value } } : null;
   }
 
   /**
    * Clears the signature.
    */
   clearSignature(): void {
-    if (this.signatures.first) {
-      this.signatures.first.clear();
+    if (this.signatureField) {
+      this.signatureField.clear();
     }
   }
 
   get petNameIsRequired(): boolean {
     return this.matches && this.matches.length > 1;
+  }
+
+  get signatureIsRequired(): boolean {
+    return !this.activeVisit;
   }
 }
