@@ -1,5 +1,5 @@
 import { createMockVisits } from '../mock/objects/visit.mock';
-import { convertToTimeString, formatDuration, formatTime } from './date-format.functions';
+import { convertToTimeString, formatDuration, formatTime, formatTimeInputValue } from './date-format.functions';
 
 describe('date-format.functions', () => {
   describe('formatTime', () => {
@@ -31,6 +31,11 @@ describe('date-format.functions', () => {
     it('should return empty string', () => {
       const time = convertToTimeString(null);
       expect(time).toEqual('');
+    });
+
+    it('should get time given date when formatTimeInputValue is called', () => {
+      const visit = createMockVisits()[0];
+      expect(formatTimeInputValue(visit.endedAt)).toEqual('09:45');
     });
   });
 });

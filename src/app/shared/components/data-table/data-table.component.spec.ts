@@ -139,4 +139,15 @@ describe('DataTableComponent', () => {
       expect(component.itemsEdited.length).toEqual(1);
     },
   );
+
+  it(
+    'should remove pre-exiting invalid item from invalidItemsEdited and add most recent invalid item to invalidItemsEdited when addItemToItemsEditedOrInvalidItemsEdited is called',
+    () => {
+      component.invalidItemsEdited = [visits[0]];
+      const mostRecentlyUpdatedItem = Object.assign({}, visits[0], { endedAt: updateDateWithTimeInput('3:00', visits[0].endedAt) });
+      component.addItemToItemsEditedOrInvalidItemsEdited(mostRecentlyUpdatedItem, { validator: (item) => { return false; } });
+      expect(component.invalidItemsEdited[0]).toEqual(mostRecentlyUpdatedItem);
+      expect(component.invalidItemsEdited.length).toEqual(1);
+    },
+  );
 });
