@@ -13,6 +13,14 @@
   }
 }
 
-.update-button {
-  margin-left: calc(100vh - 85vh)
+.container-header {
+  display: flex;
+  background-color: whitesmoke;
+  border-bottom-style: inset;
+  border-bottom-width: .5px;
+  border-bottom-color: rgba(0,0,0,.12);
+}
+
+.container-header__button {
+  height: 70%;
 }

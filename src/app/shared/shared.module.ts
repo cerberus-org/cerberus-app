@@ -13,7 +13,7 @@ import {
   MatPaginatorModule,
   MatSelectModule,
   MatTableModule,
-  MatTabsModule,
+  MatTabsModule, MatToolbar, MatToolbarModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
@@ -60,6 +60,7 @@ import { SnackBarService } from './services/snack-bar.service';
     MatSelectModule,
     MatTableModule,
     MatTabsModule,
+    MatToolbarModule,
     ReactiveFormsModule,
   ],
   entryComponents: [

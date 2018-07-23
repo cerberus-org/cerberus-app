@@ -1,6 +1,9 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatIconModule, MatListModule, MatPaginatorModule, MatTableModule } from '@angular/material';
+import {
+  MatIconModule, MatListModule, MatPaginatorModule, MatTableModule, MatToolbar,
+  MatToolbarModule,
+} from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs';
@@ -10,7 +13,7 @@ import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { Visit } from '../../../models';
 import { DataTableComponent, DataTableSource } from './data-table.component';
 
-fdescribe('DataTableComponent', () => {
+describe('DataTableComponent', () => {
   let component: DataTableComponent;
   let fixture: ComponentFixture<DataTableComponent>;
   let visits: Visit[];
@@ -23,6 +26,7 @@ fdescribe('DataTableComponent', () => {
         MatListModule,
         MatPaginatorModule,
         MatTableModule,
+        MatToolbarModule,
         NoopAnimationsModule,
       ],
       declarations: [
@@ -135,12 +139,4 @@ fdescribe('DataTableComponent', () => {
       expect(component.itemsEdited.length).toEqual(1);
     },
   );
-
-  it('should display update button', () => {
-    expect(component.displayUpdateButton('b', ['a', 'b'], true)).toBe(true);
-  });
-
-  it('should not display update button', () => {
-    expect(component.displayUpdateButton('a', ['a', 'b'], false)).toBe(false);
-  });
 });

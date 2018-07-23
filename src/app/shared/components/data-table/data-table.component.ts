@@ -201,19 +201,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Display update button if it is the last column option and isEditable is false.
-   *
-   * @param columnHeader
-   * @param columnOptions
-   * @param isEditable
-   * @returns {boolean | boolean}
-   */
-  displayUpdateButton(column, columnOptions, isEditable) {
-    return column === columnOptions[columnOptions.length - 1]
-    && isEditable ? true : false;
-  }
-
-  /**
    * Handles select option events by emitting the item modified with the selected option.
    * @param value - the value to apply
    * @param item - the table item to modify
