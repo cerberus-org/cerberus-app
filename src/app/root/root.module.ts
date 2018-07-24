@@ -26,7 +26,7 @@ import { SettingsModule } from '../settings/settings.module';
 import { SharedModule } from '../shared/shared.module';
 import { SignUpModule } from '../sign-up/sign-up.module';
 import { VolunteerSystemModule } from '../volunteer-system/volunteer-system.module';
-import { LoaderComponent } from './components/loader/loader.component';
+import { LoaderComponent } from '../shared/components/loader/loader.component';
 import { HeaderComponent } from './containers/header/header.component';
 import { RootComponent } from './containers/root/root.component';
 import { SidenavComponent } from './containers/sidenav/sidenav.component';
@@ -46,7 +46,6 @@ import { rootReducers } from './store/reducers';
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MatProgressSpinnerModule,
     MatSidenavModule,
     MatSnackBarModule,
     MatToolbarModule,
@@ -65,7 +64,6 @@ import { rootReducers } from './store/reducers';
     RootComponent,
     HeaderComponent,
     SidenavComponent,
-    LoaderComponent,
   ],
   providers: [],
   bootstrap: [RootComponent],
