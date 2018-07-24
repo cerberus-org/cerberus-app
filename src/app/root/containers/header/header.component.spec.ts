@@ -41,7 +41,7 @@ describe('HeaderComponent', () => {
   it('should select the header state', async(() => {
     component.headerState$.subscribe((value) => {
       expect(value).toEqual({
-        ...createMockHeaderOptions()[0],
+        options: createMockHeaderOptions()[0],
         showLogOut: true,
         showToggleSidenav: true,
       });

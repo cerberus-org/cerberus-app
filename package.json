@@ -5,12 +5,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:prod": "ng serve --prod",
-    "build:dev": "ng build --prod -c dev",
-    "build:staging": "ng build --prod -c staging",
-    "build:prod": "ng build --prod",
+    "start:prod": "ng serve -c production --aot",
+    "build:dev": "ng build -c dev --aot --no-progress",
+    "build:staging": "ng build -c staging --aot --no-progress ",
+    "build:prod": "ng build -c production --aot --no-progress",
     "test": "ng test --source-map=false",
-    "test:ci": "ng test --watch=false --code-coverage",
+    "test:ci": "ng test --watch=false --code-coverage --no-progress",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

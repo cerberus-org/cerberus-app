@@ -11,7 +11,7 @@ export const mockVolunteers: Volunteer[] = [{
   id: '5961327dfba1ca1b64b8945b',
   organizationId: '59a7055733bfe28af47cff40',
   firstName: 'Hillary',
-  lastName: 'Arurang',
+  lastName: 'Lynn',
   petName: 'Bandit',
 }, {
   id: '5961327dfba1ca1b64b8945c',

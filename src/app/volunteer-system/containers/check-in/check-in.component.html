@@ -1,40 +1,54 @@
-<div class="container">
-  <mat-horizontal-stepper #stepper>
-    <!--Is existing volunteer-->
-    <mat-step>
-      <ng-template matStepLabel>Start here</ng-template>
-      <div class="container-center loose start-container">
-        <button on-click="onIsExistingVolunteer(false)" mat-raised-button color="accent">I am a new volunteer.</button>
-        <button on-click="onIsExistingVolunteer(true)" mat-raised-button color="accent">I am an existing volunteer.</button>
+<mat-horizontal-stepper #stepper>
+  <!--Is existing volunteer-->
+  <mat-step>
+    <ng-template matStepLabel>Start here</ng-template>
+    <div class="start-container">
+      <div class="container-center">
+        <button
+          class="button button--large button--margin"
+          color="accent"
+          mat-stroked-button
+          (click)="onIsExistingVolunteer(false)"
+        >
+          I am a new volunteer.
+        </button>
+        <button
+          class="button button--large button--margin"
+          color="accent"
+          mat-stroked-button
+          (click)="onIsExistingVolunteer(true)"
+        >
+          I am an existing volunteer.
+        </button>
       </div>
-    </mat-step>
-    <!--New volunteer form-->
-    <mat-step>
-      <ng-template matStepLabel>New volunteer</ng-template>
-      <div>
-        <app-new-volunteer-form
-          (newVolunteer)="onNewVolunteer($event)">
-        </app-new-volunteer-form>
-      </div>
-    </mat-step>
-    <!--Check in/out form-->
-    <mat-step>
-      <ng-template matStepLabel>{{checkInOutStepperTitle}}</ng-template>
-      <div>
-        <app-check-in-form
-          [title]="checkInOutFormTitle"
-          [siteId]="siteId"
-          [visits]="(state$ | async)?.visits"
-          [volunteers]="(state$ | async)?.volunteers"
-          (checkIn)="onCheckIn($event)"
-          (checkOut)="onCheckOut($event)">
-        </app-check-in-form>
-      </div>
-    </mat-step>
-  </mat-horizontal-stepper>
-  <div class="container__policy-button">
-    <button mat-fab on-click="openServicesAgreementDialog()">
-      <mat-icon>library_books</mat-icon>
-    </button>
-  </div>
+    </div>
+  </mat-step>
+  <!--New volunteer form-->
+  <mat-step>
+    <ng-template matStepLabel>New volunteer</ng-template>
+    <div>
+      <app-new-volunteer-form
+        (newVolunteer)="onNewVolunteer($event)">
+      </app-new-volunteer-form>
+    </div>
+  </mat-step>
+  <!--Check in/out form-->
+  <mat-step>
+    <ng-template matStepLabel>{{checkInOutStepperTitle}}</ng-template>
+    <div>
+      <app-check-in-form
+        [title]="checkInOutFormTitle"
+        [siteId]="siteId"
+        [visits]="(state$ | async)?.visits"
+        [volunteers]="(state$ | async)?.volunteers"
+        (checkIn)="onCheckIn($event)"
+        (checkOut)="onCheckOut($event)">
+      </app-check-in-form>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+<div class="container__policy-button">
+  <button mat-fab on-click="openServicesAgreementDialog()">
+    <mat-icon>library_books</mat-icon>
+  </button>
 </div>

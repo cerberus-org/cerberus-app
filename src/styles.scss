@@ -19,8 +19,7 @@ html, body {
 
 h1, h2, h3, h4 {
   margin: 1rem;
-  font-weight: lighter;
-  letter-spacing: 1px;
+  font-weight: 400;
 }
 
 .center-text {
@@ -32,8 +31,7 @@ h1, h2, h3, h4 {
 
 p {
   margin: 1rem;
-  font-weight: 200;
-  letter-spacing: 1px;
+  font-weight: 400;
 }
 
 input.capitalize {
@@ -42,6 +40,22 @@ input.capitalize {
 
 .header-spacing {
   padding-top: 4rem;
+}
+
+.button {
+  &.button--large {
+    height: 4rem;
+    width: 20rem;
+    font-size: large;
+  }
+
+  &.button--wide {
+    width: 10rem;
+  }
+
+  &.button--margin {
+    margin: 1rem;
+  }
 }
 
 .container-submit {
@@ -63,6 +77,13 @@ input.capitalize {
   grid-gap: 0.5rem;
 }
 
+.container-stretch {
+  width: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: stretch;
+}
+
 .container-submit {
   display: grid;
   justify-items: end;
@@ -72,6 +93,12 @@ input.capitalize {
 .loose {
   margin-top: 1rem;
   grid-row-gap: 1rem;
+}
+
+.container {
+  &.container--row-gap {
+    grid-row-gap: 1rem;
+  }
 }
 
 .text-center {

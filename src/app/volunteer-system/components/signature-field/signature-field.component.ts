@@ -19,70 +19,46 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 })
 // Implement ControlValueAccessor so SignatureFieldComponent can be used on a form
 export class SignatureFieldComponent implements ControlValueAccessor {
-
-  public options: Object = {
+  @ViewChild(SignaturePad) signaturePad: SignaturePad;
+  options: Object = {
     canvasWidth: 600,
     canvasHeight: 200,
   };
-
-  public signatureData: any = null;
-
-  public propagateChange: Function = null;
-
-  // ViewChild provides reference to signature pad in component view
-  @ViewChild(SignaturePad)
-  public signaturePad: SignaturePad;
+  emitValueChanges: Function;
 
   constructor() { }
 
-  get signature(): any {
-    return this.signatureData;
-  }
-
-  set signature(value: any) {
-    this.signatureData = value;
-    // modify form
-    this.propagateChange(this.signature);
-  }
-
   /**
-   * Initialize value.
+   * Used by formControl to set value to the native form control.
    *
    * @param value
    */
-  public writeValue(value: any): void {
-    if (!value || !this.signaturePad || !this.signatureData) {
+  writeValue(value: any): void {
+    if (!this.signaturePad || !this.emitValueChanges) {
       return;
     }
-    this.signatureData = value;
-    this.signaturePad.fromData(this.signature);
+    const arrayValue = value === null ? [] : value; // Use empty array if value is null
+    this.signaturePad.fromData(arrayValue);
+    this.emitValueChanges(arrayValue);
   }
 
   /**
-   * Register 'fn' which will be fired when changes are mad
-   * This is how changes are emitted back to the form.
+   * Used by formControl to register a callback that is expected to be triggered every time the native form control is
+   * updated. This is how changes are emitted back to the form.
    * @param fn
    */
-  public registerOnChange(fn: any): void {
-    this.propagateChange = fn;
+  registerOnChange(fn: any): void {
+    this.emitValueChanges = fn;
+  }
+
+  registerOnTouched(): void {
+    // Do nothing on blur
   }
 
   /**
-   * Part of interface contract.
+   * Handles draw events by setting the signature to the converted data from the signature pad.
    */
-  public registerOnTouched(): void {
-    // no-op
-  }
-
-  /**
-   * After the user has finished drawing, save the signature as an array of point groups.
-   */
-  public drawComplete(): void {
-    this.signature = this.signaturePad.toData();
-  }
-
-  public clear(): void {
-    this.signaturePad.clear();
-    this.signature = '';
+  onDraw(): void {
+    this.emitValueChanges(this.signaturePad.toData());
   }
 }

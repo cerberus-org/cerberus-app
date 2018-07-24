@@ -17,8 +17,8 @@ import { HeaderState, selectHeaderState } from '../../store/selectors/layout.sel
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() headerState$: Observable<HeaderState>;
   @Output() buttonClick = new EventEmitter<string>();
+  headerState$: Observable<HeaderState>;
 
   constructor(
     private store$: Store<LayoutReducerState>,
