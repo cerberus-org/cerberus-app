@@ -18,7 +18,11 @@
         formControlName="name"
       >
     </mat-form-field>
-    <mat-autocomplete (optionSelected)="onNameSelected($event)" #autocomplete>
+    <mat-autocomplete
+      id="name-autocomplete"
+      (optionSelected)="onNameSelected($event)"
+      #autocomplete
+    >
       <mat-optgroup [label]="'Please select your name below.'">
         <mat-option
           *ngFor="let name of autocompleteNames"

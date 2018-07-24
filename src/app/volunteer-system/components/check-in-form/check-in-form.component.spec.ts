@@ -1,3 +1,4 @@
+import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatInputModule, MatRadioModule } from '@angular/material';
@@ -76,6 +77,11 @@ describe('CheckInFormComponent', () => {
     expect(updateValueAndValidity).toHaveBeenCalled();
   }));
 
+  it('should do nothing on name changes with a falsy value', async(() => {
+    component.onNameChange('');
+    expect(component.autocompleteNames).toBeFalsy();
+  }));
+
   it('should update the autocomplete names on name changes', async(() => {
     spyOn(component, 'resetForm').and.stub();
     component.volunteers = createMockVolunteers();
@@ -90,19 +96,72 @@ describe('CheckInFormComponent', () => {
     expect(resetForm).toHaveBeenCalled();
   }));
 
-  it('should select a volunteer, clear the signature, and update petName control validity on selecting a pet name option', async(() => {
-    component.matches = createMockVolunteers(); // Pet name is required if there is more than one match
-    fixture.detectChanges();
-    const selectVolunteer = spyOn(component, 'selectVolunteer');
-    const clearSignature = spyOn(component, 'clearSignature');
-    const updateValueAndValidity = spyOn(component.formGroup.controls['petName'], 'updateValueAndValidity');
-    const petNameRadioGroup = fixture.debugElement.query(By.css('#pet-name-radio-group'));
-    const value = 'Bandit';
-    petNameRadioGroup.triggerEventHandler('change', { value });
-    expect(selectVolunteer).toHaveBeenCalledWith(value);
-    expect(clearSignature).toHaveBeenCalled();
-    expect(updateValueAndValidity).toHaveBeenCalled();
-  }));
+  describe('name selection', () => {
+    let nameAutocomplete: DebugElement;
+
+    beforeEach(() => {
+      component.volunteers = createMockVolunteers();
+      fixture.detectChanges();
+      nameAutocomplete = fixture.debugElement.query(By.css('#name-autocomplete'));
+    });
+
+    it('should find matching volunteers and select the volunteer if there is only one match', async(() => {
+      const selectVolunteer = spyOn(component, 'selectVolunteer');
+      nameAutocomplete.triggerEventHandler('optionSelected', { option: { value: 'Hillary Lynn' } });
+      const expected = component.volunteers[1];
+      expect(component.matches).toEqual(arrayContaining([expected]));
+      expect(selectVolunteer).toHaveBeenCalledWith(expected);
+    }));
+
+    it('should find matching volunteers and not select the volunteer if there is more than one match', async(() => {
+      const selectVolunteer = spyOn(component, 'selectVolunteer');
+      nameAutocomplete.triggerEventHandler('optionSelected', { option: { value: 'Ted Mader' } });
+      expect(component.matches).toEqual(arrayContaining([
+        component.volunteers[0],
+        component.volunteers[2],
+      ]));
+      expect(selectVolunteer).not.toHaveBeenCalled();
+    }));
+
+    it('should update name control validity', async(() => {
+      const updateValueAndValidity = spyOn(component.formGroup.controls['name'], 'updateValueAndValidity');
+      nameAutocomplete.triggerEventHandler('optionSelected', { option: { value: 'Ted Mader' } });
+      expect(updateValueAndValidity).toHaveBeenCalled();
+    }));
+  });
+
+  describe('pet name selection', () => {
+    let petNameRadioGroup: DebugElement;
+
+    beforeEach(() => {
+      component.matches = createMockVolunteers(); // More than one match displays pet name radio group
+      fixture.detectChanges();
+      petNameRadioGroup = fixture.debugElement.query(By.css('#pet-name-radio-group'));
+    });
+
+    it('should select a volunteer on pet name selection', async(() => {
+      const selectVolunteer = spyOn(component, 'selectVolunteer');
+      const value = 'Bandit';
+      petNameRadioGroup.triggerEventHandler('change', { value });
+      expect(selectVolunteer).toHaveBeenCalledWith(value);
+    }));
+
+    it('should clear the signature on pet name selection', async(() => {
+      spyOn(component, 'selectVolunteer');
+      const clearSignature = spyOn(component, 'clearSignature');
+      fixture.detectChanges();
+      petNameRadioGroup.triggerEventHandler('change', {});
+      expect(clearSignature).toHaveBeenCalled();
+    }));
+
+    it('should update petName control validity on pet name selection', async(() => {
+      spyOn(component, 'selectVolunteer');
+      const updateValueAndValidity = spyOn(component.formGroup.controls['petName'], 'updateValueAndValidity');
+      fixture.detectChanges();
+      petNameRadioGroup.triggerEventHandler('change', {});
+      expect(updateValueAndValidity).toHaveBeenCalled();
+    }));
+  });
 
   it('should set the selected volunteer and check for active visits', async(() => {
     const volunteer = createMockVolunteers()[0];

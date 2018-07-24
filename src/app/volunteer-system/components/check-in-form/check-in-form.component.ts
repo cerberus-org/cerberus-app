@@ -153,7 +153,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param control
    */
   signatureValidator = (control: AbstractControl): { [key: string]: any } => {
-    return this.signatureIsRequired && !control.value.length ? { signatureRequired: { value: control.value } } : null;
+    return this.signatureIsRequired && (!control.value || !control.value.length) ? { signatureRequired: { value: control.value } } : null;
   }
 
   /**
