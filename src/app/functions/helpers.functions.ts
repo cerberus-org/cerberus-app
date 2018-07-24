@@ -17,20 +17,6 @@ export const getIndex = (list: any[], id: string): number => {
 };
 
 /**
- * Checks if an array of volunteers have the same full name (case-insensitive).
- *
- * @param volunteers - the list of volunteers
- * @param name - the name used to match
- * @returns {boolean} - true if all volunteers match the name
- */
-export const everyVolunteerMatchesName = (volunteers: Volunteer[], name: string): boolean => {
-  const nameLowerCase = name.toLowerCase();
-  return volunteers.every(volunteer => (
-    getFullName(volunteer).toLowerCase() === nameLowerCase
-  ));
-};
-
-/**
  * Filters an array of objects by a given organization ID.
  *
  * @param {any[]} array - the array to filter

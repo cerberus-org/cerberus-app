@@ -83,8 +83,8 @@ describe('Visits Component', () => {
     });
 
     it('should update visit with time when updateItemWithTime is called', () => {
-      expect(convertToTimeString(component.columnOptions[3].timePicker.updateItemWithTime('3:00', visitWithVoluneer).endedAt))
-        .toEqual('22:00');
+      expect(convertToTimeString(component.columnOptions[3].timePicker.updateItemWithTime('3:00', visitWithVoluneer, visitWithVoluneer.timezone).endedAt))
+        .toEqual('03:00');
     });
 
     it('should return false when validator is called and startedAt is after endedAt', () => {

@@ -50,7 +50,7 @@ export class VisitsComponent implements OnInit {
           updateItemWithTime: (time: string, visit: VisitWithVolunteer): VisitWithVolunteer => {
             const visitCopy = Object.assign({}, visit);
             // If endedAt is null, set to startedAt so we can call setHours on a defined value
-            visitCopy.endedAt = updateDateWithTimeInput(time, visitCopy.endedAt ? visitCopy.endedAt : new Date(visitCopy.startedAt));
+            visitCopy.endedAt = updateDateWithTimeInput(time, visitCopy.endedAt ? visitCopy.endedAt : new Date(visitCopy.startedAt), visit.timezone);
             return visitCopy;
           },
         },

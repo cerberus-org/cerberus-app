@@ -32,9 +32,8 @@ export const formatTimeInputValue = (date: Date, timezone: string = 'America/Chi
  * @param {Date} date
  * @returns {Date}
  */
-export const updateDateWithTimeInput = (time: string, date: Date): Date => {
-  date.setHours(Number(time.split(':')[0]), Number(time.split(':')[1]), 0);
-  return date;
+export const updateDateWithTimeInput = (time: string, date: Date, timezone = 'American/Chicago'): Date => {
+  return moment(date).tz(timezone).set({ hours: Number(time.split(':')[0]), minutes: Number(time.split(':')[1]) }).toDate();
 };
 
 /**
