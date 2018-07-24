@@ -37,11 +37,12 @@ export class DataDisplayComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    // Timeout prevents lag caused by chart resize during sidenav toggle on page transition
     setTimeout(
       () => {
         this.loading = false;
       },
-      350,
+      500,
     );
   }
 

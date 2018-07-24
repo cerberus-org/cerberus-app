@@ -3,7 +3,6 @@ import {
   MatButtonModule,
   MatIconModule,
   MatListModule,
-  MatProgressSpinnerModule,
   MatSidenavModule,
   MatSnackBarModule,
   MatToolbarModule,
@@ -26,7 +25,6 @@ import { SettingsModule } from '../settings/settings.module';
 import { SharedModule } from '../shared/shared.module';
 import { SignUpModule } from '../sign-up/sign-up.module';
 import { VolunteerSystemModule } from '../volunteer-system/volunteer-system.module';
-import { LoaderComponent } from '../shared/components/loader/loader.component';
 import { HeaderComponent } from './containers/header/header.component';
 import { RootComponent } from './containers/root/root.component';
 import { SidenavComponent } from './containers/sidenav/sidenav.component';
