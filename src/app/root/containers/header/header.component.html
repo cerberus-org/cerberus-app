@@ -10,6 +10,7 @@
   <button
     *ngIf="(headerState$ | async)?.showToggleSidenav"
     id="toggle-sidenav-button"
+    class="show-xs"
     mat-icon-button
     (click)="onToggleSidenav()"
   >
