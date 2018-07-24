@@ -39,35 +39,42 @@ describe('DataCellComponent', () => {
     expect(component.selectOption.emit).toHaveBeenCalledWith(value);
   });
 
-  it('should handle onTimeChange by emitting the selectedTime event', () => {
+  it('should handle onTimeChange by emitting the selectedTime event if the new time does not match the previous time', () => {
     spyOn(component.selectedTime, 'emit');
     const val = { target: { value: '3:00 ' } };
-    component.onTimeChange(val);
+    component.onTimeChange(val, '4:00');
     expect(component.selectedTime.emit).toHaveBeenCalledWith(val.target.value);
   });
 
   it('should handle onTimeChange by not emitting the selectedTime event if time is undefined', () => {
     spyOn(component.selectedTime, 'emit');
     const val = { target: { value: null } };
-    component.onTimeChange(val);
+    component.onTimeChange(val, '3:00');
+    expect(component.selectedTime.emit).not.toHaveBeenCalled();
+  });
+
+  it('should handle onTimeChange by not emitting the selectedTime event if the new time matches the previous time', () => {
+    spyOn(component.selectedTime, 'emit');
+    const val = { target: { value: '3:00' } };
+    component.onTimeChange(val, '3:00');
     expect(component.selectedTime.emit).not.toHaveBeenCalled();
   });
 
   it('should get input type for SELECT', () => {
     component.selectOptions = ['a', 'b'];
-    component.column.timePicker = null;
+    component.column.timePicker = { isTime: false, updateItemWithTime: null };
     expect(component.inputType).toEqual('SELECT');
   });
 
   it('should get input type for TIME_PICKER', () => {
     component.selectOptions = null;
-    component.column.timePicker = true;
+    component.column.timePicker = { isTime: true, updateItemWithTime: null };
     expect(component.inputType).toEqual('TIME_PICKER');
   });
 
   it('should get input type for TEXT_ONLY', () => {
     component.selectOptions = null;
-    component.column.timePicker = false;
+    component.column.timePicker = { isTime: false, updateItemWithTime: null };
     expect(component.inputType).toEqual('TEXT_ONLY');
   });
 });

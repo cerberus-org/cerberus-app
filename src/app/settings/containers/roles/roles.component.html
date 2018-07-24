@@ -1,7 +1,6 @@
 <app-data-table
   [data$]="members$"
   [columnOptions]="columnOptions"
-  [isReadOnly]="true"
   (deleteItem)="onDeleteUser($event)"
   (updateItem)="onUpdateUser($event)">
 </app-data-table>

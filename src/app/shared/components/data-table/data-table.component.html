@@ -1,16 +1,19 @@
 <div class="container">
+  <mat-toolbar class="container-header" *ngIf="isEditable">
+    <button mat-button class="container-header__button" [disabled]="itemsEdited.length === 0 || invalidItemsEdited.length !== 0" color="accent" (click)="onUpdateItems(itemsEdited)">Save</button>
+  </mat-toolbar>
   <mat-table #table [dataSource]="dataSource">
     <!--Table with no delete option-->
     <ng-container *ngFor="let column of columnOptions" [cdkColumnDef]="column.columnDef">
-      <mat-header-cell *cdkHeaderCellDef>{{column.header}}
-        <button mat-button [disabled]="!(itemsEdited && itemsEdited.length !== 0)" *ngIf="displayUpdateButton(column.columnDef, displayedColumns, isReadOnly)" color="accent" class="update-button" (click)="onUpdateItems(itemsEdited)">Save</button>
-      </mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef>{{column.header}}</mat-header-cell>
       <mat-cell *cdkCellDef="let row">
         <app-data-cell
           [column]="column"
           [row]="row"
+          [color]="getCellFontColor(row)"
+          [isBold]="getCellFontWeight(row)"
           (selectOption)="onSelectOption($event, row, column.columnDef)"
-          (selectedTime)="onSelectTime($event, row, column.columnDef)">
+          (selectedTime)="onSelectTime($event, row, column)">
         </app-data-cell>
       </mat-cell>
     </ng-container>

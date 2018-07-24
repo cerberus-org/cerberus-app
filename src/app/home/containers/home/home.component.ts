@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { Organization } from '../../../models';
 import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { RootState } from '../../../root/store/reducers';
@@ -11,7 +12,7 @@ import { RootState } from '../../../root/store/reducers';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  findOrganizationValue: string;
+  organization: Organization;
   modelSubscription: Subscription;
 
   constructor(public store$: Store<RootState>) {}
@@ -20,12 +21,12 @@ export class HomeComponent implements OnInit {
     this.store$.dispatch(new LayoutActions.SetHeaderOptions(null));
   }
 
-  onValidInput(organizationName: string): void {
-    this.findOrganizationValue = organizationName;
+  onValidOrganization(organization: Organization): void {
+    this.organization = organization;
   }
 
-  onInputIconButtonClick(organizationName: string) {
-    this.store$.dispatch(new RouterActions.Go({ path: ['/public-dashboard/' + organizationName] }));
+  onInputIconButtonClick(organization: Organization) {
+    this.store$.dispatch(new RouterActions.Go({ path: ['/public-dashboard/' + organization.name] }));
   }
 
   onNewOrganization() {

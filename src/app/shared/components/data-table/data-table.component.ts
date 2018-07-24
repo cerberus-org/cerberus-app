@@ -14,7 +14,7 @@ import { MatPaginator } from '@angular/material';
 import { merge, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getIndex } from '../../../functions';
-import { ColumnOptions, Visit } from '../../../models';
+import { ColumnOptions } from '../../../models';
 
 /**
  * Provides what data should be rendered in the table.
@@ -71,7 +71,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
-  @Input() isReadOnly: Boolean;
+  @Input() isEditable: Boolean;
   @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
   @Output() updateMultipleItems = new EventEmitter<any>();
@@ -79,6 +79,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Output() timeSelected = new EventEmitter<any>();
   displayedColumns: string[];
   itemsEdited: any[];
+  invalidItemsEdited: any[];
   initialPageSize: number;
   dataSource: DataTableSource;
 
@@ -99,6 +100,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   ngOnInit(): void {
     this.itemsEdited = [];
+    this.invalidItemsEdited = [];
     // Determine initial page size using inner height of window at component init
     const surroundingElementsPx = 224;
     const cellPx = 49;
@@ -107,6 +109,31 @@ export class DataTableComponent implements OnInit, OnChanges {
     if (this.showDelete) {
       this.displayedColumns.push('delete');
     }
+  }
+
+  /**
+   * Determine font color of cell.
+   * If cell is invalid set to red.
+   *
+   * @param column
+   * @param row
+   * @returns {string}
+   */
+  getCellFontColor(row: any): string {
+    return this.invalidItemsEdited.filter(item => item.id === row.id).length ? '#f44336' : '';
+  }
+
+  /**
+   * Determine font weigth of cell.
+   * If cell is edited set to bold.
+   *
+   * @param column
+   * @param row
+   * @returns {string}
+   */
+  getCellFontWeight(row: any): string {
+    return (this.invalidItemsEdited.filter(item => item.id === row.id).length ||
+      this.itemsEdited.filter(item => item.id === row.id).length) ? 'bold' : '';
   }
 
   /**
@@ -137,8 +164,30 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param value
    * @param item
    */
-  onSelectTime(value, item): void {
-    this.addItemToItemsEdited(this.getUpdatedItemWithTime(value, item));
+  onSelectTime(time, row, column): void {
+    this.addItemToItemsEditedOrInvalidItemsEdited(column.timePicker.updateItemWithTime(time, row), column);
+  }
+
+  /**
+   * Remove pre-existing item if exists and add item to itemsEdited if valid
+   * otherwise add to invalidItemsEdited.
+   *
+   * @param item
+   */
+  addItemToItemsEditedOrInvalidItemsEdited(item: any, column: any): void {
+    const itemsEditedIndex = getIndex(this.itemsEdited, item.id);
+    const invalidItemsEditedIndex = getIndex(this.invalidItemsEdited, item.id);
+    if (itemsEditedIndex !== undefined) {
+      this.itemsEdited.splice(itemsEditedIndex, 1);
+    }
+    if (invalidItemsEditedIndex !== undefined) {
+      this.invalidItemsEdited.splice(invalidItemsEditedIndex, 1);
+    }
+    if (column.validator(item)) {
+      this.itemsEdited.push(item);
+    } else {
+      this.invalidItemsEdited.push(item);
+    }
   }
 
   /**
@@ -149,47 +198,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   onUpdateItems(items: any[]) {
     this.updateMultipleItems.emit(items);
     this.itemsEdited = [];
-  }
-
-  /**
-   * Set time on item date and return.
-   *
-   * @param {string} time - string e.g. "3:00"
-   * @param {Visit} item
-   * @returns {{} & Visit}
-   */
-  getUpdatedItemWithTime(time: string, item: Visit) {
-    const itemCopy = Object.assign({}, item);
-    // If endedAt is null, set to startedAt so we can call setHours on a defined value
-    itemCopy.endedAt = item.endedAt && item.endedAt.toString() !== '(no check-out)' ? item.endedAt : item.startedAt;
-    itemCopy.endedAt.setHours(Number(time.split(':')[0]), Number(time.split(':')[1]), 0);
-    return itemCopy;
-  }
-
-  /**
-   * Add item to itemsEdited and remove pre-existing item if exists.
-   *
-   * @param item
-   */
-  addItemToItemsEdited(item: any): void {
-    const index = getIndex(this.itemsEdited, item.id);
-    if (index !== undefined) {
-      this.itemsEdited.splice(index, 1);
-    }
-    this.itemsEdited.push(item);
-  }
-
-  /**
-   * Display update button if it is the last column option and isReadOnly is false.
-   *
-   * @param columnHeader
-   * @param columnOptions
-   * @param isReadOnly
-   * @returns {boolean | boolean}
-   */
-  displayUpdateButton(column, columnOptions, isReadOnly) {
-    return column === columnOptions[columnOptions.length - 1]
-    && !isReadOnly ? true : false;
   }
 
   /**

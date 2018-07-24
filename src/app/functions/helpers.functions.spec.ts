@@ -2,7 +2,6 @@ import { mockVisits } from '../mock/objects/visit.mock';
 import { createMockVolunteers } from '../mock/objects/volunteer.mock';
 import { formatDuration } from './date-format.functions';
 import {
-  createMap,
   findActiveVisit,
   getFormattedVisits,
   getIndex,
@@ -54,16 +53,7 @@ describe('helpers.functions', () => {
     expect(getIndex(arr, '22')).toEqual(undefined);
   });
 
-  it('should create map', () => {
-    const arr = [{ id: '1', value: 'a' }, { id: '2', value: 'b' }, { id: '3', value: 'c' }];
-    expect(createMap(arr).get('1')).toEqual(arr[0]);
-  });
-
-  it('should create empty map if array is undefined', () => {
-    expect(createMap(null).get('1')).toEqual(undefined);
-  });
-
-  it('should remove values of type array from an obejct', () => {
+  it('should remove values of type array from an object', () => {
     expect(getItemWithoutArrayProperties({ a: 'test', b: ['a', 'b'] })).toEqual({ a: 'test' });
   });
 });

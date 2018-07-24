@@ -1,6 +1,6 @@
 <app-data-table
-  [data$]="formattedVisits$"
-  [isReadOnly]="false"
-  [columnOptions]="(state$ | async).columnOptions"
+  [data$]="visitsWithVolunteers$"
+  [isEditable]="true"
+  [columnOptions]="columnOptions"
   (updateMultipleItems)="onUpdateVisits($event)">
 </app-data-table>

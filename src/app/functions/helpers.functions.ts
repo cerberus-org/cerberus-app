@@ -17,24 +17,6 @@ export const getIndex = (list: any[], id: string): number => {
 };
 
 /**
- * Create a map of data given an array of data.
- * Data can be accessed using keyword 'get'.
- * i.e. map.get('123');
- *
- * @param {any[]} data
- * @returns {Map<string, any>}
- */
-export const createMap = (data: any[]): Map<string, any> => {
-  const map = new Map<string, any>();
-  if (data) {
-    data.forEach((item) => {
-      map.set(item.id, item);
-    });
-  }
-  return map;
-};
-
-/**
  * Filters an array of objects by a given organization ID.
  *
  * @param {any[]} array - the array to filter
