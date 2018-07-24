@@ -32,10 +32,19 @@ export class DataDisplayComponent implements OnInit {
       cell: (row: Visit) => formatDuration(row.startedAt, row.endedAt, row.timezone),
     },
   ];
+  loading = true;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Timeout prevents lag caused by chart resize during sidenav toggle on page transition
+    setTimeout(
+      () => {
+        this.loading = false;
+      },
+      500,
+    );
+  }
 
   /**
    * Passed to data-table as the colorFunc to highlight active visits.

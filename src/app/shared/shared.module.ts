@@ -10,7 +10,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
-  MatPaginatorModule,
+  MatPaginatorModule, MatProgressSpinnerModule,
   MatSelectModule,
   MatTableModule,
   MatTabsModule, MatToolbar, MatToolbarModule,
@@ -21,6 +21,7 @@ import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-h
 import { DataCellComponent } from './components/data-cell/data-cell.component';
 import { DataDisplayComponent } from './components/data-display/data-display.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
+import { LoaderComponent } from './components/loader/loader.component';
 import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 import { ServicesAgreementDialogComponent } from './components/services-agreement-dialog/services-agreement-dialog.component';
@@ -37,6 +38,7 @@ import { SnackBarService } from './services/snack-bar.service';
     DataDisplayComponent,
     DataTableComponent,
     FindOrganizationComponent,
+    LoaderComponent,
     OrganizationFormComponent,
     PasswordDialogComponent,
     ServicesAgreementComponent,
@@ -57,6 +59,7 @@ import { SnackBarService } from './services/snack-bar.service';
     MatIconModule,
     MatInputModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     MatTableModule,
     MatTabsModule,
@@ -74,6 +77,7 @@ import { SnackBarService } from './services/snack-bar.service';
     DataDisplayComponent,
     DataTableComponent,
     FindOrganizationComponent,
+    LoaderComponent,
     PasswordDialogComponent,
     ServicesAgreementComponent,
     ServicesAgreementDialogComponent,

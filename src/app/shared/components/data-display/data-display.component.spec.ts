@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule, MatTabsModule } from '@angular/material';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { createMockVisits } from '../../../mock/objects/visit.mock';
@@ -21,6 +22,7 @@ describe('DataDisplayComponent', () => {
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
         }),
+        MockComponent({ selector: 'app-loader' }),
       ],
       imports: [
         NoopAnimationsModule,
@@ -41,6 +43,23 @@ describe('DataDisplayComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  const getLoader = () => fixture.debugElement.query(By.css('#data-display-loader'));
+  const getTabGroup = () => fixture.debugElement.query(By.css('#data-display-tab-group'));
+
+  it('should initially display a loader', async(() => {
+    expect(getLoader()).toBeTruthy();
+    expect(getTabGroup()).toBeNull();
+  }));
+
+  it('should hide the loader after 350ms and display the tab group', (done) => {
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      expect(getLoader()).toBeNull();
+      expect(getTabGroup()).toBeTruthy();
+      done();
+    });
   });
 
   // TODO: Find a way to spy on imported functions
