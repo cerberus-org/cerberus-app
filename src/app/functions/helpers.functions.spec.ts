@@ -2,14 +2,12 @@ import { mockVisits } from '../mock/objects/visit.mock';
 import { createMockVolunteers } from '../mock/objects/volunteer.mock';
 import { formatDuration } from './date-format.functions';
 import {
-  everyVolunteerMatchesName,
-  filterVolunteersByName,
   findActiveVisit,
-  findVolunteerByFullName,
-  findVolunteerByPetName,
-  getFormattedVisits, getIndex,
+  getFormattedVisits,
+  getIndex,
   getItemWithoutArrayProperties,
   getUniqueFullNames,
+  searchVolunteersByName,
 } from './helpers.functions';
 
 describe('helpers.functions', () => {
@@ -27,7 +25,7 @@ describe('helpers.functions', () => {
 
   it('should filter volunteers by name', () => {
     const name = createMockVolunteers()[1].firstName;
-    const filtered = filterVolunteersByName(createMockVolunteers(), name);
+    const filtered = searchVolunteersByName(createMockVolunteers(), name);
     expect(filtered.length).toEqual(1);
     expect(filtered[0]).toEqual(createMockVolunteers()[1]);
   });
@@ -37,31 +35,6 @@ describe('helpers.functions', () => {
     expect(names.length).toEqual(2);
     expect(names[0]).toEqual(`${createMockVolunteers()[0].firstName} ${createMockVolunteers()[0].lastName}`);
     expect(names[1]).toEqual(`${createMockVolunteers()[1].firstName} ${createMockVolunteers()[1].lastName}`);
-  });
-
-  it('should check if an array of volunteers have the same full name', () => {
-    const volunteers = [createMockVolunteers()[0], createMockVolunteers()[2]];
-    const name = `${createMockVolunteers()[0].firstName} ${createMockVolunteers()[0].lastName}`;
-    const allMatch = everyVolunteerMatchesName(volunteers, name);
-    expect(allMatch).toBeTruthy();
-  });
-
-  it('should find volunteers by full name', () => {
-    const name = `${createMockVolunteers()[1].firstName} ${createMockVolunteers()[1].lastName}`;
-    const selected = findVolunteerByFullName(createMockVolunteers(), name);
-    expect(selected).toEqual(createMockVolunteers()[1]);
-  });
-
-  it('should not find volunteers by only first name', () => {
-    const name = createMockVolunteers()[1].firstName;
-    const selected = findVolunteerByFullName(createMockVolunteers(), name);
-    expect(selected).toBeFalsy();
-  });
-
-  it('should find volunteers by petName', () => {
-    const petName = createMockVolunteers()[2].petName;
-    const selected = findVolunteerByPetName(createMockVolunteers(), petName);
-    expect(selected).toEqual(createMockVolunteers()[2]);
   });
 
   it('should find active visits for volunteers', () => {
@@ -80,7 +53,7 @@ describe('helpers.functions', () => {
     expect(getIndex(arr, '22')).toEqual(undefined);
   });
 
-  it('should remove values of type array from an obejct', () => {
+  it('should remove values of type array from an object', () => {
     expect(getItemWithoutArrayProperties({ a: 'test', b: ['a', 'b'] })).toEqual({ a: 'test' });
   });
 });

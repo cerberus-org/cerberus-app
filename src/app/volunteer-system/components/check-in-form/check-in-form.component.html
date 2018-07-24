@@ -1,51 +1,108 @@
-<form class="container-center loose"
-      [formGroup]="formGroup"
-      (ngSubmit)="submit()">
+<form
+  class="container-center"
+  [formGroup]="formGroup"
+  (ngSubmit)="submit()"
+>
   <div class="container-center">
     <h2>{{title}}</h2>
   </div>
-  <div class="container-center field-container">
-    <mat-form-field>
-      <input matInput
-             placeholder="Name"
-             [matAutocomplete]="autocomplete"
-             formControlName="name">
+  <div class="container-center name-container">
+    <mat-form-field class="name-container__form-field">
+      <input
+        id="name-input"
+        class="name-container__input"
+        #nameInput
+        matInput
+        placeholder="Search by name"
+        [matAutocomplete]="autocomplete"
+        formControlName="name"
+      >
     </mat-form-field>
-    <mat-autocomplete>
-      <mat-option *ngFor="let name of autocompleteNames" [value]="name">{{name}}</mat-option>
+    <mat-autocomplete
+      id="name-autocomplete"
+      (optionSelected)="onNameSelected($event)"
+      #autocomplete
+    >
+      <mat-optgroup [label]="'Please select your name below.'">
+        <mat-option
+          *ngFor="let name of autocompleteNames"
+          [value]="name"
+        >
+          {{name}}
+        </mat-option>
+      </mat-optgroup>
     </mat-autocomplete>
   </div>
   <!--Show the pet name selection if multiple volunteers have the same name-->
-  <div *ngIf="showPetNameForm" class="container-center pets-container" [@fadeInTrigger]="fadeInState">
-    <mat-radio-group formControlName="petName" [(ngModel)]="selectedPetName">
-      <mat-radio-button class="pets-button"
-                        *ngFor="let volunteer of filteredVolunteers"
-                        [value]="volunteer.petName"
-                        (change)="onPetNameChange(volunteer.petName)">
-        <i class="material-icons">pets</i> {{volunteer.petName}}
-      </mat-radio-button>
-    </mat-radio-group>
+  <div
+    *ngIf="petNameIsRequired"
+    class="pet-name-container"
+    [@fadeInTrigger]="fadeInState"
+  >
+    <div class="container-center">
+      <p>There is more than one volunteer with your name. Help us by selecting your favorite pet's name.</p>
+    </div>
+    <div class="container-center">
+      <mat-radio-group
+        id="pet-name-radio-group"
+        formControlName="petName"
+        (change)="onPetNameSelected($event)"
+      >
+        <mat-radio-button
+          class="button button--margin"
+          *ngFor="let volunteer of matches"
+          [value]="volunteer"
+        >
+          <i class="material-icons">pets</i> {{volunteer.petName}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
   </div>
   <!--Show the next maxVisitedStep when a volunteer has been selected-->
   <ng-container *ngIf="selectedVolunteer">
     <!--If volunteer has been selected, show the signature and button group-->
-    <ng-container *ngIf="!activeVisit; else checkOut">
+    <ng-container *ngIf="signatureIsRequired; else checkOut">
       <div class="container-center" [@fadeInTrigger]="fadeInState">
-        <app-signature-field formControlName="signatureField"></app-signature-field>
+        <app-signature-field formControlName="signature"></app-signature-field>
       </div>
       <div class="container-center actions-container" [@fadeInTrigger]="fadeInState">
-        <button mat-raised-button color="accent" [disabled]="formGroup.invalid" (click)="clearSignature()">
-          Clear
+        <button
+          class="button button--wide button--margin"
+          type="button"
+          mat-raised-button
+          color="accent"
+          [disabled]="formGroup.invalid"
+          (click)="clearSignature()"
+        >
+          Clear signature
         </button>
-        <button matStepperNext mat-raised-button color="primary" [disabled]="formGroup.invalid">
+        <button
+          class="button button--wide button--margin"
+          matStepperNext
+          mat-raised-button
+          color="primary"
+          [disabled]="formGroup.invalid"
+        >
           Check in
         </button>
       </div>
     </ng-container>
     <!--Show the check out button if there is currently an active visit-->
     <ng-template #checkOut>
-      <div class="container-center check-out-container" [@fadeInTrigger]="fadeInState">
-        <button matStepperNext mat-raised-button color="primary">Check out</button>
+      <div class="check-out-container" [@fadeInTrigger]="fadeInState">
+        <div class="container-center">
+          <p>You are currently checked in.</p>
+        </div>
+        <div class="container-center">
+          <button
+            class="button button--wide button--margin"
+            matStepperNext
+            mat-raised-button
+            color="primary"
+          >
+            Check out
+          </button>
+        </div>
       </div>
     </ng-template>
   </ng-container>

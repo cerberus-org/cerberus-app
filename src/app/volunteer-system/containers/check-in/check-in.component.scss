@@ -10,17 +10,21 @@
   }
 }
 
-.container {
-  height: 100%;
+.start-container {
+  margin-top: 5rem;
 }
 
-.container__policy-button {
+.love-banner {
+  color: rgba(0,0,0,0.8);
+  position: absolute;
+  bottom: 0;
+  margin: 1rem;
+  max-width: 356px;
+}
+
+.policy-button {
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 10px;
-}
-
-.start-container {
-  margin-top: 2rem;
+  margin: 1rem;
 }

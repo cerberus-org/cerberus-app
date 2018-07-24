@@ -11,7 +11,7 @@ import { VisitWithVolunteer } from '../../../models/visit-with-volunteer';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { VisitsComponent } from './visits.component';
 
-describe('RolesComponent', () => {
+describe('Visits Component', () => {
   let component: VisitsComponent;
   let fixture: ComponentFixture<VisitsComponent>;
   let visitWithVoluneer: VisitWithVolunteer;
@@ -84,7 +84,7 @@ describe('RolesComponent', () => {
 
     it('should update visit with time when updateItemWithTime is called', () => {
       expect(convertToTimeString(component.columnOptions[3].timePicker.updateItemWithTime('3:00', visitWithVoluneer).endedAt))
-        .toEqual('03:00');
+        .toEqual('22:00');
     });
 
     it('should return false when validator is called and startedAt is after endedAt', () => {

@@ -1,6 +1,6 @@
 <div class="container">
-  <app-loader *ngIf="isLoggedIn && !(modelIsLoaded$ | async)" [text]="'Loading'"></app-loader>
-  <app-header *ngIf="isLoggedIn" class="hg__header"></app-header>
+  <app-loader *ngIf="isLoggedIn && !(modelIsLoaded$ | async)" [text]="'Loading something cool... 😎'"></app-loader>
+  <app-header class="hg__header"></app-header>
   <app-sidenav class="hg__main">
     <router-outlet></router-outlet>
   </app-sidenav>

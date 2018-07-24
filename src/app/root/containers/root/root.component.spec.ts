@@ -19,12 +19,9 @@ describe('RootComponent', () => {
       declarations: [
         RootComponent,
         MockComponent({ selector: 'app-footer' }),
-        MockComponent({
-          selector: 'app-header',
-          inputs: ['headerOptions', 'showLogOut', 'showSidenavToggle'],
-        }),
+        MockComponent({ selector: 'app-header' }),
         MockComponent({ selector: 'app-loader', inputs: ['text'] }),
-        MockComponent({ selector: 'app-sidenav', inputs: ['sidenavOptions'] }),
+        MockComponent({ selector: 'app-sidenav' }),
       ],
       imports: [
         RouterTestingModule,
