@@ -27,7 +27,8 @@ export class SessionEffects {
                     userInfo,
                     organization: { ...organization, id: member.organizationId },
                   }),
-                  // Load model data
+                  // Load data for user
+                  new ModelActions.LoadMembers(member.organizationId),
                   new ModelActions.LoadSites(member.organizationId),
                   new ModelActions.LoadVisits(member.organizationId),
                   new ModelActions.LoadVolunteers(member.organizationId),
