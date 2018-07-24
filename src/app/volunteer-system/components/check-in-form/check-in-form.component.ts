@@ -1,5 +1,5 @@
 import { animate, state as animationsState, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatRadioChange } from '@angular/material';
 import { Subscription } from 'rxjs';
@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/index';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { findActiveVisit, getFullName, getUniqueFullNames, searchVolunteersByName } from '../../../functions';
 import { Visit, Volunteer } from '../../../models';
-import { SignatureFieldComponent } from '../signature-field/signature-field.component';
 
 @Component({
   selector: 'app-check-in-form',
@@ -154,7 +153,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    * @param control
    */
   signatureValidator = (control: AbstractControl): { [key: string]: any } => {
-    return this.signatureIsRequired && !control.value ? { signatureRequired: { value: control.value } } : null;
+    return this.signatureIsRequired && !control.value.length ? { signatureRequired: { value: control.value } } : null;
   }
 
   /**

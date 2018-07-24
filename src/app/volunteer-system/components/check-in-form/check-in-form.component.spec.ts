@@ -5,8 +5,8 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { MockComponent } from 'ng2-mock-component';
-import { createMockVisits, mockVisits } from '../../../mock/objects/visit.mock';
-import { createMockVolunteers, mockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { createMockVisits } from '../../../mock/objects/visit.mock';
+import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { CheckInFormComponent } from './check-in-form.component';
 import any = jasmine.any;
 import arrayContaining = jasmine.arrayContaining;
@@ -121,18 +121,19 @@ describe('CheckInFormComponent', () => {
   }));
 
   it('should emit a checkIn event on submit if there is no active visit and a volunteer is selected', () => {
+    const visit = createMockVisits()[0];
     fixture.detectChanges();
-    component.formGroup.controls['signature'].setValue(null);
+    component.formGroup.controls['signature'].setValue(visit.signature);
     spyOn(component.checkIn, 'emit');
-    component.selectedVolunteer = mockVolunteers[0];
+    component.selectedVolunteer = createMockVolunteers()[0];
     component.submit();
     expect(component.checkIn.emit).toHaveBeenCalled();
   });
 
   it('should emit a checkOut event on submit if there is an active visit', () => {
     spyOn(component.checkOut, 'emit');
-    component.selectedVolunteer = mockVolunteers[0];
-    component.activeVisit = mockVisits[0];
+    component.selectedVolunteer = createMockVolunteers()[0];
+    component.activeVisit = createMockVisits()[0];
     component.submit();
     expect(component.checkOut.emit).toHaveBeenCalled();
   });
@@ -190,16 +191,17 @@ describe('CheckInFormComponent', () => {
     });
 
     it('should be valid if value is entered', (() => {
-      signatureControl.setValue('test');
+      signatureControl.setValue(createMockVisits()[0].signature);
       expect(signatureControl.valid).toBeTruthy();
     }));
 
     it('should be valid (not required) if there is an active visit', (() => {
-      expect(signatureControl.value).toBeFalsy();
+      component.activeVisit = createMockVisits()[0];
+      signatureControl.reset();
+      expect(signatureControl.valid).toBeTruthy();
     }));
 
     it('should return a signatureRequired error if value is not entered', (() => {
-      component.activeVisit = createMockVisits()[0];
       expect(signatureControl.errors['signatureRequired']).toBeTruthy();
     }));
   });
