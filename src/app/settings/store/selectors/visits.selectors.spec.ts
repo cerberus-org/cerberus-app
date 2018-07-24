@@ -1,20 +1,17 @@
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import arrayContaining = jasmine.arrayContaining;
-import objectContaining = jasmine.objectContaining;
+import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { selectVisitWithVolunteers } from './visits.selectors';
 
 describe('visits.selectors', () => {
   describe('selectVisitWithVolunteers', () => {
-    xit('it should select visits with volunteers for the Visits page', () => {
-      // const mockVisits = createMockVisits();
-      // expect(selectVisitWithVolunteers.projector(mockVisits))
-      //   .toEqual(arrayContaining([
-      //     objectContaining({ columnDef: 'name', header: 'Name' }),
-      //     objectContaining({ columnDef: 'date', header: 'Date' }),
-      //     objectContaining({ columnDef: 'startedAt', header: 'Start' }),
-      //     objectContaining({ columnDef: 'endedAt', header: 'End' }),
-      //     objectContaining({ columnDef: 'duration', header: 'Duration' }),
-      //   ]));
+    it('it should select visits with volunteers for the Visits page', () => {
+      const mockVisits = [createMockVisits()[0]];
+      const mockVolunteers = [createMockVolunteers()[0]];
+      expect(selectVisitWithVolunteers.projector(mockVisits, mockVolunteers))
+        .toEqual(arrayContaining([
+          Object.assign(mockVisits[0], { volunteer: mockVolunteers[0] }),
+        ]));
     });
   });
 });
