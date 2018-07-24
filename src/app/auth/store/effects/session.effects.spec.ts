@@ -42,15 +42,16 @@ describe('SessionEffects', () => {
       actions = hot('a', {
         a: new SessionActions.LoadData(userInfo),
       });
-      const expected = cold('(bcde)', {
+      const expected = cold('(bcdef)', {
         b: new SessionActions.LoadDataSuccess({
           userInfo,
           member,
           organization,
         }),
-        c: new ModelActions.LoadSites(member.organizationId),
-        d: new ModelActions.LoadVisits(member.organizationId),
-        e: new ModelActions.LoadVolunteers(member.organizationId),
+        c: new ModelActions.LoadMembers(member.organizationId),
+        d: new ModelActions.LoadSites(member.organizationId),
+        e: new ModelActions.LoadVisits(member.organizationId),
+        f: new ModelActions.LoadVolunteers(member.organizationId),
       });
       expect(effects.loadData$).toBeObservable(expected);
     }));
