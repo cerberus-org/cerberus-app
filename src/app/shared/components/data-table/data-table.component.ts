@@ -71,7 +71,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
-  @Input() isEditable: Boolean;
+  @Input() isEditable: boolean;
   @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
   @Output() updateMultipleItems = new EventEmitter<any>();
@@ -109,6 +109,16 @@ export class DataTableComponent implements OnInit, OnChanges {
     if (this.showDelete) {
       this.displayedColumns.push('delete');
     }
+  }
+
+  /**
+   * Get container css given isEditable.
+   *
+   * @param {boolean} isEditable
+   * @returns {string}
+   */
+  getContainerCss(isEditable: boolean): string {
+    return isEditable ? 'container-with-header' : 'container-without-header';
   }
 
   /**
