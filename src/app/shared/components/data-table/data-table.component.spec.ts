@@ -150,4 +150,20 @@ describe('DataTableComponent', () => {
       expect(component.invalidItemsEdited.length).toEqual(1);
     },
   );
+
+  it(
+    'should return "conatiner-without-header" if isEditable is false',
+    () => {
+      component.isEditable = false;
+      expect(component.getContainerCss(component.isEditable)).toEqual('container-without-header');
+    },
+  );
+
+  it(
+    'should return "conatiner-with-header" if isEditable is true',
+    () => {
+      component.isEditable = true;
+      expect(component.getContainerCss(component.isEditable)).toEqual('container-with-header');
+    },
+  );
 });

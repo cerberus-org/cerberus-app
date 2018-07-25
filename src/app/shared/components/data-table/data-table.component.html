@@ -1,4 +1,4 @@
-<div class="container">
+<div [ngClass]="getContainerCss(isEditable)">
   <mat-toolbar class="container-header" *ngIf="isEditable">
     <button mat-button class="container-header__button" [disabled]="itemsEdited.length === 0 || invalidItemsEdited.length !== 0" color="accent" (click)="onUpdateItems(itemsEdited)">Save</button>
   </mat-toolbar>
