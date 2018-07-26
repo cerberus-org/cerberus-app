@@ -9,8 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CheckInFormComponent } from './components/check-in-form/check-in-form.component';
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { SignatureFieldComponent } from './components/signature-field/signature-field.component';
-import { CheckInComponent } from './containers/check-in/check-in.component';
-import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
+import { CheckInPageComponent } from './containers/check-in-page/check-in-page.component';
+import { OrganizationDashboardPageComponent } from './containers/organization-dashboard-page/organization-dashboard-page.component';
 import { volunteersEffects } from './store/effects';
 import { volunteersReducers } from './store/reducers';
 import { VolunteersRoutingModule } from './volunteers-routing.module';
@@ -43,10 +43,10 @@ import { VolunteersRoutingModule } from './volunteers-routing.module';
     EffectsModule.forFeature(volunteersEffects),
   ],
   declarations: [
-    CheckInComponent,
+    CheckInPageComponent,
     CheckInFormComponent,
     NewVolunteerFormComponent,
-    OrganizationDashboardComponent,
+    OrganizationDashboardPageComponent,
     SignatureFieldComponent,
   ],
 })

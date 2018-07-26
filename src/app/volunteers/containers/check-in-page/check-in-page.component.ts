@@ -15,11 +15,11 @@ import {
 } from '../../store/selectors/check-in.selectors';
 
 @Component({
-  selector: 'app-check-in',
-  templateUrl: './check-in.component.html',
-  styleUrls: ['./check-in.component.scss'],
+  selector: 'app-check-in-page',
+  templateUrl: './check-in-page.component.html',
+  styleUrls: ['./check-in-page.component.scss'],
 })
-export class CheckInComponent implements OnInit, OnDestroy {
+export class CheckInPageComponent implements OnInit, OnDestroy {
   private headerSubscription: Subscription;
   @ViewChild('stepper') stepper: MatVerticalStepper;
   state$: Observable<CheckInContainerState>;

@@ -4,16 +4,16 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import { CheckInComponent } from './check-in.component';
+import { CheckInPageComponent } from './check-in-page.component';
 
-describe('CheckInComponent', () => {
-  let component: CheckInComponent;
-  let fixture: ComponentFixture<CheckInComponent>;
+describe('CheckInPageComponent', () => {
+  let component: CheckInPageComponent;
+  let fixture: ComponentFixture<CheckInPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        CheckInComponent,
+        CheckInPageComponent,
         MockComponent({
           selector: 'app-check-in-form',
           inputs: ['organizationId', 'siteId', 'visits', 'volunteers'],
@@ -37,7 +37,7 @@ describe('CheckInComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CheckInComponent);
+    fixture = TestBed.createComponent(CheckInPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

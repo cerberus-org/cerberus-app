@@ -11,11 +11,11 @@ import {
 } from '../../store/selectors/organization-dashboard.selectors';
 
 @Component({
-  selector: 'app-organization-dashboard',
-  templateUrl: './organization-dashboard.component.html',
-  styleUrls: ['./organization-dashboard.component.scss'],
+  selector: 'app-organization-dashboard-page',
+  templateUrl: './organization-dashboard-page.component.html',
+  styleUrls: ['./organization-dashboard-page.component.scss'],
 })
-export class OrganizationDashboardComponent implements OnInit, OnDestroy {
+export class OrganizationDashboardPageComponent implements OnInit, OnDestroy {
   private headerSubscription: Subscription;
   private sidenavSubscription: Subscription;
   visits$: Observable<Visit[]>;
