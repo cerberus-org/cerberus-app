@@ -6,7 +6,7 @@ import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
 import { createMockUserInfo } from '../../../../mocks/objects/user.mock';
 import { mockServiceProviders } from '../../../../mocks/providers.mock';
-import { mockStoreModules } from '../../../../mocks/store-modules.mock';
+import { mockStoreModules } from '../../../../mocks/store.mock';
 import * as ModelActions from '../../../core/store/actions/model.actions';
 import { SharedModule } from '../../../shared/shared.module';
 import * as SessionActions from '../actions/session.actions';

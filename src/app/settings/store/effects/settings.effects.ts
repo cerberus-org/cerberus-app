@@ -8,13 +8,13 @@ import * as SessionActions from '../../../auth/store/actions/session.actions';
 import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
 import { MemberService } from '../../../core/services/member.service';
 import { OrganizationService } from '../../../core/services/organization.service';
+import { SnackBarService } from '../../../core/services/snack-bar.service';
 import { VisitService } from '../../../core/services/visit.service';
 import { VolunteerService } from '../../../core/services/volunteer.service';
-import { getFormattedVisits } from '../../../shared/helpers';
-import { Member, Visit } from '../../../shared/models';
 import { RootState } from '../../../core/store/reducers';
 import { selectModelVolunteers } from '../../../core/store/selectors/model.selectors';
-import { SnackBarService } from '../../../core/services/snack-bar.service';
+import { getFormattedVisits } from '../../../shared/helpers';
+import { Member, Visit } from '../../../shared/models';
 import { CsvService } from '../../services/csv.service';
 import * as SettingsActions from '../actions/settings.actions';
 

@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
-import { HeaderOptions, Organization, Visit, Volunteer } from '../../../shared/models';
 import { selectModelVisits, selectModelVolunteers } from '../../../core/store/selectors/model.selectors';
+import { HeaderOptions, Organization, Visit, Volunteer } from '../../../shared/models';
 import { VolunteerSystemState } from '../reducers';
 import { CheckInReducerState } from '../reducers/check-in.reducer';
 import { selectVolunteerSystemState } from './volunteer-system.selectors';

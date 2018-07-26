@@ -1,7 +1,7 @@
-import { sortVisitsByStartedAt } from '../../../shared/helpers';
 import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
+import { sortVisitsByStartedAt } from '../../../shared/helpers';
 import * as ModelActions from '../actions/model.actions';
 import { modelReducer } from './model.reducer';
 

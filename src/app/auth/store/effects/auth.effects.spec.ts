@@ -5,9 +5,9 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { createMockCredentials } from '../../../../mocks/objects/credentials.mock';
 import { mockServiceProviders } from '../../../../mocks/providers.mock';
-import { mockStoreModules } from '../../../../mocks/store-modules.mock';
-import * as RouterActions from '../../../core/store/actions/router.actions';
+import { mockStoreModules } from '../../../../mocks/store.mock';
 import { SnackBarService } from '../../../core/services/snack-bar.service';
+import * as RouterActions from '../../../core/store/actions/router.actions';
 import * as AuthActions from '../actions/auth.actions';
 import { AuthEffects } from './auth.effects';
 

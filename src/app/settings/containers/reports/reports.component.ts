@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Report, Volunteer } from '../../../shared/models';
 import { RootState } from '../../../core/store/reducers';
 import { selectModelVolunteers } from '../../../core/store/selectors/model.selectors';
+import { Report, Volunteer } from '../../../shared/models';
 import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({

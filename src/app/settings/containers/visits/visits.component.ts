@@ -2,13 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/index';
 import { map } from 'rxjs/internal/operators';
+import { RootState } from '../../../core/store/reducers';
 import {
-  formatDate, formatDuration, formatTime, formatTimeInputValue, getFullName,
+  formatDate,
+  formatDuration,
+  formatTime,
+  formatTimeInputValue,
+  getFullName,
   updateDateWithTimeInput,
 } from '../../../shared/helpers';
-import { ColumnOptions, Visit } from '../../../shared/models';
+import { ColumnOptions } from '../../../shared/models';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
-import { RootState } from '../../../core/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { selectVisitWithVolunteers } from '../../store/selectors/visits.selectors';
 

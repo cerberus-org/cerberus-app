@@ -3,9 +3,9 @@ import { SwUpdate } from '@angular/service-worker';
 import { EMPTY } from 'rxjs/internal/observable/empty';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { MockSnackBarService } from '../../../mocks/classes/snack-bar.service.mock';
-import { SnackBarService } from './snack-bar.service';
 
 import { AppUpdateService } from './app-update.service';
+import { SnackBarService } from './snack-bar.service';
 
 class MockSwUpdate {
   available = EMPTY;

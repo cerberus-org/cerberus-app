@@ -3,7 +3,7 @@ import { MatDialogModule, MatIconModule, MatStepperModule, MatTabsModule } from 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { mockStoreModules } from '../../../../mocks/store-modules.mock';
+import { mockStoreModules } from '../../../../mocks/store.mock';
 import { CheckInComponent } from './check-in.component';
 
 describe('CheckInComponent', () => {

@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 import { mockVisits } from '../../../../mocks/objects/visit.mock';
 import { mockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockServiceProviders } from '../../../../mocks/providers.mock';
-import { mockStoreModules } from '../../../../mocks/store-modules.mock';
-import * as RouterActions from '../../../core/store/actions/router.actions';
+import { mockStoreModules } from '../../../../mocks/store.mock';
 import { SnackBarService } from '../../../core/services/snack-bar.service';
+import * as RouterActions from '../../../core/store/actions/router.actions';
 import * as CheckInActions from '../actions/check-in.actions';
 import { CheckInEffects } from './check-in.effects';
 

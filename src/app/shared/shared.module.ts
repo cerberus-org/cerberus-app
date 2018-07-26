@@ -2,7 +2,6 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { MaterialModule } from '../material/material.module';
 import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-hours-chart.component';
@@ -34,7 +33,6 @@ export const COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
     CdkTableModule,
     ChartsModule,
     FormsModule,

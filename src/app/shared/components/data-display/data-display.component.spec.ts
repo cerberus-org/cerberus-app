@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { createMockVisits } from '../../../../mocks/objects/visit.mock';
-import { mockStoreModules } from '../../../../mocks/store-modules.mock';
+import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Visit } from '../../models';
 import { DataDisplayComponent } from './data-display.component';
 

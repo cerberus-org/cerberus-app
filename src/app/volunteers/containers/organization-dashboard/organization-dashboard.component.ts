@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { Visit } from '../../../shared/models';
 import * as LayoutActions from '../../../core/store/actions/layout.actions';
 import { RootState } from '../../../core/store/reducers';
 import { selectModelVisits } from '../../../core/store/selectors/model.selectors';
+import { Visit } from '../../../shared/models';
 import {
   selectOrganizationDashboardHeaderOptions,
   selectOrganizationDashboardSidenavOptions,

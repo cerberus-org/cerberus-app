@@ -3,8 +3,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
 import { Visit } from '../../shared/models';
-import { ErrorService } from './error.service';
 import { BaseService } from './base.service';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',

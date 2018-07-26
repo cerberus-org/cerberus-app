@@ -1,8 +1,8 @@
 import { createSelector } from '@ngrx/store';
 import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
-import { HeaderOptions, Organization, SidenavOptions, Site } from '../../../shared/models';
 import * as RouterActions from '../../../core/store/actions/router.actions';
 import { selectModelSites } from '../../../core/store/selectors/model.selectors';
+import { HeaderOptions, Organization, SidenavOptions, Site } from '../../../shared/models';
 
 export const selectOrganizationDashboardHeaderOptions = createSelector(
   selectSessionOrganization,

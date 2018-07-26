@@ -1,12 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
-import {
-  convertToTimeString, formatDate, formatDuration, formatTime, formatTimeInputValue,
-  getFullName,
-} from '../../../shared/helpers';
 import { createMockVisits } from '../../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
-import { mockStoreModules } from '../../../../mocks/store-modules.mock';
+import { mockStoreModules } from '../../../../mocks/store.mock';
+import {
+  convertToTimeString,
+  formatDate,
+  formatDuration,
+  formatTime,
+  formatTimeInputValue,
+  getFullName,
+} from '../../../shared/helpers';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { VisitsComponent } from './visits.component';

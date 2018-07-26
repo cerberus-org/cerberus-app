@@ -4,11 +4,11 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { User, UserInfo } from 'firebase';
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { ErrorService } from '../../core/services/error.service';
 import { MemberService } from '../../core/services/member.service';
+import { RootState } from '../../core/store/reducers';
 import { Member } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
-import { RootState } from '../../core/store/reducers';
-import { ErrorService } from '../../core/services/error.service';
 import * as SessionActions from '../store/actions/session.actions';
 
 @Injectable()

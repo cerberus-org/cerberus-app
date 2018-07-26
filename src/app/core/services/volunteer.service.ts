@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { Volunteer } from '../../shared/models';
-import { ErrorService } from './error.service';
 import { BaseService } from './base.service';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',

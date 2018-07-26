@@ -4,11 +4,11 @@ import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
+import { SnackBarService } from '../../../core/services/snack-bar.service';
 import { VisitService } from '../../../core/services/visit.service';
 import { VolunteerService } from '../../../core/services/volunteer.service';
 import * as RouterActions from '../../../core/store/actions/router.actions';
 import { RootState } from '../../../core/store/reducers';
-import { SnackBarService } from '../../../core/services/snack-bar.service';
 import * as CheckInActions from '../actions/check-in.actions';
 
 @Injectable()

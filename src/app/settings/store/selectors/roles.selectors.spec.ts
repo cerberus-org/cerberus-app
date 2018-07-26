@@ -1,5 +1,5 @@
-import { MEMBER_ROLE_ADMIN, MEMBER_ROLE_LOCKED, MEMBER_ROLE_MEMBER, MEMBER_ROLE_OWNER } from '../../../shared/helpers';
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
+import { MEMBER_ROLE_ADMIN, MEMBER_ROLE_LOCKED, MEMBER_ROLE_MEMBER, MEMBER_ROLE_OWNER } from '../../../shared/helpers';
 import { Member } from '../../../shared/models';
 import { selectMembersWithRoleOptions } from './roles.selectors';
 import arrayContaining = jasmine.arrayContaining;

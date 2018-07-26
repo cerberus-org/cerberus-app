@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ColumnOptions, Member } from '../../../shared/models';
 import { RootState } from '../../../core/store/reducers';
+import { ColumnOptions, Member } from '../../../shared/models';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { MemberWithRoleOptions, selectMembersWithRoleOptions } from '../../store/selectors/roles.selectors';
 

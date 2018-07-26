@@ -1,6 +1,6 @@
 import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
+import { selectGettingStartedReducerState } from '../../../public/store/selectors/sign-up.selectors';
 import { Organization } from '../../../shared/models';
-import { selectGettingStartedReducerState } from '../../../sign-up/store/selectors/getting-started.selectors';
 import { initialCheckInReducerState } from '../reducers/check-in.reducer';
 import { selectCheckInHeaderOptions, selectSelectedTabIndex } from './check-in.selectors';
 import objectContaining = jasmine.objectContaining;

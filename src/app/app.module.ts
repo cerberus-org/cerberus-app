@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { EffectsModule } from '@ngrx/effects';
@@ -19,7 +18,6 @@ import { rootReducers } from './core/store/reducers';
 @NgModule({
   imports: [
     CommonModule,
-    BrowserModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('/ngsw-worker.js'),
     AngularFireModule.initializeApp(environment.firebase),
