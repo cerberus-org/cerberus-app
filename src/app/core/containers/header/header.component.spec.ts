@@ -4,9 +4,9 @@ import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { createMockHeaderOptions } from '../../../../mocks/objects/header-options.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as AuthActions from '../../../auth/store/actions/auth.actions';
-import * as LayoutActions from '../../store/actions/layout.actions';
-import * as RouterActions from '../../store/actions/router.actions';
+import * as AuthActions from '../../../auth/actions/auth.actions';
+import * as LayoutActions from '../../actions/layout.actions';
+import * as RouterActions from '../../actions/router.actions';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {

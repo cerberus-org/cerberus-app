@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import { SidenavOptions } from '../../app/shared/models/index';
-import * as RouterActions from '../../app/core/store/actions/router.actions';
+import * as RouterActions from '../../app/core/actions/router.actions';
 
 export const mockSidenavOptions: SidenavOptions[] = [
   {

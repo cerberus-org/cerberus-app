@@ -12,7 +12,7 @@ import {
   getFullName,
 } from '../../../shared/helpers';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
-import * as SettingsActions from '../../store/actions/settings.actions';
+import * as SettingsActions from '../../actions/settings.actions';
 import { VisitsComponent } from './visits.component';
 
 describe('Visits Component', () => {

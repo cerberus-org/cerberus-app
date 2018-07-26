@@ -5,9 +5,9 @@ import { User } from 'firebase';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { AppUpdateService } from '../../services/app-update.service';
-import * as ModelActions from '../../store/actions/model.actions';
-import { AppState } from '../../store/reducers';
-import { selectModelLoadedState } from '../../store/selectors/model.selectors';
+import * as ModelActions from '../../actions/model.actions';
+import { AppState } from '../../reducers';
+import { selectModelLoadedState } from '../../selectors/model.selectors';
 import { SidenavComponent } from '../sidenav/sidenav.component';
 
 @Component({

@@ -3,12 +3,12 @@ import { MatDialog } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { delay } from 'rxjs/operators';
-import * as AuthActions from '../../../auth/store/actions/auth.actions';
+import * as AuthActions from '../../../auth/actions/auth.actions';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
-import * as LayoutActions from '../../store/actions/layout.actions';
-import * as RouterActions from '../../store/actions/router.actions';
-import { LayoutReducerState } from '../../store/reducers/layout.reducer';
-import { HeaderState, selectHeaderState } from '../../store/selectors/layout.selectors';
+import * as LayoutActions from '../../actions/layout.actions';
+import * as RouterActions from '../../actions/router.actions';
+import { LayoutReducerState } from '../../reducers/layout.reducer';
+import { HeaderState, selectHeaderState } from '../../selectors/layout.selectors';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as LayoutActions from '../../../core/store/actions/layout.actions';
-import * as RouterActions from '../../../core/store/actions/router.actions';
-import { AppState } from '../../../core/store/reducers';
+import * as LayoutActions from '../../../core/actions/layout.actions';
+import * as RouterActions from '../../../core/actions/router.actions';
+import { AppState } from '../../../core/reducers';
 import { Organization } from '../../../shared/models';
 
 @Component({

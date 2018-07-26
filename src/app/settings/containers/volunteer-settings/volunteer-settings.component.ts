@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState } from '../../../core/store/reducers';
-import { selectModelVolunteers } from '../../../core/store/selectors/model.selectors';
+import { AppState } from '../../../core/reducers';
+import { selectModelVolunteers } from '../../../core/selectors/model.selectors';
 import { ColumnOptions, Volunteer } from '../../../shared/models';
-import * as SettingsActions from '../../store/actions/settings.actions';
+import * as SettingsActions from '../../actions/settings.actions';
 
 @Component({
   selector: 'app-volunteer-settings',

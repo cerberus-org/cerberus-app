@@ -4,8 +4,8 @@ import { Observable, Subscription } from 'rxjs';
 import { ErrorService } from '../../../core/services/error.service';
 import { OrganizationService } from '../../../core/services/organization.service';
 import { VisitService } from '../../../core/services/visit.service';
-import * as LayoutActions from '../../../core/store/actions/layout.actions';
-import { AppState } from '../../../core/store/reducers';
+import * as LayoutActions from '../../../core/actions/layout.actions';
+import { AppState } from '../../../core/reducers';
 import { HeaderOptions, Organization, Visit } from '../../../shared/models';
 
 @Component({

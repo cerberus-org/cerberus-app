@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { mockReports } from '../../../../mocks/objects/report.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as SettingsActions from '../../store/actions/settings.actions';
+import * as SettingsActions from '../../actions/settings.actions';
 import { ReportsComponent } from './reports.component';
 
 describe('ReportsComponent', () => {

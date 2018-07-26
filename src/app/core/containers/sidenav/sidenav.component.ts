@@ -5,9 +5,9 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { SidenavOptions } from '../../../shared/models';
-import * as LayoutActions from '../../store/actions/layout.actions';
-import { LayoutReducerState } from '../../store/reducers/layout.reducer';
-import { selectSidenavOptions, selectSidenavState, SidenavState } from '../../store/selectors/layout.selectors';
+import * as LayoutActions from '../../actions/layout.actions';
+import { LayoutReducerState } from '../../reducers/layout.reducer';
+import { selectSidenavOptions, selectSidenavState, SidenavState } from '../../selectors/layout.selectors';
 
 @Component({
   selector: 'app-sidenav',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
-import { AppState } from '../../../core/store/reducers';
+import { AppState } from '../../../core/reducers';
 import {
   formatDate,
   formatDuration,
@@ -13,8 +13,8 @@ import {
 } from '../../../shared/helpers';
 import { ColumnOptions } from '../../../shared/models';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
-import * as SettingsActions from '../../store/actions/settings.actions';
-import { selectVisitWithVolunteers } from '../../store/selectors/visits.selectors';
+import * as SettingsActions from '../../actions/settings.actions';
+import { selectVisitWithVolunteers } from '../../selectors/visits.selectors';
 
 @Component({
   selector: 'app-visits',

@@ -14,8 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './core/containers/root/app.component';
 import { CoreModule } from './core/core.module';
-import { appEffects } from './core/store/effects';
-import { appReducers } from './core/store/reducers';
+import { appEffects } from './core/effects';
+import { appReducers } from './core/reducers';
 
 @NgModule({
   imports: [

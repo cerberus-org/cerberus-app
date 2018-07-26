@@ -15,8 +15,8 @@ import { VisitsComponent } from './containers/visits/visits.component';
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
 import { CsvService } from './services/csv.service';
 import { SettingsRoutingModule } from './settings-routing.module';
-import { settingsEffects } from './store/effects';
-import { settingsReducers } from './store/reducers';
+import { settingsEffects } from './effects';
+import { settingsReducers } from './reducers';
 
 @NgModule({
   imports: [

@@ -3,7 +3,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { createMockCredentials } from '../../../../mocks/objects/credentials.mock';
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as SettingsActions from '../../store/actions/settings.actions';
+import * as SettingsActions from '../../actions/settings.actions';
 import { UserSettingsComponent } from './user-settings.component';
 
 describe('UserSettingsComponent', () => {

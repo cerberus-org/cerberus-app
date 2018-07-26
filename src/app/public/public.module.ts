@@ -13,8 +13,8 @@ import { LoginComponent } from './containers/login/login.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { ViewActivityPageComponent } from './containers/view-activity-page/view-activity-page.component';
 import { PublicRoutingModule } from './public-routing.module';
-import { signUpEffects } from './store/effects';
-import { publicReducers } from './store/reducers';
+import { signUpEffects } from './effects';
+import { publicReducers } from './reducers';
 
 @NgModule({
   imports: [

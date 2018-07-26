@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { mockOrganizations } from '../../../../mocks/objects/organization.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as RouterActions from '../../../core/store/actions/router.actions';
+import * as RouterActions from '../../../core/actions/router.actions';
 import { HomePageComponent } from './home-page.component';
 
 describe('HomePageComponent', () => {

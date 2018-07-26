@@ -6,10 +6,10 @@ import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ErrorService } from '../../core/services/error.service';
 import { MemberService } from '../../core/services/member.service';
-import { AppState } from '../../core/store/reducers';
+import { AppState } from '../../core/reducers';
 import { Member } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
-import * as SessionActions from '../store/actions/session.actions';
+import * as SessionActions from '../actions/session.actions';
 
 @Injectable()
 export class AuthService {

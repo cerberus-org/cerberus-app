@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { SessionReducerState } from '../../../auth/store/reducers/session.reducer';
-import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
+import { SessionReducerState } from '../../../auth/reducers/session.reducer';
+import { selectSessionOrganization } from '../../../auth/selectors/session.selectors';
 import { Organization } from '../../../shared/models';
-import * as SettingsActions from '../../store/actions/settings.actions';
+import * as SettingsActions from '../../actions/settings.actions';
 
 @Component({
   selector: 'app-organization-settings',

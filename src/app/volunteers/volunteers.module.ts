@@ -11,8 +11,8 @@ import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-v
 import { SignatureFieldComponent } from './components/signature-field/signature-field.component';
 import { CheckInPageComponent } from './containers/check-in-page/check-in-page.component';
 import { OrganizationDashboardPageComponent } from './containers/organization-dashboard-page/organization-dashboard-page.component';
-import { volunteersEffects } from './store/effects';
-import { volunteersReducers } from './store/reducers';
+import { volunteersEffects } from './effects';
+import { volunteersReducers } from './reducers';
 import { VolunteersRoutingModule } from './volunteers-routing.module';
 
 @NgModule({

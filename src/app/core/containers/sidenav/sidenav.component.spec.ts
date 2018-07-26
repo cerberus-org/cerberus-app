@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { createMockSidenavOptions } from '../../../../mocks/objects/sidenav-options.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as LayoutActions from '../../store/actions/layout.actions';
+import * as LayoutActions from '../../actions/layout.actions';
 import { SidenavComponent } from './sidenav.component';
 
 class MockMediaMatcher {

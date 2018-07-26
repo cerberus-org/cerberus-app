@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import * as LayoutActions from '../../../core/store/actions/layout.actions';
-import { AppState } from '../../../core/store/reducers';
-import { selectModelVisits } from '../../../core/store/selectors/model.selectors';
+import * as LayoutActions from '../../../core/actions/layout.actions';
+import { AppState } from '../../../core/reducers';
+import { selectModelVisits } from '../../../core/selectors/model.selectors';
 import { Visit } from '../../../shared/models';
 import {
   selectOrganizationDashboardHeaderOptions,
   selectOrganizationDashboardSidenavOptions,
-} from '../../store/selectors/organization-dashboard.selectors';
+} from '../../selectors/organization-dashboard.selectors';
 
 @Component({
   selector: 'app-organization-dashboard-page',

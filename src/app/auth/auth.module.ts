@@ -6,8 +6,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { LoginGuard } from './guards/login-guard';
 import { VerificationGuard } from './guards/verification-guard';
 import { AuthService } from './services/auth.service';
-import { authEffects } from './store/effects';
-import { authReducers } from './store/reducers';
+import { authEffects } from './effects';
+import { authReducers } from './reducers';
 
 @NgModule({
   declarations: [],

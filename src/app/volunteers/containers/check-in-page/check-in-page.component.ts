@@ -3,16 +3,16 @@ import { MatDialog, MatVerticalStepper } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import * as LayoutActions from '../../../core/store/actions/layout.actions';
-import { AppState } from '../../../core/store/reducers';
+import * as LayoutActions from '../../../core/actions/layout.actions';
+import { AppState } from '../../../core/reducers';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import { Visit, Volunteer } from '../../../shared/models';
-import * as CheckInActions from '../../store/actions/check-in.actions';
+import * as CheckInActions from '../../actions/check-in.actions';
 import {
   CheckInContainerState,
   selectCheckInContainerState,
   selectCheckInHeaderOptions,
-} from '../../store/selectors/check-in.selectors';
+} from '../../selectors/check-in.selectors';
 
 @Component({
   selector: 'app-check-in-page',
