@@ -28,7 +28,7 @@ import { VolunteerSystemModule } from '../volunteer-system/volunteer-system.modu
 import { HeaderComponent } from './containers/header/header.component';
 import { RootComponent } from './containers/root/root.component';
 import { SidenavComponent } from './containers/sidenav/sidenav.component';
-import { routes } from './root.routes';
+import { routes } from './core.routes';
 import { rootEffects } from './store/effects';
 import { rootReducers } from './store/reducers';
 
@@ -66,5 +66,5 @@ import { rootReducers } from './store/reducers';
   providers: [],
   bootstrap: [RootComponent],
 })
-export class RootModule {
+export class CoreModule {
 }
