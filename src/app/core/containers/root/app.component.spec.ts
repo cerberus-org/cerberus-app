@@ -8,16 +8,16 @@ import { createMockUserInfo } from '../../../mock/objects/user.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
 import { AppUpdateService } from '../../services/app-update.service';
 import * as ModelActions from '../../store/actions/model.actions';
-import { RootComponent } from './root.component';
+import { AppComponent } from './app.component';
 
-describe('RootComponent', () => {
-  let component: RootComponent;
-  let fixture: ComponentFixture<RootComponent>;
+describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        RootComponent,
+        AppComponent,
         MockComponent({ selector: 'app-footer' }),
         MockComponent({ selector: 'app-header' }),
         MockComponent({ selector: 'app-loader', inputs: ['text'] }),
@@ -41,7 +41,7 @@ describe('RootComponent', () => {
       ],
     })
       .compileComponents();
-    fixture = TestBed.createComponent(RootComponent);
+    fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
   }));
 

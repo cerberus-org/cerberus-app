@@ -26,7 +26,7 @@ import { SharedModule } from '../shared/shared.module';
 import { SignUpModule } from '../sign-up/sign-up.module';
 import { VolunteerSystemModule } from '../volunteer-system/volunteer-system.module';
 import { HeaderComponent } from './containers/header/header.component';
-import { RootComponent } from './containers/root/root.component';
+import { AppComponent } from './containers/root/app.component';
 import { SidenavComponent } from './containers/sidenav/sidenav.component';
 import { routes } from './core.routes';
 import { rootEffects } from './store/effects';
@@ -59,12 +59,11 @@ import { rootReducers } from './store/reducers';
     VolunteerSystemModule,
   ],
   declarations: [
-    RootComponent,
+    AppComponent,
     HeaderComponent,
     SidenavComponent,
   ],
   providers: [],
-  bootstrap: [RootComponent],
 })
 export class CoreModule {
 }

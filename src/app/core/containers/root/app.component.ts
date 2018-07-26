@@ -12,10 +12,10 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './root.component.html',
-  styleUrls: ['./root.component.scss'],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
-export class RootComponent implements OnInit {
+export class AppComponent implements OnInit {
   @ViewChild(SidenavComponent) sidenav: SidenavComponent;
   modelIsLoaded$: Observable<boolean>;
   isLoggedIn: boolean;

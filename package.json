@@ -33,6 +33,7 @@
     "@ngrx/effects": "^6.0.1",
     "@ngrx/router-store": "^6.0.1",
     "@ngrx/store": "^6.0.1",
+    "@ngrx/store-devtools": "^6.0.1",
     "@types/angular-material": "^1.1.59",
     "angular2-signaturepad": "^2.8.0",
     "angularfire2": "^5.0.0-rc.11",
