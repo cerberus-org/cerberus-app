@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from '../material/material.module';
@@ -15,20 +14,20 @@ import { UserSettingsComponent } from './containers/user-settings/user-settings.
 import { VisitsComponent } from './containers/visits/visits.component';
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
 import { CsvService } from './services/csv.service';
-import { settingsRoutes } from './settings.routes';
+import { SettingsRoutingModule } from './settings-routing.module';
 import { settingsEffects } from './store/effects';
 import { settingsReducers } from './store/reducers';
 
 @NgModule({
   imports: [
-    RouterModule.forChild(settingsRoutes),
-    StoreModule.forFeature('settings', settingsReducers),
-    EffectsModule.forFeature(settingsEffects),
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     SharedModule,
+    SettingsRoutingModule,
+    StoreModule.forFeature('settings', settingsReducers),
+    EffectsModule.forFeature(settingsEffects),
   ],
   declarations: [
     OrganizationSettingsComponent,
