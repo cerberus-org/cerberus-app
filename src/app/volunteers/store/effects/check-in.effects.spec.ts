@@ -62,7 +62,7 @@ describe('CheckInEffects', () => {
 
     it('should dispatch RouterActions.Go', () => {
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/organization/volunteers'] }),
+        b: new RouterActions.Go({ path: ['organization/volunteers'] }),
       });
       expect(effects.checkIn$).toBeObservable(expected);
     });
@@ -84,7 +84,7 @@ describe('CheckInEffects', () => {
 
     it('should dispatch RouterActions.Go', () => {
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/organization/volunteers'] }),
+        b: new RouterActions.Go({ path: ['organization/volunteers'] }),
       });
       expect(effects.checkOut$).toBeObservable(expected);
     });

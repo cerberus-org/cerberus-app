@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { SettingsState } from '../../store/reducers';

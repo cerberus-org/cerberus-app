@@ -2,8 +2,7 @@ import { animate, state as animationsState, style, transition, trigger } from '@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatRadioChange } from '@angular/material';
-import { Subscription } from 'rxjs';
-import { Observable } from 'rxjs/index';
+import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { findActiveVisit, getFullName, getUniqueFullNames, searchVolunteersByName } from '../../../shared/helpers';
 import { Visit, Volunteer } from '../../../shared/models';

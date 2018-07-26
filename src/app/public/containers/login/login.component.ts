@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import * as LayoutActions from '../../../core/store/actions/layout.actions';
-import { AppState } from '../../../core/store/reducers/index';
+import { AppState } from '../../../core/store/reducers';
 import { EmailDialogComponent } from '../../components/email-dialog/email-dialog.component';
 
 @Component({

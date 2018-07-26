@@ -11,10 +11,10 @@ import { OrganizationService } from '../../../core/services/organization.service
 import { SiteService } from '../../../core/services/site.service';
 import { SnackBarService } from '../../../core/services/snack-bar.service';
 import * as RouterActions from '../../../core/store/actions/router.actions';
-import { Member, Organization, Site } from '../../../shared/models/index';
-import * as GettingStartedActions from '../actions/sign-up.actions';
-import { PublicState } from '../reducers/index';
-import { selectGettingStartedReducerState } from '../selectors/sign-up.selectors';
+import { Member, Organization, Site } from '../../../shared/models';
+import * as SignUpActions from '../actions/sign-up.actions';
+import { PublicState } from '../reducers';
+import { selectSignUpReducerState } from '../selectors/sign-up.selectors';
 
 @Injectable()
 export class SignUpEffects {
@@ -25,13 +25,13 @@ export class SignUpEffects {
    */
   @Effect()
   submit$: Observable<Action> = this.actions
-    .ofType(GettingStartedActions.SUBMIT)
+    .ofType(SignUpActions.SUBMIT)
     .pipe(
-      withLatestFrom(this.store$.pipe(select(selectGettingStartedReducerState))),
+      withLatestFrom(this.store$.pipe(select(selectSignUpReducerState))),
       map(([action, { joinExistingOrganization }]) =>
         joinExistingOrganization
-          ? new GettingStartedActions.JoinOrganization()
-          : new GettingStartedActions.CreateOrganization(),
+          ? new SignUpActions.JoinOrganization()
+          : new SignUpActions.CreateOrganization(),
       ),
     );
 
@@ -41,9 +41,9 @@ export class SignUpEffects {
    */
   @Effect()
   createOrganization$: Observable<Action> = this.actions
-    .ofType(GettingStartedActions.CREATE_ORGANIZATION)
+    .ofType(SignUpActions.CREATE_ORGANIZATION)
     .pipe(
-      withLatestFrom(this.store$.pipe(select(selectGettingStartedReducerState))),
+      withLatestFrom(this.store$.pipe(select(selectSignUpReducerState))),
       switchMap(([action, { validOrganization, validCredentials, validMember }]) => {
         return this.organizationService.add(validOrganization)
         // 1. Create the organization first
@@ -77,9 +77,9 @@ export class SignUpEffects {
    */
   @Effect({ dispatch: false })
   joinOrganization$: Observable<Action> = this.actions
-    .ofType(GettingStartedActions.JOIN_ORGANIZATION)
+    .ofType(SignUpActions.JOIN_ORGANIZATION)
     .pipe(
-      withLatestFrom(this.store$.pipe(select(selectGettingStartedReducerState))),
+      withLatestFrom(this.store$.pipe(select(selectSignUpReducerState))),
       switchMap(([action, { validOrganization, validCredentials, validMember }]) =>
         this.authService.createUser(validCredentials)
           .pipe(
@@ -92,7 +92,7 @@ export class SignUpEffects {
               .pipe(
                 map(() => {
                   this.snackBarService.joinOrganizationSuccess();
-                  return new RouterActions.Go({ path: ['/home'] });
+                  return new RouterActions.Go({ path: ['home'] });
                 }),
               )),
           )),

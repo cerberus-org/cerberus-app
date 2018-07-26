@@ -1,10 +1,10 @@
 import { createSelector } from '@ngrx/store';
+import { selectPublicState } from '.';
 import { Member, Organization } from '../../../shared/models';
 import { Credentials } from '../../../shared/models/credentials';
 import { PublicState } from '../reducers';
-import { selectPublicState } from './index';
 
-export const selectGettingStartedReducerState = createSelector(
+export const selectSignUpReducerState = createSelector(
   selectPublicState,
   (state: PublicState) => state.signUp,
 );
@@ -14,7 +14,7 @@ export const selectGettingStartedReducerState = createSelector(
  * @type {MemoizedSelector<object, number>}
  */
 export const selectMaxEnabledStep = createSelector(
-  selectGettingStartedReducerState,
+  selectSignUpReducerState,
   ({ validOrganization, validCredentials, validMember, tosIsChecked, maxVisitedStep }) =>
     [true, !!validOrganization, !!validCredentials || !!validMember, tosIsChecked]
       .reduce(
@@ -24,7 +24,7 @@ export const selectMaxEnabledStep = createSelector(
       ),
 );
 
-export interface GettingStartedPageState {
+export interface SignUpPageState {
   maxEnabledStep: number;
   joinExistingOrganization: boolean;
   validOrganization: Organization;
@@ -33,13 +33,13 @@ export interface GettingStartedPageState {
   tosIsChecked: boolean;
 }
 
-export const selectGettingStartedPageState = createSelector(
-  selectGettingStartedReducerState,
+export const selectSignUpPageState = createSelector(
+  selectSignUpReducerState,
   selectMaxEnabledStep,
   (
     { joinExistingOrganization, validOrganization, validCredentials, validMember, tosIsChecked },
     maxEnabledStep: number,
-  ): GettingStartedPageState => ({
+  ): SignUpPageState => ({
     maxEnabledStep,
     joinExistingOrganization,
     validOrganization,

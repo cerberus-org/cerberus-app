@@ -52,20 +52,13 @@ describe('HomePageComponent', () => {
     spyOn(component.store$, 'dispatch');
     component.onInputIconButtonClick(mockOrganizations[0]);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/view-activity/' + mockOrganizations[0].name] }));
+      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['view-activity/' + mockOrganizations[0].name] }));
   });
 
   it('should handle onClickSignUpButton events by dispatching RouterActions.Go', () => {
     spyOn(component.store$, 'dispatch');
     component.onClickSignUpButton();
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/start'] }));
-  });
-
-  it('should handle onJoinOrganization events by dispatching RouterActions.Go', () => {
-    spyOn(component.store$, 'dispatch');
-    component.onJoinOrganization();
-    expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/join'] }));
+      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['sign-up'] }));
   });
 });

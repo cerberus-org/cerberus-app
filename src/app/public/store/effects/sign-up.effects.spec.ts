@@ -9,9 +9,9 @@ import { mockStoreModules } from '../../../../mocks/store.mock';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { SnackBarService } from '../../../core/services/snack-bar.service';
 import * as RouterActions from '../../../core/store/actions/router.actions';
-import { appReducers } from '../../../core/store/reducers/index';
-import * as GettingStartedActions from '../actions/sign-up.actions';
-import { publicReducers } from '../reducers/index';
+import { appReducers } from '../../../core/store/reducers';
+import * as SignUpActions from '../actions/sign-up.actions';
+import { publicReducers } from '../reducers';
 import { initialSignUpReducerState } from '../reducers/sign-up.reducer';
 import { SignUpEffects } from './sign-up-effects.service';
 
@@ -42,10 +42,10 @@ describe('SignUpEffects', () => {
     it('should dispatch SignUpActions.CreateOrganization if joinExistingOrganization is false', async(() => {
       configureDefault();
       actions = hot('a', {
-        a: new GettingStartedActions.Submit(),
+        a: new SignUpActions.Submit(),
       });
       const expected = cold('b', {
-        b: new GettingStartedActions.CreateOrganization(),
+        b: new SignUpActions.CreateOrganization(),
       });
       expect(effects.submit$).toBeObservable(expected);
     }));
@@ -55,9 +55,9 @@ describe('SignUpEffects', () => {
         providers,
         imports: [
           StoreModule.forRoot(appReducers),
-          StoreModule.forFeature('signUp', publicReducers, {
+          StoreModule.forFeature('public', publicReducers, {
             initialState: {
-              gettingStarted: {
+              signUp: {
                 ...initialSignUpReducerState,
                 joinExistingOrganization: true,
               },
@@ -67,10 +67,10 @@ describe('SignUpEffects', () => {
       });
       effects = TestBed.get(SignUpEffects);
       actions = hot('a', {
-        a: new GettingStartedActions.Submit(),
+        a: new SignUpActions.Submit(),
       });
       const expected = cold('b', {
-        b: new GettingStartedActions.JoinOrganization(),
+        b: new SignUpActions.JoinOrganization(),
       });
       expect(effects.submit$).toBeObservable(expected);
     }));
@@ -80,7 +80,7 @@ describe('SignUpEffects', () => {
     beforeEach(async(() => {
       configureDefault();
       actions = hot('a', {
-        a: new GettingStartedActions.CreateOrganization(),
+        a: new SignUpActions.CreateOrganization(),
       });
     }));
 
@@ -103,13 +103,13 @@ describe('SignUpEffects', () => {
     beforeEach(async(() => {
       configureDefault();
       actions = hot('a', {
-        a: new GettingStartedActions.JoinOrganization(),
+        a: new SignUpActions.JoinOrganization(),
       });
     }));
 
     it('should dispatch RouterActions.Go', async(() => {
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/home'] }),
+        b: new RouterActions.Go({ path: ['home'] }),
       });
       expect(effects.joinOrganization$).toBeObservable(expected);
     }));

@@ -1,17 +1,17 @@
 import { createMockCredentials } from '../../../../mocks/objects/credentials.mock';
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
-import * as GettingStartedActions from '../actions/sign-up.actions';
+import * as SignUpActions from '../actions/sign-up.actions';
 import { initialSignUpReducerState, signUpReducer } from './sign-up.reducer';
 
-describe('gettingStartedReducer', () => {
+describe('signUpReducer', () => {
 
   describe('NEXT_STEP', () => {
 
     it('updates maxVisitedStep when the next maxVisitedStep is greater than the previous', () => {
       const state = signUpReducer(
         initialSignUpReducerState,
-        new GettingStartedActions.NextStep(1),
+        new SignUpActions.NextStep(1),
       );
       expect(state.maxVisitedStep).toEqual(1);
     });
@@ -20,7 +20,7 @@ describe('gettingStartedReducer', () => {
       const initialState = { ...initialSignUpReducerState, maxVisitedStep: 2 };
       const state = signUpReducer(
         initialState,
-        new GettingStartedActions.NextStep(1),
+        new SignUpActions.NextStep(1),
       );
       expect(state.maxVisitedStep).toEqual(2);
     });
@@ -32,7 +32,7 @@ describe('gettingStartedReducer', () => {
       const organization = createMockOrganizations()[0];
       const state = signUpReducer(
         initialSignUpReducerState,
-        new GettingStartedActions.SetValidOrganization(organization),
+        new SignUpActions.SetValidOrganization(organization),
       );
       expect(state.validOrganization).toEqual(organization);
     });
@@ -45,7 +45,7 @@ describe('gettingStartedReducer', () => {
       const member = createMockMembers()[0];
       const state = signUpReducer(
         initialSignUpReducerState,
-        new GettingStartedActions.SetValidMemberAndUserInfo({ credentials, member }),
+        new SignUpActions.SetValidMemberAndUserInfo({ credentials, member }),
       );
       expect(state.validCredentials).toEqual(credentials);
       expect(state.validMember).toEqual(member);

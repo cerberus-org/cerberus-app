@@ -32,10 +32,10 @@ export class AuthEffects {
               map(([{ firstName, role }]) => {
                 if (role === 'Locked') {
                   this.snackBarService.accountNotVerified();
-                  return new RouterActions.Go({ path: ['/home'] });
+                  return new RouterActions.Go({ path: ['home'] });
                 }
                 this.snackBarService.signInSuccess(firstName);
-                return new RouterActions.Go({ path: ['/organization/volunteers'] });
+                return new RouterActions.Go({ path: ['organization/volunteers'] });
               }),
             )),
         )),
@@ -56,7 +56,7 @@ export class AuthEffects {
         .pipe(
           map(() => {
             this.authService.setPwdVerification(true);
-            return new RouterActions.Go({ path: ['/organization/settings'] });
+            return new RouterActions.Go({ path: ['organization/settings'] });
           }),
         )),
     );

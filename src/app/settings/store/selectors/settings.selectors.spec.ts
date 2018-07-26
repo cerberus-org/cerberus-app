@@ -10,7 +10,7 @@ import objectContaining = jasmine.objectContaining;
 
 describe('settings.selectors', () => {
   describe('selectSettingsReducerState', () => {
-    it('it should select the settingsReducer state', () => {
+    it('it should select the state', () => {
       const state = initialSettingsReducerState;
       expect(selectSettingsReducerState.projector({
         settings: state,

@@ -2,7 +2,7 @@ import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { MockErrorService } from '../../../mocks/classes/error.service.mock';
 import { createMockSites, mockSites } from '../../../mocks/objects/site.mock';
-import { Site } from '../../shared/models/index';
+import { Site } from '../../shared/models';
 import { ErrorService } from './error.service';
 import { SiteService } from './site.service';
 

@@ -52,7 +52,7 @@ export class CheckInEffects {
         .pipe(
           map(() => {
             this.snackBarService.checkInSuccess();
-            return new RouterActions.Go({ path: ['/organization/volunteers'] });
+            return new RouterActions.Go({ path: ['organization/volunteers'] });
           }))),
     );
 
@@ -69,7 +69,7 @@ export class CheckInEffects {
         .pipe(
           map(() => {
             this.snackBarService.checkOutSuccess();
-            return new RouterActions.Go({ path: ['/organization/volunteers'] });
+            return new RouterActions.Go({ path: ['organization/volunteers'] });
           }),
         )),
     );

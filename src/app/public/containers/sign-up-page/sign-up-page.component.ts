@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 import * as LayoutActions from '../../../core/store/actions/layout.actions';
 import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 import { HeaderOptions, Organization } from '../../../shared/models';
-import * as GettingStartedActions from '../../store/actions/sign-up.actions';
+import * as SignUpActions from '../../store/actions/sign-up.actions';
 import { PublicState } from '../../store/reducers';
-import { GettingStartedPageState, selectGettingStartedPageState } from '../../store/selectors/sign-up.selectors';
+import { SignUpPageState, selectSignUpPageState } from '../../store/selectors/sign-up.selectors';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -24,7 +24,7 @@ export class SignUpPageComponent implements OnInit {
   @ViewChild('tabGroup') private tabGroup: MatTabGroup;
   userFormTitle: string = 'Create an account to access your organization.';
   organizationFormTitle: string = 'Tell us about your organization.';
-  state$: Observable<GettingStartedPageState> = this.store$.pipe(select(selectGettingStartedPageState));
+  state$: Observable<SignUpPageState> = this.store$.pipe(select(selectSignUpPageState));
 
   constructor(private store$: Store<PublicState>, private changeDetectorRef: ChangeDetectorRef) {}
 
@@ -34,28 +34,28 @@ export class SignUpPageComponent implements OnInit {
   }
 
   onCheckJoinOrganization($event: MatCheckboxChange) {
-    this.store$.dispatch(new GettingStartedActions.SetJoinExistingOrganization($event.checked));
+    this.store$.dispatch(new SignUpActions.SetJoinExistingOrganization($event.checked));
     this.changeDetectorRef.detectChanges();
   }
 
   onValidOrganization(organization: Organization): void {
-    this.store$.dispatch(new GettingStartedActions.SetValidOrganization(organization));
+    this.store$.dispatch(new SignUpActions.SetValidOrganization(organization));
   }
 
   onValidUserFormChanges(userFormChanges: UserFormChanges): void {
-    this.store$.dispatch(new GettingStartedActions.SetValidMemberAndUserInfo(userFormChanges));
+    this.store$.dispatch(new SignUpActions.SetValidMemberAndUserInfo(userFormChanges));
   }
 
   onCheckTos($event: MatCheckboxChange) {
-    this.store$.dispatch(new GettingStartedActions.SetTosChecked($event.checked));
+    this.store$.dispatch(new SignUpActions.SetTosChecked($event.checked));
   }
 
   onNext(step): void {
-    this.store$.dispatch(new GettingStartedActions.NextStep(step));
+    this.store$.dispatch(new SignUpActions.NextStep(step));
     this.tabGroup.selectedIndex = step;
   }
 
   onSubmit(): void {
-    this.store$.dispatch(new GettingStartedActions.Submit());
+    this.store$.dispatch(new SignUpActions.Submit());
   }
 }

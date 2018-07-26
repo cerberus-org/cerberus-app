@@ -4,18 +4,14 @@ import { createMockOrganizations } from '../../../../mocks/objects/organization.
 import { Member, Organization } from '../../../shared/models';
 import { Credentials } from '../../../shared/models/credentials';
 import { initialSignUpReducerState } from '../reducers/sign-up.reducer';
-import {
-  selectGettingStartedPageState,
-  selectGettingStartedReducerState,
-  selectMaxEnabledStep,
-} from './sign-up.selectors';
+import { selectMaxEnabledStep, selectSignUpPageState, selectSignUpReducerState } from './sign-up.selectors';
 
 describe('SignUpSelectors', () => {
-  describe('selectGettingStartedReducerState', () => {
-    it('should select the GettingStarted reducer state', () => {
+  describe('selectSignUpReducerState', () => {
+    it('should select the state', () => {
       const state = initialSignUpReducerState;
-      expect(selectGettingStartedReducerState.projector({
-        gettingStarted: state,
+      expect(selectSignUpReducerState.projector({
+        signUp: state,
       }))
         .toEqual(state);
     });
@@ -86,10 +82,10 @@ describe('SignUpSelectors', () => {
     });
   });
 
-  describe('selectGettingStartedPageState', () => {
-    it('should select the GettingStarted page state', () => {
+  describe('selectSignUpPageState', () => {
+    it('should select the state', () => {
       const { joinExistingOrganization, validOrganization, validCredentials, validMember, tosIsChecked } = initialSignUpReducerState;
-      expect(selectGettingStartedPageState.projector(initialSignUpReducerState, 4))
+      expect(selectSignUpPageState.projector(initialSignUpReducerState, 4))
         .toEqual({
           joinExistingOrganization,
           validOrganization,

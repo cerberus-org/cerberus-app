@@ -63,7 +63,7 @@ describe('OrganizationDashboardSelectors', () => {
             label: 'Check in',
             action: objectContaining({
               payload: objectContaining({
-                path: [`/checkin/${sites[1].id}`],
+                path: [`organization/volunteers/${sites[1].id}/check-in`],
               }),
             }),
           }),
@@ -71,7 +71,7 @@ describe('OrganizationDashboardSelectors', () => {
             label: 'Check out',
             action: objectContaining({
               payload: objectContaining({
-                path: [`/checkout/${sites[1].id}`],
+                path: [`organization/volunteers/${sites[1].id}/check-out`],
               }),
             }),
           }),

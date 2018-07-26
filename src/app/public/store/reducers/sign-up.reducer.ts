@@ -1,5 +1,5 @@
+import { Member, Organization } from '../../../shared/models';
 import { Credentials } from '../../../shared/models/credentials';
-import { Member, Organization } from '../../../shared/models/index';
 import * as SignUpActions from '../actions/sign-up.actions';
 
 export interface SignUpReducerState {

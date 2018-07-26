@@ -1,5 +1,5 @@
 import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
-import { selectGettingStartedReducerState } from '../../../public/store/selectors/sign-up.selectors';
+import { selectSignUpReducerState } from '../../../public/store/selectors/sign-up.selectors';
 import { Organization } from '../../../shared/models';
 import { initialCheckInReducerState } from '../reducers/check-in.reducer';
 import { selectCheckInHeaderOptions, selectSelectedTabIndex } from './check-in.selectors';
@@ -7,10 +7,10 @@ import objectContaining = jasmine.objectContaining;
 
 describe('CheckInSelectors', () => {
   describe('selectCheckInReducerState', () => {
-    it('should select the checkIn reducer state', () => {
+    it('should select the state', () => {
       const state = initialCheckInReducerState;
-      expect(selectGettingStartedReducerState.projector({
-        gettingStarted: state,
+      expect(selectSignUpReducerState.projector({
+        signUp: state,
       }))
         .toEqual(state);
     });

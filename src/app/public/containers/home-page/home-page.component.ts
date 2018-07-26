@@ -24,10 +24,10 @@ export class HomePageComponent implements OnInit {
   }
 
   onInputIconButtonClick(organization: Organization) {
-    this.store$.dispatch(new RouterActions.Go({ path: ['/view-activity/' + organization.name] }));
+    this.store$.dispatch(new RouterActions.Go({ path: ['view-activity/' + organization.name] }));
   }
 
   onClickSignUpButton() {
-    this.store$.dispatch(new RouterActions.Go({ path: ['/sign-up'] }));
+    this.store$.dispatch(new RouterActions.Go({ path: ['sign-up'] }));
   }
 }
