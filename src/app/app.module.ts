@@ -8,6 +8,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment.prod';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
@@ -20,10 +21,11 @@ import { rootReducers } from './core/store/reducers';
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
+    ServiceWorkerModule.register('/ngsw-worker.js'),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     AuthModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    ServiceWorkerModule.register('/ngsw-worker.js'),
 
     /**
      * StoreModule.forRoot is imported once in the root module, accepting a reducer
@@ -69,7 +71,7 @@ import { rootReducers } from './core/store/reducers';
      */
     EffectsModule.forRoot([]),
 
-    CoreModule,
+    CoreModule.forRoot(),
   ],
   bootstrap: [AppComponent],
 })

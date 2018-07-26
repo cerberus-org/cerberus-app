@@ -1,13 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import {
-  MatButtonModule,
-  MatIconModule,
-  MatListModule,
-  MatSidenavModule,
-  MatSnackBarModule,
-  MatToolbarModule,
-} from '@angular/material';
+import { RouterModule } from '@angular/router';
 import 'hammerjs';
+import { MaterialModule } from '../material';
+import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './containers/header/header.component';
 import { AppComponent } from './containers/root/app.component';
 import { SidenavComponent } from './containers/sidenav/sidenav.component';
@@ -20,16 +16,20 @@ export const COMPONENTS = [
 
 @NgModule({
   imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatListModule,
-    MatSidenavModule,
-    MatSnackBarModule,
-    MatToolbarModule,
-    // Cerberus Modules
+    CommonModule,
+    MaterialModule,
+    RouterModule,
+    SharedModule,
   ],
   declarations: COMPONENTS,
-  exports: COMPONENTS,
+  exports:
+  COMPONENTS,
 })
+
 export class CoreModule {
+  static forRoot() {
+    return {
+      ngModule: CoreModule,
+    };
+  }
 }
