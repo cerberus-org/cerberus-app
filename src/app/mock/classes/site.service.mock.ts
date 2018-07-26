@@ -1,6 +1,6 @@
 import { EMPTY, Observable, of } from 'rxjs';
 import { SiteService } from '../../data/services/site.service';
-import { Site } from '../../models';
+import { Site } from '../../core/models';
 import { mockSites } from '../objects/site.mock';
 
 export class MockSiteService extends SiteService {

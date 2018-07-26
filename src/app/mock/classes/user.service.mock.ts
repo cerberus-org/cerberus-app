@@ -1,6 +1,6 @@
 import { EMPTY, Observable, of } from 'rxjs';
 import { MemberService } from '../../data/services/member.service';
-import { Member } from '../../models';
+import { Member } from '../../core/models';
 import { createMockMembers } from '../objects/member.mock';
 
 export class MockUserService extends MemberService {

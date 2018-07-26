@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
-import { Visit, Volunteer } from '../../../models';
-import { VisitWithVolunteer } from '../../../models/visit-with-volunteer';
+import { Visit, Volunteer } from '../../../core/models';
+import { VisitWithVolunteer } from '../../../core/models/visit-with-volunteer';
 import {
   selectModelVisits,
   selectModelVolunteers,

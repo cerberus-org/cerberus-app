@@ -4,7 +4,7 @@ import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { MemberService } from '../../../data/services/member.service';
-import { Credentials } from '../../../models/credentials';
+import { Credentials } from '../../../core/models/credentials';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import { AuthService } from '../../services/auth.service';

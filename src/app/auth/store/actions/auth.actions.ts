@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Credentials } from '../../../models/credentials';
+import { Credentials } from '../../../core/models/credentials';
 
 export const SIGN_IN = '[Auth] Sign in';
 export const SIGN_OUT = '[Auth] Sign out';

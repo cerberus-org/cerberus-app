@@ -9,7 +9,7 @@ import {
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { mockVolunteers } from '../../../mock/objects/volunteer.mock';
-import { Volunteer } from '../../../models';
+import { Volunteer } from '../../../core/models';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 
 describe('NewVolunteerFormComponent', () => {

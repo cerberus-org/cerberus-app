@@ -1,4 +1,4 @@
-import { titleCase, upperAllFirst } from './capitalize.functions';
+import { titleCase, upperAllFirst } from './capitalize.helpers';
 
 describe('upperAllFirst()', () => {
   it('should capitalize a single word', () => {

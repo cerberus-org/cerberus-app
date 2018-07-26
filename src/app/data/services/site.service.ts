@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { upperAllFirst } from '../../functions';
-import { Site } from '../../models';
+import { Site } from '../../core/models';
 import { ErrorService } from '../../shared/services/error.service';
 import { BaseService } from './base.service';
 

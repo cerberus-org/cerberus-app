@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Member } from '../../../models';
-import { Credentials } from '../../../models/credentials';
+import { Member } from '../../../core/models';
+import { Credentials } from '../../../core/models/credentials';
 
 export interface UserFormChanges {
   member: Member;

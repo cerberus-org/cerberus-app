@@ -1,5 +1,5 @@
-import { mockVisits } from '../mock/objects/visit.mock';
-import { createMockVolunteers } from '../mock/objects/volunteer.mock';
+import { mockVisits } from '../../mock/objects/visit.mock';
+import { createMockVolunteers } from '../../mock/objects/volunteer.mock';
 import { formatDuration } from './date-format.functions';
 import {
   findActiveVisit,
@@ -8,7 +8,7 @@ import {
   getItemWithoutArrayProperties,
   getUniqueFullNames,
   searchVolunteersByName,
-} from './helpers.functions';
+} from './model.helpers';
 
 describe('helpers.functions', () => {
   it('should get visits with volunteer names', () => {

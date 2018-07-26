@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } 
 import { MatAutocomplete } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Organization } from '../../../models';
+import { Organization } from '../../../core/models';
 import { RootState } from '../../../root/store/reducers';
 import { selectModelOrganizations } from '../../../root/store/selectors/model.selectors';
 

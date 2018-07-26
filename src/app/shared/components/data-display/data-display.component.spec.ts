@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { Visit } from '../../../models';
+import { Visit } from '../../../core/models';
 import { DataDisplayComponent } from './data-display.component';
 
 describe('DataDisplayComponent', () => {

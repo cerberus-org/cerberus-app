@@ -7,7 +7,7 @@ import {
 import { createMockVisits } from '../../../mock/objects/visit.mock';
 import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
 import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { VisitWithVolunteer } from '../../../models/visit-with-volunteer';
+import { VisitWithVolunteer } from '../../../core/models/visit-with-volunteer';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { VisitsComponent } from './visits.component';
 

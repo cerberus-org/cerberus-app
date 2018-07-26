@@ -11,7 +11,7 @@ import { OrganizationService } from '../../../data/services/organization.service
 import { VisitService } from '../../../data/services/visit.service';
 import { VolunteerService } from '../../../data/services/volunteer.service';
 import { getFormattedVisits } from '../../../functions';
-import { Member, Visit } from '../../../models';
+import { Member, Visit } from '../../../core/models';
 import { RootState } from '../../../root/store/reducers';
 import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';

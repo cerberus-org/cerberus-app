@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange, MatTabGroup } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { HeaderOptions, Organization } from '../../../models';
+import { HeaderOptions, Organization } from '../../../core/models';
 import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 import * as GettingStartedActions from '../../store/actions/getting-started.actions';

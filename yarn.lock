@@ -258,11 +258,11 @@
 
 "@firebase/functions-types@0.2.0":
   version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@firebase/functions-types/-/functions-types-0.2.0.tgz#936d3f77957431a8ef1817975fee26464575802b"
+  resolved "https://registry.yarnpkg.com/@firebase/functions-types/-/helpers-types-0.2.0.tgz#936d3f77957431a8ef1817975fee26464575802b"
 
 "@firebase/functions@0.3.0":
   version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@firebase/functions/-/functions-0.3.0.tgz#61fbf0ec7fb997c1cd5c726cc16171fa32a9fd3b"
+  resolved "https://registry.yarnpkg.com/@firebase/functions/-/helpers-0.3.0.tgz#61fbf0ec7fb997c1cd5c726cc16171fa32a9fd3b"
   dependencies:
     "@firebase/functions-types" "0.2.0"
     "@firebase/messaging-types" "0.2.3"

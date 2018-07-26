@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { ColumnOptions } from '../../models';
+import { ColumnOptions } from '../../core/models';
 
 export const mockColumnOptions: ColumnOptions[] = [
   {

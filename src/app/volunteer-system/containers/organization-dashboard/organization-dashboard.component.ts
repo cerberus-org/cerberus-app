@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { Visit } from '../../../models';
+import { Visit } from '../../../core/models';
 import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import { RootState } from '../../../root/store/reducers';
 import { selectModelVisits } from '../../../root/store/selectors/model.selectors';

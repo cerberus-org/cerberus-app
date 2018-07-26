@@ -4,7 +4,7 @@ import { MatSidenav } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { SidenavOptions } from '../../../models';
+import { SidenavOptions } from '../../models';
 import * as LayoutActions from '../../store/actions/layout.actions';
 import { LayoutReducerState } from '../../store/reducers/layout.reducer';
 import { selectSidenavOptions, selectSidenavState, SidenavState } from '../../store/selectors/layout.selectors';

@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Organization } from '../../models';
+import { Organization } from '../../core/models';
 
 export const mockOrganizations: Organization[] = [
   {

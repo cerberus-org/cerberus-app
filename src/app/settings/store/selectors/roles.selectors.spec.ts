@@ -1,6 +1,6 @@
 import { MEMBER_ROLE_ADMIN, MEMBER_ROLE_LOCKED, MEMBER_ROLE_MEMBER, MEMBER_ROLE_OWNER } from '../../../functions';
 import { createMockMembers } from '../../../mock/objects/member.mock';
-import { Member } from '../../../models';
+import { Member } from '../../../core/models';
 import { selectMembersWithRoleOptions } from './roles.selectors';
 import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;

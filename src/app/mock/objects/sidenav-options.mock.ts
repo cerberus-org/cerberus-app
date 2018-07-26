@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { SidenavOptions } from '../../models';
+import { SidenavOptions } from '../../core/models';
 import * as RouterActions from '../../root/store/actions/router.actions';
 
 export const mockSidenavOptions: SidenavOptions[] = [

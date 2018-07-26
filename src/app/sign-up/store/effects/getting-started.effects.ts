@@ -9,7 +9,7 @@ import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { MemberService } from '../../../data/services/member.service';
 import { OrganizationService } from '../../../data/services/organization.service';
 import { SiteService } from '../../../data/services/site.service';
-import { Member, Organization, Site } from '../../../models';
+import { Member, Organization, Site } from '../../../core/models';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as GettingStartedActions from '../actions/getting-started.actions';

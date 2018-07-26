@@ -1,5 +1,5 @@
 import { createMockOrganizations } from '../../../mock/objects/organization.mock';
-import { Organization } from '../../../models';
+import { Organization } from '../../../core/models';
 import { selectGettingStartedReducerState } from '../../../sign-up/store/selectors/getting-started.selectors';
 import { initialCheckInReducerState } from '../reducers/check-in.reducer';
 import { selectCheckInHeaderOptions, selectSelectedTabIndex } from './check-in.selectors';

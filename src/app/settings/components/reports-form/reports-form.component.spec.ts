@@ -10,7 +10,7 @@ import {
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { mockReports } from '../../../mock/objects/report.mock';
-import { Report } from '../../../models';
+import { Report } from '../../../core/models';
 import { ReportsFormComponent } from './reports-form.component';
 
 describe('ReportsFormComponent', () => {

@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/index';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { findActiveVisit, getFullName, getUniqueFullNames, searchVolunteersByName } from '../../../functions';
-import { Visit, Volunteer } from '../../../models';
+import { Visit, Volunteer } from '../../../core/models';
 
 @Component({
   selector: 'app-check-in-form',

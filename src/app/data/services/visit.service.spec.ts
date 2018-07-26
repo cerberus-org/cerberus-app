@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { from } from 'rxjs';
 import { MockErrorService } from '../../mock/classes/error.service.mock';
 import { createMockVisits } from '../../mock/objects/visit.mock';
-import { Visit } from '../../models';
+import { Visit } from '../../core/models';
 import { ErrorService } from '../../shared/services/error.service';
 import { VisitService } from './visit.service';
 import createSpy = jasmine.createSpy;

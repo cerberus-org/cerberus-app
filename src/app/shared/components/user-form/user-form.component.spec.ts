@@ -4,7 +4,7 @@ import { MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createMockCredentials } from '../../../mock/objects/credentials.mock';
 import { createMockMembers } from '../../../mock/objects/member.mock';
-import { Member } from '../../../models';
+import { Member } from '../../../core/models';
 import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {

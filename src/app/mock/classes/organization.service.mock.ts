@@ -1,6 +1,6 @@
 import { EMPTY, Observable, of } from 'rxjs';
 import { OrganizationService } from '../../data/services/organization.service';
-import { Organization } from '../../models';
+import { Organization } from '../../core/models';
 import { createMockOrganizations } from '../objects/organization.mock';
 
 export class MockOrganizationService extends OrganizationService {

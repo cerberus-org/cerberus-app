@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ColumnOptions, Volunteer } from '../../../models';
+import { ColumnOptions, Volunteer } from '../../../core/models';
 import { RootState } from '../../../root/store/reducers';
 import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
 import * as SettingsActions from '../../store/actions/settings.actions';

@@ -1,7 +1,7 @@
 import { UserInfo } from 'firebase';
 import { Observable, of } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
-import { Credentials } from '../../models/credentials';
+import { Credentials } from '../../core/models/credentials';
 import { createMockUserInfo } from '../objects/user.mock';
 
 const getUserInfoByCredentials = credentials =>

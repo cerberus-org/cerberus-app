@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Member, Organization } from '../../../models';
+import { Member, Organization } from '../../../core/models';
 
 @Component({
   selector: 'app-organization-confirm',

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Organization } from '../../../models';
+import { Organization } from '../../../core/models';
 import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 
 export const NEXT_STEP = '[Getting Started] Next maxVisitedStep';

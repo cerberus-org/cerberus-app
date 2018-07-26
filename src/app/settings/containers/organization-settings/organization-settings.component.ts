@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { SessionReducerState } from '../../../auth/store/reducers/session.reducer';
 import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
-import { Organization } from '../../../models';
+import { Organization } from '../../../core/models';
 import * as SettingsActions from '../../store/actions/settings.actions';
 
 @Component({

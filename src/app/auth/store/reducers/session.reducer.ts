@@ -1,5 +1,5 @@
 import { UserInfo } from 'firebase';
-import { Member, Organization } from '../../../models';
+import { Member, Organization } from '../../../core/models';
 import * as SessionActions from '../actions/session.actions';
 
 export interface SessionReducerState {

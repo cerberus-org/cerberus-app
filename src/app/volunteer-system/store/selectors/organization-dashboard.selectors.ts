@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
-import { HeaderOptions, Organization, SidenavOptions, Site } from '../../../models';
+import { HeaderOptions, Organization, SidenavOptions, Site } from '../../../core/models';
 import * as RouterActions from '../../../root/store/actions/router.actions';
 import { selectModelSites } from '../../../root/store/selectors/model.selectors';
 

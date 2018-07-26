@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { OrganizationService } from '../../../data/services/organization.service';
 import { VisitService } from '../../../data/services/visit.service';
-import { HeaderOptions, Organization, Visit } from '../../../models';
+import { HeaderOptions, Organization, Visit } from '../../../core/models';
 import * as LayoutActions from '../../../root/store/actions/layout.actions';
 import { RootState } from '../../../root/store/reducers';
 import { ErrorService } from '../../../shared/services/error.service';
