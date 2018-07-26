@@ -7,11 +7,11 @@ import { createMockCredentials } from '../../../mocks/objects/credentials.mock';
 import { mockServiceProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
 import * as AuthActions from '../../auth/actions/auth.actions';
-import { SnackBarService } from '../../core/services/snack-bar.service';
 import * as RouterActions from '../../core/actions/router.actions';
-import { appReducers } from '../../core/reducers/index';
+import { appReducers } from '../../core/reducers';
+import { SnackBarService } from '../../core/services/snack-bar.service';
 import * as SignUpActions from '../actions/sign-up.actions';
-import { publicReducers } from '../reducers/index';
+import { publicReducers } from '../reducers';
 import { initialSignUpReducerState } from '../reducers/sign-up.reducer';
 import { SignUpEffects } from './sign-up-effects.service';
 

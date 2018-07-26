@@ -3,12 +3,12 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import * as ModelActions from '../actions/model.actions';
 import { MemberService } from '../services/member.service';
 import { OrganizationService } from '../services/organization.service';
 import { SiteService } from '../services/site.service';
 import { VisitService } from '../services/visit.service';
 import { VolunteerService } from '../services/volunteer.service';
-import * as ModelActions from '../actions/model.actions';
 
 @Injectable()
 export class ModelEffects {

@@ -1,6 +1,6 @@
 import { EMPTY, Observable, of } from 'rxjs';
 import { VisitService } from '../../app/core/services/visit.service';
-import { Visit } from '../../app/shared/models/index';
+import { Visit } from '../../app/shared/models';
 import { createMockVisits } from '../objects/visit.mock';
 
 export class MockVisitService extends VisitService {

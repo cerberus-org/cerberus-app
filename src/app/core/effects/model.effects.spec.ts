@@ -7,7 +7,7 @@ import { mockSites } from '../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import { mockServiceProviders } from '../../../mocks/providers.mock';
-import { filterByOrganizationId } from '../../shared/helpers/index';
+import { filterByOrganizationId } from '../../shared/helpers';
 import * as ModelActions from '../actions/model.actions';
 import { ModelEffects } from './model.effects';
 

@@ -1,6 +1,6 @@
 import { createMockOrganizations } from '../../../mocks/objects/organization.mock';
 import { createMockSites } from '../../../mocks/objects/site.mock';
-import { Organization } from '../../shared/models/index';
+import { Organization } from '../../shared/models';
 import {
   selectOrganizationDashboardHeaderOptions,
   selectOrganizationDashboardSidenavOptions,
@@ -47,7 +47,7 @@ describe('OrganizationDashboardSelectors', () => {
             label: 'Check in',
             action: objectContaining({
               payload: objectContaining({
-                path: [`/checkin/${sites[0].id}`],
+                path: [`organization/volunteers/${sites[0].id}/check-in`],
               }),
             }),
           }),
@@ -55,7 +55,7 @@ describe('OrganizationDashboardSelectors', () => {
             label: 'Check out',
             action: objectContaining({
               payload: objectContaining({
-                path: [`/checkout/${sites[0].id}`],
+                path: [`organization/volunteers/${sites[0].id}/check-out`],
               }),
             }),
           }),

@@ -12,8 +12,8 @@ import { HomePageComponent } from './containers/home-page/home-page.component';
 import { LoginComponent } from './containers/login/login.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { ViewActivityPageComponent } from './containers/view-activity-page/view-activity-page.component';
-import { PublicRoutingModule } from './public-routing.module';
 import { signUpEffects } from './effects';
+import { PublicRoutingModule } from './public-routing.module';
 import { publicReducers } from './reducers';
 
 @NgModule({

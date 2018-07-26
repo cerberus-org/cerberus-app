@@ -7,7 +7,7 @@ import { UserFormChanges } from '../../../shared/components/user-form/user-form.
 import { HeaderOptions, Organization } from '../../../shared/models';
 import * as SignUpActions from '../../actions/sign-up.actions';
 import { PublicState } from '../../reducers';
-import { SignUpPageState, selectSignUpPageState } from '../../selectors/sign-up.selectors';
+import { selectSignUpPageState, SignUpPageState } from '../../selectors/sign-up.selectors';
 
 @Component({
   selector: 'app-sign-up-page',

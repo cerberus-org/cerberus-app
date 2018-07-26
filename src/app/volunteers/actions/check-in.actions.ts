@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Visit, Volunteer } from '../../shared/models/index';
+import { Visit, Volunteer } from '../../shared/models';
 
 export const CHECK_IN = '[Check-In] Check in';
 export const CHECK_OUT = '[Check-In] Check out';

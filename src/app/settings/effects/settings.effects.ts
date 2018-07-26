@@ -3,20 +3,20 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { AuthService } from '../../auth/services/auth.service';
 import * as SessionActions from '../../auth/actions/session.actions';
 import { selectSessionOrganization } from '../../auth/selectors/session.selectors';
+import { AuthService } from '../../auth/services/auth.service';
+import { AppState } from '../../core/reducers';
+import { selectModelVolunteers } from '../../core/selectors/model.selectors';
 import { MemberService } from '../../core/services/member.service';
 import { OrganizationService } from '../../core/services/organization.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { VisitService } from '../../core/services/visit.service';
 import { VolunteerService } from '../../core/services/volunteer.service';
-import { AppState } from '../../core/reducers/index';
-import { selectModelVolunteers } from '../../core/selectors/model.selectors';
-import { getFormattedVisits } from '../../shared/helpers/index';
-import { Member, Visit } from '../../shared/models/index';
-import { CsvService } from '../services/csv.service';
+import { getFormattedVisits } from '../../shared/helpers';
+import { Member, Visit } from '../../shared/models';
 import * as SettingsActions from '../actions/settings.actions';
+import { CsvService } from '../services/csv.service';
 
 @Injectable()
 export class SettingsEffects {

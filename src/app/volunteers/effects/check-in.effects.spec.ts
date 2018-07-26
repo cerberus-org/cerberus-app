@@ -7,8 +7,8 @@ import { mockVisits } from '../../../mocks/objects/visit.mock';
 import { mockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import { mockServiceProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
-import { SnackBarService } from '../../core/services/snack-bar.service';
 import * as RouterActions from '../../core/actions/router.actions';
+import { SnackBarService } from '../../core/services/snack-bar.service';
 import * as CheckInActions from '../actions/check-in.actions';
 import { CheckInEffects } from './check-in.effects';
 

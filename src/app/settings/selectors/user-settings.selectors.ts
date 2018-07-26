@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
 import { selectSessionMember, selectSessionUserInfo } from '../../auth/selectors/session.selectors';
-import { Member } from '../../shared/models/index';
+import { Member } from '../../shared/models';
 
 export interface UserSettingsContainerState {
   member: Member;

@@ -6,8 +6,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { MockComponent } from 'ng2-mock-component';
 import { createMockUserInfo } from '../../../../mocks/objects/user.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import { AppUpdateService } from '../../services/app-update.service';
 import * as ModelActions from '../../actions/model.actions';
+import { AppUpdateService } from '../../services/app-update.service';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {

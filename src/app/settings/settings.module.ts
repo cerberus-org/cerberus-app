@@ -13,10 +13,10 @@ import { SettingsPageComponent } from './containers/settings-page/settings-page.
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
 import { VisitsComponent } from './containers/visits/visits.component';
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
-import { CsvService } from './services/csv.service';
-import { SettingsRoutingModule } from './settings-routing.module';
 import { settingsEffects } from './effects';
 import { settingsReducers } from './reducers';
+import { CsvService } from './services/csv.service';
+import { SettingsRoutingModule } from './settings-routing.module';
 
 @NgModule({
   imports: [

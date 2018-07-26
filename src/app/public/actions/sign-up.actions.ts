@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { UserFormChanges } from '../../shared/components/user-form/user-form.component';
-import { Organization } from '../../shared/models/index';
+import { Organization } from '../../shared/models';
 
 export const NEXT_STEP = '[Getting Started] Next maxVisitedStep';
 export const SET_JOIN_EXISTING_ORGANIZATION = '[Getting Started] Set join existing organization';

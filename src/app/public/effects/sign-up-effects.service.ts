@@ -4,16 +4,16 @@ import { Action, select, Store } from '@ngrx/store';
 import { UserInfo } from 'firebase';
 import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { AuthService } from '../../auth/services/auth.service';
 import * as AuthActions from '../../auth/actions/auth.actions';
+import { AuthService } from '../../auth/services/auth.service';
+import * as RouterActions from '../../core/actions/router.actions';
 import { MemberService } from '../../core/services/member.service';
 import { OrganizationService } from '../../core/services/organization.service';
 import { SiteService } from '../../core/services/site.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
-import * as RouterActions from '../../core/actions/router.actions';
-import { Member, Organization, Site } from '../../shared/models/index';
+import { Member, Organization, Site } from '../../shared/models';
 import * as SignUpActions from '../actions/sign-up.actions';
-import { PublicState } from '../reducers/index';
+import { PublicState } from '../reducers';
 import { selectSignUpReducerState } from '../selectors/sign-up.selectors';
 
 @Injectable()

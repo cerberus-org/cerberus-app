@@ -1,4 +1,4 @@
-import { Member, Organization } from '../../shared/models/index';
+import { Member, Organization } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
 import * as SignUpActions from '../actions/sign-up.actions';
 

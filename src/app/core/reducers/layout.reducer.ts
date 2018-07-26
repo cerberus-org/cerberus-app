@@ -1,4 +1,4 @@
-import { HeaderOptions, SidenavOptions } from '../../shared/models/index';
+import { HeaderOptions, SidenavOptions } from '../../shared/models';
 import * as LayoutActions from '../actions/layout.actions';
 
 export interface LayoutReducerState {

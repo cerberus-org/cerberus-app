@@ -11,10 +11,10 @@ import { mockServiceProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
 import * as SessionActions from '../../auth/actions/session.actions';
 import { SnackBarService } from '../../core/services/snack-bar.service';
-import { Member, Organization } from '../../shared/models/index';
+import { Member, Organization } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
-import { CsvService } from '../services/csv.service';
 import * as SettingsActions from '../actions/settings.actions';
+import { CsvService } from '../services/csv.service';
 import { SettingsEffects } from './settings.effects';
 
 describe('SettingsEffects', () => {

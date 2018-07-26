@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Volunteer } from '../../app/shared/models/index';
+import { Volunteer } from '../../app/shared/models';
 
 export const mockVolunteers: Volunteer[] = [{
   id: '5961327dfba1ca1b64b8945a',

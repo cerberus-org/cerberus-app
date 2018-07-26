@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Site } from '../../app/shared/models/index';
+import { Site } from '../../app/shared/models';
 
 export const mockSites: Site[] = [
   {

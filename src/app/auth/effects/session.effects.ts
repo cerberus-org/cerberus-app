@@ -4,9 +4,9 @@ import { Action } from '@ngrx/store';
 import { UserInfo } from 'firebase';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import * as ModelActions from '../../core/actions/model.actions';
 import { MemberService } from '../../core/services/member.service';
 import { OrganizationService } from '../../core/services/organization.service';
-import * as ModelActions from '../../core/actions/model.actions';
 import * as SessionActions from '../actions/session.actions';
 
 @Injectable()

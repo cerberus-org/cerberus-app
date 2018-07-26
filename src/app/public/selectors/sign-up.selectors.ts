@@ -1,8 +1,8 @@
 import { createSelector } from '@ngrx/store';
-import { selectPublicState } from './index';
-import { Member, Organization } from '../../shared/models/index';
+import { selectPublicState } from '.';
+import { Member, Organization } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
-import { PublicState } from '../reducers/index';
+import { PublicState } from '../reducers';
 
 export const selectSignUpReducerState = createSelector(
   selectPublicState,

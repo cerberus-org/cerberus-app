@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
-import { Member, Organization } from '../../shared/models/index';
-import { AuthState } from '../reducers/index';
+import { Member, Organization } from '../../shared/models';
+import { AuthState } from '../reducers';
 import { SessionReducerState } from '../reducers/session.reducer';
 
 export const selectAuthState = createFeatureSelector<AuthState>('auth');

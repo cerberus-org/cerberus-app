@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { createMockCredentials } from '../../../mocks/objects/credentials.mock';
 import { mockServiceProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
-import { SnackBarService } from '../../core/services/snack-bar.service';
 import * as RouterActions from '../../core/actions/router.actions';
+import { SnackBarService } from '../../core/services/snack-bar.service';
 import * as AuthActions from '../actions/auth.actions';
 import { AuthEffects } from './auth.effects';
 

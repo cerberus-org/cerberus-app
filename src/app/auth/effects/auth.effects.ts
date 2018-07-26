@@ -3,14 +3,14 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import * as RouterActions from '../../core/actions/router.actions';
 import { MemberService } from '../../core/services/member.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
-import * as RouterActions from '../../core/actions/router.actions';
 import { Credentials } from '../../shared/models/credentials';
-import { AuthService } from '../services/auth.service';
 import * as AuthActions from '../actions/auth.actions';
 import { SessionReducerState } from '../reducers/session.reducer';
 import { selectSessionUserInfo } from '../selectors/session.selectors';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthEffects {

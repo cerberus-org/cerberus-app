@@ -1,8 +1,8 @@
 import { createSelector } from '@ngrx/store';
 import { selectSessionMember } from '../../auth/selectors/session.selectors';
 import { selectModelMembers, selectOwnerCount } from '../../core/selectors/model.selectors';
-import { getRoleOptions } from '../../shared/helpers/index';
-import { Member } from '../../shared/models/index';
+import { getRoleOptions } from '../../shared/helpers';
+import { Member } from '../../shared/models';
 
 export interface MemberWithRoleOptions extends Member {
   roleOptions: string[];

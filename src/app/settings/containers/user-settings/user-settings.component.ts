@@ -4,10 +4,7 @@ import { Observable } from 'rxjs';
 import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 import * as SettingsActions from '../../actions/settings.actions';
 import { SettingsState } from '../../reducers';
-import {
-  selectUserSettingsContainerState,
-  UserSettingsContainerState,
-} from '../../selectors/user-settings.selectors';
+import { selectUserSettingsContainerState, UserSettingsContainerState } from '../../selectors/user-settings.selectors';
 
 @Component({
   selector: 'app-user-settings',
