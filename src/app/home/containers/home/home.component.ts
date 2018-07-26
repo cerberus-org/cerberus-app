@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Organization } from '../../../core/models';
-import * as LayoutActions from '../../../root/store/actions/layout.actions';
-import * as RouterActions from '../../../root/store/actions/router.actions';
-import { RootState } from '../../../root/store/reducers';
+import { Organization } from '../../../shared/models';
+import * as LayoutActions from '../../../core/store/actions/layout.actions';
+import * as RouterActions from '../../../core/store/actions/router.actions';
+import { RootState } from '../../../core/store/reducers';
 
 @Component({
   selector: 'app-home',

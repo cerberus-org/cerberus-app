@@ -1,7 +1,7 @@
 import { FirebaseError } from 'firebase';
 import { of } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ErrorService } from '../../shared/services/error.service';
+import { ErrorService } from '../../app/shared/services/error.service';
 
 export class MockErrorService extends ErrorService {
 

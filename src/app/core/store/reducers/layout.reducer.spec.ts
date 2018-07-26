@@ -1,5 +1,5 @@
-import { mockHeaderOptions } from '../../../mock/objects/header-options.mock';
-import { mockSidenavOptions } from '../../../mock/objects/sidenav-options.mock';
+import { mockHeaderOptions } from '../../../../mocks/objects/header-options.mock';
+import { mockSidenavOptions } from '../../../../mocks/objects/sidenav-options.mock';
 import * as LayoutActions from '../actions/layout.actions';
 import { initialLayoutReducerState, layoutReducer } from './layout.reducer';
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { getItemWithoutArrayProperties } from '../../functions';
+import { getItemWithoutArrayProperties } from '../../shared/helpers';
 import { ErrorService } from '../../shared/services/error.service';
 
 @Injectable()

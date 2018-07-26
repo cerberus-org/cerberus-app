@@ -5,8 +5,8 @@ import { MatAutocompleteSelectedEvent, MatRadioChange } from '@angular/material'
 import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/index';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { findActiveVisit, getFullName, getUniqueFullNames, searchVolunteersByName } from '../../../functions';
-import { Visit, Volunteer } from '../../../core/models';
+import { findActiveVisit, getFullName, getUniqueFullNames, searchVolunteersByName } from '../../../shared/helpers';
+import { Visit, Volunteer } from '../../../shared/models';
 
 @Component({
   selector: 'app-check-in-form',

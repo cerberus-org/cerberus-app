@@ -3,8 +3,8 @@ import { MatDialogModule, MatIconModule, MatToolbarModule } from '@angular/mater
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
-import { createMockHeaderOptions } from '../../../mock/objects/header-options.mock';
-import { mockStoreModules } from '../../../mock/store-modules.mock';
+import { createMockHeaderOptions } from '../../../../mocks/objects/header-options.mock';
+import { mockStoreModules } from '../../../../mocks/store-modules.mock';
 import * as LayoutActions from '../../store/actions/layout.actions';
 import * as RouterActions from '../../store/actions/router.actions';
 import { HeaderComponent } from './header.component';

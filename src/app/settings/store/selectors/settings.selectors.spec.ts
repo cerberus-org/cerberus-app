@@ -1,4 +1,4 @@
-import { createMockMembers } from '../../../mock/objects/member.mock';
+import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { initialSettingsReducerState } from '../reducers/settings.reducer';
 import {
   selectSettingsReducerState,

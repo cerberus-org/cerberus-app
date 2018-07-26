@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Member, Organization, Site, Visit, Volunteer } from '../../models';
+import { Member, Organization, Site, Visit, Volunteer } from '../../../shared/models';
 
 export const LOAD_MEMBERS = '[Model] Load members';
 export const LOAD_MEMBERS_SUCCESS = '[Model] Load members success';

@@ -6,8 +6,8 @@ import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { selectSessionOrganization } from '../../../auth/store/selectors/session.selectors';
 import { VisitService } from '../../../data/services/visit.service';
 import { VolunteerService } from '../../../data/services/volunteer.service';
-import * as RouterActions from '../../../root/store/actions/router.actions';
-import { RootState } from '../../../root/store/reducers';
+import * as RouterActions from '../../../core/store/actions/router.actions';
+import { RootState } from '../../../core/store/reducers';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';
 import * as CheckInActions from '../actions/check-in.actions';
 

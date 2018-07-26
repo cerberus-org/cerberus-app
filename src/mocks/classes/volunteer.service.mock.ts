@@ -1,6 +1,6 @@
 import { EMPTY, Observable, of } from 'rxjs';
-import { VolunteerService } from '../../data/services/volunteer.service';
-import { Volunteer } from '../../core/models';
+import { VolunteerService } from '../../app/data/services/volunteer.service';
+import { Volunteer } from '../../app/shared/models/index';
 import { createMockVolunteers } from '../objects/volunteer.mock';
 
 export class MockVolunteerService extends VolunteerService {

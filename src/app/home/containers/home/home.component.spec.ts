@@ -3,9 +3,9 @@ import { MatAutocompleteModule, MatCardModule, MatIconModule, MatInputModule, Ma
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { mockOrganizations } from '../../../mock/objects/organization.mock';
-import { mockStoreModules } from '../../../mock/store-modules.mock';
-import * as RouterActions from '../../../root/store/actions/router.actions';
+import { mockOrganizations } from '../../../../mocks/objects/organization.mock';
+import { mockStoreModules } from '../../../../mocks/store-modules.mock';
+import * as RouterActions from '../../../core/store/actions/router.actions';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {

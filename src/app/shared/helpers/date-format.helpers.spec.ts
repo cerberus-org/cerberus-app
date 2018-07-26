@@ -1,4 +1,4 @@
-import { createMockVisits } from '../../mock/objects/visit.mock';
+import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { convertToTimeString, formatDuration, formatTime, formatTimeInputValue } from './date-format.functions';
 
 describe('date-format.functions', () => {

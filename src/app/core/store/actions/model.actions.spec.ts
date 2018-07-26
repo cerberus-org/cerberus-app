@@ -1,8 +1,8 @@
-import { createMockMembers } from '../../../mock/objects/member.mock';
-import { createMockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockSites } from '../../../mock/objects/site.mock';
-import { createMockVisits } from '../../../mock/objects/visit.mock';
-import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { createMockMembers } from '../../../../mocks/objects/member.mock';
+import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
+import { createMockSites } from '../../../../mocks/objects/site.mock';
+import { createMockVisits } from '../../../../mocks/objects/visit.mock';
+import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import {
   LOAD_MEMBERS,
   LOAD_MEMBERS_SUCCESS,

@@ -7,10 +7,10 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs';
-import { updateDateWithTimeInput } from '../../../functions';
-import { mockColumnOptions } from '../../../mock/objects/column-options.mock';
-import { createMockVisits } from '../../../mock/objects/visit.mock';
-import { Visit } from '../../../core/models';
+import { updateDateWithTimeInput } from '../../helpers';
+import { mockColumnOptions } from '../../../../mocks/objects/column-options.mock';
+import { createMockVisits } from '../../../../mocks/objects/visit.mock';
+import { Visit } from '../../models';
 import { DataTableComponent, DataTableSource } from './data-table.component';
 
 describe('DataTableComponent', () => {

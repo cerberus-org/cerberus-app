@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Visit } from '../../core/models';
+import { Visit } from '../../app/shared/models/index';
 
 export const mockVisits: Visit[] = [
   {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
-import { Visit } from '../../core/models';
+import { Visit } from '../../shared/models';
 import { ErrorService } from '../../shared/services/error.service';
 import { BaseService } from './base.service';
 

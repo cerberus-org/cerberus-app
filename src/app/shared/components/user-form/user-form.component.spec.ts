@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { createMockCredentials } from '../../../mock/objects/credentials.mock';
-import { createMockMembers } from '../../../mock/objects/member.mock';
-import { Member } from '../../../core/models';
+import { createMockCredentials } from '../../../../mocks/objects/credentials.mock';
+import { createMockMembers } from '../../../../mocks/objects/member.mock';
+import { Member } from '../../models';
 import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {

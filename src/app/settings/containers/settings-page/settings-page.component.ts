@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { HeaderOptions, SidenavOptions } from '../../../core/models';
-import * as LayoutActions from '../../../root/store/actions/layout.actions';
+import { HeaderOptions, SidenavOptions } from '../../../shared/models';
+import * as LayoutActions from '../../../core/store/actions/layout.actions';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { SettingsState } from '../../store/reducers';
 import { selectSettingsSidenavOptions, selectSettingsSidenavSelection } from '../../store/selectors/settings.selectors';

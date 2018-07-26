@@ -8,8 +8,8 @@ import {
   MatListModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { mockVolunteers } from '../../../mock/objects/volunteer.mock';
-import { Volunteer } from '../../../core/models';
+import { mockVolunteers } from '../../../../mocks/objects/volunteer.mock';
+import { Volunteer } from '../../../shared/models';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 
 describe('NewVolunteerFormComponent', () => {

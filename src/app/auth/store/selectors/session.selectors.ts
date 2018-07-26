@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
-import { Member, Organization } from '../../../core/models';
+import { Member, Organization } from '../../../shared/models';
 import { AuthState } from '../reducers';
 import { SessionReducerState } from '../reducers/session.reducer';
 

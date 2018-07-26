@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
-import { upperAllFirst } from '../../functions';
-import { Organization } from '../../core/models';
+import { upperAllFirst } from '../../shared/helpers';
+import { Organization } from '../../shared/models';
 import { ErrorService } from '../../shared/services/error.service';
 import { BaseService } from './base.service';
 

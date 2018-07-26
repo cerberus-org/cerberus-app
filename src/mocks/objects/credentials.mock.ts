@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Credentials } from '../../core/models/credentials';
+import { Credentials } from '../../app/shared/models/credentials';
 
 export const mockCredentials: Credentials[] = [
   {

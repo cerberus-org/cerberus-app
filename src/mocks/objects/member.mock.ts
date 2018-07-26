@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Member } from '../../core/models';
+import { Member } from '../../app/shared/models/index';
 
 export const mockMembers: Member[] = [
   {

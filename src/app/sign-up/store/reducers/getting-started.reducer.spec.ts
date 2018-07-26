@@ -1,6 +1,6 @@
-import { createMockCredentials } from '../../../mock/objects/credentials.mock';
-import { createMockMembers } from '../../../mock/objects/member.mock';
-import { createMockOrganizations } from '../../../mock/objects/organization.mock';
+import { createMockCredentials } from '../../../../mocks/objects/credentials.mock';
+import { createMockMembers } from '../../../../mocks/objects/member.mock';
+import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import { gettingStartedReducer, initialGettingStartedReducerState } from './getting-started.reducer';
 

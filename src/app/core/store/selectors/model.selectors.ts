@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
 import { selectSessionOrganization, selectSessionUserInfo } from '../../../auth/store/selectors/session.selectors';
-import { getFormattedVisits, MEMBER_ROLE_OWNER } from '../../../functions';
-import { Member, Organization, Site, Visit, Volunteer } from '../../models';
+import { getFormattedVisits, MEMBER_ROLE_OWNER } from '../../../shared/helpers';
+import { Member, Organization, Site, Visit, Volunteer } from '../../../shared/models';
 import { ModelReducerState } from '../reducers/model.reducer';
 
 export const selectModelReducerState = createFeatureSelector<ModelReducerState>('model');

@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
-import * as LayoutActions from '../../../root/store/actions/layout.actions';
-import { RootState } from '../../../root/store/reducers';
+import * as LayoutActions from '../../../core/store/actions/layout.actions';
+import { RootState } from '../../../core/store/reducers';
 import { EmailDialogComponent } from '../../components/email-dialog/email-dialog.component';
 
 @Component({

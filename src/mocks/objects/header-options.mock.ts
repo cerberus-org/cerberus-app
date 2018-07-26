@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { HeaderOptions } from '../../core/models';
+import { HeaderOptions } from '../../app/shared/models/index';
 
 export const mockHeaderOptions: HeaderOptions[] = [
   {

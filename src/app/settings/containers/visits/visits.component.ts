@@ -5,10 +5,10 @@ import { map } from 'rxjs/internal/operators';
 import {
   formatDate, formatDuration, formatTime, formatTimeInputValue, getFullName,
   updateDateWithTimeInput,
-} from '../../../functions';
-import { ColumnOptions, Visit } from '../../../core/models';
-import { VisitWithVolunteer } from '../../../core/models/visit-with-volunteer';
-import { RootState } from '../../../root/store/reducers';
+} from '../../../shared/helpers';
+import { ColumnOptions, Visit } from '../../../shared/models';
+import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
+import { RootState } from '../../../core/store/reducers';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { selectVisitWithVolunteers } from '../../store/selectors/visits.selectors';
 

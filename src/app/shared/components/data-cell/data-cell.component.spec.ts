@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSelectModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { mockColumnOptions } from '../../../mock/objects/column-options.mock';
+import { mockColumnOptions } from '../../../../mocks/objects/column-options.mock';
 import { DataCellComponent } from './data-cell.component';
 
 describe('DataCellComponent', () => {

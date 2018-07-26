@@ -1,5 +1,5 @@
-import { sortVisitsByStartedAt } from '../../../functions';
-import { Member, Organization, Site, Visit, Volunteer } from '../../models';
+import { sortVisitsByStartedAt } from '../../../shared/helpers';
+import { Member, Organization, Site, Visit, Volunteer } from '../../../shared/models';
 import * as ModelActions from '../actions/model.actions';
 
 export interface ModelReducerState {

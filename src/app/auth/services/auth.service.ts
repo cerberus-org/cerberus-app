@@ -5,9 +5,9 @@ import { User, UserInfo } from 'firebase';
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MemberService } from '../../data/services/member.service';
-import { Member } from '../../core/models';
-import { Credentials } from '../../core/models/credentials';
-import { RootState } from '../../root/store/reducers';
+import { Member } from '../../shared/models';
+import { Credentials } from '../../shared/models/credentials';
+import { RootState } from '../../core/store/reducers';
 import { ErrorService } from '../../shared/services/error.service';
 import * as SessionActions from '../store/actions/session.actions';
 

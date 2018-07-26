@@ -1,10 +1,10 @@
 import { createSelector } from '@ngrx/store';
-import { Visit, Volunteer } from '../../../core/models';
-import { VisitWithVolunteer } from '../../../core/models/visit-with-volunteer';
+import { Visit, Volunteer } from '../../../shared/models';
+import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
 import {
   selectModelVisits,
   selectModelVolunteers,
-} from '../../../root/store/selectors/model.selectors';
+} from '../../../core/store/selectors/model.selectors';
 
 export const selectVisitWithVolunteers = createSelector(
   selectModelVisits,

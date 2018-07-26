@@ -2,12 +2,12 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
-import { filterByOrganizationId } from '../../../functions';
-import { mockOrganizations } from '../../../mock/objects/organization.mock';
-import { mockSites } from '../../../mock/objects/site.mock';
-import { createMockVisits } from '../../../mock/objects/visit.mock';
-import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
-import { mockServiceProviders } from '../../../mock/providers.mock';
+import { filterByOrganizationId } from '../../../shared/helpers';
+import { mockOrganizations } from '../../../../mocks/objects/organization.mock';
+import { mockSites } from '../../../../mocks/objects/site.mock';
+import { createMockVisits } from '../../../../mocks/objects/visit.mock';
+import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
+import { mockServiceProviders } from '../../../../mocks/providers.mock';
 import * as ModelActions from '../actions/model.actions';
 import { ModelEffects } from './model.effects';
 

@@ -1,5 +1,5 @@
-import { Member, Organization } from '../../../core/models';
-import { Credentials } from '../../../core/models/credentials';
+import { Member, Organization } from '../../../shared/models';
+import { Credentials } from '../../../shared/models/credentials';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 
 export interface GettingStartedReducerState {

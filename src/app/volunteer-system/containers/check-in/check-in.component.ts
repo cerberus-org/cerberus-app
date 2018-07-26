@@ -3,9 +3,9 @@ import { MatDialog, MatVerticalStepper } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { Visit, Volunteer } from '../../../core/models';
-import * as LayoutActions from '../../../root/store/actions/layout.actions';
-import { RootState } from '../../../root/store/reducers';
+import { Visit, Volunteer } from '../../../shared/models';
+import * as LayoutActions from '../../../core/store/actions/layout.actions';
+import { RootState } from '../../../core/store/reducers';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import * as CheckInActions from '../../store/actions/check-in.actions';
 import {

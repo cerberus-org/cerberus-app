@@ -1,6 +1,6 @@
-import { createMockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockSites } from '../../../mock/objects/site.mock';
-import { Organization } from '../../../core/models';
+import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
+import { createMockSites } from '../../../../mocks/objects/site.mock';
+import { Organization } from '../../../shared/models';
 import {
   selectOrganizationDashboardHeaderOptions,
   selectOrganizationDashboardSidenavOptions,

@@ -1,5 +1,5 @@
-import { mockVisits } from '../../mock/objects/visit.mock';
-import { createMockVolunteers } from '../../mock/objects/volunteer.mock';
+import { mockVisits } from '../../../mocks/objects/visit.mock';
+import { createMockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import { formatDuration } from './date-format.functions';
 import {
   findActiveVisit,

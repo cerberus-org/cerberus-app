@@ -1,5 +1,5 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
-import { MockSnackBarService } from '../../mock/classes/snack-bar.service.mock';
+import { MockSnackBarService } from '../../../mocks/classes/snack-bar.service.mock';
 import { ErrorService } from './error.service';
 import { SnackBarService } from './snack-bar.service';
 

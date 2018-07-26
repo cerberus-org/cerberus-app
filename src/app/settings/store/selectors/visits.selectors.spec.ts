@@ -1,6 +1,6 @@
-import { createMockVisits } from '../../../mock/objects/visit.mock';
+import { createMockVisits } from '../../../../mocks/objects/visit.mock';
 import arrayContaining = jasmine.arrayContaining;
-import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
+import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { selectVisitWithVolunteers } from './visits.selectors';
 
 describe('visits.selectors', () => {

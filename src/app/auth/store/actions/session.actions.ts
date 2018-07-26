@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { UserInfo } from 'firebase';
-import { Member, Organization } from '../../../core/models';
+import { Member, Organization } from '../../../shared/models';
 
 export const CLEAR_DATA = '[Session] Clear data';
 export const LOAD_DATA = '[Session] Load data';

@@ -1,6 +1,6 @@
-import { createMockMembers } from '../../../mock/objects/member.mock';
-import { createMockOrganizations, mockOrganizations } from '../../../mock/objects/organization.mock';
-import { createMockUserInfo } from '../../../mock/objects/user.mock';
+import { createMockMembers } from '../../../../mocks/objects/member.mock';
+import { createMockOrganizations, mockOrganizations } from '../../../../mocks/objects/organization.mock';
+import { createMockUserInfo } from '../../../../mocks/objects/user.mock';
 import * as SessionActions from '../actions/session.actions';
 import { sessionReducer } from './session.reducer';
 import objectContaining = jasmine.objectContaining;

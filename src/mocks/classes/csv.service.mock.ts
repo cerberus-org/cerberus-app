@@ -1,4 +1,4 @@
-import { CsvService } from '../../settings/services/csv.service';
+import { CsvService } from '../../app/settings/services/csv.service';
 
 export class MockCsvService extends CsvService {
 

@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatIconModule, MatInputModule, MatListModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { mockStoreModules } from '../../../mock/store-modules.mock';
+import { mockStoreModules } from '../../../../mocks/store-modules.mock';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {

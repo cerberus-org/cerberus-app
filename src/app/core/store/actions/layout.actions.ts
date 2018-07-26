@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { HeaderOptions, SidenavOptions } from '../../models';
+import { HeaderOptions, SidenavOptions } from '../../../shared/models';
 
 export const SET_HEADER_OPTIONS = '[Layout] Set header options';
 export const SET_SIDENAV_OPTIONS = '[Layout] Set sidenav options';

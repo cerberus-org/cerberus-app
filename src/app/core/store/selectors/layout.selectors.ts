@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
 import { selectSessionUserInfo } from '../../../auth/store/selectors/session.selectors';
-import { HeaderOptions, SidenavOptions } from '../../models';
+import { HeaderOptions, SidenavOptions } from '../../../shared/models';
 import { LayoutReducerState } from '../reducers/layout.reducer';
 
 export const selectLayoutReducerState = createFeatureSelector<LayoutReducerState>('layout');

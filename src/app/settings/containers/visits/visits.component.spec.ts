@@ -3,11 +3,11 @@ import { MockComponent } from 'ng2-mock-component';
 import {
   convertToTimeString, formatDate, formatDuration, formatTime, formatTimeInputValue,
   getFullName,
-} from '../../../functions';
-import { createMockVisits } from '../../../mock/objects/visit.mock';
-import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
-import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { VisitWithVolunteer } from '../../../core/models/visit-with-volunteer';
+} from '../../../shared/helpers';
+import { createMockVisits } from '../../../../mocks/objects/visit.mock';
+import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
+import { mockStoreModules } from '../../../../mocks/store-modules.mock';
+import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { VisitsComponent } from './visits.component';
 

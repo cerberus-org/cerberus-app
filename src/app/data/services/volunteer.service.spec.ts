@@ -1,8 +1,8 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { MockErrorService } from '../../mock/classes/error.service.mock';
-import { createMockVolunteers, mockVolunteers } from '../../mock/objects/volunteer.mock';
-import { Volunteer } from '../../core/models';
+import { MockErrorService } from '../../../mocks/classes/error.service.mock';
+import { createMockVolunteers, mockVolunteers } from '../../../mocks/objects/volunteer.mock';
+import { Volunteer } from '../../shared/models';
 import { ErrorService } from '../../shared/services/error.service';
 import { VolunteerService } from './volunteer.service';
 

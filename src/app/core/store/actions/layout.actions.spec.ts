@@ -1,5 +1,5 @@
-import { createMockHeaderOptions } from '../../../mock/objects/header-options.mock';
-import { createMockSidenavOptions } from '../../../mock/objects/sidenav-options.mock';
+import { createMockHeaderOptions } from '../../../../mocks/objects/header-options.mock';
+import { createMockSidenavOptions } from '../../../../mocks/objects/sidenav-options.mock';
 import { SET_HEADER_OPTIONS, SET_SIDENAV_OPTIONS, SetHeaderOptions, SetSidenavOptions } from './layout.actions';
 
 describe('layout.actions', () => {

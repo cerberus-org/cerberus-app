@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as RouterActions from '../../root/store/actions/router.actions';
-import { RootState } from '../../root/store/reducers';
+import * as RouterActions from '../../core/store/actions/router.actions';
+import { RootState } from '../../core/store/reducers';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()

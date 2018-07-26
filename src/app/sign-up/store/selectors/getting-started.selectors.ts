@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
-import { Member, Organization } from '../../../core/models';
-import { Credentials } from '../../../core/models/credentials';
+import { Member, Organization } from '../../../shared/models';
+import { Credentials } from '../../../shared/models/credentials';
 import { SignUpState } from '../reducers';
 import { selectSignUpState } from './sign-up.selectors';
 
