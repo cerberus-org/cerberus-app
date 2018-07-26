@@ -5,7 +5,7 @@ import { from } from 'rxjs';
 import { MockErrorService } from '../../../mocks/classes/error.service.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { Visit } from '../../shared/models/index';
-import { ErrorService } from '../../shared/services/error.service';
+import { ErrorService } from './error.service';
 import { VisitService } from './visit.service';
 import createSpy = jasmine.createSpy;
 

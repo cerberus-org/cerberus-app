@@ -1,17 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  MatButtonModule,
-  MatDatepickerModule,
-  MatIconModule,
-  MatInputModule,
-  MatNativeDateModule,
-  MatSlideToggleModule,
-} from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
@@ -33,14 +26,8 @@ import { settingsReducers } from './store/reducers';
     EffectsModule.forFeature(settingsEffects),
     CommonModule,
     FormsModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatInputModule,
-    MatSlideToggleModule,
     ReactiveFormsModule,
-    // Cerberus Modules
+    MaterialModule,
     SharedModule,
   ],
   declarations: [

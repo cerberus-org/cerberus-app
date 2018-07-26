@@ -11,7 +11,7 @@ import { OrganizationService } from '../../../core/services/organization.service
 import { SiteService } from '../../../core/services/site.service';
 import { Member, Organization, Site } from '../../../shared/models';
 import * as RouterActions from '../../../core/store/actions/router.actions';
-import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import { SnackBarService } from '../../../core/services/snack-bar.service';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import { SignUpState } from '../reducers';
 import { selectGettingStartedReducerState } from '../selectors/getting-started.selectors';

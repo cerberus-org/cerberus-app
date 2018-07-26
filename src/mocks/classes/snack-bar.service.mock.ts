@@ -1,5 +1,5 @@
 import { MatSnackBarRef, SimpleSnackBar } from '@angular/material';
-import { SnackBarService } from '../../app/shared/services/snack-bar.service';
+import { SnackBarService } from '../../app/core/services/snack-bar.service';
 
 export class MockSnackBarService extends SnackBarService {
 

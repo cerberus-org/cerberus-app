@@ -9,7 +9,7 @@ import { mockServiceProviders } from '../../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../../mocks/store-modules.mock';
 import * as RouterActions from '../../../core/store/actions/router.actions';
 import { rootReducers } from '../../../core/store/reducers';
-import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import { SnackBarService } from '../../../core/services/snack-bar.service';
 import * as GettingStartedActions from '../actions/getting-started.actions';
 import { signUpReducers } from '../reducers';
 import { initialGettingStartedReducerState } from '../reducers/getting-started.reducer';

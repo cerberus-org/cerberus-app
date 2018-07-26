@@ -8,7 +8,7 @@ import { mockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockServiceProviders } from '../../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../../mocks/store-modules.mock';
 import * as RouterActions from '../../../core/store/actions/router.actions';
-import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import { SnackBarService } from '../../../core/services/snack-bar.service';
 import * as CheckInActions from '../actions/check-in.actions';
 import { CheckInEffects } from './check-in.effects';
 

@@ -8,7 +8,7 @@ import { MemberService } from '../../core/services/member.service';
 import { Member } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
 import { RootState } from '../../core/store/reducers';
-import { ErrorService } from '../../shared/services/error.service';
+import { ErrorService } from '../../core/services/error.service';
 import * as SessionActions from '../store/actions/session.actions';
 
 @Injectable()

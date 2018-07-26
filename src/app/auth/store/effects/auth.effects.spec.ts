@@ -7,7 +7,7 @@ import { createMockCredentials } from '../../../../mocks/objects/credentials.moc
 import { mockServiceProviders } from '../../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../../mocks/store-modules.mock';
 import * as RouterActions from '../../../core/store/actions/router.actions';
-import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import { SnackBarService } from '../../../core/services/snack-bar.service';
 import * as AuthActions from '../actions/auth.actions';
 import { AuthEffects } from './auth.effects';
 

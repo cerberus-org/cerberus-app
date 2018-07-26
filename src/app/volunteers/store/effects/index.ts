@@ -1,5 +1,5 @@
 import { CheckInEffects } from './check-in.effects';
 
-export const volunteerSystemEffects = [
+export const volunteersEffects = [
   CheckInEffects,
 ];

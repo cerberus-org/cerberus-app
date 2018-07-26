@@ -3,7 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { MockErrorService } from '../../../mocks/classes/error.service.mock';
 import { createMockVolunteers, mockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import { Volunteer } from '../../shared/models/index';
-import { ErrorService } from '../../shared/services/error.service';
+import { ErrorService } from './error.service';
 import { VolunteerService } from './volunteer.service';
 
 describe('VolunteerService', () => {

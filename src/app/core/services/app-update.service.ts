@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { SnackBarService } from '../../shared/services/snack-bar.service';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
   providedIn: 'root',

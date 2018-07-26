@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, Que
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { getItemWithoutArrayProperties } from '../../shared/helpers/index';
-import { ErrorService } from '../../shared/services/error.service';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',

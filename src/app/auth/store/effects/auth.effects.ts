@@ -6,7 +6,7 @@ import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { MemberService } from '../../../core/services/member.service';
 import { Credentials } from '../../../shared/models/credentials';
 import * as RouterActions from '../../../core/store/actions/router.actions';
-import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import { SnackBarService } from '../../../core/services/snack-bar.service';
 import { AuthService } from '../../services/auth.service';
 import * as AuthActions from '../actions/auth.actions';
 import { SessionReducerState } from '../reducers/session.reducer';

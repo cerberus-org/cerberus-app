@@ -3,7 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { upperAllFirst } from '../../shared/helpers';
 import { Organization } from '../../shared/models';
-import { ErrorService } from '../../shared/services/error.service';
+import { ErrorService } from './error.service';
 import { BaseService } from './base.service';
 
 @Injectable({

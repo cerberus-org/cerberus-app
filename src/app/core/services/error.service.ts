@@ -4,7 +4,9 @@ import { Observable, of } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { SnackBarService } from './snack-bar.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ErrorService {
 
   constructor(public snackBarService: SnackBarService) { }

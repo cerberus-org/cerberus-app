@@ -6,7 +6,7 @@ import { VisitService } from '../../../core/services/visit.service';
 import { HeaderOptions, Organization, Visit } from '../../../shared/models';
 import * as LayoutActions from '../../../core/store/actions/layout.actions';
 import { RootState } from '../../../core/store/reducers';
-import { ErrorService } from '../../../shared/services/error.service';
+import { ErrorService } from '../../../core/services/error.service';
 
 @Component({
   selector: 'app-public-organization-dashboard',

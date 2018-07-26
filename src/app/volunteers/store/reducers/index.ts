@@ -5,6 +5,6 @@ export interface VolunteerSystemState {
   checkIn: CheckInReducerState;
 }
 
-export const volunteerSystemReducers: ActionReducerMap<VolunteerSystemState> = {
+export const volunteersReducers: ActionReducerMap<VolunteerSystemState> = {
   checkIn: checkInReducer,
 };

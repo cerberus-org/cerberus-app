@@ -14,7 +14,7 @@ import { getFormattedVisits } from '../../../shared/helpers';
 import { Member, Visit } from '../../../shared/models';
 import { RootState } from '../../../core/store/reducers';
 import { selectModelVolunteers } from '../../../core/store/selectors/model.selectors';
-import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import { SnackBarService } from '../../../core/services/snack-bar.service';
 import { CsvService } from '../../services/csv.service';
 import * as SettingsActions from '../actions/settings.actions';
 

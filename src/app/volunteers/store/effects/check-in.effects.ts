@@ -8,7 +8,7 @@ import { VisitService } from '../../../core/services/visit.service';
 import { VolunteerService } from '../../../core/services/volunteer.service';
 import * as RouterActions from '../../../core/store/actions/router.actions';
 import { RootState } from '../../../core/store/reducers';
-import { SnackBarService } from '../../../shared/services/snack-bar.service';
+import { SnackBarService } from '../../../core/services/snack-bar.service';
 import * as CheckInActions from '../actions/check-in.actions';
 
 @Injectable()

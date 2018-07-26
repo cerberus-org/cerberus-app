@@ -7,7 +7,7 @@ import { MockOrganizationService } from '../../../mocks/classes/organization.ser
 import { MockUserService } from '../../../mocks/classes/user.service.mock';
 import { mockMembers } from '../../../mocks/objects/member.mock';
 import { mockStoreModules } from '../../../mocks/store-modules.mock';
-import { ErrorService } from '../../shared/services/error.service';
+import { ErrorService } from '../../core/services/error.service';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
