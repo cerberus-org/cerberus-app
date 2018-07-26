@@ -1,10 +1,10 @@
 import { StoreModule } from '@ngrx/store';
 import { authReducers } from '../app/auth/store/reducers';
 import { initialSessionReducerState } from '../app/auth/store/reducers/session.reducer';
-import { rootReducers } from '../app/core/store/reducers';
+import { appReducers } from '../app/core/store/reducers';
 import { initialModelReducerState } from '../app/core/store/reducers/model.reducer';
-import { initialSignUpReducerState } from '../app/public/store/reducers/sign-up.reducer';
 import { publicReducers } from '../app/public/store/reducers';
+import { initialSignUpReducerState } from '../app/public/store/reducers/sign-up.reducer';
 import { settingsReducers } from '../app/settings/store/reducers';
 import { createMockCredentials } from './objects/credentials.mock';
 import { createMockHeaderOptions } from './objects/header-options.mock';
@@ -17,7 +17,7 @@ import { createMockVisits } from './objects/visit.mock';
 import { createMockVolunteers } from './objects/volunteer.mock';
 
 export const mockStoreModules = [
-  StoreModule.forRoot(rootReducers, {
+  StoreModule.forRoot(appReducers, {
     initialState: {
       layout: {
         headerOptions: createMockHeaderOptions()[0],
@@ -46,7 +46,7 @@ export const mockStoreModules = [
   StoreModule.forFeature('settings', settingsReducers),
   StoreModule.forFeature('public', publicReducers, {
     initialState: {
-      gettingStarted: {
+      signUp: {
         ...initialSignUpReducerState,
         maxVisitedStep: 4,
         joinExistingOrganization: false,

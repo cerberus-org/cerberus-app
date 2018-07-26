@@ -5,9 +5,9 @@ import { PublicOrganizationDashboardComponent } from './containers/public-organi
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 
 export const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'public-dashboard/:name', component: PublicOrganizationDashboardComponent },
+  { path: '', component: HomeComponent },
   { path: 'sign-up', component: SignUpPageComponent },
+  { path: 'public-dashboard/:name', component: PublicOrganizationDashboardComponent },
 ];
 
 @NgModule({

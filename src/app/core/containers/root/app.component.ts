@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { AppUpdateService } from '../../services/app-update.service';
 import * as ModelActions from '../../store/actions/model.actions';
-import { RootState } from '../../store/reducers';
+import { AppState } from '../../store/reducers';
 import { selectModelLoadedState } from '../../store/selectors/model.selectors';
 import { SidenavComponent } from '../sidenav/sidenav.component';
 
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   constructor(
     private afAuth: AngularFireAuth,
     private appUpdateService: AppUpdateService,
-    private store$: Store<RootState>,
+    private store$: Store<AppState>,
   ) {}
 
   ngOnInit(): void {

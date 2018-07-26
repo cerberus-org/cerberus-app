@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as RouterActions from '../../core/store/actions/router.actions';
-import { RootState } from '../../core/store/reducers';
+import { AppState } from '../../core/store/reducers';
 import { AuthService } from '../services/auth.service';
 
 /**
@@ -13,12 +13,12 @@ import { AuthService } from '../services/auth.service';
 @Injectable()
 export class VerificationGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private store$: Store<RootState>) {}
+  constructor(private authService: AuthService, private store$: Store<AppState>) {}
 
   /**
    * When a user attempts to access the admin page via URL,
    * check if a certain boolean value in AuthService is true.
-   * Grant access if true else redirect to dashboard.
+   * Grant access if true else redirect to volunteers module.
    * @returns {boolean}
    */
   public canActivate(): boolean {
@@ -29,7 +29,7 @@ export class VerificationGuard implements CanActivate {
       return true;
     }
     this.store$.dispatch(
-      new RouterActions.Go({ path: ['/dashboard'] }),
+      new RouterActions.Go({ path: ['/organization/volunteers'] }),
     );
     return false;
   }

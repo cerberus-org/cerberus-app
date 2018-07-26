@@ -8,7 +8,7 @@ import { SnackBarService } from '../../../core/services/snack-bar.service';
 import { VisitService } from '../../../core/services/visit.service';
 import { VolunteerService } from '../../../core/services/volunteer.service';
 import * as RouterActions from '../../../core/store/actions/router.actions';
-import { RootState } from '../../../core/store/reducers';
+import { AppState } from '../../../core/store/reducers';
 import * as CheckInActions from '../actions/check-in.actions';
 
 @Injectable()
@@ -52,7 +52,7 @@ export class CheckInEffects {
         .pipe(
           map(() => {
             this.snackBarService.checkInSuccess();
-            return new RouterActions.Go({ path: ['/dashboard'] });
+            return new RouterActions.Go({ path: ['/organization/volunteers'] });
           }))),
     );
 
@@ -69,13 +69,13 @@ export class CheckInEffects {
         .pipe(
           map(() => {
             this.snackBarService.checkOutSuccess();
-            return new RouterActions.Go({ path: ['/dashboard'] });
+            return new RouterActions.Go({ path: ['/organization/volunteers'] });
           }),
         )),
     );
 
   constructor(
-    private store$: Store<RootState>,
+    private store$: Store<AppState>,
     private actions: Actions,
     private snackBarService: SnackBarService,
     private visitService: VisitService,

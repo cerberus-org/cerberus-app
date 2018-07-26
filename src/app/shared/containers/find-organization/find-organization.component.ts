@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } 
 import { MatAutocomplete } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { RootState } from '../../../core/store/reducers';
+import { AppState } from '../../../core/store/reducers';
 import { selectModelOrganizations } from '../../../core/store/selectors/model.selectors';
 import { Organization } from '../../models';
 
@@ -22,7 +22,7 @@ export class FindOrganizationComponent implements OnInit, OnDestroy {
   @Input() showTitle;
   @Input() showInputIconButton;
 
-  constructor(public store$: Store<RootState>) { }
+  constructor(public store$: Store<AppState>) { }
 
   ngOnInit(): void {
     this.organizationsSubscription = this.store$.pipe(select(selectModelOrganizations))

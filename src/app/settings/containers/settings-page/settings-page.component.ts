@@ -16,7 +16,7 @@ export class SettingsPageComponent implements OnInit {
   private headerOptions: HeaderOptions = new HeaderOptions(
     'Settings',
     'settings',
-    '/dashboard',
+    '/organization/volunteers',
     false,
   );
   private sidenavSubscription: Subscription;

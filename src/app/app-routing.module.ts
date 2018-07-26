@@ -6,7 +6,15 @@ export const routes: Routes = [
     path: '',
     loadChildren: './public/public.module#PublicModule',
   },
-  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+  {
+    path: 'organization/volunteers',
+    loadChildren: './volunteers/volunteers.module#VolunteersModule',
+  },
+  {
+    path: 'organization/settings',
+    loadChildren: './settings/settings.module#SettingsModule',
+  },
+  { path: '**', redirectTo: 'organization/volunteers', pathMatch: 'full' },
 ];
 
 @NgModule({

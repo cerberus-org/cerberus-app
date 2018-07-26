@@ -25,12 +25,12 @@ export const selectOrganizationDashboardSidenavOptions = createSelector(
         new SidenavOptions(
           'Check in',
           'done',
-          new RouterActions.Go({ path: [`/checkin/${site.id}`] }),
+          new RouterActions.Go({ path: [`organization/volunteers/${site.id}/check-in`] }),
         ),
         new SidenavOptions(
           'Check out',
           'done_all',
-          new RouterActions.Go({ path: [`/checkout/${site.id}`] }),
+          new RouterActions.Go({ path: [`organization/volunteers/${site.id}/check-out`] }),
         ),
       ],
     [],

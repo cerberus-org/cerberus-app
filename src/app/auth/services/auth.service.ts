@@ -6,7 +6,7 @@ import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ErrorService } from '../../core/services/error.service';
 import { MemberService } from '../../core/services/member.service';
-import { RootState } from '../../core/store/reducers';
+import { AppState } from '../../core/store/reducers';
 import { Member } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
 import * as SessionActions from '../store/actions/session.actions';
@@ -20,7 +20,7 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private errorService: ErrorService,
     private memberService: MemberService,
-    private store$: Store<RootState>,
+    private store$: Store<AppState>,
   ) {
     this.pwdVerification = false;
     if (afAuth) {

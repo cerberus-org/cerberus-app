@@ -3,13 +3,13 @@ import { CanActivate } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as RouterActions from '../../core/store/actions/router.actions';
-import { RootState } from '../../core/store/reducers';
+import { AppState } from '../../core/store/reducers';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class LoginGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private store$: Store<RootState>) {}
+  constructor(private authService: AuthService, private store$: Store<AppState>) {}
 
   canActivate(): Observable<boolean> {
     // Get observable
@@ -17,7 +17,7 @@ export class LoginGuard implements CanActivate {
     // Subscribe to observable so appropriate action can be taken upon completion
     isLoggedIn$.subscribe((val) => {
       if (!val) {
-        this.store$.dispatch(new RouterActions.Go({ path: ['/home'] }));
+        this.store$.dispatch(new RouterActions.Go({ path: [''] }));
       }
     });
     // Observable will not be returned until completed

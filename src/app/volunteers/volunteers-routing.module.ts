@@ -5,9 +5,9 @@ import { CheckInComponent } from './containers/check-in/check-in.component';
 import { OrganizationDashboardComponent } from './containers/organization-dashboard/organization-dashboard.component';
 
 export const routes: Routes = [
-  { path: 'dashboard', component: OrganizationDashboardComponent, canActivate: [LoginGuard] },
-  { path: 'checkin/:id', component: CheckInComponent, canActivate: [LoginGuard] },
-  { path: 'checkout/:id', component: CheckInComponent, canActivate: [LoginGuard] },
+  { path: '', component: OrganizationDashboardComponent, canActivate: [LoginGuard] },
+  { path: ':id/check-in', component: CheckInComponent, canActivate: [LoginGuard] },
+  { path: ':id/check-out', component: CheckInComponent, canActivate: [LoginGuard] },
 ];
 
 @NgModule({

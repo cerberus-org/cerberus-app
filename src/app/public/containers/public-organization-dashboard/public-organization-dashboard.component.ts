@@ -5,7 +5,7 @@ import { ErrorService } from '../../../core/services/error.service';
 import { OrganizationService } from '../../../core/services/organization.service';
 import { VisitService } from '../../../core/services/visit.service';
 import * as LayoutActions from '../../../core/store/actions/layout.actions';
-import { RootState } from '../../../core/store/reducers';
+import { AppState } from '../../../core/store/reducers';
 import { HeaderOptions, Organization, Visit } from '../../../shared/models';
 
 @Component({
@@ -20,7 +20,7 @@ export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    public store$: Store<RootState>,
+    public store$: Store<AppState>,
     private organizationService: OrganizationService,
     private visitService: VisitService,
     private errorService: ErrorService,
@@ -38,7 +38,7 @@ export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
           this.store$.dispatch(new LayoutActions.SetHeaderOptions(new HeaderOptions(
             organization ? organization.name : '',
             null,
-            '/dashboard',
+            '/organization/volunteers',
             false,
           )));
           // Only display error after attempting to fetch organization

@@ -35,7 +35,7 @@ export class AuthEffects {
                   return new RouterActions.Go({ path: ['/home'] });
                 }
                 this.snackBarService.signInSuccess(firstName);
-                return new RouterActions.Go({ path: ['/dashboard'] });
+                return new RouterActions.Go({ path: ['/organization/volunteers'] });
               }),
             )),
         )),
@@ -56,7 +56,7 @@ export class AuthEffects {
         .pipe(
           map(() => {
             this.authService.setPwdVerification(true);
-            return new RouterActions.Go({ path: ['/settings'] });
+            return new RouterActions.Go({ path: ['/organization/settings'] });
           }),
         )),
     );
@@ -67,14 +67,14 @@ export class AuthEffects {
    * @type {Observable<any>}
    */
   @Effect()
-  signOut$: Observable<Action> = this.actions
+    signOut$: Observable<Action> = this.actions
     .ofType(AuthActions.SIGN_OUT)
     .pipe(
       switchMap(() => this.authService.signOut()
         .pipe(
           map(() => {
             this.snackBarService.signOutSuccess();
-            return new RouterActions.Go({ path: ['/home'] });
+            return new RouterActions.Go({ path: [''] });
           }),
         )),
     );

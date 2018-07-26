@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/index';
 import { map } from 'rxjs/internal/operators';
-import { RootState } from '../../../core/store/reducers';
+import { AppState } from '../../../core/store/reducers';
 import {
   formatDate,
   formatDuration,
@@ -26,7 +26,7 @@ export class VisitsComponent implements OnInit {
   state$: Observable<VisitWithVolunteer[]>;
   columnOptions: ColumnOptions[];
 
-  constructor(public store$: Store<RootState>) { }
+  constructor(public store$: Store<AppState>) { }
 
   ngOnInit() {
     this.columnOptions = [

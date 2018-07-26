@@ -11,7 +11,7 @@ import { OrganizationService } from '../../../core/services/organization.service
 import { SnackBarService } from '../../../core/services/snack-bar.service';
 import { VisitService } from '../../../core/services/visit.service';
 import { VolunteerService } from '../../../core/services/volunteer.service';
-import { RootState } from '../../../core/store/reducers';
+import { AppState } from '../../../core/store/reducers';
 import { selectModelVolunteers } from '../../../core/store/selectors/model.selectors';
 import { getFormattedVisits } from '../../../shared/helpers';
 import { Member, Visit } from '../../../shared/models';
@@ -140,7 +140,7 @@ export class SettingsEffects {
     );
 
   constructor(
-    private store$: Store<RootState>,
+    private store$: Store<AppState>,
     private actions: Actions,
     private authService: AuthService,
     private organizationService: OrganizationService,

@@ -37,7 +37,8 @@ describe('AuthEffects', () => {
         a: new AuthActions.SignIn(createMockCredentials()[0]),
       });
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/dashboard'] }),
+        b: new RouterActions.Go({ path: ['' +
+          '/organization/volunteers'] }),
       });
       expect(effects.signIn$).toBeObservable(expected);
     });
@@ -72,7 +73,7 @@ describe('AuthEffects', () => {
 
     it('should dispatch RouterActions.Go', () => {
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/settings'] }),
+        b: new RouterActions.Go({ path: ['/organization/settings'] }),
       });
       expect(effects.verifyPassword$).toBeObservable(expected);
     });
@@ -87,7 +88,7 @@ describe('AuthEffects', () => {
 
     it('should dispatch RouterActions.Go', () => {
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['/home'] }),
+        b: new RouterActions.Go({ path: [''] }),
       });
       expect(effects.signOut$).toBeObservable(expected);
     });

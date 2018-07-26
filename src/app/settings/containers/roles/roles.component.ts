@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { RootState } from '../../../core/store/reducers';
+import { AppState } from '../../../core/store/reducers';
 import { ColumnOptions, Member } from '../../../shared/models';
 import * as SettingsActions from '../../store/actions/settings.actions';
 import { MemberWithRoleOptions, selectMembersWithRoleOptions } from '../../store/selectors/roles.selectors';
@@ -32,7 +32,7 @@ export class RolesComponent implements OnInit {
   ];
   members$: Observable<MemberWithRoleOptions[]>;
 
-  constructor(public store$: Store<RootState>) {}
+  constructor(public store$: Store<AppState>) {}
 
   ngOnInit(): void {
     this.members$ = this.store$.pipe(select(selectMembersWithRoleOptions));

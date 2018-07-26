@@ -9,7 +9,7 @@ import { mockStoreModules } from '../../../../mocks/store.mock';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import { SnackBarService } from '../../../core/services/snack-bar.service';
 import * as RouterActions from '../../../core/store/actions/router.actions';
-import { rootReducers } from '../../../core/store/reducers/index';
+import { appReducers } from '../../../core/store/reducers/index';
 import * as GettingStartedActions from '../actions/sign-up.actions';
 import { initialSignUpReducerState } from '../reducers/sign-up.reducer';
 import { publicReducers } from '../reducers/index';
@@ -54,7 +54,7 @@ describe('SignUpEffects', () => {
       TestBed.configureTestingModule({
         providers,
         imports: [
-          StoreModule.forRoot(rootReducers),
+          StoreModule.forRoot(appReducers),
           StoreModule.forFeature('signUp', publicReducers, {
             initialState: {
               gettingStarted: {

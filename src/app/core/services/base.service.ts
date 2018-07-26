@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { getItemWithoutArrayProperties } from '../../shared/helpers/index';
+import { getItemWithoutArrayProperties } from '../../shared/helpers';
 import { ErrorService } from './error.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export abstract class BaseService<T extends { id: string }> {
   protected abstract collectionName: string;
 
@@ -65,7 +63,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @param snapshot - use true if you need a list of data with the metadata (includes document IDs)
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
-  getByKey(key: string, value: string, snapshot?: boolean): Observable<T[]> {
+  getByKey(key: string, value: string, snapshot: boolean = false): Observable<T[]> {
     return this.getDocsFromCollection(
       snapshot,
       this.collection(ref => ref.where(key, '==', value)),

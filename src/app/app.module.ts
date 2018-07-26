@@ -8,20 +8,21 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './core/containers/root/app.component';
 import { CoreModule } from './core/core.module';
-import { rootReducers } from './core/store/reducers';
+import { appEffects } from './core/store/effects';
+import { appReducers } from './core/store/reducers';
 
 @NgModule({
   imports: [
-    CommonModule,
-    BrowserAnimationsModule,
-    ServiceWorkerModule.register('/ngsw-worker.js'),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    ServiceWorkerModule.register('/ngsw-worker.js'),
+    CommonModule,
+    BrowserAnimationsModule,
     AuthModule,
     AppRoutingModule,
 
@@ -32,7 +33,7 @@ import { rootReducers } from './core/store/reducers';
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
-    StoreModule.forRoot(rootReducers),
+    StoreModule.forRoot(appReducers),
 
     /**
      * @ngrx/router-store keeps router state up-to-date in the store.
@@ -67,7 +68,7 @@ import { rootReducers } from './core/store/reducers';
      *
      * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
      */
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot(appEffects),
 
     CoreModule.forRoot(),
   ],

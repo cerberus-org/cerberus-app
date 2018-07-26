@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as LayoutActions from '../../../core/store/actions/layout.actions';
 import * as RouterActions from '../../../core/store/actions/router.actions';
-import { RootState } from '../../../core/store/reducers/index';
-import { Organization } from '../../../shared/models/index';
+import { AppState } from '../../../core/store/reducers';
+import { Organization } from '../../../shared/models';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   organization: Organization;
   modelSubscription: Subscription;
 
-  constructor(public store$: Store<RootState>) {}
+  constructor(public store$: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store$.dispatch(new LayoutActions.SetHeaderOptions(null));
@@ -29,11 +29,7 @@ export class HomeComponent implements OnInit {
     this.store$.dispatch(new RouterActions.Go({ path: ['/public-dashboard/' + organization.name] }));
   }
 
-  onNewOrganization() {
-    this.store$.dispatch(new RouterActions.Go({ path: ['/start'] }));
-  }
-
-  onJoinOrganization() {
-    this.store$.dispatch(new RouterActions.Go({ path: ['/join'] }));
+  onClickSignUpButton() {
+    this.store$.dispatch(new RouterActions.Go({ path: ['/sign-up'] }));
   }
 }

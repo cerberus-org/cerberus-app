@@ -55,9 +55,9 @@ describe('HomeComponent', () => {
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/public-dashboard/' + mockOrganizations[0].name] }));
   });
 
-  it('should handle onNewOrganization events by dispatching RouterActions.Go', () => {
+  it('should handle onClickSignUpButton events by dispatching RouterActions.Go', () => {
     spyOn(component.store$, 'dispatch');
-    component.onNewOrganization();
+    component.onClickSignUpButton();
     expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/start'] }));
   });

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import * as LayoutActions from '../../../core/store/actions/layout.actions';
-import { RootState } from '../../../core/store/reducers';
+import { AppState } from '../../../core/store/reducers';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import { Visit, Volunteer } from '../../../shared/models';
 import * as CheckInActions from '../../store/actions/check-in.actions';
@@ -27,7 +27,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
   siteId: string;
 
   constructor(
-    private store$: Store<RootState>,
+    private store$: Store<AppState>,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
   ) {}
@@ -57,7 +57,7 @@ export class CheckInComponent implements OnInit, OnDestroy {
   }
 
   isCheckIn(url): boolean {
-    return url.split('/')[3] === 'checkin';
+    return url.split('/').pop() === 'check-in';
   }
 
   ngOnDestroy(): void {

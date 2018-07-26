@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { RootState } from '../../../core/store/reducers';
+import { AppState } from '../../../core/store/reducers';
 import { selectModelVolunteers } from '../../../core/store/selectors/model.selectors';
 import { Report, Volunteer } from '../../../shared/models';
 import * as SettingsActions from '../../store/actions/settings.actions';
@@ -15,7 +15,7 @@ export class ReportsComponent implements OnInit {
   validReport: Report;
   volunteers$: Observable<Volunteer[]> = this.store$.pipe(select(selectModelVolunteers));
 
-  constructor(public store$: Store<RootState>) { }
+  constructor(public store$: Store<AppState>) { }
 
   ngOnInit(): void {
     this.volunteers$ = this.store$.pipe(select(selectModelVolunteers));

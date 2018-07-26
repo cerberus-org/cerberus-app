@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../../auth/store/actions/auth.actions';
 import * as LayoutActions from '../../../core/store/actions/layout.actions';
-import { RootState } from '../../../core/store/reducers/index';
+import { AppState } from '../../../core/store/reducers/index';
 import { EmailDialogComponent } from '../../components/email-dialog/email-dialog.component';
 
 @Component({
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store$: Store<RootState>,
+    private store$: Store<AppState>,
     private dialog: MatDialog,
   ) {}
 

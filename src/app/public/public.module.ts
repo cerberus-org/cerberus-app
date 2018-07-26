@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from '../material';
@@ -20,6 +21,8 @@ import { publicReducers } from './store/reducers';
     CommonModule,
     StoreModule.forFeature('public', publicReducers),
     EffectsModule.forFeature(signUpEffects),
+    FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     SharedModule,
     PublicRoutingModule,
