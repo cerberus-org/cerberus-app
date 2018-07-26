@@ -1,17 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  MatButtonModule,
-  MatDatepickerModule,
-  MatIconModule,
-  MatInputModule,
-  MatNativeDateModule,
-  MatSlideToggleModule,
-} from '@angular/material';
-import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
@@ -21,27 +13,21 @@ import { SettingsPageComponent } from './containers/settings-page/settings-page.
 import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
 import { VisitsComponent } from './containers/visits/visits.component';
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
+import { settingsEffects } from './effects';
+import { settingsReducers } from './reducers';
 import { CsvService } from './services/csv.service';
-import { settingsRoutes } from './settings.routes';
-import { settingsEffects } from './store/effects';
-import { settingsReducers } from './store/reducers';
+import { SettingsRoutingModule } from './settings-routing.module';
 
 @NgModule({
   imports: [
-    RouterModule.forChild(settingsRoutes),
-    StoreModule.forFeature('settings', settingsReducers),
-    EffectsModule.forFeature(settingsEffects),
     CommonModule,
     FormsModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatInputModule,
-    MatSlideToggleModule,
     ReactiveFormsModule,
-    // Cerberus Modules
+    MaterialModule,
     SharedModule,
+    SettingsRoutingModule,
+    StoreModule.forFeature('settings', settingsReducers),
+    EffectsModule.forFeature(settingsEffects),
   ],
   declarations: [
     OrganizationSettingsComponent,

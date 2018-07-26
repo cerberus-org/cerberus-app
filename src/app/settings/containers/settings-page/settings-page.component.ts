@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { HeaderOptions, SidenavOptions } from '../../../models';
-import * as LayoutActions from '../../../root/store/actions/layout.actions';
-import * as SettingsActions from '../../store/actions/settings.actions';
-import { SettingsState } from '../../store/reducers';
-import { selectSettingsSidenavOptions, selectSettingsSidenavSelection } from '../../store/selectors/settings.selectors';
+import * as LayoutActions from '../../../core/actions/layout.actions';
+import { HeaderOptions, SidenavOptions } from '../../../shared/models';
+import * as SettingsActions from '../../actions/settings.actions';
+import { SettingsState } from '../../reducers';
+import { selectSettingsSidenavOptions, selectSettingsSidenavSelection } from '../../selectors/settings.selectors';
 
 @Component({
   selector: 'app-settings-page',
@@ -16,7 +16,7 @@ export class SettingsPageComponent implements OnInit {
   private headerOptions: HeaderOptions = new HeaderOptions(
     'Settings',
     'settings',
-    '/dashboard',
+    '/organization/volunteers',
     false,
   );
   private sidenavSubscription: Subscription;

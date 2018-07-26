@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { isURL } from 'validator';
-import { Organization } from '../../../models';
+import { Organization } from '../../models';
 
 @Component({
   selector: 'app-organization-form',

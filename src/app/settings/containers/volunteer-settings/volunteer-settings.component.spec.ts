@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { createMockVolunteers } from '../../../mock/objects/volunteer.mock';
-import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { Volunteer } from '../../../models';
-import * as SettingsActions from '../../store/actions/settings.actions';
+import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
+import { mockStoreModules } from '../../../../mocks/store.mock';
+import { Volunteer } from '../../../shared/models';
+import * as SettingsActions from '../../actions/settings.actions';
 import { VolunteerSettingsComponent } from './volunteer-settings.component';
 
 describe('VolunteerSettingsComponent', () => {

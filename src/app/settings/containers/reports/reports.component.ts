@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Report, Volunteer } from '../../../models';
-import { RootState } from '../../../root/store/reducers';
-import { selectModelVolunteers } from '../../../root/store/selectors/model.selectors';
-import * as SettingsActions from '../../store/actions/settings.actions';
+import { AppState } from '../../../core/reducers';
+import { selectModelVolunteers } from '../../../core/selectors/model.selectors';
+import { Report, Volunteer } from '../../../shared/models';
+import * as SettingsActions from '../../actions/settings.actions';
 
 @Component({
   selector: 'app-reports',
@@ -15,7 +15,7 @@ export class ReportsComponent implements OnInit {
   validReport: Report;
   volunteers$: Observable<Volunteer[]> = this.store$.pipe(select(selectModelVolunteers));
 
-  constructor(public store$: Store<RootState>) { }
+  constructor(public store$: Store<AppState>) { }
 
   ngOnInit(): void {
     this.volunteers$ = this.store$.pipe(select(selectModelVolunteers));

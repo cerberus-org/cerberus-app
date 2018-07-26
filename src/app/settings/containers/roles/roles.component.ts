@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ColumnOptions, Member } from '../../../models';
-import { RootState } from '../../../root/store/reducers';
-import * as SettingsActions from '../../store/actions/settings.actions';
-import { MemberWithRoleOptions, selectMembersWithRoleOptions } from '../../store/selectors/roles.selectors';
+import { AppState } from '../../../core/reducers';
+import { ColumnOptions, Member } from '../../../shared/models';
+import * as SettingsActions from '../../actions/settings.actions';
+import { MemberWithRoleOptions, selectMembersWithRoleOptions } from '../../selectors/roles.selectors';
 
 @Component({
   selector: 'app-roles',
@@ -32,7 +32,7 @@ export class RolesComponent implements OnInit {
   ];
   members$: Observable<MemberWithRoleOptions[]>;
 
-  constructor(public store$: Store<RootState>) {}
+  constructor(public store$: Store<AppState>) {}
 
   ngOnInit(): void {
     this.members$ = this.store$.pipe(select(selectMembersWithRoleOptions));

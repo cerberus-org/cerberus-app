@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
+import { AppState } from '../../../core/reducers';
 import {
-  formatDate, formatDuration, formatTime, formatTimeInputValue, getFullName,
+  formatDate,
+  formatDuration,
+  formatTime,
+  formatTimeInputValue,
+  getFullName,
   updateDateWithTimeInput,
-} from '../../../functions';
-import { ColumnOptions, Visit } from '../../../models';
-import { VisitWithVolunteer } from '../../../models/visit-with-volunteer';
-import { RootState } from '../../../root/store/reducers';
-import * as SettingsActions from '../../store/actions/settings.actions';
-import { selectVisitWithVolunteers } from '../../store/selectors/visits.selectors';
+} from '../../../shared/helpers';
+import { ColumnOptions } from '../../../shared/models';
+import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
+import * as SettingsActions from '../../actions/settings.actions';
+import { selectVisitWithVolunteers } from '../../selectors/visits.selectors';
 
 @Component({
   selector: 'app-visits',
@@ -22,7 +26,7 @@ export class VisitsComponent implements OnInit {
   state$: Observable<VisitWithVolunteer[]>;
   columnOptions: ColumnOptions[];
 
-  constructor(public store$: Store<RootState>) { }
+  constructor(public store$: Store<AppState>) { }
 
   ngOnInit() {
     this.columnOptions = [

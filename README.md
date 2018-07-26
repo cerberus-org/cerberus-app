@@ -27,3 +27,28 @@ Before running the tests make sure you are serving the app via `yarn start`.
 
 ## Running TSLint
 Run `yarn lint` (frontend) to execute the linter via [TSLint](https://palantir.github.io/tslint/).
+
+## File Structure
+
+    .
+    └── src
+        ├── app
+        |   ├── auth        # authentication services and store
+        |   ├── core        # components and services required for app
+        |   ├── material    # module with Angular Material imports
+        |   ├── feature     # feature module
+        |   |   |
+        |   |   ├── actions
+        |   |   ├── components    # presentational components; visual layer
+        |   |   ├── containers    # container components; provide data to components
+        |   |   ├── effects
+        |   |   ├── reducers
+        |   |   ├── selectors         
+        |   |   ├── feature.module.ts
+        |   |   └── feature-routing.module.ts    # configures feature routes
+        |   |
+        |   ├── shared                   # functions, components used across modules
+        |   ├── app.module.ts
+        |   └── app-routing.module.ts    # configures lazy-loading for feature modules
+        |
+        └── mocks.ts    # mock classes/objects for testing

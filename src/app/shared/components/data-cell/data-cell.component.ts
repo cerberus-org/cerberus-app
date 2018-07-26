@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { ColumnOptions } from '../../../models';
+import { ColumnOptions } from '../../models';
 
 @Component({
   selector: 'app-data-cell',

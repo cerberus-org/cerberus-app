@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { createMockCredentials } from '../../../mock/objects/credentials.mock';
-import { createMockMembers } from '../../../mock/objects/member.mock';
-import { mockStoreModules } from '../../../mock/store-modules.mock';
-import * as SettingsActions from '../../store/actions/settings.actions';
+import { createMockCredentials } from '../../../../mocks/objects/credentials.mock';
+import { createMockMembers } from '../../../../mocks/objects/member.mock';
+import { mockStoreModules } from '../../../../mocks/store.mock';
+import * as SettingsActions from '../../actions/settings.actions';
 import { UserSettingsComponent } from './user-settings.component';
 
 describe('UserSettingsComponent', () => {

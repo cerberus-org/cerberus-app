@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { getMemberRoles } from '../../../functions';
-import { createMockMembers } from '../../../mock/objects/member.mock';
-import { mockStoreModules } from '../../../mock/store-modules.mock';
-import { MemberWithRoleOptions } from '../../store/selectors/roles.selectors';
+import { createMockMembers } from '../../../../mocks/objects/member.mock';
+import { mockStoreModules } from '../../../../mocks/store.mock';
+import { getMemberRoles } from '../../../shared/helpers';
+import { MemberWithRoleOptions } from '../../selectors/roles.selectors';
 import { RolesComponent } from './roles.component';
 import arrayContaining = jasmine.arrayContaining;
 
