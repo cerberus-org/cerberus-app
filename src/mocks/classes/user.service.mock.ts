@@ -1,5 +1,5 @@
 import { EMPTY, Observable, of } from 'rxjs';
-import { MemberService } from '../../app/data/services/member.service';
+import { MemberService } from '../../app/core/services/member.service';
 import { Member } from '../../app/shared/models/index';
 import { createMockMembers } from '../objects/member.mock';
 

@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { MemberService } from '../../../data/services/member.service';
+import { MemberService } from '../../../core/services/member.service';
 import { Credentials } from '../../../shared/models/credentials';
 import * as RouterActions from '../../../core/store/actions/router.actions';
 import { SnackBarService } from '../../../shared/services/snack-bar.service';

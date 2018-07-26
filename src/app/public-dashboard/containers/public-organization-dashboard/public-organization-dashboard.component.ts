@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { OrganizationService } from '../../../data/services/organization.service';
-import { VisitService } from '../../../data/services/visit.service';
+import { OrganizationService } from '../../../core/services/organization.service';
+import { VisitService } from '../../../core/services/visit.service';
 import { HeaderOptions, Organization, Visit } from '../../../shared/models';
 import * as LayoutActions from '../../../core/store/actions/layout.actions';
 import { RootState } from '../../../core/store/reducers';

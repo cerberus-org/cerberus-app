@@ -5,7 +5,9 @@ import { Volunteer } from '../../shared/models';
 import { ErrorService } from '../../shared/services/error.service';
 import { BaseService } from './base.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class VolunteerService extends BaseService<Volunteer> {
   collectionName = 'volunteers';
 

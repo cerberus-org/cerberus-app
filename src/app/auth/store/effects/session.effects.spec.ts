@@ -2,7 +2,6 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
-import { DataModule } from '../../../data/data.module';
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
 import { createMockUserInfo } from '../../../../mocks/objects/user.mock';
@@ -26,7 +25,6 @@ describe('SessionEffects', () => {
         ...mockServiceProviders,
       ],
       imports: [
-        DataModule,
         SharedModule,
         ...mockStoreModules,
       ],

@@ -5,7 +5,9 @@ import { Site } from '../../shared/models';
 import { ErrorService } from '../../shared/services/error.service';
 import { BaseService } from './base.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SiteService extends BaseService<Site> {
   collectionName = 'sites';
 

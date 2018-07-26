@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { User, UserInfo } from 'firebase';
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { MemberService } from '../../data/services/member.service';
+import { MemberService } from '../../core/services/member.service';
 import { Member } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
 import { RootState } from '../../core/store/reducers';

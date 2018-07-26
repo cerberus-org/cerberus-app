@@ -1,5 +1,5 @@
 import { EMPTY, Observable, of } from 'rxjs';
-import { VolunteerService } from '../../app/data/services/volunteer.service';
+import { VolunteerService } from '../../app/core/services/volunteer.service';
 import { Volunteer } from '../../app/shared/models/index';
 import { createMockVolunteers } from '../objects/volunteer.mock';
 

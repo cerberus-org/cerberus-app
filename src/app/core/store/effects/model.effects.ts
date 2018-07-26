@@ -3,11 +3,11 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { MemberService } from '../../../data/services/member.service';
-import { OrganizationService } from '../../../data/services/organization.service';
-import { SiteService } from '../../../data/services/site.service';
-import { VisitService } from '../../../data/services/visit.service';
-import { VolunteerService } from '../../../data/services/volunteer.service';
+import { MemberService } from '../../services/member.service';
+import { OrganizationService } from '../../services/organization.service';
+import { SiteService } from '../../services/site.service';
+import { VisitService } from '../../services/visit.service';
+import { VolunteerService } from '../../services/volunteer.service';
 import * as ModelActions from '../actions/model.actions';
 
 @Injectable()
