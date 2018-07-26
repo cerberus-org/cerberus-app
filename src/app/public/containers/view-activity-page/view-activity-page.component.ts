@@ -9,11 +9,11 @@ import { AppState } from '../../../core/store/reducers';
 import { HeaderOptions, Organization, Visit } from '../../../shared/models';
 
 @Component({
-  selector: 'app-public-organization-dashboard',
-  templateUrl: './public-organization-dashboard.component.html',
-  styleUrls: ['./public-organization-dashboard.component.scss'],
+  selector: 'app-view-activity-page',
+  templateUrl: './view-activity-page.component.html',
+  styleUrls: ['./view-activity-page.component.scss'],
 })
-export class PublicOrganizationDashboardComponent implements OnInit, OnDestroy {
+export class ViewActivityPageComponent implements OnInit, OnDestroy {
   organization: Organization;
   visits$: Observable<Visit[]>;
   showNotFound: boolean;

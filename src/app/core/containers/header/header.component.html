@@ -1,6 +1,6 @@
 <mat-toolbar *ngIf="(headerState$ | async)?.options" color="primary">
   <button
-    *ngIf="(headerState$ | async)?.options.previousUrl"
+    *ngIf="(headerState$ | async)?.options?.previousUrl"
     id="back-button"
     mat-icon-button
     (click)="onBack()"
@@ -16,10 +16,10 @@
   >
     <mat-icon>menu</mat-icon>
   </button>
-  <span class="title-text">{{(headerState$ | async)?.options.title}}</span>
+  <span class="title-text">{{(headerState$ | async)?.options?.title}}</span>
   <span class="spacer"></span>
   <button
-    *ngIf="(headerState$ | async)?.options.showSettings"
+    *ngIf="(headerState$ | async)?.options?.showSettings"
     id="settings-button"
     mat-icon-button
     (click)="onSettings()"

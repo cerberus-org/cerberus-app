@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import 'hammerjs';
 import { MaterialModule } from '../material';
 import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './containers/header/header.component';
@@ -27,9 +26,4 @@ export const COMPONENTS = [
 })
 
 export class CoreModule {
-  static forRoot() {
-    return {
-      ngModule: CoreModule,
-    };
-  }
 }

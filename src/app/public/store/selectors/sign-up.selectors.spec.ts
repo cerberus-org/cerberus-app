@@ -1,8 +1,8 @@
 import { createMockCredentials } from '../../../../mocks/objects/credentials.mock';
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
-import { Credentials } from '../../../shared/models/credentials';
 import { Member, Organization } from '../../../shared/models';
+import { Credentials } from '../../../shared/models/credentials';
 import { initialSignUpReducerState } from '../reducers/sign-up.reducer';
 import {
   selectGettingStartedPageState,

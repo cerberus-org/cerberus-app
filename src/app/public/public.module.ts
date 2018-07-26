@@ -8,10 +8,10 @@ import { SharedModule } from '../shared/shared.module';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { EmailDialogComponent } from './components/email-dialog/email-dialog.component';
 import { OrganizationConfirmComponent } from './components/organization-confirm/organization-confirm.component';
-import { HomeComponent } from './containers/home/home.component';
+import { HomePageComponent } from './containers/home-page/home-page.component';
 import { LoginComponent } from './containers/login/login.component';
-import { PublicOrganizationDashboardComponent } from './containers/public-organization-dashboard/public-organization-dashboard.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
+import { ViewActivityPageComponent } from './containers/view-activity-page/view-activity-page.component';
 import { PublicRoutingModule } from './public-routing.module';
 import { signUpEffects } from './store/effects';
 import { publicReducers } from './store/reducers';
@@ -30,11 +30,11 @@ import { publicReducers } from './store/reducers';
   declarations: [
     AboutUsComponent,
     EmailDialogComponent,
-    HomeComponent,
+    HomePageComponent,
     LoginComponent,
     OrganizationConfirmComponent,
     SignUpPageComponent,
-    PublicOrganizationDashboardComponent,
+    ViewActivityPageComponent,
   ],
 })
 export class PublicModule {

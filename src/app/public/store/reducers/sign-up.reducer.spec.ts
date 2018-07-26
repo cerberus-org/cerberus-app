@@ -2,7 +2,7 @@ import { createMockCredentials } from '../../../../mocks/objects/credentials.moc
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
 import * as GettingStartedActions from '../actions/sign-up.actions';
-import { signUpReducer, initialSignUpReducerState } from './sign-up.reducer';
+import { initialSignUpReducerState, signUpReducer } from './sign-up.reducer';
 
 describe('gettingStartedReducer', () => {
 

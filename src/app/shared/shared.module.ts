@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
-import { MaterialModule } from '../material/material.module';
+import { MaterialModule } from '../material';
 import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-hours-chart.component';
 import { DataCellComponent } from './components/data-cell/data-cell.component';
 import { DataDisplayComponent } from './components/data-display/data-display.component';
@@ -45,4 +45,5 @@ export const COMPONENTS = [
   declarations: COMPONENTS,
   exports: COMPONENTS,
 })
-export class SharedModule {}
+export class SharedModule {
+}

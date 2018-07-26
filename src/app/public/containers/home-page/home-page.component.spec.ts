@@ -6,16 +6,16 @@ import { MockComponent } from 'ng2-mock-component';
 import { mockOrganizations } from '../../../../mocks/objects/organization.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import * as RouterActions from '../../../core/store/actions/router.actions';
-import { HomeComponent } from './home.component';
+import { HomePageComponent } from './home-page.component';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('HomePageComponent', () => {
+  let component: HomePageComponent;
+  let fixture: ComponentFixture<HomePageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        HomeComponent,
+        HomePageComponent,
         MockComponent({ selector: 'app-find-organization', inputs: ['showTitle', 'showInputIconButton'] }),
         MockComponent({ selector: 'app-login' }),
       ],
@@ -34,7 +34,7 @@ describe('HomeComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(HomePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -52,7 +52,7 @@ describe('HomeComponent', () => {
     spyOn(component.store$, 'dispatch');
     component.onInputIconButtonClick(mockOrganizations[0]);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/public-dashboard/' + mockOrganizations[0].name] }));
+      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['/view-activity/' + mockOrganizations[0].name] }));
   });
 
   it('should handle onClickSignUpButton events by dispatching RouterActions.Go', () => {

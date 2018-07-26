@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import 'hammerjs';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
@@ -25,6 +26,7 @@ import { appReducers } from './core/store/reducers';
     BrowserAnimationsModule,
     AuthModule,
     AppRoutingModule,
+    CoreModule,
 
     /**
      * StoreModule.forRoot is imported once in the root module, accepting a reducer
@@ -69,8 +71,6 @@ import { appReducers } from './core/store/reducers';
      * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
      */
     EffectsModule.forRoot(appEffects),
-
-    CoreModule.forRoot(),
   ],
   bootstrap: [AppComponent],
 })

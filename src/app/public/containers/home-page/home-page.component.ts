@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
 import * as LayoutActions from '../../../core/store/actions/layout.actions';
 import * as RouterActions from '../../../core/store/actions/router.actions';
 import { AppState } from '../../../core/store/reducers';
 import { Organization } from '../../../shared/models';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomePageComponent implements OnInit {
   organization: Organization;
-  modelSubscription: Subscription;
 
   constructor(public store$: Store<AppState>) {}
 
@@ -26,7 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
   onInputIconButtonClick(organization: Organization) {
-    this.store$.dispatch(new RouterActions.Go({ path: ['/public-dashboard/' + organization.name] }));
+    this.store$.dispatch(new RouterActions.Go({ path: ['/view-activity/' + organization.name] }));
   }
 
   onClickSignUpButton() {

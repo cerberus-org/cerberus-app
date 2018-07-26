@@ -11,8 +11,8 @@ import { SnackBarService } from '../../../core/services/snack-bar.service';
 import * as RouterActions from '../../../core/store/actions/router.actions';
 import { appReducers } from '../../../core/store/reducers/index';
 import * as GettingStartedActions from '../actions/sign-up.actions';
-import { initialSignUpReducerState } from '../reducers/sign-up.reducer';
 import { publicReducers } from '../reducers/index';
+import { initialSignUpReducerState } from '../reducers/sign-up.reducer';
 import { SignUpEffects } from './sign-up-effects.service';
 
 describe('SignUpEffects', () => {
