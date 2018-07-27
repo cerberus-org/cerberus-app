@@ -39,7 +39,8 @@ describe('UserFormComponent', () => {
     spyOn(component.validChanges, 'emit');
     const member = createMockMembers()[0];
     const credentials = createMockCredentials()[0];
-    const { firstName, lastName } = member;
+    component.initialMember = member;
+    const { firstName, lastName, role } = member;
     const { email, password } = credentials;
     component.formGroup.controls['firstName'].setValue(firstName);
     component.formGroup.controls['lastName'].setValue(lastName);
@@ -49,7 +50,7 @@ describe('UserFormComponent', () => {
     expect(component.validChanges.emit)
       .toHaveBeenCalledWith({
         credentials: { email, password },
-        member: new Member(firstName, lastName),
+        member: Object.assign({}, new Member(firstName, lastName, role), { id: '1' }),
       });
   });
 

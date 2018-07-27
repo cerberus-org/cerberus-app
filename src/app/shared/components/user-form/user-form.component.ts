@@ -46,10 +46,10 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   onValueChanges(): void {
     const { valid, value } = this.formGroup;
-    this.validChanges.emit({
-      credentials: valid ? { email: value.email, password: value.password } : null,
-      member: valid ? new Member(value.firstName, value.lastName) : null,
-    });
+    this.validChanges.emit(valid ? {
+      credentials: { email: value.email, password: value.password },
+      member: Object.assign({}, new Member(value.firstName, value.lastName, this.initialMember.role), { id: this.initialMember.id }),
+    } : null);
   }
 
   ngOnDestroy(): void {

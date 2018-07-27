@@ -16,7 +16,7 @@ export class SessionEffects {
   loadData$: Observable<Action> = this.actions.ofType(SessionActions.LOAD_DATA)
     .pipe(
       map((action: SessionActions.LoadData) => action.payload),
-      switchMap((userInfo: UserInfo) => this.memberService.getByKey('userUid', userInfo.uid)
+      switchMap((userInfo: UserInfo) => this.memberService.getByKey('userUid', userInfo.uid, true)
         .pipe(
           switchMap(([member]) => {
             return this.organizationService.getById(member.organizationId)
