@@ -36,6 +36,7 @@ import { publicReducers } from './reducers';
     SignUpPageComponent,
     ViewActivityPageComponent,
   ],
+  entryComponents: [EmailDialogComponent],
 })
 export class PublicModule {
 }
