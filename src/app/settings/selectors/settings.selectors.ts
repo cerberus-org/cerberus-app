@@ -56,6 +56,11 @@ export const selectSettingsSidenavOptions = createSelector(
           'done_all',
           new SettingsActions.LoadPage('VISITS'),
         ),
+        new SidenavOptions(
+          'Categories',
+          'dashboard',
+          new SettingsActions.LoadPage('CATEGORIES'),
+        ),
       ]
       : sidenavOptions;
   },
