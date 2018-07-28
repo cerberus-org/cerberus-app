@@ -11,6 +11,13 @@ export class CategorySettingsComponent implements OnInit {
 
   constructor(public store$: Store<SessionReducerState>) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  setLocalStorageCategory(category: string) : void {
+    localStorage.setItem('category', JSON.stringify(category));
+  }
+
+  getLocalStorageCategory(): string {
+    return localStorage.getItem('category');
   }
 }
