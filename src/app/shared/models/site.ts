@@ -9,6 +9,6 @@ export class Site {
     this.organizationId = organizationId;
     this.label = label;
     this.address = address;
-    this.description = description
+    this.description = description;
   }
 }
