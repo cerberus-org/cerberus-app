@@ -79,6 +79,8 @@ export class LoadOrganizationsSuccess implements Action {
 }
 
 export class LoadCategories implements Action {
+  constructor(public payload: string) {}
+
   readonly type = LOAD_CATEGORIES;
 }
 

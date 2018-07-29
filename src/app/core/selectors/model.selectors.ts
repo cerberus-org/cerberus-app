@@ -55,22 +55,26 @@ export const selectModelLoadingState = createSelector(
   selectModelSites,
   selectModelVisits,
   selectModelVolunteers,
+  selectModelCategories,
   (
     userInfo: UserInfo,
     organization: Organization,
     sites: Site[],
     visits: Visit[],
     volunteers: Volunteer[],
-  ): boolean => userInfo && organization && (sites === null || visits === null || volunteers === null),
+    categories: Category[],
+  ): boolean => userInfo && organization && (sites === null || visits === null || volunteers === null || categories === null),
 );
 
 export const selectModelLoadedState = createSelector(
   selectModelSites,
   selectModelVisits,
   selectModelVolunteers,
+  selectModelCategories,
   (
     sites: Site[],
     visits: Visit[],
     volunteers: Volunteer[],
-  ): boolean => sites !== null && visits !== null && volunteers !== null,
+    categories: Category[],
+  ): boolean => sites !== null && visits !== null && volunteers !== null && categories !== null,
 );

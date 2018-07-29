@@ -66,7 +66,7 @@ export class CategorySettingsComponent implements OnInit {
   openCategoryModal() {
     const dialog = this.dialog.open(CategoryDialogComponent);
     dialog.afterClosed().subscribe((category: Category) => {
-      if (category) {
+      if (category.label) {
         this.store$.dispatch(Object.assign({}, new SettingsActions.CreateCategory(category), { organizationId: this.member.organizationId }));
       }
     });

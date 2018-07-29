@@ -60,6 +60,13 @@ export function modelReducer(state = initialModelReducerState, action: Action): 
       };
     }
 
+    case ModelActions.LOAD_CATEGORIES_SUCCESS: {
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    }
+
     default: {
       return state;
     }
