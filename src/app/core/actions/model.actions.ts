@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Member, Organization, Site, Visit, Volunteer } from '../../shared/models';
+import { Category } from '../../shared/models/category';
 
 export const LOAD_MEMBERS = '[Model] Load members';
 export const LOAD_MEMBERS_SUCCESS = '[Model] Load members success';
@@ -15,6 +16,9 @@ export const LOAD_VOLUNTEERS_SUCCESS = '[Model] Load volunteers success';
 
 export const LOAD_ORGANIZATIONS = '[Model] Load organizations';
 export const LOAD_ORGANIZATIONS_SUCCESS = '[Model] Load organizations success';
+
+export const LOAD_CATEGORIES = '[Model] Load categories';
+export const LOAD_CATEGORIES_SUCCESS = '[Model] Load categories success';
 
 export class LoadMembers implements Action {
   readonly type = LOAD_MEMBERS;
@@ -74,6 +78,16 @@ export class LoadOrganizationsSuccess implements Action {
   constructor(public payload: Organization[]) {}
 }
 
+export class LoadCategories implements Action {
+  readonly type = LOAD_CATEGORIES;
+}
+
+export class LoadCategoriesSuccess implements Action {
+  readonly type = LOAD_CATEGORIES_SUCCESS;
+
+  constructor(public payload: Category[]) {}
+}
+
 export type All
   = LoadSites
   | LoadSitesSuccess
@@ -84,4 +98,6 @@ export type All
   | LoadVolunteers
   | LoadVolunteersSuccess
   | LoadOrganizations
-  | LoadOrganizationsSuccess;
+  | LoadOrganizationsSuccess
+  | LoadCategories
+  | LoadCategoriesSuccess;

@@ -4,6 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import * as ModelActions from '../actions/model.actions';
+import { CategoryService } from '../services/category.service';
 import { MemberService } from '../services/member.service';
 import { OrganizationService } from '../services/organization.service';
 import { SiteService } from '../services/site.service';
@@ -84,6 +85,17 @@ export class ModelEffects {
         )),
     );
 
+  @Effect()
+  loadCategories$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_CATEGORIES)
+    .pipe(
+      map((action: ModelActions.LoadCategories) => action),
+      switchMap(() => this.categoryService
+        .getAll(true)
+        .pipe(
+          map(categories => new ModelActions.LoadCategoriesSuccess(categories)),
+        )),
+    );
+
   constructor(
     private actions: Actions,
     private siteService: SiteService,
@@ -91,5 +103,6 @@ export class ModelEffects {
     private visitService: VisitService,
     private volunteerService: VolunteerService,
     private organizationService: OrganizationService,
+    private categoryService: CategoryService,
   ) {}
 }

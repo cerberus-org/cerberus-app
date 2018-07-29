@@ -1,5 +1,6 @@
 import { sortVisitsByStartedAt } from '../../shared/helpers';
 import { Member, Organization, Site, Visit, Volunteer } from '../../shared/models';
+import { Category } from '../../shared/models/category';
 import * as ModelActions from '../actions/model.actions';
 
 export interface ModelReducerState {
@@ -8,6 +9,7 @@ export interface ModelReducerState {
   visits: Visit[];
   volunteers: Volunteer[];
   organizations: Organization[];
+  categories: Category[];
 }
 
 export const initialModelReducerState: ModelReducerState = {
@@ -16,6 +18,7 @@ export const initialModelReducerState: ModelReducerState = {
   visits: null,
   volunteers: null,
   organizations: null,
+  categories: null,
 };
 
 export type Action = ModelActions.All;

@@ -1,1 +1,9 @@
-test
+<mat-toolbar class="data-table-header">
+  <button mat-button class="data-table-header__button" [disabled]="false" color="accent" (click)="onCreateCategory(category)">Create Category</button>
+</mat-toolbar>
+<app-data-table
+  [data$]="categories$"
+  [columnOptions]="columnOptions"
+  (deleteItem)="onDeleteCategory($event)"
+  (updateItem)="onUpdateCategory($event)">
+</app-data-table>

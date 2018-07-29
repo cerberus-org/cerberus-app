@@ -3,6 +3,7 @@ import { UserInfo } from 'firebase';
 import { selectSessionOrganization, selectSessionUserInfo } from '../../auth/selectors/session.selectors';
 import { getFormattedVisits, MEMBER_ROLE_OWNER } from '../../shared/helpers';
 import { Member, Organization, Site, Visit, Volunteer } from '../../shared/models';
+import { Category } from '../../shared/models/category';
 import { ModelReducerState } from '../reducers/model.reducer';
 
 export const selectModelReducerState = createFeatureSelector<ModelReducerState>('model');
@@ -30,6 +31,11 @@ export const selectModelVisits = createSelector(
 export const selectModelVolunteers = createSelector(
   selectModelReducerState,
   (state: ModelReducerState): Volunteer[] => state.volunteers,
+);
+
+export const selectModelCategories = createSelector(
+  selectModelReducerState,
+  (state: ModelReducerState): Category[] => state.categories,
 );
 
 export const selectOwnerCount = createSelector(
