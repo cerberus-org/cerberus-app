@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { createMockCredentials } from '../../../mocks/objects/credentials.mock';
 import { createMockMembers } from '../../../mocks/objects/member.mock';
 import { createMockOrganizations } from '../../../mocks/objects/organization.mock';
+import { createMockSites } from '../../../mocks/objects/site.mock';
 import { createMockUserInfo } from '../../../mocks/objects/user.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { mockServiceProviders } from '../../../mocks/providers.mock';
@@ -129,6 +130,21 @@ describe('SettingsEffects', () => {
       const updateVisitsSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateVisitsSuccess');
       effects.updateVisits$.subscribe(() => {
         expect(updateVisitsSuccessSpy).toHaveBeenCalled();
+      });
+    }));
+  });
+
+  describe('createSite$', () => {
+    beforeEach(async(() => {
+      actions = hot('a', {
+        a: new SettingsActions.CreateSite(createMockSites()[0]),
+      });
+    }));
+
+    it('should open the createSiteSuccess snackbar', (() => {
+      const createSiteSuccessSpy = spyOn(TestBed.get(SnackBarService), 'createSiteSuccess');
+      effects.createSite$.subscribe(() => {
+        expect(createSiteSuccessSpy).toHaveBeenCalled();
       });
     }));
   });
