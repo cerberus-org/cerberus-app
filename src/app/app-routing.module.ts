@@ -7,6 +7,10 @@ export const routes: Routes = [
     loadChildren: './public/public.module#PublicModule',
   },
   {
+    path: 'teams',
+    loadChildren: './teams/teams.module#TeamsModule',
+  },
+  {
     path: 'organization/volunteers',
     loadChildren: './volunteers/volunteers.module#VolunteersModule',
   },
@@ -21,4 +25,5 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
