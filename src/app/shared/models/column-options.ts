@@ -3,19 +3,13 @@ export class ColumnOptions {
   header: string;
   cell: Function;
   selectOptions?: Function;
-  timePicker?: TimePicker;
-  validator?: Function;
+  isTime: boolean;
 
-  constructor(columnDef: string, header: string, cell: Function, selectOptions: Function = null, timePicker: TimePicker = null) {
+  constructor(columnDef: string, header: string, cell: Function, selectOptions: Function = null, isTime: boolean = false) {
     this.columnDef = columnDef;
     this.header = header;
     this.cell = cell;
     this.selectOptions = selectOptions;
-    this.timePicker = timePicker;
+    this.isTime = isTime;
   }
-}
-
-export class TimePicker {
-  isTime: boolean;
-  updateItemWithTime?: Function;
 }

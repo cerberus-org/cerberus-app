@@ -1,6 +1,12 @@
+<mat-toolbar class="data-table-header">
+  <button mat-button class="data-table-header__button" [disabled]="validVisitsEdited.length === 0 || invalidVisitsEdited.length !== 0" color="accent" (click)="onUpdateVisits(validVisitsEdited)">Save</button>
+</mat-toolbar>
 <app-data-table
   [data$]="visitsWithVolunteers$"
-  [isEditable]="true"
+  [validItemsEdited]="validVisitsEdited"
+  [invalidItemsEdited]="invalidVisitsEdited"
   [columnOptions]="columnOptions"
-  (updateMultipleItems)="onUpdateVisits($event)">
+  [getCellFontColor]="getCellFontColor"
+  [getCellFontWeight]="getCellFontWeight"
+  (updateItem)="onUpdateVisit($event)">
 </app-data-table>

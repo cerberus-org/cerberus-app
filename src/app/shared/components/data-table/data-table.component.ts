@@ -68,18 +68,17 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
   styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit, OnChanges {
+  @Input() getRowColor: (any) => string = () => '';
+  @Input() getCellFontWeight: (any) => string = () => '';
+  @Input() getCellFontColor: (any) => string = () => '';
+  @Input() validItemsEdited: any[];
+  @Input() invalidItemsEdited: any[];
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
-  @Input() isEditable: boolean;
-  @Input() getRowColor: (any) => string = () => '';
   @Output() updateItem = new EventEmitter<any>();
-  @Output() updateMultipleItems = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
-  @Output() timeSelected = new EventEmitter<any>();
   displayedColumns: string[];
-  itemsEdited: any[];
-  invalidItemsEdited: any[];
   initialPageSize: number;
   dataSource: DataTableSource;
 
@@ -99,8 +98,6 @@ export class DataTableComponent implements OnInit, OnChanges {
    * Sets the initial page size and columns to display.
    */
   ngOnInit(): void {
-    this.itemsEdited = [];
-    this.invalidItemsEdited = [];
     // Determine initial page size using inner height of window at component init
     const surroundingElementsPx = 224;
     const cellPx = 49;
@@ -109,41 +106,6 @@ export class DataTableComponent implements OnInit, OnChanges {
     if (this.showDelete) {
       this.displayedColumns.push('delete');
     }
-  }
-
-  /**
-   * Get container css given isEditable.
-   *
-   * @param {boolean} isEditable
-   * @returns {string}
-   */
-  getContainerCss(isEditable: boolean): string {
-    return isEditable ? 'container-with-header' : 'container-without-header';
-  }
-
-  /**
-   * Determine font color of cell.
-   * If cell is invalid set to red.
-   *
-   * @param column
-   * @param row
-   * @returns {string}
-   */
-  getCellFontColor(row: any): string {
-    return this.invalidItemsEdited.filter(item => item.id === row.id).length ? '#f44336' : '';
-  }
-
-  /**
-   * Determine font weigth of cell.
-   * If cell is edited set to bold.
-   *
-   * @param column
-   * @param row
-   * @returns {string}
-   */
-  getCellFontWeight(row: any): string {
-    return (this.invalidItemsEdited.filter(item => item.id === row.id).length ||
-      this.itemsEdited.filter(item => item.id === row.id).length) ? 'bold' : '';
   }
 
   /**
@@ -174,40 +136,8 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param value
    * @param item
    */
-  onSelectTime(time, row, column): void {
-    this.addItemToItemsEditedOrInvalidItemsEdited(column.timePicker.updateItemWithTime(time, row), column);
-  }
-
-  /**
-   * Remove pre-existing item if exists and add item to itemsEdited if valid
-   * otherwise add to invalidItemsEdited.
-   *
-   * @param item
-   */
-  addItemToItemsEditedOrInvalidItemsEdited(item: any, column: any): void {
-    const itemsEditedIndex = getIndex(this.itemsEdited, item.id);
-    const invalidItemsEditedIndex = getIndex(this.invalidItemsEdited, item.id);
-    if (itemsEditedIndex !== undefined) {
-      this.itemsEdited.splice(itemsEditedIndex, 1);
-    }
-    if (invalidItemsEditedIndex !== undefined) {
-      this.invalidItemsEdited.splice(invalidItemsEditedIndex, 1);
-    }
-    if (column.validator(item)) {
-      this.itemsEdited.push(item);
-    } else {
-      this.invalidItemsEdited.push(item);
-    }
-  }
-
-  /**
-   * Handles the event the user wants to update multiple items.
-   *
-   * @param items
-   */
-  onUpdateItems(items: any[]) {
-    this.updateMultipleItems.emit(items);
-    this.itemsEdited = [];
+  onSelectTime(selectedTime, row): void {
+    this.updateItem.emit({ time: selectedTime, visit: row });
   }
 
   /**
