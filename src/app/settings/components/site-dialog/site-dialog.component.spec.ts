@@ -8,7 +8,7 @@ class MatDialogRefMock {
   close() { }
 }
 
-describe('VerificationDialogComponent', () => {
+describe('SiteDialogComponent', () => {
   let component: SiteDialogComponent;
   let fixture: ComponentFixture<SiteDialogComponent>;
 
@@ -40,7 +40,7 @@ describe('VerificationDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should close the dialog when confirmSelection is called', () => {
+  it('should close the dialog when close is called', () => {
     spyOn(component.dialogRef, 'close');
     component.close();
     expect(component.dialogRef.close).toHaveBeenCalled();

@@ -28,14 +28,14 @@ export class SiteSettingsComponent implements OnInit {
   ];
   public sites$: Observable<Site[]>;
 
-  constructor(public store$: Store<AppState>, private dialog: MatDialog) {}
+  constructor(public store$: Store<AppState>, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.sites$ = this.store$.pipe(select(selectModelSites));
   }
 
   onDeleteSite(site: Site) {
-    this.store$.dispatch(Object.assign({}, new SettingsActions.DeleteSite(site)));
+    this.store$.dispatch(new SettingsActions.DeleteSite(site));
   }
 
   onUpdateSite(site: Site) {
