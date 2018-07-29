@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SiteDialogComponent } from './site-dialog.component';
+import {mockStoreModules} from "../../../../mocks/store.mock";
 
 class MatDialogRefMock {
   close() { }
@@ -15,6 +16,7 @@ describe('SiteDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        ...mockStoreModules,
         FormsModule,
         MatDialogModule,
         MatFormFieldModule,
@@ -22,7 +24,7 @@ describe('SiteDialogComponent', () => {
         MatInputModule,
         NoopAnimationsModule,
       ],
-      declarations: [ComponentFixture],
+      declarations: [SiteDialogComponent],
       providers: [
         { provide: MatDialogRef, useClass: MatDialogRefMock },
       ],
