@@ -5,6 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { CategoryDialogComponent } from './components/create-category-dialog/category-dialog.component';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { CategorySettingsComponent } from './containers/category-settings/category-settings.component';
 import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
@@ -40,12 +41,16 @@ import { SettingsRoutingModule } from './settings-routing.module';
     UserSettingsComponent,
     VolunteerSettingsComponent,
     VisitsComponent,
+    CategoryDialogComponent,
   ],
   exports: [
     SettingsPageComponent,
   ],
   providers: [
     CsvService,
+  ],
+  entryComponents: [
+    CategoryDialogComponent,
   ],
 })
 export class SettingsModule {

@@ -3,7 +3,7 @@ export class ColumnOptions {
   header: string;
   cell: Function;
   selectOptions?: Function;
-  isTime: boolean;
+  isTime?: boolean;
 
   constructor(columnDef: string, header: string, cell: Function, selectOptions: Function = null, isTime: boolean = false) {
     this.columnDef = columnDef;

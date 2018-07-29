@@ -148,7 +148,7 @@ export class SettingsEffects {
       switchMap((category: Category) => this.categoryService.add(category)
         .pipe(
           tap(() => {
-            this.snackBarService.updateUserSuccess();
+            this.snackBarService.createCategorySuccess();
           }),
         )),
     );

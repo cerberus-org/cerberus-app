@@ -28,6 +28,7 @@ export class CategoryService extends BaseService<Category> {
     return {
       ...category,
       label: _.capitalize(category.label),
+      description: _.capitalize(category.description),
     };
   }
 

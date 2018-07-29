@@ -1,25 +1,19 @@
 export interface Category {
-  id: number;
+  id: string;
   label: string;
-  description?: string;
+  description: string;
   organizationId: string;
 }
 
 export class Category {
-  id: number;
   label: string;
-  description?: string;
-  organizationId: string;
+  description: string;
 
   constructor(
-    id: number,
     label: string,
     description: string,
-    organizationId: string,
   ) {
-    this.id = id;
     this.label = label;
     this.description = description;
-    this.organizationId = organizationId;
   }
 }
