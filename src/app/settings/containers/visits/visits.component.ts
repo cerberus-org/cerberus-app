@@ -81,7 +81,7 @@ export class VisitsComponent implements OnInit {
    */
   onUpdateVisit(visitAndSelectedTime: { time: string, visit: VisitWithVolunteer }): void {
     if (visitAndSelectedTime.time) {
-      this.addVisitToEditedList(this.updateVisitWithTime(visitAndSelectedTime.time, visitAndSelectedTime.visit));
+      this.addVisitToEditedList(this.updateVisitEndedAtWithTime(visitAndSelectedTime.time, visitAndSelectedTime.visit));
     }
   }
 
@@ -121,7 +121,7 @@ export class VisitsComponent implements OnInit {
    * @param visit
    * @returns {VisitWithVolunteer}
    */
-  updateVisitWithTime(time: string, visit: VisitWithVolunteer): VisitWithVolunteer {
+  updateVisitEndedAtWithTime(time: string, visit: VisitWithVolunteer): VisitWithVolunteer {
     const visitCopy = Object.assign({}, visit);
     // If endedAt is null, set to startedAt so we can call setHours on a defined value
     visitCopy.endedAt = updateDateWithTimeInput(time, visitCopy.endedAt ? visitCopy.endedAt : new Date(visitCopy.startedAt), visit.timezone);
