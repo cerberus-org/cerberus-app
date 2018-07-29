@@ -51,7 +51,7 @@ export class SignUpEffects {
             // 2. Create the User and the default Site, using the generated ID from the created organization
             switchMap((createdOrganization: Organization) => forkJoin(
               this.authService.createUser(validCredentials),
-              this.siteService.add(new Site(createdOrganization.id, createdOrganization.name, null)),
+              this.siteService.add(new Site(createdOrganization.id, createdOrganization.name, null, null)),
             )
               .pipe(
                 // 3. Create the Member using the UID from the created User

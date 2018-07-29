@@ -57,9 +57,9 @@ export const selectSettingsSidenavOptions = createSelector(
           new SettingsActions.LoadPage('VISITS'),
         ),
         new SidenavOptions(
-          'Categories',
+          'Sites',
           'dashboard',
-          new SettingsActions.LoadPage('CATEGORIES'),
+          new SettingsActions.LoadPage('SITES'),
         ),
       ]
       : sidenavOptions;

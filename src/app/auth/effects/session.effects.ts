@@ -32,7 +32,6 @@ export class SessionEffects {
                   new ModelActions.LoadSites(member.organizationId),
                   new ModelActions.LoadVisits(member.organizationId),
                   new ModelActions.LoadVolunteers(member.organizationId),
-                  new ModelActions.LoadCategories(member.organizationId),
                 ]),
               );
           })),

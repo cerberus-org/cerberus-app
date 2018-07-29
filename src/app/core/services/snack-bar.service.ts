@@ -73,7 +73,7 @@ export class SnackBarService {
     return this.open('A new version of Cerberus is available.', 'Reload', 10000);
   }
 
-  createCategorySuccess(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Successfully created a category.');
+  createSiteSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Successfully created a site.');
   }
 }

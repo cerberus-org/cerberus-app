@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import { OrganizationSettingsComponent } from './category-settings.component';
+import { SiteSettingsComponent } from './site-settings.component';
 
 describe('OrganizationSettingsComponent', () => {
-  let component: OrganizationSettingsComponent;
-  let fixture: ComponentFixture<OrganizationSettingsComponent>;
+  let component: SiteSettingsComponent;
+  let fixture: ComponentFixture<SiteSettingsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        OrganizationSettingsComponent,
+        SiteSettingsComponent,
         MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
       ],
       imports: [
@@ -21,7 +21,7 @@ describe('OrganizationSettingsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrganizationSettingsComponent);
+    fixture = TestBed.createComponent(SiteSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

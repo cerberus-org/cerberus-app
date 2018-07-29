@@ -8,17 +8,16 @@ import { selectSessionOrganization } from '../../auth/selectors/session.selector
 import { AuthService } from '../../auth/services/auth.service';
 import { AppState } from '../../core/reducers';
 import { selectModelVolunteers } from '../../core/selectors/model.selectors';
-import { CategoryService } from '../../core/services/category.service';
 import { MemberService } from '../../core/services/member.service';
 import { OrganizationService } from '../../core/services/organization.service';
+import { SiteService } from '../../core/services/site.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { VisitService } from '../../core/services/visit.service';
 import { VolunteerService } from '../../core/services/volunteer.service';
 import { getFormattedVisits } from '../../shared/helpers';
-import { Member, Visit } from '../../shared/models';
+import { Member, Site, Visit } from '../../shared/models';
 import * as SettingsActions from '../actions/settings.actions';
 import { CsvService } from '../services/csv.service';
-import {Category} from "../../shared/models/category";
 
 @Injectable()
 export class SettingsEffects {
@@ -142,22 +141,22 @@ export class SettingsEffects {
     );
 
   @Effect({ dispatch: false })
-  createCategory$: Observable<Action> = this.actions.ofType(SettingsActions.CREATE_CATEGORY)
+  createSite$: Observable<Action | Site> = this.actions.ofType(SettingsActions.CREATE_SITE)
     .pipe(
-      map((action: SettingsActions.CreateCategory) => action.payload),
-      switchMap((category: Category) => this.categoryService.add(category)
+      map((action: SettingsActions.CreateSite) => action.payload),
+      switchMap((site: Site) => this.siteService.add(site)
         .pipe(
           tap(() => {
-            this.snackBarService.createCategorySuccess();
+            this.snackBarService.createSiteSuccess();
           }),
         )),
     );
 
   @Effect({ dispatch: false })
-  deleteCategory$: Observable<Action> = this.actions.ofType(SettingsActions.DELETE_CATEGORY)
+  deleteSite$: Observable<Action> = this.actions.ofType(SettingsActions.DELETE_SITE)
     .pipe(
-      map((action: SettingsActions.DeleteCategory) => action.payload),
-      switchMap(category => this.categoryService.delete(category)),
+      map((action: SettingsActions.DeleteSite) => action.payload),
+      switchMap(site => this.siteService.delete(site)),
     );
 
   constructor(
@@ -170,7 +169,7 @@ export class SettingsEffects {
     private visitService: VisitService,
     private volunteerService: VolunteerService,
     private csvService: CsvService,
-    private categoryService: CategoryService,
+    private siteService: SiteService,
   ) {
   }
 }

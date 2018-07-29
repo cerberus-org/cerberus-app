@@ -1,12 +1,14 @@
 export class Site {
   id: string;
   organizationId: string;
-  name: string;
+  description: string;
+  label: string;
   address: string;
 
-  constructor(organizationId: string, name: string, address: string) {
+  constructor(organizationId: string, label: string, address: string, description: string) {
     this.organizationId = organizationId;
-    this.name = name;
+    this.label = label;
     this.address = address;
+    this.description = description
   }
 }
