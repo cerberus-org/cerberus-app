@@ -16,7 +16,7 @@ import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer'
 import * as SettingsActions from '../../actions/settings.actions';
 import { VisitsComponent } from './visits.component';
 
-fdescribe('Visits Component', () => {
+describe('Visits Component', () => {
   let component: VisitsComponent;
   let fixture: ComponentFixture<VisitsComponent>;
   let visitWithVolunteer: VisitWithVolunteer;

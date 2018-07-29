@@ -6,7 +6,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs';
 import { mockColumnOptions } from '../../../../mocks/objects/column-options.mock';
 import { createMockVisits } from '../../../../mocks/objects/visit.mock';
-import { updateDateWithTimeInput } from '../../helpers';
 import { Visit } from '../../models';
 import { DataTableComponent, DataTableSource } from './data-table.component';
 
@@ -80,87 +79,9 @@ describe('DataTableComponent', () => {
     expect(component.getRowColor(visits[0])).toEqual('');
   });
 
-  it('should not set cell font-color to red if invalidItemsEdited does not have a length', () => {
-    expect(component.getCellFontColor('b')).toEqual('');
+  it('should emit time and item when onSelectTime is called', () => {
+    spyOn(component.updateItem, 'emit');
+    component.onSelectTime('03:00', 'a');
+    expect(component.updateItem.emit).toHaveBeenCalled();
   });
-
-  it('should set cell font-color to red if invalidItemsEdited has a length', () => {
-    component.invalidItemsEdited = [{ id: 'a' }];
-    expect(component.getCellFontColor({ id: 'a' })).toEqual('#f44336');
-  });
-
-  it('should not set cell font-weight to bold if there are not items edited', () => {
-    expect(component.getCellFontWeight('b')).toEqual('');
-  });
-
-  it('should set cell font-weight to bold if there are items edited', () => {
-    component.itemsEdited = ['a'];
-    expect(component.getCellFontWeight('b')).toEqual('bold');
-  });
-
-  it('should call addItemToItemsEdited onSelectTime', () => {
-    spyOn(component, 'addItemToItemsEditedOrInvalidItemsEdited');
-    const column = { timePicker: { isTime: true, updateItemWithTime: () => {} } };
-    component.onSelectTime('3:00', visits[0], column);
-    expect(component.addItemToItemsEditedOrInvalidItemsEdited).toHaveBeenCalled();
-  });
-
-  it('should call emit updateMultipleItems onUpdateItems and clear itemsEdited', () => {
-    spyOn(component.updateMultipleItems, 'emit');
-    component.itemsEdited = ['a'];
-    component.onUpdateItems([visits[0], visits[1]]);
-    expect(component.updateMultipleItems.emit).toHaveBeenCalledWith([visits[0], visits[1]]);
-    expect(component.itemsEdited).toEqual([]);
-  });
-
-  it('should add item to itemsEdited when addItemToItemsEditedOrInvalidItemsEdited is called', () => {
-    component.itemsEdited = [];
-    const column = { columnDef: 'endedAt', validator: (item) => { return true; } };
-    component.addItemToItemsEditedOrInvalidItemsEdited(visits[0], column);
-    expect(component.itemsEdited).toEqual([visits[0]]);
-  });
-
-  it('should add item to invalidItemsEdited when addItemToItemsEditedOrInvalidItemsEdited is called', () => {
-    component.invalidItemsEdited = [];
-    component.addItemToItemsEditedOrInvalidItemsEdited(visits[0], { validator: (item) => { return false; } });
-    expect(component.invalidItemsEdited).toEqual([visits[0]]);
-  });
-
-  it(
-    'should remove pre-exiting updated item from itemsEdited and add most recently updated item to itemsEdited when addItemToItemsEditedOrInvalidItemsEdited is called',
-    () => {
-      component.itemsEdited = [visits[0]];
-      const mostRecentlyUpdatedItem = Object.assign({}, visits[0], { endedAt: updateDateWithTimeInput('3:00', visits[0].endedAt) });
-      component.addItemToItemsEditedOrInvalidItemsEdited(mostRecentlyUpdatedItem, { validator: (item) => { return true; } });
-      expect(component.itemsEdited[0]).toEqual(mostRecentlyUpdatedItem);
-      expect(component.itemsEdited.length).toEqual(1);
-    },
-  );
-
-  it(
-    'should remove pre-exiting invalid item from invalidItemsEdited and add most recent invalid item to invalidItemsEdited when addItemToItemsEditedOrInvalidItemsEdited is called',
-    () => {
-      component.invalidItemsEdited = [visits[0]];
-      const mostRecentlyUpdatedItem = Object.assign({}, visits[0], { endedAt: updateDateWithTimeInput('3:00', visits[0].endedAt) });
-      component.addItemToItemsEditedOrInvalidItemsEdited(mostRecentlyUpdatedItem, { validator: (item) => { return false; } });
-      expect(component.invalidItemsEdited[0]).toEqual(mostRecentlyUpdatedItem);
-      expect(component.invalidItemsEdited.length).toEqual(1);
-    },
-  );
-
-  it(
-    'should return "conatiner-without-header" if isEditable is false',
-    () => {
-      component.isEditable = false;
-      expect(component.getContainerCss(component.isEditable)).toEqual('container-without-header');
-    },
-  );
-
-  it(
-    'should return "conatiner-with-header" if isEditable is true',
-    () => {
-      component.isEditable = true;
-      expect(component.getContainerCss(component.isEditable)).toEqual('container-with-header');
-    },
-  );
 });
