@@ -8,6 +8,7 @@ import { selectSessionOrganization } from '../../auth/selectors/session.selector
 import { AuthService } from '../../auth/services/auth.service';
 import { AppState } from '../../core/reducers';
 import { selectModelVolunteers } from '../../core/selectors/model.selectors';
+import { CategoryService } from '../../core/services/category.service';
 import { MemberService } from '../../core/services/member.service';
 import { OrganizationService } from '../../core/services/organization.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
@@ -17,6 +18,7 @@ import { getFormattedVisits } from '../../shared/helpers';
 import { Member, Visit } from '../../shared/models';
 import * as SettingsActions from '../actions/settings.actions';
 import { CsvService } from '../services/csv.service';
+import {Category} from "../../shared/models/category";
 
 @Injectable()
 export class SettingsEffects {
@@ -139,6 +141,18 @@ export class SettingsEffects {
         )),
     );
 
+  @Effect({ dispatch: false })
+  createCategory$: Observable<Action> = this.actions.ofType(SettingsActions.CREATE_CATEGORY)
+    .pipe(
+      map((action: SettingsActions.CreateCategory) => action.payload),
+      switchMap((category: Category) => this.categoryService.add(category)
+        .pipe(
+          tap(() => {
+            this.snackBarService.updateUserSuccess();
+          }),
+        )),
+    );
+
   constructor(
     private store$: Store<AppState>,
     private actions: Actions,
@@ -149,6 +163,7 @@ export class SettingsEffects {
     private visitService: VisitService,
     private volunteerService: VolunteerService,
     private csvService: CsvService,
+    private categoryService: CategoryService,
   ) {
   }
 }

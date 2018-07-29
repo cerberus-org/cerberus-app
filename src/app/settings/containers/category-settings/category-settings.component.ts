@@ -5,6 +5,7 @@ import { SessionReducerState } from '../../../auth/reducers/session.reducer';
 import { selectModelCategories } from '../../../core/selectors/model.selectors';
 import { ColumnOptions } from '../../../shared/models';
 import { Category } from '../../../shared/models/category';
+import * as SettingsActions from "../../actions/settings.actions";
 
 @Component({
   selector: 'app-category-settings',
@@ -45,10 +46,13 @@ export class CategorySettingsComponent implements OnInit {
   }
 
   onUpdateCategory(category: Category) {
-
   }
 
-  onCreateCategory(category: Category) {
+  createCategory(category: Category) {
+    this.store$.dispatch(new SettingsActions.CreateCategory(category));
+  }
+
+  openCategoryModal() {
 
   }
 }
