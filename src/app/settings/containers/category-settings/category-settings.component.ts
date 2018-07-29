@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { select, Store } from '@ngrx/store';
-import {Observable, Subscription} from 'rxjs/index';
-import { SessionReducerState } from '../../../auth/reducers/session.reducer';
+import { Observable, Subscription } from 'rxjs/index';
 import { selectSessionMember } from '../../../auth/selectors/session.selectors';
 import { AppState } from '../../../core/reducers';
 import { selectModelCategories } from '../../../core/selectors/model.selectors';
@@ -58,6 +57,7 @@ export class CategorySettingsComponent implements OnInit {
   }
 
   onDeleteCategory(category: Category) {
+    this.store$.dispatch(Object.assign({}, new SettingsActions.DeleteCategory(category), { organizationId: this.member.organizationId }));
   }
 
   onUpdateCategory(category: Category) {

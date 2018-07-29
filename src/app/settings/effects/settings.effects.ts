@@ -153,6 +153,13 @@ export class SettingsEffects {
         )),
     );
 
+  @Effect({ dispatch: false })
+  deleteCategory$: Observable<Action> = this.actions.ofType(SettingsActions.DELETE_CATEGORY)
+    .pipe(
+      map((action: SettingsActions.DeleteCategory) => action.payload),
+      switchMap(category => this.categoryService.delete(category)),
+    );
+
   constructor(
     private store$: Store<AppState>,
     private actions: Actions,

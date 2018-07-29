@@ -4,6 +4,7 @@
 <app-data-table
   [data$]="categories$"
   [columnOptions]="columnOptions"
+  [showDelete]="true"
   (deleteItem)="onDeleteCategory($event)"
   (updateItem)="onUpdateCategory($event)">
 </app-data-table>

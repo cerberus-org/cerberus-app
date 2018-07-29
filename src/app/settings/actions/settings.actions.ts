@@ -15,6 +15,7 @@ export const UPDATE_ORGANIZATION = '[Settings] Update organization';
 export const UPDATE_USER = '[Settings] Update user';
 export const UPDATE_VISITS = '[Settings] Update visits';
 export const CREATE_CATEGORY = '[Settings] Create category';
+export const DELETE_CATEGORY = '[Settings] Delete category';
 
 export class DeleteVolunteer implements Action {
   readonly type = DELETE_VOLUNTEER;
@@ -73,6 +74,12 @@ export class CreateCategory implements Action {
   constructor(public payload: Category) {}
 }
 
+export class DeleteCategory implements Action {
+  readonly type = DELETE_CATEGORY;
+
+  constructor(public payload: Category) {}
+}
+
 export type All
   = DeleteVolunteer
   | DeleteVolunteerSuccess
@@ -82,4 +89,5 @@ export type All
   | UpdateOrganization
   | UpdateUser
   | UpdateVisits
-  | CreateCategory;
+  | CreateCategory
+  | DeleteCategory;
