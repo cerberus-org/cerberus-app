@@ -59,11 +59,50 @@ input.capitalize {
   }
 }
 
-.container-submit {
-  display: grid;
-  justify-items: end;
-  margin: 2rem;
+.wrapper {
+  max-width: 960px;
+  padding: 0 10px;
+  margin: 0 auto;
 }
+
+.container {
+  display: grid;
+
+  &.container--row-gap {
+    grid-row-gap: 1rem;
+  }
+
+  &.container--center {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.container--inline {
+    grid-auto-flow: column;
+    grid-gap: 0.5rem;
+
+    .container__left {
+      justify-self: start;
+    }
+
+    .container__right {
+      justify-self: end;
+    }
+  }
+
+  &.container--submit {
+    justify-items: end;
+    margin: 2rem;
+  }
+
+  &.container--item-spacing {
+    margin: 2rem;
+    grid-row-gap: 2rem;
+  }
+}
+
+// TODO: Delete these in favor of BEM classes
 
 .container-center {
   width: 100%;
@@ -78,13 +117,6 @@ input.capitalize {
   grid-gap: 0.5rem;
 }
 
-.container-stretch {
-  width: 100%;
-  display: grid;
-  align-items: center;
-  justify-content: stretch;
-}
-
 .container-submit {
   display: grid;
   justify-items: end;
@@ -94,12 +126,6 @@ input.capitalize {
 .loose {
   margin-top: 1rem;
   grid-row-gap: 1rem;
-}
-
-.container {
-  &.container--row-gap {
-    grid-row-gap: 1rem;
-  }
 }
 
 .text-center {

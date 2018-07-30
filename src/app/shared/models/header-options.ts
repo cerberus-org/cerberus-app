@@ -1,8 +1,8 @@
 export class HeaderOptions {
   title: string;
-  icon: string;
+  icon?: string;
   previousUrl: string;
-  showSettings: boolean;
+  showSettings?: boolean;
 
   constructor(title: string, icon: string, previousUrl: string, showSettings: boolean) {
     this.title = title;
