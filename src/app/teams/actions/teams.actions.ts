@@ -2,22 +2,33 @@ import { Action } from '@ngrx/store';
 import { Organization } from '../../shared/models';
 
 export enum TeamsActionTypes {
-  LoadOrganizations = '[Teams] Load Organizations',
-  LoadOrganizationsSuccess = '[Teams] Load Organizations Success',
+  LoadTeams = '[Teams] Load Teams',
+  LoadTeamsSuccess = '[Teams] Load Teams Success',
 }
 
-export class LoadOrganizations implements Action {
-  readonly type = TeamsActionTypes.LoadOrganizations;
+/**
+ * Every action is comprised of at least a type and an optional
+ * payload. Expressing actions as classes enables powerful
+ * type checking in reducer functions.
+ *
+ * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
+ */
+export class LoadTeams implements Action {
+  readonly type = TeamsActionTypes.LoadTeams;
 
   constructor() {}
 }
 
-export class LoadOrganizationsSuccess implements Action {
-  readonly type = TeamsActionTypes.LoadOrganizationsSuccess;
+export class LoadTeamsSuccess implements Action {
+  readonly type = TeamsActionTypes.LoadTeamsSuccess;
 
-  constructor(payload: Organization[]) {}
+  constructor(public payload: { teams: Organization[] }) {}
 }
 
+/**
+ * Export a type alias of all actions in this action group
+ * so that reducers can easily compose action types
+ */
 export type TeamsActionsUnion =
-  | LoadOrganizations
-  | LoadOrganizationsSuccess;
+  | LoadTeams
+  | LoadTeamsSuccess;

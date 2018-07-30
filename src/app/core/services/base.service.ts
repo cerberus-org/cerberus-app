@@ -78,7 +78,7 @@ export abstract class BaseService<T extends { id: string }> {
   getById(id: string): Observable<T> {
     return from(
       this.collection().doc(id).ref.get()
-        .then(snapshot => this.mapDocToObject(snapshot.data())),
+        .then(snapshot => this.mapDocToObject({ ...snapshot.data(), id })),
     )
       .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
   }

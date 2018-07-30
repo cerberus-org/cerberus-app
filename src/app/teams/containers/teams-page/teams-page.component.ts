@@ -1,19 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs/internal/Observable';
 import { AppState } from '../../../core/reducers';
-import { LoadOrganizations } from '../../actions/teams.actions';
+import { Organization } from '../../../shared/models';
+import { LoadTeams } from '../../actions/teams.actions';
+import * as fromTeams from '../../reducers';
 
 @Component({
   selector: 'app-teams-page',
-  templateUrl: './teams-page.component.html',
+  template: `
+    <p *ngFor="let team of (teams$ | async)">
+      {{team}}
+    </p>
+  `,
   styleUrls: ['./teams-page.component.scss'],
 })
 export class TeamsPageComponent implements OnInit {
+  teams$: Observable<Organization[]>;
 
-  constructor(private store$: Store<AppState>) { }
+  constructor(private store$: Store<AppState>) {
+    this.teams$ = store$.pipe(select(fromTeams.getAllTeams));
+  }
 
   ngOnInit() {
-    this.store$.dispatch(new LoadOrganizations());
+    this.store$.dispatch(new LoadTeams());
   }
 
 }
