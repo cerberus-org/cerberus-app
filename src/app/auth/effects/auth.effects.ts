@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { defer } from 'rxjs/internal/observable/defer';
+import { of } from 'rxjs/internal/observable/of';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import * as RouterActions from '../../core/actions/router.actions';
 import { MemberService } from '../../core/services/member.service';
@@ -35,7 +37,7 @@ export class AuthEffects {
                   return new RouterActions.Go({ path: ['home'] });
                 }
                 this.snackBarService.signInSuccess(firstName);
-                return new RouterActions.Go({ path: ['organization/volunteers'] });
+                return new RouterActions.Go({ path: ['teams'] });
               }),
             )),
         )),
@@ -67,7 +69,7 @@ export class AuthEffects {
    * @type {Observable<any>}
    */
   @Effect()
-    signOut$: Observable<Action> = this.actions
+  signOut$: Observable<Action> = this.actions
     .ofType(AuthActions.SIGN_OUT)
     .pipe(
       switchMap(() => this.authService.signOut()
@@ -96,6 +98,13 @@ export class AuthEffects {
           }),
         )),
     );
+
+  @Effect({ dispatch: false })
+  init$: Observable<any> = defer(() => of(null)).pipe(
+    tap(() => {
+      this.authService.observeStateChanges();
+    }),
+  );
 
   constructor(
     private store$: Store<SessionReducerState>,

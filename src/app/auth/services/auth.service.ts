@@ -23,9 +23,6 @@ export class AuthService {
     private store$: Store<AppState>,
   ) {
     this.pwdVerification = false;
-    if (afAuth) {
-      this.observeStateChanges();
-    }
   }
 
   setPwdVerification(val: boolean) {
@@ -96,6 +93,10 @@ export class AuthService {
 
   signOut(): Observable<void> {
     return from(this.afAuth.auth.signOut());
+  }
+
+  get currentUserInfo(): UserInfo {
+    return this.afAuth.auth.currentUser as UserInfo;
   }
 
   /**
