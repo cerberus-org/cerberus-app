@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from '../material';
 import { SharedModule } from '../shared/shared.module';
+import { TeamCardComponent } from './components/team-card/team-card.component';
 import { TeamsPageComponent } from './containers/teams-page/teams-page.component';
 import { TeamsEffects } from './effects/teams.effects';
 import { reducers } from './reducers';
@@ -35,7 +36,8 @@ import { TeamsRoutingModule } from './teams-routing.module';
     EffectsModule.forFeature([TeamsEffects]),
   ],
   declarations: [
-    TeamsPageComponent
+    TeamCardComponent,
+    TeamsPageComponent,
   ],
 })
 export class TeamsModule {

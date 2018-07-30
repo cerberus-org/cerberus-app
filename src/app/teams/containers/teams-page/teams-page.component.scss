@@ -1,4 +1,9 @@
-.actions {
+.teams-container {
   display: grid;
-  justify-content: space-between;
+  align-items: stretch;
+  grid-row-gap: 2rem;
+
+  max-width: 30rem;
+  margin: 2rem auto 0;
+  padding: 0 auto;
 }
