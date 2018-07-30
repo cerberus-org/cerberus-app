@@ -12,14 +12,29 @@ import * as fromTeams from '../../reducers';
 @Component({
   selector: 'app-teams-page',
   template: `
-    <div class="teams-container">
-      <app-team-card
-        *ngFor="let team of (teams$ | async)"
-        [team]="team"
-        (clickActivate)="onClickActivate($event)"
-        (clickSettings)="onClickSettings($event)"
-      >
-      </app-team-card>
+    <div class="wrapper">
+      <div class="container container--inline">
+        <div class="container__left">
+          <h2 *ngIf="(teams$ | async)?.length; else noTeams">You are a member of these teams.</h2>
+          <ng-template #noTeams>
+            <h2>Create or join a team to get started.</h2>
+          </ng-template>
+        </div>
+        <div class="container__right header-buttons">
+          <button mat-stroked-button color="accent">Create Team</button>
+          <button mat-stroked-button color="accent">Join Team</button>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="teams-list">
+        <app-team-card
+          *ngFor="let team of (teams$ | async)"
+          [team]="team"
+          (clickActivate)="onClickActivate($event)"
+          (clickSettings)="onClickSettings($event)"
+        >
+        </app-team-card>
+      </div>
     </div>
   `,
   styleUrls: ['./teams-page.component.scss'],
