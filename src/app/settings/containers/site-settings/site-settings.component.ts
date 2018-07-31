@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/index';
 import { AppState } from '../../../core/reducers';
@@ -34,18 +34,43 @@ export class SiteSettingsComponent implements OnInit {
     this.sites$ = this.store$.pipe(select(selectModelSites));
   }
 
-  onDeleteSite(site: Site) {
+  onDeleteSite(site: Site): void {
     this.store$.dispatch(new SettingsActions.DeleteSite(site));
   }
 
-  onUpdateSite(site: Site) {
+  onEditSite(site: Site): void {
+    this.openDialogForEdit(site);
   }
 
-  openSiteDialog() {
+  onUpdateSite(site: Site): void {
+  }
+
+  /**
+   * Open dialog with prepopulated fields.
+   *
+   * @param site
+   */
+  openDialogForEdit(site) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = site;
+    const dialog = this.dialog.open(SiteDialogComponent, dialogConfig);
+    dialog.afterClosed().subscribe((siteOnClose: Site) => {
+      if (siteOnClose) {
+        this.store$.dispatch(Object.assign({}, new SettingsActions.UpdateSite(siteOnClose)));
+      }
+    });
+  }
+
+  /**
+   * Open dialog with empty fields.
+   *
+   * @param {Site} site
+   */
+  openDialogForCreation(site?: Site) {
     const dialog = this.dialog.open(SiteDialogComponent);
-    dialog.afterClosed().subscribe((site: Site) => {
-      if (site.label) {
-        this.store$.dispatch(Object.assign({}, new SettingsActions.CreateSite(site)));
+    dialog.afterClosed().subscribe((siteOnClose: Site) => {
+      if (siteOnClose) {
+        this.store$.dispatch(Object.assign({}, new SettingsActions.CreateSite(siteOnClose)));
       }
     });
   }

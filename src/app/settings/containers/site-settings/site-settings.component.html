@@ -1,11 +1,12 @@
 <mat-toolbar class="data-table-header">
-  <button mat-button class="data-table-header__button" [disabled]="false" color="accent" (click)="openSiteDialog()">Create Site</button>
+  <button mat-button class="data-table-header__button" [disabled]="false" color="accent" (click)="openDialogForCreation()">Create Site</button>
 </mat-toolbar>
 <app-data-table
   [data$]="sites$"
   [columnOptions]="columnOptions"
   [showDelete]="true"
   [showEdit]="true"
+  (editItem)="onEditSite($event)"
   (deleteItem)="onDeleteSite($event)"
   (updateItem)="onUpdateSite($event)">
 </app-data-table>

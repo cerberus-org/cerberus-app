@@ -159,6 +159,18 @@ export class SettingsEffects {
       switchMap(site => this.siteService.delete(site)),
     );
 
+  @Effect({ dispatch: false })
+  updateSite$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_SITE)
+    .pipe(
+      map((action: SettingsActions.UpdateSite) => action.payload),
+      switchMap(site => this.siteService.update(site)
+        .pipe(
+          tap(() => {
+            this.snackBarService.updateSiteSuccess();
+          }),
+        )),
+    );
+
   constructor(
     private store$: Store<AppState>,
     private actions: Actions,
