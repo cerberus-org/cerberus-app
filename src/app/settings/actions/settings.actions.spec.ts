@@ -1,9 +1,12 @@
 import { createMockCredentials } from '../../../mocks/objects/credentials.mock';
 import { createMockMembers } from '../../../mocks/objects/member.mock';
 import { createMockOrganizations } from '../../../mocks/objects/organization.mock';
+import { createMockSites } from '../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import {
+  CREATE_SITE,
+  CreateSite,
   DELETE_VOLUNTEER,
   DELETE_VOLUNTEER_SUCCESS,
   DeleteVolunteer,
@@ -90,6 +93,14 @@ describe('settings.actions', () => {
     expect({ ...new UpdateVisits(payload) }).toEqual({
       payload,
       type: UPDATE_VISITS,
+    });
+  });
+
+  it('should create an CreateSite action', () => {
+    const payload = createMockSites()[0];
+    expect({ ...new CreateSite(payload) }).toEqual({
+      payload,
+      type: CREATE_SITE,
     });
   });
 });

@@ -21,8 +21,9 @@ describe('SiteService', () => {
     const testbed = getTestBed();
     service = testbed.get(SiteService);
     site = createMockSites()[0];
-    site.name = 'jefferson sPCA animal shelter';
+    site.label = 'jefferson sPCA animal shelter';
     site.address = '1 humane way, new orleans, lA 70123';
+    site.description = 'a place';
   }));
 
   it('is created', inject([SiteService], (siteService: SiteService) => {

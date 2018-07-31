@@ -62,19 +62,19 @@ describe('DataCellComponent', () => {
 
   it('should get input type for SELECT', () => {
     component.selectOptions = ['a', 'b'];
-    component.column.timePicker = { isTime: false, updateItemWithTime: null };
+    component.column.isTime = false;
     expect(component.inputType).toEqual('SELECT');
   });
 
   it('should get input type for TIME_PICKER', () => {
     component.selectOptions = null;
-    component.column.timePicker = { isTime: true, updateItemWithTime: null };
+    component.column.isTime = true;
     expect(component.inputType).toEqual('TIME_PICKER');
   });
 
   it('should get input type for TEXT_ONLY', () => {
     component.selectOptions = null;
-    component.column.timePicker = { isTime: false, updateItemWithTime: null };
+    component.column.isTime = false;
     expect(component.inputType).toEqual('TEXT_ONLY');
   });
 });

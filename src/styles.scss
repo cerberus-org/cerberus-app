@@ -139,3 +139,16 @@ input.capitalize {
     display: none !important;
   }
 }
+
+.data-table-header {
+  display: flex;
+  background-color: whitesmoke;
+  border-bottom-style: solid;
+  border-bottom-width: .5px;
+  border-bottom-color: rgba(0,0,0,.12);
+}
+
+.data-table-header__button {
+  height: 70%;
+}
+

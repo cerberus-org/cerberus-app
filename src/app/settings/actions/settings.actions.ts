@@ -1,9 +1,10 @@
 import { Action } from '@ngrx/store';
 import { UserFormChanges } from '../../shared/components/user-form/user-form.component';
-import { Member, Organization, Visit, Volunteer } from '../../shared/models';
+import { Member, Organization, Site, Visit, Volunteer } from '../../shared/models';
 
 export const DELETE_VOLUNTEER = '[Settings] Delete volunteer';
 export const DELETE_VOLUNTEER_SUCCESS = '[Settings] Delete volunteer success';
+export const DELETE_SITE = '[Settings] Delete site';
 
 export const GENERATE_VISIT_HISTORY_REPORT = '[Settings] Generate visit history report';
 
@@ -13,6 +14,8 @@ export const UPDATE_ROLE = '[Settings] Update role';
 export const UPDATE_ORGANIZATION = '[Settings] Update organization';
 export const UPDATE_USER = '[Settings] Update user';
 export const UPDATE_VISITS = '[Settings] Update visits';
+
+export const CREATE_SITE = '[Settings] Create site';
 
 export class DeleteVolunteer implements Action {
   readonly type = DELETE_VOLUNTEER;
@@ -65,6 +68,18 @@ export class UpdateVisits implements Action {
   constructor(public payload: Visit[]) {}
 }
 
+export class CreateSite implements Action {
+  readonly type = CREATE_SITE;
+
+  constructor(public payload: Site) {}
+}
+
+export class DeleteSite implements Action {
+  readonly type = DELETE_SITE;
+
+  constructor(public payload: Site) {}
+}
+
 export type All
   = DeleteVolunteer
   | DeleteVolunteerSuccess
@@ -73,4 +88,6 @@ export type All
   | UpdateRole
   | UpdateOrganization
   | UpdateUser
-  | UpdateVisits;
+  | UpdateVisits
+  | CreateSite
+  | DeleteSite;

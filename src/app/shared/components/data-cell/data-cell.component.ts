@@ -34,7 +34,7 @@ export class DataCellComponent implements OnChanges {
     if (this.selectOptions && this.selectOptions.length) {
       return 'SELECT';
     }
-    if (this.column.timePicker && this.column.timePicker.isTime) {
+    if (this.column.isTime && this.column.isTime) {
       return 'TIME_PICKER';
     }
     return 'TEXT_ONLY';
