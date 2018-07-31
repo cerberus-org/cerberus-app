@@ -4,11 +4,11 @@ import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { mockOrganizations } from '../../../../mocks/objects/organization.mock';
 import { Organization } from '../../models';
-import { OrganizationFormComponent } from './organization-form.component';
+import { TeamFormComponent } from './team-form.component';
 
-describe('OrganizationFormComponent', () => {
-  let component: OrganizationFormComponent;
-  let fixture: ComponentFixture<OrganizationFormComponent>;
+describe('TeamFormComponent', () => {
+  let component: TeamFormComponent;
+  let fixture: ComponentFixture<TeamFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,13 +17,13 @@ describe('OrganizationFormComponent', () => {
         NoopAnimationsModule,
         ReactiveFormsModule,
       ],
-      declarations: [OrganizationFormComponent],
+      declarations: [TeamFormComponent],
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrganizationFormComponent);
+    fixture = TestBed.createComponent(TeamFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -11,11 +11,11 @@ import { Organization } from '../../../shared/models';
         <mat-card-subtitle>{{team.description}}</mat-card-subtitle>
         <mat-divider></mat-divider>
         <mat-card-actions>
-          <div class="container container--inline">
-            <div class="container__left">
+          <div class="grid grid--inline">
+            <div class="grid__left">
               <button mat-button color="primary" (click)="clickActivate.emit(team)">Activate check-in</button>
             </div>
-            <div class="container__right">
+            <div class="grid__right">
               <button mat-icon-button color="accent" (click)="clickSettings.emit(team)">
                 <i class="material-icons">settings</i>
               </button>

@@ -39,6 +39,7 @@ input.capitalize {
 
 .icon-image {
   font-size: 10rem;
+  text-align: center;
   color: mediumaquamarine;
 }
 
@@ -68,40 +69,51 @@ input.capitalize {
   margin: 0 auto;
 }
 
-.container {
+.grid {
   display: grid;
 
-  &.container--row-gap {
+  &.grid--row-gap {
     grid-row-gap: 1rem;
   }
 
-  &.container--center {
+  &.grid--center {
     width: 100%;
     align-items: center;
     justify-content: center;
   }
 
-  &.container--inline {
+  &.grid--inline {
     grid-auto-flow: column;
     grid-gap: 0.5rem;
 
-    .container__left {
+    .grid__left {
       justify-self: start;
     }
 
-    .container__right {
+    .grid__right {
       justify-self: end;
     }
   }
 
-  &.container--submit {
+  &.grid--submit {
     justify-items: end;
     margin: 2rem;
   }
 
-  &.container--item-spacing {
+  &.grid--item-spacing {
     margin-top: 2rem;
     grid-row-gap: 2rem;
+  }
+}
+
+.input-container {
+  display: grid;
+  justify-self: center;
+  width: 100%;
+  max-width: 300px;
+
+  .input-container__row {
+    justify-self: stretch;
   }
 }
 
@@ -147,8 +159,9 @@ input.capitalize {
 }
 
 .input-row {
-  width: calc(360px + 0.5rem);
-  max-width: calc(100vw - 2rem);
+  justify-self: center;
+  width: 368px;
+  max-width: calc(100%);
 }
 
 .hide-xs {

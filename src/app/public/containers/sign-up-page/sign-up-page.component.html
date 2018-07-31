@@ -26,10 +26,10 @@
       (validOrganization)="onValidOrganization($event)">
     </app-find-organization>
     <ng-template #createOrganization>
-      <app-organization-form
+      <app-team-form
         (validOrganization)="onValidOrganization($event)"
         [title]="organizationFormTitle">
-      </app-organization-form>
+      </app-team-form>
     </ng-template>
     <div class="container-submit">
       <button

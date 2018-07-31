@@ -1,4 +1,4 @@
-<div [ngSwitch]="(sidenavSelection$ | async)">
+<div [ngSwitch]="(sidenavSelection$ | async)" class="wrapper">
   <app-user-settings
     *ngSwitchCase="'USER_SETTINGS'"
   >

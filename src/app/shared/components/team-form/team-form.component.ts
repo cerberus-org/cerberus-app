@@ -5,11 +5,50 @@ import { isURL } from 'validator';
 import { Organization } from '../../models';
 
 @Component({
-  selector: 'app-organization-form',
-  templateUrl: './organization-form.component.html',
-  styleUrls: ['./organization-form.component.scss'],
+  selector: 'app-team-form',
+  template: `
+    <form class="container-center" [formGroup]="formGroup">
+      <h1 *ngIf="title">{{title}}</h1>
+      <p *ngIf="subtitle" class="subtitle">{{subtitle}}</p>
+      <div class="input-container">
+        <mat-form-field class="input-container__row">
+          <input
+            matInput
+            class="capitalize"
+            formControlName="name"
+            maxlength="70"
+            placeholder="Team name"
+          >
+        </mat-form-field>
+      </div>
+      <div class="input-container">
+        <mat-form-field class="input-container__row">
+          <input
+            matInput
+            formControlName="website"
+            maxlength="255"
+            placeholder="Website"
+          >
+        </mat-form-field>
+      </div>
+      <div class="input-container">
+        <mat-form-field class="input-container__row">
+          <textarea
+            matInput
+            formControlName="description"
+            maxlength="160"
+            placeholder="Short description"
+            #description
+          >
+          </textarea>
+          <mat-hint align="end">{{description.value.length}} / 160</mat-hint>
+        </mat-form-field>
+      </div>
+    </form>
+  `,
+  styleUrls: ['./team-form.component.scss'],
 })
-export class OrganizationFormComponent implements OnInit, OnDestroy {
+export class TeamFormComponent implements OnInit, OnDestroy {
   @Output() validOrganization = new EventEmitter();
   @Input() title: string;
   @Input() subtitle: string;

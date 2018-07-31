@@ -15,14 +15,14 @@ import { CreateTeamDialogComponent } from '../create-team-dialog/create-team-dia
   selector: 'app-teams-page',
   template: `
     <div class="wrapper">
-      <div class="container container--inline">
-        <div class="container__left">
+      <div class="grid grid--inline">
+        <div class="grid__left">
           <h2 *ngIf="(teams$ | async)?.length; else noTeams">You are a member of these teams.</h2>
           <ng-template #noTeams>
             <h2>Create or join a team to get started.</h2>
           </ng-template>
         </div>
-        <div class="container__right header-buttons">
+        <div class="grid__right header-buttons">
           <button mat-stroked-button color="accent" (click)="onClickCreate()">Create Team</button>
           <button mat-stroked-button color="accent" (click)="onClickFind()">Find Team</button>
         </div>

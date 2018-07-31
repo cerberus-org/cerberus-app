@@ -9,7 +9,7 @@ import { DataCellComponent } from './components/data-cell/data-cell.component';
 import { DataDisplayComponent } from './components/data-display/data-display.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { OrganizationFormComponent } from './components/organization-form/organization-form.component';
+import { TeamFormComponent } from './components/team-form/team-form.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 import { ServicesAgreementDialogComponent } from './components/services-agreement-dialog/services-agreement-dialog.component';
 import { ServicesAgreementComponent } from './components/services-agreement/services-agreement.component';
@@ -23,7 +23,7 @@ export const COMPONENTS = [
   DataTableComponent,
   FindOrganizationComponent,
   LoaderComponent,
-  OrganizationFormComponent,
+  TeamFormComponent,
   PasswordDialogComponent,
   ServicesAgreementComponent,
   ServicesAgreementDialogComponent,
