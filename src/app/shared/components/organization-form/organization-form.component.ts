@@ -12,6 +12,7 @@ import { Organization } from '../../models';
 export class OrganizationFormComponent implements OnInit, OnDestroy {
   @Output() validOrganization = new EventEmitter();
   @Input() title: string;
+  @Input() subtitle: string;
   @Input() initialOrganization: Organization;
   formGroup: FormGroup;
   formSubscription: Subscription;

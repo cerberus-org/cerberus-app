@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import * as LayoutActions from '../../../core/actions/layout.actions';
@@ -8,6 +9,7 @@ import { AppState } from '../../../core/reducers';
 import { Organization } from '../../../shared/models';
 import { LoadTeams } from '../../actions/teams.actions';
 import * as fromTeams from '../../reducers';
+import { CreateTeamDialogComponent } from '../create-team-dialog/create-team-dialog.component';
 
 @Component({
   selector: 'app-teams-page',
@@ -21,8 +23,8 @@ import * as fromTeams from '../../reducers';
           </ng-template>
         </div>
         <div class="container__right header-buttons">
-          <button mat-stroked-button color="accent">Create Team</button>
-          <button mat-stroked-button color="accent">Join Team</button>
+          <button mat-stroked-button color="accent" (click)="onClickCreate()">Create Team</button>
+          <button mat-stroked-button color="accent" (click)="onClickFind()">Find Team</button>
         </div>
       </div>
       <mat-divider></mat-divider>
@@ -42,7 +44,10 @@ import * as fromTeams from '../../reducers';
 export class TeamsPageComponent implements OnInit {
   teams$: Observable<Organization[]>;
 
-  constructor(private store$: Store<AppState>) {
+  constructor(
+    private dialog: MatDialog,
+    private store$: Store<AppState>,
+  ) {
     this.teams$ = store$.pipe(select(fromTeams.getAllTeams));
   }
 
@@ -55,6 +60,14 @@ export class TeamsPageComponent implements OnInit {
     }));
     this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
     this.store$.dispatch(new LoadTeams());
+  }
+
+  onClickCreate(): void {
+    const dialogRef = this.dialog.open(CreateTeamDialogComponent);
+  }
+
+  onClickFind(): void {
+    // no-op
   }
 
   onClickActivate(team: Organization): void {

@@ -9,6 +9,7 @@ import { TeamsPageComponent } from './containers/teams-page/teams-page.component
 import { TeamsEffects } from './effects/teams.effects';
 import { reducers } from './reducers';
 import { TeamsRoutingModule } from './teams-routing.module';
+import { CreateTeamDialogComponent } from './containers/create-team-dialog/create-team-dialog.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,10 @@ import { TeamsRoutingModule } from './teams-routing.module';
   declarations: [
     TeamCardComponent,
     TeamsPageComponent,
+    CreateTeamDialogComponent,
+  ],
+  entryComponents: [
+    CreateTeamDialogComponent,
   ],
 })
 export class TeamsModule {
