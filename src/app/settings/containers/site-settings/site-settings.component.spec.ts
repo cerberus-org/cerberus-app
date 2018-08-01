@@ -16,7 +16,7 @@ describe('SiteSettingsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SiteSettingsComponent,
-        MockComponent({ selector: 'app-data-table', inputs: ['data$', 'columnOptions', 'showDelete', 'deleteItem', 'updateItem'] }),
+        MockComponent({ selector: 'app-data-table', inputs: ['data$', 'columnOptions', 'showDelete', 'showEdit', 'deleteItem', 'updateItem'] }),
       ],
       imports: [
         ...mockStoreModules,

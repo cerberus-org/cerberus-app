@@ -76,4 +76,8 @@ export class SnackBarService {
   createSiteSuccess(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('Successfully created a site.');
   }
+
+  updateSiteSuccess():MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Successfully updated a site.');
+  }
 }

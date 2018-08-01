@@ -1,6 +1,5 @@
 <div class="container">
   <mat-table #table [dataSource]="dataSource">
-    <!--Table with no delete option-->
     <ng-container *ngFor="let column of columnOptions" [cdkColumnDef]="column.columnDef">
       <mat-header-cell *cdkHeaderCellDef>{{column.header}}</mat-header-cell>
       <mat-cell *cdkCellDef="let row">
@@ -14,12 +13,21 @@
         </app-data-cell>
       </mat-cell>
     </ng-container>
-    <!--Table with delete option-->
+    <!--delete option-->
     <ng-container *ngIf="showDelete" cdkColumnDef="delete">
       <mat-header-cell *cdkHeaderCellDef>Delete</mat-header-cell>
       <mat-cell *cdkCellDef="let row">
         <button mat-icon-button color="warn" (click)="onClickDelete(row)">
           <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <!--edit option-->
+    <ng-container *ngIf="showEdit" cdkColumnDef="edit">
+      <mat-header-cell *cdkHeaderCellDef>Edit</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-icon-button (click)="onClickEdit(row)">
+          <mat-icon aria-label="Edit this entry">mode_edit</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

@@ -11,7 +11,7 @@ export class VisitWithVolunteer {
   timezone: string;
   signature: any;
   volunteer: Volunteer;
-  sites: Site[];
+  organizationSites: Site[];
   selectedSite: Site;
 
   constructor(
@@ -22,7 +22,7 @@ export class VisitWithVolunteer {
     timezone: string,
     signature: any,
     volunteer: Volunteer,
-    sites: Site[],
+    organizationSites: Site[],
     selectedSite: Site,
   ) {
     this.siteId = siteId;
@@ -32,7 +32,7 @@ export class VisitWithVolunteer {
     this.timezone = timezone;
     this.signature = signature;
     this.volunteer = volunteer;
-    this.sites = sites;
+    this.organizationSites = organizationSites;
     this.selectedSite = selectedSite;
   }
 }

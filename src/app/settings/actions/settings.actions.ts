@@ -14,6 +14,7 @@ export const UPDATE_ROLE = '[Settings] Update role';
 export const UPDATE_ORGANIZATION = '[Settings] Update organization';
 export const UPDATE_USER = '[Settings] Update user';
 export const UPDATE_VISITS = '[Settings] Update visits';
+export const UPDATE_SITE = '[Settings] Update site';
 
 export const CREATE_SITE = '[Settings] Create site';
 
@@ -76,6 +77,12 @@ export class CreateSite implements Action {
 
 export class DeleteSite implements Action {
   readonly type = DELETE_SITE;
+
+  constructor(public payload: Site) {}
+}
+
+export class UpdateSite implements Action {
+  readonly type = UPDATE_SITE;
 
   constructor(public payload: Site) {}
 }

@@ -12,6 +12,6 @@ export const selectVisitWithVolunteers = createSelector(
       ...visit,
       volunteer: volunteers.find(volunteer => volunteer.id === visit.volunteerId),
       selectedSite: sites.find(site => site.id === visit.siteId),
-      sites: sites.filter(site => site.organizationId === visit.organizationId),
+      organizationSites: sites.filter(site => site.organizationId === visit.organizationId),
     })),
 );
