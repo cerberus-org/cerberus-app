@@ -44,7 +44,7 @@ export class SiteSettingsComponent implements OnInit {
   openSiteDialog() {
     const dialog = this.dialog.open(SiteDialogComponent);
     dialog.afterClosed().subscribe((site: Site) => {
-      if (site.label) {
+      if (site && site.label) {
         this.store$.dispatch(Object.assign({}, new SettingsActions.CreateSite(site)));
       }
     });

@@ -41,6 +41,11 @@ export class VisitsComponent implements OnInit {
         (row: VisitWithVolunteer) => getFullName(row.volunteer),
       ),
       new ColumnOptions(
+        'site',
+        'Site',
+        (row: VisitWithVolunteer) => row.selectedSite && row.selectedSite.label ? row.selectedSite.label : '--',
+      ),
+      new ColumnOptions(
         'date',
         'Date',
         (row: VisitWithVolunteer) => formatDate(row.startedAt, row.timezone),

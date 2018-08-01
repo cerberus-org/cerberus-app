@@ -1,14 +1,17 @@
 import { createSelector } from '@ngrx/store';
-import { selectModelVisits, selectModelVolunteers } from '../../core/selectors/model.selectors';
-import { Visit, Volunteer } from '../../shared/models';
+import { selectModelSites, selectModelVisits, selectModelVolunteers } from '../../core/selectors/model.selectors';
+import { Site, Visit, Volunteer } from '../../shared/models';
 import { VisitWithVolunteer } from '../../shared/models/visit-with-volunteer';
 
 export const selectVisitWithVolunteers = createSelector(
   selectModelVisits,
   selectModelVolunteers,
-  (visits: Visit[], volunteers: Volunteer[]): VisitWithVolunteer[] =>
+  selectModelSites,
+  (visits: Visit[], volunteers: Volunteer[], sites: Site[]): VisitWithVolunteer[] =>
     visits.map(visit => ({
       ...visit,
       volunteer: volunteers.find(volunteer => volunteer.id === visit.volunteerId),
+      selectedSite: sites.find(site => site.id === visit.siteId),
+      sites: sites.filter(site => site.organizationId === visit.organizationId),
     })),
 );
