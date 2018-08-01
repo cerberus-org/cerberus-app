@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/index';
 import { selectSessionMember } from '../../../auth/selectors/session.selectors';
@@ -19,10 +19,11 @@ export class SiteDialogComponent implements OnInit {
   public member: Member;
   public memberSubscription: Subscription;
 
-  constructor(public dialogRef: MatDialogRef<SiteDialogComponent>, public store$: Store<AppState>) {
-    this.label = '';
-    this.description = '';
-    this.address = '';
+  constructor(public dialogRef: MatDialogRef<SiteDialogComponent>, public store$: Store<AppState>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    // If a site was passed in, set default fields
+    this.label = this.data ? this.data.label : '';
+    this.description = this.data ? this.data.description : '';
+    this.address = this.data ? this.data.address : '';
   }
 
   ngOnInit(): void {
@@ -42,6 +43,12 @@ export class SiteDialogComponent implements OnInit {
    * Close dialog and pass back data.
    */
   close() {
-    this.dialogRef.close(new Site(this.member.organizationId, this.label, this.address, this.description));
+    // If there was  data passed in this dialog was opened for edit
+    if (this.data) {
+      this.dialogRef.close(Object.assign({}, new Site(this.member.organizationId, this.label, this.address, this.description), { id: this.data.id }));
+    // Otherwise dialog was opened for creation
+    } else {
+      this.dialogRef.close(new Site(this.member.organizationId, this.label, this.address, this.description));
+    }
   }
 }

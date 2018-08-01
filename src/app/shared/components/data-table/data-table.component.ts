@@ -13,7 +13,6 @@ import {
 import { MatPaginator } from '@angular/material';
 import { merge, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getIndex } from '../../helpers';
 import { ColumnOptions } from '../../models';
 
 /**
@@ -76,8 +75,10 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showDelete: boolean;
+  @Input() showEdit: boolean;
   @Output() updateItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
+  @Output() editItem = new EventEmitter<any>();
   displayedColumns: string[];
   initialPageSize: number;
   dataSource: DataTableSource;
@@ -103,6 +104,9 @@ export class DataTableComponent implements OnInit, OnChanges {
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
+    if (this.showEdit) {
+      this.displayedColumns.push('edit');
+    }
     if (this.showDelete) {
       this.displayedColumns.push('delete');
     }
@@ -128,6 +132,14 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   onClickDelete(item: any): void {
     this.deleteItem.emit(item);
+  }
+
+  /**
+   * Handles edit button click events by emitting a edit item event.
+   * @param item
+   */
+  onClickEdit(item: any): void {
+    this.editItem.emit(item);
   }
 
   /**
