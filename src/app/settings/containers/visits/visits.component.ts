@@ -160,7 +160,7 @@ export class VisitsComponent implements OnInit {
 
   onEditVisit(visit: VisitWithVolunteer): void {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = visit;
+    dialogConfig.data = Object.assign({}, visit);
     const dialog = this.dialog.open(VisitDialogComponent, dialogConfig);
     dialog.afterClosed().subscribe((visit: VisitWithVolunteer) => {
       if (visit) {
