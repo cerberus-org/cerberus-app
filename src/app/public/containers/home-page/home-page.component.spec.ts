@@ -16,7 +16,7 @@ describe('HomePageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         HomePageComponent,
-        MockComponent({ selector: 'app-find-organization', inputs: ['showTitle', 'showInputIconButton'] }),
+        MockComponent({ selector: 'app-team-search', inputs: ['showTitle', 'showInputIconButton'] }),
         MockComponent({ selector: 'app-login' }),
       ],
       imports: [

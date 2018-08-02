@@ -49,7 +49,7 @@ export class SnackBarService {
     return this.open('Volunteer successfully checked out.');
   }
 
-  joinOrganizationSuccess(): MatSnackBarRef<SimpleSnackBar> {
+  joinTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('Successfully requested to join an organization.');
   }
 

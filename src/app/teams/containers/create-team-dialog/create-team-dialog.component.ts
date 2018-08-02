@@ -19,7 +19,7 @@ import { CreateTeam } from '../../actions/teams.actions';
         </app-team-form>
         <div class="actions-container">
           <button mat-button color="primary" (click)="close()">Cancel</button>
-          <button mat-button color="primary" (click)="submit()">Submit</button>
+          <button mat-button color="primary" (click)="submit()" [disabled]="!validTeam">Confirm</button>
         </div>
       </div>
     </div>

@@ -5,11 +5,12 @@ import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from '../material';
 import { SharedModule } from '../shared/shared.module';
 import { TeamCardComponent } from './components/team-card/team-card.component';
+import { CreateTeamDialogComponent } from './containers/create-team-dialog/create-team-dialog.component';
+import { JoinTeamDialogComponent } from './containers/join-team-dialog/join-team-dialog.component';
 import { TeamsPageComponent } from './containers/teams-page/teams-page.component';
 import { TeamsEffects } from './effects/teams.effects';
 import { reducers } from './reducers';
 import { TeamsRoutingModule } from './teams-routing.module';
-import { CreateTeamDialogComponent } from './containers/create-team-dialog/create-team-dialog.component';
 
 @NgModule({
   imports: [
@@ -40,9 +41,11 @@ import { CreateTeamDialogComponent } from './containers/create-team-dialog/creat
     TeamCardComponent,
     TeamsPageComponent,
     CreateTeamDialogComponent,
+    JoinTeamDialogComponent,
   ],
   entryComponents: [
     CreateTeamDialogComponent,
+    JoinTeamDialogComponent,
   ],
 })
 export class TeamsModule {

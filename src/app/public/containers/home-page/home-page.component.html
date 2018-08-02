@@ -8,12 +8,12 @@
         <div class="container-center loose">
           <h2>Search for your organization to view live activity data.</h2>
           <div class="container-inline loose">
-            <app-find-organization
+            <app-team-search
               [showTitle]="false"
               [showInputIconButton]="true"
               (iconButtonClick)="onInputIconButtonClick(organization)"
-              (validOrganization)="onValidOrganization($event)">
-            </app-find-organization>
+              (selectTeam)="onValidOrganization($event)">
+            </app-team-search>
           </div>
         </div>
       </mat-tab>

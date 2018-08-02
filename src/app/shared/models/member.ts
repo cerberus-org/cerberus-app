@@ -5,7 +5,7 @@
  * Firebase Member object on convert out.
  */
 export class Member {
-  id?: string;
+  id: string;
   userUid: string;
   organizationId: string;
   firstName?: string;

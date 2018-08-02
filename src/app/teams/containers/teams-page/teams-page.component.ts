@@ -10,6 +10,7 @@ import { Organization } from '../../../shared/models';
 import { LoadTeams } from '../../actions/teams.actions';
 import * as fromTeams from '../../reducers';
 import { CreateTeamDialogComponent } from '../create-team-dialog/create-team-dialog.component';
+import { JoinTeamDialogComponent } from '../join-team-dialog/join-team-dialog.component';
 
 @Component({
   selector: 'app-teams-page',
@@ -63,11 +64,11 @@ export class TeamsPageComponent implements OnInit {
   }
 
   onClickCreate(): void {
-    const dialogRef = this.dialog.open(CreateTeamDialogComponent);
+    this.dialog.open(CreateTeamDialogComponent);
   }
 
   onClickFind(): void {
-    // no-op
+    this.dialog.open(JoinTeamDialogComponent);
   }
 
   onClickActivate(team: Organization): void {

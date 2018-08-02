@@ -2,15 +2,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatAutocompleteModule, MatIconModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import { FindOrganizationComponent } from './find-organization.component';
+import { TeamSearchComponent } from './team-search.component';
 
-describe('FindOrganizationComponent', () => {
-  let component: FindOrganizationComponent;
-  let fixture: ComponentFixture<FindOrganizationComponent>;
+describe('TeamSearchComponent', () => {
+  let component: TeamSearchComponent;
+  let fixture: ComponentFixture<TeamSearchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FindOrganizationComponent],
+      declarations: [TeamSearchComponent],
       imports: [
         MatAutocompleteModule,
         MatInputModule,
@@ -23,7 +23,7 @@ describe('FindOrganizationComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FindOrganizationComponent);
+    fixture = TestBed.createComponent(TeamSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -19,12 +19,12 @@
         I am joining an existing organization.
       </mat-checkbox>
     </div>
-    <app-find-organization
+    <app-team-search
       *ngIf="(state$ | async)?.joinExistingOrganization; else createOrganization"
       [showTitle]="true"
       [showInputIconButton]="false"
-      (validOrganization)="onValidOrganization($event)">
-    </app-find-organization>
+      (selectTeam)="onValidOrganization($event)">
+    </app-team-search>
     <ng-template #createOrganization>
       <app-team-form
         (validTeam)="onValidOrganization($event)"

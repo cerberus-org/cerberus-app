@@ -9,7 +9,8 @@ import { AppState } from '../../core/reducers';
 import { MemberService } from '../../core/services/member.service';
 import { OrganizationService } from '../../core/services/organization.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
-import { CreateTeam, LoadTeams, LoadTeamsSuccess, TeamsActionTypes } from '../actions/teams.actions';
+import { Member } from '../../shared/models';
+import { CreateTeam, JoinTeam, LoadTeams, LoadTeamsSuccess, TeamsActionTypes } from '../actions/teams.actions';
 
 @Injectable()
 export class TeamsEffects {
@@ -45,11 +46,28 @@ export class TeamsEffects {
             userUid: userInfo.uid,
             organizationId: createdTeam.id,
             role: 'Owner',
-          })),
+          } as Member)),
       ),
     ),
     tap(() => {
       this.snackbarService.createTeamSuccess();
+    }),
+  );
+
+  @Effect({ dispatch: false })
+  joinTeam$: Observable<any> = this.actions.pipe(
+    ofType<JoinTeam>(TeamsActionTypes.JoinTeam),
+    map(action => action.payload.team),
+    withLatestFrom(this.store$.pipe(select(selectSessionUserInfo))),
+    mergeMap(([team, userInfo]) =>
+      this.memberService.add({
+        userUid: userInfo.uid,
+        organizationId: team.id,
+        role: 'Locked',
+      } as Member),
+    ),
+    tap(() => {
+      this.snackbarService.joinTeamSuccess();
     }),
   );
 }

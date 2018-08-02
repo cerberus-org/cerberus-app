@@ -14,14 +14,14 @@ import { PasswordDialogComponent } from './components/password-dialog/password-d
 import { ServicesAgreementDialogComponent } from './components/services-agreement-dialog/services-agreement-dialog.component';
 import { ServicesAgreementComponent } from './components/services-agreement/services-agreement.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
-import { FindOrganizationComponent } from './containers/find-organization/find-organization.component';
+import { TeamSearchComponent } from './containers/team-search/team-search.component';
 
 export const COMPONENTS = [
   DailyHoursChartComponent,
   DataCellComponent,
   DataDisplayComponent,
   DataTableComponent,
-  FindOrganizationComponent,
+  TeamSearchComponent,
   LoaderComponent,
   TeamFormComponent,
   PasswordDialogComponent,

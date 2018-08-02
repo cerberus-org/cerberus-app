@@ -91,7 +91,7 @@ export class SignUpEffects {
             })
               .pipe(
                 map(() => {
-                  this.snackBarService.joinOrganizationSuccess();
+                  this.snackBarService.joinTeamSuccess();
                   return new RouterActions.Go({ path: ['home'] });
                 }),
               )),

@@ -7,17 +7,17 @@ import { selectModelOrganizations } from '../../../core/selectors/model.selector
 import { Organization } from '../../models';
 
 @Component({
-  selector: 'app-find-organization',
-  templateUrl: './find-organization.component.html',
-  styleUrls: ['./find-organization.component.scss'],
+  selector: 'app-team-search',
+  templateUrl: './team-search.component.html',
+  styleUrls: ['./team-search.component.scss'],
 })
-export class FindOrganizationComponent implements OnInit, OnDestroy {
-  private organizationsSubscription: Subscription;
+export class TeamSearchComponent implements OnInit, OnDestroy {
+  private teamSubscription: Subscription;
   filteredOrganizations: Organization[] = [];
   organizations: Organization[];
 
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
-  @Output() validOrganization = new EventEmitter<Organization>();
+  @Output() selectTeam = new EventEmitter<Organization>();
   @Output() iconButtonClick = new EventEmitter();
   @Input() showTitle;
   @Input() showInputIconButton;
@@ -25,15 +25,15 @@ export class FindOrganizationComponent implements OnInit, OnDestroy {
   constructor(public store$: Store<AppState>) { }
 
   ngOnInit(): void {
-    this.organizationsSubscription = this.store$.pipe(select(selectModelOrganizations))
+    this.teamSubscription = this.store$.pipe(select(selectModelOrganizations))
       .subscribe((organizations) => {
         this.organizations = organizations;
       });
   }
 
   ngOnDestroy(): void {
-    if (this.organizationsSubscription) {
-      this.organizationsSubscription.unsubscribe();
+    if (this.teamSubscription) {
+      this.teamSubscription.unsubscribe();
     }
   }
 
@@ -50,7 +50,7 @@ export class FindOrganizationComponent implements OnInit, OnDestroy {
   onOrganizationInputNameChanges(organizations: Organization[], input: string): void {
     this.filteredOrganizations = this.filterOrganizationsByName(organizations, input);
     const matchingOrganization = this.filteredOrganizations.find(organization => organization.name === input);
-    this.validOrganization.emit(!!matchingOrganization ? matchingOrganization : null);
+    this.selectTeam.emit(!!matchingOrganization ? matchingOrganization : null);
   }
 
   get disableIconButton(): boolean {
