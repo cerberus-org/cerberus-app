@@ -5,8 +5,10 @@
   [data$]="visitsWithVolunteers$"
   [validItemsEdited]="validVisitsEdited"
   [invalidItemsEdited]="invalidVisitsEdited"
+  [showEdit]="true"
   [columnOptions]="columnOptions"
   [getCellFontColor]="getCellFontColor"
   [getCellFontWeight]="getCellFontWeight"
+  (editItem)="onEditVisit($event)"
   (updateItem)="onUpdateVisit($event)">
 </app-data-table>

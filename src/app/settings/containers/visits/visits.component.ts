@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
@@ -11,9 +12,10 @@ import {
   getFullName, getIndex,
   updateDateWithTimeInput,
 } from '../../../shared/helpers';
-import { ColumnOptions } from '../../../shared/models';
+import { ColumnOptions, Site } from '../../../shared/models';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
 import * as SettingsActions from '../../actions/settings.actions';
+import { VisitDialogComponent } from '../../components/visit-dialog/visit-dialog.component';
 import { selectVisitWithVolunteers } from '../../selectors/visits.selectors';
 
 @Component({
@@ -28,7 +30,7 @@ export class VisitsComponent implements OnInit {
   state$: Observable<VisitWithVolunteer[]>;
   columnOptions: ColumnOptions[];
 
-  constructor(public store$: Store<AppState>) {
+  constructor(public store$: Store<AppState>, public dialog: MatDialog) {
     this.invalidVisitsEdited = [];
     this.validVisitsEdited = [];
   }
@@ -154,6 +156,17 @@ export class VisitsComponent implements OnInit {
     } else {
       this.invalidVisitsEdited.push(visit);
     }
+  }
+
+  onEditVisit(visit: VisitWithVolunteer): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = visit;
+    const dialog = this.dialog.open(VisitDialogComponent, dialogConfig);
+    dialog.afterClosed().subscribe((visit: VisitWithVolunteer) => {
+      if (visit) {
+
+      }
+    });
   }
 
   /**

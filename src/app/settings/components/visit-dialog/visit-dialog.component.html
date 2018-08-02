@@ -1,0 +1,22 @@
+<mat-dialog-content class="container">
+  <mat-form-field class="example-full-width" autocomplete="off">
+    <input type="time" matInput [(ngModel)]="endTime">
+  </mat-form-field>
+  <mat-form-field class="example-full-width" autocomplete="off">
+    <mat-select
+      [value]="selected"
+      (selectionChange)="onSelectionChange($event.value)">
+      <mat-option *ngFor="let site of organizationSites" [value]="selectedSite">
+        {{site.label}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()" color="primary">
+    Submit
+  </button>
+  <button mat-button (click)="dialogRef.close()">
+    Cancel
+  </button>
+</div>
