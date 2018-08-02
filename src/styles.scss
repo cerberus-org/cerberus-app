@@ -85,14 +85,6 @@ input.capitalize {
   &.grid--inline {
     grid-auto-flow: column;
     grid-gap: 0.5rem;
-
-    .grid__left {
-      justify-self: start;
-    }
-
-    .grid__right {
-      justify-self: end;
-    }
   }
 
   &.grid--submit {
@@ -100,10 +92,21 @@ input.capitalize {
     margin: 2rem;
   }
 
-  &.grid--item-spacing {
-    margin-top: 2rem;
-    grid-row-gap: 2rem;
+  .grid__left {
+    justify-self: start;
   }
+
+  .grid__right {
+    justify-self: end;
+  }
+}
+
+.actions-container {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: end;
+  grid-column-gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 .input-container {

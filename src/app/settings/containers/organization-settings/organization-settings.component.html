@@ -1,7 +1,7 @@
 <app-team-form
   [title]="organizationFormTitle"
-  [initialOrganization]="(sessionOrganization$ | async)"
-  (validOrganization)="onValidOrganization($event)">
+  [initialTeam]="(sessionOrganization$ | async)"
+  (validTeam)="onValidOrganization($event)">
 </app-team-form>
 <div class="container-submit">
   <button

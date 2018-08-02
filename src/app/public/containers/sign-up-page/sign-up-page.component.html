@@ -27,7 +27,7 @@
     </app-find-organization>
     <ng-template #createOrganization>
       <app-team-form
-        (validOrganization)="onValidOrganization($event)"
+        (validTeam)="onValidOrganization($event)"
         [title]="organizationFormTitle">
       </app-team-form>
     </ng-template>
@@ -36,7 +36,7 @@
         mat-raised-button
         color="primary"
         (click)="onNext(2)"
-        [disabled]="!(state$ | async)?.validOrganization"
+        [disabled]="!(state$ | async)?.validTeam"
       >
         Next
       </button>
@@ -93,7 +93,7 @@
     <app-organization-confirm
       [email]="((state$ | async)?.validCredentials)?.email"
       [member]="(state$ | async)?.validMember"
-      [organization]="(state$ | async)?.validOrganization"
+      [organization]="(state$ | async)?.validTeam"
     >
     </app-organization-confirm>
     <div class="container-submit">

@@ -13,7 +13,7 @@ describe('OrganizationSettingsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         OrganizationSettingsComponent,
-        MockComponent({ selector: 'app-team-form', inputs: ['initialOrganization'] }),
+        MockComponent({ selector: 'app-team-form', inputs: ['initialTeam'] }),
       ],
       imports: [
         ...mockStoreModules,

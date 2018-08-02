@@ -23,7 +23,7 @@ export class OrganizationSettingsComponent implements OnInit {
   }
 
   /**
-   * Handles validOrganization events by setting organizationEdits.
+   * Handles validTeam events by setting organizationEdits.
    * @param organization - an organization when valid, null when invalid
    */
   onValidOrganization(organization: Organization) {

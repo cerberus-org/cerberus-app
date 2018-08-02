@@ -53,6 +53,10 @@ export class SnackBarService {
     return this.open('Successfully requested to join an organization.');
   }
 
+  createTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Your team was successfully created.');
+  }
+
   invalidOrganization(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('Invalid organization.');
   }

@@ -32,15 +32,15 @@ describe('TeamFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit a validOrganization event on valid form values', () => {
-    spyOn(component.validOrganization, 'emit');
+  it('should emit a validTeam event on valid form values', () => {
+    spyOn(component.validTeam, 'emit');
     const name = mockOrganizations[0].name;
     const website = mockOrganizations[0].website;
     const description = mockOrganizations[0].description;
     component.formGroup.controls['name'].setValue(name);
     component.formGroup.controls['website'].setValue(website);
     component.formGroup.controls['description'].setValue(description);
-    expect(component.validOrganization.emit).toHaveBeenCalledWith(new Organization(name, description, website));
+    expect(component.validTeam.emit).toHaveBeenCalledWith(new Organization(name, description, website));
   });
 
   describe('name control', () => {

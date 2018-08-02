@@ -49,57 +49,21 @@ import { Organization } from '../../models';
   styleUrls: ['./team-form.component.scss'],
 })
 export class TeamFormComponent implements OnInit, OnDestroy {
-  @Output() validOrganization = new EventEmitter();
+  @Output() validTeam = new EventEmitter();
   @Input() title: string;
   @Input() subtitle: string;
-  @Input() initialOrganization: Organization;
+  @Input() initialTeam: Organization;
   formGroup: FormGroup;
   formSubscription: Subscription;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
-  /**
-   * Creates and subscribes to the form group.
-   */
   ngOnInit(): void {
-    this.formGroup = this.createForm();
-    this.formSubscription = this.subscribeToForm();
-    // Emit Organization if form is valid after creation
-    this.emitOrganizationIfValid();
-  }
-
-  emitOrganizationIfValid(): void {
-    if (this.formGroup.valid) {
-      const value = this.formGroup.value;
-      this.validOrganization.emit(new Organization(value.name, value.description, value.website));
-    } else {
-      this.validOrganization.emit(null);
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.formSubscription) {
-      this.formSubscription.unsubscribe();
-    }
-  }
-
-  /**
-   * Validates if control.value is a URL.
-   * @param {AbstractControl} control
-   */
-  urlValidator = (control: AbstractControl): { [key: string]: any } => {
-    return isURL(control.value) ? null : { invalidURL: { value: control.value } };
-  }
-
-  /**
-   * Creates the form group.
-   */
-  createForm(): FormGroup {
-    // If validOrganization was passed in, pre populate form, else leave blank
+    // If validTeam was passed in, pre populate form, else leave blank
     const nameRegex = /^[a-z ,.'-]+$/i;
-    return this.fb.group({
+    this.formGroup = this.fb.group({
       name: [
-        this.initialOrganization ? this.initialOrganization.name : '',
+        this.initialTeam ? this.initialTeam.name : '',
         [
           Validators.required,
           Validators.minLength(4),
@@ -108,7 +72,7 @@ export class TeamFormComponent implements OnInit, OnDestroy {
         ],
       ],
       website: [
-        this.initialOrganization ? this.initialOrganization.website : '',
+        this.initialTeam ? this.initialTeam.website : '',
         [
           Validators.required,
           Validators.maxLength(255),
@@ -116,21 +80,38 @@ export class TeamFormComponent implements OnInit, OnDestroy {
         ],
       ],
       description: [
-        this.initialOrganization ? this.initialOrganization.description : '',
+        this.initialTeam ? this.initialTeam.description : '',
         [
           Validators.required,
           Validators.maxLength(160),
         ],
       ],
     });
+    this.formSubscription = this.formGroup.valueChanges.subscribe(() => {
+      this.emitValidTeam();
+    });
+    // Emit team if initial is valid
+    this.emitValidTeam();
+  }
+
+  ngOnDestroy(): void {
+    this.formSubscription.unsubscribe();
+  }
+
+  emitValidTeam(): void {
+    const { value } = this.formGroup;
+    this.validTeam.emit(
+      this.formGroup.valid
+        ? new Organization(value.name, value.description, value.website)
+        : null,
+    );
   }
 
   /**
-   * Subscribes to the form group and emit a new Organization object if Organization is valid.
+   * Validates if control.value is a URL.
+   * @param {AbstractControl} control
    */
-  subscribeToForm(): Subscription {
-    return this.formGroup.valueChanges.subscribe(() => {
-      this.emitOrganizationIfValid();
-    });
+  urlValidator = (control: AbstractControl): { [key: string]: any } => {
+    return isURL(control.value) ? null : { invalidURL: { value: control.value } };
   }
 }
