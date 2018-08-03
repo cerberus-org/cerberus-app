@@ -9,8 +9,7 @@ import {
   formatDuration,
   formatTime,
   formatTimeInputValue,
-  getFullName, getIndex,
-  updateDateWithTimeInput,
+  getFullName,
 } from '../../../shared/helpers';
 import { ColumnOptions, Site } from '../../../shared/models';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
@@ -81,17 +80,6 @@ export class VisitsComponent implements OnInit {
     this.store$.dispatch(new SettingsActions.UpdateVisits(visits.filter(visit => delete visit.volunteer)));
   }
 
-  /**
-   * Handles the event a visit is edited in the data table.
-   *
-   * @param {VisitWithVolunteer} visitAndSelectedTime
-   */
-  onUpdateVisit(visitAndSelectedTime: { time: string, visit: VisitWithVolunteer }): void {
-    if (visitAndSelectedTime.time) {
-      this.addVisitToEditedList(this.updateVisitEndedAtWithTime(visitAndSelectedTime.time, visitAndSelectedTime.visit));
-    }
-  }
-
   get visitsWithVolunteers$() {
     return this.state$.pipe(map(state => state));
   }
@@ -121,43 +109,6 @@ export class VisitsComponent implements OnInit {
       validVisitsEdited.filter(item => item.id === visit.id).length) ? 'bold' : '';
   }
 
-  /**
-   * Update visit end date with provided time.
-   *
-   * @param time
-   * @param visit
-   * @returns {VisitWithVolunteer}
-   */
-  updateVisitEndedAtWithTime(time: string, visit: VisitWithVolunteer): VisitWithVolunteer {
-    const visitCopy = Object.assign({}, visit);
-    // If endedAt is null, set to startedAt so we can call setHours on a defined value
-    visitCopy.endedAt = updateDateWithTimeInput(time, visitCopy.endedAt ? visitCopy.endedAt : new Date(visitCopy.startedAt), visit.timezone);
-    return visitCopy;
-  }
-
-  /**
-   * Remove pre-existing visit if it exists and add visit to validItemsedited if valid
-   * otherwise add to invalidVisitsEdited.
-   *
-   * @param {VisitWithVolunteer} visit
-   * @param column
-   */
-  addVisitToEditedList(visit: VisitWithVolunteer): void {
-    const itemsEditedIndex = getIndex(this.validVisitsEdited, visit.id);
-    const invalidItemsEditedIndex = getIndex(this.invalidVisitsEdited, visit.id);
-    if (itemsEditedIndex !== undefined) {
-      this.validVisitsEdited.splice(itemsEditedIndex, 1);
-    }
-    if (invalidItemsEditedIndex !== undefined) {
-      this.invalidVisitsEdited.splice(invalidItemsEditedIndex, 1);
-    }
-    if (this.isVisitValid(visit)) {
-      this.validVisitsEdited.push(visit);
-    } else {
-      this.invalidVisitsEdited.push(visit);
-    }
-  }
-
   onEditVisit(visit: VisitWithVolunteer): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = Object.assign({}, visit);
@@ -167,15 +118,5 @@ export class VisitsComponent implements OnInit {
 
       }
     });
-  }
-
-  /**
-   * Return true if visit startedAt is before visit endedAt.
-   *
-   * @param visit
-   * @returns {boolean}
-   */
-  isVisitValid(visit): boolean {
-    return new Date(visit.startedAt) < new Date(visit.endedAt);
   }
 }

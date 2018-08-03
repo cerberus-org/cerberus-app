@@ -1,6 +1,6 @@
 <mat-dialog-content class="container">
   <mat-form-field class="example-full-width" autocomplete="off">
-    <input type="time" matInput [value]="endedAt" [(ngModel)]="endedAt">
+    <input type="time" matInput [value]="endedAt" (click)="onTimeChange($event, endedAt)">
   </mat-form-field>
   <mat-form-field class="example-full-width" autocomplete="off">
     <mat-select

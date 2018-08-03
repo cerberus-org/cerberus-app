@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { formatTimeInputValue } from '../../../shared/helpers';
+import { formatTimeInputValue, getIndex, updateDateWithTimeInput } from '../../../shared/helpers';
 import { Site } from '../../../shared/models';
+import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
 
 @Component({
   selector: 'app-visit-dialog',
@@ -15,7 +16,7 @@ export class VisitDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<VisitDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     // If data was passed in, set default fields
-    this.endedAt = this.data && this.data.endedAt ? formatTimeInputValue(Object.assign({}, this.data.endedAt), Object.assign({}, this.data.endedAt.timezone)) : '';
+    this.endedAt = this.data && this.data.endedAt ? formatTimeInputValue(Object.assign({}, this.data.endedAt), this.data.endedAt.timezone) : '';
     this.selectedSite = this.data ? Object.assign({}, this.data.selectedSite) : null;
     this.organizationSites = this.data ? this.data.organizationSites.slice() : [];
   }
@@ -23,8 +24,39 @@ export class VisitDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSelectionChange(siteLabel: string) {
+  onSelectionChange(siteLabel: string): void {
     this.selectedSite.label = siteLabel;
+  }
+
+  onTimeChange(event, endedAt): void {
+    if (event && event.target && event.target.value && event.target.value !== endedAt) {
+      const updatedVisit = this.updateVisitEndedAtWithTime(event.target.value, this.data);
+      this.data.endedAt = this.isVisitValid(updatedVisit) ? updatedVisit : endedAt;
+    }
+  }
+
+  /**
+   * Update visit end date with provided time.
+   *
+   * @param time
+   * @param visit
+   * @returns {VisitWithVolunteer}
+   */
+  updateVisitEndedAtWithTime(time: string, visit: VisitWithVolunteer): VisitWithVolunteer {
+    const visitCopy = Object.assign({}, visit);
+    // If endedAt is null, set to startedAt so we can call setHours on a defined value
+    visitCopy.endedAt = updateDateWithTimeInput(time, visitCopy.endedAt ? visitCopy.endedAt : new Date(visitCopy.startedAt), visit.timezone);
+    return visitCopy;
+  }
+
+  /**
+   * Return true if visit startedAt is before visit endedAt.
+   *
+   * @param visit
+   * @returns {boolean}
+   */
+  isVisitValid(visit: VisitWithVolunteer): boolean {
+    return new Date(visit.startedAt) < new Date(visit.endedAt);
   }
 
   /**
@@ -32,7 +64,6 @@ export class VisitDialogComponent implements OnInit {
    */
   close() {
     this.data.selectedSite = this.organizationSites.find(site => site.label === this.selectedSite.label);
-    this.data.endedAt = this.endedAt;
     // If there was  data passed in this dialog was opened for edit
     this.dialogRef.close(this.data);
   }
