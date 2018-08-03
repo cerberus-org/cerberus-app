@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { defer, Observable, of } from 'rxjs';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { selectSessionOrganization } from '../../auth/selectors/session.selectors';
 import * as RouterActions from '../../core/actions/router.actions';
 import { AppState } from '../../core/reducers';
@@ -13,6 +13,11 @@ import * as CheckInActions from '../actions/check-in.actions';
 
 @Injectable()
 export class CheckInEffects {
+
+  @Effect({ dispatch: false })
+  init$: Observable<any> = defer(() => of(null)).pipe(
+    tap(() => console.log('init$')),
+  );
 
   /**
    * Listen for the SubmitNewVolunteer action, create the newVolunteer, emit the snackbar,

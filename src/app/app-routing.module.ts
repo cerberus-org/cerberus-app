@@ -11,11 +11,11 @@ export const routes: Routes = [
     loadChildren: './teams/teams.module#TeamsModule',
   },
   {
-    path: 'organization/volunteers',
+    path: 'team/volunteers',
     loadChildren: './volunteers/volunteers.module#VolunteersModule',
   },
   {
-    path: 'organization/settings',
+    path: 'team/settings',
     loadChildren: './settings/settings.module#SettingsModule',
   },
   { path: '**', redirectTo: 'organization/volunteers', pathMatch: 'full' },

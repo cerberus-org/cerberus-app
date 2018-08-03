@@ -6,8 +6,8 @@ import { OrganizationDashboardPageComponent } from './containers/organization-da
 
 export const routes: Routes = [
   { path: '', component: OrganizationDashboardPageComponent, canActivate: [LoginGuard] },
-  { path: ':id/check-in', component: CheckInPageComponent, canActivate: [LoginGuard] },
-  { path: ':id/check-out', component: CheckInPageComponent, canActivate: [LoginGuard] },
+  { path: 'check-in', component: CheckInPageComponent, canActivate: [LoginGuard] },
+  { path: 'check-out', component: CheckInPageComponent, canActivate: [LoginGuard] },
 ];
 
 @NgModule({

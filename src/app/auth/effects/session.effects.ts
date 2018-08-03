@@ -4,7 +4,6 @@ import { Action } from '@ngrx/store';
 import { UserInfo } from 'firebase';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import * as ModelActions from '../../core/actions/model.actions';
 import { MemberService } from '../../core/services/member.service';
 import { OrganizationService } from '../../core/services/organization.service';
 import * as SessionActions from '../actions/session.actions';
@@ -27,11 +26,6 @@ export class SessionEffects {
                     userInfo,
                     organization: { ...organization, id: member.organizationId },
                   }),
-                  // Load data for user
-                  new ModelActions.LoadMembers(member.organizationId),
-                  new ModelActions.LoadSites(member.organizationId),
-                  new ModelActions.LoadVisits(member.organizationId),
-                  new ModelActions.LoadVolunteers(member.organizationId),
                 ]),
               );
           })),
