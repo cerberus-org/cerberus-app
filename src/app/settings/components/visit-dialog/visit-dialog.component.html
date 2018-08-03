@@ -1,6 +1,6 @@
 <mat-dialog-content class="container">
   <mat-form-field class="example-full-width" autocomplete="off">
-    <input type="time" matInput [value]="endedAt" (click)="onTimeChange($event, endedAt)">
+    <input [ngStyle]="{'color': color, 'font-weight': bold}" type="time" matInput [value]="endedAt" (click)="onTimeChange($event, endedAt)">
   </mat-form-field>
   <mat-form-field class="example-full-width" autocomplete="off">
     <mat-select
@@ -13,10 +13,10 @@
   </mat-form-field>
 </mat-dialog-content>
 <div mat-dialog-actions>
-  <button mat-button (click)="close()" color="primary">
-    Submit
-  </button>
   <button mat-button (click)="dialogRef.close()">
     Cancel
+  </button>
+  <button mat-button (click)="close()" color="primary">
+    Submit
   </button>
 </div>

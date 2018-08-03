@@ -13,6 +13,8 @@ export class VisitDialogComponent implements OnInit {
   endedAt: string;
   selectedSite: Site;
   organizationSites: Site[];
+  color: string;
+  bold: string;
 
   constructor(public dialogRef: MatDialogRef<VisitDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     // If data was passed in, set default fields
@@ -30,10 +32,17 @@ export class VisitDialogComponent implements OnInit {
 
   onTimeChange(event, endedAt): void {
     if (event && event.target && event.target.value && event.target.value !== endedAt) {
+      this.bold = 'bold';
       const updatedVisit = this.updateVisitEndedAtWithTime(event.target.value, this.data);
-      this.data.endedAt = this.isVisitValid(updatedVisit) ? updatedVisit : endedAt;
+      if (this.isVisitValid(updatedVisit)) {
+        this.data.endedAt = updatedVisit;
+        this.color = '';
+      } else {
+        this.color = '#f44336';
+      }
     }
   }
+
 
   /**
    * Update visit end date with provided time.
