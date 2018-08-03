@@ -24,14 +24,10 @@ import { selectVisitWithVolunteers } from '../../selectors/visits.selectors';
 })
 export class VisitsComponent implements OnInit {
 
-  invalidVisitsEdited: VisitWithVolunteer[];
-  validVisitsEdited: VisitWithVolunteer[];
   state$: Observable<VisitWithVolunteer[]>;
   columnOptions: ColumnOptions[];
 
   constructor(public store$: Store<AppState>, public dialog: MatDialog) {
-    this.invalidVisitsEdited = [];
-    this.validVisitsEdited = [];
   }
 
   ngOnInit() {
@@ -82,31 +78,6 @@ export class VisitsComponent implements OnInit {
 
   get visitsWithVolunteers$() {
     return this.state$.pipe(map(state => state));
-  }
-
-  /**
-   * Determine font color of cell.
-   * If cell is invalid set to red.
-   *
-   * @param column
-   * @param row
-   * @returns {string}
-   */
-  getCellFontColor(visit: VisitWithVolunteer, invalidVisitsEdited: VisitWithVolunteer[]): string {
-    return invalidVisitsEdited.filter(item => item.id === visit.id).length ? '#f44336' : '';
-  }
-
-  /**
-   * Determine font weight of cell.
-   * If cell is edited set to bold.
-   *
-   * @param column
-   * @param row
-   * @returns {string}
-   */
-  getCellFontWeight(visit: VisitWithVolunteer, invalidVisitsEdited: VisitWithVolunteer[], validVisitsEdited: VisitWithVolunteer[]): string {
-    return (invalidVisitsEdited.filter(item => item.id === visit.id).length ||
-      validVisitsEdited.filter(item => item.id === visit.id).length) ? 'bold' : '';
   }
 
   onEditVisit(visit: VisitWithVolunteer): void {

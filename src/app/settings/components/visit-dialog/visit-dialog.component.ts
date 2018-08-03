@@ -18,7 +18,7 @@ export class VisitDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<VisitDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     // If data was passed in, set default fields
-    this.endedAt = this.data && this.data.endedAt ? formatTimeInputValue(Object.assign({}, this.data.endedAt), this.data.endedAt.timezone) : '';
+    this.endedAt = this.data && this.data.endedAt ? formatTimeInputValue(this.data.endedAt, this.data.endedAt.timezone) : '';
     this.selectedSite = this.data ? Object.assign({}, this.data.selectedSite) : null;
     this.organizationSites = this.data ? this.data.organizationSites.slice() : [];
   }
@@ -43,7 +43,6 @@ export class VisitDialogComponent implements OnInit {
     }
   }
 
-
   /**
    * Update visit end date with provided time.
    *
@@ -53,8 +52,8 @@ export class VisitDialogComponent implements OnInit {
    */
   updateVisitEndedAtWithTime(time: string, visit: VisitWithVolunteer): VisitWithVolunteer {
     const visitCopy = Object.assign({}, visit);
-    // If endedAt is null, set to startedAt so we can call setHours on a defined value
-    visitCopy.endedAt = updateDateWithTimeInput(time, visitCopy.endedAt ? visitCopy.endedAt : new Date(visitCopy.startedAt), visit.timezone);
+    // Use same day as startedAt
+    visitCopy.endedAt = updateDateWithTimeInput(time, new Date(visitCopy.startedAt), visit.timezone);
     return visitCopy;
   }
 

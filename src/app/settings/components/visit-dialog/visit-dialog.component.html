@@ -1,7 +1,9 @@
 <mat-dialog-content class="container">
+  <!--endedAt-->
   <mat-form-field class="example-full-width" autocomplete="off">
     <input [ngStyle]="{'color': color, 'font-weight': bold}" type="time" matInput [value]="endedAt" (click)="onTimeChange($event, endedAt)">
   </mat-form-field>
+  <!--site-->
   <mat-form-field class="example-full-width" autocomplete="off">
     <mat-select
       [value]="selectedSite.label"

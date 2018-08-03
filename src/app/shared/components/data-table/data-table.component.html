@@ -6,10 +6,7 @@
         <app-data-cell
           [column]="column"
           [row]="row"
-          [color]="getCellFontColor(row, invalidItemsEdited)"
-          [isBold]="getCellFontWeight(row, validItemsEdited, invalidItemsEdited)"
-          (selectOption)="onSelectOption($event, row, column.columnDef)"
-          (selectedTime)="onSelectTime($event, row)">
+          (selectOption)="onSelectOption($event, row, column.columnDef)">
         </app-data-cell>
       </mat-cell>
     </ng-container>

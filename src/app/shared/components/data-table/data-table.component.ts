@@ -140,16 +140,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Handles the event the time is changed.
-   *
-   * @param value
-   * @param item
-   */
-  onSelectTime(selectedTime, row): void {
-    this.updateItem.emit({ time: selectedTime, visit: row });
-  }
-
-  /**
    * Handles select option events by emitting the item modified with the selected option.
    * @param value - the value to apply
    * @param item - the table item to modify
