@@ -71,6 +71,12 @@ export class VisitsComponent implements OnInit {
     return this.state$.pipe(map(state => state));
   }
 
+  /**
+   * Remove volunteer, organizationSites and selectedSite to change visit from type
+   * VisitWithVolunteer to type Visit and then update visit.
+   *
+   * @param {VisitWithVolunteer} visit
+   */
   updateVisit(visit: VisitWithVolunteer) {
     delete visit.volunteer;
     delete visit.organizationSites;
@@ -79,6 +85,12 @@ export class VisitsComponent implements OnInit {
     this.store$.dispatch(new SettingsActions.UpdateVisit(visit));
   }
 
+  /**
+   * When the pencil is selected open a dialog with prepopulated data on visit.
+   * Subscribe to dialog and get data on close.
+   *
+   * @param {VisitWithVolunteer} visit
+   */
   onEditVisit(visit: VisitWithVolunteer): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = Object.assign({}, visit);
