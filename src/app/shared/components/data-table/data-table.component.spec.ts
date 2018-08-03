@@ -27,7 +27,7 @@ describe('DataTableComponent', () => {
       ],
       declarations: [
         DataTableComponent,
-        MockComponent({ selector: 'app-data-cell', inputs: ['column', 'row', 'isBold', 'color'] }),
+        MockComponent({ selector: 'app-data-cell', inputs: ['column', 'row'] }),
       ],
     })
       .compileComponents();
@@ -77,11 +77,5 @@ describe('DataTableComponent', () => {
 
   it('should sets background-color to an empty string on default', () => {
     expect(component.getRowColor(visits[0])).toEqual('');
-  });
-
-  it('should emit time and item when onSelectTime is called', () => {
-    spyOn(component.updateItem, 'emit');
-    component.onSelectTime('03:00', 'a');
-    expect(component.updateItem.emit).toHaveBeenCalled();
   });
 });

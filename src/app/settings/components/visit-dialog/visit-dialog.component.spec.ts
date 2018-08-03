@@ -2,11 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA, MatDialogModule, MatDialogRef, MatFormFieldModule, MatIconModule,
-  MatInputModule,
+  MatInputModule, MatSelectModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import { SiteDialogComponent } from './visit-dialog.component';
+import { VisitDialogComponent } from './visit-dialog.component';
 
 class MatDialogRefMock {
   close() { }
@@ -15,9 +15,9 @@ class MatDialogRefMock {
 class MatDialogDataMock {
 }
 
-describe('SiteDialogComponent', () => {
-  let component: SiteDialogComponent;
-  let fixture: ComponentFixture<SiteDialogComponent>;
+describe('VisitDialogComponent', () => {
+  let component: VisitDialogComponent;
+  let fixture: ComponentFixture<VisitDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -27,10 +27,11 @@ describe('SiteDialogComponent', () => {
         MatDialogModule,
         MatFormFieldModule,
         MatIconModule,
+        MatSelectModule,
         MatInputModule,
         NoopAnimationsModule,
       ],
-      declarations: [SiteDialogComponent],
+      declarations: [VisitDialogComponent],
       providers: [
         { provide: MatDialogRef, useClass: MatDialogRefMock },
         { provide : MAT_DIALOG_DATA, useClass: MatDialogDataMock },
@@ -40,18 +41,12 @@ describe('SiteDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SiteDialogComponent);
+    fixture = TestBed.createComponent(VisitDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should close the dialog when close is called', () => {
-    spyOn(component.dialogRef, 'close');
-    component.close();
-    expect(component.dialogRef.close).toHaveBeenCalled();
   });
 });
