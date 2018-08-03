@@ -9,10 +9,10 @@ import { DataCellComponent } from './components/data-cell/data-cell.component';
 import { DataDisplayComponent } from './components/data-display/data-display.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { TeamFormComponent } from './components/team-form/team-form.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 import { ServicesAgreementDialogComponent } from './components/services-agreement-dialog/services-agreement-dialog.component';
 import { ServicesAgreementComponent } from './components/services-agreement/services-agreement.component';
+import { TeamFormComponent } from './components/team-form/team-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { TeamSearchComponent } from './containers/team-search/team-search.component';
 
@@ -21,9 +21,9 @@ export const COMPONENTS = [
   DataCellComponent,
   DataDisplayComponent,
   DataTableComponent,
-  TeamSearchComponent,
   LoaderComponent,
   TeamFormComponent,
+  TeamSearchComponent,
   PasswordDialogComponent,
   ServicesAgreementComponent,
   ServicesAgreementDialogComponent,

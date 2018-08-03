@@ -11,26 +11,35 @@ export interface UserFormChanges {
 
 @Component({
   selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
+  template: `
+    <form class="input-container" [formGroup]="formGroup" autocomplete="off">
+      <mat-form-field class="input-container__row">
+        <input type="email" matInput placeholder="Email" formControlName="email">
+      </mat-form-field>
+      <h4 *ngIf="edit">Optionally change your password here:</h4>
+      <mat-form-field class="input-container__row">
+        <input matInput type="password" formControlName="password" placeholder="Password">
+      </mat-form-field>
+      <mat-form-field class="input-container__row">
+        <input
+          matInput type="password"
+          formControlName="confirmPassword"
+          placeholder="Confirm Password"
+          autocomplete="off"
+        >
+      </mat-form-field>
+    </form>
+  `,
   styleUrls: ['./user-form.component.scss'],
 })
 export class UserFormComponent implements OnInit, OnDestroy {
-  @Input() passwordRequired;
-  @Input() title: string;
-  // Initial validMember used to pre populate form
-  @Input() initialMember: Member;
+  @Input() edit: boolean = false;
   @Input() initialEmail: string;
-  // Member entered in form
-  @Output() validChanges = new EventEmitter<UserFormChanges>();
+  @Output() validCredentials = new EventEmitter<Credentials>();
   formGroup: FormGroup;
   formSubscription: Subscription;
-  hidePwd: boolean;
-  hideConfirmPwd: boolean;
 
-  constructor(private fb: FormBuilder) {
-    this.hidePwd = true;
-    this.hideConfirmPwd = true;
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.formGroup = this.createForm();
@@ -47,10 +56,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   onValueChanges(): void {
     const { valid, value } = this.formGroup;
     if (valid) {
-      this.validChanges.emit({
-        credentials: { email: value.email, password: value.password },
-        member: Object.assign({}, new Member(value.firstName, value.lastName, this.initialMember ? this.initialMember.role : null), { id: this.initialMember ? this.initialMember.id : null }),
-      });
+      this.validCredentials.emit({ email: value.email, password: value.password });
     }
   }
 
@@ -61,21 +67,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
   createForm(): FormGroup {
     return this.fb.group(
       {
-        // If validMember was passed in, pre populate form, else leave blank
-        firstName: [
-          this.initialMember ? this.initialMember.firstName : '',
-          [
-            Validators.minLength(2),
-            Validators.maxLength(35),
-            Validators.required,
-          ],
-        ],
-        lastName: [this.initialMember ? this.initialMember.lastName : '',
-          [Validators.minLength(2),
-            Validators.maxLength(35),
-            Validators.required]],
         email: [
-          this.initialMember ? this.initialEmail : '',
+          this.initialEmail || '',
           [
             Validators.maxLength(255),
             Validators.required,
@@ -97,12 +90,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Make password requirement conditional on passwordRequired.
+   * Make password requirement conditional on edit.
    * @param {AbstractControl} control
    * @returns {{error: string}}
    */
   passwordRequiredValidator = (control: AbstractControl): { [key: string]: any } => {
-    if (this.passwordRequired && !control.value) {
+    if (this.edit && !control.value) {
       return { error: 'required' };
     }
   }

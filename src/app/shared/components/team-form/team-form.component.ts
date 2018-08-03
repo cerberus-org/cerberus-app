@@ -7,51 +7,41 @@ import { Organization } from '../../models';
 @Component({
   selector: 'app-team-form',
   template: `
-    <form class="container-center" [formGroup]="formGroup">
-      <h1 *ngIf="title">{{title}}</h1>
-      <p *ngIf="subtitle" class="subtitle">{{subtitle}}</p>
-      <div class="input-container">
-        <mat-form-field class="input-container__row">
-          <input
-            matInput
-            class="capitalize"
-            formControlName="name"
-            maxlength="70"
-            placeholder="Team name"
-          >
-        </mat-form-field>
-      </div>
-      <div class="input-container">
-        <mat-form-field class="input-container__row">
-          <input
-            matInput
-            formControlName="website"
-            maxlength="255"
-            placeholder="Website"
-          >
-        </mat-form-field>
-      </div>
-      <div class="input-container">
-        <mat-form-field class="input-container__row">
-          <textarea
-            matInput
-            formControlName="description"
-            maxlength="160"
-            placeholder="Short description"
-            #description
-          >
-          </textarea>
-          <mat-hint align="end">{{description.value.length}} / 160</mat-hint>
-        </mat-form-field>
-      </div>
+    <form class="input-container" [formGroup]="formGroup">
+      <mat-form-field class="input-container__row">
+        <input
+          matInput
+          class="capitalize"
+          formControlName="name"
+          maxlength="70"
+          placeholder="Team name"
+        >
+      </mat-form-field>
+      <mat-form-field class="input-container__row">
+        <input
+          matInput
+          formControlName="website"
+          maxlength="255"
+          placeholder="Website"
+        >
+      </mat-form-field>
+      <mat-form-field class="input-container__row">
+        <textarea
+          matInput
+          formControlName="description"
+          maxlength="160"
+          placeholder="Short description"
+          #description
+        >
+        </textarea>
+        <mat-hint align="end">{{description.value.length}} / 160</mat-hint>
+      </mat-form-field>
     </form>
   `,
   styleUrls: ['./team-form.component.scss'],
 })
 export class TeamFormComponent implements OnInit, OnDestroy {
   @Output() validTeam = new EventEmitter();
-  @Input() title: string;
-  @Input() subtitle: string;
   @Input() initialTeam: Organization;
   formGroup: FormGroup;
   formSubscription: Subscription;

@@ -27,7 +27,7 @@ describe('UserFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UserFormComponent);
     component = fixture.componentInstance;
-    component.passwordRequired = true;
+    component.edit = true;
     fixture.detectChanges();
   });
 
@@ -35,8 +35,8 @@ describe('UserFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit a validChanges event on valid form values', () => {
-    spyOn(component.validChanges, 'emit');
+  it('should emit a validCredentials event on valid form values', () => {
+    spyOn(component.validCredentials, 'emit');
     const member = createMockMembers()[0];
     const credentials = createMockCredentials()[0];
     component.initialMember = member;
@@ -47,7 +47,7 @@ describe('UserFormComponent', () => {
     component.formGroup.controls['email'].setValue(email);
     component.formGroup.controls['password'].setValue(password);
     component.formGroup.controls['confirmPassword'].setValue(password);
-    expect(component.validChanges.emit)
+    expect(component.validCredentials.emit)
       .toHaveBeenCalledWith({
         credentials: { email, password },
         member: Object.assign({}, new Member(firstName, lastName, role), { id: '1' }),
@@ -151,7 +151,7 @@ describe('UserFormComponent', () => {
     }));
 
     it('should validate password is not required', (() => {
-      component.passwordRequired = false;
+      component.edit = false;
       fixture.detectChanges();
       const control = component.formGroup.controls['password'];
       expect(control.valid).toBeFalsy();

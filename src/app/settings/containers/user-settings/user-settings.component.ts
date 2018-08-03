@@ -23,7 +23,7 @@ export class UserSettingsComponent implements OnInit {
   }
 
   /**
-   * Handles validChanges events by setting edits.
+   * Handles validCredentials events by setting edits.
    * @param {UserFormChanges} changes - a changes object when valid, null when invalid
    */
   onValidChanges(changes: UserFormChanges) {

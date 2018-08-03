@@ -21,12 +21,12 @@ export class SnackBarService {
     return this.open('You have been successfully logged out.');
   }
 
-  createOrganizationSuccess(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Your organization was successfully added.');
+  createVolunteerSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Volunteer successfully signed up.');
   }
 
-  signUpSuccess(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Volunteer successfully signed up.');
+  createUserSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('User successfully created.');
   }
 
   updateUserSuccess(): MatSnackBarRef<SimpleSnackBar> {
@@ -55,10 +55,6 @@ export class SnackBarService {
 
   createTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('Your team was successfully created.');
-  }
-
-  invalidOrganization(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Invalid organization.');
   }
 
   accountNotVerified(): MatSnackBarRef<SimpleSnackBar> {

@@ -62,7 +62,7 @@ export class SignUpEffects {
                 })
                   .pipe(
                     map(() => {
-                      this.snackBarService.createOrganizationSuccess();
+                      this.snackBarService.createUserSuccess();
                       return new AuthActions.SignIn(validCredentials);
                     }),
                   )),

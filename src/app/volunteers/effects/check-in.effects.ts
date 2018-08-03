@@ -30,7 +30,7 @@ export class CheckInEffects {
       })
         .pipe(
           map(() => {
-            this.snackBarService.signUpSuccess();
+            this.snackBarService.createVolunteerSuccess();
             return new CheckInActions.SubmitNewVolunteerSuccess();
           }))),
     );

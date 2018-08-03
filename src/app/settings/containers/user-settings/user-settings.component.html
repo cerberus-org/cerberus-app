@@ -2,8 +2,8 @@
   [title]="userFormTitle"
   [initialMember]="(state$ | async)?.member"
   [initialEmail]="(state$ | async)?.email"
-  [passwordRequired]="false"
-  (validChanges)="onValidChanges($event)">
+  [edit]="true"
+  (validCredentials)="onValidChanges($event)">
 </app-user-form>
 <div class="container-submit">
   <button

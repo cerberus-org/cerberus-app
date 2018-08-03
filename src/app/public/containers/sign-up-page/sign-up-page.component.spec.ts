@@ -17,7 +17,7 @@ describe('SignUpPageComponent', () => {
         MockComponent({ selector: 'app-about-us' }),
         MockComponent({ selector: 'app-team-search', inputs: ['showTitle', 'showInputIconButton'] }),
         MockComponent({ selector: 'app-team-form' }),
-        MockComponent({ selector: 'app-user-form', inputs: ['initialMember', 'passwordRequired'] }),
+        MockComponent({ selector: 'app-user-form', inputs: ['initialMember', 'edit'] }),
         MockComponent({ selector: 'app-organization-confirm', inputs: ['email', 'member', 'organization'] }),
         MockComponent({ selector: 'app-services-agreement', inputs: ['showTitle'] }),
       ],

@@ -45,8 +45,8 @@ describe('CheckInEffects', () => {
       expect(effects.submitNewVolunteer$).toBeObservable(expected);
     });
 
-    it('should open the signUpSuccess snackbar', () => {
-      const signUpSuccessSpy = spyOn(TestBed.get(SnackBarService), 'signUpSuccess');
+    it('should open the createVolunteerSuccess snackbar', () => {
+      const signUpSuccessSpy = spyOn(TestBed.get(SnackBarService), 'createVolunteerSuccess');
       effects.submitNewVolunteer$.subscribe(() => {
         expect(signUpSuccessSpy).toHaveBeenCalled();
       });

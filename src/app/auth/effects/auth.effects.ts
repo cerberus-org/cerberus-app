@@ -23,6 +23,25 @@ export class AuthEffects {
    * @type {Observable<any>}
    */
   @Effect()
+  signUp$: Observable<Action> = this.actions
+    .ofType(AuthActions.SIGN_UP)
+    .pipe(
+      map((action: AuthActions.SignUp) => action.payload),
+      switchMap(({ credentials }) => this.authService.createUser(credentials)
+        .pipe(
+          map(() => {
+            this.snackBarService.createUserSuccess();
+            return new AuthActions.SignIn(credentials);
+          }),
+        )),
+    );
+
+  /**
+   * Listen for the SignIn action, log the afUser in, retrieve Member,
+   * display success snackbar and navigate to settings page on success.
+   * @type {Observable<any>}
+   */
+  @Effect()
   signIn$: Observable<Action> = this.actions
     .ofType(AuthActions.SIGN_IN)
     .pipe(
@@ -34,7 +53,8 @@ export class AuthEffects {
               map(([{ firstName, role }]) => {
                 if (role === 'Locked') {
                   this.snackBarService.accountNotVerified();
-                  return new RouterActions.Go({ path: ['home'] });
+                  this.authService.signOut();
+                  return new RouterActions.Go({ path: [''] });
                 }
                 this.snackBarService.signInSuccess(firstName);
                 return new RouterActions.Go({ path: ['teams'] });

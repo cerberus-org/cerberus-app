@@ -47,9 +47,9 @@
     [disabled]="(state$ | async)?.maxEnabledStep < 2"
   >
     <app-user-form
-      (validChanges)="onValidUserFormChanges($event)"
+      (validCredentials)="onValidUserFormChanges($event)"
       [title]="userFormTitle"
-      [passwordRequired]="true"
+      [edit]="false"
     >
     </app-user-form>
     <div class="container-submit">

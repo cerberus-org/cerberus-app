@@ -15,6 +15,7 @@ import { ViewActivityPageComponent } from './containers/view-activity-page/view-
 import { signUpEffects } from './effects';
 import { PublicRoutingModule } from './public-routing.module';
 import { publicReducers } from './reducers';
+import { SignUpDialogComponent } from './containers/sign-up-dialog/sign-up-dialog.component';
 
 @NgModule({
   imports: [
@@ -35,8 +36,12 @@ import { publicReducers } from './reducers';
     OrganizationConfirmComponent,
     SignUpPageComponent,
     ViewActivityPageComponent,
+    SignUpDialogComponent,
   ],
-  entryComponents: [EmailDialogComponent],
+  entryComponents: [
+    EmailDialogComponent,
+    SignUpDialogComponent,
+  ],
 })
 export class PublicModule {
 }

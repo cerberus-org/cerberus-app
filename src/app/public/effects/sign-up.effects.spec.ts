@@ -91,8 +91,8 @@ describe('SignUpEffects', () => {
       expect(effects.createOrganization$).toBeObservable(expected);
     }));
 
-    it('should open the createOrganizationSuccess snackbar', async(() => {
-      const addOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'createOrganizationSuccess');
+    it('should open the createUserSuccess snackbar', async(() => {
+      const addOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'createUserSuccess');
       effects.createOrganization$.subscribe(() => {
         expect(addOrganizationSuccessSpy).toHaveBeenCalled();
       });

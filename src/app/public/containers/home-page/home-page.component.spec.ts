@@ -55,9 +55,9 @@ describe('HomePageComponent', () => {
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['view-activity/' + mockOrganizations[0].name] }));
   });
 
-  it('should handle onClickSignUpButton events by dispatching RouterActions.Go', () => {
+  it('should handle onClickSignUp events by dispatching RouterActions.Go', () => {
     spyOn(component.store$, 'dispatch');
-    component.onClickSignUpButton();
+    component.onClickSignUp();
     expect(component.store$.dispatch)
       .toHaveBeenCalledWith(new RouterActions.Go({ path: ['sign-up'] }));
   });
