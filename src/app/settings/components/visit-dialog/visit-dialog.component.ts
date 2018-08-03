@@ -35,7 +35,7 @@ export class VisitDialogComponent implements OnInit {
       this.bold = 'bold';
       const updatedVisit = this.updateVisitEndedAtWithTime(event.target.value, this.data);
       if (this.isVisitValid(updatedVisit)) {
-        this.data.endedAt = updatedVisit;
+        this.data.endedAt = updatedVisit.endedAt;
         this.color = '';
       } else {
         this.color = '#f44336';

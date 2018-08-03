@@ -13,9 +13,9 @@ import {
 } from '../../../shared/helpers';
 import { ColumnOptions, Site } from '../../../shared/models';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
-import * as SettingsActions from '../../actions/settings.actions';
 import { VisitDialogComponent } from '../../components/visit-dialog/visit-dialog.component';
 import { selectVisitWithVolunteers } from '../../selectors/visits.selectors';
+import * as SettingsActions from "../../actions/settings.actions";
 
 @Component({
   selector: 'app-visits',
@@ -67,17 +67,16 @@ export class VisitsComponent implements OnInit {
     this.state$ = this.store$.pipe(select(selectVisitWithVolunteers));
   }
 
-  /**
-   * Handles the event the 'Save' button is selected.
-   *
-   * @param {VisitWithVolunteer[]} visits
-   */
-  onUpdateVisits(visits: VisitWithVolunteer[]) {
-    this.store$.dispatch(new SettingsActions.UpdateVisits(visits.filter(visit => delete visit.volunteer)));
-  }
-
   get visitsWithVolunteers$() {
     return this.state$.pipe(map(state => state));
+  }
+
+  updateVisit(visit: VisitWithVolunteer) {
+    delete visit.volunteer;
+    delete visit.organizationSites;
+    visit.siteId = visit.selectedSite.id;
+    delete visit.selectedSite;
+    this.store$.dispatch(new SettingsActions.UpdateVisit(visit));
   }
 
   onEditVisit(visit: VisitWithVolunteer): void {
@@ -86,7 +85,7 @@ export class VisitsComponent implements OnInit {
     const dialog = this.dialog.open(VisitDialogComponent, dialogConfig);
     dialog.afterClosed().subscribe((visit: VisitWithVolunteer) => {
       if (visit) {
-
+        this.updateVisit(visit);
       }
     });
   }
