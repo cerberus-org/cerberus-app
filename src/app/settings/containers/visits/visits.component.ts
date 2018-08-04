@@ -13,9 +13,9 @@ import {
 } from '../../../shared/helpers';
 import { ColumnOptions, Site } from '../../../shared/models';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
+import * as SettingsActions from '../../actions/settings.actions';
 import { VisitDialogComponent } from '../../components/visit-dialog/visit-dialog.component';
 import { selectVisitWithVolunteers } from '../../selectors/visits.selectors';
-import * as SettingsActions from "../../actions/settings.actions";
 
 @Component({
   selector: 'app-visits',

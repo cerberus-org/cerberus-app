@@ -20,7 +20,7 @@ export class VisitDialogComponent implements OnInit {
     // If data was passed in, set default fields
     this.endedAt = this.data && this.data.endedAt ? formatTimeInputValue(this.data.endedAt, this.data.endedAt.timezone) : '';
     this.selectedSite = this.data ? Object.assign({}, this.data.selectedSite) : null;
-    this.organizationSites = this.data ? this.data.organizationSites.slice() : [];
+    this.organizationSites = this.data && this.data.organizationSites ? this.data.organizationSites.slice() : [];
   }
 
   ngOnInit(): void {

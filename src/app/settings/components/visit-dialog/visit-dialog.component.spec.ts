@@ -5,6 +5,9 @@ import {
   MatInputModule, MatSelectModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createMockSites } from '../../../../mocks/objects/site.mock';
+import { createMockVisits } from '../../../../mocks/objects/visit.mock';
+import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { VisitDialogComponent } from './visit-dialog.component';
 
@@ -44,6 +47,12 @@ describe('VisitDialogComponent', () => {
     fixture = TestBed.createComponent(VisitDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.data = {
+      ...createMockVisits()[0],
+      volunteer: createMockVolunteers()[0],
+      organizationSites: createMockSites(),
+      selectedSite: createMockSites()[0],
+    };
   });
 
   it('should create', () => {

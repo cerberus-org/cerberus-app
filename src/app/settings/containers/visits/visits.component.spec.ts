@@ -1,10 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatToolbarModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule, MatFormFieldModule, MatToolbarModule } from '@angular/material';
 import { MockComponent } from 'ng2-mock-component';
 import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
+import { formatDate, formatDuration, formatTime, formatTimeInputValue, getFullName } from '../../../shared/helpers';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
 import { SiteDialogComponent } from '../../components/site-dialog/site-dialog.component';
 import { VisitsComponent } from './visits.component';
@@ -21,10 +23,12 @@ describe('Visits Component', () => {
         VisitsComponent,
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showDelete'],
+          inputs: ['columnOptions', 'data$', 'showDelete', 'showEdit'],
         }),
       ],
       imports: [
+        FormsModule,
+        MatFormFieldModule,
         MatToolbarModule,
         MatDialogModule,
         ...mockStoreModules,
@@ -47,5 +51,33 @@ describe('Visits Component', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('column options', () => {
+    it('should display the firstName and lastName of a volunteer in the first table column', () => {
+      expect(component.columnOptions[0].cell(visitWithVolunteer))
+        .toEqual(getFullName(visitWithVolunteer.volunteer));
+    });
+    it('should display the site name in the second table column', () => {
+
+      expect(component.columnOptions[1].cell(visitWithVolunteer))
+        .toEqual('Jefferson SPCA Animal Shelter');
+    });
+    it('should display formatted date in the second table column', () => {
+      expect(component.columnOptions[2].cell(visitWithVolunteer))
+        .toEqual(formatDate(visitWithVolunteer.startedAt, visitWithVolunteer.timezone));
+    });
+    it('should display formatted time for start date in the third table column', () => {
+      expect(component.columnOptions[3].cell(visitWithVolunteer))
+        .toEqual(formatTime(visitWithVolunteer.startedAt, visitWithVolunteer.timezone));
+    });
+    it('should display formatted time for input of type time for endedAt in the fourth table column', () => {
+      expect(component.columnOptions[4].cell(visitWithVolunteer))
+        .toEqual(formatTimeInputValue(visitWithVolunteer.endedAt, visitWithVolunteer.timezone));
+    });
+    it('should display duration of visit fifth table column', () => {
+      expect(component.columnOptions[5].cell(visitWithVolunteer))
+        .toEqual(formatDuration(visitWithVolunteer.startedAt, visitWithVolunteer.endedAt, visitWithVolunteer.timezone));
+    });
   });
 });
