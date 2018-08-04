@@ -30,8 +30,8 @@ export class VisitDialogComponent implements OnInit {
     this.selectedSite.label = siteLabel;
   }
 
-  onTimeChange(event, endedAt): void {
-    if (event && event.target && event.target.value && event.target.value !== endedAt) {
+  onTimeChange(event): void {
+    if (event && event.target && event.target.value) {
       this.bold = 'bold';
       const updatedVisit = this.updateVisitEndedAtWithTime(event.target.value, this.data);
       if (this.isVisitValid(updatedVisit)) {
