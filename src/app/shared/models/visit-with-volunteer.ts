@@ -1,3 +1,4 @@
+import { Site } from './site';
 import { Volunteer } from './volunteer';
 
 export class VisitWithVolunteer {
@@ -10,6 +11,8 @@ export class VisitWithVolunteer {
   timezone: string;
   signature: any;
   volunteer: Volunteer;
+  organizationSites: Site[];
+  selectedSite: Site;
 
   constructor(
     siteId: string,
@@ -19,6 +22,8 @@ export class VisitWithVolunteer {
     timezone: string,
     signature: any,
     volunteer: Volunteer,
+    organizationSites: Site[],
+    selectedSite: Site,
   ) {
     this.siteId = siteId;
     this.volunteerId = volunteerId;
@@ -27,5 +32,7 @@ export class VisitWithVolunteer {
     this.timezone = timezone;
     this.signature = signature;
     this.volunteer = volunteer;
+    this.organizationSites = organizationSites;
+    this.selectedSite = selectedSite;
   }
 }

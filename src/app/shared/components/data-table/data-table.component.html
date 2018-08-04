@@ -6,27 +6,18 @@
         <app-data-cell
           [column]="column"
           [row]="row"
-          [color]="getCellFontColor(row, invalidItemsEdited)"
-          [isBold]="getCellFontWeight(row, validItemsEdited, invalidItemsEdited)"
-          (selectOption)="onSelectOption($event, row, column.columnDef)"
-          (selectedTime)="onSelectTime($event, row)">
+          (selectOption)="onSelectOption($event, row, column.columnDef)">
         </app-data-cell>
       </mat-cell>
     </ng-container>
-    <!--delete option-->
-    <ng-container *ngIf="showDelete" cdkColumnDef="delete">
-      <mat-header-cell *cdkHeaderCellDef>Delete</mat-header-cell>
+    <!--action options-->
+    <ng-container *ngIf="showDelete || showEdit" cdkColumnDef="actions" class="cdk-column-actions">
+      <mat-header-cell *cdkHeaderCellDef>Actions</mat-header-cell>
       <mat-cell *cdkCellDef="let row">
-        <button mat-icon-button color="warn" (click)="onClickDelete(row)">
+        <button *ngIf="showDelete" mat-icon-button color="warn" (click)="onClickDelete(row)">
           <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>
         </button>
-      </mat-cell>
-    </ng-container>
-    <!--edit option-->
-    <ng-container *ngIf="showEdit" cdkColumnDef="edit">
-      <mat-header-cell *cdkHeaderCellDef>Edit</mat-header-cell>
-      <mat-cell *cdkCellDef="let row">
-        <button mat-icon-button (click)="onClickEdit(row)">
+        <button *ngIf="showEdit" mat-icon-button (click)="onClickEdit(row)">
           <mat-icon aria-label="Edit this entry">mode_edit</mat-icon>
         </button>
       </mat-cell>

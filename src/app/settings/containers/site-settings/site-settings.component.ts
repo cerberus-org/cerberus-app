@@ -68,9 +68,9 @@ export class SiteSettingsComponent implements OnInit {
    */
   openDialogForCreation(site?: Site) {
     const dialog = this.dialog.open(SiteDialogComponent);
-    dialog.afterClosed().subscribe((siteOnClose: Site) => {
-      if (siteOnClose) {
-        this.store$.dispatch(Object.assign({}, new SettingsActions.CreateSite(siteOnClose)));
+    dialog.afterClosed().subscribe((site: Site) => {
+      if (site && site.label) {
+        this.store$.dispatch(Object.assign({}, new SettingsActions.CreateSite(site)));
       }
     });
   }

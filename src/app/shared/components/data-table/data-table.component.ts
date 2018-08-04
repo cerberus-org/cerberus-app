@@ -104,11 +104,8 @@ export class DataTableComponent implements OnInit, OnChanges {
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
-    if (this.showEdit) {
-      this.displayedColumns.push('edit');
-    }
-    if (this.showDelete) {
-      this.displayedColumns.push('delete');
+    if (this.showEdit || this.showDelete) {
+      this.displayedColumns.push('actions');
     }
   }
 
@@ -140,16 +137,6 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   onClickEdit(item: any): void {
     this.editItem.emit(item);
-  }
-
-  /**
-   * Handles the event the time is changed.
-   *
-   * @param value
-   * @param item
-   */
-  onSelectTime(selectedTime, row): void {
-    this.updateItem.emit({ time: selectedTime, visit: row });
   }
 
   /**

@@ -9,10 +9,7 @@ import { ColumnOptions } from '../../models';
 export class DataCellComponent implements OnChanges {
   @Input() column: ColumnOptions;
   @Input() row: any;
-  @Input() color: string;
-  @Input() isBold: boolean;
   @Output() selectOption = new EventEmitter<string>();
-  @Output() selectedTime = new EventEmitter<string>();
   selected: string;
   selectOptions: string[];
 
@@ -34,15 +31,6 @@ export class DataCellComponent implements OnChanges {
     if (this.selectOptions && this.selectOptions.length) {
       return 'SELECT';
     }
-    if (this.column.isTime && this.column.isTime) {
-      return 'TIME_PICKER';
-    }
     return 'TEXT_ONLY';
-  }
-
-  onTimeChange(val: any, lastValue: string): void {
-    if (val && val.target && val.target.value && val.target.value !== lastValue) {
-      this.selectedTime.emit(val.target.value);
-    }
   }
 }

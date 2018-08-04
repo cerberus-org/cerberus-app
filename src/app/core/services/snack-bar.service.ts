@@ -80,4 +80,8 @@ export class SnackBarService {
   updateSiteSuccess():MatSnackBarRef<SimpleSnackBar> {
     return this.open('Successfully updated a site.');
   }
+
+  updateVisitSuccess():MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Successfully updated a visit.');
+  }
 }

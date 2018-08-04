@@ -14,6 +14,7 @@ export const UPDATE_ROLE = '[Settings] Update role';
 export const UPDATE_ORGANIZATION = '[Settings] Update organization';
 export const UPDATE_USER = '[Settings] Update user';
 export const UPDATE_VISITS = '[Settings] Update visits';
+export const UPDATE_VISIT = '[Settings] Update visit';
 export const UPDATE_SITE = '[Settings] Update site';
 
 export const CREATE_SITE = '[Settings] Create site';
@@ -87,6 +88,12 @@ export class UpdateSite implements Action {
   constructor(public payload: Site) {}
 }
 
+export class UpdateVisit implements Action {
+  readonly type = UPDATE_VISIT;
+
+  constructor(public payload: Visit) {}
+}
+
 export type All
   = DeleteVolunteer
   | DeleteVolunteerSuccess
@@ -97,4 +104,5 @@ export type All
   | UpdateUser
   | UpdateVisits
   | CreateSite
-  | DeleteSite;
+  | DeleteSite
+  | UpdateVisit;
