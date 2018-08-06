@@ -11,30 +11,28 @@ import { SignUpDialogComponent } from '../sign-up-dialog/sign-up-dialog.componen
 @Component({
   selector: 'app-home-page',
   template: `
-    <div class="container-center header-spacing">
+    <div class="grid grid--center grid--row-gap">
       <mat-card>
-        <mat-tab-group>
+        <mat-tab-group mat-stretch-tabs>
           <mat-tab label="Login">
             <app-login></app-login>
           </mat-tab>
           <mat-tab label="View Activity">
-            <div class="container-center loose">
+            <div class="grid grid--center">
               <h2>Search for your organization to view live activity data.</h2>
-              <div class="container-inline loose">
-                <app-team-search
-                  [showTitle]="false"
-                  [showInputIconButton]="true"
-                  (iconButtonClick)="onInputIconButtonClick(organization)"
-                  (selectTeam)="onValidOrganization($event)">
-                </app-team-search>
-              </div>
+              <app-team-search
+                [showTitle]="false"
+                [showInputIconButton]="true"
+                (iconButtonClick)="onInputIconButtonClick(organization)"
+                (selectTeam)="onValidOrganization($event)">
+              </app-team-search>
             </div>
           </mat-tab>
         </mat-tab-group>
       </mat-card>
-    </div>
-    <div class="container-center loose container-inline home-buttons">
-      <button mat-button (click)="onClickSignUp()">New to Cerberus?</button>
+      <div class="grid grid--center gray">
+        <button mat-button (click)="onClickSignUp()">New to Cerberus?</button>
+      </div>
     </div>
   `,
   styleUrls: ['./home-page.component.scss'],

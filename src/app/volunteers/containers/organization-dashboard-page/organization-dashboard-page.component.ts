@@ -53,6 +53,7 @@ export class OrganizationDashboardPageComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.routeParamsSubscription.unsubscribe();
+    this.headerSubscription.unsubscribe();
     this.sidenavSubscription.unsubscribe();
   }
 }

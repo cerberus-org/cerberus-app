@@ -13,8 +13,8 @@ export class SnackBarService {
     return this.snackBar.open(message, action, { duration });
   }
 
-  signInSuccess(name: string): MatSnackBarRef<SimpleSnackBar> {
-    return this.open(`Welcome, ${name}.`);
+  signInSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open(`Welcome.`);
   }
 
   signOutSuccess(): MatSnackBarRef<SimpleSnackBar> {

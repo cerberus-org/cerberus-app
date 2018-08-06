@@ -48,18 +48,10 @@ export class AuthEffects {
       map((action: AuthActions.SignIn) => action.payload),
       switchMap((credentials: Credentials) => this.authService.signIn(credentials)
         .pipe(
-          switchMap(({ uid }) => this.memberService.getByKey('userUid', uid)
-            .pipe(
-              map(([{ firstName, role }]) => {
-                if (role === 'Locked') {
-                  this.snackBarService.accountNotVerified();
-                  this.authService.signOut();
-                  return new RouterActions.Go({ path: [''] });
-                }
-                this.snackBarService.signInSuccess(firstName);
-                return new RouterActions.Go({ path: ['teams'] });
-              }),
-            )),
+          map(() => {
+            this.snackBarService.signInSuccess();
+            return new RouterActions.Go({ path: ['teams'] });
+          }),
         )),
     );
 

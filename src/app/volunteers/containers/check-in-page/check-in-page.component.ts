@@ -69,9 +69,8 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.headerSubscription) {
-      this.headerSubscription.unsubscribe();
-    }
+    this.headerSubscription.unsubscribe();
+    this.routeParamsSubscription.unsubscribe();
   }
 
   onCheckIn(visit: Visit): void {
