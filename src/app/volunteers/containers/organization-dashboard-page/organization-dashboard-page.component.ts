@@ -29,6 +29,7 @@ export class OrganizationDashboardPageComponent implements OnDestroy {
   visits$: Observable<Visit[]>;
 
   constructor(private route: ActivatedRoute, private store$: Store<AppState>) {
+    store$.dispatch(new ModelActions.LoadOrganizations());
     this.routeParamsSubscription = route.params
       .pipe(switchMap(({ teamId }) => [
         new ModelActions.SelectTeam({ teamId }),

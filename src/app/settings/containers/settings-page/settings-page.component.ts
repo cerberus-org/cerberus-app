@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { delay, map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import * as LayoutActions from '../../../core/actions/layout.actions';
 import * as ModelActions from '../../../core/actions/model.actions';
 import * as SettingsActions from '../../actions/settings.actions';
@@ -44,43 +44,40 @@ import { selectSettingsSidenavOptions, selectSettingsSidenavSelection } from '..
   `,
   styleUrls: ['./settings-page.component.scss'],
 })
-export class SettingsPageComponent implements OnInit, OnDestroy {
+export class SettingsPageComponent implements OnDestroy {
   private routeParamsSubscription: Subscription;
   private sidenavSubscription: Subscription;
   sidenavSelection$: Observable<string>;
 
   constructor(private route: ActivatedRoute, private store$: Store<SettingsState>) {
-  }
-
-  ngOnInit() {
-    this.store$.dispatch(new LayoutActions.SetHeaderOptions({
+    store$.dispatch(new LayoutActions.SetHeaderOptions({
       title: 'Settings',
       previousUrl: 'teams',
       showSettings: false,
     }));
-    this.store$.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
-    this.routeParamsSubscription = this.route.params
+    store$.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
+    store$.dispatch(new ModelActions.LoadOrganizations());
+    this.routeParamsSubscription = route.params
       .pipe(
         switchMap(({ teamId }) => [
-        new ModelActions.SelectTeam({ teamId }),
-        new ModelActions.LoadMembers(teamId),
-        new ModelActions.LoadSites(teamId),
-        new ModelActions.LoadVisits(teamId),
-        new ModelActions.LoadVolunteers(teamId),
-      ]))
-      .subscribe(this.store$);
-    this.sidenavSubscription = this.store$
+          new ModelActions.SelectTeam({ teamId }),
+          new ModelActions.LoadMembers(teamId),
+          new ModelActions.LoadSites(teamId),
+          new ModelActions.LoadVisits(teamId),
+          new ModelActions.LoadVolunteers(teamId),
+        ]))
+      .subscribe(store$);
+    this.sidenavSubscription = store$
       .pipe(
         select(selectSettingsSidenavOptions),
         map(sidenavOptions => new LayoutActions.SetSidenavOptions(sidenavOptions)),
       )
-      .subscribe(this.store$);
-    this.sidenavSelection$ = this.store$.pipe(select(selectSettingsSidenavSelection));
+      .subscribe(store$);
+    this.sidenavSelection$ = store$.pipe(select(selectSettingsSidenavSelection));
   }
 
   ngOnDestroy() {
-    if (this.sidenavSubscription) {
-      this.sidenavSubscription.unsubscribe();
-    }
+    this.routeParamsSubscription.unsubscribe();
+    this.sidenavSubscription.unsubscribe();
   }
 }

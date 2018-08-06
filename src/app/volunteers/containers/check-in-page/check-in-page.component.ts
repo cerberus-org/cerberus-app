@@ -31,6 +31,7 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   siteId: string;
 
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private store$: Store<AppState>) {
+    store$.dispatch(new ModelActions.LoadOrganizations());
     this.routeParamsSubscription = route.params
       .pipe(switchMap(({ teamId }) => [
         new ModelActions.SelectTeam({ teamId }),
