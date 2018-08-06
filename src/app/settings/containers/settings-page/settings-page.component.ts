@@ -53,7 +53,7 @@ export class SettingsPageComponent implements OnDestroy {
     store$.dispatch(new LayoutActions.SetHeaderOptions({
       title: 'Settings',
       previousUrl: 'teams',
-      showSettings: false,
+      showLogOut: true,
     }));
     store$.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
     store$.dispatch(new ModelActions.LoadOrganizations());

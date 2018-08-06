@@ -5,13 +5,11 @@ import { HeaderOptions, Organization, SidenavOptions, Site } from '../../shared/
 
 export const getOrganizationDashboardHeaderOptions = createSelector(
   getSelectedTeam,
-  (team: Organization): HeaderOptions =>
-    new HeaderOptions(
-      !!team ? team.name : 'Team missing!',
-      'business',
-      null,
-      true,
-    ),
+  (team: Organization): HeaderOptions => ({
+    title: !!team ? team.name : 'Team missing!',
+    previousUrl: null,
+    showLogOut: false,
+  }),
 );
 
 export const selectOrganizationDashboardSidenavOptions = createSelector(

@@ -23,13 +23,11 @@ export interface CheckInContainerState {
 
 export const getCheckInHeaderOptions = createSelector(
   getSelectedTeam,
-  (team: Organization): HeaderOptions =>
-    new HeaderOptions(
-      !!team ? team.name : 'Team missing!',
-      'business',
-      'dashboard',
-      true,
-    ),
+  (team: Organization): HeaderOptions => ({
+    title: !!team ? team.name : 'Team missing!',
+    previousUrl: 'dashboard',
+    showLogOut: false,
+  }),
 );
 
 export const selectCheckInContainerState = createSelector(

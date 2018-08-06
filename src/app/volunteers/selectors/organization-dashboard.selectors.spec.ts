@@ -29,13 +29,6 @@ describe('OrganizationDashboardSelectors', () => {
           previousUrl: null,
         }));
     });
-
-    it('should show the settings button', () => {
-      expect(selectOrganizationDashboardHeaderOptions.projector(organization))
-        .toEqual(objectContaining({
-          showSettings: true,
-        }));
-    });
   });
 
   describe('selectOrganizationDashboardSidenavOptions', () => {

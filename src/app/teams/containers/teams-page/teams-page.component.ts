@@ -55,9 +55,8 @@ export class TeamsPageComponent implements OnInit {
   ngOnInit() {
     this.store$.dispatch(new SetHeaderOptions({
       title: 'Teams',
-      icon: '',
       previousUrl: null,
-      showSettings: false,
+      showLogOut: true,
     }));
     this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
     this.store$.dispatch(new LoadTeams());

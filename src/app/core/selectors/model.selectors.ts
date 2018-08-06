@@ -40,7 +40,7 @@ export const getModelSelectedTeamId = createSelector(
 export const getSelectedTeam = createSelector(
   selectModelOrganizations,
   getModelSelectedTeamId,
-  (teams: Organization[], id: string): Organization => teams.find(team => team.id === id),
+  (teams: Organization[], id: string): Organization => teams && teams.find(team => team.id === id),
 );
 
 export const getMemberForSelectedTeam = createSelector(

@@ -4,9 +4,8 @@ import { HeaderOptions } from '../../app/shared/models';
 export const mockHeaderOptions: HeaderOptions[] = [
   {
     title: 'Welcome',
-    icon: 'sun',
     previousUrl: '/home',
-    showSettings: true,
+    showLogOut: true,
   },
 ];
 
