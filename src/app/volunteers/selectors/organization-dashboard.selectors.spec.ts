@@ -2,7 +2,7 @@ import { createMockOrganizations } from '../../../mocks/objects/organization.moc
 import { createMockSites } from '../../../mocks/objects/site.mock';
 import { Organization } from '../../shared/models';
 import {
-  selectOrganizationDashboardHeaderOptions,
+  getOrganizationDashboardHeaderOptions,
   selectOrganizationDashboardSidenavOptions,
 } from './organization-dashboard.selectors';
 import arrayContaining = jasmine.arrayContaining;
@@ -17,14 +17,14 @@ describe('OrganizationDashboardSelectors', () => {
     });
 
     it('should set the title based on the session organization', () => {
-      expect(selectOrganizationDashboardHeaderOptions.projector(organization))
+      expect(getOrganizationDashboardHeaderOptions.projector(organization))
         .toEqual(objectContaining({
           title: organization.name,
         }));
     });
 
     it('should not set a previous URL', () => {
-      expect(selectOrganizationDashboardHeaderOptions.projector(organization))
+      expect(getOrganizationDashboardHeaderOptions.projector(organization))
         .toEqual(objectContaining({
           previousUrl: null,
         }));

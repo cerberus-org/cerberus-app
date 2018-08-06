@@ -6,7 +6,7 @@ import { AppState } from '../../../core/reducers';
 import { ErrorService } from '../../../core/services/error.service';
 import { OrganizationService } from '../../../core/services/organization.service';
 import { VisitService } from '../../../core/services/visit.service';
-import { HeaderOptions, Organization, Visit } from '../../../shared/models';
+import { Organization, Visit } from '../../../shared/models';
 
 @Component({
   selector: 'app-view-activity-page',
@@ -35,12 +35,11 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
             this.organization = organization;
             this.visits$ = this.visitService.getByKey('organizationId', organization.id, true);
           }
-          this.store$.dispatch(new LayoutActions.SetHeaderOptions(new HeaderOptions(
-            organization ? organization.name : '',
-            null,
-            '/organization/volunteers',
-            false,
-          )));
+          this.store$.dispatch(new LayoutActions.SetHeaderOptions({
+            title: organization ? organization.name : '',
+            previousUrl: '/organization/volunteers',
+            showLogOut: false,
+          }));
           // Only display error after attempting to fetch organization
           this.showNotFound = organizations.length === 0;
         },

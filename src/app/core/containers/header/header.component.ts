@@ -14,7 +14,7 @@ import { HeaderState, selectHeaderState } from '../../selectors/layout.selectors
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-header',
   template: `
-    <mat-toolbar color="primary">
+    <mat-toolbar *ngIf="(headerState$ | async)" color="primary">
       <button
         *ngIf="(headerState$ | async)?.previousUrl"
         id="back-button"
