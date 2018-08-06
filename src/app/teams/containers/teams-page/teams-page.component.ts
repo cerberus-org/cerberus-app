@@ -72,17 +72,10 @@ export class TeamsPageComponent implements OnInit {
   }
 
   onClickActivate(team: Organization): void {
-    this.setSelectedTeam(team);
-    this.store$.dispatch(new Go({ path: [`team/volunteers`] }));
+    this.store$.dispatch(new Go({ path: ['team', team.id, 'volunteers'] }));
   }
 
   onClickSettings(team: Organization): void {
-    this.setSelectedTeam(team);
-    this.store$.dispatch(new Go({ path: [`team/settings`] }));
-  }
-
-  setSelectedTeam(team: Organization): void {
-    sessionStorage.setItem('teamId', team.id);
-    sessionStorage.setItem('teamName', team.name);
+    this.store$.dispatch(new Go({ path: ['team', team.id, 'settings'] }));
   }
 }

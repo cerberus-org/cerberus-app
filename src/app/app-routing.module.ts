@@ -11,14 +11,14 @@ export const routes: Routes = [
     loadChildren: './teams/teams.module#TeamsModule',
   },
   {
-    path: 'team/volunteers',
+    path: 'team/:teamId/volunteers',
     loadChildren: './volunteers/volunteers.module#VolunteersModule',
   },
   {
-    path: 'team/settings',
+    path: 'team/:teamId/settings',
     loadChildren: './settings/settings.module#SettingsModule',
   },
-  { path: '**', redirectTo: 'organization/volunteers', pathMatch: 'full' },
+  { path: '**', redirectTo: 'teams', pathMatch: 'full' },
 ];
 
 @NgModule({

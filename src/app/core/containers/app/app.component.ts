@@ -33,8 +33,6 @@ export class AppComponent implements OnInit {
       delay(500), // Add delay to hide sidenav animation
       select(selectModelLoadedState),
     );
-    // Load all organizations
-    this.store$.dispatch(new ModelActions.LoadOrganizations());
   }
 
   handleAuthStateChanged(user: User): void {

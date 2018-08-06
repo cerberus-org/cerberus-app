@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { selectSessionOrganization } from '../../auth/selectors/session.selectors';
-import { selectModelVisits, selectModelVolunteers } from '../../core/selectors/model.selectors';
+import { getSelectedTeam, selectModelVisits, selectModelVolunteers } from '../../core/selectors/model.selectors';
 import { HeaderOptions, Organization, Visit, Volunteer } from '../../shared/models';
 import { VolunteerSystemState } from '../reducers';
 import { CheckInReducerState } from '../reducers/check-in.reducer';
@@ -21,11 +21,11 @@ export interface CheckInContainerState {
   volunteers: Volunteer[];
 }
 
-export const selectCheckInHeaderOptions = createSelector(
-  selectSessionOrganization,
-  (organization: Organization): HeaderOptions =>
+export const getCheckInHeaderOptions = createSelector(
+  getSelectedTeam,
+  (team: Organization): HeaderOptions =>
     new HeaderOptions(
-      !!organization ? organization.name : 'Organization missing!',
+      !!team ? team.name : 'Team missing!',
       'business',
       'dashboard',
       true,

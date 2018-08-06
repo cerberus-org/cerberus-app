@@ -2,7 +2,7 @@ import { createMockOrganizations } from '../../../mocks/objects/organization.moc
 import { selectSignUpReducerState } from '../../public/selectors/sign-up.selectors';
 import { Organization } from '../../shared/models';
 import { initialCheckInReducerState } from '../reducers/check-in.reducer';
-import { selectCheckInHeaderOptions, selectSelectedTabIndex } from './check-in.selectors';
+import { getCheckInHeaderOptions, selectSelectedTabIndex } from './check-in.selectors';
 import objectContaining = jasmine.objectContaining;
 
 describe('CheckInSelectors', () => {
@@ -24,7 +24,7 @@ describe('CheckInSelectors', () => {
     });
   });
 
-  describe('selectCheckInHeaderOptions', () => {
+  describe('getOrganizationDashboardHeaderOptions', () => {
     let organization: Organization;
 
     beforeEach(() => {
@@ -32,21 +32,21 @@ describe('CheckInSelectors', () => {
     });
 
     it('should set the title based on the session organization', () => {
-      expect(selectCheckInHeaderOptions.projector(organization))
+      expect(getCheckInHeaderOptions.projector(organization))
         .toEqual(objectContaining({
           title: organization.name,
         }));
     });
 
     it('should set dashboard as the previous URL', () => {
-      expect(selectCheckInHeaderOptions.projector(organization))
+      expect(getCheckInHeaderOptions.projector(organization))
         .toEqual(objectContaining({
           previousUrl: 'dashboard',
         }));
     });
 
     it('should show the settings button', () => {
-      expect(selectCheckInHeaderOptions.projector(organization))
+      expect(getCheckInHeaderOptions.projector(organization))
         .toEqual(objectContaining({
           showSettings: true,
         }));

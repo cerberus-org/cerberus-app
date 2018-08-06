@@ -1,7 +1,18 @@
 import { createSelector } from '@ngrx/store';
 import * as RouterActions from '../../core/actions/router.actions';
-import { selectModelOrganizations, selectModelSites } from '../../core/selectors/model.selectors';
+import { getSelectedTeam, selectModelSites } from '../../core/selectors/model.selectors';
 import { HeaderOptions, Organization, SidenavOptions, Site } from '../../shared/models';
+
+export const getOrganizationDashboardHeaderOptions = createSelector(
+  getSelectedTeam,
+  (team: Organization): HeaderOptions =>
+    new HeaderOptions(
+      !!team ? team.name : 'Team missing!',
+      'business',
+      null,
+      true,
+    ),
+);
 
 export const selectOrganizationDashboardSidenavOptions = createSelector(
   selectModelSites,

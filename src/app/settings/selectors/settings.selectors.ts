@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { selectSessionMember } from '../../auth/selectors/session.selectors';
+import { getMemberForSelectedTeam } from '../../core/selectors/model.selectors';
 import { isAdmin } from '../../shared/helpers';
 import { Member, SidenavOptions } from '../../shared/models';
 import * as SettingsActions from '../actions/settings.actions';
@@ -19,8 +19,8 @@ export const selectSettingsSidenavSelection = createSelector(
 );
 
 export const selectSettingsSidenavOptions = createSelector(
-  selectSessionMember,
-  (sessionUser: Member): SidenavOptions[] => {
+  getMemberForSelectedTeam,
+  (member: Member): SidenavOptions[] => {
     const sidenavOptions = [
       new SidenavOptions(
         'User',
@@ -28,7 +28,7 @@ export const selectSettingsSidenavOptions = createSelector(
         new SettingsActions.LoadPage('USER_SETTINGS'),
       ),
     ];
-    return isAdmin(sessionUser)
+    return member && isAdmin(member)
       ? [
         ...sidenavOptions,
         new SidenavOptions(

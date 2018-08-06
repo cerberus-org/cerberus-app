@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import * as LayoutActions from '../../../core/actions/layout.actions';
+import * as ModelActions from '../../../core/actions/model.actions';
 import * as RouterActions from '../../../core/actions/router.actions';
 import { AppState } from '../../../core/reducers';
 import { Organization } from '../../../shared/models';
@@ -41,13 +42,11 @@ import { SignUpDialogComponent } from '../sign-up-dialog/sign-up-dialog.componen
 export class HomePageComponent implements OnInit {
   organization: Organization;
 
-  constructor(
-    private dialog: MatDialog,
-    public store$: Store<AppState>,
-    ) {}
+  constructor(private dialog: MatDialog, public store$: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store$.dispatch(new LayoutActions.SetHeaderOptions(null));
+    this.store$.dispatch(new ModelActions.LoadOrganizations());
   }
 
   onValidOrganization(organization: Organization): void {
