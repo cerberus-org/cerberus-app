@@ -8,11 +8,34 @@ import * as SettingsActions from '../../actions/settings.actions';
 
 @Component({
   selector: 'app-organization-settings',
-  templateUrl: './organization-settings.component.html',
+  template: `
+    <div class="wrapper">
+      <div>
+        <h2>Update your team info here.</h2>
+        <mat-divider></mat-divider>
+      </div>
+      <div class="margin">
+        <app-team-form
+          [title]="organizationFormTitle"
+          [initialTeam]="(sessionOrganization$ | async)"
+          (validTeam)="onValidOrganization($event)">
+        </app-team-form>
+      </div>
+      <div class="actions-container">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onSubmitOrganization(organizationEdits)"
+          [disabled]="!organizationEdits">
+          Submit
+        </button>
+      </div>
+    </div>
+  `,
   styleUrls: ['./organization-settings.component.scss'],
 })
 export class OrganizationSettingsComponent implements OnInit {
-  organizationFormTitle = 'Update your organization info.';
+  organizationFormTitle = 'Update your team info.';
   organizationEdits: Organization;
   sessionOrganization$: Observable<Organization>;
 

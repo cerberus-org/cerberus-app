@@ -64,8 +64,8 @@ input.capitalize {
 }
 
 .wrapper {
-  max-width: 960px;
-  padding: 0 10px;
+  max-width: 940px;
+  padding: 0 20px;
   margin: 0 auto 40px;
 }
 
@@ -101,8 +101,8 @@ input.capitalize {
   }
 }
 
-.margins {
-  margin: 1rem;
+.margin {
+  margin: 27px;
 }
 
 .actions-container {
@@ -115,8 +115,6 @@ input.capitalize {
 
 .input-container {
   display: grid;
-  justify-self: center;
-  width: 100%;
   max-width: 300px;
   margin: auto;
 

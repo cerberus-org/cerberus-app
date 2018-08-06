@@ -4,7 +4,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from 'firebase';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import * as ModelActions from '../../actions/model.actions';
 import { AppState } from '../../reducers';
 import { selectModelLoadedState } from '../../selectors/model.selectors';
 import { AppUpdateService } from '../../services/app-update.service';
