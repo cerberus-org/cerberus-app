@@ -25,9 +25,37 @@ export class DailyHoursChartComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['visits']) {
+      this.data = [];
       this.labels = this.setupLineChartLabels();
-      this.data = this.setupLineChartData(changes['visits'].currentValue, this.labels);
+      this.getEachDataSetBySite(changes['visits'].currentValue).forEach((dataSet: Visit[]) => {
+        this.data.push(this.setupLineChartData(dataSet, this.labels));
+      });
     }
+  }
+
+  /**
+   * Return an array of Visit arrays separated by site.
+   * i.e. [ [ {visit 1}, {visit 2}], [{visit 3}], [{visit 4}, {visit 5}] ]
+   * Time Complexity: O(n)
+   *
+   * @param {Visit[]} visits
+   * @returns {Visit[][]}
+   */
+  getEachDataSetBySite(visits: Visit[]): Visit[][] {
+    const mapOfVisits = new Map<string, Visit[]>();
+    if (visits) {
+      visits.forEach((visit: Visit) => {
+        if (mapOfVisits.get(visit.siteId)) {
+          const visits = mapOfVisits.get(visit.siteId);
+          visits.push(visit);
+          mapOfVisits.set(visit.siteId, visits);
+        } else {
+          mapOfVisits.set(visit.siteId, [visit]);
+        }
+      });
+      return Array.from(mapOfVisits.values());
+    }
+    return [];
   }
 
   /**
@@ -64,9 +92,9 @@ export class DailyHoursChartComponent implements OnChanges {
     visits: Visit[],
     labels: string[],
     format: string = 'ddd MMM D',
-  ): LineChartData[] {
+  ): LineChartData {
     return visits
-      ? [{
+      ? {
         data: visits.reduce(
           (data, visit) => {
             const date: string = moment(visit.startedAt).format(format);
@@ -79,9 +107,9 @@ export class DailyHoursChartComponent implements OnChanges {
           Array(labels.length).fill(0),
         )
           .map(value => value.toFixed(3)),
-        label: 'Hours',
-      }]
-      : [{ data: [], label: '' }];
+        label: visits[0].siteId,
+      }
+      : { data: [], label: '' };
   }
 
   /**
