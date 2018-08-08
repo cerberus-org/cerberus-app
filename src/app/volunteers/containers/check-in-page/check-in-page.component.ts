@@ -27,11 +27,11 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
 
   @ViewChild('stepper') stepper: MatVerticalStepper;
   state$: Observable<CheckInContainerState>;
-  organizationId: string;
+  teamId: string;
   siteId: string;
 
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private store$: Store<AppState>) {
-    store$.dispatch(new ModelActions.LoadOrganizations());
+    store$.dispatch(new ModelActions.LoadTeams());
     this.routeParamsSubscription = route.params
       .pipe(switchMap(({ teamId }) => [
         new ModelActions.SelectTeam({ teamId }),

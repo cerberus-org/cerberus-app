@@ -55,7 +55,7 @@ describe('VisitDialogComponent', () => {
     component.data = {
       ...createMockVisits()[0],
       volunteer: createMockVolunteers()[0],
-      organizationSites: createMockSites(),
+      teamSites: createMockSites(),
       selectedSite: createMockSites()[0],
     };
   });

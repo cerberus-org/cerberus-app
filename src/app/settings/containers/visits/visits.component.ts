@@ -66,14 +66,14 @@ export class VisitsComponent implements OnInit {
   }
 
   /**
-   * Remove volunteer, organizationSites and selectedSite to change visit from type
+   * Remove volunteer, teamSites and selectedSite to change visit from type
    * VisitWithVolunteer to type Visit and then update visit.
    *
    * @param {VisitWithVolunteer} visit
    */
   updateVisit(visit: VisitWithVolunteer) {
     delete visit.volunteer;
-    delete visit.organizationSites;
+    delete visit.teamSites;
     visit.siteId = visit.selectedSite.id;
     delete visit.selectedSite;
     this.store$.dispatch(new SettingsActions.UpdateVisit(visit));

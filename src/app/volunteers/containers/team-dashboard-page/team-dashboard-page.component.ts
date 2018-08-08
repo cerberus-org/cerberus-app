@@ -9,24 +9,24 @@ import * as RouterActions from '../../../core/actions/router.actions';
 import { AppState } from '../../../core/reducers';
 import { selectModelVisits } from '../../../core/selectors/model.selectors';
 import { Visit } from '../../../shared/models';
-import { getOrganizationDashboardHeaderOptions } from '../../selectors/organization-dashboard.selectors';
+import { getTeamDashboardHeaderOptions } from '../../selectors/team-dashboard.selectors';
 
 @Component({
-  selector: 'app-organization-dashboard-page',
+  selector: 'app-team-dashboard-page',
   template: `
     <div class="grid">
       <app-data-display [visits$]="visits$"></app-data-display>
     </div>
   `,
-  styleUrls: ['./organization-dashboard-page.component.scss'],
+  styleUrls: ['./team-dashboard-page.component.scss'],
 })
-export class OrganizationDashboardPageComponent implements OnDestroy {
+export class TeamDashboardPageComponent implements OnDestroy {
   private routeParamsSubscription: Subscription;
   private headerSubscription: Subscription;
   visits$: Observable<Visit[]>;
 
   constructor(private route: ActivatedRoute, private store$: Store<AppState>) {
-    store$.dispatch(new ModelActions.LoadOrganizations());
+    store$.dispatch(new ModelActions.LoadTeams());
     this.routeParamsSubscription = route.params
       .pipe(switchMap(({ teamId }) => [
         new SetSidenavOptions([
@@ -53,7 +53,7 @@ export class OrganizationDashboardPageComponent implements OnDestroy {
       .subscribe(store$);
     this.headerSubscription = store$
       .pipe(
-        select(getOrganizationDashboardHeaderOptions),
+        select(getTeamDashboardHeaderOptions),
         map(headerOptions => new SetHeaderOptions(headerOptions)),
       )
       .subscribe(store$);

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { mockOrganizations } from '../../../../mocks/objects/organization.mock';
+import { mockTeams } from '../../../../mocks/objects/team.mock';
 import { Team } from '../../models';
 import { TeamFormComponent } from './team-form.component';
 
@@ -34,9 +34,9 @@ describe('TeamFormComponent', () => {
 
   it('should emit a validTeam event on valid form values', () => {
     spyOn(component.validTeam, 'emit');
-    const name = mockOrganizations[0].name;
-    const website = mockOrganizations[0].website;
-    const description = mockOrganizations[0].description;
+    const name = mockTeams[0].name;
+    const website = mockTeams[0].website;
+    const description = mockTeams[0].description;
     component.formGroup.controls['name'].setValue(name);
     component.formGroup.controls['website'].setValue(website);
     component.formGroup.controls['description'].setValue(description);

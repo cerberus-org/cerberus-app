@@ -70,7 +70,7 @@ export class AuthEffects {
         .pipe(
           map(() => {
             this.authService.setPwdVerification(true);
-            return new RouterActions.Go({ path: ['organization/settings'] });
+            return new RouterActions.Go({ path: ['team/settings'] });
           }),
         )),
     );

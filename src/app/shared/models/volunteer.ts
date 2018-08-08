@@ -1,6 +1,6 @@
 export class Volunteer {
   id: string;
-  organizationId: string;
+  teamId: string;
   firstName: string;
   lastName: string;
   petName: string;

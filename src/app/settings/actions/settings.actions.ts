@@ -11,7 +11,7 @@ export const GENERATE_VISIT_HISTORY_REPORT = '[Settings] Generate visit history 
 export const LOAD_PAGE = '[Settings] Load page';
 
 export const UPDATE_ROLE = '[Settings] Update role';
-export const UPDATE_ORGANIZATION = '[Settings] Update organization';
+export const UPDATE_TEAM = '[Settings] Update team';
 export const UPDATE_USER = '[Settings] Update user';
 export const UPDATE_VISITS = '[Settings] Update visits';
 export const UPDATE_VISIT = '[Settings] Update visit';
@@ -46,8 +46,8 @@ export class LoadPage implements Action {
   constructor(public payload: string) {}
 }
 
-export class UpdateOrganization implements Action {
-  readonly type = UPDATE_ORGANIZATION;
+export class UpdateTeam implements Action {
+  readonly type = UPDATE_TEAM;
 
   constructor(public payload: Team) {}
 }
@@ -100,7 +100,7 @@ export type All
   | GenerateVisitHistoryReport
   | LoadPage
   | UpdateRole
-  | UpdateOrganization
+  | UpdateTeam
   | UpdateUser
   | UpdateVisits
   | CreateSite

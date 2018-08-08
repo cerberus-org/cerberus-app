@@ -7,7 +7,7 @@ import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { getUserInfo } from '../../auth/selectors/session.selectors';
 import { AppState } from '../../core/reducers';
 import { MemberService } from '../../core/services/member.service';
-import { OrganizationService } from '../../core/services/organization.service';
+import { TeamService } from '../../core/services/team.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { Member } from '../../shared/models';
 import {
@@ -26,7 +26,7 @@ export class TeamsPageEffects {
   constructor(
     private actions: Actions,
     private memberService: MemberService,
-    private organizationService: OrganizationService,
+    private teamService: TeamService,
     private snackbarService: SnackBarService,
     private store$: Store<AppState>,
     private dialog: MatDialog,
@@ -38,11 +38,11 @@ export class TeamsPageEffects {
     map(action => action.payload.team),
     withLatestFrom(this.store$.pipe(select(getUserInfo))),
     mergeMap(([team, userInfo]) =>
-      this.organizationService.add(team).pipe(
+      this.teamService.add(team).pipe(
         switchMap(createdTeam =>
           this.memberService.add({
             userUid: userInfo.uid,
-            organizationId: createdTeam.id,
+            teamId: createdTeam.id,
             role: 'Owner',
           } as Member)),
       ),
@@ -60,7 +60,7 @@ export class TeamsPageEffects {
     mergeMap(([team, userInfo]) =>
       this.memberService.add({
         userUid: userInfo.uid,
-        organizationId: team.id,
+        teamId: team.id,
         role: 'Locked',
       } as Member),
     ),

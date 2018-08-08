@@ -45,10 +45,10 @@ export class SiteDialogComponent implements OnInit {
   close() {
     // If there was  data passed in this dialog was opened for edit
     if (this.data) {
-      this.dialogRef.close(Object.assign({}, new Site(this.member.organizationId, this.label, this.address, this.description), { id: this.data.id }));
+      this.dialogRef.close(Object.assign({}, new Site(this.member.teamId, this.label, this.address, this.description), { id: this.data.id }));
     // Otherwise dialog was opened for creation
     } else {
-      this.dialogRef.close(new Site(this.member.organizationId, this.label, this.address, this.description));
+      this.dialogRef.close(new Site(this.member.teamId, this.label, this.address, this.description));
     }
   }
 }

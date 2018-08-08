@@ -11,7 +11,7 @@
       placeholder="Site"
       [value]="selectedSite.label"
       (selectionChange)="onSelectionChange($event.value)">
-      <mat-option *ngFor="let site of organizationSites" [value]="site.label">
+      <mat-option *ngFor="let site of teamSites" [value]="site.label">
         {{site.label}}
       </mat-option>
     </mat-select>

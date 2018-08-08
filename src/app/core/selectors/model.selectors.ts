@@ -7,9 +7,9 @@ import { ModelReducerState } from '../reducers/model.reducer';
 
 export const selectModelReducerState = createFeatureSelector<ModelReducerState>('model');
 
-export const selectModelOrganizations = createSelector(
+export const selectModelTeams = createSelector(
   selectModelReducerState,
-  (state: ModelReducerState): Team[] => state.organizations,
+  (state: ModelReducerState): Team[] => state.teams,
 );
 
 export const selectModelSites = createSelector(
@@ -38,7 +38,7 @@ export const getModelSelectedTeamId = createSelector(
 );
 
 export const getSelectedTeam = createSelector(
-  selectModelOrganizations,
+  selectModelTeams,
   getModelSelectedTeamId,
   (teams: Team[], id: string): Team => teams && teams.find(team => team.id === id),
 );
@@ -49,7 +49,7 @@ export const getMemberForSelectedTeam = createSelector(
   getModelSelectedTeamId,
   (members: Member[], userInfo: UserInfo, teamId: string): Member =>
     members && userInfo && teamId
-    && members.find(member => member.userUid === userInfo.uid && member.organizationId === teamId),
+    && members.find(member => member.userUid === userInfo.uid && member.teamId === teamId),
 );
 
 export const selectOwnerCount = createSelector(

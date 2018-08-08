@@ -1,5 +1,5 @@
 import { sortVisitsByStartedAt } from '../../shared/helpers';
-import { Member, Team, Site, Visit, Volunteer } from '../../shared/models';
+import { Member, Site, Team, Visit, Volunteer } from '../../shared/models';
 import * as ModelActions from '../actions/model.actions';
 
 export interface ModelReducerState {
@@ -7,7 +7,7 @@ export interface ModelReducerState {
   members: Member[];
   visits: Visit[];
   volunteers: Volunteer[];
-  organizations: Team[];
+  teams: Team[];
   selectedTeamId: string;
 }
 
@@ -16,7 +16,7 @@ export const initialModelReducerState: ModelReducerState = {
   members: null,
   visits: null,
   volunteers: null,
-  organizations: null,
+  teams: null,
   selectedTeamId: null,
 };
 
@@ -52,10 +52,10 @@ export function modelReducer(state = initialModelReducerState, action: Action): 
       };
     }
 
-    case ModelActions.LOAD_ORGANIZATIONS_SUCCESS: {
+    case ModelActions.LOAD_TEAMS_SUCCESS: {
       return {
         ...state,
-        organizations: action.payload,
+        teams: action.payload,
       };
     }
 

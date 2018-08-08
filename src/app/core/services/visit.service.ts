@@ -19,8 +19,8 @@ export class VisitService extends BaseService<Visit> {
     super(db, errorService);
   }
 
-  getByOrganizationIdAndDateRange(
-    organizationId: string,
+  getByTeamIdAndDateRange(
+    teamId: string,
     startDate: Date,
     endDate: Date,
     snapshot?: boolean,
@@ -28,7 +28,7 @@ export class VisitService extends BaseService<Visit> {
     return this.getDocsFromCollection(
       snapshot,
       this.collection(ref => ref
-        .where('organizationId', '==', organizationId)
+        .where('teamId', '==', teamId)
         .orderBy('startedAt').startAt(startDate).endAt(endDate)),
     );
   }

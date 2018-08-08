@@ -7,7 +7,7 @@
 export class Member {
   id: string;
   userUid: string;
-  organizationId: string;
+  teamId: string;
   firstName?: string;
   lastName?: string;
   role?: string;

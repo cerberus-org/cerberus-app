@@ -1,11 +1,11 @@
 import { createMockMembers } from '../../../mocks/objects/member.mock';
-import { createMockOrganizations } from '../../../mocks/objects/organization.mock';
+import { createMockTeams } from '../../../mocks/objects/team.mock';
 import { createMockSites } from '../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import {
   selectModelMembers,
-  selectModelOrganizations,
+  selectModelTeams,
   selectModelSites,
   selectModelVisits,
   selectModelVolunteers,
@@ -13,11 +13,11 @@ import {
 } from './model.selectors';
 
 describe('ModelSelectors', () => {
-  it('should select organizations', () => {
-    expect(selectModelOrganizations.projector({
-      organizations: createMockOrganizations(),
+  it('should select teams', () => {
+    expect(selectModelTeams.projector({
+      teams: createMockTeams(),
     }))
-      .toEqual(createMockOrganizations());
+      .toEqual(createMockTeams());
   });
 
   it('should select sites', () => {

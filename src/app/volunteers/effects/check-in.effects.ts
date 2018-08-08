@@ -24,9 +24,9 @@ export class CheckInEffects {
     .pipe(
       map((action: CheckInActions.SubmitNewVolunteer) => action.payload),
       withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
-      switchMap(([volunteer, organization]) => this.volunteerService.add({
+      switchMap(([volunteer, team]) => this.volunteerService.add({
         ...volunteer,
-        organizationId: organization.id,
+        teamId: team.id,
       })
         .pipe(
           map(() => {
@@ -45,10 +45,10 @@ export class CheckInEffects {
     .pipe(
       map((action: CheckInActions.CheckIn) => action.payload),
       withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
-      switchMap(([visit, organization]) => this.visitService.add({
+      switchMap(([visit, team]) => this.visitService.add({
         ...visit,
         siteId: null, // TODO: Implement site association
-        organizationId: organization.id,
+        teamId: team.id,
       })
         .pipe(
           map(() => {

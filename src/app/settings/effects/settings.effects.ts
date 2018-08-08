@@ -7,7 +7,7 @@ import { AuthService } from '../../auth/services/auth.service';
 import { AppState } from '../../core/reducers';
 import { getSelectedTeam, selectModelVolunteers } from '../../core/selectors/model.selectors';
 import { MemberService } from '../../core/services/member.service';
-import { OrganizationService } from '../../core/services/organization.service';
+import { TeamService } from '../../core/services/team.service';
 import { SiteService } from '../../core/services/site.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { VisitService } from '../../core/services/visit.service';
@@ -31,7 +31,7 @@ export class SettingsEffects {
     );
 
   /**
-   * Listen for the GenerateVisitHistoryReport, get visits by date range and organization,
+   * Listen for the GenerateVisitHistoryReport, get visits by date range and team,
    * then download data as csv.
    * @type {Observable<Visit[]>}
    */
@@ -41,9 +41,9 @@ export class SettingsEffects {
     .pipe(
       map((action: SettingsActions.GenerateVisitHistoryReport) => action.payload),
       withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
-      switchMap(([payload, organization]) => this.visitService
-        .getByOrganizationIdAndDateRange(
-          organization.id,
+      switchMap(([payload, team]) => this.visitService
+        .getByTeamIdAndDateRange(
+          team.id,
           payload.startedAt,
           payload.endedAt,
           true,
@@ -64,20 +64,20 @@ export class SettingsEffects {
     );
 
   /**
-   * Listens for SettingsActions.SetOrganization. Applies organization changes against current organization in
-   * session, then displays a success snack bar and dispatches SessionActions.SetOrganization.
+   * Listens for SettingsActions.SetTeam. Applies team changes against current team in
+   * session, then displays a success snack bar and dispatches SessionActions.SetTeam.
    */
   @Effect({ dispatch: false })
-  updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)
+  updateTeam$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_TEAM)
     .pipe(
-      map((action: SettingsActions.UpdateOrganization) => action.payload),
+      map((action: SettingsActions.UpdateTeam) => action.payload),
       withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
-      switchMap(([organizationEdits, sessionOrganization]) => {
-        const editedOrganization = { ...sessionOrganization, ...organizationEdits };
-        return this.organizationService.update(editedOrganization)
+      switchMap(([teamEdits, sessionTeam]) => {
+        const editedTeam = { ...sessionTeam, ...teamEdits };
+        return this.teamService.update(editedTeam)
           .pipe(
             tap(() => {
-              this.snackBarService.updateOrganizationSuccess();
+              this.snackBarService.updateTeamSuccess();
             }),
           );
       }),
@@ -164,7 +164,7 @@ export class SettingsEffects {
     private store$: Store<AppState>,
     private actions: Actions,
     private authService: AuthService,
-    private organizationService: OrganizationService,
+    private teamService: TeamService,
     private snackBarService: SnackBarService,
     private memberService: MemberService,
     private visitService: VisitService,

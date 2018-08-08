@@ -2,7 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
-import { createMockOrganizations } from '../../../mocks/objects/organization.mock';
+import { createMockTeams } from '../../../mocks/objects/team.mock';
 import { createMockSites } from '../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { mockProviders } from '../../../mocks/providers.mock';
@@ -33,20 +33,20 @@ xdescribe('SettingsEffects', () => {
     effects = TestBed.get(SettingsEffects);
   }));
 
-  describe('updateOrganization$', () => {
-    let organization: Team;
+  describe('updateTeam$', () => {
+    let team: Team;
 
     beforeEach(async(() => {
-      organization = createMockOrganizations()[1];
+      team = createMockTeams()[1];
       actions = hot('a', {
-        a: new SettingsActions.UpdateOrganization(organization),
+        a: new SettingsActions.UpdateTeam(team),
       });
     }));
 
-    it('should open the updateOrganizationSuccess snackbar', async(() => {
-      const updateOrganizationSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateOrganizationSuccess');
-      effects.updateOrganization$.subscribe(() => {
-        expect(updateOrganizationSuccessSpy).toHaveBeenCalled();
+    it('should open the updateTeamSuccess snackbar', async(() => {
+      const updateTeamSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateTeamSuccess');
+      effects.updateTeam$.subscribe(() => {
+        expect(updateTeamSuccessSpy).toHaveBeenCalled();
       });
     }));
   });

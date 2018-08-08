@@ -10,7 +10,7 @@ import { CheckInFormComponent } from './components/check-in-form/check-in-form.c
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { SignatureFieldComponent } from './components/signature-field/signature-field.component';
 import { CheckInPageComponent } from './containers/check-in-page/check-in-page.component';
-import { OrganizationDashboardPageComponent } from './containers/organization-dashboard-page/organization-dashboard-page.component';
+import { TeamDashboardPageComponent } from './containers/team-dashboard-page/team-dashboard-page.component';
 import { volunteersEffects } from './effects';
 import { volunteersReducers } from './reducers';
 import { VolunteersRoutingModule } from './volunteers-routing.module';
@@ -46,7 +46,7 @@ import { VolunteersRoutingModule } from './volunteers-routing.module';
     CheckInPageComponent,
     CheckInFormComponent,
     NewVolunteerFormComponent,
-    OrganizationDashboardPageComponent,
+    TeamDashboardPageComponent,
     SignatureFieldComponent,
   ],
 })

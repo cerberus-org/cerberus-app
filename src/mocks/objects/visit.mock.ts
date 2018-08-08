@@ -4,7 +4,7 @@ import { Visit } from '../../app/shared/models';
 export const mockVisits: Visit[] = [
   {
     id: '674a861ace7ca574af9070c0',
-    organizationId: '59a7055733bfe28af47cff40',
+    teamId: '59a7055733bfe28af47cff40',
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945a',
     startedAt: new Date('2017-06-29T10:45:02.336Z'),
@@ -25,7 +25,7 @@ export const mockVisits: Visit[] = [
   },
   {
     id: '674a861ace7ca574af9070c1',
-    organizationId: '59a7055733bfe28af47cff40',
+    teamId: '59a7055733bfe28af47cff40',
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945b',
     startedAt: new Date('2017-06-29T12:45:42.336Z'),
@@ -35,7 +35,7 @@ export const mockVisits: Visit[] = [
   },
   {
     id: '674a861ace7ca574af9070c2',
-    organizationId: '59a7055733bfe28af47cff40',
+    teamId: '59a7055733bfe28af47cff40',
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945c',
     startedAt: new Date('2017-06-30T12:45:42.336Z'),
@@ -45,7 +45,7 @@ export const mockVisits: Visit[] = [
   },
   {
     id: '674a861ace7ca574af9070c3',
-    organizationId: '59a7055733bfe28af47cff40',
+    teamId: '59a7055733bfe28af47cff40',
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945a',
     startedAt: new Date('2017-07-01T14:45:42.336Z'),
@@ -55,7 +55,7 @@ export const mockVisits: Visit[] = [
   },
   {
     id: '674a861ace7ca574af9070c4',
-    organizationId: '59a7055733bfe28af47cff40',
+    teamId: '59a7055733bfe28af47cff40',
     siteId: '59bc1e7ad92a6ac6f6252bfa',
     volunteerId: '5961327dfba1ca1b64b8945z',
     startedAt: new Date('2017-07-02T10:45:42.336Z'),

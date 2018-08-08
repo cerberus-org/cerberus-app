@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { mockOrganizations } from '../../../../mocks/objects/organization.mock';
+import { mockTeams } from '../../../../mocks/objects/team.mock';
 import { mockProviders } from '../../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import * as RouterActions from '../../../core/actions/router.actions';
@@ -41,15 +41,15 @@ describe('HomePageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle validInput events by setting findOrganizationValue', () => {
-    component.onValidOrganization(mockOrganizations[0]);
-    expect(component.organization).toEqual(mockOrganizations[0]);
+  it('should handle validInput events by setting findTeamValue', () => {
+    component.onValidTeam(mockTeams[0]);
+    expect(component.team).toEqual(mockTeams[0]);
   });
 
   it('should handle onLiveData events by dispatching RouterActions.Go', () => {
     spyOn(component.store$, 'dispatch');
-    component.onInputIconButtonClick(mockOrganizations[0]);
+    component.onInputIconButtonClick(mockTeams[0]);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['view-activity/' + mockOrganizations[0].name] }));
+      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['view-activity/' + mockTeams[0].name] }));
   });
 });

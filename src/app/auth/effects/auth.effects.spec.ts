@@ -62,7 +62,7 @@ describe('AuthEffects', () => {
 
     it('should dispatch RouterActions.Go', () => {
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['organization/settings'] }),
+        b: new RouterActions.Go({ path: ['team/settings'] }),
       });
       expect(effects.verifyPassword$).toBeObservable(expected);
     });

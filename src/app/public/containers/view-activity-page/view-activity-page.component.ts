@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import * as LayoutActions from '../../../core/actions/layout.actions';
 import { AppState } from '../../../core/reducers';
 import { ErrorService } from '../../../core/services/error.service';
-import { OrganizationService } from '../../../core/services/organization.service';
+import { TeamService } from '../../../core/services/team.service';
 import { VisitService } from '../../../core/services/visit.service';
 import { Team, Visit } from '../../../shared/models';
 
@@ -14,34 +14,34 @@ import { Team, Visit } from '../../../shared/models';
   styleUrls: ['./view-activity-page.component.scss'],
 })
 export class ViewActivityPageComponent implements OnInit, OnDestroy {
-  organization: Team;
+  team: Team;
   visits$: Observable<Visit[]>;
   showNotFound: boolean;
   subscription: Subscription;
 
   constructor(
     public store$: Store<AppState>,
-    private organizationService: OrganizationService,
+    private teamService: TeamService,
     private visitService: VisitService,
     private errorService: ErrorService,
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.organizationService.getByKey('name', this.getOrganizationNameByUrl(), true)
+    this.subscription = this.teamService.getByKey('name', this.getTeamNameByUrl(), true)
       .subscribe(
-        (organizations: Team[]) => {
-          const organization = organizations[0];
-          if (organization) {
-            this.organization = organization;
-            this.visits$ = this.visitService.getByKey('organizationId', organization.id, true);
+        (teams: Team[]) => {
+          const team = teams[0];
+          if (team) {
+            this.team = team;
+            this.visits$ = this.visitService.getByKey('teamId', team.id, true);
           }
           this.store$.dispatch(new LayoutActions.SetHeaderOptions({
-            title: organization ? organization.name : '',
+            title: team ? team.name : '',
             previousUrl: '',
             showLogOut: false,
           }));
-          // Only display error after attempting to fetch organization
-          this.showNotFound = organizations.length === 0;
+          // Only display error after attempting to fetch team
+          this.showNotFound = teams.length === 0;
         },
         (error: any) => {
           this.errorService.handleFirebaseError(error);
@@ -50,7 +50,7 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
     this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
   }
 
-  public getOrganizationNameByUrl(): string {
+  public getTeamNameByUrl(): string {
     const url = window.location.href;
     return decodeURI(url.substr(url.lastIndexOf('/') + 1));
   }

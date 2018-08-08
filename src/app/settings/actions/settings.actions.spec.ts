@@ -1,6 +1,6 @@
 import { createMockCredentials } from '../../../mocks/objects/credentials.mock';
 import { createMockMembers } from '../../../mocks/objects/member.mock';
-import { createMockOrganizations } from '../../../mocks/objects/organization.mock';
+import { createMockTeams } from '../../../mocks/objects/team.mock';
 import { createMockSites } from '../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../mocks/objects/volunteer.mock';
@@ -15,11 +15,11 @@ import {
   GenerateVisitHistoryReport,
   LOAD_PAGE,
   LoadPage,
-  UPDATE_ORGANIZATION,
+  UPDATE_TEAM,
   UPDATE_ROLE,
   UPDATE_USER,
   UPDATE_VISITS,
-  UpdateOrganization,
+  UpdateTeam,
   UpdateRole,
   UpdateUser,
   UpdateVisits,
@@ -61,11 +61,11 @@ describe('settings.actions', () => {
     });
   });
 
-  it('should create an UpdateOrganization action', () => {
-    const payload = createMockOrganizations()[0];
-    expect({ ...new UpdateOrganization(payload) }).toEqual({
+  it('should create an UpdateTeam action', () => {
+    const payload = createMockTeams()[0];
+    expect({ ...new UpdateTeam(payload) }).toEqual({
       payload,
-      type: UPDATE_ORGANIZATION,
+      type: UPDATE_TEAM,
     });
   });
 

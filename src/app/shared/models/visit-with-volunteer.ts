@@ -3,7 +3,7 @@ import { Volunteer } from './volunteer';
 
 export class VisitWithVolunteer {
   id: string;
-  organizationId: string;
+  teamId: string;
   siteId: string;
   volunteerId: string;
   startedAt: Date;
@@ -11,7 +11,7 @@ export class VisitWithVolunteer {
   timezone: string;
   signature: any;
   volunteer: Volunteer;
-  organizationSites: Site[];
+  teamSites: Site[];
   selectedSite: Site;
 
   constructor(
@@ -22,7 +22,7 @@ export class VisitWithVolunteer {
     timezone: string,
     signature: any,
     volunteer: Volunteer,
-    organizationSites: Site[],
+    teamSites: Site[],
     selectedSite: Site,
   ) {
     this.siteId = siteId;
@@ -32,7 +32,7 @@ export class VisitWithVolunteer {
     this.timezone = timezone;
     this.signature = signature;
     this.volunteer = volunteer;
-    this.organizationSites = organizationSites;
+    this.teamSites = teamSites;
     this.selectedSite = selectedSite;
   }
 }

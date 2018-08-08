@@ -26,7 +26,7 @@ export class VisitsEffects {
   loadVisitsForTeam$: Observable<Action> = this.actions.pipe(
     ofType<LoadVisitsForTeam>(VisitsActionTypes.LoadVisitsForTeam),
     map(action => action.payload.teamId),
-    switchMap(teamId => this.visitService.getByKey('organizationId', teamId, true).pipe(
+    switchMap(teamId => this.visitService.getByKey('teamId', teamId, true).pipe(
       map(visits => new LoadVisitsSuccess({ visits })),
     )),
   );

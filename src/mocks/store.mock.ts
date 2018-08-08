@@ -6,9 +6,9 @@ import { initialModelReducerState } from '../app/core/reducers/model.reducer';
 import { settingsReducers } from '../app/settings/reducers';
 import { createMockHeaderOptions } from './objects/header-options.mock';
 import { createMockMembers } from './objects/member.mock';
-import { createMockOrganizations } from './objects/organization.mock';
 import { createMockSidenavOptions } from './objects/sidenav-options.mock';
 import { createMockSites } from './objects/site.mock';
+import { createMockTeams } from './objects/team.mock';
 import { createMockUserInfo } from './objects/user.mock';
 import { createMockVisits } from './objects/visit.mock';
 import { createMockVolunteers } from './objects/volunteer.mock';
@@ -27,8 +27,8 @@ export const mockStoreModules = [
         sites: createMockSites(),
         visits: createMockVisits(),
         volunteers: createMockVolunteers(),
-        teams: createMockOrganizations(),
-        selectedTeamId: createMockOrganizations()[0].id,
+        teams: createMockTeams(),
+        selectedTeamId: createMockTeams()[0].id,
       },
     },
   }),
@@ -36,7 +36,7 @@ export const mockStoreModules = [
     initialState: {
       session: {
         ...initialSessionReducerState,
-        organization: createMockOrganizations()[0],
+        team: createMockTeams()[0],
         member: createMockMembers()[0],
         userInfo: createMockUserInfo()[0],
       },

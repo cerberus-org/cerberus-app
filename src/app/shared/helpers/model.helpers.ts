@@ -17,15 +17,15 @@ export const getIndex = (list: any[], id: string): number => {
 };
 
 /**
- * Filters an array of objects by a given organization ID.
+ * Filters an array of objects by a given team ID.
  *
  * @param {any[]} array - the array to filter
- * @param {string} organizationId - the value to filter by
+ * @param {string} teamId - the value to filter by
  * @returns {any[]} - the filtered array
  */
-export const filterByOrganizationId = (array: any[], organizationId: string) => {
+export const filterByTeamId = (array: any[], teamId: string) => {
   return array.filter(item => (
-    item.organizationId && item.organizationId === organizationId
+    item.teamId && item.teamId === teamId
   ));
 };
 

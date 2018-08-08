@@ -34,7 +34,7 @@ export const selectSettingsSidenavOptions = createSelector(
         new SidenavOptions(
           'Team',
           'domain',
-          new SettingsActions.LoadPage('ORGANIZATION_SETTINGS'),
+          new SettingsActions.LoadPage('TEAM_SETTINGS'),
         ),
         new SidenavOptions(
           'Volunteers',

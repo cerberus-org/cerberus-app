@@ -17,10 +17,10 @@ import { selectSettingsSidenavOptions, selectSettingsSidenavSelection } from '..
         *ngSwitchCase="'USER_SETTINGS'"
       >
       </app-user-settings>
-      <app-organization-settings
-        *ngSwitchCase="'ORGANIZATION_SETTINGS'"
+      <app-team-settings
+        *ngSwitchCase="'TEAM_SETTINGS'"
       >
-      </app-organization-settings>
+      </app-team-settings>
       <app-volunteer-settings
         *ngSwitchCase="'VOLUNTEER_SETTINGS'"
       >
@@ -57,7 +57,7 @@ export class SettingsPageComponent implements OnDestroy {
       showLogOut: true,
     }));
     store$.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
-    store$.dispatch(new ModelActions.LoadOrganizations());
+    store$.dispatch(new ModelActions.LoadTeams());
     this.routeParamsSubscription = route.params
       .pipe(
         switchMap(({ teamId }) => [

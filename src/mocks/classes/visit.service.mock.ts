@@ -9,8 +9,8 @@ export class MockVisitService extends VisitService {
     super(null, null);
   }
 
-  getByOrganizationIdAndDateRange(
-    organizationId: string,
+  getByTeamIdAndDateRange(
+    teamId: string,
     startDate: Date,
     endDate: Date,
     snapshot?: boolean,
@@ -19,7 +19,7 @@ export class MockVisitService extends VisitService {
       .filter(visit =>
         visit.startedAt >= startDate &&
         (!visit.endedAt || visit.endedAt <= endDate) &&
-        visit.organizationId === organizationId,
+        visit.teamId === teamId,
       ));
   }
 

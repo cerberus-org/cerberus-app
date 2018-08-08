@@ -13,8 +13,8 @@ export const LOAD_VISITS_SUCCESS = '[Model] Load visits success';
 export const LOAD_VOLUNTEERS = '[Model] Load volunteers';
 export const LOAD_VOLUNTEERS_SUCCESS = '[Model] Load volunteers success';
 
-export const LOAD_ORGANIZATIONS = '[Model] Load organizations';
-export const LOAD_ORGANIZATIONS_SUCCESS = '[Model] Load organizations success';
+export const LOAD_TEAMS = '[Model] Load teams';
+export const LOAD_TEAMS_SUCCESS = '[Model] Load teams success';
 
 export const SELECT_TEAM = '[Model] Set Selected Team';
 
@@ -66,12 +66,12 @@ export class LoadVolunteersSuccess implements Action {
   constructor(public payload: Volunteer[]) {}
 }
 
-export class LoadOrganizations implements Action {
-  readonly type = LOAD_ORGANIZATIONS;
+export class LoadTeams implements Action {
+  readonly type = LOAD_TEAMS;
 }
 
-export class LoadOrganizationsSuccess implements Action {
-  readonly type = LOAD_ORGANIZATIONS_SUCCESS;
+export class LoadTeamsSuccess implements Action {
+  readonly type = LOAD_TEAMS_SUCCESS;
 
   constructor(public payload: Team[]) {}
 }
@@ -91,6 +91,6 @@ export type All
   | LoadVisitsSuccess
   | LoadVolunteers
   | LoadVolunteersSuccess
-  | LoadOrganizations
-  | LoadOrganizationsSuccess
+  | LoadTeams
+  | LoadTeamsSuccess
   | SelectTeam;

@@ -12,7 +12,7 @@ import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer'
 export class VisitDialogComponent implements OnInit {
   endedAt: string;
   selectedSite: Site;
-  organizationSites: Site[];
+  teamSites: Site[];
   color: string;
   bold: string;
 
@@ -20,7 +20,7 @@ export class VisitDialogComponent implements OnInit {
     // If data was passed in, set default fields
     this.endedAt = this.data && this.data.endedAt ? formatTimeInputValue(this.data.endedAt, this.data.endedAt.timezone) : '';
     this.selectedSite = this.data ? Object.assign({}, this.data.selectedSite) : null;
-    this.organizationSites = this.data && this.data.organizationSites ? this.data.organizationSites.slice() : [];
+    this.teamSites = this.data && this.data.teamSites ? this.data.teamSites.slice() : [];
   }
 
   ngOnInit(): void {
@@ -71,7 +71,7 @@ export class VisitDialogComponent implements OnInit {
    * Close dialog and pass back data.
    */
   close() {
-    this.data.selectedSite = this.organizationSites.find(site => site.label === this.selectedSite.label);
+    this.data.selectedSite = this.teamSites.find(site => site.label === this.selectedSite.label);
     // If there was  data passed in this dialog was opened for edit
     this.dialogRef.close(this.data);
   }

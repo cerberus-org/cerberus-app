@@ -19,12 +19,12 @@ import { SignUpDialogComponent } from '../sign-up-dialog/sign-up-dialog.componen
           </mat-tab>
           <mat-tab label="View Activity">
             <div class="grid grid--center">
-              <h2>Search for your organization to view live activity data.</h2>
+              <h2>Search for your team to view live activity data.</h2>
               <app-team-search
                 [showTitle]="false"
                 [showInputIconButton]="true"
-                (iconButtonClick)="onInputIconButtonClick(organization)"
-                (selectTeam)="onValidOrganization($event)">
+                (iconButtonClick)="onInputIconButtonClick(team)"
+                (selectTeam)="onValidTeam($event)">
               </app-team-search>
             </div>
           </mat-tab>
@@ -38,21 +38,21 @@ import { SignUpDialogComponent } from '../sign-up-dialog/sign-up-dialog.componen
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  organization: Team;
+  team: Team;
 
   constructor(private dialog: MatDialog, public store$: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store$.dispatch(new LayoutActions.SetHeaderOptions(null));
-    this.store$.dispatch(new ModelActions.LoadOrganizations());
+    this.store$.dispatch(new ModelActions.LoadTeams());
   }
 
-  onValidOrganization(organization: Team): void {
-    this.organization = organization;
+  onValidTeam(team: Team): void {
+    this.team = team;
   }
 
-  onInputIconButtonClick(organization: Team) {
-    this.store$.dispatch(new RouterActions.Go({ path: ['view-activity/' + organization.name] }));
+  onInputIconButtonClick(team: Team) {
+    this.store$.dispatch(new RouterActions.Go({ path: ['view-activity/' + team.name] }));
   }
 
   onClickSignUp() {

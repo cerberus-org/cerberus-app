@@ -1,13 +1,13 @@
 import { createMockMembers } from '../../../mocks/objects/member.mock';
-import { createMockOrganizations } from '../../../mocks/objects/organization.mock';
+import { createMockTeams } from '../../../mocks/objects/team.mock';
 import { createMockSites } from '../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import {
   LOAD_MEMBERS,
   LOAD_MEMBERS_SUCCESS,
-  LOAD_ORGANIZATIONS,
-  LOAD_ORGANIZATIONS_SUCCESS,
+  LOAD_TEAMS,
+  LOAD_TEAMS_SUCCESS,
   LOAD_SITES,
   LOAD_SITES_SUCCESS,
   LOAD_VISITS,
@@ -16,8 +16,8 @@ import {
   LOAD_VOLUNTEERS_SUCCESS,
   LoadMembers,
   LoadMembersSuccess,
-  LoadOrganizations,
-  LoadOrganizationsSuccess,
+  LoadTeams,
+  LoadTeamsSuccess,
   LoadSites,
   LoadSitesSuccess,
   LoadVisits,
@@ -91,17 +91,17 @@ describe('model.actions', () => {
     });
   });
 
-  it('should create a LoadOrganizations action', () => {
-    expect({ ...new LoadOrganizations() }).toEqual({
-      type: LOAD_ORGANIZATIONS,
+  it('should create a LoadTeams action', () => {
+    expect({ ...new LoadTeams() }).toEqual({
+      type: LOAD_TEAMS,
     });
   });
 
-  it('should create a LoadOrganizationsSuccess action', () => {
-    const payload = createMockOrganizations();
-    expect({ ...new LoadOrganizationsSuccess(payload) }).toEqual({
+  it('should create a LoadTeamsSuccess action', () => {
+    const payload = createMockTeams();
+    expect({ ...new LoadTeamsSuccess(payload) }).toEqual({
       payload,
-      type: LOAD_ORGANIZATIONS_SUCCESS,
+      type: LOAD_TEAMS_SUCCESS,
     });
   });
 });

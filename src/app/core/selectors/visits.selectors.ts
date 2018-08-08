@@ -11,5 +11,5 @@ export const {
 export const getVisitsForSelectedTeam = createSelector(
   getAllVisits,
   getSelectedTeamId,
-  (visits, teamId) => visits.filter(visit => visit.organizationId === teamId),
+  (visits, teamId) => visits.filter(visit => visit.teamId === teamId),
 );

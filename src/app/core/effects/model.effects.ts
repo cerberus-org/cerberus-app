@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import * as ModelActions from '../actions/model.actions';
 import { MemberService } from '../services/member.service';
-import { OrganizationService } from '../services/organization.service';
+import { TeamService } from '../services/team.service';
 import { SiteService } from '../services/site.service';
 import { VisitService } from '../services/visit.service';
 import { VolunteerService } from '../services/volunteer.service';
@@ -14,73 +14,73 @@ import { VolunteerService } from '../services/volunteer.service';
 export class ModelEffects {
 
   /**
-   * Listen for the LoadSites action, get the sites by organizationId,
+   * Listen for the LoadSites action, get the sites by teamId,
    * then dispatch the success action.
    */
   @Effect()
   loadSites$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_SITES)
     .pipe(
       map((action: ModelActions.LoadSites) => action.payload),
-      switchMap(organizationId => this.siteService
-        .getByKey('organizationId', organizationId, true)
+      switchMap(teamId => this.siteService
+        .getByKey('teamId', teamId, true)
         .pipe(
           map(sites => new ModelActions.LoadSitesSuccess(sites)),
         )),
     );
 
   /**
-   * Listen for the LoadMembers action, get the members by organizationId,
+   * Listen for the LoadMembers action, get the members by teamId,
    * then dispatch the success action.
    */
   @Effect()
   loadMembers$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_MEMBERS)
     .pipe(
       map((action: ModelActions.LoadMembers) => action.payload),
-      switchMap(organizationId => this.memberService
-        .getByKey('organizationId', organizationId, true)
+      switchMap(teamId => this.memberService
+        .getByKey('teamId', teamId, true)
         .pipe(
           map(members => new ModelActions.LoadMembersSuccess(members)),
         )),
     );
 
   /**
-   * Listen for the LoadVisits action, get the visits by organizationId,
+   * Listen for the LoadVisits action, get the visits by teamId,
    * then dispatch the success action.
    */
   @Effect()
   loadVisits$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_VISITS)
     .pipe(
       map((action: ModelActions.LoadVisits) => action.payload),
-      switchMap(organizationId => this.visitService
-        .getByKey('organizationId', organizationId, true)
+      switchMap(teamId => this.visitService
+        .getByKey('teamId', teamId, true)
         .pipe(
           map(visits => new ModelActions.LoadVisitsSuccess(visits)),
         )),
     );
 
   /**
-   * Listen for the LoadVisits action, get the volunteers by organizationId,
+   * Listen for the LoadVisits action, get the volunteers by teamId,
    * then dispatch the success action.
    */
   @Effect()
   loadVolunteers$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_VOLUNTEERS)
     .pipe(
       map((action: ModelActions.LoadVolunteers) => action.payload),
-      switchMap(organizationId => this.volunteerService
-        .getByKey('organizationId', organizationId, true)
+      switchMap(teamId => this.volunteerService
+        .getByKey('teamId', teamId, true)
         .pipe(
           map(volunteers => new ModelActions.LoadVolunteersSuccess(volunteers)),
         )),
     );
 
   @Effect()
-  loadOrganizations$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_ORGANIZATIONS)
+  loadTeams$: Observable<Action> = this.actions.ofType(ModelActions.LOAD_TEAMS)
     .pipe(
-      map((action: ModelActions.LoadOrganizations) => action),
-      switchMap(() => this.organizationService
+      map((action: ModelActions.LoadTeams) => action),
+      switchMap(() => this.teamService
         .getAll(true)
         .pipe(
-          map(organizations => new ModelActions.LoadOrganizationsSuccess(organizations)),
+          map(teams => new ModelActions.LoadTeamsSuccess(teams)),
         )),
     );
 
@@ -90,6 +90,6 @@ export class ModelEffects {
     private memberService: MemberService,
     private visitService: VisitService,
     private volunteerService: VolunteerService,
-    private organizationService: OrganizationService,
+    private teamService: TeamService,
   ) {}
 }

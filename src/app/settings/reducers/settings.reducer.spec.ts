@@ -6,9 +6,9 @@ describe('settingsReducer', () => {
     it('sets the sidenav selection', () => {
       const state = fromSettings.settingsReducer(
         fromSettings.initialSettingsReducerState,
-        new SettingsActions.LoadPage('organization'),
+        new SettingsActions.LoadPage('team'),
       );
-      expect(state.sidenavSelection).toEqual('organization');
+      expect(state.sidenavSelection).toEqual('team');
     });
   });
 });

@@ -4,20 +4,20 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { LoadTeams, LoadTeamsSuccess, TeamsActionTypes } from '../actions/teams.actions';
-import { OrganizationService } from '../services/organization.service';
+import { TeamService } from '../services/team.service';
 
 @Injectable()
 export class TeamsEffects {
 
   constructor(
     private actions: Actions,
-    private organizationService: OrganizationService,
+    private teamService: TeamService,
   ) {}
 
   @Effect()
   loadTeams$: Observable<Action> = this.actions.pipe(
     ofType<LoadTeams>(TeamsActionTypes.LoadTeams),
-    switchMap(() => this.organizationService.getAll(true).pipe(
+    switchMap(() => this.teamService.getAll(true).pipe(
       map(teams => new LoadTeamsSuccess({ teams })),
     )),
   );

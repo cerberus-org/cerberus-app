@@ -8,7 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { SiteDialogComponent } from './components/site-dialog/site-dialog.component';
 import { VisitDialogComponent } from './components/visit-dialog/visit-dialog.component';
-import { OrganizationSettingsComponent } from './containers/organization-settings/organization-settings.component';
+import { TeamSettingsComponent } from './containers/team-settings/team-settings.component';
 import { ReportsComponent } from './containers/reports/reports.component';
 import { RolesComponent } from './containers/roles/roles.component';
 import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
@@ -34,7 +34,7 @@ import { SettingsRoutingModule } from './settings-routing.module';
   ],
   declarations: [
     SiteSettingsComponent,
-    OrganizationSettingsComponent,
+    TeamSettingsComponent,
     RolesComponent,
     ReportsComponent,
     ReportsFormComponent,

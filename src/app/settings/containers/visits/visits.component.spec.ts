@@ -43,7 +43,7 @@ describe('Visits Component', () => {
     visitWithVolunteer = {
       ...createMockVisits()[0],
       volunteer: createMockVolunteers()[0],
-      organizationSites: createMockSites(),
+      teamSites: createMockSites(),
       selectedSite: createMockSites()[0],
     };
     fixture.detectChanges();

@@ -37,7 +37,7 @@ export class SnackBarService {
     return this.open('Visits were successfully updated');
   }
 
-  updateOrganizationSuccess(): MatSnackBarRef<SimpleSnackBar> {
+  updateTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('Team information successfully updated.');
   }
 
@@ -50,7 +50,7 @@ export class SnackBarService {
   }
 
   joinTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Successfully requested to join an organization.');
+    return this.open('Successfully requested to join an team.');
   }
 
   createTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
@@ -62,7 +62,7 @@ export class SnackBarService {
   }
 
   resetPassword(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('If your email is associated with an organization, you will receive an email.');
+    return this.open('If your email is associated with an team, you will receive an email.');
   }
 
   signInError(): MatSnackBarRef<SimpleSnackBar> {
