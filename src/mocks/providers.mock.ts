@@ -1,3 +1,4 @@
+import { MatDialogRef } from '@angular/material';
 import { AuthService } from '../app/auth/services/auth.service';
 import { ErrorService } from '../app/core/services/error.service';
 import { MemberService } from '../app/core/services/member.service';
@@ -17,7 +18,11 @@ import { MockUserService } from './classes/user.service.mock';
 import { MockVisitService } from './classes/visit.service.mock';
 import { MockVolunteerService } from './classes/volunteer.service.mock';
 
-export const mockServiceProviders = [
+class MatDialogRefMock {
+  close() { }
+}
+
+export const mockProviders = [
   { provide: AuthService, useClass: MockAuthService },
   { provide: CsvService, useClass: MockCsvService },
   { provide: ErrorService, useClass: MockErrorService },
@@ -27,4 +32,5 @@ export const mockServiceProviders = [
   { provide: MemberService, useClass: MockUserService },
   { provide: VisitService, useClass: MockVisitService },
   { provide: VolunteerService, useClass: MockVolunteerService },
+  { provide: MatDialogRef, useClass: MatDialogRefMock },
 ];

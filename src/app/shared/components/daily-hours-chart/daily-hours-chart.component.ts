@@ -21,6 +21,15 @@ export class DailyHoursChartComponent implements OnChanges {
         bottom: 10,
       },
     },
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
   };
 
   ngOnChanges(changes: SimpleChanges): void {

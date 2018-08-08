@@ -8,6 +8,7 @@ export interface ModelReducerState {
   visits: Visit[];
   volunteers: Volunteer[];
   organizations: Organization[];
+  selectedTeamId: string;
 }
 
 export const initialModelReducerState: ModelReducerState = {
@@ -16,6 +17,7 @@ export const initialModelReducerState: ModelReducerState = {
   visits: null,
   volunteers: null,
   organizations: null,
+  selectedTeamId: null,
 };
 
 export type Action = ModelActions.All;
@@ -54,6 +56,13 @@ export function modelReducer(state = initialModelReducerState, action: Action): 
       return {
         ...state,
         organizations: action.payload,
+      };
+    }
+
+    case ModelActions.SELECT_TEAM: {
+      return {
+        ...state,
+        selectedTeamId: action.payload.teamId,
       };
     }
 

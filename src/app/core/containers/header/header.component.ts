@@ -13,7 +13,37 @@ import { HeaderState, selectHeaderState } from '../../selectors/layout.selectors
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-header',
-  templateUrl: './header.component.html',
+  template: `
+    <mat-toolbar *ngIf="(headerState$ | async)" color="primary">
+      <button
+        *ngIf="(headerState$ | async)?.previousUrl"
+        id="back-button"
+        mat-icon-button
+        (click)="onBack()"
+      >
+        <i class="material-icons">keyboard_backspace</i>
+      </button>
+      <button
+        *ngIf="(headerState$ | async)?.showToggleSidenav"
+        id="toggle-sidenav-button"
+        class="show-xs"
+        mat-icon-button
+        (click)="onToggleSidenav()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="title-text">{{(headerState$ | async)?.title}}</span>
+      <span class="spacer"></span>
+      <button
+        *ngIf="(headerState$ | async)?.showLogOut"
+        id="log-out-button"
+        mat-icon-button
+        (click)="onLogOut()"
+      >
+        <i class="material-icons">exit_to_app</i>
+      </button>
+    </mat-toolbar>
+  `,
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {

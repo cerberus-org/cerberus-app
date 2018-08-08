@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material';
 import { SharedModule } from '../shared/shared.module';
+import { AppComponent } from './containers/app/app.component';
 import { HeaderComponent } from './containers/header/header.component';
-import { AppComponent } from './containers/root/app.component';
 import { SidenavComponent } from './containers/sidenav/sidenav.component';
 
 export const COMPONENTS = [

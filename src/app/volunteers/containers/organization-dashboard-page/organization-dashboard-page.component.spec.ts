@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { mockServiceProviders } from '../../../../mocks/providers.mock';
+import { mockProviders } from '../../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { OrganizationDashboardPageComponent } from './organization-dashboard-page.component';
 
@@ -20,7 +20,7 @@ describe('OrganizationDashboardPageComponent', () => {
         ...mockStoreModules,
       ],
       providers: [
-        ...mockServiceProviders,
+        ...mockProviders,
       ],
     })
       .compileComponents();

@@ -1,21 +1,17 @@
-<form
-  class="container-center loose"
-  autocomplete="off"
-  nonvalidate
-  [formGroup]="loginForm"
-  (ngSubmit)="onLogin()">
-  <h2>Login to activate your organization's check-in system.</h2>
-  <div class="container-center">
-    <mat-form-field>
-      <input type="email" matInput placeholder='email' class="form-control" formControlName='email' email>
+<h2>Login to view your teams.</h2>
+<div class="grid grid--center grid--row-gap">
+  <form class="input-container" autocomplete="off" nonvalidate [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <mat-form-field class="input-container__row">
+      <input matInput type="email" placeholder='email' formControlName='email'>
     </mat-form-field>
-    <mat-form-field>
-      <input autocomplete="off" [type]="hidePwd ? 'password' : 'text'" matInput placeholder='password' class="form-control" formControlName='password'>
-      <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{hidePwd ? 'visibility' : 'visibility_off'}}</mat-icon>
+    <mat-form-field class="input-container__row">
+      <input matInput type="password" placeholder='password' formControlName='password'>
     </mat-form-field>
-    <button mat-raised-button="" id="submit-btn" color="primary" [disabled]="loginForm.invalid">Submit</button>
-  </div>
-</form>
-<div class="container-center loose">
-  <span class="forgot-pwd" (click)="onForgotPassword()">Forgot password?</span>
+    <div class="grid grid--center">
+      <button mat-raised-button class="input-container__row" id="submit-btn" color="primary" [disabled]="loginForm.invalid">Submit</button>
+    </div>
+    <div class="grid grid--center">
+      <span class="forgot-pwd" (click)="onForgotPassword()">Forgot password?</span>
+    </div>
+  </form>
 </div>

@@ -13,20 +13,20 @@ export class SnackBarService {
     return this.snackBar.open(message, action, { duration });
   }
 
-  signInSuccess(name: string): MatSnackBarRef<SimpleSnackBar> {
-    return this.open(`Welcome, ${name}.`);
+  signInSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open(`Welcome.`);
   }
 
   signOutSuccess(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('You have been successfully logged out.');
   }
 
-  createOrganizationSuccess(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Your organization was successfully added.');
+  createVolunteerSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Volunteer successfully signed up.');
   }
 
-  signUpSuccess(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Volunteer successfully signed up.');
+  createUserSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('User successfully created.');
   }
 
   updateUserSuccess(): MatSnackBarRef<SimpleSnackBar> {
@@ -49,12 +49,12 @@ export class SnackBarService {
     return this.open('Volunteer successfully checked out.');
   }
 
-  joinOrganizationSuccess(): MatSnackBarRef<SimpleSnackBar> {
+  joinTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('Successfully requested to join an organization.');
   }
 
-  invalidOrganization(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Invalid organization.');
+  createTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Your team was successfully created.');
   }
 
   accountNotVerified(): MatSnackBarRef<SimpleSnackBar> {

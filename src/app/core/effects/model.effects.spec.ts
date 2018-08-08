@@ -6,7 +6,7 @@ import { mockOrganizations } from '../../../mocks/objects/organization.mock';
 import { mockSites } from '../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../mocks/objects/volunteer.mock';
-import { mockServiceProviders } from '../../../mocks/providers.mock';
+import { mockProviders } from '../../../mocks/providers.mock';
 import { filterByOrganizationId } from '../../shared/helpers';
 import * as ModelActions from '../actions/model.actions';
 import { ModelEffects } from './model.effects';
@@ -22,7 +22,7 @@ describe('ModelEffects', () => {
       providers: [
         ModelEffects,
         provideMockActions(() => actions),
-        ...mockServiceProviders,
+        ...mockProviders,
       ],
     });
     effects = TestBed.get(ModelEffects);

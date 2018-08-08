@@ -1,6 +1,6 @@
 <app-loader id="data-display-loader" *ngIf="loading; else loaded"></app-loader>
 <ng-template #loaded>
-  <mat-tab-group id="data-display-tab-group" mat-stretch-tabs #tabGroup>
+  <mat-tab-group id="data-display-tab-group" #tabGroup>
     <mat-tab label="Daily Hours">
       <app-daily-hours-chart [visits]="visits$ | async"></app-daily-hours-chart>
     </mat-tab>

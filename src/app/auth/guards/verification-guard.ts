@@ -29,7 +29,7 @@ export class VerificationGuard implements CanActivate {
       return true;
     }
     this.store$.dispatch(
-      new RouterActions.Go({ path: ['organization/volunteers'] }),
+      new RouterActions.Go({ path: ['teams'] }),
     );
     return false;
   }

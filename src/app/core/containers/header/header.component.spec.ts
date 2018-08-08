@@ -41,7 +41,7 @@ describe('HeaderComponent', () => {
   it('should select the header state', async(() => {
     component.headerState$.subscribe((value) => {
       expect(value).toEqual({
-        options: createMockHeaderOptions()[0],
+        ...createMockHeaderOptions()[0],
         showLogOut: true,
         showToggleSidenav: true,
       });
@@ -70,19 +70,6 @@ describe('HeaderComponent', () => {
         const toggleSidenavButton = fixture.debugElement.query(By.css('#back-button'));
         toggleSidenavButton.triggerEventHandler('click', {});
         expect(dispatch).toHaveBeenCalledWith(new RouterActions.Back());
-      });
-    });
-  }));
-
-  it('should handle clicks to the settings button by opening the password dialog', async(() => {
-    const openAndSubscribeToPasswordDialog = spyOn(component, 'openAndSubscribeToPasswordDialog');
-    component.headerState$.subscribe(() => {
-      fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        const toggleSidenavButton = fixture.debugElement.query(By.css('#settings-button'));
-        toggleSidenavButton.triggerEventHandler('click', {});
-        expect(openAndSubscribeToPasswordDialog).toHaveBeenCalled();
       });
     });
   }));

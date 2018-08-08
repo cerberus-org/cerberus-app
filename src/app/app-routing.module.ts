@@ -7,18 +7,23 @@ export const routes: Routes = [
     loadChildren: './public/public.module#PublicModule',
   },
   {
-    path: 'organization/volunteers',
+    path: 'teams',
+    loadChildren: './teams/teams.module#TeamsModule',
+  },
+  {
+    path: 'teams/:teamId/volunteers',
     loadChildren: './volunteers/volunteers.module#VolunteersModule',
   },
   {
-    path: 'organization/settings',
+    path: 'teams/:teamId/settings',
     loadChildren: './settings/settings.module#SettingsModule',
   },
-  { path: '**', redirectTo: 'organization/volunteers', pathMatch: 'full' },
+  { path: '**', redirectTo: 'teams', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

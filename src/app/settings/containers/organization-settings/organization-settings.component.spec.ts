@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { createMockOrganizations } from '../../../../mocks/objects/organization.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
+import { MaterialModule } from '../../../material';
 import * as SettingsActions from '../../actions/settings.actions';
 import { OrganizationSettingsComponent } from './organization-settings.component';
 
@@ -11,12 +12,13 @@ describe('OrganizationSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MaterialModule,
+        ...mockStoreModules,
+      ],
       declarations: [
         OrganizationSettingsComponent,
-        MockComponent({ selector: 'app-organization-form', inputs: ['initialOrganization'] }),
-      ],
-      imports: [
-        ...mockStoreModules,
+        MockComponent({ selector: 'app-team-form', inputs: ['initialTeam'] }),
       ],
     })
       .compileComponents();

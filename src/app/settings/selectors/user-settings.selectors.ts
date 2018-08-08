@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
-import { selectSessionMember, selectSessionUserInfo } from '../../auth/selectors/session.selectors';
+import { selectSessionUserInfo } from '../../auth/selectors/session.selectors';
+import { getMemberForSelectedTeam } from '../../core/selectors/model.selectors';
 import { Member } from '../../shared/models';
 
 export interface UserSettingsContainerState {
@@ -9,7 +10,7 @@ export interface UserSettingsContainerState {
 }
 
 export const selectUserSettingsContainerState = createSelector(
-  selectSessionMember,
+  getMemberForSelectedTeam,
   selectSessionUserInfo,
   (member: Member, userInfo: UserInfo): UserSettingsContainerState => ({ member, email: userInfo.email }),
 );

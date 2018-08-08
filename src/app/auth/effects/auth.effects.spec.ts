@@ -4,7 +4,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { createMockCredentials } from '../../../mocks/objects/credentials.mock';
-import { mockServiceProviders } from '../../../mocks/providers.mock';
+import { mockProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
 import * as RouterActions from '../../core/actions/router.actions';
 import { SnackBarService } from '../../core/services/snack-bar.service';
@@ -20,7 +20,7 @@ describe('AuthEffects', () => {
       providers: [
         AuthEffects,
         provideMockActions(() => actions),
-        ...mockServiceProviders,
+        ...mockProviders,
       ],
       imports: [
         RouterTestingModule,
@@ -37,19 +37,9 @@ describe('AuthEffects', () => {
         a: new AuthActions.SignIn(createMockCredentials()[0]),
       });
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['organization/volunteers'] }),
+        b: new RouterActions.Go({ path: ['teams'] }),
       });
       expect(effects.signIn$).toBeObservable(expected);
-    });
-
-    it('should open the accountNotVerified snackbar if role is locked', () => {
-      actions = hot('a', {
-        a: new AuthActions.SignIn(createMockCredentials()[2]),
-      });
-      const accountNotVerifiedSpy = spyOn(TestBed.get(SnackBarService), 'accountNotVerified');
-      effects.signIn$.subscribe(() => {
-        expect(accountNotVerifiedSpy).toHaveBeenCalled();
-      });
     });
 
     it('should open the signInSuccess snackbar', () => {

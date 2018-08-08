@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/index';
-import { selectSessionMember } from '../../../auth/selectors/session.selectors';
 import { AppState } from '../../../core/reducers';
+import { getMemberForSelectedTeam } from '../../../core/selectors/model.selectors';
 import { Member, Site } from '../../../shared/models';
 
 @Component({
@@ -27,7 +27,7 @@ export class SiteDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.memberSubscription = this.store$.pipe(select(selectSessionMember)).
+    this.memberSubscription = this.store$.pipe(select(getMemberForSelectedTeam)).
     subscribe((member: Member) => {
       this.member = member;
     });

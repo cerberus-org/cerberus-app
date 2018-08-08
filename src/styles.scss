@@ -18,9 +18,12 @@ html, body {
 }
 
 h1, h2, h3, h4 {
-  margin: 1rem;
   font-weight: 400;
-  line-height: 1.25;
+}
+
+p {
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 .center-text {
@@ -30,13 +33,14 @@ h1, h2, h3, h4 {
   text-align: center;
 }
 
-p {
-  margin: 1rem;
-  font-weight: 400;
-}
-
 input.capitalize {
   text-transform: capitalize;
+}
+
+.icon-image {
+  font-size: 10rem;
+  text-align: center;
+  color: mediumaquamarine;
 }
 
 .header-spacing {
@@ -59,11 +63,88 @@ input.capitalize {
   }
 }
 
-.container-submit {
-  display: grid;
-  justify-items: end;
-  margin: 2rem;
+.wrapper {
+  max-width: 940px;
+  padding: 0 20px;
+  margin: 0 auto 40px;
 }
+
+.grid {
+  display: grid;
+
+  &.grid--row-gap {
+    grid-row-gap: 1rem;
+  }
+
+  &.grid--center {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.grid--inline {
+    grid-auto-flow: column;
+    grid-gap: 0.5rem;
+    align-items: center;
+  }
+
+  &.grid--submit {
+    justify-items: end;
+    margin: 2rem;
+  }
+
+  .grid__left {
+    display: grid;
+    grid-auto-flow: column;
+    justify-self: start;
+  }
+
+  .grid__right {
+    display: grid;
+    grid-auto-flow: column;
+    justify-self: end;
+  }
+}
+
+.margin {
+  margin: 27px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+.actions-container {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: end;
+  grid-column-gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.input-container {
+  display: grid;
+  max-width: 300px;
+  margin: auto;
+
+  .input-container__row {
+    justify-self: stretch;
+  }
+}
+
+.dialog {
+  max-width: 490px;
+}
+
+.subtitle {
+  margin-top: -4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: rgba(0,0,0,.54)
+}
+
+// TODO: Delete these in favor of BEM classes
 
 .container-center {
   width: 100%;
@@ -78,13 +159,6 @@ input.capitalize {
   grid-gap: 0.5rem;
 }
 
-.container-stretch {
-  width: 100%;
-  display: grid;
-  align-items: center;
-  justify-content: stretch;
-}
-
 .container-submit {
   display: grid;
   justify-items: end;
@@ -96,19 +170,14 @@ input.capitalize {
   grid-row-gap: 1rem;
 }
 
-.container {
-  &.container--row-gap {
-    grid-row-gap: 1rem;
-  }
-}
-
 .text-center {
   text-align: center;
 }
 
 .input-row {
-  width: calc(360px + 0.5rem);
-  max-width: calc(100vw - 2rem);
+  justify-self: center;
+  width: 368px;
+  max-width: calc(100%);
 }
 
 .hide-xs {

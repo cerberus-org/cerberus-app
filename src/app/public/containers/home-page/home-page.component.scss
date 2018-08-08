@@ -1,18 +1,22 @@
+:host {
+  height: 100%;
+  display: grid;
+  align-items: center;
+}
+
 .mat-tab-group {
-  height: 430px;
+  height: 350px;
   width: 450px;
 }
 
+/deep/ .mat-tab-body-content {
+  margin: 0 2rem;
+}
+
 .mat-card {
-  padding: 0px;
+  padding: 0;
 }
 
-/deep/ {
-  .mat-tab-label {
-    width: 100%;
-  }
-}
-
-.home-buttons {
+.gray {
   color: lightslategray;
 }

@@ -3,15 +3,17 @@ import { MatDialog, MatVerticalStepper } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import * as LayoutActions from '../../../core/actions/layout.actions';
+import * as ModelActions from '../../../core/actions/model.actions';
 import { AppState } from '../../../core/reducers';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import { Visit, Volunteer } from '../../../shared/models';
 import * as CheckInActions from '../../actions/check-in.actions';
 import {
   CheckInContainerState,
+  getCheckInHeaderOptions,
   selectCheckInContainerState,
-  selectCheckInHeaderOptions,
 } from '../../selectors/check-in.selectors';
 
 @Component({
@@ -21,16 +23,31 @@ import {
 })
 export class CheckInPageComponent implements OnInit, OnDestroy {
   private headerSubscription: Subscription;
+  private routeParamsSubscription: Subscription;
+
   @ViewChild('stepper') stepper: MatVerticalStepper;
   state$: Observable<CheckInContainerState>;
   organizationId: string;
   siteId: string;
 
-  constructor(
-    private store$: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
-    public dialog: MatDialog,
-  ) {}
+  constructor(public dialog: MatDialog, private route: ActivatedRoute, private store$: Store<AppState>) {
+    store$.dispatch(new ModelActions.LoadOrganizations());
+    this.routeParamsSubscription = route.params
+      .pipe(switchMap(({ teamId }) => [
+        new ModelActions.SelectTeam({ teamId }),
+        new ModelActions.LoadVisits(teamId),
+        new ModelActions.LoadVolunteers(teamId),
+      ]))
+      .subscribe(store$);
+    this.headerSubscription = store$
+      .pipe(
+        select(getCheckInHeaderOptions),
+        map(headerOptions => new LayoutActions.SetHeaderOptions(headerOptions)),
+      )
+      .subscribe(store$);
+    store$.dispatch(new LayoutActions.SetSidenavOptions(null));
+    this.state$ = store$.pipe(select(selectCheckInContainerState));
+  }
 
   get checkInOutFormTitle() {
     return this.isCheckIn(window.location.href)
@@ -45,15 +62,7 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.stepper.selectedIndex = this.isCheckIn(window.location.href) ?
-      0 : 2;
-    this.siteId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.headerSubscription = this.store$.pipe(select(selectCheckInHeaderOptions))
-      .subscribe((headerOptions) => {
-        this.store$.dispatch(new LayoutActions.SetHeaderOptions(headerOptions));
-      });
-    this.state$ = this.store$.pipe(select(selectCheckInContainerState));
-    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
+    this.stepper.selectedIndex = this.isCheckIn(window.location.href) ? 0 : 2;
   }
 
   isCheckIn(url): boolean {
@@ -61,9 +70,8 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.headerSubscription) {
-      this.headerSubscription.unsubscribe();
-    }
+    this.headerSubscription.unsubscribe();
+    this.routeParamsSubscription.unsubscribe();
   }
 
   onCheckIn(visit: Visit): void {
