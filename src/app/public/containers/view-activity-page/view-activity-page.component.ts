@@ -49,7 +49,7 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
           this.errorService.handleFirebaseError(error);
         },
       );
-    this.store$.dispatch(new SetSidenavOptions(null));
+    this.store$.dispatch(new SetSidenavOptions({ sidenavOptions: null }));
   }
 
   public getTeamNameByUrl(): string {

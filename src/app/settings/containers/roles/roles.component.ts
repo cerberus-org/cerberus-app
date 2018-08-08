@@ -38,11 +38,7 @@ export class RolesComponent implements OnInit {
     this.members$ = this.store$.pipe(select(getMembersWithRoleOptions));
   }
 
-  onUpdateUser(user: Member) {
-    this.store$.dispatch(new UpdateRole(user));
-  }
-
-  onDeleteUser($event) {
-    // TODO: Implement me
+  onUpdateRole(member: Member) {
+    this.store$.dispatch(new UpdateRole({ member }));
   }
 }

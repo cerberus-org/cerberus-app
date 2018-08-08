@@ -33,14 +33,11 @@ export class SiteSettingsComponent {
   }
 
   onDeleteSite(site: Site): void {
-    this.store$.dispatch(new DeleteSite(site));
+    this.store$.dispatch(new DeleteSite({ site }));
   }
 
   onEditSite(site: Site): void {
-    this.openDialogForEdit(site);
-  }
-
-  onUpdateSite(site: Site): void {
+    this.openEditSiteDialog(site);
   }
 
   /**
@@ -48,13 +45,13 @@ export class SiteSettingsComponent {
    *
    * @param site
    */
-  openDialogForEdit(site) {
+  openEditSiteDialog(site) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = site;
     const dialog = this.dialog.open(SiteDialogComponent, dialogConfig);
-    dialog.afterClosed().subscribe((siteOnClose: Site) => {
-      if (siteOnClose) {
-        this.store$.dispatch(Object.assign({}, new UpdateSite(siteOnClose)));
+    dialog.afterClosed().subscribe((site: Site) => {
+      if (site) {
+        this.store$.dispatch(Object.assign({}, new UpdateSite({ site })));
       }
     });
   }
@@ -64,11 +61,11 @@ export class SiteSettingsComponent {
    *
    * @param {Site} site
    */
-  openDialogForCreation(site?: Site) {
+  openCreateSiteDialog(site?: Site) {
     const dialog = this.dialog.open(SiteDialogComponent);
     dialog.afterClosed().subscribe((site: Site) => {
       if (site && site.name) {
-        this.store$.dispatch(Object.assign({}, new CreateSite(site)));
+        this.store$.dispatch(Object.assign({}, new CreateSite({ site })));
       }
     });
   }

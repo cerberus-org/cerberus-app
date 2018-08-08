@@ -52,7 +52,7 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
       })),
     )
       .subscribe(store$);
-    store$.dispatch(new SetSidenavOptions(null));
+    store$.dispatch(new SetSidenavOptions({ sidenavOptions: null }));
     this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
     this.volunteers$ = store$.pipe(
       select(getVolunteersForSelectedTeam),
@@ -70,9 +70,7 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   }
 
   get checkInOutStepperTitle() {
-    return this.isCheckIn(window.location.href)
-      ? 'Check in'
-      : 'Check out';
+    return this.isCheckIn(window.location.href) ? 'Check in' : 'Check out';
   }
 
   ngOnInit(): void {
@@ -89,15 +87,15 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   }
 
   onCheckIn(visit: Visit): void {
-    this.store$.dispatch(new CheckIn(visit));
+    this.store$.dispatch(new CheckIn({ visit }));
   }
 
   onCheckOut(visit: Visit): void {
-    this.store$.dispatch(new CheckOut(visit));
+    this.store$.dispatch(new CheckOut({ visit }));
   }
 
   onNewVolunteer(volunteer: Volunteer): void {
-    this.store$.dispatch(new SubmitNewVolunteer(volunteer));
+    this.store$.dispatch(new SubmitNewVolunteer({ volunteer }));
   }
 
   onIsExistingVolunteer(isExisting: boolean): void {

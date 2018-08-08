@@ -34,13 +34,3 @@ export class OpenCreateTeamDialog implements Action {
 export class OpenJoinTeamDialog implements Action {
   readonly type = TeamsPageActionTypes.OpenJoinTeamDialog;
 }
-
-/**
- * Export a type alias of all actions in this action group
- * so that reducers can easily compose action types
- */
-export type TeamsPageActionsUnion =
-  | CreateTeam
-  | JoinTeam
-  | OpenCreateTeamDialog
-  | OpenJoinTeamDialog;

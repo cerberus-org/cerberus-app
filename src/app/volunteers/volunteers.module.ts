@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { MaterialModule } from '../material';
 import { SharedModule } from '../shared/shared.module';
@@ -12,7 +11,6 @@ import { SignatureFieldComponent } from './components/signature-field/signature-
 import { CheckInPageComponent } from './containers/check-in-page/check-in-page.component';
 import { TeamDashboardPageComponent } from './containers/team-dashboard-page/team-dashboard-page.component';
 import { volunteersEffects } from './effects';
-import { volunteersReducers } from './reducers';
 import { VolunteersRoutingModule } from './volunteers-routing.module';
 
 @NgModule({
@@ -23,14 +21,6 @@ import { VolunteersRoutingModule } from './volunteers-routing.module';
     MaterialModule,
     SharedModule,
     VolunteersRoutingModule,
-
-    /**
-     * StoreModule.forFeature is used for composing state
-     * from feature modules. These modules can be loaded
-     * eagerly or lazily and will be dynamically added to
-     * the existing state.
-     */
-    StoreModule.forFeature('volunteersModule', volunteersReducers),
 
     /**
      * Effects.forFeature is used to register effects

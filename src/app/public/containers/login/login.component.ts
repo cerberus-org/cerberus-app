@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
     this.hidePwd = true;
-    this.store$.dispatch(new SetSidenavOptions(null));
+    this.store$.dispatch(new SetSidenavOptions({ sidenavOptions: null }));
   }
 
   onLogin() {
