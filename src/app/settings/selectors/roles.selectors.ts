@@ -11,10 +11,9 @@ export const selectMembersWithRoleOptions = createSelector(
   getMemberForSelectedTeam,
   selectModelMembers,
   selectOwnerCount,
-  (sessionMember: Member, modelMembers: Member[], ownerCount: number): MemberWithRoleOptions[] => modelMembers.map(
-    member => ({
+  (sessionMember: Member, modelMembers: Member[], ownerCount: number): MemberWithRoleOptions[] =>
+    modelMembers && modelMembers.map(member => ({
       ...member,
       roleOptions: getRoleOptions(sessionMember, member, ownerCount === 1),
-    }),
-  ),
+    })),
 );
