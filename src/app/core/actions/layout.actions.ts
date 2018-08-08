@@ -1,36 +1,38 @@
 import { Action } from '@ngrx/store';
 import { HeaderOptions, SidenavOptions } from '../../shared/models';
 
-export const SET_HEADER_OPTIONS = '[Layout] Set header options';
-export const SET_SIDENAV_OPTIONS = '[Layout] Set sidenav options';
-export const SET_SIDENAV_OPENED = '[Layout] Set sidenav opened';
-export const TOGGLE_SIDENAV_OPENED = '[Layout] Toggle sidenav opened';
+export enum LayoutActionTypes {
+  SetHeaderOptions = '[Layout] Set Header Options',
+  SetSidenavOptions = '[Layout] Set Sidenav Options',
+  SetSidenavOpened = '[Layout] Set Sidenav Opened',
+  ToggleSidenavOpened = '[Layout] Toggle Sidenav Opened',
+}
 
 export class SetHeaderOptions implements Action {
-  readonly type = SET_HEADER_OPTIONS;
+  readonly type = LayoutActionTypes.SetHeaderOptions;
 
   constructor(public payload: HeaderOptions) {}
 }
 
 export class SetSidenavOptions implements Action {
-  readonly type = SET_SIDENAV_OPTIONS;
+  readonly type = LayoutActionTypes.SetSidenavOptions;
 
   constructor(public payload: SidenavOptions[]) {}
 }
 
 export class SetSidenavOpened implements Action {
-  readonly type = SET_SIDENAV_OPENED;
+  readonly type = LayoutActionTypes.SetSidenavOpened;
 
   constructor(public payload: boolean) {}
 }
 
 export class ToggleSidenavOpened implements Action {
-  readonly type = TOGGLE_SIDENAV_OPENED;
+  readonly type = LayoutActionTypes.ToggleSidenavOpened;
 
   constructor() {}
 }
 
-export type All
+export type LayoutActionsUnion
   = SetHeaderOptions
   | SetSidenavOptions
   | SetSidenavOpened

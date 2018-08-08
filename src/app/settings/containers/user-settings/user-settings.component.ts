@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
+import { UpdateUser } from '../../actions/settings.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { SettingsState } from '../../reducers';
 import { getUserSettingsContainerState, UserSettingsContainerState } from '../../selectors/user-settings.selectors';
@@ -31,9 +32,9 @@ export class UserSettingsComponent implements OnInit {
   }
 
   /**
-   * Handles submission of member form by dispatching an SetMemberAndUserInfo action.
+   * Handles submission of member form by dispatching UpdateUser.
    */
   onSubmit(edits: UserFormChanges) {
-    this.store$.dispatch(new SettingsActions.UpdateUser(edits));
+    this.store$.dispatch(new UpdateUser(edits));
   }
 }

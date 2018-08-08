@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/index';
 import { AppState } from '../../../core/reducers';
 import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { ColumnOptions, Site } from '../../../shared/models';
-import * as SettingsActions from '../../actions/settings.actions';
+import { CreateSite, DeleteSite, UpdateSite } from '../../actions/settings.actions';
 import { SiteDialogComponent } from '../../components/site-dialog/site-dialog.component';
 
 @Component({
@@ -33,7 +33,7 @@ export class SiteSettingsComponent {
   }
 
   onDeleteSite(site: Site): void {
-    this.store$.dispatch(new SettingsActions.DeleteSite(site));
+    this.store$.dispatch(new DeleteSite(site));
   }
 
   onEditSite(site: Site): void {
@@ -54,7 +54,7 @@ export class SiteSettingsComponent {
     const dialog = this.dialog.open(SiteDialogComponent, dialogConfig);
     dialog.afterClosed().subscribe((siteOnClose: Site) => {
       if (siteOnClose) {
-        this.store$.dispatch(Object.assign({}, new SettingsActions.UpdateSite(siteOnClose)));
+        this.store$.dispatch(Object.assign({}, new UpdateSite(siteOnClose)));
       }
     });
   }
@@ -68,7 +68,7 @@ export class SiteSettingsComponent {
     const dialog = this.dialog.open(SiteDialogComponent);
     dialog.afterClosed().subscribe((site: Site) => {
       if (site && site.name) {
-        this.store$.dispatch(Object.assign({}, new SettingsActions.CreateSite(site)));
+        this.store$.dispatch(Object.assign({}, new CreateSite(site)));
       }
     });
   }

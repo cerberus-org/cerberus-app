@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { getVolunteersForSelectedTeam } from '../../../core/selectors/volunteers.selectors';
 import { Report, Volunteer } from '../../../shared/models';
+import { GenerateVisitHistoryReport } from '../../actions/settings.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 
 @Component({
@@ -32,7 +33,7 @@ export class ReportsComponent {
    */
   onSubmitReport() {
     if (this.validReport.title === 'Visit History') {
-      this.store$.dispatch(new SettingsActions.GenerateVisitHistoryReport({
+      this.store$.dispatch(new GenerateVisitHistoryReport({
         startedAt: this.validReport.startedAt,
         endedAt: this.validReport.endedAt,
       }));

@@ -4,6 +4,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Site } from '../../../shared/models';
+import { DeleteSite } from '../../actions/settings.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { SiteSettingsComponent } from './site-settings.component';
 
@@ -39,12 +40,12 @@ describe('SiteSettingsComponent', () => {
   });
 
   it(
-    'should handle onDeleteSite events by dispatching SettingsActions.DeleteSite',
+    'should handle onDeleteSite events by dispatching DeleteSite',
     () => {
       spyOn(component.store$, 'dispatch');
       component.onDeleteSite(sites[0]);
       expect(component.store$.dispatch).toHaveBeenCalledWith(
-        new SettingsActions.DeleteSite(sites[0]),
+        new DeleteSite(sites[0]),
       );
     },
   );

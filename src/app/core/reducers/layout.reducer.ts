@@ -1,5 +1,5 @@
 import { HeaderOptions, SidenavOptions } from '../../shared/models';
-import * as LayoutActions from '../actions/layout.actions';
+import { LayoutActionsUnion, LayoutActionTypes } from '../actions/layout.actions';
 
 export interface LayoutReducerState {
   headerOptions: HeaderOptions;
@@ -13,32 +13,30 @@ export const initialLayoutReducerState: LayoutReducerState = {
   sidenavOpened: false,
 };
 
-export type Action = LayoutActions.All;
-
-export function layoutReducer(state = initialLayoutReducerState, action: Action): LayoutReducerState {
+export function layoutReducer(state = initialLayoutReducerState, action: LayoutActionsUnion): LayoutReducerState {
   switch (action.type) {
-    case LayoutActions.SET_HEADER_OPTIONS: {
+    case LayoutActionTypes.SetHeaderOptions: {
       return {
         ...state,
         headerOptions: action.payload,
       };
     }
 
-    case LayoutActions.SET_SIDENAV_OPTIONS: {
+    case LayoutActionTypes.SetSidenavOptions: {
       return {
         ...state,
         sidenavOptions: action.payload,
       };
     }
 
-    case LayoutActions.SET_SIDENAV_OPENED: {
+    case LayoutActionTypes.SetSidenavOpened: {
       return {
         ...state,
         sidenavOpened: action.payload,
       };
     }
 
-    case LayoutActions.TOGGLE_SIDENAV_OPENED: {
+    case LayoutActionTypes.ToggleSidenavOpened: {
       return {
         ...state,
         sidenavOpened: !state.sidenavOpened,

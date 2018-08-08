@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import * as LayoutActions from '../../../core/actions/layout.actions';
+import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { AppState } from '../../../core/reducers';
 import { ErrorService } from '../../../core/services/error.service';
 import { TeamService } from '../../../core/services/team.service';
@@ -35,7 +35,7 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
             this.team = team;
             this.visits$ = this.visitService.getByKey('teamId', team.id, true);
           }
-          this.store$.dispatch(new LayoutActions.SetHeaderOptions({
+          this.store$.dispatch(new SetHeaderOptions({
             title: team ? team.name : '',
             previousUrl: '',
             showLogOut: false,
@@ -47,7 +47,7 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
           this.errorService.handleFirebaseError(error);
         },
       );
-    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
+    this.store$.dispatch(new SetSidenavOptions(null));
   }
 
   public getTeamNameByUrl(): string {

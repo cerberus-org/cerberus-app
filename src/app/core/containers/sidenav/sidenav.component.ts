@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { SidenavOptions } from '../../../shared/models';
-import * as LayoutActions from '../../actions/layout.actions';
+import { SetSidenavOpened } from '../../actions/layout.actions';
 import { LayoutReducerState } from '../../reducers/layout.reducer';
 import { getSidenavOptions, getSidenavState, SidenavState } from '../../selectors/layout.selectors';
 
@@ -40,7 +40,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
       if (options && options.length) {
         this.setForScreen(this.mobileQuery.matches);
       } else {
-        this.store$.dispatch(new LayoutActions.SetSidenavOpened(false));
+        this.store$.dispatch(new SetSidenavOpened(false));
       }
     });
   }
@@ -66,11 +66,11 @@ export class SidenavComponent implements OnInit, OnDestroy {
     if (xs) {
       this.mode = 'over';
       this.sidenav.disableClose = false;
-      this.store$.dispatch(new LayoutActions.SetSidenavOpened(false));
+      this.store$.dispatch(new SetSidenavOpened(false));
     } else {
       this.mode = 'side';
       this.sidenav.disableClose = true;
-      this.store$.dispatch(new LayoutActions.SetSidenavOpened(true));
+      this.store$.dispatch(new SetSidenavOpened(true));
     }
   }
 }

@@ -5,10 +5,10 @@ import { Observable } from 'rxjs/internal/Observable';
 import { delay } from 'rxjs/operators';
 import * as AuthActions from '../../../auth/actions/auth.actions';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
-import * as LayoutActions from '../../actions/layout.actions';
 import * as RouterActions from '../../actions/router.actions';
 import { LayoutReducerState } from '../../reducers/layout.reducer';
 import { HeaderState, getHeaderState } from '../../selectors/layout.selectors';
+import { ToggleSidenavOpened } from '../../actions/layout.actions';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onToggleSidenav(): void {
-    this.store$.dispatch(new LayoutActions.ToggleSidenavOpened());
+    this.store$.dispatch(new ToggleSidenavOpened());
   }
 
   onBack(): void {

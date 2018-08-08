@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { mockReports } from '../../../../mocks/objects/report.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as SettingsActions from '../../actions/settings.actions';
+import { GenerateVisitHistoryReport } from '../../actions/settings.actions';
 import { ReportsComponent } from './reports.component';
 
 describe('ReportsComponent', () => {
@@ -38,13 +38,13 @@ describe('ReportsComponent', () => {
   });
 
   it(
-    'should handle generateVisitHistoryReport events by dispatching SettingsActions.GenerateVisitHistoryReport',
+    'should handle generateVisitHistoryReport events by dispatching GenerateVisitHistoryReport',
     () => {
       component.validReport = mockReports[0];
       spyOn(component.store$, 'dispatch');
       component.onSubmitReport();
       expect(component.store$.dispatch).toHaveBeenCalledWith(
-        new SettingsActions.GenerateVisitHistoryReport({
+        new GenerateVisitHistoryReport({
           startedAt: mockReports[0].startedAt,
           endedAt: mockReports[0].endedAt,
         }),

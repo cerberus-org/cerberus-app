@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { ColumnOptions, Member } from '../../../shared/models';
-import * as SettingsActions from '../../actions/settings.actions';
+import { UpdateRole } from '../../actions/settings.actions';
 import { getMembersWithRoleOptions, MemberWithRoleOptions } from '../../selectors/roles.selectors';
 
 @Component({
@@ -39,7 +39,7 @@ export class RolesComponent implements OnInit {
   }
 
   onUpdateUser(user: Member) {
-    this.store$.dispatch(new SettingsActions.UpdateRole(user));
+    this.store$.dispatch(new UpdateRole(user));
   }
 
   onDeleteUser($event) {

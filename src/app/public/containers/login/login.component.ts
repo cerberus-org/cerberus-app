@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../../auth/actions/auth.actions';
-import * as LayoutActions from '../../../core/actions/layout.actions';
+import { SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { AppState } from '../../../core/reducers';
 import { EmailDialogComponent } from '../../components/email-dialog/email-dialog.component';
 
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
     this.hidePwd = true;
-    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
+    this.store$.dispatch(new SetSidenavOptions(null));
   }
 
   onLogin() {

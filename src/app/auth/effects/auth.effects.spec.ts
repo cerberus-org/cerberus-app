@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { createMockCredentials } from '../../../mocks/objects/credentials.mock';
 import { mockProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
+import { Go } from '../../core/actions/router.actions';
 import * as RouterActions from '../../core/actions/router.actions';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import * as AuthActions from '../actions/auth.actions';
@@ -60,9 +61,9 @@ describe('AuthEffects', () => {
       });
     }));
 
-    it('should dispatch RouterActions.Go', () => {
+    it('should dispatch Go', () => {
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['team/settings'] }),
+        b: new Go({ path: ['team/settings'] }),
       });
       expect(effects.verifyPassword$).toBeObservable(expected);
     });
@@ -75,9 +76,9 @@ describe('AuthEffects', () => {
       });
     }));
 
-    it('should dispatch RouterActions.Go', () => {
+    it('should dispatch Go', () => {
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: [''] }),
+        b: new Go({ path: [''] }),
       });
       expect(effects.signOut$).toBeObservable(expected);
     });
