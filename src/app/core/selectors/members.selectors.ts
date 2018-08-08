@@ -1,13 +1,13 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { getUserInfo } from '../../auth/selectors/session.selectors';
-import * as fromMembers from '../reducers/members.reducer';
+import { membersAdapter, MembersReducerState } from '../reducers/members.reducer';
 
-export const getMembersState = createFeatureSelector<fromMembers.State>('members');
+export const getMembersState = createFeatureSelector<MembersReducerState>('members');
 
 export const {
   selectAll: getAllMembers,
   selectEntities: getMemberEntities,
-} = fromMembers.adapter.getSelectors(getMembersState);
+} = membersAdapter.getSelectors(getMembersState);
 
 export const getSelectedMemberId = createSelector(
   getMembersState,

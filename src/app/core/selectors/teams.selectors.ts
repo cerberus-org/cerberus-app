@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromTeams from '../reducers/teams.reducer';
+import { teamsAdapter, TeamsReducerState } from '../reducers/teams.reducer';
 import { getMembersForUser } from './members.selectors';
 
 /**
@@ -22,7 +22,7 @@ import { getMembersForUser } from './members.selectors';
  * The createFeatureSelector function selects a piece of state from the root of the state object.
  * This is used for selecting feature states that are loaded eagerly or lazily.
  */
-export const getTeamsReducerState = createFeatureSelector<fromTeams.State>('teams');
+export const getTeamsReducerState = createFeatureSelector<TeamsReducerState>('teams');
 
 /**
  * Every reducer module exports selector functions, however child reducers
@@ -45,7 +45,7 @@ export const getTeamsReducerState = createFeatureSelector<fromTeams.State>('team
 export const {
   selectAll: getAllTeams,
   selectEntities: getTeamEntities,
-} = fromTeams.adapter.getSelectors(getTeamsReducerState);
+} = teamsAdapter.getSelectors(getTeamsReducerState);
 
 export const getSelectedTeamId = createSelector(
   getTeamsReducerState,

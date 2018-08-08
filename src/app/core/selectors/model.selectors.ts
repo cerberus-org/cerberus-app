@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
 import { getUserInfo } from '../../auth/selectors/session.selectors';
 import { MEMBER_ROLE_OWNER } from '../../shared/helpers';
-import { Member, Team, Site, Visit, Volunteer } from '../../shared/models';
+import { Member, Site, Team, Visit, Volunteer } from '../../shared/models';
 import { ModelReducerState } from '../reducers/model.reducer';
 
 export const selectModelReducerState = createFeatureSelector<ModelReducerState>('model');

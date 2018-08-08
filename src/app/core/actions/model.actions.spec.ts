@@ -1,25 +1,25 @@
 import { createMockMembers } from '../../../mocks/objects/member.mock';
-import { createMockTeams } from '../../../mocks/objects/team.mock';
 import { createMockSites } from '../../../mocks/objects/site.mock';
+import { createMockTeams } from '../../../mocks/objects/team.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import {
   LOAD_MEMBERS,
   LOAD_MEMBERS_SUCCESS,
-  LOAD_TEAMS,
-  LOAD_TEAMS_SUCCESS,
   LOAD_SITES,
   LOAD_SITES_SUCCESS,
+  LOAD_TEAMS,
+  LOAD_TEAMS_SUCCESS,
   LOAD_VISITS,
   LOAD_VISITS_SUCCESS,
   LOAD_VOLUNTEERS,
   LOAD_VOLUNTEERS_SUCCESS,
   LoadMembers,
   LoadMembersSuccess,
-  LoadTeams,
-  LoadTeamsSuccess,
   LoadSites,
   LoadSitesSuccess,
+  LoadTeams,
+  LoadTeamsSuccess,
   LoadVisits,
   LoadVisitsSuccess,
   LoadVolunteers,

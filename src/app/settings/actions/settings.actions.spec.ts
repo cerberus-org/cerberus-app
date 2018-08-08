@@ -1,7 +1,7 @@
 import { createMockCredentials } from '../../../mocks/objects/credentials.mock';
 import { createMockMembers } from '../../../mocks/objects/member.mock';
-import { createMockTeams } from '../../../mocks/objects/team.mock';
 import { createMockSites } from '../../../mocks/objects/site.mock';
+import { createMockTeams } from '../../../mocks/objects/team.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import {
@@ -15,12 +15,12 @@ import {
   GenerateVisitHistoryReport,
   LOAD_PAGE,
   LoadPage,
-  UPDATE_TEAM,
   UPDATE_ROLE,
+  UPDATE_TEAM,
   UPDATE_USER,
   UPDATE_VISITS,
-  UpdateTeam,
   UpdateRole,
+  UpdateTeam,
   UpdateUser,
   UpdateVisits,
 } from './settings.actions';

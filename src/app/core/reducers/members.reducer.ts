@@ -2,20 +2,20 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Member } from '../../shared/models';
 import { MembersActionsUnion, MembersActionTypes } from '../actions/members.actions';
 
-export interface State extends EntityState<Member> {
+export interface MembersReducerState extends EntityState<Member> {
   selectedMemberId: string;
 }
 
-export const adapter: EntityAdapter<Member> = createEntityAdapter<Member>();
+export const membersAdapter: EntityAdapter<Member> = createEntityAdapter<Member>();
 
-export const initialState: State = adapter.getInitialState({
+export const initialMembersReducerState: MembersReducerState = membersAdapter.getInitialState({
   selectedMemberId: null,
 });
 
-export function reducer(state = initialState, action: MembersActionsUnion): State {
+export function membersReducer(state = initialMembersReducerState, action: MembersActionsUnion): MembersReducerState {
   switch (action.type) {
     case MembersActionTypes.LoadMembersSuccess: {
-      return adapter.addMany(action.payload.members, state);
+      return membersAdapter.addMany(action.payload.members, state);
     }
 
     case MembersActionTypes.SelectMember: {

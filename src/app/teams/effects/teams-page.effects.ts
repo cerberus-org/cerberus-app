@@ -7,8 +7,8 @@ import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { getUserInfo } from '../../auth/selectors/session.selectors';
 import { AppState } from '../../core/reducers';
 import { MemberService } from '../../core/services/member.service';
-import { TeamService } from '../../core/services/team.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
+import { TeamService } from '../../core/services/team.service';
 import { Member } from '../../shared/models';
 import {
   CreateTeam,

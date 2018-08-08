@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import * as ModelActions from '../actions/model.actions';
 import { MemberService } from '../services/member.service';
-import { TeamService } from '../services/team.service';
 import { SiteService } from '../services/site.service';
+import { TeamService } from '../services/team.service';
 import { VisitService } from '../services/visit.service';
 import { VolunteerService } from '../services/volunteer.service';
 

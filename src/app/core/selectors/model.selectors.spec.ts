@@ -1,12 +1,12 @@
 import { createMockMembers } from '../../../mocks/objects/member.mock';
-import { createMockTeams } from '../../../mocks/objects/team.mock';
 import { createMockSites } from '../../../mocks/objects/site.mock';
+import { createMockTeams } from '../../../mocks/objects/team.mock';
 import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import {
   selectModelMembers,
-  selectModelTeams,
   selectModelSites,
+  selectModelTeams,
   selectModelVisits,
   selectModelVolunteers,
   selectOwnerCount,

@@ -9,7 +9,7 @@ import { TeamsActionsUnion, TeamsActionTypes } from '../actions/teams.actions';
  * model type by id. This interface is extended to include
  * any additional interface properties.
  */
-export interface State extends EntityState<Team> {
+export interface TeamsReducerState extends EntityState<Team> {
   selectedTeamId: string;
 }
 
@@ -18,21 +18,21 @@ export interface State extends EntityState<Team> {
  * functions for single or multiple operations
  * against the dictionary of records.
  */
-export const adapter: EntityAdapter<Team> = createEntityAdapter<Team>();
+export const teamsAdapter: EntityAdapter<Team> = createEntityAdapter<Team>();
 
 /**
  * getInitialState returns the default initial state
  * for the generated entity state. Initial state
  * additional properties can also be defined.
  */
-export const initialState: State = adapter.getInitialState({
+export const initialState: TeamsReducerState = teamsAdapter.getInitialState({
   selectedTeamId: null,
 });
 
-export function reducer(state = initialState, action: TeamsActionsUnion): State {
+export function teamsReducer(state = initialState, action: TeamsActionsUnion): TeamsReducerState {
   switch (action.type) {
     case TeamsActionTypes.LoadTeamsSuccess: {
-      return adapter.addMany(action.payload.teams, state);
+      return teamsAdapter.addMany(action.payload.teams, state);
     }
 
     case TeamsActionTypes.SelectTeam: {

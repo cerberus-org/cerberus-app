@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { UserFormChanges } from '../../shared/components/user-form/user-form.component';
-import { Member, Team, Site, Visit, Volunteer } from '../../shared/models';
+import { Member, Site, Team, Visit, Volunteer } from '../../shared/models';
 
 export const DELETE_VOLUNTEER = '[Settings] Delete volunteer';
 export const DELETE_VOLUNTEER_SUCCESS = '[Settings] Delete volunteer success';
