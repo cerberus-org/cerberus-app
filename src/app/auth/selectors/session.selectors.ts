@@ -10,7 +10,7 @@ export const selectSessionReducerState = createSelector(
   (state: AuthState): SessionReducerState => state.session,
 );
 
-export const selectSessionUserInfo = createSelector(
+export const getUserInfo = createSelector(
   selectSessionReducerState,
   (state: SessionReducerState): UserInfo => state.userInfo,
 );

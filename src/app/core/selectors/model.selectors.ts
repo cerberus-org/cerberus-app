@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
-import { selectSessionUserInfo } from '../../auth/selectors/session.selectors';
+import { getUserInfo } from '../../auth/selectors/session.selectors';
 import { MEMBER_ROLE_OWNER } from '../../shared/helpers';
 import { Member, Team, Site, Visit, Volunteer } from '../../shared/models';
 import { ModelReducerState } from '../reducers/model.reducer';
@@ -45,7 +45,7 @@ export const getSelectedTeam = createSelector(
 
 export const getMemberForSelectedTeam = createSelector(
   selectModelMembers,
-  selectSessionUserInfo,
+  getUserInfo,
   getModelSelectedTeamId,
   (members: Member[], userInfo: UserInfo, teamId: string): Member =>
     members && userInfo && teamId

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from '../material';
 import { SharedModule } from '../shared/shared.module';
 import { SelectedTeamToolbarComponent } from './components/selected-team-toolbar/selected-team-toolbar.component';
@@ -10,7 +9,6 @@ import { JoinTeamDialogComponent } from './containers/join-team-dialog/join-team
 import { TeamsPageComponent } from './containers/teams-page/teams-page.component';
 import { ViewSelectedTeamComponent } from './containers/view-selected-team/view-selected-team.component';
 import { TeamsPageEffects } from './effects/teams-page.effects';
-import { reducers } from './reducers';
 import { TeamsRoutingModule } from './teams-routing.module';
 
 @NgModule({
@@ -19,14 +17,6 @@ import { TeamsRoutingModule } from './teams-routing.module';
     MaterialModule,
     SharedModule,
     TeamsRoutingModule,
-
-    /**
-     * StoreModule.forFeature is used for composing state
-     * from feature modules. These modules can be loaded
-     * eagerly or lazily and will be dynamically added to
-     * the existing state.
-     */
-    StoreModule.forFeature('teamsModule', reducers),
 
     /**
      * Effects.forFeature is used to register effects

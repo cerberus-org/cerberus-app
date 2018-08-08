@@ -32,6 +32,7 @@ export const initialState: State = adapter.getInitialState({
 export function reducer(state = initialState, action: TeamsActionsUnion): State {
   switch (action.type) {
     case TeamsActionTypes.LoadTeamsSuccess: {
+      console.log(action.payload.teams)
       return adapter.addMany(action.payload.teams, state);
     }
 

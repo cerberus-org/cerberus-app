@@ -11,7 +11,7 @@ import { SnackBarService } from '../../core/services/snack-bar.service';
 import { Credentials } from '../../shared/models/credentials';
 import * as AuthActions from '../actions/auth.actions';
 import { SessionReducerState } from '../reducers/session.reducer';
-import { selectSessionUserInfo } from '../selectors/session.selectors';
+import { getUserInfo } from '../selectors/session.selectors';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
@@ -65,7 +65,7 @@ export class AuthEffects {
     .ofType(AuthActions.VERIFY_PASSWORD)
     .pipe(
       map((action: AuthActions.VerifyPassword) => action.payload),
-      withLatestFrom(this.store$.pipe(select(selectSessionUserInfo))),
+      withLatestFrom(this.store$.pipe(select(getUserInfo))),
       switchMap(([password, { email }]) => this.authService.signIn({ password, email })
         .pipe(
           map(() => {

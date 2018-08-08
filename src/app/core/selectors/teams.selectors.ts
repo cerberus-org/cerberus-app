@@ -1,6 +1,6 @@
-import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import { create } from 'domain';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromTeams from '../reducers/teams.reducer';
+import { getMembersForUser } from './members.selectors';
 
 /**
  * A selector function is a map function factory. We pass it parameters and it
@@ -12,7 +12,7 @@ import * as fromTeams from '../reducers/teams.reducer';
  * ```ts
  * class MyComponent {
  *   constructor(state$: Observable<State>) {
- *     this.teamsState$ = state$.pipe(select(getTeamsState));
+ *     this.teamsState$ = state$.pipe(select(getTeamsReducerState));
  *   }
  * }
  * ```
@@ -22,7 +22,7 @@ import * as fromTeams from '../reducers/teams.reducer';
  * The createFeatureSelector function selects a piece of state from the root of the state object.
  * This is used for selecting feature states that are loaded eagerly or lazily.
  */
-export const getTeamsState = createFeatureSelector<fromTeams.State>('teams');
+export const getTeamsReducerState = createFeatureSelector<fromTeams.State>('teams');
 
 /**
  * Every reducer module exports selector functions, however child reducers
@@ -45,15 +45,23 @@ export const getTeamsState = createFeatureSelector<fromTeams.State>('teams');
 export const {
   selectAll: getAllTeams,
   selectEntities: getTeamEntities,
-} = fromTeams.adapter.getSelectors(getTeamsState);
+} = fromTeams.adapter.getSelectors(getTeamsReducerState);
 
 export const getSelectedTeamId = createSelector(
-  getTeamsState,
+  getTeamsReducerState,
   state => state.selectedTeamId,
 );
 
 export const getSelectedTeam = createSelector(
   getTeamEntities,
   getSelectedTeamId,
-  (entities, id) => entities[id],
+  (teamEntities, teamId) => teamEntities[teamId],
+);
+
+export const getTeamsForUser = createSelector(
+  getTeamEntities,
+  getMembersForUser,
+  (teamEntities, members) => members
+    .map(member => teamEntities[member.organizationId])
+    .filter(team => !!team),
 );

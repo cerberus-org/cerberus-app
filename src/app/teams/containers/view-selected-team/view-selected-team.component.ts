@@ -7,8 +7,8 @@ import { LoadSites, LoadVisits } from '../../../core/actions/model.actions';
 import { Go } from '../../../core/actions/router.actions';
 import { AppState } from '../../../core/reducers';
 import { selectModelVisits } from '../../../core/selectors/model.selectors';
+import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
 import { Team, Visit } from '../../../shared/models';
-import { getSelectedTeam } from '../../reducers';
 
 @Component({
   selector: 'app-view-selected-team',

@@ -4,10 +4,12 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { map } from 'rxjs/operators';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
+import { LoadMembersForUser } from '../../../core/actions/members.actions';
+import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { AppState } from '../../../core/reducers';
+import { getTeamsForUser } from '../../../core/selectors/teams.selectors';
 import { Team } from '../../../shared/models';
-import { LoadTeams, OpenCreateTeamDialog, OpenFindTeamDialog, SelectTeam } from '../../actions/teams-page.actions';
-import * as fromTeams from '../../reducers';
+import { OpenCreateTeamDialog, OpenFindTeamDialog } from '../../actions/teams-page.actions';
 
 @Component({
   selector: 'app-teams-page',
@@ -26,10 +28,10 @@ export class TeamsPageComponent implements OnDestroy {
       previousUrl: null,
       showLogOut: true,
     }));
+    store$.dispatch(new LoadMembersForUser());
     store$.dispatch(new LoadTeams());
-    this.teams$ = store$.pipe(select(fromTeams.getAllTeams));
-    this.sidenavSubscription = store$.pipe(
-      select(fromTeams.getAllTeams),
+    this.teams$ = store$.pipe(select(getTeamsForUser));
+    this.sidenavSubscription = this.teams$.pipe(
       map(teams => new SetSidenavOptions([
         {
           label: 'Create Team',
@@ -44,7 +46,7 @@ export class TeamsPageComponent implements OnDestroy {
         ...teams.map(team => ({
           label: team.name,
           icon: null,
-          action: new SelectTeam({ team }),
+          action: new SelectTeam({ teamId: team.id }),
         })),
       ])),
     )

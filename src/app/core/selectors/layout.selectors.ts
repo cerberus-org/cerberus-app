@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
-import { selectSessionUserInfo } from '../../auth/selectors/session.selectors';
+import { getUserInfo } from '../../auth/selectors/session.selectors';
 import { HeaderOptions, SidenavOptions } from '../../shared/models';
 import { LayoutReducerState } from '../reducers/layout.reducer';
 
@@ -29,7 +29,7 @@ export interface HeaderState extends HeaderOptions {
 export const selectHeaderState = createSelector(
   selectHeaderOptions,
   selectSidenavOptions,
-  selectSessionUserInfo,
+  getUserInfo,
   (
     headerOptions: HeaderOptions,
     sidenavOptions: SidenavOptions[],
