@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { forkJoin, Observable } from 'rxjs';
@@ -11,6 +12,8 @@ import { OrganizationService } from '../../core/services/organization.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { Member } from '../../shared/models';
 import { CreateTeam, JoinTeam, LoadTeams, LoadTeamsSuccess, TeamsActionTypes } from '../actions/teams.actions';
+import { CreateTeamDialogComponent } from '../containers/create-team-dialog/create-team-dialog.component';
+import { JoinTeamDialogComponent } from '../containers/join-team-dialog/join-team-dialog.component';
 
 @Injectable()
 export class TeamsEffects {
@@ -22,6 +25,7 @@ export class TeamsEffects {
     private organizationService: OrganizationService,
     private snackbarService: SnackBarService,
     private store$: Store<AppState>,
+    private dialog: MatDialog,
   ) {}
 
   @Effect()
@@ -69,5 +73,17 @@ export class TeamsEffects {
     tap(() => {
       this.snackbarService.joinTeamSuccess();
     }),
+  );
+
+  @Effect({ dispatch: false })
+  openCreateTeamDialog$: Observable<any> = this.actions.pipe(
+    ofType<LoadTeams>(TeamsActionTypes.OpenCreateTeamDialog),
+    tap(() => this.dialog.open(CreateTeamDialogComponent)),
+  );
+
+  @Effect({ dispatch: false })
+  openJoinTeamDialog$: Observable<any> = this.actions.pipe(
+    ofType<LoadTeams>(TeamsActionTypes.OpenJoinTeamDialog),
+    tap(() => this.dialog.open(JoinTeamDialogComponent)),
   );
 }

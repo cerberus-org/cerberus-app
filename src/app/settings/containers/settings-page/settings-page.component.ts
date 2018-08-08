@@ -40,6 +40,7 @@ import { selectSettingsSidenavOptions, selectSettingsSidenavSelection } from '..
       <app-site-settings
         *ngSwitchCase="'SITES'"
       >
+      </app-site-settings>
     </div>
   `,
   styleUrls: ['./settings-page.component.scss'],

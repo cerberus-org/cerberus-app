@@ -14,11 +14,6 @@ import * as CheckInActions from '../actions/check-in.actions';
 @Injectable()
 export class CheckInEffects {
 
-  @Effect({ dispatch: false })
-  init$: Observable<any> = defer(() => of(null)).pipe(
-    tap(() => console.log('init$')),
-  );
-
   /**
    * Listen for the SubmitNewVolunteer action, create the newVolunteer, emit the snackbar,
    * then dispatch the SubmitNewVolunteerSuccess action with the created newVolunteer.
@@ -52,12 +47,13 @@ export class CheckInEffects {
       withLatestFrom(this.store$.pipe(select(selectSessionOrganization))),
       switchMap(([visit, organization]) => this.visitService.add({
         ...visit,
+        siteId: null, // TODO: Implement site association
         organizationId: organization.id,
       })
         .pipe(
           map(() => {
             this.snackBarService.checkInSuccess();
-            return new RouterActions.Go({ path: ['organization/volunteers'] });
+            return new RouterActions.Back();
           }))),
     );
 
@@ -74,7 +70,7 @@ export class CheckInEffects {
         .pipe(
           map(() => {
             this.snackBarService.checkOutSuccess();
-            return new RouterActions.Go({ path: ['organization/volunteers'] });
+            return new RouterActions.Back();
           }),
         )),
     );

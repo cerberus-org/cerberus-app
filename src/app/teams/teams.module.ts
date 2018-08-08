@@ -8,9 +8,11 @@ import { TeamCardComponent } from './components/team-card/team-card.component';
 import { CreateTeamDialogComponent } from './containers/create-team-dialog/create-team-dialog.component';
 import { JoinTeamDialogComponent } from './containers/join-team-dialog/join-team-dialog.component';
 import { TeamsPageComponent } from './containers/teams-page/teams-page.component';
+import { ViewSelectedTeamComponent } from './containers/view-selected-team/view-selected-team.component';
 import { TeamsEffects } from './effects/teams.effects';
 import { reducers } from './reducers';
 import { TeamsRoutingModule } from './teams-routing.module';
+import { SelectedTeamToolbarComponent } from './components/selected-team-toolbar/selected-team-toolbar.component';
 
 @NgModule({
   imports: [
@@ -42,6 +44,8 @@ import { TeamsRoutingModule } from './teams-routing.module';
     TeamsPageComponent,
     CreateTeamDialogComponent,
     JoinTeamDialogComponent,
+    ViewSelectedTeamComponent,
+    SelectedTeamToolbarComponent,
   ],
   entryComponents: [
     CreateTeamDialogComponent,

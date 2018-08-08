@@ -85,6 +85,7 @@ input.capitalize {
   &.grid--inline {
     grid-auto-flow: column;
     grid-gap: 0.5rem;
+    align-items: center;
   }
 
   &.grid--submit {
@@ -93,10 +94,14 @@ input.capitalize {
   }
 
   .grid__left {
+    display: grid;
+    grid-auto-flow: column;
     justify-self: start;
   }
 
   .grid__right {
+    display: grid;
+    grid-auto-flow: column;
     justify-self: end;
   }
 }
@@ -104,6 +109,11 @@ input.capitalize {
 .margin {
   margin: 27px;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
 
 .actions-container {
   display: grid;

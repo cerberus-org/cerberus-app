@@ -1,80 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
-import * as LayoutActions from '../../../core/actions/layout.actions';
-import { SetHeaderOptions } from '../../../core/actions/layout.actions';
-import { Go } from '../../../core/actions/router.actions';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { map } from 'rxjs/operators';
+import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { AppState } from '../../../core/reducers';
 import { Organization } from '../../../shared/models';
-import { LoadTeams } from '../../actions/teams.actions';
+import { LoadTeams, OpenCreateTeamDialog, OpenFindTeamDialog, SelectTeam } from '../../actions/teams.actions';
 import * as fromTeams from '../../reducers';
-import { CreateTeamDialogComponent } from '../create-team-dialog/create-team-dialog.component';
-import { JoinTeamDialogComponent } from '../join-team-dialog/join-team-dialog.component';
 
 @Component({
   selector: 'app-teams-page',
   template: `
-    <div class="wrapper">
-      <div class="grid grid--inline">
-        <div class="grid__left">
-          <h2 *ngIf="(teams$ | async)?.length; else noTeams">You are a member of these teams.</h2>
-          <ng-template #noTeams>
-            <h2>Create or join a team to get started.</h2>
-          </ng-template>
-        </div>
-        <div class="grid__right header-buttons">
-          <button mat-stroked-button color="accent" (click)="onClickCreate()">Create Team</button>
-          <button mat-stroked-button color="accent" (click)="onClickFind()">Find Team</button>
-        </div>
-      </div>
-      <mat-divider></mat-divider>
-      <div class="teams-list">
-        <app-team-card
-          *ngFor="let team of (teams$ | async)"
-          [team]="team"
-          (clickActivate)="onClickActivate($event)"
-          (clickSettings)="onClickSettings($event)"
-        >
-        </app-team-card>
-      </div>
-    </div>
+    <app-view-selected-team></app-view-selected-team>
   `,
   styleUrls: ['./teams-page.component.scss'],
 })
-export class TeamsPageComponent implements OnInit {
+export class TeamsPageComponent implements OnDestroy {
+  sidenavSubscription: Subscription;
   teams$: Observable<Organization[]>;
 
-  constructor(
-    private dialog: MatDialog,
-    private store$: Store<AppState>,
-  ) {
-    this.teams$ = store$.pipe(select(fromTeams.getAllTeams));
-  }
-
-  ngOnInit() {
-    this.store$.dispatch(new SetHeaderOptions({
+  constructor(private store$: Store<AppState>) {
+    store$.dispatch(new SetHeaderOptions({
       title: 'Teams',
       previousUrl: null,
       showLogOut: true,
     }));
-    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
-    this.store$.dispatch(new LoadTeams());
+    store$.dispatch(new LoadTeams());
+    this.teams$ = store$.pipe(select(fromTeams.getAllTeams));
+    this.sidenavSubscription = store$.pipe(
+      select(fromTeams.getAllTeams),
+      map(teams => new SetSidenavOptions([
+        {
+          label: 'Create Team',
+          icon: 'group_work',
+          action: new OpenCreateTeamDialog(),
+        },
+        {
+          label: 'Join Team',
+          icon: 'search',
+          action: new OpenFindTeamDialog(),
+        },
+        ...teams.map(team => ({
+          label: team.name,
+          icon: null,
+          action: new SelectTeam({ team }),
+        })),
+      ])),
+    )
+      .subscribe(store$);
   }
 
-  onClickCreate(): void {
-    this.dialog.open(CreateTeamDialogComponent);
-  }
-
-  onClickFind(): void {
-    this.dialog.open(JoinTeamDialogComponent);
-  }
-
-  onClickActivate(team: Organization): void {
-    this.store$.dispatch(new Go({ path: ['team', team.id, 'volunteers'] }));
-  }
-
-  onClickSettings(team: Organization): void {
-    this.store$.dispatch(new Go({ path: ['team', team.id, 'settings'] }));
+  ngOnDestroy(): void {
+    this.sidenavSubscription.unsubscribe();
   }
 }

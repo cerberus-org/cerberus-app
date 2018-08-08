@@ -6,6 +6,9 @@ export enum TeamsActionTypes {
   LoadTeamsSuccess = '[Teams] Load Teams Success',
   CreateTeam = '[Teams] Create Team',
   JoinTeam = '[Teams] Join Team',
+  OpenCreateTeamDialog = '[Teams] Open Create Team Dialog',
+  OpenJoinTeamDialog = '[Teams] Open Find Team Dialog',
+  SelectTeam = '[Teams] Select Team',
 }
 
 /**
@@ -17,8 +20,6 @@ export enum TeamsActionTypes {
  */
 export class LoadTeams implements Action {
   readonly type = TeamsActionTypes.LoadTeams;
-
-  constructor() {}
 }
 
 export class LoadTeamsSuccess implements Action {
@@ -39,6 +40,20 @@ export class JoinTeam implements Action {
   constructor(public payload: { team: Organization }) {}
 }
 
+export class OpenCreateTeamDialog implements Action {
+  readonly type = TeamsActionTypes.OpenCreateTeamDialog;
+}
+
+export class OpenFindTeamDialog implements Action {
+  readonly type = TeamsActionTypes.OpenJoinTeamDialog;
+}
+
+export class SelectTeam implements Action {
+  readonly type = TeamsActionTypes.SelectTeam;
+
+  constructor(public payload: { team: Organization }) {}
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -47,4 +62,7 @@ export type TeamsActionsUnion =
   | LoadTeams
   | LoadTeamsSuccess
   | CreateTeam
-  | JoinTeam;
+  | JoinTeam
+  | OpenCreateTeamDialog
+  | OpenFindTeamDialog
+  | SelectTeam;

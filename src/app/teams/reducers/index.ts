@@ -56,3 +56,8 @@ export const getTeamsEntitiesState = createSelector(
 export const {
   selectAll: getAllTeams,
 } = fromTeams.adapter.getSelectors(getTeamsEntitiesState);
+
+export const getSelectedTeam = createSelector(
+  getTeamsEntitiesState,
+  state => state.selectedTeam,
+);
