@@ -4,12 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import * as LayoutActions from '../../../core/actions/layout.actions';
-import * as ModelActions from '../../../core/actions/model.actions';
+import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
+import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
+import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
+import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
 import { AppState } from '../../../core/reducers';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import { Visit, Volunteer } from '../../../shared/models';
-import * as CheckInActions from '../../actions/check-in.actions';
+import { CheckIn, CheckOut, SubmitNewVolunteer } from '../../actions/check-in.actions';
 import {
   CheckInContainerState,
   getCheckInHeaderOptions,
@@ -31,21 +33,21 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   siteId: string;
 
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private store$: Store<AppState>) {
-    store$.dispatch(new ModelActions.LoadTeams());
+    store$.dispatch(new LoadTeams());
     this.routeParamsSubscription = route.params
       .pipe(switchMap(({ teamId }) => [
-        new ModelActions.SelectTeam({ teamId }),
-        new ModelActions.LoadVisits(teamId),
-        new ModelActions.LoadVolunteers(teamId),
+        new SelectTeam({ teamId }),
+        new LoadVisitsForTeam({ teamId }),
+        new LoadVolunteersForTeam({ teamId }),
       ]))
       .subscribe(store$);
     this.headerSubscription = store$
       .pipe(
         select(getCheckInHeaderOptions),
-        map(headerOptions => new LayoutActions.SetHeaderOptions(headerOptions)),
+        map(headerOptions => new SetHeaderOptions(headerOptions)),
       )
       .subscribe(store$);
-    store$.dispatch(new LayoutActions.SetSidenavOptions(null));
+    store$.dispatch(new SetSidenavOptions(null));
     this.state$ = store$.pipe(select(selectCheckInContainerState));
   }
 
@@ -75,15 +77,15 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   }
 
   onCheckIn(visit: Visit): void {
-    this.store$.dispatch(new CheckInActions.CheckIn(visit));
+    this.store$.dispatch(new CheckIn(visit));
   }
 
   onCheckOut(visit: Visit): void {
-    this.store$.dispatch(new CheckInActions.CheckOut(visit));
+    this.store$.dispatch(new CheckOut(visit));
   }
 
   onNewVolunteer(volunteer: Volunteer): void {
-    this.store$.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
+    this.store$.dispatch(new SubmitNewVolunteer(volunteer));
   }
 
   onIsExistingVolunteer(isExisting: boolean): void {

@@ -3,7 +3,7 @@ import { MatAutocomplete } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AppState } from '../../../core/reducers';
-import { selectModelTeams } from '../../../core/selectors/model.selectors';
+import { getAllTeams } from '../../../core/selectors/teams.selectors';
 import { Team } from '../../models';
 
 @Component({
@@ -25,7 +25,7 @@ export class TeamSearchComponent implements OnInit, OnDestroy {
   constructor(public store$: Store<AppState>) { }
 
   ngOnInit(): void {
-    this.teamSubscription = this.store$.pipe(select(selectModelTeams))
+    this.teamSubscription = this.store$.pipe(select(getAllTeams))
       .subscribe((teams) => {
         this.teams = teams;
       });

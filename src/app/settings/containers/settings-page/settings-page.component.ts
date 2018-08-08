@@ -4,10 +4,14 @@ import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import * as LayoutActions from '../../../core/actions/layout.actions';
-import * as ModelActions from '../../../core/actions/model.actions';
+import { LoadMembersForTeam } from '../../../core/actions/members.actions';
+import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
+import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
+import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
+import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
 import * as SettingsActions from '../../actions/settings.actions';
 import { SettingsState } from '../../reducers';
-import { selectSettingsSidenavOptions, selectSettingsSidenavSelection } from '../../selectors/settings.selectors';
+import { getSettingsSidenavOptions, getSettingsSidenavSelection } from '../../selectors/settings.selectors';
 
 @Component({
   selector: 'app-settings-page',
@@ -57,24 +61,24 @@ export class SettingsPageComponent implements OnDestroy {
       showLogOut: true,
     }));
     store$.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
-    store$.dispatch(new ModelActions.LoadTeams());
+    store$.dispatch(new LoadTeams());
     this.routeParamsSubscription = route.params
       .pipe(
         switchMap(({ teamId }) => [
-          new ModelActions.SelectTeam({ teamId }),
-          new ModelActions.LoadMembers(teamId),
-          new ModelActions.LoadSites(teamId),
-          new ModelActions.LoadVisits(teamId),
-          new ModelActions.LoadVolunteers(teamId),
+          new SelectTeam({ teamId }),
+          new LoadMembersForTeam({ teamId }),
+          new LoadSitesForTeam({ teamId }),
+          new LoadVisitsForTeam({ teamId }),
+          new LoadVolunteersForTeam({ teamId }),
         ]))
       .subscribe(store$);
     this.sidenavSubscription = store$
       .pipe(
-        select(selectSettingsSidenavOptions),
+        select(getSettingsSidenavOptions),
         map(sidenavOptions => new LayoutActions.SetSidenavOptions(sidenavOptions)),
       )
       .subscribe(store$);
-    this.sidenavSelection$ = store$.pipe(select(selectSettingsSidenavSelection));
+    this.sidenavSelection$ = store$.pipe(select(getSettingsSidenavSelection));
   }
 
   ngOnDestroy() {

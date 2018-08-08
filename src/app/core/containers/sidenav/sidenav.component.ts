@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { SidenavOptions } from '../../../shared/models';
 import * as LayoutActions from '../../actions/layout.actions';
 import { LayoutReducerState } from '../../reducers/layout.reducer';
-import { selectSidenavOptions, selectSidenavState, SidenavState } from '../../selectors/layout.selectors';
+import { getSidenavOptions, getSidenavState, SidenavState } from '../../selectors/layout.selectors';
 
 @Component({
   selector: 'app-sidenav',
@@ -32,10 +32,10 @@ export class SidenavComponent implements OnInit, OnDestroy {
     this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
     this.mobileQuery.addListener(() => this.setForScreen(this.mobileQuery.matches));
     this.sidenavState$ = this.store$.pipe(
-      select(selectSidenavState),
+      select(getSidenavState),
     );
     this.sidenavOptionsSubscription = this.store$.pipe(
-      select(selectSidenavOptions),
+      select(getSidenavOptions),
     ).subscribe((options) => {
       if (options && options.length) {
         this.setForScreen(this.mobileQuery.matches);

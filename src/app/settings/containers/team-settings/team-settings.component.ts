@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { SessionReducerState } from '../../../auth/reducers/session.reducer';
-import { getSelectedTeam } from '../../../core/selectors/model.selectors';
+import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
 import { Team } from '../../../shared/models';
 import * as SettingsActions from '../../actions/settings.actions';
 

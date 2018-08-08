@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../auth/services/auth.service';
 import { AppState } from '../../core/reducers';
-import { getSelectedTeam, selectModelVolunteers } from '../../core/selectors/model.selectors';
+import { getSelectedTeam } from '../../core/selectors/teams.selectors';
+import { getVolunteersForSelectedTeam } from '../../core/selectors/volunteers.selectors';
 import { MemberService } from '../../core/services/member.service';
 import { SiteService } from '../../core/services/site.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
@@ -49,7 +50,7 @@ export class SettingsEffects {
           true,
         )
         .pipe(
-          withLatestFrom(this.store$.pipe(select(selectModelVolunteers))),
+          withLatestFrom(this.store$.pipe(select(getVolunteersForSelectedTeam))),
           tap(([visits, volunteers]) => {
             this.csvService.downloadAsCsv(
               getFormattedVisits(visits, volunteers), 'VisitHistory.csv', new Map([

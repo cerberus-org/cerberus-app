@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { ColumnOptions, Member } from '../../../shared/models';
 import * as SettingsActions from '../../actions/settings.actions';
-import { MemberWithRoleOptions, selectMembersWithRoleOptions } from '../../selectors/roles.selectors';
+import { MemberWithRoleOptions, getMembersWithRoleOptions } from '../../selectors/roles.selectors';
 
 @Component({
   selector: 'app-roles',
@@ -35,7 +35,7 @@ export class RolesComponent implements OnInit {
   constructor(public store$: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.members$ = this.store$.pipe(select(selectMembersWithRoleOptions));
+    this.members$ = this.store$.pipe(select(getMembersWithRoleOptions));
   }
 
   onUpdateUser(user: Member) {

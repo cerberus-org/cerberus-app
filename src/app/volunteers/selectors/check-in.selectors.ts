@@ -1,5 +1,7 @@
 import { createSelector } from '@ngrx/store';
-import { getSelectedTeam, selectModelVisits, selectModelVolunteers } from '../../core/selectors/model.selectors';
+import { getSelectedTeam } from '../../core/selectors/teams.selectors';
+import { getVisitsForSelectedTeam } from '../../core/selectors/visits.selectors';
+import { getVolunteersForSelectedTeam } from '../../core/selectors/volunteers.selectors';
 import { HeaderOptions, Team, Visit, Volunteer } from '../../shared/models';
 import { VolunteerSystemState } from '../reducers';
 import { CheckInReducerState } from '../reducers/check-in.reducer';
@@ -30,8 +32,8 @@ export const getCheckInHeaderOptions = createSelector(
 );
 
 export const selectCheckInContainerState = createSelector(
-  selectModelVisits,
-  selectModelVolunteers,
+  getVisitsForSelectedTeam,
+  getVolunteersForSelectedTeam,
   (visits: Visit[], volunteers: Volunteer[]): CheckInContainerState => ({
     visits,
     volunteers,

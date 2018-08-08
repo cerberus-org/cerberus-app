@@ -4,20 +4,20 @@ import { getUserInfo } from '../../auth/selectors/session.selectors';
 import { HeaderOptions, SidenavOptions } from '../../shared/models';
 import { LayoutReducerState } from '../reducers/layout.reducer';
 
-export const selectLayoutReducerState = createFeatureSelector<LayoutReducerState>('layout');
+export const getLayoutReducerState = createFeatureSelector<LayoutReducerState>('layout');
 
-export const selectHeaderOptions = createSelector(
-  selectLayoutReducerState,
+export const getHeaderOptions = createSelector(
+  getLayoutReducerState,
   (state: LayoutReducerState): HeaderOptions => state.headerOptions,
 );
 
-export const selectSidenavOptions = createSelector(
-  selectLayoutReducerState,
+export const getSidenavOptions = createSelector(
+  getLayoutReducerState,
   (state: LayoutReducerState): SidenavOptions[] => state.sidenavOptions,
 );
 
-export const selectSidenavOpened = createSelector(
-  selectLayoutReducerState,
+export const getSidenavOpened = createSelector(
+  getLayoutReducerState,
   (state: LayoutReducerState): boolean => state.sidenavOpened,
 );
 
@@ -26,9 +26,9 @@ export interface HeaderState extends HeaderOptions {
   showToggleSidenav: boolean;
 }
 
-export const selectHeaderState = createSelector(
-  selectHeaderOptions,
-  selectSidenavOptions,
+export const getHeaderState = createSelector(
+  getHeaderOptions,
+  getSidenavOptions,
   getUserInfo,
   (
     headerOptions: HeaderOptions,
@@ -48,9 +48,9 @@ export interface SidenavState {
   opened: boolean;
 }
 
-export const selectSidenavState = createSelector(
-  selectSidenavOptions,
-  selectSidenavOpened,
+export const getSidenavState = createSelector(
+  getSidenavOptions,
+  getSidenavOpened,
   (sidenavOptions: SidenavOptions[], sidenavOpened: boolean): SidenavState => ({
     options: sidenavOptions,
     opened: sidenavOpened,

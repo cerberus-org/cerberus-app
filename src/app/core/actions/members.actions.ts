@@ -3,6 +3,7 @@ import { Member } from '../../shared/models';
 
 export enum MembersActionTypes {
   LoadMembers = '[Members] Load Members',
+  LoadMembersForTeam = '[Members] Load Members for Team',
   LoadMembersForUser = '[Members] Load Members for User',
   LoadMembersSuccess = '[Members] Load Members Success',
   SelectMember = '[Members] Select Member',
@@ -10,6 +11,12 @@ export enum MembersActionTypes {
 
 export class LoadMembers implements Action {
   readonly type = MembersActionTypes.LoadMembers;
+}
+
+export class LoadMembersForTeam implements Action {
+  readonly type = MembersActionTypes.LoadMembersForTeam;
+
+  constructor(public payload: { teamId: string }) {}
 }
 
 export class LoadMembersForUser implements Action {
@@ -30,6 +37,7 @@ export class SelectMember implements Action {
 
 export type MembersActionsUnion =
   | LoadMembers
+  | LoadMembersForTeam
   | LoadMembersForUser
   | LoadMembersSuccess
   | SelectMember;

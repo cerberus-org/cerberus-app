@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { UserFormChanges } from '../../../shared/components/user-form/user-form.component';
 import * as SettingsActions from '../../actions/settings.actions';
 import { SettingsState } from '../../reducers';
-import { selectUserSettingsContainerState, UserSettingsContainerState } from '../../selectors/user-settings.selectors';
+import { getUserSettingsContainerState, UserSettingsContainerState } from '../../selectors/user-settings.selectors';
 
 @Component({
   selector: 'app-user-settings',
@@ -19,7 +19,7 @@ export class UserSettingsComponent implements OnInit {
   constructor(public store$: Store<SettingsState>) {}
 
   ngOnInit(): void {
-    this.state$ = this.store$.pipe(select(selectUserSettingsContainerState));
+    this.state$ = this.store$.pipe(select(getUserSettingsContainerState));
   }
 
   /**

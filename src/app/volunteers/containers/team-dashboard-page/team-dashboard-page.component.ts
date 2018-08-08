@@ -4,10 +4,12 @@ import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
-import * as ModelActions from '../../../core/actions/model.actions';
-import * as RouterActions from '../../../core/actions/router.actions';
+import { Go } from '../../../core/actions/router.actions';
+import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
+import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
+import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { AppState } from '../../../core/reducers';
-import { selectModelVisits } from '../../../core/selectors/model.selectors';
+import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
 import { Visit } from '../../../shared/models';
 import { getTeamDashboardHeaderOptions } from '../../selectors/team-dashboard.selectors';
 
@@ -26,14 +28,14 @@ export class TeamDashboardPageComponent implements OnDestroy {
   visits$: Observable<Visit[]>;
 
   constructor(private route: ActivatedRoute, private store$: Store<AppState>) {
-    store$.dispatch(new ModelActions.LoadTeams());
+    store$.dispatch(new LoadTeams());
     this.routeParamsSubscription = route.params
       .pipe(switchMap(({ teamId }) => [
         new SetSidenavOptions([
           {
             label: 'Check in',
             icon: 'done',
-            action: new RouterActions.Go({
+            action: new Go({
               // Workaround using teamId in path; using relativeTo extra causes error
               path: ['teams', teamId, 'volunteers', 'check-in'],
             }),
@@ -41,14 +43,14 @@ export class TeamDashboardPageComponent implements OnDestroy {
           {
             label: 'Check out',
             icon: 'done_all',
-            action: new RouterActions.Go({
+            action: new Go({
               path: ['teams', teamId, 'volunteers', 'check-out'],
             }),
           },
         ]),
-        new ModelActions.SelectTeam({ teamId }),
-        new ModelActions.LoadSites(teamId),
-        new ModelActions.LoadVisits(teamId),
+        new SelectTeam({ teamId }),
+        new LoadSitesForTeam({ teamId }),
+        new LoadVisitsForTeam({ teamId }),
       ]))
       .subscribe(store$);
     this.headerSubscription = store$
@@ -57,7 +59,7 @@ export class TeamDashboardPageComponent implements OnDestroy {
         map(headerOptions => new SetHeaderOptions(headerOptions)),
       )
       .subscribe(store$);
-    this.visits$ = store$.pipe(select(selectModelVisits));
+    this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
   }
 
   ngOnDestroy(): void {

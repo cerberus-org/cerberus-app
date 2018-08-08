@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
-import * as LayoutActions from '../../../core/actions/layout.actions';
-import * as ModelActions from '../../../core/actions/model.actions';
-import * as RouterActions from '../../../core/actions/router.actions';
+import { SetHeaderOptions } from '../../../core/actions/layout.actions';
+import { Go } from '../../../core/actions/router.actions';
+import { LoadTeams } from '../../../core/actions/teams.actions';
 import { AppState } from '../../../core/reducers';
 import { Team } from '../../../shared/models';
 import { SignUpDialogComponent } from '../sign-up-dialog/sign-up-dialog.component';
@@ -43,8 +43,8 @@ export class HomePageComponent implements OnInit {
   constructor(private dialog: MatDialog, public store$: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store$.dispatch(new LayoutActions.SetHeaderOptions(null));
-    this.store$.dispatch(new ModelActions.LoadTeams());
+    this.store$.dispatch(new SetHeaderOptions(null));
+    this.store$.dispatch(new LoadTeams());
   }
 
   onValidTeam(team: Team): void {
@@ -52,7 +52,7 @@ export class HomePageComponent implements OnInit {
   }
 
   onInputIconButtonClick(team: Team) {
-    this.store$.dispatch(new RouterActions.Go({ path: ['view-activity/' + team.name] }));
+    this.store$.dispatch(new Go({ path: ['view-activity/' + team.name] }));
   }
 
   onClickSignUp() {

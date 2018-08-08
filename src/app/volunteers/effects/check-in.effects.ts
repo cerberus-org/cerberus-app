@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as RouterActions from '../../core/actions/router.actions';
 import { AppState } from '../../core/reducers';
-import { getSelectedTeam } from '../../core/selectors/model.selectors';
+import { getSelectedTeam, getSelectedTeamId } from '../../core/selectors/teams.selectors';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { VisitService } from '../../core/services/visit.service';
 import { VolunteerService } from '../../core/services/volunteer.service';
@@ -23,11 +23,8 @@ export class CheckInEffects {
     .ofType(CheckInActions.SUBMIT_NEW_VOLUNTEER)
     .pipe(
       map((action: CheckInActions.SubmitNewVolunteer) => action.payload),
-      withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
-      switchMap(([volunteer, team]) => this.volunteerService.add({
-        ...volunteer,
-        teamId: team.id,
-      })
+      withLatestFrom(this.store$.pipe(select(getSelectedTeamId))),
+      switchMap(([volunteer, teamId]) => this.volunteerService.add({ ...volunteer, teamId })
         .pipe(
           map(() => {
             this.snackBarService.createVolunteerSuccess();
@@ -44,11 +41,11 @@ export class CheckInEffects {
     .ofType(CheckInActions.CHECK_IN)
     .pipe(
       map((action: CheckInActions.CheckIn) => action.payload),
-      withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
-      switchMap(([visit, team]) => this.visitService.add({
+      withLatestFrom(this.store$.pipe(select(getSelectedTeamId))),
+      switchMap(([visit, teamId]) => this.visitService.add({
         ...visit,
+        teamId,
         siteId: null, // TODO: Implement site association
-        teamId: team.id,
       })
         .pipe(
           map(() => {

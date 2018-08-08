@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/index';
 import { AppState } from '../../../core/reducers';
-import { selectModelSites } from '../../../core/selectors/model.selectors';
+import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { ColumnOptions, Site } from '../../../shared/models';
 import * as SettingsActions from '../../actions/settings.actions';
 import { SiteDialogComponent } from '../../components/site-dialog/site-dialog.component';
@@ -13,7 +13,7 @@ import { SiteDialogComponent } from '../../components/site-dialog/site-dialog.co
   templateUrl: './site-settings.component.html',
   styleUrls: ['./site-settings.component.scss'],
 })
-export class SiteSettingsComponent implements OnInit {
+export class SiteSettingsComponent {
   columnOptions: ColumnOptions[] = [
     new ColumnOptions(
       'label',
@@ -28,10 +28,8 @@ export class SiteSettingsComponent implements OnInit {
   ];
   public sites$: Observable<Site[]>;
 
-  constructor(public store$: Store<AppState>, public dialog: MatDialog) {}
-
-  ngOnInit(): void {
-    this.sites$ = this.store$.pipe(select(selectModelSites));
+  constructor(public store$: Store<AppState>, public dialog: MatDialog) {
+    this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
   }
 
   onDeleteSite(site: Site): void {

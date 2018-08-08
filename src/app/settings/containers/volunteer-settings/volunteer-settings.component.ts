@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
-import { selectModelVolunteers } from '../../../core/selectors/model.selectors';
+import { getVolunteersForSelectedTeam } from '../../../core/selectors/volunteers.selectors';
 import { ColumnOptions, Volunteer } from '../../../shared/models';
 import * as SettingsActions from '../../actions/settings.actions';
 
@@ -34,7 +34,7 @@ export class VolunteerSettingsComponent implements OnInit {
   constructor(public store$: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.volunteers$ = this.store$.pipe(select(selectModelVolunteers));
+    this.volunteers$ = this.store$.pipe(select(getVolunteersForSelectedTeam));
   }
 
   /**

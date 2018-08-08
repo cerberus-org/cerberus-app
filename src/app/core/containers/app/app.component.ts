@@ -5,7 +5,6 @@ import { User } from 'firebase';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { AppState } from '../../reducers';
-import { selectModelLoadedState } from '../../selectors/model.selectors';
 import { AppUpdateService } from '../../services/app-update.service';
 import { SidenavComponent } from '../sidenav/sidenav.component';
 
@@ -22,16 +21,11 @@ export class AppComponent implements OnInit {
   constructor(
     private afAuth: AngularFireAuth,
     private appUpdateService: AppUpdateService,
-    private store$: Store<AppState>,
   ) {}
 
   ngOnInit(): void {
     // Check if user is logged in to determine if loader should be displayed
     this.afAuth.auth.onAuthStateChanged(user => this.handleAuthStateChanged(user));
-    this.modelIsLoaded$ = this.store$.pipe(
-      delay(500), // Add delay to hide sidenav animation
-      select(selectModelLoadedState),
-    );
   }
 
   handleAuthStateChanged(user: User): void {

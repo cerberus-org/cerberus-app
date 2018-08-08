@@ -1,25 +1,25 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { getMemberForSelectedTeam } from '../../core/selectors/model.selectors';
+import { getMemberForUserAndSelectedTeam } from '../../core/selectors/members.selectors';
 import { isAdmin } from '../../shared/helpers';
 import { Member, SidenavOptions } from '../../shared/models';
 import * as SettingsActions from '../actions/settings.actions';
 import { SettingsState } from '../reducers';
 import { SettingsReducerState } from '../reducers/settings.reducer';
 
-export const selectSettingsState = createFeatureSelector<SettingsState>('settingsModule');
+export const getSettingsState = createFeatureSelector<SettingsState>('settingsModule');
 
-export const selectSettingsReducerState = createSelector(
-  selectSettingsState,
+export const getSettingsReducerState = createSelector(
+  getSettingsState,
   (state: SettingsState) => state.settings,
 );
 
-export const selectSettingsSidenavSelection = createSelector(
-  selectSettingsReducerState,
+export const getSettingsSidenavSelection = createSelector(
+  getSettingsReducerState,
   (state: SettingsReducerState) => state.sidenavSelection,
 );
 
-export const selectSettingsSidenavOptions = createSelector(
-  getMemberForSelectedTeam,
+export const getSettingsSidenavOptions = createSelector(
+  getMemberForUserAndSelectedTeam,
   (member: Member): SidenavOptions[] => {
     const sidenavOptions = [
       new SidenavOptions(

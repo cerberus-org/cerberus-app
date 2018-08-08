@@ -8,7 +8,7 @@ import { PasswordDialogComponent } from '../../../shared/components/password-dia
 import * as LayoutActions from '../../actions/layout.actions';
 import * as RouterActions from '../../actions/router.actions';
 import { LayoutReducerState } from '../../reducers/layout.reducer';
-import { HeaderState, selectHeaderState } from '../../selectors/layout.selectors';
+import { HeaderState, getHeaderState } from '../../selectors/layout.selectors';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.headerState$ = this.store$.pipe(
       delay(0),
-      select(selectHeaderState),
+      select(getHeaderState),
     );
   }
 
