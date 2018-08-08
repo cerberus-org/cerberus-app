@@ -1,5 +1,5 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromTeams from './teams.reducer';
+import * as fromTeams from './teams-page.reducer';
 
 export interface TeamsState {
   teams: fromTeams.State;

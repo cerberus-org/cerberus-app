@@ -1,14 +1,14 @@
 import { Action } from '@ngrx/store';
 import { Team } from '../../shared/models';
 
-export enum TeamsActionTypes {
-  LoadTeams = '[Teams] Load Teams',
-  LoadTeamsSuccess = '[Teams] Load Teams Success',
-  CreateTeam = '[Teams] Create Team',
-  JoinTeam = '[Teams] Join Team',
-  OpenCreateTeamDialog = '[Teams] Open Create Team Dialog',
-  OpenJoinTeamDialog = '[Teams] Open Find Team Dialog',
-  SelectTeam = '[Teams] Select Team',
+export enum TeamsPageActionTypes {
+  LoadTeams = '[Teams Page] Load Teams',
+  LoadTeamsSuccess = '[Teams Page] Load Teams Success',
+  CreateTeam = '[Teams Page] Create Team',
+  JoinTeam = '[Teams Page] Join Team',
+  OpenCreateTeamDialog = '[Teams Page] Open Create Team Dialog',
+  OpenJoinTeamDialog = '[Teams Page] Open Find Team Dialog',
+  SelectTeam = '[Teams Page] Select Team',
 }
 
 /**
@@ -19,37 +19,37 @@ export enum TeamsActionTypes {
  * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
  */
 export class LoadTeams implements Action {
-  readonly type = TeamsActionTypes.LoadTeams;
+  readonly type = TeamsPageActionTypes.LoadTeams;
 }
 
 export class LoadTeamsSuccess implements Action {
-  readonly type = TeamsActionTypes.LoadTeamsSuccess;
+  readonly type = TeamsPageActionTypes.LoadTeamsSuccess;
 
   constructor(public payload: { teams: Team[] }) {}
 }
 
 export class CreateTeam implements Action {
-  readonly type = TeamsActionTypes.CreateTeam;
+  readonly type = TeamsPageActionTypes.CreateTeam;
 
   constructor(public payload: { team: Team }) {}
 }
 
 export class JoinTeam implements Action {
-  readonly type = TeamsActionTypes.JoinTeam;
+  readonly type = TeamsPageActionTypes.JoinTeam;
 
   constructor(public payload: { team: Team }) {}
 }
 
 export class OpenCreateTeamDialog implements Action {
-  readonly type = TeamsActionTypes.OpenCreateTeamDialog;
+  readonly type = TeamsPageActionTypes.OpenCreateTeamDialog;
 }
 
 export class OpenFindTeamDialog implements Action {
-  readonly type = TeamsActionTypes.OpenJoinTeamDialog;
+  readonly type = TeamsPageActionTypes.OpenJoinTeamDialog;
 }
 
 export class SelectTeam implements Action {
-  readonly type = TeamsActionTypes.SelectTeam;
+  readonly type = TeamsPageActionTypes.SelectTeam;
 
   constructor(public payload: { team: Team }) {}
 }
@@ -58,7 +58,7 @@ export class SelectTeam implements Action {
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type TeamsActionsUnion =
+export type TeamsPageActionsUnion =
   | LoadTeams
   | LoadTeamsSuccess
   | CreateTeam

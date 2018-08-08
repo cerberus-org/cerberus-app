@@ -9,7 +9,7 @@ import { CreateTeamDialogComponent } from './containers/create-team-dialog/creat
 import { JoinTeamDialogComponent } from './containers/join-team-dialog/join-team-dialog.component';
 import { TeamsPageComponent } from './containers/teams-page/teams-page.component';
 import { ViewSelectedTeamComponent } from './containers/view-selected-team/view-selected-team.component';
-import { TeamsEffects } from './effects/teams.effects';
+import { TeamsPageEffects } from './effects/teams-page.effects';
 import { reducers } from './reducers';
 import { TeamsRoutingModule } from './teams-routing.module';
 
@@ -36,7 +36,7 @@ import { TeamsRoutingModule } from './teams-routing.module';
      * All Effects will only be instantiated once regardless of
      * whether they are registered once or multiple times.
      */
-    EffectsModule.forFeature([TeamsEffects]),
+    EffectsModule.forFeature([TeamsPageEffects]),
   ],
   declarations: [
     TeamsPageComponent,

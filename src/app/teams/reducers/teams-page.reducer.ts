@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Team } from '../../shared/models';
-import { TeamsActionsUnion, TeamsActionTypes } from '../actions/teams.actions';
+import { TeamsPageActionsUnion, TeamsPageActionTypes } from '../actions/teams-page.actions';
 
 /**
  * @ngrx/entity provides a predefined interface for handling
@@ -29,13 +29,13 @@ export const initialState: State = adapter.getInitialState({
   selectedTeam: null,
 });
 
-export function reducer(state = initialState, action: TeamsActionsUnion): State {
+export function reducer(state = initialState, action: TeamsPageActionsUnion): State {
   switch (action.type) {
-    case TeamsActionTypes.LoadTeamsSuccess: {
+    case TeamsPageActionTypes.LoadTeamsSuccess: {
       return adapter.addMany(action.payload.teams, state);
     }
 
-    case TeamsActionTypes.SelectTeam: {
+    case TeamsPageActionTypes.SelectTeam: {
       return { ...state, selectedTeam: action.payload.team };
     }
 

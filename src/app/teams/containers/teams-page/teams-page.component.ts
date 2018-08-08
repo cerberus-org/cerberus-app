@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { AppState } from '../../../core/reducers';
 import { Team } from '../../../shared/models';
-import { LoadTeams, OpenCreateTeamDialog, OpenFindTeamDialog, SelectTeam } from '../../actions/teams.actions';
+import { LoadTeams, OpenCreateTeamDialog, OpenFindTeamDialog, SelectTeam } from '../../actions/teams-page.actions';
 import * as fromTeams from '../../reducers';
 
 @Component({
