@@ -29,7 +29,7 @@ export class MockTeamService extends TeamService {
     return of(Promise.resolve());
   }
 
-  delete(team: any): Observable<any> {
+  remove(team: any): Observable<any> {
     return EMPTY;
   }
 }

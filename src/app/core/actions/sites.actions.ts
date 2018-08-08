@@ -2,9 +2,12 @@ import { Action } from '@ngrx/store';
 import { Site } from '../../shared/models';
 
 export enum SitesActionTypes {
-  LoadSites = '[Sites] Load Sites',
-  LoadSitesForTeam = '[Sites] Load Sites for Team',
-  LoadSitesSuccess = '[Sites] Load Sites Success',
+  LoadSites = '[sites] load sites',
+  LoadSitesForTeam = '[sites] load sites for team',
+  LoadSitesSuccess = '[sites] load sites success',
+  SiteAdded = '[sites] added',
+  SiteModified = '[sites] modified',
+  SiteRemoved = '[sites] removed',
 }
 
 export class LoadSites implements Action {
@@ -12,7 +15,7 @@ export class LoadSites implements Action {
 }
 
 export class LoadSitesForTeam implements Action {
-  readonly type = SitesActionTypes.LoadSites;
+  readonly type = SitesActionTypes.LoadSitesForTeam;
 
   constructor(public payload: { teamId: string }) {}
 }
@@ -23,6 +26,26 @@ export class LoadSitesSuccess implements Action {
   constructor(public payload: { sites: Site[] }) {}
 }
 
+// AngularFire2 StateChanges
+
+export class SiteAdded implements Action {
+  readonly type = SitesActionTypes.SiteAdded;
+
+  constructor(public payload: Site) {}
+}
+
+export class SiteModified implements Action {
+  readonly type = SitesActionTypes.SiteModified;
+
+  constructor(public payload: Site) {}
+}
+
+export class SiteRemoved implements Action {
+  readonly type = SitesActionTypes.SiteRemoved;
+
+  constructor(public payload: Site) {}
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -30,4 +53,7 @@ export class LoadSitesSuccess implements Action {
 export type SitesActionsUnion =
   | LoadSites
   | LoadSitesForTeam
-  | LoadSitesSuccess;
+  | LoadSitesSuccess
+  | SiteAdded
+  | SiteModified
+  | SiteRemoved;

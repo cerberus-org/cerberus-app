@@ -2,9 +2,9 @@ import { Action } from '@ngrx/store';
 import { Volunteer } from '../../shared/models';
 
 export enum VolunteersActionTypes {
-  LoadVolunteers = '[Volunteers] Load Volunteers',
-  LoadVolunteersForTeam = '[Volunteers] Load Volunteers for Team',
-  LoadVolunteersSuccess = '[Volunteers] Load Volunteers Success',
+  LoadVolunteers = '[volunteers] load volunteers',
+  LoadVolunteersForTeam = '[volunteers] load volunteers for team',
+  LoadVolunteersSuccess = '[volunteers] load volunteers success',
 }
 
 export class LoadVolunteers implements Action {

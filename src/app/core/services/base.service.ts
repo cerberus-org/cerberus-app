@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Action } from '@ngrx/store';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
 import { from, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { getItemWithoutArrayProperties } from '../../shared/helpers';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ErrorService } from './error.service';
+import WhereFilterOp = firebase.firestore.WhereFilterOp;
 
 @Injectable()
 export abstract class BaseService<T extends { id: string }> {
   protected abstract collectionName: string;
 
-  constructor(
-    protected db: AngularFirestore,
-    protected errorService: ErrorService,
-  ) {
-  }
+  constructor(protected afs: AngularFirestore, protected errorService: ErrorService) {}
 
   /**
    * Returns the collection based on the collectionName, using a query function if provided.
@@ -21,7 +18,29 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {AngularFirestoreCollection<T>} - the collection
    */
   protected collection(queryFn?: QueryFn): AngularFirestoreCollection<T> {
-    return this.db ? this.db.collection<T>(this.collectionName, queryFn) : undefined;
+    return this.afs ? this.afs.collection<T>(this.collectionName, queryFn) : undefined;
+  }
+
+  getAllStateChanges(): Observable<Action> {
+    return this.collection().stateChanges()
+      .pipe(
+        mergeMap(actions => actions),
+        map(action => ({
+          type: `[${this.collectionName}] ${action.type}`,
+          payload: { id: action.payload.doc.id, ...action.payload.doc.data() as Object },
+        })),
+      );
+  }
+
+  getStateChangesByKey(key: string, value: string, opStr: WhereFilterOp = '=='): Observable<Action> {
+    return this.collection(ref => ref.where(key, opStr, value)).stateChanges()
+      .pipe(
+        mergeMap(actions => actions),
+        map(action => ({
+          type: `[${this.collectionName}] ${action.type}`,
+          payload: { id: action.payload.doc.id, ...action.payload.doc.data() as Object },
+        })),
+      );
   }
 
   /**
@@ -117,29 +136,11 @@ export abstract class BaseService<T extends { id: string }> {
   }
 
   /**
-   * Performs a batch update for items passed in.
-   *
-   * @param {T[]} items - updated items
-   * @returns {Observable<any>}
-   */
-  batchUpdate(items: T[]): Observable<any> {
-    const batch = this.db.firestore.batch();
-    items.forEach((item) => {
-      batch.update(this.db.firestore.collection(this.collectionName).doc(item.id), getItemWithoutArrayProperties(item));
-    });
-    return from(
-      batch.commit(),
-    )
-      .pipe(
-        catchError(error => this.errorService.handleFirebaseError(error)));
-  }
-
-  /**
-   * Deletes an entire document. Does not delete any nested collections.
+   * Removes a document. Does not remove any nested collections.
    * @param item - the item to be deleted
    * @returns {Observable<any>} - an empty Observable that emits when completed.
    */
-  delete(item: T): Observable<any> {
+  remove(item: T): Observable<any> {
     return from(
       this.collection().doc(item.id).delete(),
     )

@@ -2,10 +2,10 @@ import { Action } from '@ngrx/store';
 import { HeaderOptions, SidenavOptions } from '../../shared/models';
 
 export enum LayoutActionTypes {
-  SetHeaderOptions = '[Layout] Set Header Options',
-  SetSidenavOptions = '[Layout] Set Sidenav Options',
-  SetSidenavOpened = '[Layout] Set Sidenav Opened',
-  ToggleSidenavOpened = '[Layout] Toggle Sidenav Opened',
+  SetHeaderOptions = '[layout] set header options',
+  SetSidenavOptions = '[layout] set sidenav options',
+  SetSidenavOpened = '[layout] set sidenav opened',
+  ToggleSidenavOpened = '[layout] toggle sidenav opened',
 }
 
 export class SetHeaderOptions implements Action {

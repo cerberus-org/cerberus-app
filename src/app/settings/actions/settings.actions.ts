@@ -3,16 +3,16 @@ import { UserFormChanges } from '../../shared/components/user-form/user-form.com
 import { Member, Site, Team, Visit, Volunteer } from '../../shared/models';
 
 export enum SettingsActionTypes {
-  SelectSettingsOption = '[Settings] Select Settings Option',
-  CreateSite = '[Settings] Create Site',
-  UpdateSite = '[Settings] Update Site',
-  DeleteSite = '[Settings] Delete Site',
-  UpdateRole = '[Settings] Update Role',
-  UpdateTeam = '[Settings] Update Team',
-  UpdateUser = '[Settings] Update User',
-  UpdateVisit = '[Settings] Update Visit',
-  DeleteVolunteer = '[Settings] Delete Volunteer',
-  GenerateReport = '[Settings] Generate Report',
+  SelectSettingsOption = '[settings] select settings option',
+  CreateSite = '[settings] create site',
+  UpdateSite = '[settings] update site',
+  DeleteSite = '[settings] delete site',
+  UpdateRole = '[settings] update role',
+  UpdateTeam = '[settings] update team',
+  UpdateUser = '[settings] update user',
+  UpdateVisit = '[settings] update visit',
+  DeleteVolunteer = '[settings] delete volunteer',
+  GenerateReport = '[settings] generate report',
 }
 
 export class SelectSettingsOption implements Action {

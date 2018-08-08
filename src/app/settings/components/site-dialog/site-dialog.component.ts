@@ -12,7 +12,7 @@ import { Member, Site } from '../../../shared/models';
   styleUrls: ['./site-dialog.component.scss'],
 })
 export class SiteDialogComponent implements OnInit {
-  label: string;
+  name: string;
   description: string;
   address: string;
 
@@ -21,7 +21,7 @@ export class SiteDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<SiteDialogComponent>, public store$: Store<AppState>, @Inject(MAT_DIALOG_DATA) public data: any) {
     // If a site was passed in, set default fields
-    this.label = this.data ? this.data.label : '';
+    this.name = this.data ? this.data.name : '';
     this.description = this.data ? this.data.description : '';
     this.address = this.data ? this.data.address : '';
   }
@@ -45,10 +45,10 @@ export class SiteDialogComponent implements OnInit {
   close() {
     // If there was  data passed in this dialog was opened for edit
     if (this.data) {
-      this.dialogRef.close(Object.assign({}, new Site(this.member.teamId, this.label, this.address, this.description), { id: this.data.id }));
+      this.dialogRef.close(Object.assign({}, new Site(this.member.teamId, this.name, this.address, this.description), { id: this.data.id }));
     // Otherwise dialog was opened for creation
     } else {
-      this.dialogRef.close(new Site(this.member.teamId, this.label, this.address, this.description));
+      this.dialogRef.close(new Site(this.member.teamId, this.name, this.address, this.description));
     }
   }
 }

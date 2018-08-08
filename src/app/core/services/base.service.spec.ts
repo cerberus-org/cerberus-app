@@ -124,9 +124,9 @@ describe('BaseService', () => {
   });
 
   describe('delete', () => {
-    it('should delete data in a collection', () => {
+    it('should remove data in a collection', () => {
       const volunteer = createMockVolunteers()[0];
-      service.delete(volunteer);
+      service.remove(volunteer);
       expect(docSpy).toHaveBeenCalledWith(volunteer.id);
       expect(deleteSpy).toHaveBeenCalled();
     });

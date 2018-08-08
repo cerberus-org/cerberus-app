@@ -2,9 +2,9 @@ import { Action } from '@ngrx/store';
 import { Team } from '../../shared/models';
 
 export enum TeamsActionTypes {
-  LoadTeams = '[Teams] Load Teams',
-  LoadTeamsSuccess = '[Teams] Load Teams Success',
-  SelectTeam = '[Teams] Select Team',
+  LoadTeams = '[teams] load teams',
+  LoadTeamsSuccess = '[teams] load teams success',
+  SelectTeam = '[teams] select team',
 }
 
 /**

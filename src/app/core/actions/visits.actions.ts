@@ -2,9 +2,9 @@ import { Action } from '@ngrx/store';
 import { Visit } from '../../shared/models';
 
 export enum VisitsActionTypes {
-  LoadVisits = '[Visits] Load Visits',
-  LoadVisitsForTeam = '[Visits] Load Visits for Team',
-  LoadVisitsSuccess = '[Visits] Load Visits Success',
+  LoadVisits = '[visits] load visits',
+  LoadVisitsForTeam = '[visits] load visits for team',
+  LoadVisitsSuccess = '[visits] load visits success',
 }
 
 export class LoadVisits implements Action {

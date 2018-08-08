@@ -2,11 +2,11 @@ import { Action } from '@ngrx/store';
 import { Member } from '../../shared/models';
 
 export enum MembersActionTypes {
-  LoadMembers = '[Members] Load Members',
-  LoadMembersForTeam = '[Members] Load Members for Team',
-  LoadMembersForUser = '[Members] Load Members for User',
-  LoadMembersSuccess = '[Members] Load Members Success',
-  SelectMember = '[Members] Select Member',
+  LoadMembers = '[members] load members',
+  LoadMembersForTeam = '[members] load members for team',
+  LoadMembersForUser = '[members] load members for user',
+  LoadMembersSuccess = '[members] load members success',
+  SelectMember = '[members] select member',
 }
 
 export class LoadMembers implements Action {

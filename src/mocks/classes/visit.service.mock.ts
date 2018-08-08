@@ -47,7 +47,7 @@ export class MockVisitService extends VisitService {
     return of(Promise.resolve());
   }
 
-  delete(visit: any): Observable<any> {
+  remove(visit: any): Observable<any> {
     return EMPTY;
   }
 }

@@ -2,9 +2,9 @@ import { NavigationExtras } from '@angular/router';
 import { Action } from '@ngrx/store';
 
 export enum RouterActionTypes {
-  Go = '[Router] Go',
-  Back = '[Router] Back',
-  Forward = '[Router] Forward',
+  Go = '[router] go',
+  Back = '[router] back',
+  Forward = '[router] forward',
 }
 
 export class Go implements Action {

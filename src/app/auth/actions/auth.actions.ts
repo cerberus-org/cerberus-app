@@ -3,12 +3,12 @@ import { UserInfo } from 'firebase';
 import { Credentials } from '../../shared/models/credentials';
 
 export enum AuthActionTypes {
-  SignUp = '[Auth] Sign Up',
-  SignIn = '[Auth] Sign In',
-  SignOut = '[Auth] Sign Out',
-  VerifyPassword = '[Auth] Verify Password',
-  ResetPassword = '[Auth] Reset Password',
-  SetUserInfo = '[Auth] Set User Info',
+  SignUp = '[auth] sign up',
+  SignIn = '[auth] sign in',
+  SignOut = '[auth] sign out',
+  VerifyPassword = '[auth] verify password',
+  ResetPassword = '[auth] reset password',
+  SetUserInfo = '[auth] set user info',
 }
 
 export class SignUp implements Action {

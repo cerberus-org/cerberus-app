@@ -17,6 +17,18 @@ export function sitesReducer(state = initialState, action: SitesActionsUnion): S
       return sitesAdapter.addMany(action.payload.sites, state);
     }
 
+    case SitesActionTypes.SiteAdded: {
+      return sitesAdapter.addOne(action.payload, state);
+    }
+
+    case SitesActionTypes.SiteModified: {
+      return sitesAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
+    }
+
+    case SitesActionTypes.SiteRemoved: {
+      return sitesAdapter.removeOne(action.payload.id, state);
+    }
+
     default: {
       return state;
     }

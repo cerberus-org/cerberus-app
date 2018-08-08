@@ -45,13 +45,13 @@ export class SettingsEffects {
   ) {}
 
   /**
-   * Listen for the deleteVolunteer action then delete the volunteer in the payload.
+   * Listen for the deleteVolunteer action then remove the volunteer in the payload.
    */
   @Effect({ dispatch: false })
   deleteVolunteer$: Observable<Action> = this.actions.pipe(
     ofType<DeleteVolunteer>(SettingsActionTypes.DeleteVolunteer),
     map(action => action.payload.volunteer),
-    switchMap(volunteer => this.volunteerService.delete(volunteer).pipe(
+    switchMap(volunteer => this.volunteerService.remove(volunteer).pipe(
       tap(() => {
         this.snackBarService.deleteVolunteerSuccess();
       }),
@@ -139,7 +139,7 @@ export class SettingsEffects {
   deleteSite$: Observable<Action> = this.actions.pipe(
     ofType<DeleteSite>(SettingsActionTypes.DeleteSite),
     map(action => action.payload.site),
-    switchMap(site => this.siteService.delete(site).pipe(
+    switchMap(site => this.siteService.remove(site).pipe(
       tap(() => {
         this.snackBarService.deleteSiteSuccess();
       }),

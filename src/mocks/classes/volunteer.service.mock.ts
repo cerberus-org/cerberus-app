@@ -29,7 +29,7 @@ export class MockVolunteerService extends VolunteerService {
     return of(Promise.resolve());
   }
 
-  delete(volunteer: any): Observable<any> {
+  remove(volunteer: any): Observable<any> {
     return EMPTY;
   }
 }

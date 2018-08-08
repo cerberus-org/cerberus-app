@@ -124,7 +124,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Handles delete button click events by emitting a delete item event.
+   * Handles remove button click events by emitting a remove item event.
    * @param item - the item to be deleted
    */
   onClickDelete(item: any): void {

@@ -2,19 +2,12 @@ import { Action } from '@ngrx/store';
 import { Team } from '../../shared/models';
 
 export enum TeamsPageActionTypes {
-  CreateTeam = '[Teams Page] Create Team',
-  JoinTeam = '[Teams Page] Join Team',
-  OpenCreateTeamDialog = '[Teams Page] Open Create Team Dialog',
-  OpenJoinTeamDialog = '[Teams Page] Open Join Team Dialog',
+  CreateTeam = '[teams page] create team',
+  JoinTeam = '[teams page] join team',
+  OpenCreateTeamDialog = '[teams page] open create team dialog',
+  OpenJoinTeamDialog = '[teams page] open join team dialog',
 }
 
-/**
- * Every action is comprised of at least a type and an optional
- * payload. Expressing actions as classes enables powerful
- * type checking in reducer functions.
- *
- * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
- */
 export class CreateTeam implements Action {
   readonly type = TeamsPageActionTypes.CreateTeam;
 

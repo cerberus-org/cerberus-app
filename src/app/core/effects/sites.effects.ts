@@ -26,8 +26,6 @@ export class SitesEffects {
   loadSitesForTeam$: Observable<Action> = this.actions.pipe(
     ofType<LoadSitesForTeam>(SitesActionTypes.LoadSitesForTeam),
     map(action => action.payload.teamId),
-    switchMap(teamId => this.siteService.getByKey('teamId', teamId, true).pipe(
-      map(sites => new LoadSitesSuccess({ sites })),
-    )),
+    switchMap(teamId => this.siteService.getStateChangesByKey('teamId', teamId)),
   );
 }
