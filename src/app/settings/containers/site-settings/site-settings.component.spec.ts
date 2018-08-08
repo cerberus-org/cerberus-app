@@ -49,9 +49,9 @@ describe('SiteSettingsComponent', () => {
     },
   );
 
-  it('should display the label of a site in the first table column', () => {
+  it('should display the name of a site in the first table column', () => {
     expect(component.columnOptions[0].cell(sites[0]))
-      .toEqual(sites[0].label);
+      .toEqual(sites[0].name);
   });
 
   it('should display the description of a site in the second table column', () => {

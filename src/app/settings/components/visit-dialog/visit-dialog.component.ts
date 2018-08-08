@@ -27,7 +27,7 @@ export class VisitDialogComponent implements OnInit {
   }
 
   onSelectionChange(siteLabel: string): void {
-    this.selectedSite.label = siteLabel;
+    this.selectedSite.name = siteLabel;
   }
 
   onTimeChange(event): void {
@@ -71,7 +71,7 @@ export class VisitDialogComponent implements OnInit {
    * Close dialog and pass back data.
    */
   close() {
-    this.data.selectedSite = this.teamSites.find(site => site.label === this.selectedSite.label);
+    this.data.selectedSite = this.teamSites.find(site => site.name === this.selectedSite.name);
     // If there was  data passed in this dialog was opened for edit
     this.dialogRef.close(this.data);
   }

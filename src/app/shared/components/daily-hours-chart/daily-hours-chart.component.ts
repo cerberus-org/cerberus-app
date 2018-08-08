@@ -41,7 +41,7 @@ export class DailyHoursChartComponent implements OnChanges {
 
   /**
    * Constructs list of dates that will be used based on latest date, count, unit, and format.
-   * @param latest - the latest date that will be used as the rightmost label
+   * @param latest - the latest date that will be used as the rightmost name
    * @param count - the number of previous dates to use as labels
    * @param format - how each date should be displayed (refer to Moment.js formats)
    * @param unit - the unit to use for mapping to dates (refer to Moment.js keys)
@@ -67,7 +67,7 @@ export class DailyHoursChartComponent implements OnChanges {
    * @param visits - the visits that will be used
    * @param labels - the labels that durations will be totaled for
    * @param format - how each date should be displayed (refer to Moment.js formats)
-   * @returns {[{data: number[], label: string}]} - the line chart data
+   * @returns {[{data: number[], name: string}]} - the line chart data
    */
   setupLineChartData(
     visits: Visit[],

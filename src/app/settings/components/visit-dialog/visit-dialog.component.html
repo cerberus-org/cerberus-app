@@ -9,10 +9,10 @@
   <mat-form-field class="example-full-width" autocomplete="off">
     <mat-select
       placeholder="Site"
-      [value]="selectedSite.label"
+      [value]="selectedSite.name"
       (selectionChange)="onSelectionChange($event.value)">
-      <mat-option *ngFor="let site of teamSites" [value]="site.label">
-        {{site.label}}
+      <mat-option *ngFor="let site of teamSites" [value]="site.name">
+        {{site.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>

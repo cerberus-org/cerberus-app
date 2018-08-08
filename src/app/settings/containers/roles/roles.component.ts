@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { ColumnOptions, Member } from '../../../shared/models';
 import * as SettingsActions from '../../actions/settings.actions';
-import { MemberWithRoleOptions, getMembersWithRoleOptions } from '../../selectors/roles.selectors';
+import { getMembersWithRoleOptions, MemberWithRoleOptions } from '../../selectors/roles.selectors';
 
 @Component({
   selector: 'app-roles',
@@ -13,22 +13,27 @@ import { MemberWithRoleOptions, getMembersWithRoleOptions } from '../../selector
 })
 export class RolesComponent implements OnInit {
   columnOptions: ColumnOptions[] = [
-    new ColumnOptions(
-      'firstName',
-      'First Name',
-      (row: MemberWithRoleOptions) => row.firstName,
-    ),
-    new ColumnOptions(
-      'lastName',
-      'Last Name',
-      (row: MemberWithRoleOptions) => row.lastName,
-    ),
-    new ColumnOptions(
-      'role',
-      'Role',
-      (row: MemberWithRoleOptions) => row.role,
-      (row: MemberWithRoleOptions) => row.roleOptions,
-    ),
+    {
+      columnDef: 'firstName',
+      header: 'First Name',
+      cell: (row: MemberWithRoleOptions) => row.firstName,
+    },
+    {
+      columnDef: 'firstName',
+      header: 'First Name',
+      cell: (row: MemberWithRoleOptions) => row.firstName,
+    },
+    {
+      columnDef: 'lastName',
+      header: 'Last Name',
+      cell: (row: MemberWithRoleOptions) => row.lastName,
+    },
+    {
+      columnDef: 'role',
+      header: 'Role Name',
+      cell: (row: MemberWithRoleOptions) => row.role,
+      selectOptions: (row: MemberWithRoleOptions) => row.roleOptions,
+    },
   ];
   members$: Observable<MemberWithRoleOptions[]>;
 

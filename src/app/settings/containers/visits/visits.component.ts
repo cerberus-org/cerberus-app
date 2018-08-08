@@ -9,6 +9,7 @@ import { ColumnOptions, Site } from '../../../shared/models';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
 import * as SettingsActions from '../../actions/settings.actions';
 import { VisitDialogComponent } from '../../components/visit-dialog/visit-dialog.component';
+import { MemberWithRoleOptions } from '../../selectors/roles.selectors';
 import { selectVisitWithVolunteers } from '../../selectors/visits.selectors';
 
 @Component({
@@ -26,37 +27,37 @@ export class VisitsComponent implements OnInit {
 
   ngOnInit() {
     this.columnOptions = [
-      new ColumnOptions(
-        'name',
-        'Name',
-        (row: VisitWithVolunteer) => getFullName(row.volunteer),
-      ),
-      new ColumnOptions(
-        'site',
-        'Site',
-        (row: VisitWithVolunteer) => row.selectedSite && row.selectedSite.label ? row.selectedSite.label : '--',
-      ),
-      new ColumnOptions(
-        'date',
-        'Date',
-        (row: VisitWithVolunteer) => formatDate(row.startedAt, row.timezone),
-      ),
-      new ColumnOptions(
-        'startedAt',
-        'Start',
-        (row: VisitWithVolunteer) => formatTime(row.startedAt, row.timezone),
-      ),
+      {
+        columnDef: 'name',
+        header: 'Name',
+        cell: (row: VisitWithVolunteer) => getFullName(row.volunteer),
+      },
+      {
+        columnDef: 'site',
+        header: 'Site',
+        cell: (row: VisitWithVolunteer) => row.selectedSite && row.selectedSite.name ? row.selectedSite.name : '--',
+      },
+      {
+        columnDef: 'date',
+        header: 'Date',
+        cell: (row: VisitWithVolunteer) => formatDate(row.startedAt, row.timezone),
+      },
+      {
+        columnDef: 'startedAt',
+        header: 'Start',
+        cell: (row: VisitWithVolunteer) => formatTime(row.startedAt, row.timezone),
+      },
       {
         columnDef: 'endedAt',
         header: 'End',
         cell: (row: VisitWithVolunteer) => formatTimeInputValue(row.endedAt, row.timezone),
         isTime: true,
       },
-      new ColumnOptions(
-        'duration',
-        'Duration',
-        (row: VisitWithVolunteer) => formatDuration(row.startedAt, row.endedAt, row.timezone),
-      ),
+      {
+        columnDef: 'duration',
+        header: 'Duration',
+        cell: (row: VisitWithVolunteer) => formatTimeInputValue(row.endedAt, row.timezone),
+      },
     ];
     this.state$ = this.store$.pipe(select(selectVisitWithVolunteers));
   }

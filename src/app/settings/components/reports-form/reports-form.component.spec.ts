@@ -52,7 +52,11 @@ describe('ReportsFormComponent', () => {
     component.formGroup.controls['start'].setValue(start);
     component.formGroup.controls['end'].setValue(end);
     component.formGroup.controls['selectedReport'].setValue(selectedReport);
-    expect(component.validReport.emit).toHaveBeenCalledWith(new Report(start, end, selectedReport));
+    expect(component.validReport.emit).toHaveBeenCalledWith({
+      startedAt: start,
+      endedAt: end,
+      title: selectedReport,
+    });
   });
 
   describe('start control', () => {

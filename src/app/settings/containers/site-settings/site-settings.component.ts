@@ -15,16 +15,16 @@ import { SiteDialogComponent } from '../../components/site-dialog/site-dialog.co
 })
 export class SiteSettingsComponent {
   columnOptions: ColumnOptions[] = [
-    new ColumnOptions(
-      'label',
-      'Label',
-      (row: Site) => row.label,
-    ),
-    new ColumnOptions(
-      'description',
-      'Description',
-      (row: Site) => row.description,
-    ),
+    {
+      columnDef: 'label',
+      header: 'Label',
+      cell: (row: Site) => row.name,
+    },
+    {
+      columnDef: 'description',
+      header: 'Description',
+      cell: (row: Site) => row.description,
+    },
   ];
   public sites$: Observable<Site[]>;
 
@@ -67,7 +67,7 @@ export class SiteSettingsComponent {
   openDialogForCreation(site?: Site) {
     const dialog = this.dialog.open(SiteDialogComponent);
     dialog.afterClosed().subscribe((site: Site) => {
-      if (site && site.label) {
+      if (site && site.name) {
         this.store$.dispatch(Object.assign({}, new SettingsActions.CreateSite(site)));
       }
     });

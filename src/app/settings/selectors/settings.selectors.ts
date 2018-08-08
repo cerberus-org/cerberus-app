@@ -22,45 +22,50 @@ export const getSettingsSidenavOptions = createSelector(
   getMemberForUserAndSelectedTeam,
   (member: Member): SidenavOptions[] => {
     const sidenavOptions = [
-      new SidenavOptions(
-        'User',
-        'face',
-        new SettingsActions.LoadSettingsPage('USER_SETTINGS'),
-      ),
+      {
+        label: 'User',
+        icon: 'face',
+        action: new SettingsActions.LoadSettingsPage('USER_SETTINGS'),
+      },
     ];
     return member && isAdmin(member)
       ? [
         ...sidenavOptions,
-        new SidenavOptions(
-          'Team',
-          'domain',
-          new SettingsActions.LoadSettingsPage('TEAM_SETTINGS'),
-        ),
-        new SidenavOptions(
-          'Volunteers',
-          'insert_emoticon',
-          new SettingsActions.LoadSettingsPage('VOLUNTEER_SETTINGS'),
-        ),
-        new SidenavOptions(
-          'Reports',
-          'assessment',
-          new SettingsActions.LoadSettingsPage('REPORTS'),
-        ),
-        new SidenavOptions(
-          'Roles',
-          'lock_outline',
-          new SettingsActions.LoadSettingsPage('ROLES'),
-        ),
-        new SidenavOptions(
-          'Visits',
-          'done_all',
-          new SettingsActions.LoadSettingsPage('VISITS'),
-        ),
-        new SidenavOptions(
-          'Sites',
-          'dashboard',
-          new SettingsActions.LoadSettingsPage('SITES'),
-        ),
+        {
+          label: 'User',
+          icon: 'face',
+          action: new SettingsActions.LoadSettingsPage('USER_SETTINGS'),
+        },
+        {
+          label: 'Team',
+          icon: 'domain',
+          action: new SettingsActions.LoadSettingsPage('TEAM_SETTINGS'),
+        },
+        {
+          label: 'Volunteers',
+          icon: 'insert_emoticon',
+          action: new SettingsActions.LoadSettingsPage('VOLUNTEER_SETTINGS'),
+        },
+        {
+          label: 'Reports',
+          icon: 'assessment',
+          action: new SettingsActions.LoadSettingsPage('REPORTS'),
+        },
+        {
+          label: 'Roles',
+          icon: 'lock_outline',
+          action: new SettingsActions.LoadSettingsPage('ROLES'),
+        },
+        {
+          label: 'Visits',
+          icon: 'done_all',
+          action: new SettingsActions.LoadSettingsPage('VISITS'),
+        },
+        {
+          label: 'Sites',
+          icon: 'dashboard',
+          action: new SettingsActions.LoadSettingsPage('SITES'),
+        },
       ]
       : sidenavOptions;
   },
