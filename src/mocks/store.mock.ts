@@ -1,6 +1,6 @@
 import { StoreModule } from '@ngrx/store';
 import { authReducers } from '../app/auth/reducers';
-import { initialSessionReducerState } from '../app/auth/reducers/session.reducer';
+import { initialSessionReducerState } from '../app/auth/reducers/auth.reducer';
 import { appReducers } from '../app/core/reducers';
 import { settingsReducers } from '../app/settings/reducers';
 import { createMockHeaderOptions } from './objects/header-options.mock';

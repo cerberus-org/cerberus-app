@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
-import { getUserInfo } from '../../auth/selectors/session.selectors';
+import { getUserInfo } from '../../auth/selectors/auth.selectors';
 import { getMemberForUserAndSelectedTeam } from '../../core/selectors/members.selectors';
 import { Member } from '../../shared/models';
 

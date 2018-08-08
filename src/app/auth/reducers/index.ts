@@ -1,10 +1,10 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { sessionReducer, SessionReducerState } from './session.reducer';
+import { authReducer, AuthReducerState } from './auth.reducer';
 
-export interface AuthState {
-  session: SessionReducerState;
+export interface AuthModuleState {
+  auth: AuthReducerState;
 }
 
-export const authReducers: ActionReducerMap<AuthState> = {
-  session: sessionReducer,
+export const authReducers: ActionReducerMap<AuthModuleState> = {
+  auth: authReducer,
 };

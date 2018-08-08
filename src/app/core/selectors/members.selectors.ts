@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { getUserInfo } from '../../auth/selectors/session.selectors';
+import { getUserInfo } from '../../auth/selectors/auth.selectors';
 import { MEMBER_ROLE_OWNER } from '../../shared/helpers';
 import { Member } from '../../shared/models';
 import { membersAdapter, MembersReducerState } from '../reducers/members.reducer';

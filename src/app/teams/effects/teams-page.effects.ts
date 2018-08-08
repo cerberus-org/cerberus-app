@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { getUserInfo } from '../../auth/selectors/session.selectors';
+import { getUserInfo } from '../../auth/selectors/auth.selectors';
 import { AppState } from '../../core/reducers';
 import { MemberService } from '../../core/services/member.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';

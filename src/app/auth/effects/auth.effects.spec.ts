@@ -8,7 +8,7 @@ import { mockProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
 import { Go } from '../../core/actions/router.actions';
 import { SnackBarService } from '../../core/services/snack-bar.service';
-import * as AuthActions from '../actions/auth.actions';
+import { ResetPassword, SignIn, SignOut, VerifyPassword } from '../actions/auth.actions';
 import { AuthEffects } from './auth.effects';
 
 describe('AuthEffects', () => {
@@ -34,7 +34,7 @@ describe('AuthEffects', () => {
 
     it('should dispatch Go', () => {
       actions = hot('a', {
-        a: new AuthActions.SignIn(createMockCredentials()[0]),
+        a: new SignIn({ credentials: createMockCredentials()[0] }),
       });
       const expected = cold('b', {
         b: new Go({ path: ['teams'] }),
@@ -44,7 +44,7 @@ describe('AuthEffects', () => {
 
     it('should open the signInSuccess snackbar', () => {
       actions = hot('a', {
-        a: new AuthActions.SignIn(createMockCredentials()[0]),
+        a: new SignIn({ credentials: createMockCredentials()[0] }),
       });
       const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'signInSuccess');
       effects.signIn$.subscribe(() => {
@@ -56,7 +56,7 @@ describe('AuthEffects', () => {
   describe('verifyPassword$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.VerifyPassword(''),
+        a: new VerifyPassword({ password: 'testtest' }),
       });
     }));
 
@@ -71,7 +71,7 @@ describe('AuthEffects', () => {
   describe('signOut$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.SignOut(),
+        a: new SignOut(),
       });
     }));
 
@@ -93,7 +93,7 @@ describe('AuthEffects', () => {
   describe('resetPassword$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.ResetPassword(createMockCredentials()[0].email),
+        a: new ResetPassword({ email: createMockCredentials()[0].email }),
       });
     }));
 

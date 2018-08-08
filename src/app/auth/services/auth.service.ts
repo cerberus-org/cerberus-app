@@ -9,7 +9,7 @@ import { ErrorService } from '../../core/services/error.service';
 import { MemberService } from '../../core/services/member.service';
 import { Member } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
-import { ClearData, SetUserInfo } from '../actions/session.actions';
+import { SetUserInfo } from '../actions/auth.actions';
 
 @Injectable()
 export class AuthService {
@@ -100,11 +100,11 @@ export class AuthService {
   }
 
   /**
-   * If the page is reloaded or the state of the user changes dispatch an action to load data to the core store$.
+   * If the page is reloaded or the state of the user changes, dispatch SetUserInfo.
    */
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged((user: User) => {
-      this.store$.dispatch(user ? new SetUserInfo({ userInfo: user as UserInfo }) : new ClearData());
+      this.store$.dispatch(new SetUserInfo(user ? { userInfo: user as UserInfo } : undefined));
     });
   }
 }

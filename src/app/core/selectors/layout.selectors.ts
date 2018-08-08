@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
-import { getUserInfo } from '../../auth/selectors/session.selectors';
+import { getUserInfo } from '../../auth/selectors/auth.selectors';
 import { HeaderOptions, SidenavOptions } from '../../shared/models';
 import { LayoutReducerState } from '../reducers/layout.reducer';
 
