@@ -24,12 +24,16 @@ export class DailyHoursChartComponent implements OnChanges {
     },
   };
 
+  isVisitsEmpty(visits: Visit[]): boolean {
+    return visits && visits.length > 0 ? false : true;
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['visits']) {
       this.data = [];
-      const mapOfSites = new Map(
+      const mapOfSites = this.sites ? new Map(
         this.sites.map<[string, string]>((site: Site) => [site.id, site.label]),
-      );
+      ) : new Map();
       this.labels = this.setupLineChartLabels();
       this.getDataSetsBySite(changes['visits'].currentValue).forEach((dataSet: Visit[]) => {
         this.data.push(this.setupLineChartDataForDataSet(dataSet, this.labels, mapOfSites));
@@ -49,6 +53,7 @@ export class DailyHoursChartComponent implements OnChanges {
     const mapOfVisits = new Map<string, Visit[]>();
     if (visits) {
       visits.forEach((visit: Visit) => {
+        visit.siteId = visit.siteId !== null ? visit.siteId : 'noSite';
         if (mapOfVisits.get(visit.siteId)) {
           const visits = mapOfVisits.get(visit.siteId);
           visits.push(visit);
@@ -114,7 +119,7 @@ export class DailyHoursChartComponent implements OnChanges {
           Array(labels.length).fill(0),
         )
           .map(value => value.toFixed(3)),
-        label: mapOfSites.get(visits[0].siteId) ? mapOfSites.get(visits[0].siteId) : 'No site',
+        label: visits[0].siteId === 'noSite' ? 'No site' + ' Hours' : mapOfSites.get(visits[0].siteId) + ' Hours',
       }
       : { data: [], label: '' };
   }
