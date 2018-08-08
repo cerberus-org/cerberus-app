@@ -30,7 +30,7 @@ import { VolunteersRoutingModule } from './volunteers-routing.module';
      * eagerly or lazily and will be dynamically added to
      * the existing state.
      */
-    StoreModule.forFeature('volunteers', volunteersReducers),
+    StoreModule.forFeature('volunteersModule', volunteersReducers),
 
     /**
      * Effects.forFeature is used to register effects

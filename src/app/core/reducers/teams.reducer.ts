@@ -1,6 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Team } from '../../shared/models';
 import { TeamsActionsUnion, TeamsActionTypes } from '../actions/teams.actions';
+import { sortByName } from '../helpers/entity.helpers';
 
 /**
  * @ngrx/entity provides a predefined interface for handling
@@ -10,6 +11,7 @@ import { TeamsActionsUnion, TeamsActionTypes } from '../actions/teams.actions';
  * any additional interface properties.
  */
 export interface TeamsReducerState extends EntityState<Team> {
+  // Additional entities state properties
   selectedTeamId: string;
 }
 
@@ -18,7 +20,9 @@ export interface TeamsReducerState extends EntityState<Team> {
  * functions for single or multiple operations
  * against the dictionary of records.
  */
-export const teamsAdapter: EntityAdapter<Team> = createEntityAdapter<Team>();
+export const teamsAdapter: EntityAdapter<Team> = createEntityAdapter<Team>({
+  sortComparer: sortByName,
+});
 
 /**
  * getInitialState returns the default initial state

@@ -4,11 +4,20 @@ import { VisitsActionsUnion, VisitsActionTypes } from '../actions/visits.actions
 
 export interface VisitsReducerState extends EntityState<Visit> {}
 
-export function sortComparer(a: Visit, b: Visit): number {
-  return a.startedAt.getTime() - b.startedAt.getTime();
+/**
+ * Sorts visits to display recent visits first.
+ *
+ * @param {Visit} a
+ * @param {Visit} b
+ * @returns {number}
+ */
+export function sortByStartedAt(a: Visit, b: Visit): number {
+  return b.startedAt.getTime() - a.startedAt.getTime();
 }
 
-export const visitsAdapter: EntityAdapter<Visit> = createEntityAdapter<Visit>({ sortComparer });
+export const visitsAdapter: EntityAdapter<Visit> = createEntityAdapter<Visit>({
+  sortComparer: sortByStartedAt,
+});
 
 export const initialState: VisitsReducerState = visitsAdapter.getInitialState();
 
