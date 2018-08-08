@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { mockOrganizations } from '../../../../mocks/objects/organization.mock';
-import { Organization } from '../../models';
+import { Team } from '../../models';
 import { TeamFormComponent } from './team-form.component';
 
 describe('TeamFormComponent', () => {
@@ -40,7 +40,7 @@ describe('TeamFormComponent', () => {
     component.formGroup.controls['name'].setValue(name);
     component.formGroup.controls['website'].setValue(website);
     component.formGroup.controls['description'].setValue(description);
-    expect(component.validTeam.emit).toHaveBeenCalledWith(new Organization(name, description, website));
+    expect(component.validTeam.emit).toHaveBeenCalledWith(new Team(name, description, website));
   });
 
   describe('name control', () => {

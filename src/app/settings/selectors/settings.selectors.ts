@@ -32,7 +32,7 @@ export const selectSettingsSidenavOptions = createSelector(
       ? [
         ...sidenavOptions,
         new SidenavOptions(
-          'Organization',
+          'Team',
           'domain',
           new SettingsActions.LoadPage('ORGANIZATION_SETTINGS'),
         ),

@@ -1,10 +1,10 @@
 import { createSelector } from '@ngrx/store';
 import { getSelectedTeam } from '../../core/selectors/model.selectors';
-import { HeaderOptions, Organization } from '../../shared/models';
+import { HeaderOptions, Team } from '../../shared/models';
 
 export const getOrganizationDashboardHeaderOptions = createSelector(
   getSelectedTeam,
-  (team: Organization): HeaderOptions => ({
+  (team: Team): HeaderOptions => ({
     title: !!team ? team.name : 'Team missing!',
     previousUrl: null,
     showLogOut: false,

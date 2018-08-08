@@ -38,7 +38,7 @@ export class SnackBarService {
   }
 
   updateOrganizationSuccess(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Organization information successfully updated.');
+    return this.open('Team information successfully updated.');
   }
 
   checkInSuccess(): MatSnackBarRef<SimpleSnackBar> {

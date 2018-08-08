@@ -40,7 +40,7 @@ describe('settings.selectors', () => {
       expect(selectSettingsSidenavOptions.projector(createMockMembers()[0]))
         .toEqual(arrayContaining([
           objectContaining({ label: 'User' }),
-          objectContaining({ label: 'Organization' }),
+          objectContaining({ label: 'Team' }),
           objectContaining({ label: 'Volunteers' }),
           objectContaining({ label: 'Reports' }),
           objectContaining({ label: 'Roles' }),

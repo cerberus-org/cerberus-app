@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { selectModelOrganizations } from '../../../core/selectors/model.selectors';
-import { Organization } from '../../models';
+import { Team } from '../../models';
 
 @Component({
   selector: 'app-team-search',
@@ -13,11 +13,11 @@ import { Organization } from '../../models';
 })
 export class TeamSearchComponent implements OnInit, OnDestroy {
   private teamSubscription: Subscription;
-  filteredOrganizations: Organization[] = [];
-  organizations: Organization[];
+  filteredOrganizations: Team[] = [];
+  organizations: Team[];
 
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
-  @Output() selectTeam = new EventEmitter<Organization>();
+  @Output() selectTeam = new EventEmitter<Team>();
   @Output() iconButtonClick = new EventEmitter();
   @Input() showTitle;
   @Input() showInputIconButton;
@@ -44,10 +44,10 @@ export class TeamSearchComponent implements OnInit, OnDestroy {
   /**
    * Watch for changes in the organizationName input. Set filteredOrganizations on change and emit input.
    *
-   * @param {Organization[]} organizations
+   * @param {Team[]} organizations
    * @param {string} input
    */
-  onOrganizationInputNameChanges(organizations: Organization[], input: string): void {
+  onOrganizationInputNameChanges(organizations: Team[], input: string): void {
     this.filteredOrganizations = this.filterOrganizationsByName(organizations, input);
     const matchingOrganization = this.filteredOrganizations.find(organization => organization.name === input);
     this.selectTeam.emit(!!matchingOrganization ? matchingOrganization : null);
@@ -60,11 +60,11 @@ export class TeamSearchComponent implements OnInit, OnDestroy {
   /**
    * Return the organizations that are equal to name or are a subset of name.
    *
-   * @param {Organization[]} organizations
+   * @param {Team[]} organizations
    * @param {string} name
-   * @returns {Organization[]}
+   * @returns {Team[]}
    */
-  filterOrganizationsByName(organizations: Organization[], name: string): Organization[] {
+  filterOrganizationsByName(organizations: Team[], name: string): Team[] {
     const nameLowerCase = name.toLowerCase();
     return organizations
       .filter(organization => organization.name.toLowerCase().includes(nameLowerCase));

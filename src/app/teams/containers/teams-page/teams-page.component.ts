@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { map } from 'rxjs/operators';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { AppState } from '../../../core/reducers';
-import { Organization } from '../../../shared/models';
+import { Team } from '../../../shared/models';
 import { LoadTeams, OpenCreateTeamDialog, OpenFindTeamDialog, SelectTeam } from '../../actions/teams.actions';
 import * as fromTeams from '../../reducers';
 
@@ -18,7 +18,7 @@ import * as fromTeams from '../../reducers';
 })
 export class TeamsPageComponent implements OnDestroy {
   sidenavSubscription: Subscription;
-  teams$: Observable<Organization[]>;
+  teams$: Observable<Team[]>;
 
   constructor(private store$: Store<AppState>) {
     store$.dispatch(new SetHeaderOptions({

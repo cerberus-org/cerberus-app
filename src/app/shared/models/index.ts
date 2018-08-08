@@ -1,6 +1,6 @@
 export * from './column-options';
 export * from './header-options';
-export * from './organization';
+export * from './team';
 export * from './report';
 export * from './sidenav-options';
 export * from './site';

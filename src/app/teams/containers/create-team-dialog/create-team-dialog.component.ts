@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/reducers';
-import { Organization } from '../../../shared/models';
+import { Team } from '../../../shared/models';
 import { CreateTeam } from '../../actions/teams.actions';
 
 @Component({
@@ -26,14 +26,14 @@ import { CreateTeam } from '../../actions/teams.actions';
 export class CreateTeamDialogComponent {
   title = 'Create a new team';
   subtitle = 'Tell us more about your team to get started. Don\'t worry, you will be able to change these later.';
-  validTeam: Organization;
+  validTeam: Team;
 
   constructor(
     private dialogRef: MatDialogRef<CreateTeamDialogComponent>,
     private store$: Store<AppState>,
   ) { }
 
-  onValidTeam(team: Organization) {
+  onValidTeam(team: Team) {
     this.validTeam = team;
   }
 

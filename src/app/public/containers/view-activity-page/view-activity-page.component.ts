@@ -6,7 +6,7 @@ import { AppState } from '../../../core/reducers';
 import { ErrorService } from '../../../core/services/error.service';
 import { OrganizationService } from '../../../core/services/organization.service';
 import { VisitService } from '../../../core/services/visit.service';
-import { Organization, Visit } from '../../../shared/models';
+import { Team, Visit } from '../../../shared/models';
 
 @Component({
   selector: 'app-view-activity-page',
@@ -14,7 +14,7 @@ import { Organization, Visit } from '../../../shared/models';
   styleUrls: ['./view-activity-page.component.scss'],
 })
 export class ViewActivityPageComponent implements OnInit, OnDestroy {
-  organization: Organization;
+  organization: Team;
   visits$: Observable<Visit[]>;
   showNotFound: boolean;
   subscription: Subscription;
@@ -29,7 +29,7 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.organizationService.getByKey('name', this.getOrganizationNameByUrl(), true)
       .subscribe(
-        (organizations: Organization[]) => {
+        (organizations: Team[]) => {
           const organization = organizations[0];
           if (organization) {
             this.organization = organization;

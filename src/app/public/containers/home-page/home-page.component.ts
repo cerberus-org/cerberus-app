@@ -5,7 +5,7 @@ import * as LayoutActions from '../../../core/actions/layout.actions';
 import * as ModelActions from '../../../core/actions/model.actions';
 import * as RouterActions from '../../../core/actions/router.actions';
 import { AppState } from '../../../core/reducers';
-import { Organization } from '../../../shared/models';
+import { Team } from '../../../shared/models';
 import { SignUpDialogComponent } from '../sign-up-dialog/sign-up-dialog.component';
 
 @Component({
@@ -38,7 +38,7 @@ import { SignUpDialogComponent } from '../sign-up-dialog/sign-up-dialog.componen
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  organization: Organization;
+  organization: Team;
 
   constructor(private dialog: MatDialog, public store$: Store<AppState>) {}
 
@@ -47,11 +47,11 @@ export class HomePageComponent implements OnInit {
     this.store$.dispatch(new ModelActions.LoadOrganizations());
   }
 
-  onValidOrganization(organization: Organization): void {
+  onValidOrganization(organization: Team): void {
     this.organization = organization;
   }
 
-  onInputIconButtonClick(organization: Organization) {
+  onInputIconButtonClick(organization: Team) {
     this.store$.dispatch(new RouterActions.Go({ path: ['view-activity/' + organization.name] }));
   }
 

@@ -1,5 +1,5 @@
 import { sortVisitsByStartedAt } from '../../shared/helpers';
-import { Member, Organization, Site, Visit, Volunteer } from '../../shared/models';
+import { Member, Team, Site, Visit, Volunteer } from '../../shared/models';
 import * as ModelActions from '../actions/model.actions';
 
 export interface ModelReducerState {
@@ -7,7 +7,7 @@ export interface ModelReducerState {
   members: Member[];
   visits: Visit[];
   volunteers: Volunteer[];
-  organizations: Organization[];
+  organizations: Team[];
   selectedTeamId: string;
 }
 

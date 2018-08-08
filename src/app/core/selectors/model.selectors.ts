@@ -2,14 +2,14 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserInfo } from 'firebase';
 import { selectSessionUserInfo } from '../../auth/selectors/session.selectors';
 import { MEMBER_ROLE_OWNER } from '../../shared/helpers';
-import { Member, Organization, Site, Visit, Volunteer } from '../../shared/models';
+import { Member, Team, Site, Visit, Volunteer } from '../../shared/models';
 import { ModelReducerState } from '../reducers/model.reducer';
 
 export const selectModelReducerState = createFeatureSelector<ModelReducerState>('model');
 
 export const selectModelOrganizations = createSelector(
   selectModelReducerState,
-  (state: ModelReducerState): Organization[] => state.organizations,
+  (state: ModelReducerState): Team[] => state.organizations,
 );
 
 export const selectModelSites = createSelector(
@@ -40,7 +40,7 @@ export const getModelSelectedTeamId = createSelector(
 export const getSelectedTeam = createSelector(
   selectModelOrganizations,
   getModelSelectedTeamId,
-  (teams: Organization[], id: string): Organization => teams && teams.find(team => team.id === id),
+  (teams: Team[], id: string): Team => teams && teams.find(team => team.id === id),
 );
 
 export const getMemberForSelectedTeam = createSelector(

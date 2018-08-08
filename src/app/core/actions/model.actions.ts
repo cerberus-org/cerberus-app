@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Member, Organization, Site, Visit, Volunteer } from '../../shared/models';
+import { Member, Team, Site, Visit, Volunteer } from '../../shared/models';
 
 export const LOAD_MEMBERS = '[Model] Load members';
 export const LOAD_MEMBERS_SUCCESS = '[Model] Load members success';
@@ -73,7 +73,7 @@ export class LoadOrganizations implements Action {
 export class LoadOrganizationsSuccess implements Action {
   readonly type = LOAD_ORGANIZATIONS_SUCCESS;
 
-  constructor(public payload: Organization[]) {}
+  constructor(public payload: Team[]) {}
 }
 
 export class SelectTeam implements Action {

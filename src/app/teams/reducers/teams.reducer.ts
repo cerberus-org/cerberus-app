@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Organization } from '../../shared/models';
+import { Team } from '../../shared/models';
 import { TeamsActionsUnion, TeamsActionTypes } from '../actions/teams.actions';
 
 /**
@@ -9,8 +9,8 @@ import { TeamsActionsUnion, TeamsActionTypes } from '../actions/teams.actions';
  * model type by id. This interface is extended to include
  * any additional interface properties.
  */
-export interface State extends EntityState<Organization> {
-  selectedTeam: Organization;
+export interface State extends EntityState<Team> {
+  selectedTeam: Team;
 }
 
 /**
@@ -18,7 +18,7 @@ export interface State extends EntityState<Organization> {
  * functions for single or multiple operations
  * against the dictionary of records.
  */
-export const adapter: EntityAdapter<Organization> = createEntityAdapter<Organization>();
+export const adapter: EntityAdapter<Team> = createEntityAdapter<Team>();
 
 /**
  * getInitialState returns the default initial state

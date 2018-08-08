@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { SessionReducerState } from '../../../auth/reducers/session.reducer';
 import { getSelectedTeam } from '../../../core/selectors/model.selectors';
-import { Organization } from '../../../shared/models';
+import { Team } from '../../../shared/models';
 import * as SettingsActions from '../../actions/settings.actions';
 
 @Component({
@@ -36,8 +36,8 @@ import * as SettingsActions from '../../actions/settings.actions';
 })
 export class OrganizationSettingsComponent implements OnInit {
   organizationFormTitle = 'Update your team info.';
-  organizationEdits: Organization;
-  sessionOrganization$: Observable<Organization>;
+  organizationEdits: Team;
+  sessionOrganization$: Observable<Team>;
 
   constructor(public store$: Store<SessionReducerState>) {}
 
@@ -49,14 +49,14 @@ export class OrganizationSettingsComponent implements OnInit {
    * Handles validTeam events by setting organizationEdits.
    * @param organization - an organization when valid, null when invalid
    */
-  onValidOrganization(organization: Organization) {
+  onValidOrganization(organization: Team) {
     this.organizationEdits = organization;
   }
 
   /**
    * Handles submission of organization form by dispatching an SetOrganization action.
    */
-  onSubmitOrganization(organization: Organization) {
+  onSubmitOrganization(organization: Team) {
     this.store$.dispatch(new SettingsActions.UpdateOrganization(organization));
   }
 }

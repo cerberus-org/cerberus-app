@@ -1,11 +1,11 @@
 import { createMockOrganizations } from '../../../mocks/objects/organization.mock';
-import { Organization } from '../../shared/models';
+import { Team } from '../../shared/models';
 import { getOrganizationDashboardHeaderOptions } from './organization-dashboard.selectors';
 import objectContaining = jasmine.objectContaining;
 
 describe('OrganizationDashboardSelectors', () => {
   describe('selectOrganizationDashboardHeaderOptions', () => {
-    let organization: Organization;
+    let organization: Team;
 
     beforeEach(() => {
       organization = createMockOrganizations()[0];

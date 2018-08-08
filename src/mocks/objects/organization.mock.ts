@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
-import { Organization } from '../../app/shared/models';
+import { Team } from '../../app/shared/models';
 
-export const mockOrganizations: Organization[] = [
+export const mockOrganizations: Team[] = [
   {
     id: 'Y9oY2YPuxeWxB7x69Ayr',
     name: 'Jefferson SPCA',
@@ -16,4 +16,4 @@ export const mockOrganizations: Organization[] = [
   },
 ];
 
-export const createMockOrganizations = (): Organization[] => _.cloneDeep(mockOrganizations);
+export const createMockOrganizations = (): Team[] => _.cloneDeep(mockOrganizations);

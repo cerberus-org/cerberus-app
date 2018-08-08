@@ -7,7 +7,7 @@ import { LoadSites, LoadVisits } from '../../../core/actions/model.actions';
 import { Go } from '../../../core/actions/router.actions';
 import { AppState } from '../../../core/reducers';
 import { selectModelVisits } from '../../../core/selectors/model.selectors';
-import { Organization, Visit } from '../../../shared/models';
+import { Team, Visit } from '../../../shared/models';
 import { getSelectedTeam } from '../../reducers';
 
 @Component({
@@ -26,7 +26,7 @@ import { getSelectedTeam } from '../../reducers';
   styleUrls: ['./view-selected-team.component.scss'],
 })
 export class ViewSelectedTeamComponent implements OnDestroy {
-  selectedTeam$: Observable<Organization>;
+  selectedTeam$: Observable<Team>;
   visits$: Observable<Visit[]>;
   selectedTeamSubscription: Subscription;
 
@@ -48,11 +48,11 @@ export class ViewSelectedTeamComponent implements OnDestroy {
     this.selectedTeamSubscription.unsubscribe();
   }
 
-  onClickActivate(team: Organization): void {
+  onClickActivate(team: Team): void {
     this.store$.dispatch(new Go({ path: ['teams', team.id, 'volunteers'] }));
   }
 
-  onClickSettings(team: Organization): void {
+  onClickSettings(team: Team): void {
     this.store$.dispatch(new Go({ path: ['teams', team.id, 'settings'] }));
   }
 }

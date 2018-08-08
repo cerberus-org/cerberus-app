@@ -1,4 +1,4 @@
-export class Organization {
+export class Team {
   id: string;
   name: string;
   description: string;

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { UserFormChanges } from '../../shared/components/user-form/user-form.component';
-import { Member, Organization, Site, Visit, Volunteer } from '../../shared/models';
+import { Member, Team, Site, Visit, Volunteer } from '../../shared/models';
 
 export const DELETE_VOLUNTEER = '[Settings] Delete volunteer';
 export const DELETE_VOLUNTEER_SUCCESS = '[Settings] Delete volunteer success';
@@ -49,7 +49,7 @@ export class LoadPage implements Action {
 export class UpdateOrganization implements Action {
   readonly type = UPDATE_ORGANIZATION;
 
-  constructor(public payload: Organization) {}
+  constructor(public payload: Team) {}
 }
 
 export class UpdateUser implements Action {

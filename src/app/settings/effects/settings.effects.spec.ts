@@ -8,7 +8,7 @@ import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { mockProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
 import { SnackBarService } from '../../core/services/snack-bar.service';
-import { Organization } from '../../shared/models';
+import { Team } from '../../shared/models';
 import * as SettingsActions from '../actions/settings.actions';
 import { CsvService } from '../services/csv.service';
 import { SettingsEffects } from './settings.effects';
@@ -34,7 +34,7 @@ xdescribe('SettingsEffects', () => {
   }));
 
   describe('updateOrganization$', () => {
-    let organization: Organization;
+    let organization: Team;
 
     beforeEach(async(() => {
       organization = createMockOrganizations()[1];

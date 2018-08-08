@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Organization } from '../../shared/models';
+import { Team } from '../../shared/models';
 
 export enum TeamsActionTypes {
   LoadTeams = '[Teams] Load Teams',
@@ -25,19 +25,19 @@ export class LoadTeams implements Action {
 export class LoadTeamsSuccess implements Action {
   readonly type = TeamsActionTypes.LoadTeamsSuccess;
 
-  constructor(public payload: { teams: Organization[] }) {}
+  constructor(public payload: { teams: Team[] }) {}
 }
 
 export class CreateTeam implements Action {
   readonly type = TeamsActionTypes.CreateTeam;
 
-  constructor(public payload: { team: Organization }) {}
+  constructor(public payload: { team: Team }) {}
 }
 
 export class JoinTeam implements Action {
   readonly type = TeamsActionTypes.JoinTeam;
 
-  constructor(public payload: { team: Organization }) {}
+  constructor(public payload: { team: Team }) {}
 }
 
 export class OpenCreateTeamDialog implements Action {
@@ -51,7 +51,7 @@ export class OpenFindTeamDialog implements Action {
 export class SelectTeam implements Action {
   readonly type = TeamsActionTypes.SelectTeam;
 
-  constructor(public payload: { team: Organization }) {}
+  constructor(public payload: { team: Team }) {}
 }
 
 /**
