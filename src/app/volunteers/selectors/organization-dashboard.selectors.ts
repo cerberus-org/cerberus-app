@@ -1,8 +1,25 @@
 import { createSelector } from '@ngrx/store';
 import { selectSessionOrganization } from '../../auth/selectors/session.selectors';
 import * as RouterActions from '../../core/actions/router.actions';
-import { selectModelSites } from '../../core/selectors/model.selectors';
-import { HeaderOptions, Organization, SidenavOptions, Site } from '../../shared/models';
+import { selectModelSites, selectModelVisits } from '../../core/selectors/model.selectors';
+import { HeaderOptions, Organization, SidenavOptions, Site, Visit } from '../../shared/models';
+
+/**
+ * Filter out visits that do not equal the selected site.
+ *
+ * @type {MemoizedSelector<object, Visit[]>}
+ */
+export const selectOrganizationDashboardVisits = createSelector(
+  selectModelVisits,
+  (visits: Visit[]): Visit[] => {
+    return visits ? visits.reduce((filteredVisits, visit) => {
+      if (visit.siteId !== 'getSetSiteIdHere') {
+        filteredVisits.push(visit);
+      }
+      return filteredVisits;
+    },                            []) : [];
+  },
+);
 
 export const selectOrganizationDashboardHeaderOptions = createSelector(
   selectSessionOrganization,

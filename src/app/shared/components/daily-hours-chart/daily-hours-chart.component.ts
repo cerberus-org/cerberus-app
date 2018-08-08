@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as moment from 'moment';
-import { Visit } from '../../models';
+import { Site, Visit } from '../../models';
 
 @Component({
   selector: 'app-daily-hours-chart',
@@ -9,6 +9,7 @@ import { Visit } from '../../models';
 })
 export class DailyHoursChartComponent implements OnChanges {
   @Input() visits: Visit[];
+  @Input() sites: Site[];
   data: LineChartData[];
   labels: string[];
   type = 'line';
@@ -23,11 +24,47 @@ export class DailyHoursChartComponent implements OnChanges {
     },
   };
 
+  isVisitsEmpty(visits: Visit[]): boolean {
+    return visits && visits.length > 0 ? false : true;
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['visits']) {
+      this.data = [];
+      const mapOfSites = this.sites ? new Map(
+        this.sites.map<[string, string]>((site: Site) => [site.id, site.label]),
+      ) : new Map();
       this.labels = this.setupLineChartLabels();
-      this.data = this.setupLineChartData(changes['visits'].currentValue, this.labels);
+      this.getDataSetsBySite(changes['visits'].currentValue).forEach((dataSet: Visit[]) => {
+        this.data.push(this.setupLineChartDataForDataSet(dataSet, this.labels, mapOfSites));
+      });
     }
+  }
+
+  /**
+   * Return an array of Visit arrays separated by site.
+   * i.e. [ [ {visit 1}, {visit 2}], [{visit 3}], [{visit 4}, {visit 5}] ]
+   * Time Complexity: O(n)
+   *
+   * @param {Visit[]} visits
+   * @returns {Visit[][]}
+   */
+  getDataSetsBySite(visits: Visit[]): Visit[][] {
+    const mapOfVisits = new Map<string, Visit[]>();
+    if (visits) {
+      visits.forEach((visit: Visit) => {
+        visit.siteId = visit.siteId !== null ? visit.siteId : 'noSite';
+        if (mapOfVisits.get(visit.siteId)) {
+          const visits = mapOfVisits.get(visit.siteId);
+          visits.push(visit);
+          mapOfVisits.set(visit.siteId, visits);
+        } else {
+          mapOfVisits.set(visit.siteId, [visit]);
+        }
+      });
+      return Array.from(mapOfVisits.values());
+    }
+    return [];
   }
 
   /**
@@ -53,20 +90,23 @@ export class DailyHoursChartComponent implements OnChanges {
   }
 
   /**
-   * Calculates the total hours for each day used in labels
-   * and returns the data used for the lineChart.
-   * @param visits - the visits that will be used
-   * @param labels - the labels that durations will be totaled for
-   * @param format - how each date should be displayed (refer to Moment.js formats)
-   * @returns {[{data: number[], label: string}]} - the line chart data
+   * Calculates the total hours for reach day used in labels
+   * and returns teh data used for the lineChart.
+   *
+   * @param {Visit[]} visits
+   * @param {string[]} labels
+   * @param {Map<string, string>} mapOfSites
+   * @param {string} format
+   * @returns {LineChartData}
    */
-  setupLineChartData(
+  setupLineChartDataForDataSet(
     visits: Visit[],
     labels: string[],
+    mapOfSites: Map<string, string>,
     format: string = 'ddd MMM D',
-  ): LineChartData[] {
+  ): LineChartData {
     return visits
-      ? [{
+      ? {
         data: visits.reduce(
           (data, visit) => {
             const date: string = moment(visit.startedAt).format(format);
@@ -79,9 +119,9 @@ export class DailyHoursChartComponent implements OnChanges {
           Array(labels.length).fill(0),
         )
           .map(value => value.toFixed(3)),
-        label: 'Hours',
-      }]
-      : [{ data: [], label: '' }];
+        label: visits[0].siteId === 'noSite' ? 'No site' + ' Hours' : mapOfSites.get(visits[0].siteId) + ' Hours',
+      }
+      : { data: [], label: '' };
   }
 
   /**

@@ -13,7 +13,7 @@ describe('OrganizationDashboardPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         OrganizationDashboardPageComponent,
-        MockComponent({ selector: 'app-data-display', inputs: ['visits$'] }),
+        MockComponent({ selector: 'app-data-display', inputs: ['visits$', 'sites$'] }),
       ],
       imports: [
         RouterTestingModule,

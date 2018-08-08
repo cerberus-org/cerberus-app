@@ -12,7 +12,7 @@ describe('ViewActivityPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ViewActivityPageComponent,
-        MockComponent({ selector: 'app-data-display', inputs: ['visits$'] }),
+        MockComponent({ selector: 'app-data-display', inputs: ['visits$', 'sites$'] }),
       ],
       imports: [
         ...mockStoreModules,
