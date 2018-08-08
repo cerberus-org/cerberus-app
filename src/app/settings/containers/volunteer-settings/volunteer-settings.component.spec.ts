@@ -45,17 +45,12 @@ describe('VolunteerSettingsComponent', () => {
       .toHaveBeenCalledWith(new SettingsActions.DeleteVolunteer(volunteer));
   });
 
-  it('should display the firstName of a volunteer in the first table column', () => {
+  it('should display the name of a volunteer in the first table column', () => {
     expect(component.columnOptions[0].cell(volunteer))
-      .toEqual(volunteer.firstName);
+      .toEqual(volunteer.name);
   });
 
-  it('should display the lastName of a volunteer in the second table column', () => {
-    expect(component.columnOptions[1].cell(volunteer))
-      .toEqual(volunteer.lastName);
-  });
-
-  it('should display the petName of a volunteer in the third table column', () => {
+  it('should display the petName of a volunteer in the second table column', () => {
     expect(component.columnOptions[2].cell(volunteer))
       .toEqual(volunteer.petName);
   });

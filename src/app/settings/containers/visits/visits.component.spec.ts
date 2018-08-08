@@ -6,7 +6,7 @@ import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import { formatDate, formatDuration, formatTime, formatTimeInputValue, getFullName } from '../../../shared/helpers';
+import { formatDate, formatDuration, formatTime, formatTimeInputValue } from '../../../shared/helpers';
 import { VisitWithVolunteer } from '../../models/visit-with-volunteer';
 import { SiteDialogComponent } from '../../components/site-dialog/site-dialog.component';
 import { VisitsComponent } from './visits.component';
@@ -56,7 +56,7 @@ describe('Visits Component', () => {
   describe('column options', () => {
     it('should display the firstName and lastName of a volunteer in the first table column', () => {
       expect(component.columnOptions[0].cell(visitWithVolunteer))
-        .toEqual(getFullName(visitWithVolunteer.volunteer));
+        .toEqual(visitWithVolunteer.volunteer.name);
     });
     it('should display the site name in the second table column', () => {
 

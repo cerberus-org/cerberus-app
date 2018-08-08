@@ -13,9 +13,9 @@ import { SnackBarService } from '../../core/services/snack-bar.service';
 import { TeamService } from '../../core/services/team.service';
 import { VisitService } from '../../core/services/visit.service';
 import { VolunteerService } from '../../core/services/volunteer.service';
-import { getFormattedVisits } from '../../shared/helpers';
 import { Member, Site, Visit } from '../../shared/models';
 import * as SettingsActions from '../actions/settings.actions';
+import { getFormattedVisits } from '../helpers/reports.helpers';
 import { CsvService } from '../services/csv.service';
 
 @Injectable()

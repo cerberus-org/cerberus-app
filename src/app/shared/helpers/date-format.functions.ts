@@ -30,6 +30,7 @@ export const formatTimeInputValue = (date: Date, timezone: string = 'America/Chi
  *
  * @param {string} time
  * @param {Date} date
+ * @param timezone
  * @returns {Date}
  */
 export const updateDateWithTimeInput = (time: string, date: Date, timezone = 'American/Chicago'): Date => {

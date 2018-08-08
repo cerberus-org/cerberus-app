@@ -14,14 +14,9 @@ import * as SettingsActions from '../../actions/settings.actions';
 export class VolunteerSettingsComponent implements OnInit {
   columnOptions: ColumnOptions[] = [
     {
-      columnDef: 'firstName',
-      header: 'First Name',
-      cell: (row: Volunteer) => row.firstName,
-    },
-    {
-      columnDef: 'lastName',
-      header: 'Last Name',
-      cell: (row: Volunteer) => row.lastName,
+      columnDef: 'name',
+      header: 'Name',
+      cell: (row: Volunteer) => row.name,
     },
     {
       columnDef: 'petName',
