@@ -6,6 +6,7 @@ export const getSitesReducerState = createFeatureSelector<SitesReducerState>('si
 
 export const {
   selectAll: getAllSites,
+  selectEntities: getSiteEntities,
 } = sitesAdapter.getSelectors(getSitesReducerState);
 
 export const getSitesForSelectedTeam = createSelector(

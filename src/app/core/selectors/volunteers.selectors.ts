@@ -6,6 +6,7 @@ export const getVolunteersReducerState = createFeatureSelector<VolunteersReducer
 
 export const {
   selectAll: getAllVolunteers,
+  selectEntities: getVolunteerEntities,
 } = volunteersAdapter.getSelectors(getVolunteersReducerState);
 
 export const getVolunteersForSelectedTeam = createSelector(

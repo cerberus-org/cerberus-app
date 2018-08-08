@@ -3,5 +3,4 @@ export interface ColumnOptions {
   header: string;
   cell: Function;
   selectOptions?: Function;
-  isTime?: boolean;
 }

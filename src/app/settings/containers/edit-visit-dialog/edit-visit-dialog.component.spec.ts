@@ -14,7 +14,7 @@ import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { createMockVisits } from '../../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import { VisitDialogComponent } from './visit-dialog.component';
+import { EditVisitDialogComponent } from './edit-visit-dialog.component';
 
 class MatDialogRefMock {
   close() {}
@@ -22,9 +22,9 @@ class MatDialogRefMock {
 
 class MatDialogDataMock {}
 
-describe('VisitDialogComponent', () => {
-  let component: VisitDialogComponent;
-  let fixture: ComponentFixture<VisitDialogComponent>;
+describe('EditVisitDialogComponent', () => {
+  let component: EditVisitDialogComponent;
+  let fixture: ComponentFixture<EditVisitDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,7 +38,7 @@ describe('VisitDialogComponent', () => {
         MatInputModule,
         NoopAnimationsModule,
       ],
-      declarations: [VisitDialogComponent],
+      declarations: [EditVisitDialogComponent],
       providers: [
         { provide: MatDialogRef, useClass: MatDialogRefMock },
         { provide : MAT_DIALOG_DATA, useClass: MatDialogDataMock },
@@ -48,7 +48,7 @@ describe('VisitDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VisitDialogComponent);
+    fixture = TestBed.createComponent(EditVisitDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     component.data = {

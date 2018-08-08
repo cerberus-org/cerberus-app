@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { ColumnOptions, Site } from '../../../shared/models';
 import { CreateSite, DeleteSite, UpdateSite } from '../../actions/settings.actions';
-import { SiteDialogComponent } from '../../components/site-dialog/site-dialog.component';
+import { SiteDialogComponent } from '../site-dialog/site-dialog.component';
 
 @Component({
   selector: 'app-site-settings',
@@ -16,9 +16,14 @@ import { SiteDialogComponent } from '../../components/site-dialog/site-dialog.co
 export class SiteSettingsComponent {
   columnOptions: ColumnOptions[] = [
     {
-      columnDef: 'label',
-      header: 'Label',
+      columnDef: 'name',
+      header: 'Name',
       cell: (row: Site) => row.name,
+    },
+    {
+      columnDef: 'address',
+      header: 'Address',
+      cell: (row: Site) => row.address,
     },
     {
       columnDef: 'description',

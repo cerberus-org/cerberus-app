@@ -97,7 +97,7 @@ export class SettingsEffects {
   @Effect({ dispatch: false })
   updateTeam$: Observable<Action> = this.actions.pipe(
     ofType<UpdateTeam>(SettingsActionTypes.UpdateTeam),
-    map(action => action.payload),
+    map(action => action.payload.team),
     withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
     switchMap(([teamEdits, team]) => {
       const editedTeam = { ...team, ...teamEdits };
