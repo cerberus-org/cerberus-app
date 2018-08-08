@@ -4,16 +4,16 @@ import { LayoutActionTypes, SetHeaderOptions, SetSidenavOptions } from './layout
 
 describe('layout.actions', () => {
   it('should create a SetHeaderOptions action', () => {
-    const payload = createMockHeaderOptions()[0];
-    expect({ ...new SetHeaderOptions(payload) }).toEqual({
-      payload,
+    const headerOptions = createMockHeaderOptions()[0];
+    expect({ ...new SetHeaderOptions({ headerOptions }) }).toEqual({
+      headerOptions,
       type: LayoutActionTypes.SetHeaderOptions,
     });
   });
   it('should create a SetSidenavOptions action', () => {
-    const payload = createMockSidenavOptions();
-    expect({ ...new SetSidenavOptions(payload) }).toEqual({
-      payload,
+    const sidenavOptions = createMockSidenavOptions();
+    expect({ ...new SetSidenavOptions({ sidenavOptions }) }).toEqual({
+      sidenavOptions,
       type: LayoutActionTypes.SetSidenavOptions,
     });
   });

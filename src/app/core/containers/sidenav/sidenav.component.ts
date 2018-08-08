@@ -40,7 +40,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
       if (options && options.length) {
         this.setForScreen(this.mobileQuery.matches);
       } else {
-        this.store$.dispatch(new SetSidenavOpened(false));
+        this.store$.dispatch(new SetSidenavOpened({ sidenavOpened: false }));
       }
     });
   }
@@ -66,11 +66,11 @@ export class SidenavComponent implements OnInit, OnDestroy {
     if (xs) {
       this.mode = 'over';
       this.sidenav.disableClose = false;
-      this.store$.dispatch(new SetSidenavOpened(false));
+      this.store$.dispatch(new SetSidenavOpened({ sidenavOpened: false }));
     } else {
       this.mode = 'side';
       this.sidenav.disableClose = true;
-      this.store$.dispatch(new SetSidenavOpened(true));
+      this.store$.dispatch(new SetSidenavOpened({ sidenavOpened: true }));
     }
   }
 }

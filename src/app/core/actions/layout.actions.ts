@@ -11,19 +11,19 @@ export enum LayoutActionTypes {
 export class SetHeaderOptions implements Action {
   readonly type = LayoutActionTypes.SetHeaderOptions;
 
-  constructor(public payload: HeaderOptions) {}
+  constructor(public payload: { headerOptions: HeaderOptions }) {}
 }
 
 export class SetSidenavOptions implements Action {
   readonly type = LayoutActionTypes.SetSidenavOptions;
 
-  constructor(public payload: SidenavOptions[]) {}
+  constructor(public payload: { sidenavOptions: SidenavOptions[] }) {}
 }
 
 export class SetSidenavOpened implements Action {
   readonly type = LayoutActionTypes.SetSidenavOpened;
 
-  constructor(public payload: boolean) {}
+  constructor(public payload: { sidenavOpened: boolean }) {}
 }
 
 export class ToggleSidenavOpened implements Action {

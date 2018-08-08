@@ -104,7 +104,7 @@ export class AuthService {
    */
   observeStateChanges(): void {
     this.afAuth.auth.onAuthStateChanged((user: User) => {
-      this.store$.dispatch(new SetUserInfo(user ? { userInfo: user as UserInfo } : undefined));
+      this.store$.dispatch(new SetUserInfo({ userInfo: user ? user as UserInfo : undefined }));
     });
   }
 }

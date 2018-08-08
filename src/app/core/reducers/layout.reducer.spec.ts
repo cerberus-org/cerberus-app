@@ -19,7 +19,7 @@ describe('layoutReducer', () => {
     it('sets the header options', () => {
       const state = layoutReducer(
         undefined,
-        new SetHeaderOptions(mockHeaderOptions[0]),
+        new SetHeaderOptions({ headerOptions: mockHeaderOptions[0] }),
       );
       expect(state.headerOptions).toEqual(mockHeaderOptions[0]);
     });
@@ -30,7 +30,7 @@ describe('layoutReducer', () => {
     it('sets the sidenav options', () => {
       const state = layoutReducer(
         undefined,
-        new SetSidenavOptions(mockSidenavOptions),
+        new SetSidenavOptions({ sidenavOptions: mockSidenavOptions }),
       );
       expect(state.sidenavOptions).toEqual(mockSidenavOptions);
     });

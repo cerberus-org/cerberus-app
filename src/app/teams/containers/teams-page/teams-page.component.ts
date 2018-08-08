@@ -24,31 +24,35 @@ export class TeamsPageComponent implements OnDestroy {
 
   constructor(private store$: Store<AppState>) {
     store$.dispatch(new SetHeaderOptions({
-      title: 'Teams',
-      previousUrl: null,
-      showLogOut: true,
+      headerOptions: {
+        title: 'Teams',
+        previousUrl: null,
+        showLogOut: true,
+      },
     }));
     store$.dispatch(new LoadMembersForUser());
     store$.dispatch(new LoadTeams());
     this.teams$ = store$.pipe(select(getTeamsForUser));
     this.sidenavSubscription = this.teams$.pipe(
-      map(teams => new SetSidenavOptions([
-        {
-          label: 'Create Team',
-          icon: 'group_work',
-          action: new OpenCreateTeamDialog(),
-        },
-        {
-          label: 'Find Team',
-          icon: 'search',
-          action: new OpenJoinTeamDialog(),
-        },
-        ...teams.map(team => ({
-          label: team.name,
-          icon: null,
-          action: new SelectTeam({ teamId: team.id }),
-        })),
-      ])),
+      map(teams => new SetSidenavOptions({
+        sidenavOptions: [
+          {
+            label: 'Create Team',
+            icon: 'group_work',
+            action: new OpenCreateTeamDialog(),
+          },
+          {
+            label: 'Find Team',
+            icon: 'search',
+            action: new OpenJoinTeamDialog(),
+          },
+          ...teams.map(team => ({
+            label: team.name,
+            icon: null,
+            action: new SelectTeam({ teamId: team.id }),
+          })),
+        ],
+      })),
     )
       .subscribe(store$);
   }

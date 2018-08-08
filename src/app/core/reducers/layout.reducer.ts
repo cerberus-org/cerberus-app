@@ -16,31 +16,22 @@ export const initialLayoutReducerState: LayoutReducerState = {
 export function layoutReducer(state = initialLayoutReducerState, action: LayoutActionsUnion): LayoutReducerState {
   switch (action.type) {
     case LayoutActionTypes.SetHeaderOptions: {
-      return {
-        ...state,
-        headerOptions: action.payload,
-      };
+      const { headerOptions } = action.payload;
+      return { ...state, headerOptions };
     }
 
     case LayoutActionTypes.SetSidenavOptions: {
-      return {
-        ...state,
-        sidenavOptions: action.payload,
-      };
+      const { sidenavOptions } = action.payload;
+      return { ...state, sidenavOptions };
     }
 
     case LayoutActionTypes.SetSidenavOpened: {
-      return {
-        ...state,
-        sidenavOpened: action.payload,
-      };
+      const { sidenavOpened } = action.payload;
+      return { ...state, sidenavOpened };
     }
 
     case LayoutActionTypes.ToggleSidenavOpened: {
-      return {
-        ...state,
-        sidenavOpened: !state.sidenavOpened,
-      };
+      return { ...state, sidenavOpened: !state.sidenavOpened };
     }
 
     default: {

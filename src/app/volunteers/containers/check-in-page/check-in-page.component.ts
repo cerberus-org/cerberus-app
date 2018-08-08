@@ -44,9 +44,11 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
     this.headerSubscription = store$.pipe(
       select(getSelectedTeam),
       map(team => new SetHeaderOptions({
-        title: !!team ? team.name : 'Loading...',
-        previousUrl: 'dashboard',
-        showLogOut: false,
+        headerOptions: {
+          title: !!team ? team.name : 'Loading...',
+          previousUrl: 'dashboard',
+          showLogOut: false,
+        },
       })),
     )
       .subscribe(store$);

@@ -36,9 +36,11 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
             this.visits$ = this.visitService.getByKey('teamId', team.id, true);
           }
           this.store$.dispatch(new SetHeaderOptions({
-            title: team ? team.name : '',
-            previousUrl: '',
-            showLogOut: false,
+            headerOptions: {
+              title: team ? team.name : '',
+              previousUrl: '',
+              showLogOut: false,
+            },
           }));
           // Only display error after attempting to fetch team
           this.showNotFound = teams.length === 0;

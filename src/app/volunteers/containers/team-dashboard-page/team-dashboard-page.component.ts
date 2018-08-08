@@ -31,23 +31,25 @@ export class TeamDashboardPageComponent implements OnDestroy {
     store$.dispatch(new LoadTeams());
     this.routeParamsSubscription = route.params
       .pipe(switchMap(({ teamId }) => [
-        new SetSidenavOptions([
-          {
-            label: 'Check in',
-            icon: 'done',
-            action: new Go({
-              // Workaround using teamId in path; using relativeTo extra causes error
-              path: ['teams', teamId, 'volunteers', 'check-in'],
-            }),
-          },
-          {
-            label: 'Check out',
-            icon: 'done_all',
-            action: new Go({
-              path: ['teams', teamId, 'volunteers', 'check-out'],
-            }),
-          },
-        ]),
+        new SetSidenavOptions({
+          sidenavOptions: [
+            {
+              label: 'Check in',
+              icon: 'done',
+              action: new Go({
+                // Workaround using teamId in path; using relativeTo extra causes error
+                path: ['teams', teamId, 'volunteers', 'check-in'],
+              }),
+            },
+            {
+              label: 'Check out',
+              icon: 'done_all',
+              action: new Go({
+                path: ['teams', teamId, 'volunteers', 'check-out'],
+              }),
+            },
+          ],
+        }),
         new SelectTeam({ teamId }),
         new LoadSitesForTeam({ teamId }),
         new LoadVisitsForTeam({ teamId }),
@@ -57,9 +59,11 @@ export class TeamDashboardPageComponent implements OnDestroy {
       .pipe(
         select(getSelectedTeam),
         map(team => new SetHeaderOptions({
-          title: !!team ? team.name : 'Team missing!',
-          previousUrl: null,
-          showLogOut: false,
+          headerOptions: {
+            title: !!team ? team.name : 'Team missing!',
+            previousUrl: null,
+            showLogOut: false,
+          },
         })),
       )
       .subscribe(store$);

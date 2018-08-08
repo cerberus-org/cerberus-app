@@ -58,9 +58,11 @@ export class SettingsPageComponent implements OnDestroy {
 
   constructor(private route: ActivatedRoute, private store$: Store<SettingsState>) {
     store$.dispatch(new SetHeaderOptions({
-      title: 'Settings',
-      previousUrl: 'teams',
-      showLogOut: true,
+      headerOptions: {
+        title: 'Settings',
+        previousUrl: 'teams',
+        showLogOut: true,
+      },
     }));
     store$.dispatch(new LoadSettingsPage('USER'));
     store$.dispatch(new LoadTeams());
@@ -77,9 +79,9 @@ export class SettingsPageComponent implements OnDestroy {
     this.sidenavSubscription = store$.pipe(
       select(getMemberForUserAndSelectedTeam),
       filter(member => !!member),
-      map(member => new SetSidenavOptions(
-        isAdmin(member) ? adminSidenavOptions : memberSidenavOptions,
-      )),
+      map(member => new SetSidenavOptions({
+        sidenavOptions: isAdmin(member) ? adminSidenavOptions : memberSidenavOptions,
+      })),
     )
       .subscribe(store$);
     this.sidenavSelection$ = store$.pipe(select(getSettingsSidenavSelection));
