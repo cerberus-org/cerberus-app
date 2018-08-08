@@ -3,10 +3,8 @@ import { authReducers } from '../app/auth/reducers';
 import { initialSessionReducerState } from '../app/auth/reducers/session.reducer';
 import { appReducers } from '../app/core/reducers';
 import { initialModelReducerState } from '../app/core/reducers/model.reducer';
-import { publicReducers } from '../app/public/reducers';
-import { initialSignUpReducerState } from '../app/public/reducers/sign-up.reducer';
 import { settingsReducers } from '../app/settings/reducers';
-import { createMockCredentials } from './objects/credentials.mock';
+import * as fromTeams from '../app/teams/reducers';
 import { createMockHeaderOptions } from './objects/header-options.mock';
 import { createMockMembers } from './objects/member.mock';
 import { createMockOrganizations } from './objects/organization.mock';
@@ -30,6 +28,8 @@ export const mockStoreModules = [
         sites: createMockSites(),
         visits: createMockVisits(),
         volunteers: createMockVolunteers(),
+        teams: createMockOrganizations(),
+        selectedTeamId: createMockOrganizations()[0].id,
       },
     },
   }),
@@ -44,17 +44,4 @@ export const mockStoreModules = [
     },
   }),
   StoreModule.forFeature('settings', settingsReducers),
-  StoreModule.forFeature('public', publicReducers, {
-    initialState: {
-      signUp: {
-        ...initialSignUpReducerState,
-        maxVisitedStep: 4,
-        joinExistingOrganization: false,
-        validOrganization: createMockOrganizations()[0],
-        validCredentials: createMockCredentials()[0],
-        validMember: createMockMembers()[0],
-        tosIsChecked: true,
-      },
-    },
-  }),
 ];

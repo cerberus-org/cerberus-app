@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
-import { defer, Observable, of } from 'rxjs';
-import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { selectSessionOrganization } from '../../auth/selectors/session.selectors';
+import { Observable } from 'rxjs';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as RouterActions from '../../core/actions/router.actions';
 import { AppState } from '../../core/reducers';
+import { getSelectedTeam } from '../../core/selectors/model.selectors';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { VisitService } from '../../core/services/visit.service';
 import { VolunteerService } from '../../core/services/volunteer.service';
@@ -23,7 +23,7 @@ export class CheckInEffects {
     .ofType(CheckInActions.SUBMIT_NEW_VOLUNTEER)
     .pipe(
       map((action: CheckInActions.SubmitNewVolunteer) => action.payload),
-      withLatestFrom(this.store$.pipe(select(selectSessionOrganization))),
+      withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
       switchMap(([volunteer, organization]) => this.volunteerService.add({
         ...volunteer,
         organizationId: organization.id,
@@ -44,7 +44,7 @@ export class CheckInEffects {
     .ofType(CheckInActions.CHECK_IN)
     .pipe(
       map((action: CheckInActions.CheckIn) => action.payload),
-      withLatestFrom(this.store$.pipe(select(selectSessionOrganization))),
+      withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
       switchMap(([visit, organization]) => this.visitService.add({
         ...visit,
         siteId: null, // TODO: Implement site association

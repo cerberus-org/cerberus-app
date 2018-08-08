@@ -1,12 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MatDialogModule, MatDialogRef, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { mockProviders } from '../../../../mocks/providers.mock';
 import { PasswordDialogComponent } from './password-dialog.component';
 
-class MatDialogRefMock {
-  close() { }
-}
 
 describe('VerificationDialogComponent', () => {
   let component: PasswordDialogComponent;
@@ -23,9 +21,7 @@ describe('VerificationDialogComponent', () => {
         NoopAnimationsModule,
       ],
       declarations: [PasswordDialogComponent],
-      providers: [
-        { provide: MatDialogRef, useClass: MatDialogRefMock },
-      ],
+      providers: mockProviders,
     })
       .compileComponents();
   }));

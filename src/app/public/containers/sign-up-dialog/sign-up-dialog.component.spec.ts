@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockComponent } from 'ng2-mock-component';
+import { mockProviders } from '../../../../mocks/providers.mock';
+import { mockStoreModules } from '../../../../mocks/store.mock';
 
 import { SignUpDialogComponent } from './sign-up-dialog.component';
 
@@ -8,9 +11,14 @@ describe('SignUpDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignUpDialogComponent ]
+      imports: mockStoreModules,
+      declarations: [
+        SignUpDialogComponent,
+        MockComponent({ selector: 'app-user-form' }),
+      ],
+      providers: mockProviders,
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

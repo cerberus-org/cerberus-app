@@ -1,6 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { selectSessionMember } from '../../auth/selectors/session.selectors';
-import { selectModelMembers, selectOwnerCount } from '../../core/selectors/model.selectors';
+import { getMemberForSelectedTeam, selectModelMembers, selectOwnerCount } from '../../core/selectors/model.selectors';
 import { getRoleOptions } from '../../shared/helpers';
 import { Member } from '../../shared/models';
 
@@ -9,7 +8,7 @@ export interface MemberWithRoleOptions extends Member {
 }
 
 export const selectMembersWithRoleOptions = createSelector(
-  selectSessionMember,
+  getMemberForSelectedTeam,
   selectModelMembers,
   selectOwnerCount,
   (sessionMember: Member, modelMembers: Member[], ownerCount: number): MemberWithRoleOptions[] => modelMembers.map(

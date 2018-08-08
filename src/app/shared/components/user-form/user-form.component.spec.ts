@@ -3,8 +3,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createMockCredentials } from '../../../../mocks/objects/credentials.mock';
-import { createMockMembers } from '../../../../mocks/objects/member.mock';
-import { Member } from '../../models';
 import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {
@@ -37,82 +35,16 @@ describe('UserFormComponent', () => {
 
   it('should emit a validCredentials event on valid form values', () => {
     spyOn(component.validCredentials, 'emit');
-    const member = createMockMembers()[0];
     const credentials = createMockCredentials()[0];
-    component.initialMember = member;
-    const { firstName, lastName, role } = member;
     const { email, password } = credentials;
-    component.formGroup.controls['firstName'].setValue(firstName);
-    component.formGroup.controls['lastName'].setValue(lastName);
     component.formGroup.controls['email'].setValue(email);
     component.formGroup.controls['password'].setValue(password);
     component.formGroup.controls['confirmPassword'].setValue(password);
     expect(component.validCredentials.emit)
-      .toHaveBeenCalledWith({
-        credentials: { email, password },
-        member: Object.assign({}, new Member(firstName, lastName, role), { id: '1' }),
-      });
+      .toHaveBeenCalledWith({ email, password });
   });
 
-  describe('firstName control', () => {
-
-    it('should validate requirement', (() => {
-      const control = component.formGroup.controls['firstName'];
-      expect(control.valid).toBeFalsy();
-      expect(control.errors['required']).toBeTruthy();
-    }));
-
-    it('should validate min length', (() => {
-      const control = component.formGroup.controls['firstName'];
-      control.setValue('A');
-      expect(control.valid).toBeFalsy();
-      expect(control.errors['minlength']).toBeTruthy();
-    }));
-
-    it('should validate max length', (() => {
-      const control = component.formGroup.controls['firstName'];
-      control.setValue('Lorem Ipsum Dolor Sit Amet Consectetuer Adipiscing Elit Aenean Commodo Li');
-      expect(control.valid).toBeFalsy();
-      expect(control.errors['maxlength']).toBeTruthy();
-    }));
-
-    it('should accept a valid first name', (() => {
-      const control = component.formGroup.controls['firstName'];
-      control.setValue('Ted');
-      expect(control.valid).toBeTruthy();
-    }));
-  });
-
-  describe('lastName control', () => {
-
-    it('should validate requirement', (() => {
-      const control = component.formGroup.controls['lastName'];
-      expect(control.valid).toBeFalsy();
-      expect(control.errors['required']).toBeTruthy();
-    }));
-
-    it('should validate min length', (() => {
-      const control = component.formGroup.controls['lastName'];
-      control.setValue('A');
-      expect(control.valid).toBeFalsy();
-      expect(control.errors['minlength']).toBeTruthy();
-    }));
-
-    it('should validate max length', (() => {
-      const control = component.formGroup.controls['lastName'];
-      control.setValue('Lorem Ipsum Dolor Sit Amet Consectetuer Adipiscing Elit Aenean Commodo Li');
-      expect(control.valid).toBeFalsy();
-      expect(control.errors['maxlength']).toBeTruthy();
-    }));
-
-    it('should accept a valid last name', (() => {
-      const control = component.formGroup.controls['lastName'];
-      control.setValue('Mader');
-      expect(control.valid).toBeTruthy();
-    }));
-  });
-
-  describe('website control', () => {
+  describe('email control', () => {
 
     it('should validate requirement', (() => {
       const control = component.formGroup.controls['email'];

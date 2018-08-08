@@ -24,7 +24,7 @@ import { appReducers } from './core/reducers';
     ServiceWorkerModule.register('/ngsw-worker.js'),
     CommonModule,
     BrowserAnimationsModule,
-    AuthModule.forRoot(),
+    AuthModule,
     AppRoutingModule,
     CoreModule,
 

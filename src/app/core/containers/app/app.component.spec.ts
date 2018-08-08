@@ -75,10 +75,4 @@ describe('AppComponent', () => {
       });
     });
   });
-
-  it('should dispatch ModelActions.LoadOrganizations during ngOnInit', async(() => {
-    const dispatch = spyOn(TestBed.get(Store), 'dispatch');
-    fixture.detectChanges();
-    expect(dispatch).toHaveBeenCalledWith(new ModelActions.LoadOrganizations());
-  }));
 });

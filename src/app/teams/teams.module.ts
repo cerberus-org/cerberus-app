@@ -4,7 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from '../material';
 import { SharedModule } from '../shared/shared.module';
-import { TeamCardComponent } from './components/team-card/team-card.component';
+import { SelectedTeamToolbarComponent } from './components/selected-team-toolbar/selected-team-toolbar.component';
 import { CreateTeamDialogComponent } from './containers/create-team-dialog/create-team-dialog.component';
 import { JoinTeamDialogComponent } from './containers/join-team-dialog/join-team-dialog.component';
 import { TeamsPageComponent } from './containers/teams-page/teams-page.component';
@@ -12,7 +12,6 @@ import { ViewSelectedTeamComponent } from './containers/view-selected-team/view-
 import { TeamsEffects } from './effects/teams.effects';
 import { reducers } from './reducers';
 import { TeamsRoutingModule } from './teams-routing.module';
-import { SelectedTeamToolbarComponent } from './components/selected-team-toolbar/selected-team-toolbar.component';
 
 @NgModule({
   imports: [
@@ -40,7 +39,6 @@ import { SelectedTeamToolbarComponent } from './components/selected-team-toolbar
     EffectsModule.forFeature([TeamsEffects]),
   ],
   declarations: [
-    TeamCardComponent,
     TeamsPageComponent,
     CreateTeamDialogComponent,
     JoinTeamDialogComponent,

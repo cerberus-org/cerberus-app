@@ -1,4 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { combineReducers, StoreModule } from '@ngrx/store';
+import { MockComponent } from 'ng2-mock-component';
+import { MaterialModule } from '../../../material';
+import * as fromTeams from '../../reducers';
 
 import { TeamsPageComponent } from './teams-page.component';
 
@@ -8,9 +12,18 @@ describe('TeamsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TeamsPageComponent ]
+      imports: [
+        MaterialModule,
+        StoreModule.forRoot({
+          teams: combineReducers(fromTeams.reducers),
+        }),
+      ],
+      declarations: [
+        TeamsPageComponent,
+        MockComponent({ selector: 'app-view-selected-team' }),
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

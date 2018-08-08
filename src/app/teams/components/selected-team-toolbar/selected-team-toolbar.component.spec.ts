@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MaterialModule } from '../../../material';
 
 import { SelectedTeamToolbarComponent } from './selected-team-toolbar.component';
 
@@ -8,9 +9,14 @@ describe('SelectedTeamToolbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectedTeamToolbarComponent ]
+      imports: [
+        MaterialModule,
+      ],
+      declarations: [
+        SelectedTeamToolbarComponent,
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

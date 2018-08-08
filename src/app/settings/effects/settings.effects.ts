@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
-import { forkJoin, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import * as SessionActions from '../../auth/actions/session.actions';
-import { selectSessionOrganization } from '../../auth/selectors/session.selectors';
 import { AuthService } from '../../auth/services/auth.service';
 import { AppState } from '../../core/reducers';
-import { selectModelVolunteers } from '../../core/selectors/model.selectors';
+import { getSelectedTeam, selectModelVolunteers } from '../../core/selectors/model.selectors';
 import { MemberService } from '../../core/services/member.service';
 import { OrganizationService } from '../../core/services/organization.service';
 import { SiteService } from '../../core/services/site.service';
@@ -42,7 +40,7 @@ export class SettingsEffects {
     .ofType(SettingsActions.GENERATE_VISIT_HISTORY_REPORT)
     .pipe(
       map((action: SettingsActions.GenerateVisitHistoryReport) => action.payload),
-      withLatestFrom(this.store$.pipe(select(selectSessionOrganization))),
+      withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
       switchMap(([payload, organization]) => this.visitService
         .getByOrganizationIdAndDateRange(
           organization.id,
@@ -69,41 +67,20 @@ export class SettingsEffects {
    * Listens for SettingsActions.SetOrganization. Applies organization changes against current organization in
    * session, then displays a success snack bar and dispatches SessionActions.SetOrganization.
    */
-  @Effect()
+  @Effect({ dispatch: false })
   updateOrganization$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_ORGANIZATION)
     .pipe(
       map((action: SettingsActions.UpdateOrganization) => action.payload),
-      withLatestFrom(this.store$.pipe(select(selectSessionOrganization))),
+      withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
       switchMap(([organizationEdits, sessionOrganization]) => {
         const editedOrganization = { ...sessionOrganization, ...organizationEdits };
         return this.organizationService.update(editedOrganization)
           .pipe(
-            map(() => {
+            tap(() => {
               this.snackBarService.updateOrganizationSuccess();
-              return new SessionActions.SetOrganization(editedOrganization);
             }),
           );
       }),
-    );
-
-  /**
-   * Listens for SettingsActions.SetMemberAndUserInfo. Applies user changes against current user in session, then
-   * displays a success snack bar and dispatches SessionActions.SetMemberAndUserInfo.
-   */
-  @Effect()
-  updateUser$: Observable<Action> = this.actions.ofType(SettingsActions.UPDATE_USER)
-    .pipe(
-      map((action: SettingsActions.UpdateUser) => action.payload),
-      switchMap(({ credentials, member }) => forkJoin(
-        this.authService.updateUser(credentials),
-        this.memberService.update(member),
-      )
-        .pipe(
-          map(([userInfo]) => {
-            this.snackBarService.updateUserSuccess();
-            return new SessionActions.SetMemberAndUserInfo({ member, userInfo });
-          }),
-        )),
     );
 
   /**

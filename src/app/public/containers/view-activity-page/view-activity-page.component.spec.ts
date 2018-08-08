@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { mockServiceProviders } from '../../../../mocks/providers.mock';
+import { mockProviders } from '../../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { ViewActivityPageComponent } from './view-activity-page.component';
 
@@ -18,7 +18,7 @@ describe('ViewActivityPageComponent', () => {
         ...mockStoreModules,
       ],
       providers: [
-        ...mockServiceProviders,
+        ...mockProviders,
       ],
     })
       .compileComponents();

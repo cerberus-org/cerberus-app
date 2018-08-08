@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { SessionReducerState } from '../../../auth/reducers/session.reducer';
-import { selectSessionOrganization } from '../../../auth/selectors/session.selectors';
+import { getSelectedTeam } from '../../../core/selectors/model.selectors';
 import { Organization } from '../../../shared/models';
 import * as SettingsActions from '../../actions/settings.actions';
 
@@ -42,7 +42,7 @@ export class OrganizationSettingsComponent implements OnInit {
   constructor(public store$: Store<SessionReducerState>) {}
 
   ngOnInit(): void {
-    this.sessionOrganization$ = this.store$.pipe(select(selectSessionOrganization));
+    this.sessionOrganization$ = this.store$.pipe(select(getSelectedTeam));
   }
 
   /**

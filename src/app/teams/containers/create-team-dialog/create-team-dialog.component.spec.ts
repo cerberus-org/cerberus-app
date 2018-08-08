@@ -1,4 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { combineReducers, StoreModule } from '@ngrx/store';
+import { MockComponent } from 'ng2-mock-component';
+import { mockProviders } from '../../../../mocks/providers.mock';
+import * as fromTeams from '../../reducers';
 
 import { CreateTeamDialogComponent } from './create-team-dialog.component';
 
@@ -8,9 +12,18 @@ describe('CreateTeamDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateTeamDialogComponent ]
+      imports: [
+        StoreModule.forRoot({
+          teams: combineReducers(fromTeams.reducers),
+        }),
+      ],
+      declarations: [
+        CreateTeamDialogComponent,
+        MockComponent({ selector: 'app-team-form' }),
+      ],
+      providers: mockProviders,
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -48,10 +48,4 @@ describe('SiteDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should close the dialog when close is called', () => {
-    spyOn(component.dialogRef, 'close');
-    component.close();
-    expect(component.dialogRef.close).toHaveBeenCalled();
-  });
 });

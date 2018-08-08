@@ -37,7 +37,7 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
           }
           this.store$.dispatch(new LayoutActions.SetHeaderOptions({
             title: organization ? organization.name : '',
-            previousUrl: '/organization/volunteers',
+            previousUrl: '',
             showLogOut: false,
           }));
           // Only display error after attempting to fetch organization
