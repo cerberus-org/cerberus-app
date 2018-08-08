@@ -9,7 +9,7 @@ import { HeaderOptions, Organization, SidenavOptions, Site, Visit } from '../../
  *
  * @type {MemoizedSelector<object, Visit[]>}
  */
-export const selectVolunteerDashboardVisits = createSelector(
+export const selectOrganizationDashboardVisits = createSelector(
   selectModelVisits,
   (visits: Visit[]): Visit[] => {
     return visits ? visits.reduce((filteredVisits, visit) => {

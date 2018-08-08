@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import * as LayoutActions from '../../../core/actions/layout.actions';
 import { AppState } from '../../../core/reducers';
+import { selectModelSites } from '../../../core/selectors/model.selectors';
 import { ErrorService } from '../../../core/services/error.service';
 import { OrganizationService } from '../../../core/services/organization.service';
 import { VisitService } from '../../../core/services/visit.service';
-import { HeaderOptions, Organization, Visit } from '../../../shared/models';
+import { HeaderOptions, Organization, Site, Visit } from '../../../shared/models';
 
 @Component({
   selector: 'app-view-activity-page',
@@ -16,6 +17,7 @@ import { HeaderOptions, Organization, Visit } from '../../../shared/models';
 export class ViewActivityPageComponent implements OnInit, OnDestroy {
   organization: Organization;
   visits$: Observable<Visit[]>;
+  sites$: Observable<Site[]>;
   showNotFound: boolean;
   subscription: Subscription;
 
@@ -27,6 +29,7 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.sites$ = this.store$.pipe(select(selectModelSites));
     this.subscription = this.organizationService.getByKey('name', this.getOrganizationNameByUrl(), true)
       .subscribe(
         (organizations: Organization[]) => {

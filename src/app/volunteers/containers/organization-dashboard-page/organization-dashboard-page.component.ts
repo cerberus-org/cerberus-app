@@ -7,7 +7,7 @@ import { selectModelSites } from '../../../core/selectors/model.selectors';
 import { Site, Visit } from '../../../shared/models';
 import {
   selectOrganizationDashboardHeaderOptions,
-  selectOrganizationDashboardSidenavOptions, selectVolunteerDashboardVisits,
+  selectOrganizationDashboardSidenavOptions, selectOrganizationDashboardVisits,
 } from '../../selectors/organization-dashboard.selectors';
 
 @Component({
@@ -24,7 +24,7 @@ export class OrganizationDashboardPageComponent implements OnInit, OnDestroy {
   constructor(private store$: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.visits$ = this.store$.pipe(select(selectVolunteerDashboardVisits));
+    this.visits$ = this.store$.pipe(select(selectOrganizationDashboardVisits));
     this.sites$ = this.store$.pipe(select(selectModelSites));
     this.headerSubscription = this.store$.pipe(select(selectOrganizationDashboardHeaderOptions))
       .subscribe((headerOptions) => {

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as moment from 'moment';
-import { Visit } from '../../models';
+import { Site, Visit } from '../../models';
 
 @Component({
   selector: 'app-daily-hours-chart',
@@ -9,7 +9,7 @@ import { Visit } from '../../models';
 })
 export class DailyHoursChartComponent implements OnChanges {
   @Input() visits: Visit[];
-  @Input() sites: Visit[];
+  @Input() sites: Site[];
   data: LineChartData[];
   labels: string[];
   type = 'line';
@@ -27,9 +27,12 @@ export class DailyHoursChartComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['visits']) {
       this.data = [];
+      const mapOfSites = new Map(
+        this.sites.map<[string, string]>((site: Site) => [site.id, site.label]),
+      );
       this.labels = this.setupLineChartLabels();
       this.getDataSetsBySite(changes['visits'].currentValue).forEach((dataSet: Visit[]) => {
-        this.data.push(this.setupLineChartData(dataSet, this.labels));
+        this.data.push(this.setupLineChartDataForDataSet(dataSet, this.labels, mapOfSites));
       });
     }
   }
@@ -82,16 +85,19 @@ export class DailyHoursChartComponent implements OnChanges {
   }
 
   /**
-   * Calculates the total hours for each day used in labels
-   * and returns the data used for the lineChart.
-   * @param visits - the visits that will be used
-   * @param labels - the labels that durations will be totaled for
-   * @param format - how each date should be displayed (refer to Moment.js formats)
-   * @returns {[{data: number[], label: string}]} - the line chart data
+   * Calculates the total hours for reach day used in labels
+   * and returns teh data used for the lineChart.
+   *
+   * @param {Visit[]} visits
+   * @param {string[]} labels
+   * @param {Map<string, string>} mapOfSites
+   * @param {string} format
+   * @returns {LineChartData}
    */
-  setupLineChartData(
+  setupLineChartDataForDataSet(
     visits: Visit[],
     labels: string[],
+    mapOfSites: Map<string, string>,
     format: string = 'ddd MMM D',
   ): LineChartData {
     return visits
@@ -108,7 +114,7 @@ export class DailyHoursChartComponent implements OnChanges {
           Array(labels.length).fill(0),
         )
           .map(value => value.toFixed(3)),
-        label: visits[0].siteId,
+        label: mapOfSites.get(visits[0].siteId) ? mapOfSites.get(visits[0].siteId) : 'No site',
       }
       : { data: [], label: '' };
   }
