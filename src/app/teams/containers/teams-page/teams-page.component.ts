@@ -9,7 +9,7 @@ import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { AppState } from '../../../core/reducers';
 import { getTeamsForUser } from '../../../core/selectors';
 import { Team } from '../../../shared/models';
-import { OpenCreateTeamDialog, OpenFindTeamDialog } from '../../actions/teams-page.actions';
+import { OpenCreateTeamDialog, OpenJoinTeamDialog } from '../../actions/teams-page.actions';
 
 @Component({
   selector: 'app-teams-page',
@@ -39,9 +39,9 @@ export class TeamsPageComponent implements OnDestroy {
           action: new OpenCreateTeamDialog(),
         },
         {
-          label: 'Join Team',
+          label: 'Find Team',
           icon: 'search',
-          action: new OpenFindTeamDialog(),
+          action: new OpenJoinTeamDialog(),
         },
         ...teams.map(team => ({
           label: team.name,

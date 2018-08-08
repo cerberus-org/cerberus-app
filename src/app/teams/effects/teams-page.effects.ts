@@ -14,7 +14,7 @@ import {
   CreateTeam,
   JoinTeam,
   OpenCreateTeamDialog,
-  OpenFindTeamDialog,
+  OpenJoinTeamDialog,
   TeamsPageActionTypes,
 } from '../actions/teams-page.actions';
 import { CreateTeamDialogComponent } from '../containers/create-team-dialog/create-team-dialog.component';
@@ -77,7 +77,7 @@ export class TeamsPageEffects {
 
   @Effect({ dispatch: false })
   openJoinTeamDialog$: Observable<any> = this.actions.pipe(
-    ofType<OpenFindTeamDialog>(TeamsPageActionTypes.OpenJoinTeamDialog),
+    ofType<OpenJoinTeamDialog>(TeamsPageActionTypes.OpenJoinTeamDialog),
     tap(() => this.dialog.open(JoinTeamDialogComponent)),
   );
 }

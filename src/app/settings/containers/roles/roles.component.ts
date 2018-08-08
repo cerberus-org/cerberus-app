@@ -19,11 +19,6 @@ export class RolesComponent implements OnInit {
       cell: (row: MemberWithRoleOptions) => row.firstName,
     },
     {
-      columnDef: 'firstName',
-      header: 'First Name',
-      cell: (row: MemberWithRoleOptions) => row.firstName,
-    },
-    {
       columnDef: 'lastName',
       header: 'Last Name',
       cell: (row: MemberWithRoleOptions) => row.lastName,

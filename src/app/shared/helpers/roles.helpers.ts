@@ -1,6 +1,6 @@
-import { Member } from '../models/index';
+import { Member } from '../models';
 
-export const isAdmin = (user: Member) => [MEMBER_ROLE_ADMIN, MEMBER_ROLE_OWNER].includes(user.role);
+export const isAdmin = (member: Member) => [MEMBER_ROLE_ADMIN, MEMBER_ROLE_OWNER].includes(member.role);
 
 export const MEMBER_ROLE_LOCKED = 'Locked';
 export const MEMBER_ROLE_MEMBER = 'Member';

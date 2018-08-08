@@ -5,7 +5,7 @@ export enum TeamsPageActionTypes {
   CreateTeam = '[Teams Page] Create Team',
   JoinTeam = '[Teams Page] Join Team',
   OpenCreateTeamDialog = '[Teams Page] Open Create Team Dialog',
-  OpenJoinTeamDialog = '[Teams Page] Open Find Team Dialog',
+  OpenJoinTeamDialog = '[Teams Page] Open Join Team Dialog',
 }
 
 /**
@@ -31,7 +31,7 @@ export class OpenCreateTeamDialog implements Action {
   readonly type = TeamsPageActionTypes.OpenCreateTeamDialog;
 }
 
-export class OpenFindTeamDialog implements Action {
+export class OpenJoinTeamDialog implements Action {
   readonly type = TeamsPageActionTypes.OpenJoinTeamDialog;
 }
 
@@ -43,4 +43,4 @@ export type TeamsPageActionsUnion =
   | CreateTeam
   | JoinTeam
   | OpenCreateTeamDialog
-  | OpenFindTeamDialog;
+  | OpenJoinTeamDialog;
