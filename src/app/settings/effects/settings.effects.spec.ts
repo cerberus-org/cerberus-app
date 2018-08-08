@@ -4,12 +4,11 @@ import { hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import { createMockSites } from '../../../mocks/objects/site.mock';
 import { createMockTeams } from '../../../mocks/objects/team.mock';
-import { createMockVisits } from '../../../mocks/objects/visit.mock';
 import { mockProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { Team } from '../../shared/models';
-import * as SettingsActions from '../actions/settings.actions';
+import { CreateSite, GenerateReport, UpdateTeam } from '../actions/settings.actions';
 import { CsvService } from '../services/csv.service';
 import { SettingsEffects } from './settings.effects';
 
@@ -39,7 +38,7 @@ xdescribe('SettingsEffects', () => {
     beforeEach(async(() => {
       team = createMockTeams()[1];
       actions = hot('a', {
-        a: new SettingsActions.UpdateTeam(team),
+        a: new UpdateTeam({ team }),
       });
     }));
 
@@ -54,7 +53,7 @@ xdescribe('SettingsEffects', () => {
   describe('generateVisitHistoryReport$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new SettingsActions.GenerateVisitHistoryReport({
+        a: new GenerateReport({
           startedAt: new Date(),
           endedAt: new Date(),
         }),
@@ -69,25 +68,10 @@ xdescribe('SettingsEffects', () => {
     }));
   });
 
-  describe('updateVisits$', () => {
-    beforeEach(async(() => {
-      actions = hot('a', {
-        a: new SettingsActions.UpdateVisits(createMockVisits()),
-      });
-    }));
-
-    it('should open the updateVisitsSuccess snackbar', async(() => {
-      const updateVisitsSuccessSpy = spyOn(TestBed.get(SnackBarService), 'updateVisitsSuccess');
-      effects.updateVisits$.subscribe(() => {
-        expect(updateVisitsSuccessSpy).toHaveBeenCalled();
-      });
-    }));
-  });
-
   describe('createSite$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new SettingsActions.CreateSite(createMockSites()[0]),
+        a: new CreateSite({ site: createMockSites()[0] }),
       });
     }));
 

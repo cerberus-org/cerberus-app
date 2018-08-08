@@ -5,7 +5,6 @@ import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Site } from '../../../shared/models';
 import { DeleteSite } from '../../actions/settings.actions';
-import * as SettingsActions from '../../actions/settings.actions';
 import { SiteSettingsComponent } from './site-settings.component';
 
 describe('SiteSettingsComponent', () => {
@@ -42,21 +41,24 @@ describe('SiteSettingsComponent', () => {
   it(
     'should handle onDeleteSite events by dispatching DeleteSite',
     () => {
+      const site = sites[0];
       spyOn(component.store$, 'dispatch');
-      component.onDeleteSite(sites[0]);
+      component.onDeleteSite(site);
       expect(component.store$.dispatch).toHaveBeenCalledWith(
-        new DeleteSite(sites[0]),
+        new DeleteSite({ site }),
       );
     },
   );
 
   it('should display the name of a site in the first table column', () => {
-    expect(component.columnOptions[0].cell(sites[0]))
-      .toEqual(sites[0].name);
+    const site = sites[0];
+    expect(component.columnOptions[0].cell(site))
+      .toEqual(site.name);
   });
 
   it('should display the description of a site in the second table column', () => {
-    expect(component.columnOptions[1].cell(sites[0]))
-      .toEqual(sites[0].description);
+    const site = sites[0];
+    expect(component.columnOptions[1].cell(site))
+      .toEqual(site.description);
   });
 });

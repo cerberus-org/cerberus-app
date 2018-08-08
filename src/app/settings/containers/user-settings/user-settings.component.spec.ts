@@ -4,7 +4,6 @@ import { createMockCredentials } from '../../../../mocks/objects/credentials.moc
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { UpdateUser } from '../../actions/settings.actions';
-import * as SettingsActions from '../../actions/settings.actions';
 import { UserSettingsComponent } from './user-settings.component';
 
 describe('UserSettingsComponent', () => {
@@ -51,6 +50,6 @@ describe('UserSettingsComponent', () => {
     };
     component.onSubmit(edits);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new UpdateUser(edits));
+      .toHaveBeenCalledWith(new UpdateUser({ edits }));
   }));
 });

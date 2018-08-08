@@ -3,7 +3,7 @@ import { initialSettingsReducerState } from '../reducers/settings.reducer';
 import {
   getSettingsReducerState,
   getSettingsSidenavOptions,
-  getSettingsSidenavSelection,
+  getSelectedSettingsOption,
 } from './settings.selectors';
 import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;
@@ -19,11 +19,11 @@ describe('settings.selectors', () => {
     });
   });
 
-  describe('getSettingsSidenavSelection', () => {
+  describe('getSelectedSettingsOption', () => {
     it('it should select the sidenav selection', () => {
       const state = initialSettingsReducerState;
-      expect(getSettingsSidenavSelection.projector(state))
-        .toEqual(state.sidenavSelection);
+      expect(getSelectedSettingsOption.projector(state))
+        .toEqual(state.selectedOption);
     });
   });
 

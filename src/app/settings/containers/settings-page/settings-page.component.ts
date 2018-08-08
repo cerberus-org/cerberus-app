@@ -11,14 +11,14 @@ import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
 import { getMemberForUserAndSelectedTeam } from '../../../core/selectors/members.selectors';
 import { isAdmin } from '../../../shared/helpers';
-import { LoadSettingsPage } from '../../actions/settings.actions';
+import { SelectSettingsOption } from '../../actions/settings.actions';
 import { SettingsState } from '../../reducers';
-import { getSettingsSidenavSelection } from '../../selectors/settings.selectors';
+import { getSelectedSettingsOption } from '../../selectors/settings.selectors';
 
 @Component({
   selector: 'app-settings-page',
   template: `
-    <div [ngSwitch]="(sidenavSelection$ | async)">
+    <div [ngSwitch]="(selectedOption$ | async)">
       <app-user-settings
         *ngSwitchCase="'USER'"
       >
@@ -54,7 +54,7 @@ import { getSettingsSidenavSelection } from '../../selectors/settings.selectors'
 export class SettingsPageComponent implements OnDestroy {
   private routeParamsSubscription: Subscription;
   private sidenavSubscription: Subscription;
-  sidenavSelection$: Observable<string>;
+  selectedOption$: Observable<string>;
 
   constructor(private route: ActivatedRoute, private store$: Store<SettingsState>) {
     store$.dispatch(new SetHeaderOptions({
@@ -64,7 +64,7 @@ export class SettingsPageComponent implements OnDestroy {
         showLogOut: true,
       },
     }));
-    store$.dispatch(new LoadSettingsPage('USER'));
+    store$.dispatch(new SelectSettingsOption({ selectedOption: 'USER' }));
     store$.dispatch(new LoadTeams());
     this.routeParamsSubscription = route.params.pipe(
       switchMap(({ teamId }) => [
@@ -84,7 +84,7 @@ export class SettingsPageComponent implements OnDestroy {
       })),
     )
       .subscribe(store$);
-    this.sidenavSelection$ = store$.pipe(select(getSettingsSidenavSelection));
+    this.selectedOption$ = store$.pipe(select(getSelectedSettingsOption));
   }
 
   ngOnDestroy() {
@@ -97,7 +97,7 @@ const memberSidenavOptions = [
   {
     label: 'User',
     icon: 'face',
-    action: new LoadSettingsPage('USER'),
+    action: new SelectSettingsOption({ selectedOption: 'USER' }),
   },
 ];
 
@@ -106,31 +106,31 @@ const adminSidenavOptions = [
   {
     label: 'Team',
     icon: 'domain',
-    action: new LoadSettingsPage('TEAM'),
+    action: new SelectSettingsOption({ selectedOption: 'TEAM' }),
   },
   {
     label: 'Sites',
     icon: 'dashboard',
-    action: new LoadSettingsPage('SITES'),
+    action: new SelectSettingsOption({ selectedOption: 'SITES' }),
   },
   {
     label: 'Visits',
     icon: 'done_all',
-    action: new LoadSettingsPage('VISITS'),
+    action: new SelectSettingsOption({ selectedOption: 'VISITS' }),
   },
   {
     label: 'Volunteers',
     icon: 'insert_emoticon',
-    action: new LoadSettingsPage('VOLUNTEERS'),
+    action: new SelectSettingsOption({ selectedOption: 'VOLUNTEERS' }),
   },
   {
     label: 'Reports',
     icon: 'assessment',
-    action: new LoadSettingsPage('REPORTS'),
+    action: new SelectSettingsOption({ selectedOption: 'REPORTS' }),
   },
   {
     label: 'Roles',
     icon: 'lock_outline',
-    action: new LoadSettingsPage('ROLES'),
+    action: new SelectSettingsOption({ selectedOption: 'ROLES' }),
   },
 ];

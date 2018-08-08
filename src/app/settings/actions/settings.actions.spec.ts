@@ -12,9 +12,9 @@ import {
   DeleteVolunteer,
   DeleteVolunteerSuccess,
   GENERATE_VISIT_HISTORY_REPORT,
-  GenerateVisitHistoryReport,
+  GenerateReport,
   LOAD_PAGE,
-  LoadSettingsPage,
+  SelectSettingsOption,
   UPDATE_ROLE,
   UPDATE_TEAM,
   UPDATE_USER,
@@ -42,20 +42,20 @@ describe('settings.actions', () => {
     });
   });
 
-  it('should create a GenerateVisitHistoryReport action', () => {
+  it('should create a GenerateReport action', () => {
     const payload = {
       startedAt: new Date('2017-06-29T10:45:02.336Z'),
       endedAt: new Date('2017-06-29T14:45:02.336Z'),
     };
-    expect({ ...new GenerateVisitHistoryReport(payload) }).toEqual({
+    expect({ ...new GenerateReport(payload) }).toEqual({
       payload,
       type: GENERATE_VISIT_HISTORY_REPORT,
     });
   });
 
-  it('should create a LoadSettingsPage action', () => {
+  it('should create a SelectSettingsOption action', () => {
     const payload = 'Test';
-    expect({ ...new LoadSettingsPage(payload) }).toEqual({
+    expect({ ...new SelectSettingsOption(payload) }).toEqual({
       payload,
       type: LOAD_PAGE,
     });

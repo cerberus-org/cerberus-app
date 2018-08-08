@@ -1,18 +1,18 @@
 import { StoreModule } from '@ngrx/store';
 import { authReducers } from '../app/auth/reducers';
-import { initialSessionReducerState } from '../app/auth/reducers/auth.reducer';
+import { initialAuthReducerState } from '../app/auth/reducers/auth.reducer';
 import { appReducers } from '../app/core/reducers';
+import { initialLayoutReducerState } from '../app/core/reducers/layout.reducer';
 import { settingsReducers } from '../app/settings/reducers';
 import { createMockHeaderOptions } from './objects/header-options.mock';
-import { createMockMembers } from './objects/member.mock';
 import { createMockSidenavOptions } from './objects/sidenav-options.mock';
-import { createMockTeams } from './objects/team.mock';
 import { createMockUserInfo } from './objects/user.mock';
 
 export const mockStoreModules = [
   StoreModule.forRoot(appReducers, {
     initialState: {
       layout: {
+        ...initialLayoutReducerState,
         headerOptions: createMockHeaderOptions()[0],
         sidenavOptions: createMockSidenavOptions(),
         sidenavOpened: true,
@@ -21,10 +21,8 @@ export const mockStoreModules = [
   }),
   StoreModule.forFeature('authModule', authReducers, {
     initialState: {
-      session: {
-        ...initialSessionReducerState,
-        team: createMockTeams()[0],
-        member: createMockMembers()[0],
+      auth: {
+        ...initialAuthReducerState,
         userInfo: createMockUserInfo()[0],
       },
     },

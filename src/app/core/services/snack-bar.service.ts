@@ -57,6 +57,26 @@ export class SnackBarService {
     return this.open('Your team was successfully created.');
   }
 
+  createSiteSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Successfully created a site.');
+  }
+
+  updateSiteSuccess():MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Successfully updated a site.');
+  }
+
+  deleteSiteSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Site was successfully deleted.');
+  }
+
+  updateVisitSuccess():MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Successfully updated a visit.');
+  }
+
+  deleteVolunteerSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Volunteer was successfully deleted.');
+  }
+
   accountNotVerified(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('Your account has not been verified yet.');
   }
@@ -71,17 +91,5 @@ export class SnackBarService {
 
   updateAvailable(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('A new version of Cerberus is available.', 'Reload', 10000);
-  }
-
-  createSiteSuccess(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Successfully created a site.');
-  }
-
-  updateSiteSuccess():MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Successfully updated a site.');
-  }
-
-  updateVisitSuccess():MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Successfully updated a visit.');
   }
 }

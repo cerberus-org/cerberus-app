@@ -5,7 +5,6 @@ import { AppState } from '../../../core/reducers';
 import { getVolunteersForSelectedTeam } from '../../../core/selectors/volunteers.selectors';
 import { ColumnOptions, Volunteer } from '../../../shared/models';
 import { DeleteVolunteer } from '../../actions/settings.actions';
-import * as SettingsActions from '../../actions/settings.actions';
 
 @Component({
   selector: 'app-volunteer-settings',
@@ -39,6 +38,6 @@ export class VolunteerSettingsComponent implements OnInit {
    * @param {Volunteer} volunteer
    */
   onDeleteVolunteer(volunteer: Volunteer) {
-    this.store$.dispatch(new DeleteVolunteer(volunteer));
+    this.store$.dispatch(new DeleteVolunteer({ volunteer }));
   }
 }

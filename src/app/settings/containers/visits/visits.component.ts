@@ -7,7 +7,6 @@ import { AppState } from '../../../core/reducers';
 import { formatDate, formatTime, formatTimeInputValue } from '../../../shared/helpers';
 import { ColumnOptions, Site } from '../../../shared/models';
 import { UpdateVisit } from '../../actions/settings.actions';
-import * as SettingsActions from '../../actions/settings.actions';
 import { VisitDialogComponent } from '../../components/visit-dialog/visit-dialog.component';
 import { VisitWithVolunteer } from '../../models/visit-with-volunteer';
 import { selectVisitWithVolunteers } from '../../selectors/visits.selectors';
@@ -77,7 +76,7 @@ export class VisitsComponent implements OnInit {
     delete visit.teamSites;
     visit.siteId = visit.selectedSite.id;
     delete visit.selectedSite;
-    this.store$.dispatch(new UpdateVisit(visit));
+    this.store$.dispatch(new UpdateVisit({ visit }));
   }
 
   /**

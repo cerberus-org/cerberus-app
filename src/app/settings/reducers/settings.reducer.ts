@@ -1,23 +1,21 @@
-import * as SettingsActions from '../actions/settings.actions';
+import { SettingsActionsUnion, SettingsActionTypes } from '../actions/settings.actions';
 
 export interface SettingsReducerState {
-  sidenavSelection: string;
+  selectedOption: string;
 }
 
 export const initialSettingsReducerState: SettingsReducerState = {
-  sidenavSelection: 'user',
+  selectedOption: 'USER',
 };
 
-export type Action = SettingsActions.All;
-
-export function settingsReducer(state = initialSettingsReducerState, action: Action): SettingsReducerState {
+export function settingsReducer(
+  state = initialSettingsReducerState,
+  action: SettingsActionsUnion,
+): SettingsReducerState {
   switch (action.type) {
-
-    case SettingsActions.LOAD_PAGE: {
-      return {
-        ...state,
-        sidenavSelection: action.payload,
-      };
+    case SettingsActionTypes.SelectSettingsOption: {
+      const { selectedOption } = action.payload;
+      return { ...state, selectedOption };
     }
 
     default: {

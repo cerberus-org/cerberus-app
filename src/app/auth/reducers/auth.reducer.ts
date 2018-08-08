@@ -5,11 +5,11 @@ export interface AuthReducerState {
   userInfo: UserInfo;
 }
 
-export const initialSessionReducerState: AuthReducerState = {
+export const initialAuthReducerState: AuthReducerState = {
   userInfo: undefined,
 };
 
-export function authReducer(state = initialSessionReducerState, action: AuthActionsUnion): AuthReducerState {
+export function authReducer(state = initialAuthReducerState, action: AuthActionsUnion): AuthReducerState {
   switch (action.type) {
     case AuthActionTypes.SetUserInfo: {
       const { userInfo } = action.payload;

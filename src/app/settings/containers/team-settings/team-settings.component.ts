@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthReducerState } from '../../../auth/reducers/auth.reducer';
 import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
 import { Team } from '../../../shared/models';
-import * as SettingsActions from '../../actions/settings.actions';
+import { UpdateTeam } from '../../actions/settings.actions';
 
 @Component({
   selector: 'app-team-settings',
@@ -57,6 +57,6 @@ export class TeamSettingsComponent implements OnInit {
    * Handles submission of team form by dispatching an SetTeam action.
    */
   onSubmitTeam(team: Team) {
-    this.store$.dispatch(new SettingsActions.UpdateTeam(team));
+    this.store$.dispatch(new UpdateTeam({ team }));
   }
 }

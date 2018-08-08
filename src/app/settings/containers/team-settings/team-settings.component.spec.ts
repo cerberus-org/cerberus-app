@@ -3,7 +3,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { createMockTeams } from '../../../../mocks/objects/team.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { MaterialModule } from '../../../material';
-import * as SettingsActions from '../../actions/settings.actions';
+import { UpdateTeam } from '../../actions/settings.actions';
 import { TeamSettingsComponent } from './team-settings.component';
 
 describe('TeamSettingsComponent', () => {
@@ -39,11 +39,11 @@ describe('TeamSettingsComponent', () => {
     expect(component.teamEdits).toEqual(createMockTeams()[0]);
   });
 
-  it('should handle updateTeam events by dispatching SettingsActions.SetTeam', () => {
+  it('should handle updateTeam events by dispatching UpdateTeam', () => {
     spyOn(component.store$, 'dispatch');
     const team = { ...createMockTeams()[0], name: 'Edited' };
     component.onSubmitTeam(team);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new SettingsActions.UpdateTeam(team));
+      .toHaveBeenCalledWith(new UpdateTeam({ team }));
   });
 });
