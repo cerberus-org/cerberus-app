@@ -74,5 +74,4 @@ import { appReducers } from './core/reducers';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

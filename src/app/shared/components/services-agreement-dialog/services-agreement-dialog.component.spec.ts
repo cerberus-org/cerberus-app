@@ -5,7 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { ServicesAgreementDialogComponent } from './services-agreement-dialog.component';
 
 class MatDialogRefMock {
-  close() { }
+  close() {}
 }
 
 describe('ServicesAgreementDialogComponent', () => {

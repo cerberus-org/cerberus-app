@@ -23,5 +23,4 @@ import { AuthService } from './services/auth.service';
     VerificationGuard,
   ],
 })
-export class AuthModule {
-}
+export class AuthModule {}

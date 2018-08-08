@@ -9,7 +9,7 @@ import { SnackBarService } from './snack-bar.service';
 })
 export class ErrorService {
 
-  constructor(public snackBarService: SnackBarService) { }
+  constructor(public snackBarService: SnackBarService) {}
 
   /**
    * Displays the error via snack bar and stops any Observable pipeline.

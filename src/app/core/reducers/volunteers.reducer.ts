@@ -2,8 +2,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Volunteer } from '../../shared/models';
 import { VolunteersActionsUnion, VolunteersActionTypes } from '../actions/volunteers.actions';
 
-export interface VolunteersReducerState extends EntityState<Volunteer> {
-}
+export interface VolunteersReducerState extends EntityState<Volunteer> {}
 
 export const volunteersAdapter: EntityAdapter<Volunteer> = createEntityAdapter<Volunteer>();
 

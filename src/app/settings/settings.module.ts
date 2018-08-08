@@ -55,5 +55,4 @@ import { SettingsRoutingModule } from './settings-routing.module';
     SiteDialogComponent, VisitDialogComponent,
   ],
 })
-export class SettingsModule {
-}
+export class SettingsModule {}

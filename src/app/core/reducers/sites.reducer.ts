@@ -2,8 +2,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Site } from '../../shared/models';
 import { SitesActionsUnion, SitesActionTypes } from '../actions/sites.actions';
 
-export interface SitesReducerState extends EntityState<Site> {
-}
+export interface SitesReducerState extends EntityState<Site> {}
 
 export const sitesAdapter: EntityAdapter<Site> = createEntityAdapter<Site>();
 

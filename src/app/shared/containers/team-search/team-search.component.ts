@@ -22,7 +22,7 @@ export class TeamSearchComponent implements OnInit, OnDestroy {
   @Input() showTitle;
   @Input() showInputIconButton;
 
-  constructor(public store$: Store<AppState>) { }
+  constructor(public store$: Store<AppState>) {}
 
   ngOnInit(): void {
     this.teamSubscription = this.store$.pipe(select(getAllTeams))

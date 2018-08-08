@@ -8,7 +8,7 @@ import { MatDialogRef } from '@angular/material';
 })
 export class ServicesAgreementDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<ServicesAgreementDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<ServicesAgreementDialogComponent>) {}
 
   ngOnInit(): void {}
 

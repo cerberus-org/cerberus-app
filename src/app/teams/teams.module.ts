@@ -40,5 +40,4 @@ import { TeamsRoutingModule } from './teams-routing.module';
     JoinTeamDialogComponent,
   ],
 })
-export class TeamsModule {
-}
+export class TeamsModule {}

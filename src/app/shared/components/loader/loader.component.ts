@@ -9,5 +9,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class LoaderComponent {
   @Input() text: String;
 
-  constructor() { }
+  constructor() {}
 }

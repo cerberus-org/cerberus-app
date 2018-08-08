@@ -50,5 +50,4 @@ import { VolunteersRoutingModule } from './volunteers-routing.module';
     SignatureFieldComponent,
   ],
 })
-export class VolunteersModule {
-}
+export class VolunteersModule {}

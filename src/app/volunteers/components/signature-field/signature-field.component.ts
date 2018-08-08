@@ -26,7 +26,7 @@ export class SignatureFieldComponent implements ControlValueAccessor {
   };
   emitValueChanges: Function;
 
-  constructor() { }
+  constructor() {}
 
   /**
    * Used by formControl to set value to the native form control.

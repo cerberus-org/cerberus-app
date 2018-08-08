@@ -13,11 +13,10 @@ import { mockStoreModules } from '../../../../mocks/store.mock';
 import { SiteDialogComponent } from './site-dialog.component';
 
 class MatDialogRefMock {
-  close() { }
+  close() {}
 }
 
-class MatDialogDataMock {
-}
+class MatDialogDataMock {}
 
 describe('SiteDialogComponent', () => {
   let component: SiteDialogComponent;

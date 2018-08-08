@@ -31,7 +31,7 @@ export class CreateTeamDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<CreateTeamDialogComponent>,
     private store$: Store<AppState>,
-  ) { }
+  ) {}
 
   onValidTeam(team: Team) {
     this.validTeam = team;

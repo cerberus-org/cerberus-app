@@ -40,7 +40,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
 
   fadeInState: string;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({

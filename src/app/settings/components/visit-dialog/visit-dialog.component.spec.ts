@@ -17,11 +17,10 @@ import { mockStoreModules } from '../../../../mocks/store.mock';
 import { VisitDialogComponent } from './visit-dialog.component';
 
 class MatDialogRefMock {
-  close() { }
+  close() {}
 }
 
-class MatDialogDataMock {
-}
+class MatDialogDataMock {}
 
 describe('VisitDialogComponent', () => {
   let component: VisitDialogComponent;
