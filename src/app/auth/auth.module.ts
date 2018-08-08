@@ -14,7 +14,7 @@ import { AuthService } from './services/auth.service';
   imports: [
     CommonModule,
     AngularFireAuthModule,
-    StoreModule.forFeature('auth', authReducers),
+    StoreModule.forFeature('authModule', authReducers),
     EffectsModule.forFeature(authEffects),
   ],
   providers: [

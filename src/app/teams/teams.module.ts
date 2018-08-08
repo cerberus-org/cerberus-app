@@ -26,7 +26,7 @@ import { TeamsRoutingModule } from './teams-routing.module';
      * eagerly or lazily and will be dynamically added to
      * the existing state.
      */
-    StoreModule.forFeature('teams', reducers),
+    StoreModule.forFeature('teamsModule', reducers),
 
     /**
      * Effects.forFeature is used to register effects

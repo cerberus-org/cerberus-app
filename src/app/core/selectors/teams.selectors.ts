@@ -1,13 +1,6 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromTeams from './teams-page.reducer';
-
-export interface TeamsState {
-  teams: fromTeams.State;
-}
-
-export const reducers: ActionReducerMap<TeamsState> = {
-  teams: fromTeams.reducer,
-};
+import { create } from 'domain';
+import * as fromTeams from '../reducers/teams.reducer';
 
 /**
  * A selector function is a map function factory. We pass it parameters and it
@@ -29,7 +22,7 @@ export const reducers: ActionReducerMap<TeamsState> = {
  * The createFeatureSelector function selects a piece of state from the root of the state object.
  * This is used for selecting feature states that are loaded eagerly or lazily.
  */
-export const getTeamsState = createFeatureSelector<TeamsState>('teamsModule');
+export const getTeamsState = createFeatureSelector<fromTeams.State>('teams');
 
 /**
  * Every reducer module exports selector functions, however child reducers
@@ -40,10 +33,6 @@ export const getTeamsState = createFeatureSelector<TeamsState>('teamsModule');
  * only recompute when arguments change. The created selectors can also be composed
  * together to select different pieces of state.
  */
-export const getTeamsEntitiesState = createSelector(
-  getTeamsState,
-  state => state.teams,
-);
 
 /**
  * Adapters created with @ngrx/entity generate
@@ -55,9 +44,16 @@ export const getTeamsEntitiesState = createSelector(
  */
 export const {
   selectAll: getAllTeams,
-} = fromTeams.adapter.getSelectors(getTeamsEntitiesState);
+  selectEntities: getTeamEntities,
+} = fromTeams.adapter.getSelectors(getTeamsState);
+
+export const getSelectedTeamId = createSelector(
+  getTeamsState,
+  state => state.selectedTeamId,
+);
 
 export const getSelectedTeam = createSelector(
-  getTeamsEntitiesState,
-  state => state.selectedTeam,
+  getTeamEntities,
+  getSelectedTeamId,
+  (entities, id) => entities[id],
 );

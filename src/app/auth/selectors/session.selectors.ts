@@ -3,7 +3,7 @@ import { UserInfo } from 'firebase';
 import { AuthState } from '../reducers';
 import { SessionReducerState } from '../reducers/session.reducer';
 
-export const selectAuthState = createFeatureSelector<AuthState>('auth');
+export const selectAuthState = createFeatureSelector<AuthState>('authModule');
 
 export const selectSessionReducerState = createSelector(
   selectAuthState,

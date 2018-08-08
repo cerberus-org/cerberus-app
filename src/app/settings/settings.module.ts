@@ -29,7 +29,7 @@ import { SettingsRoutingModule } from './settings-routing.module';
     MaterialModule,
     SharedModule,
     SettingsRoutingModule,
-    StoreModule.forFeature('settings', settingsReducers),
+    StoreModule.forFeature('settingsModule', settingsReducers),
     EffectsModule.forFeature(settingsEffects),
   ],
   declarations: [

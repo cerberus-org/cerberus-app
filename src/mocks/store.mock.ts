@@ -4,7 +4,6 @@ import { initialSessionReducerState } from '../app/auth/reducers/session.reducer
 import { appReducers } from '../app/core/reducers';
 import { initialModelReducerState } from '../app/core/reducers/model.reducer';
 import { settingsReducers } from '../app/settings/reducers';
-import * as fromTeams from '../app/teams/reducers';
 import { createMockHeaderOptions } from './objects/header-options.mock';
 import { createMockMembers } from './objects/member.mock';
 import { createMockOrganizations } from './objects/organization.mock';
@@ -33,7 +32,7 @@ export const mockStoreModules = [
       },
     },
   }),
-  StoreModule.forFeature('auth', authReducers, {
+  StoreModule.forFeature('authModule', authReducers, {
     initialState: {
       session: {
         ...initialSessionReducerState,
@@ -43,5 +42,5 @@ export const mockStoreModules = [
       },
     },
   }),
-  StoreModule.forFeature('settings', settingsReducers),
+  StoreModule.forFeature('settingsModule', settingsReducers),
 ];

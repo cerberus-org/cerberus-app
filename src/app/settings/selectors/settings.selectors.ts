@@ -6,7 +6,7 @@ import * as SettingsActions from '../actions/settings.actions';
 import { SettingsState } from '../reducers';
 import { SettingsReducerState } from '../reducers/settings.reducer';
 
-export const selectSettingsState = createFeatureSelector<SettingsState>('settings');
+export const selectSettingsState = createFeatureSelector<SettingsState>('settingsModule');
 
 export const selectSettingsReducerState = createSelector(
   selectSettingsState,
