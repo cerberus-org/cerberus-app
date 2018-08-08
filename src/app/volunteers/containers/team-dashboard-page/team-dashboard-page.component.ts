@@ -9,9 +9,9 @@ import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
 import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { AppState } from '../../../core/reducers';
+import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
 import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
 import { Visit } from '../../../shared/models';
-import { getTeamDashboardHeaderOptions } from '../../selectors/team-dashboard.selectors';
 
 @Component({
   selector: 'app-team-dashboard-page',
@@ -55,8 +55,12 @@ export class TeamDashboardPageComponent implements OnDestroy {
       .subscribe(store$);
     this.headerSubscription = store$
       .pipe(
-        select(getTeamDashboardHeaderOptions),
-        map(headerOptions => new SetHeaderOptions(headerOptions)),
+        select(getSelectedTeam),
+        map(team => new SetHeaderOptions({
+          title: !!team ? team.name : 'Team missing!',
+          previousUrl: null,
+          showLogOut: false,
+        })),
       )
       .subscribe(store$);
     this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));

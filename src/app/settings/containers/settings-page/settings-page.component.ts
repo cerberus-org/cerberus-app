@@ -9,7 +9,7 @@ import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
 import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
-import * as SettingsActions from '../../actions/settings.actions';
+import { LoadSettingsPage } from '../../actions/settings.actions';
 import { SettingsState } from '../../reducers';
 import { getSettingsSidenavOptions, getSettingsSidenavSelection } from '../../selectors/settings.selectors';
 
@@ -60,23 +60,22 @@ export class SettingsPageComponent implements OnDestroy {
       previousUrl: 'teams',
       showLogOut: true,
     }));
-    store$.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
+    store$.dispatch(new LoadSettingsPage('USER_SETTINGS'));
     store$.dispatch(new LoadTeams());
-    this.routeParamsSubscription = route.params
-      .pipe(
-        switchMap(({ teamId }) => [
-          new SelectTeam({ teamId }),
-          new LoadMembersForTeam({ teamId }),
-          new LoadSitesForTeam({ teamId }),
-          new LoadVisitsForTeam({ teamId }),
-          new LoadVolunteersForTeam({ teamId }),
-        ]))
+    this.routeParamsSubscription = route.params.pipe(
+      switchMap(({ teamId }) => [
+        new SelectTeam({ teamId }),
+        new LoadMembersForTeam({ teamId }),
+        new LoadSitesForTeam({ teamId }),
+        new LoadVisitsForTeam({ teamId }),
+        new LoadVolunteersForTeam({ teamId }),
+      ]),
+    )
       .subscribe(store$);
-    this.sidenavSubscription = store$
-      .pipe(
-        select(getSettingsSidenavOptions),
-        map(sidenavOptions => new LayoutActions.SetSidenavOptions(sidenavOptions)),
-      )
+    this.sidenavSubscription = store$.pipe(
+      select(getSettingsSidenavOptions),
+      map(sidenavOptions => new LayoutActions.SetSidenavOptions(sidenavOptions)),
+    )
       .subscribe(store$);
     this.sidenavSelection$ = store$.pipe(select(getSettingsSidenavSelection));
   }

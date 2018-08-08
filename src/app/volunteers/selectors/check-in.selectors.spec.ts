@@ -1,21 +1,21 @@
 import { initialCheckInReducerState } from '../reducers/check-in.reducer';
-import { selectCheckInReducerState, selectSelectedTabIndex } from './check-in.selectors';
+import { getCheckInReducerState, getSelectedTabIndex } from './check-in.selectors';
 
 describe('CheckInSelectors', () => {
-  describe('selectCheckInReducerState', () => {
+  describe('getCheckInReducerState', () => {
     it('should select the state', () => {
       const state = initialCheckInReducerState;
-      expect(selectCheckInReducerState.projector({
+      expect(getCheckInReducerState.projector({
         checkIn: state,
       }))
         .toEqual(state);
     });
   });
 
-  describe('selectSelectedTabIndex', () => {
+  describe('getSelectedTabIndex', () => {
     it('should select the selected tab index', () => {
       const state = initialCheckInReducerState;
-      expect(selectSelectedTabIndex.projector(state))
+      expect(getSelectedTabIndex.projector(state))
         .toEqual(state.selectedTabIndex);
     });
   });

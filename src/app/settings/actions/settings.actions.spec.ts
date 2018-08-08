@@ -14,7 +14,7 @@ import {
   GENERATE_VISIT_HISTORY_REPORT,
   GenerateVisitHistoryReport,
   LOAD_PAGE,
-  LoadPage,
+  LoadSettingsPage,
   UPDATE_ROLE,
   UPDATE_TEAM,
   UPDATE_USER,
@@ -53,9 +53,9 @@ describe('settings.actions', () => {
     });
   });
 
-  it('should create a LoadPage action', () => {
+  it('should create a LoadSettingsPage action', () => {
     const payload = 'Test';
-    expect({ ...new LoadPage(payload) }).toEqual({
+    expect({ ...new LoadSettingsPage(payload) }).toEqual({
       payload,
       type: LOAD_PAGE,
     });

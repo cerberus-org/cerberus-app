@@ -9,14 +9,12 @@ import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
 import { AppState } from '../../../core/reducers';
+import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
+import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
+import { getVolunteersForSelectedTeam } from '../../../core/selectors/volunteers.selectors';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import { Visit, Volunteer } from '../../../shared/models';
 import { CheckIn, CheckOut, SubmitNewVolunteer } from '../../actions/check-in.actions';
-import {
-  CheckInContainerState,
-  getCheckInHeaderOptions,
-  selectCheckInContainerState,
-} from '../../selectors/check-in.selectors';
 
 @Component({
   selector: 'app-check-in-page',
@@ -28,27 +26,39 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   private routeParamsSubscription: Subscription;
 
   @ViewChild('stepper') stepper: MatVerticalStepper;
-  state$: Observable<CheckInContainerState>;
+  visits$: Observable<Visit[]>;
+  volunteers$: Observable<Volunteer[]>;
   teamId: string;
   siteId: string;
 
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private store$: Store<AppState>) {
     store$.dispatch(new LoadTeams());
-    this.routeParamsSubscription = route.params
-      .pipe(switchMap(({ teamId }) => [
+    this.routeParamsSubscription = route.params.pipe(
+      switchMap(({ teamId }) => [
         new SelectTeam({ teamId }),
         new LoadVisitsForTeam({ teamId }),
         new LoadVolunteersForTeam({ teamId }),
-      ]))
+      ]),
+    )
       .subscribe(store$);
-    this.headerSubscription = store$
-      .pipe(
-        select(getCheckInHeaderOptions),
-        map(headerOptions => new SetHeaderOptions(headerOptions)),
-      )
+    this.headerSubscription = store$.pipe(
+      select(getSelectedTeam),
+      map(team => new SetHeaderOptions({
+        title: !!team ? team.name : 'Loading...',
+        previousUrl: 'dashboard',
+        showLogOut: false,
+      })),
+    )
       .subscribe(store$);
     store$.dispatch(new SetSidenavOptions(null));
-    this.state$ = store$.pipe(select(selectCheckInContainerState));
+    this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
+    this.volunteers$ = store$.pipe(
+      select(getVolunteersForSelectedTeam),
+      map((vols) => {
+        console.log(vols);
+        return vols;
+      }),
+    );
   }
 
   get checkInOutFormTitle() {

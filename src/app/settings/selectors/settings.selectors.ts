@@ -25,7 +25,7 @@ export const getSettingsSidenavOptions = createSelector(
       new SidenavOptions(
         'User',
         'face',
-        new SettingsActions.LoadPage('USER_SETTINGS'),
+        new SettingsActions.LoadSettingsPage('USER_SETTINGS'),
       ),
     ];
     return member && isAdmin(member)
@@ -34,32 +34,32 @@ export const getSettingsSidenavOptions = createSelector(
         new SidenavOptions(
           'Team',
           'domain',
-          new SettingsActions.LoadPage('TEAM_SETTINGS'),
+          new SettingsActions.LoadSettingsPage('TEAM_SETTINGS'),
         ),
         new SidenavOptions(
           'Volunteers',
           'insert_emoticon',
-          new SettingsActions.LoadPage('VOLUNTEER_SETTINGS'),
+          new SettingsActions.LoadSettingsPage('VOLUNTEER_SETTINGS'),
         ),
         new SidenavOptions(
           'Reports',
           'assessment',
-          new SettingsActions.LoadPage('REPORTS'),
+          new SettingsActions.LoadSettingsPage('REPORTS'),
         ),
         new SidenavOptions(
           'Roles',
           'lock_outline',
-          new SettingsActions.LoadPage('ROLES'),
+          new SettingsActions.LoadSettingsPage('ROLES'),
         ),
         new SidenavOptions(
           'Visits',
           'done_all',
-          new SettingsActions.LoadPage('VISITS'),
+          new SettingsActions.LoadSettingsPage('VISITS'),
         ),
         new SidenavOptions(
           'Sites',
           'dashboard',
-          new SettingsActions.LoadPage('SITES'),
+          new SettingsActions.LoadSettingsPage('SITES'),
         ),
       ]
       : sidenavOptions;

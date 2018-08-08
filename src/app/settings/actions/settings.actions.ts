@@ -40,7 +40,7 @@ export class GenerateVisitHistoryReport implements Action {
   }) {}
 }
 
-export class LoadPage implements Action {
+export class LoadSettingsPage implements Action {
   readonly type = LOAD_PAGE;
 
   constructor(public payload: string) {}
@@ -98,7 +98,7 @@ export type All
   = DeleteVolunteer
   | DeleteVolunteerSuccess
   | GenerateVisitHistoryReport
-  | LoadPage
+  | LoadSettingsPage
   | UpdateRole
   | UpdateTeam
   | UpdateUser

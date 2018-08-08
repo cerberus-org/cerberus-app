@@ -7,7 +7,7 @@ import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layou
 import { LoadMembersForUser } from '../../../core/actions/members.actions';
 import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { AppState } from '../../../core/reducers';
-import { getTeamsForUser } from '../../../core/selectors/teams.selectors';
+import { getTeamsForUser } from '../../../core/selectors';
 import { Team } from '../../../shared/models';
 import { OpenCreateTeamDialog, OpenFindTeamDialog } from '../../actions/teams-page.actions';
 

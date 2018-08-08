@@ -1,6 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { teamsAdapter, TeamsReducerState } from '../reducers/teams.reducer';
-import { getMembersForUser } from './members.selectors';
 
 /**
  * A selector function is a map function factory. We pass it parameters and it
@@ -56,12 +55,4 @@ export const getSelectedTeam = createSelector(
   getTeamEntities,
   getSelectedTeamId,
   (teamEntities, teamId) => teamEntities[teamId],
-);
-
-export const getTeamsForUser = createSelector(
-  getTeamEntities,
-  getMembersForUser,
-  (teamEntities, members) => members
-    .map(member => teamEntities[member.teamId])
-    .filter(team => !!team),
 );

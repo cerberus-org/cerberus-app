@@ -12,7 +12,7 @@ export class LoadVisits implements Action {
 }
 
 export class LoadVisitsForTeam implements Action {
-  readonly type = VisitsActionTypes.LoadVisits;
+  readonly type = VisitsActionTypes.LoadVisitsForTeam;
 
   constructor(public payload: { teamId: string }) {}
 }
