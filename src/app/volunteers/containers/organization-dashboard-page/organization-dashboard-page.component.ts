@@ -3,11 +3,11 @@ import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import * as LayoutActions from '../../../core/actions/layout.actions';
 import { AppState } from '../../../core/reducers';
-import { selectModelVisits } from '../../../core/selectors/model.selectors';
-import { Visit } from '../../../shared/models';
+import { selectModelSites } from '../../../core/selectors/model.selectors';
+import { Site, Visit } from '../../../shared/models';
 import {
   selectOrganizationDashboardHeaderOptions,
-  selectOrganizationDashboardSidenavOptions,
+  selectOrganizationDashboardSidenavOptions, selectVolunteerDashboardVisits,
 } from '../../selectors/organization-dashboard.selectors';
 
 @Component({
@@ -19,11 +19,13 @@ export class OrganizationDashboardPageComponent implements OnInit, OnDestroy {
   private headerSubscription: Subscription;
   private sidenavSubscription: Subscription;
   visits$: Observable<Visit[]>;
+  sites$: Observable<Site[]>;
 
   constructor(private store$: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.visits$ = this.store$.pipe(select(selectModelVisits));
+    this.visits$ = this.store$.pipe(select(selectVolunteerDashboardVisits));
+    this.sites$ = this.store$.pipe(select(selectModelSites));
     this.headerSubscription = this.store$.pipe(select(selectOrganizationDashboardHeaderOptions))
       .subscribe((headerOptions) => {
         this.store$.dispatch(new LayoutActions.SetHeaderOptions(headerOptions));

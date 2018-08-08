@@ -9,6 +9,7 @@ import { Visit } from '../../models';
 })
 export class DailyHoursChartComponent implements OnChanges {
   @Input() visits: Visit[];
+  @Input() sites: Visit[];
   data: LineChartData[];
   labels: string[];
   type = 'line';
@@ -27,7 +28,7 @@ export class DailyHoursChartComponent implements OnChanges {
     if (changes['visits']) {
       this.data = [];
       this.labels = this.setupLineChartLabels();
-      this.getEachDataSetBySite(changes['visits'].currentValue).forEach((dataSet: Visit[]) => {
+      this.getDataSetsBySite(changes['visits'].currentValue).forEach((dataSet: Visit[]) => {
         this.data.push(this.setupLineChartData(dataSet, this.labels));
       });
     }
@@ -41,7 +42,7 @@ export class DailyHoursChartComponent implements OnChanges {
    * @param {Visit[]} visits
    * @returns {Visit[][]}
    */
-  getEachDataSetBySite(visits: Visit[]): Visit[][] {
+  getDataSetsBySite(visits: Visit[]): Visit[][] {
     const mapOfVisits = new Map<string, Visit[]>();
     if (visits) {
       visits.forEach((visit: Visit) => {
