@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { formatTimeInputValue, updateDateWithTimeInput } from '../../../shared/helpers';
 import { Site } from '../../../shared/models';
-import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
+import { VisitWithVolunteer } from '../../models/visit-with-volunteer';
 
 @Component({
   selector: 'app-visit-dialog',

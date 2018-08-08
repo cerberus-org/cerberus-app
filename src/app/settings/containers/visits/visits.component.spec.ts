@@ -7,7 +7,7 @@ import { createMockVisits } from '../../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { formatDate, formatDuration, formatTime, formatTimeInputValue, getFullName } from '../../../shared/helpers';
-import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
+import { VisitWithVolunteer } from '../../models/visit-with-volunteer';
 import { SiteDialogComponent } from '../../components/site-dialog/site-dialog.component';
 import { VisitsComponent } from './visits.component';
 

@@ -6,7 +6,7 @@ import { map } from 'rxjs/internal/operators';
 import { AppState } from '../../../core/reducers';
 import { formatDate, formatDuration, formatTime, formatTimeInputValue, getFullName } from '../../../shared/helpers';
 import { ColumnOptions, Site } from '../../../shared/models';
-import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
+import { VisitWithVolunteer } from '../../models/visit-with-volunteer';
 import * as SettingsActions from '../../actions/settings.actions';
 import { VisitDialogComponent } from '../../components/visit-dialog/visit-dialog.component';
 import { MemberWithRoleOptions } from '../../selectors/roles.selectors';

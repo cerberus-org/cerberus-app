@@ -1,5 +1,5 @@
-import { Site } from './site';
-import { Volunteer } from './volunteer';
+import { Site } from '../../shared/models/site';
+import { Volunteer } from '../../shared/models/volunteer';
 
 export interface VisitWithVolunteer {
   id: string;

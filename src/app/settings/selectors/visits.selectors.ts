@@ -3,7 +3,7 @@ import { getSitesForSelectedTeam } from '../../core/selectors/sites.selectors';
 import { getVisitsForSelectedTeam } from '../../core/selectors/visits.selectors';
 import { getVolunteersForSelectedTeam } from '../../core/selectors/volunteers.selectors';
 import { Site, Visit, Volunteer } from '../../shared/models';
-import { VisitWithVolunteer } from '../../shared/models/visit-with-volunteer';
+import { VisitWithVolunteer } from '../models/visit-with-volunteer';
 
 export const selectVisitWithVolunteers = createSelector(
   getVisitsForSelectedTeam,
