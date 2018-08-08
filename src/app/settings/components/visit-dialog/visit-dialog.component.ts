@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { formatTimeInputValue, getIndex, updateDateWithTimeInput } from '../../../shared/helpers';
+import { formatTimeInputValue, updateDateWithTimeInput } from '../../../shared/helpers';
 import { Site } from '../../../shared/models';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
 

@@ -1,12 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MockComponent } from 'ng2-mock-component';
 import { createMockUserInfo } from '../../../../mocks/objects/user.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as ModelActions from '../../actions/model.actions';
 import { AppUpdateService } from '../../services/app-update.service';
 import { AppComponent } from './app.component';
 

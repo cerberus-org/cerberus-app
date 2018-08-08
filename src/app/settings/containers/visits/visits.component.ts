@@ -4,13 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { AppState } from '../../../core/reducers';
-import {
-  formatDate,
-  formatDuration,
-  formatTime,
-  formatTimeInputValue,
-  getFullName,
-} from '../../../shared/helpers';
+import { formatDate, formatDuration, formatTime, formatTimeInputValue, getFullName } from '../../../shared/helpers';
 import { ColumnOptions, Site } from '../../../shared/models';
 import { VisitWithVolunteer } from '../../../shared/models/visit-with-volunteer';
 import * as SettingsActions from '../../actions/settings.actions';

@@ -5,7 +5,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { mockProviders } from '../../../../mocks/providers.mock';
 import { PasswordDialogComponent } from './password-dialog.component';
 
-
 describe('VerificationDialogComponent', () => {
   let component: PasswordDialogComponent;
   let fixture: ComponentFixture<PasswordDialogComponent>;

@@ -3,8 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import * as LayoutActions from '../../../core/actions/layout.actions';
-import { SetSidenavOptions } from '../../../core/actions/layout.actions';
+import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import * as ModelActions from '../../../core/actions/model.actions';
 import * as RouterActions from '../../../core/actions/router.actions';
 import { AppState } from '../../../core/reducers';
@@ -55,7 +54,7 @@ export class OrganizationDashboardPageComponent implements OnDestroy {
     this.headerSubscription = store$
       .pipe(
         select(getOrganizationDashboardHeaderOptions),
-        map(headerOptions => new LayoutActions.SetHeaderOptions(headerOptions)),
+        map(headerOptions => new SetHeaderOptions(headerOptions)),
       )
       .subscribe(store$);
     this.visits$ = store$.pipe(select(selectModelVisits));
