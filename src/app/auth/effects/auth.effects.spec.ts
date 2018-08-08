@@ -7,7 +7,6 @@ import { createMockCredentials } from '../../../mocks/objects/credentials.mock';
 import { mockProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
 import { Go } from '../../core/actions/router.actions';
-import * as RouterActions from '../../core/actions/router.actions';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import * as AuthActions from '../actions/auth.actions';
 import { AuthEffects } from './auth.effects';
@@ -33,12 +32,12 @@ describe('AuthEffects', () => {
 
   describe('signIn$', () => {
 
-    it('should dispatch RouterActions.Go', () => {
+    it('should dispatch Go', () => {
       actions = hot('a', {
         a: new AuthActions.SignIn(createMockCredentials()[0]),
       });
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['teams'] }),
+        b: new Go({ path: ['teams'] }),
       });
       expect(effects.signIn$).toBeObservable(expected);
     });

@@ -6,7 +6,7 @@ import { createMockHeaderOptions } from '../../../../mocks/objects/header-option
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import * as AuthActions from '../../../auth/actions/auth.actions';
 import { ToggleSidenavOpened } from '../../actions/layout.actions';
-import * as RouterActions from '../../actions/router.actions';
+import { Back } from '../../actions/router.actions';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -61,7 +61,7 @@ describe('HeaderComponent', () => {
     });
   }));
 
-  it('should handle clicks to the back button by dispatching RouterActions.Back', async(() => {
+  it('should handle clicks to the back button by dispatching Back', async(() => {
     const dispatch = spyOn(TestBed.get(Store), 'dispatch');
     component.headerState$.subscribe(() => {
       fixture.detectChanges();
@@ -69,7 +69,7 @@ describe('HeaderComponent', () => {
         fixture.detectChanges();
         const toggleSidenavButton = fixture.debugElement.query(By.css('#back-button'));
         toggleSidenavButton.triggerEventHandler('click', {});
-        expect(dispatch).toHaveBeenCalledWith(new RouterActions.Back());
+        expect(dispatch).toHaveBeenCalledWith(new Back());
       });
     });
   }));

@@ -5,7 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { mockTeams } from '../../../../mocks/objects/team.mock';
 import { mockProviders } from '../../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as RouterActions from '../../../core/actions/router.actions';
+import { Go } from '../../../core/actions/router.actions';
 import { MaterialModule } from '../../../material';
 import { HomePageComponent } from './home-page.component';
 
@@ -50,6 +50,6 @@ describe('HomePageComponent', () => {
     spyOn(component.store$, 'dispatch');
     component.onInputIconButtonClick(mockTeams[0]);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['view-activity/' + mockTeams[0].name] }));
+      .toHaveBeenCalledWith(new Go({ path: ['view-activity/' + mockTeams[0].name] }));
   });
 });

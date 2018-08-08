@@ -5,10 +5,10 @@ import { Observable } from 'rxjs/internal/Observable';
 import { delay } from 'rxjs/operators';
 import * as AuthActions from '../../../auth/actions/auth.actions';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
-import * as RouterActions from '../../actions/router.actions';
-import { LayoutReducerState } from '../../reducers/layout.reducer';
-import { HeaderState, getHeaderState } from '../../selectors/layout.selectors';
 import { ToggleSidenavOpened } from '../../actions/layout.actions';
+import { Back } from '../../actions/router.actions';
+import { LayoutReducerState } from '../../reducers/layout.reducer';
+import { getHeaderState, HeaderState } from '../../selectors/layout.selectors';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onBack(): void {
-    this.store$.dispatch(new RouterActions.Back());
+    this.store$.dispatch(new Back());
   }
 
   onSettings(): void {

@@ -3,9 +3,9 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
-import * as RouterActions from '../../core/actions/router.actions';
+import { Back } from '../../core/actions/router.actions';
 import { AppState } from '../../core/reducers';
-import { getSelectedTeam, getSelectedTeamId } from '../../core/selectors/teams.selectors';
+import { getSelectedTeamId } from '../../core/selectors/teams.selectors';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { VisitService } from '../../core/services/visit.service';
 import { VolunteerService } from '../../core/services/volunteer.service';
@@ -50,7 +50,7 @@ export class CheckInEffects {
         .pipe(
           map(() => {
             this.snackBarService.checkInSuccess();
-            return new RouterActions.Back();
+            return new Back();
           }))),
     );
 
@@ -67,7 +67,7 @@ export class CheckInEffects {
         .pipe(
           map(() => {
             this.snackBarService.checkOutSuccess();
-            return new RouterActions.Back();
+            return new Back();
           }),
         )),
     );

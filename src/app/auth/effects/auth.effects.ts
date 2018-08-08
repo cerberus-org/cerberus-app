@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { defer } from 'rxjs/internal/observable/defer';
 import { of } from 'rxjs/internal/observable/of';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import * as RouterActions from '../../core/actions/router.actions';
+import { Go } from '../../core/actions/router.actions';
 import { MemberService } from '../../core/services/member.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { Credentials } from '../../shared/models/credentials';
@@ -50,7 +50,7 @@ export class AuthEffects {
         .pipe(
           map(() => {
             this.snackBarService.signInSuccess();
-            return new RouterActions.Go({ path: ['teams'] });
+            return new Go({ path: ['teams'] });
           }),
         )),
     );
@@ -70,7 +70,7 @@ export class AuthEffects {
         .pipe(
           map(() => {
             this.authService.setPwdVerification(true);
-            return new RouterActions.Go({ path: ['team/settings'] });
+            return new Go({ path: ['team/settings'] });
           }),
         )),
     );
@@ -88,7 +88,7 @@ export class AuthEffects {
         .pipe(
           map(() => {
             this.snackBarService.signOutSuccess();
-            return new RouterActions.Go({ path: [''] });
+            return new Go({ path: [''] });
           }),
         )),
     );
