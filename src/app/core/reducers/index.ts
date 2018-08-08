@@ -4,6 +4,7 @@ import { layoutReducer, LayoutReducerState } from './layout.reducer';
 import * as fromMembers from './members.reducer';
 import { modelReducer, ModelReducerState } from './model.reducer';
 import * as fromTeams from './teams.reducer';
+import * as fromVisits from './visits.reducer';
 
 export interface AppState {
   layout: LayoutReducerState;
@@ -11,6 +12,7 @@ export interface AppState {
   router: RouterReducerState;
   members: fromMembers.State;
   teams: fromTeams.State;
+  visits: fromVisits.State;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -19,4 +21,5 @@ export const appReducers: ActionReducerMap<AppState> = {
   router: routerReducer,
   members: fromMembers.reducer,
   teams: fromTeams.reducer,
+  visits: fromVisits.reducer,
 };

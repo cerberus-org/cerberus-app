@@ -3,11 +3,11 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { filter, switchMap } from 'rxjs/operators';
-import { LoadSites, LoadVisits } from '../../../core/actions/model.actions';
 import { Go } from '../../../core/actions/router.actions';
+import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { AppState } from '../../../core/reducers';
-import { selectModelVisits } from '../../../core/selectors/model.selectors';
 import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
+import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
 import { Team, Visit } from '../../../shared/models';
 
 @Component({
@@ -36,12 +36,11 @@ export class ViewSelectedTeamComponent implements OnDestroy {
       select(getSelectedTeam),
       filter(team => !!team),
       switchMap(({ id }) => [
-        new LoadVisits(id),
-        new LoadSites(id),
+        new LoadVisitsForTeam({ teamId: id }),
       ]),
     )
       .subscribe(store$);
-    this.visits$ = store$.pipe(select(selectModelVisits));
+    this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
   }
 
   ngOnDestroy() {
