@@ -10,10 +10,11 @@ import WhereFilterOp = firebase.firestore.WhereFilterOp;
 export abstract class BaseService<T extends { id: string }> {
   protected abstract collectionName: string;
 
-  constructor(protected afs: AngularFirestore, protected errorService: ErrorService) {}
+  protected constructor(protected afs: AngularFirestore, protected errorService: ErrorService) {}
 
   /**
    * Returns the collection based on the collectionName, using a query function if provided.
+   *
    * @param {QueryFn} queryFn - queries the collection
    * @returns {AngularFirestoreCollection<T>} - the collection
    */
@@ -21,14 +22,16 @@ export abstract class BaseService<T extends { id: string }> {
     return this.afs ? this.afs.collection<T>(this.collectionName, queryFn) : undefined;
   }
 
+  protected mapStateChangeToAction = map((action: DocumentChangeAction<T>) => ({
+    type: `[${this.collectionName}] ${action.type}`,
+    payload: this.mapDocToObject({ id: action.payload.doc.id, ...action.payload.doc.data() as Object }),
+  }));
+
   getAllStateChanges(): Observable<Action> {
     return this.collection().stateChanges()
       .pipe(
         mergeMap(actions => actions),
-        map(action => ({
-          type: `[${this.collectionName}] ${action.type}`,
-          payload: { id: action.payload.doc.id, ...action.payload.doc.data() as Object },
-        })),
+        this.mapStateChangeToAction,
       );
   }
 
@@ -36,15 +39,13 @@ export abstract class BaseService<T extends { id: string }> {
     return this.collection(ref => ref.where(key, opStr, value)).stateChanges()
       .pipe(
         mergeMap(actions => actions),
-        map(action => ({
-          type: `[${this.collectionName}] ${action.type}`,
-          payload: { id: action.payload.doc.id, ...action.payload.doc.data() as Object },
-        })),
+        this.mapStateChangeToAction,
       );
   }
 
   /**
    * Handles logic for retrieving an array of data from a given collection.
+   *
    * @param {boolean} snapshot - use true to get objects with IDs
    * @param {AngularFirestoreCollection<T extends {id: string}>} collection
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
@@ -68,6 +69,7 @@ export abstract class BaseService<T extends { id: string }> {
 
   /**
    * Gets the list of data from the collection.
+   *
    * @param snapshot - use true if you need a list of data with the metadata (includes document IDs)
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
@@ -77,6 +79,7 @@ export abstract class BaseService<T extends { id: string }> {
 
   /**
    * Gets the list of data from the collection, filtered by a key and value.
+   *
    * @param key - the key to filter by
    * @param value - the value the key should be equal to
    * @param snapshot - use true if you need a list of data with the metadata (includes document IDs)
@@ -91,6 +94,7 @@ export abstract class BaseService<T extends { id: string }> {
 
   /**
    * Gets a document's data from a collection by ID.
+   *
    * @param id - the ID for the document.
    * @returns {Observable<T>} - an observable containing the data.
    */
@@ -104,6 +108,7 @@ export abstract class BaseService<T extends { id: string }> {
 
   /**
    * Adds a new document to a collection.
+   *
    * @param item - the item to be added
    * @param id - specify an ID, otherwise an auto-generated ID will be used
    * @returns {Observable<T>} - the Observable of the snapshot of the added object
@@ -125,6 +130,7 @@ export abstract class BaseService<T extends { id: string }> {
 
   /**
    * Non-destructively updates a document's data.
+   *
    * @param item - the item to be updated
    * @returns {Observable<any>} - an empty Observable that emits when completed.
    */
@@ -137,6 +143,7 @@ export abstract class BaseService<T extends { id: string }> {
 
   /**
    * Removes a document. Does not remove any nested collections.
+   *
    * @param item - the item to be deleted
    * @returns {Observable<any>} - an empty Observable that emits when completed.
    */
@@ -149,6 +156,7 @@ export abstract class BaseService<T extends { id: string }> {
 
   /**
    * Override this function to perform conversions for documents received from the database.
+   *
    * @param data
    * @returns {any}
    */
@@ -158,6 +166,7 @@ export abstract class BaseService<T extends { id: string }> {
 
   /**
    * Override this function to perform conversions for objects to be sent as documents to the database.
+   *
    * @param data
    * @return {any}
    */

@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { LoadSites, LoadSitesForTeam, LoadSitesSuccess, SitesActionTypes } from '../actions/sites.actions';
+import { LoadSites, LoadSitesForTeam, SitesActionTypes } from '../actions/sites.actions';
 import { SiteService } from '../services/site.service';
 
 @Injectable()
@@ -17,9 +17,7 @@ export class SitesEffects {
   @Effect()
   loadSites$: Observable<Action> = this.actions.pipe(
     ofType<LoadSites>(SitesActionTypes.LoadSites),
-    switchMap(() => this.siteService.getAll(true).pipe(
-      map(sites => new LoadSitesSuccess({ sites })),
-    )),
+    switchMap(() => this.siteService.getAllStateChanges()),
   );
 
   @Effect()

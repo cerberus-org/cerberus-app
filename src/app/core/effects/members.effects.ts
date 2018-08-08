@@ -4,13 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../auth/services/auth.service';
-import {
-  LoadMembers,
-  LoadMembersForTeam,
-  LoadMembersForUser,
-  LoadMembersSuccess,
-  MembersActionTypes,
-} from '../actions/members.actions';
+import { LoadMembers, LoadMembersForTeam, LoadMembersForUser, MembersActionTypes } from '../actions/members.actions';
 import { MemberService } from '../services/member.service';
 
 @Injectable()
@@ -25,25 +19,20 @@ export class MembersEffects {
   @Effect()
   loadMembers$: Observable<Action> = this.actions.pipe(
     ofType<LoadMembers>(MembersActionTypes.LoadMembers),
-    switchMap(() => this.memberService.getAll(true).pipe(
-      map(members => new LoadMembersSuccess({ members })),
-    )),
+    switchMap(() => this.memberService.getAllStateChanges()),
   );
 
   @Effect()
   loadMembersForTeam$: Observable<Action> = this.actions.pipe(
     ofType<LoadMembersForTeam>(MembersActionTypes.LoadMembersForTeam),
     map(action => action.payload.teamId),
-    switchMap(teamId => this.memberService.getByKey('teamId', teamId, true).pipe(
-      map(members => new LoadMembersSuccess({ members })),
-    )),
+    switchMap(teamId => this.memberService.getStateChangesByKey('teamId', teamId)),
   );
 
   @Effect()
   loadMembersForUser$: Observable<Action> = this.actions.pipe(
     ofType<LoadMembersForUser>(MembersActionTypes.LoadMembersForUser),
-    switchMap(() => this.memberService.getByKey('userUid', this.authService.currentUserInfo.uid, true).pipe(
-      map(members => new LoadMembersSuccess({ members })),
-    )),
+    switchMap(() =>
+      this.memberService.getStateChangesByKey('userUid', this.authService.currentUserInfo.uid)),
   );
 }

@@ -4,7 +4,9 @@ import { Visit } from '../../shared/models';
 export enum VisitsActionTypes {
   LoadVisits = '[visits] load visits',
   LoadVisitsForTeam = '[visits] load visits for team',
-  LoadVisitsSuccess = '[visits] load visits success',
+  VisitAdded = '[visits] added',
+  VisitModified = '[visits] modified',
+  VisitRemoved = '[visits] removed',
 }
 
 export class LoadVisits implements Action {
@@ -17,10 +19,24 @@ export class LoadVisitsForTeam implements Action {
   constructor(public payload: { teamId: string }) {}
 }
 
-export class LoadVisitsSuccess implements Action {
-  readonly type = VisitsActionTypes.LoadVisitsSuccess;
+// AngularFire2 StateChanges
 
-  constructor(public payload: { visits: Visit[] }) {}
+export class VisitAdded implements Action {
+  readonly type = VisitsActionTypes.VisitAdded;
+
+  constructor(public payload: Visit) {}
+}
+
+export class VisitModified implements Action {
+  readonly type = VisitsActionTypes.VisitModified;
+
+  constructor(public payload: Visit) {}
+}
+
+export class VisitRemoved implements Action {
+  readonly type = VisitsActionTypes.VisitRemoved;
+
+  constructor(public payload: Visit) {}
 }
 
 /**
@@ -30,4 +46,6 @@ export class LoadVisitsSuccess implements Action {
 export type VisitsActionsUnion =
   | LoadVisits
   | LoadVisitsForTeam
-  | LoadVisitsSuccess;
+  | VisitAdded
+  | VisitModified
+  | VisitRemoved;

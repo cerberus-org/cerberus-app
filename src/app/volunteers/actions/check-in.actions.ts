@@ -2,9 +2,9 @@ import { Action } from '@ngrx/store';
 import { Visit, Volunteer } from '../../shared/models';
 
 export enum CheckInActionTypes {
-  SubmitNewVolunteer = '[check-in] submit new volunteer',
-  CheckIn = '[check-in] check in',
-  CheckOut = '[check-in] check out',
+  SubmitNewVolunteer = '[checkIn] submit new volunteer',
+  CheckIn = '[checkIn] check in',
+  CheckOut = '[checkIn] check out',
 }
 
 export class SubmitNewVolunteer implements Action {

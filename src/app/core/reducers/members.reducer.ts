@@ -14,8 +14,16 @@ export const initialMembersReducerState: MembersReducerState = membersAdapter.ge
 
 export function membersReducer(state = initialMembersReducerState, action: MembersActionsUnion): MembersReducerState {
   switch (action.type) {
-    case MembersActionTypes.LoadMembersSuccess: {
-      return membersAdapter.addMany(action.payload.members, state);
+    case MembersActionTypes.MemberAdded: {
+      return membersAdapter.addOne(action.payload, state);
+    }
+
+    case MembersActionTypes.MemberModified: {
+      return membersAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
+    }
+
+    case MembersActionTypes.MemberRemoved: {
+      return membersAdapter.removeOne(action.payload.id, state);
     }
 
     case MembersActionTypes.SelectMember: {

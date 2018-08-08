@@ -4,7 +4,9 @@ import { Volunteer } from '../../shared/models';
 export enum VolunteersActionTypes {
   LoadVolunteers = '[volunteers] load volunteers',
   LoadVolunteersForTeam = '[volunteers] load volunteers for team',
-  LoadVolunteersSuccess = '[volunteers] load volunteers success',
+  VolunteerAdded = '[volunteers] added',
+  VolunteerModified = '[volunteers] modified',
+  VolunteerRemoved = '[volunteers] removed',
 }
 
 export class LoadVolunteers implements Action {
@@ -17,10 +19,24 @@ export class LoadVolunteersForTeam implements Action {
   constructor(public payload: { teamId: string }) {}
 }
 
-export class LoadVolunteersSuccess implements Action {
-  readonly type = VolunteersActionTypes.LoadVolunteersSuccess;
+// AngularFire2 StateChanges
 
-  constructor(public payload: { volunteers: Volunteer[] }) {}
+export class VolunteerAdded implements Action {
+  readonly type = VolunteersActionTypes.VolunteerAdded;
+
+  constructor(public payload: Volunteer) {}
+}
+
+export class VolunteerModified implements Action {
+  readonly type = VolunteersActionTypes.VolunteerModified;
+
+  constructor(public payload: Volunteer) {}
+}
+
+export class VolunteerRemoved implements Action {
+  readonly type = VolunteersActionTypes.VolunteerRemoved;
+
+  constructor(public payload: Volunteer) {}
 }
 
 /**
@@ -30,4 +46,6 @@ export class LoadVolunteersSuccess implements Action {
 export type VolunteersActionsUnion =
   | LoadVolunteers
   | LoadVolunteersForTeam
-  | LoadVolunteersSuccess;
+  | VolunteerAdded
+  | VolunteerModified
+  | VolunteerRemoved;

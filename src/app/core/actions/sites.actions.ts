@@ -4,7 +4,6 @@ import { Site } from '../../shared/models';
 export enum SitesActionTypes {
   LoadSites = '[sites] load sites',
   LoadSitesForTeam = '[sites] load sites for team',
-  LoadSitesSuccess = '[sites] load sites success',
   SiteAdded = '[sites] added',
   SiteModified = '[sites] modified',
   SiteRemoved = '[sites] removed',
@@ -18,12 +17,6 @@ export class LoadSitesForTeam implements Action {
   readonly type = SitesActionTypes.LoadSitesForTeam;
 
   constructor(public payload: { teamId: string }) {}
-}
-
-export class LoadSitesSuccess implements Action {
-  readonly type = SitesActionTypes.LoadSitesSuccess;
-
-  constructor(public payload: { sites: Site[] }) {}
 }
 
 // AngularFire2 StateChanges
@@ -53,7 +46,6 @@ export class SiteRemoved implements Action {
 export type SitesActionsUnion =
   | LoadSites
   | LoadSitesForTeam
-  | LoadSitesSuccess
   | SiteAdded
   | SiteModified
   | SiteRemoved;

@@ -5,8 +5,10 @@ export enum MembersActionTypes {
   LoadMembers = '[members] load members',
   LoadMembersForTeam = '[members] load members for team',
   LoadMembersForUser = '[members] load members for user',
-  LoadMembersSuccess = '[members] load members success',
   SelectMember = '[members] select member',
+  MemberAdded = '[members] added',
+  MemberModified = '[members] modified',
+  MemberRemoved = '[members] removed',
 }
 
 export class LoadMembers implements Action {
@@ -23,21 +25,37 @@ export class LoadMembersForUser implements Action {
   readonly type = MembersActionTypes.LoadMembersForUser;
 }
 
-export class LoadMembersSuccess implements Action {
-  readonly type = MembersActionTypes.LoadMembersSuccess;
-
-  constructor(public payload: { members: Member[] }) {}
-}
-
 export class SelectMember implements Action {
   readonly type = MembersActionTypes.SelectMember;
 
   constructor(public payload: { memberId: string }) {}
 }
 
+// AngularFire2 StateChanges
+
+export class MemberAdded implements Action {
+  readonly type = MembersActionTypes.MemberAdded;
+
+  constructor(public payload: Member) {}
+}
+
+export class MemberModified implements Action {
+  readonly type = MembersActionTypes.MemberModified;
+
+  constructor(public payload: Member) {}
+}
+
+export class MemberRemoved implements Action {
+  readonly type = MembersActionTypes.MemberRemoved;
+
+  constructor(public payload: Member) {}
+}
+
 export type MembersActionsUnion =
   | LoadMembers
   | LoadMembersForTeam
   | LoadMembersForUser
-  | LoadMembersSuccess
-  | SelectMember;
+  | SelectMember
+  | MemberAdded
+  | MemberModified
+  | MemberRemoved;

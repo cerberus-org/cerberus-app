@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { LoadVisits, LoadVisitsForTeam, LoadVisitsSuccess, VisitsActionTypes } from '../actions/visits.actions';
+import { LoadVisits, LoadVisitsForTeam, VisitsActionTypes } from '../actions/visits.actions';
 import { VisitService } from '../services/visit.service';
 
 @Injectable()
@@ -17,17 +17,13 @@ export class VisitsEffects {
   @Effect()
   loadVisits$: Observable<Action> = this.actions.pipe(
     ofType<LoadVisits>(VisitsActionTypes.LoadVisits),
-    switchMap(() => this.visitService.getAll(true).pipe(
-      map(visits => new LoadVisitsSuccess({ visits })),
-    )),
+    switchMap(() => this.visitService.getAllStateChanges()),
   );
 
   @Effect()
   loadVisitsForTeam$: Observable<Action> = this.actions.pipe(
     ofType<LoadVisitsForTeam>(VisitsActionTypes.LoadVisitsForTeam),
     map(action => action.payload.teamId),
-    switchMap(teamId => this.visitService.getByKey('teamId', teamId, true).pipe(
-      map(visits => new LoadVisitsSuccess({ visits })),
-    )),
+    switchMap(teamId => this.visitService.getStateChangesByKey('teamId', teamId)),
   );
 }

@@ -16,16 +16,23 @@ export function sortByStartedAt(a: Visit, b: Visit): number {
 }
 
 export const visitsAdapter: EntityAdapter<Visit> = createEntityAdapter<Visit>({
-  sortComparer: sortByStartedAt,
+  // sortComparer: sortByStartedAt,
 });
 
 export const initialState: VisitsReducerState = visitsAdapter.getInitialState();
 
 export function visitsReducer(state = initialState, action: VisitsActionsUnion): VisitsReducerState {
   switch (action.type) {
-    case VisitsActionTypes.LoadVisitsSuccess: {
+    case VisitsActionTypes.VisitAdded: {
+      return visitsAdapter.addOne(action.payload, state);
+    }
 
-      return visitsAdapter.addMany(action.payload.visits, state);
+    case VisitsActionTypes.VisitModified: {
+      return visitsAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
+    }
+
+    case VisitsActionTypes.VisitRemoved: {
+      return visitsAdapter.removeOne(action.payload.id, state);
     }
 
     default: {

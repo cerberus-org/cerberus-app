@@ -54,13 +54,7 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
       .subscribe(store$);
     store$.dispatch(new SetSidenavOptions({ sidenavOptions: null }));
     this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
-    this.volunteers$ = store$.pipe(
-      select(getVolunteersForSelectedTeam),
-      map((vols) => {
-        console.log(vols);
-        return vols;
-      }),
-    );
+    this.volunteers$ = store$.pipe(select(getVolunteersForSelectedTeam));
   }
 
   get checkInOutFormTitle() {

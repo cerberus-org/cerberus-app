@@ -13,8 +13,16 @@ export const initialState: VolunteersReducerState = volunteersAdapter.getInitial
 
 export function volunteersReducer(state = initialState, action: VolunteersActionsUnion): VolunteersReducerState {
   switch (action.type) {
-    case VolunteersActionTypes.LoadVolunteersSuccess: {
-      return volunteersAdapter.addMany(action.payload.volunteers, state);
+    case VolunteersActionTypes.VolunteerAdded: {
+      return volunteersAdapter.addOne(action.payload, state);
+    }
+
+    case VolunteersActionTypes.VolunteerModified: {
+      return volunteersAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
+    }
+
+    case VolunteersActionTypes.VolunteerRemoved: {
+      return volunteersAdapter.removeOne(action.payload.id, state);
     }
 
     default: {

@@ -3,8 +3,10 @@ import { Team } from '../../shared/models';
 
 export enum TeamsActionTypes {
   LoadTeams = '[teams] load teams',
-  LoadTeamsSuccess = '[teams] load teams success',
   SelectTeam = '[teams] select team',
+  TeamAdded = '[teams] added',
+  TeamModified = '[teams] modified',
+  TeamRemoved = '[teams] removed',
 }
 
 /**
@@ -18,16 +20,30 @@ export class LoadTeams implements Action {
   readonly type = TeamsActionTypes.LoadTeams;
 }
 
-export class LoadTeamsSuccess implements Action {
-  readonly type = TeamsActionTypes.LoadTeamsSuccess;
-
-  constructor(public payload: { teams: Team[] }) {}
-}
-
 export class SelectTeam implements Action {
   readonly type = TeamsActionTypes.SelectTeam;
 
   constructor(public payload: { teamId: string }) {}
+}
+
+// AngularFire2 StateChanges
+
+export class TeamAdded implements Action {
+  readonly type = TeamsActionTypes.TeamAdded;
+
+  constructor(public payload: Team) {}
+}
+
+export class TeamModified implements Action {
+  readonly type = TeamsActionTypes.TeamModified;
+
+  constructor(public payload: Team) {}
+}
+
+export class TeamRemoved implements Action {
+  readonly type = TeamsActionTypes.TeamRemoved;
+
+  constructor(public payload: Team) {}
 }
 
 /**
@@ -36,5 +52,7 @@ export class SelectTeam implements Action {
  */
 export type TeamsActionsUnion =
   | LoadTeams
-  | LoadTeamsSuccess
-  | SelectTeam;
+  | SelectTeam
+  | TeamAdded
+  | TeamModified
+  | TeamRemoved;

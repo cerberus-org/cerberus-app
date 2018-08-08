@@ -13,10 +13,6 @@ export const initialState: SitesReducerState = sitesAdapter.getInitialState();
 
 export function sitesReducer(state = initialState, action: SitesActionsUnion): SitesReducerState {
   switch (action.type) {
-    case SitesActionTypes.LoadSitesSuccess: {
-      return sitesAdapter.addMany(action.payload.sites, state);
-    }
-
     case SitesActionTypes.SiteAdded: {
       return sitesAdapter.addOne(action.payload, state);
     }
