@@ -25,8 +25,7 @@ export class VisitService extends BaseService<Visit> {
     endDate: Date,
     snapshot?: boolean,
   ): Observable<Visit[]> {
-    return this.getDocsFromCollection(
-      snapshot,
+    return this.getSnapshotChanges(
       this.collection(ref => ref
         .where('teamId', '==', teamId)
         .orderBy('startedAt').startAt(startDate).endAt(endDate)),

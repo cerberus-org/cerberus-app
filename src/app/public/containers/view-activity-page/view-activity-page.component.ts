@@ -27,13 +27,13 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.teamService.getByKey('name', this.getTeamNameByUrl(), true)
+    this.subscription = this.teamService.getByKey('name', this.getTeamNameByUrl())
       .subscribe(
         (teams: Team[]) => {
           const team = teams[0];
           if (team) {
             this.team = team;
-            this.visits$ = this.visitService.getByKey('teamId', team.id, true);
+            this.visits$ = this.visitService.getByKey('teamId', team.id);
           }
           this.store$.dispatch(new SetHeaderOptions({
             headerOptions: {

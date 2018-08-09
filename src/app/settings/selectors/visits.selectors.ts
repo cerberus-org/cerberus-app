@@ -4,7 +4,7 @@ import { getVisitsForSelectedTeam } from '../../core/selectors/visits.selectors'
 import { getVolunteerEntities } from '../../core/selectors/volunteers.selectors';
 import { VisitWithData } from '../models/visit-with-data';
 
-export const selectVisitsWithAllData = createSelector(
+export const selectVisitsWithData = createSelector(
   getVisitsForSelectedTeam,
   getVolunteerEntities,
   getSiteEntities,

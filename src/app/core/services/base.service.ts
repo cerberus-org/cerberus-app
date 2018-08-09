@@ -12,69 +12,21 @@ export abstract class BaseService<T extends { id: string }> {
 
   protected constructor(protected afs: AngularFirestore, protected errorService: ErrorService) {}
 
-  /**
-   * Returns the collection based on the collectionName, using a query function if provided.
-   *
-   * @param {QueryFn} queryFn - queries the collection
-   * @returns {AngularFirestoreCollection<T>} - the collection
-   */
-  protected collection(queryFn?: QueryFn): AngularFirestoreCollection<T> {
-    return this.afs ? this.afs.collection<T>(this.collectionName, queryFn) : undefined;
-  }
-
-  protected mapStateChangeToAction = map((action: DocumentChangeAction<T>) => ({
-    type: `[${this.collectionName}] ${action.type}`,
-    payload: this.mapDocToObject({ id: action.payload.doc.id, ...action.payload.doc.data() as Object }),
-  }));
-
   getAllStateChanges(): Observable<Action> {
-    return this.collection().stateChanges()
-      .pipe(
-        mergeMap(actions => actions),
-        this.mapStateChangeToAction,
-      );
+    return this.getStateChanges(this.collection());
   }
 
   getStateChangesByKey(key: string, value: string, opStr: WhereFilterOp = '=='): Observable<Action> {
-    return this.collection(ref => ref.where(key, opStr, value)).stateChanges()
-      .pipe(
-        mergeMap(actions => actions),
-        this.mapStateChangeToAction,
-      );
-  }
-
-  /**
-   * Handles logic for retrieving an array of data from a given collection.
-   *
-   * @param {boolean} snapshot - use true to get objects with IDs
-   * @param {AngularFirestoreCollection<T extends {id: string}>} collection
-   * @returns {Observable<T[]>} - the Observable of data as an array of objects
-   */
-  protected getDocsFromCollection(snapshot: boolean, collection: AngularFirestoreCollection<T>): Observable<T[]> {
-    return (
-      snapshot
-        ? collection.snapshotChanges().pipe(
-        map((actions: DocumentChangeAction<T>[]) => (
-          actions.map((action: DocumentChangeAction<T>) => {
-            const data = action.payload.doc.data() as T;
-            const id = action.payload.doc.id;
-            return this.mapDocToObject(Object.assign(data, { id }));
-          })
-        )))
-        : collection.valueChanges().pipe(
-        map((items: T[]) => items.map((item: T) => this.mapDocToObject(item))))
-    ).pipe(
-      catchError(error => this.errorService.handleFirebaseError(error)));
+    return this.getStateChanges(this.collection(ref => ref.where(key, opStr, value)));
   }
 
   /**
    * Gets the list of data from the collection.
    *
-   * @param snapshot - use true if you need a list of data with the metadata (includes document IDs)
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
-  getAll(snapshot?: boolean): Observable<T[]> {
-    return this.getDocsFromCollection(snapshot, this.collection());
+  getAll(): Observable<T[]> {
+    return this.getSnapshotChanges(this.collection());
   }
 
   /**
@@ -82,14 +34,10 @@ export abstract class BaseService<T extends { id: string }> {
    *
    * @param key - the key to filter by
    * @param value - the value the key should be equal to
-   * @param snapshot - use true if you need a list of data with the metadata (includes document IDs)
    * @returns {Observable<T[]>} - the Observable of data as an array of objects
    */
-  getByKey(key: string, value: string, snapshot: boolean = false): Observable<T[]> {
-    return this.getDocsFromCollection(
-      snapshot,
-      this.collection(ref => ref.where(key, '==', value)),
-    );
+  getByKey(key: string, value: string): Observable<T[]> {
+    return this.getSnapshotChanges(this.collection(ref => ref.where(key, '==', value)));
   }
 
   /**
@@ -122,7 +70,8 @@ export abstract class BaseService<T extends { id: string }> {
           .then(
             ref => ref.get()
               .then(
-                snapshot => this.mapDocToObject(Object.assign({}, snapshot.data(), { id: snapshot.id }))),
+                snapshot => this.mapDocToObject({ id: snapshot.id, ...snapshot.data() }),
+              ),
           ),
     )
       .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
@@ -155,12 +104,52 @@ export abstract class BaseService<T extends { id: string }> {
   }
 
   /**
+   * Returns the collection based on the collectionName, using a query function if provided.
+   *
+   * @param {QueryFn} queryFn - queries the collection
+   * @returns {AngularFirestoreCollection<T>} - the collection
+   */
+  protected collection(queryFn?: QueryFn): AngularFirestoreCollection<T> {
+    return this.afs.collection<T>(this.collectionName, queryFn);
+  }
+
+  protected mapChangeToObject(action: DocumentChangeAction<T>): T {
+    return this.mapDocToObject({ id: action.payload.doc.id, ...action.payload.doc.data() as Object });
+  }
+
+  protected mapStateChangeToAction = map((action: DocumentChangeAction<T>) => ({
+    type: `[${this.collectionName}] ${action.type}`,
+    payload: this.mapChangeToObject(action),
+  }));
+
+  protected getStateChanges(collection: AngularFirestoreCollection<T>): Observable<Action> {
+    return collection.stateChanges().pipe(
+      mergeMap(actions => actions),
+      this.mapStateChangeToAction,
+    );
+  }
+
+  /**
+   * Handles logic for retrieving an array of data from a given collection.
+   *
+   * @param {AngularFirestoreCollection<T extends {id: string}>} collection
+   * @returns {Observable<T[]>} - the Observable of data as an array of objects
+   */
+  protected getSnapshotChanges(collection: AngularFirestoreCollection<T>): Observable<T[]> {
+    return collection.snapshotChanges().pipe(
+      map((actions: DocumentChangeAction<T>[]) =>
+        actions.map(action => this.mapChangeToObject(action))),
+    )
+      .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
+  }
+
+  /**
    * Override this function to perform conversions for documents received from the database.
    *
    * @param data
    * @returns {any}
    */
-  protected mapDocToObject(data) {
+  protected mapDocToObject(data): T {
     return data;
   }
 
@@ -170,7 +159,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @param data
    * @return {any}
    */
-  protected mapObjectToDoc(data) {
+  protected mapObjectToDoc(data): T {
     return data;
   }
 }

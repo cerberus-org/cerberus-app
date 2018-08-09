@@ -7,7 +7,7 @@ import { AppState } from '../../../core/reducers';
 import { formatDate, formatDuration, formatTime } from '../../../shared/helpers';
 import { ColumnOptions, Site } from '../../../shared/models';
 import { VisitWithData } from '../../models/visit-with-data';
-import { selectVisitsWithAllData } from '../../selectors/visits.selectors';
+import { selectVisitsWithData } from '../../selectors/visits.selectors';
 import { EditVisitDialogComponent } from '../edit-visit-dialog/edit-visit-dialog.component';
 
 @Component({
@@ -56,7 +56,7 @@ export class VisitSettingsComponent implements OnInit {
         cell: (row: VisitWithData) => formatDuration(row.startedAt, row.endedAt, row.timezone),
       },
     ];
-    this.state$ = this.store$.pipe(select(selectVisitsWithAllData));
+    this.state$ = this.store$.pipe(select(selectVisitsWithData));
   }
 
   get visitsWithVolunteers$() {

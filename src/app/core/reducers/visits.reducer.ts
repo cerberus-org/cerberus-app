@@ -16,7 +16,7 @@ export function sortByStartedAt(a: Visit, b: Visit): number {
 }
 
 export const visitsAdapter: EntityAdapter<Visit> = createEntityAdapter<Visit>({
-  // sortComparer: sortByStartedAt,
+  sortComparer: sortByStartedAt,
 });
 
 export const initialState: VisitsReducerState = visitsAdapter.getInitialState();
