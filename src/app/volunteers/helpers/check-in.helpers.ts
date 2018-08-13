@@ -1,6 +1,5 @@
 import { Visit, Volunteer } from '../../shared/models';
 
-
 /**
  * Filters an array of objects by a given team ID.
  *
