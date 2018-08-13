@@ -14,3 +14,13 @@ export const getUserInfo = createSelector(
   getAuthReducerState,
   (state: AuthReducerState): UserInfo => state.userInfo,
 );
+
+export const getUserInfoUid = createSelector(
+  getUserInfo,
+  (userInfo: UserInfo): string => userInfo && userInfo.uid,
+);
+
+export const getUserInfoEmail = createSelector(
+  getUserInfo,
+  (userInfo: UserInfo): string => userInfo && userInfo.email,
+);
