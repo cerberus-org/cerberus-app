@@ -50,15 +50,21 @@ describe('SiteSettingsComponent', () => {
     },
   );
 
-  it('should display the name of a site in the first table column', () => {
+  it('should display site names in the first table column', () => {
     const site = sites[0];
     expect(component.columnOptions[0].cell(site))
       .toEqual(site.name);
   });
 
-  it('should display the description of a site in the second table column', () => {
+  it('should display site addresses in the second table column', () => {
     const site = sites[0];
     expect(component.columnOptions[1].cell(site))
+      .toEqual(site.address);
+  });
+
+  it('should display site descriptions in the third table column', () => {
+    const site = sites[0];
+    expect(component.columnOptions[2].cell(site))
       .toEqual(site.description);
   });
 });

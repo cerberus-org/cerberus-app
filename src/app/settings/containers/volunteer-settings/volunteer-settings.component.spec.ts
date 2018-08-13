@@ -51,7 +51,7 @@ describe('VolunteerSettingsComponent', () => {
   });
 
   it('should display the petName of a volunteer in the second table column', () => {
-    expect(component.columnOptions[2].cell(volunteer))
+    expect(component.columnOptions[1].cell(volunteer))
       .toEqual(volunteer.petName);
   });
 });

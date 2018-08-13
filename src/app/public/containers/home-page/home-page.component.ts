@@ -43,7 +43,7 @@ export class HomePageComponent implements OnInit {
   constructor(private dialog: MatDialog, public store$: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store$.dispatch(new SetHeaderOptions(null));
+    this.store$.dispatch(new SetHeaderOptions({ headerOptions: null }));
     this.store$.dispatch(new LoadTeams());
   }
 
@@ -52,7 +52,7 @@ export class HomePageComponent implements OnInit {
   }
 
   onInputIconButtonClick(team: Team) {
-    this.store$.dispatch(new Go({ path: ['view-activity/' + team.name] }));
+    this.store$.dispatch(new Go({ path: ['view-activity', team.name] }));
   }
 
   onClickSignUp() {

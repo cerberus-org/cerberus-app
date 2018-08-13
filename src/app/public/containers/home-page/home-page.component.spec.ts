@@ -41,15 +41,17 @@ describe('HomePageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle validInput events by setting findTeamValue', () => {
-    component.onValidTeam(mockTeams[0]);
-    expect(component.team).toEqual(mockTeams[0]);
-  });
+  it('should handle validInput events by setting findTeamValue', async(() => {
+    const team = mockTeams[0];
+    component.onValidTeam(team);
+    expect(component.team).toEqual(team);
+  }));
 
-  it('should handle onLiveData events by dispatching RouterActions.Go', () => {
+  it('should handle onLiveData events by dispatching RouterActions.Go', async(() => {
     spyOn(component.store$, 'dispatch');
-    component.onInputIconButtonClick(mockTeams[0]);
+    const team = mockTeams[0];
+    component.onInputIconButtonClick(team);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new Go({ path: ['view-activity/' + mockTeams[0].name] }));
-  });
+      .toHaveBeenCalledWith(new Go({ path: ['view-activity', team.name] }));
+  }));
 });

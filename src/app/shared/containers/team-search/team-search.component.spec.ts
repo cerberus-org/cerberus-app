@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatAutocompleteModule, MatIconModule, MatInputModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { TeamSearchComponent } from './team-search.component';
 
@@ -15,8 +15,8 @@ describe('TeamSearchComponent', () => {
         MatAutocompleteModule,
         MatInputModule,
         MatIconModule,
+        NoopAnimationsModule,
         ...mockStoreModules,
-        BrowserAnimationsModule,
       ],
     })
       .compileComponents();
