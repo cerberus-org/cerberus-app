@@ -5,11 +5,13 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { Go } from '../../../core/actions/router.actions';
+import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { AppState } from '../../../core/reducers';
+import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
 import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
-import { Team, Visit } from '../../../shared/models';
+import { Site, Team, Visit } from '../../../shared/models';
 
 @Component({
   selector: 'app-view-selected-team',
@@ -21,7 +23,7 @@ import { Team, Visit } from '../../../shared/models';
         (clickSettings)="onClickSettings($event)"
       >
       </app-selected-team-toolbar>
-      <app-data-display [visits$]="visits$"></app-data-display>
+      <app-data-display [visits$]="visits$" [sites$]="sites$"></app-data-display>
     </div>
   `,
   styleUrls: ['./view-selected-team.component.scss'],
@@ -29,6 +31,7 @@ import { Team, Visit } from '../../../shared/models';
 export class ViewSelectedTeamComponent implements OnDestroy {
   selectedTeam$: Observable<Team>;
   visits$: Observable<Visit[]>;
+  sites$: Observable<Site[]>;
   selectedTeamSubscription: Subscription;
 
   constructor(private store$: Store<AppState>) {
@@ -38,10 +41,12 @@ export class ViewSelectedTeamComponent implements OnDestroy {
       filter(team => !!team),
       switchMap(({ id }) => [
         new LoadVisitsForTeam({ teamId: id }),
+        new LoadSitesForTeam({ teamId: id }),
       ]),
     )
       .subscribe(store$);
     this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
+    this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
   }
 
   ngOnDestroy() {

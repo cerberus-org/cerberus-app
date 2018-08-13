@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { formatDate, formatDuration, formatTime } from '../../helpers';
-import { ColumnOptions, Visit } from '../../models';
+import { ColumnOptions, Site, Visit } from '../../models';
 
 @Component({
   selector: 'app-data-display',
@@ -10,6 +10,7 @@ import { ColumnOptions, Visit } from '../../models';
 })
 export class DataDisplayComponent implements OnInit {
   @Input() visits$: Observable<Visit[]>;
+  @Input() sites$: Observable<Site[]>;
   visitTableColumnOptions: ColumnOptions[] = [
     {
       columnDef: 'date',
