@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { map } from 'rxjs/operators';
+
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { LoadMembersForUser } from '../../../core/actions/members.actions';
 import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';

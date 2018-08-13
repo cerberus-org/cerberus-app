@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
+
 import { mockProviders } from '../../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-
 import { JoinTeamDialogComponent } from './join-team-dialog.component';
 
 describe('JoinTeamDialogComponent', () => {

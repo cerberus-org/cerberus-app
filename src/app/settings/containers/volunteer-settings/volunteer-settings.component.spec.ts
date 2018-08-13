@@ -42,7 +42,7 @@ describe('VolunteerSettingsComponent', () => {
     spyOn(component.store$, 'dispatch');
     component.onDeleteVolunteer(volunteer);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new DeleteVolunteer(volunteer));
+      .toHaveBeenCalledWith(new DeleteVolunteer({ volunteer }));
   });
 
   it('should display the name of a volunteer in the first table column', () => {

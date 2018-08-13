@@ -14,7 +14,7 @@ import { VisitSettingsComponent } from './visit-settings.component';
 describe('Visits Component', () => {
   let component: VisitSettingsComponent;
   let fixture: ComponentFixture<VisitSettingsComponent>;
-  let visitWithVolunteer: VisitWithData;
+  let visitWithData: VisitWithData;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,11 +40,10 @@ describe('Visits Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(VisitSettingsComponent);
     component = fixture.componentInstance;
-    visitWithVolunteer = {
+    visitWithData = {
       ...createMockVisits()[0],
       volunteer: createMockVolunteers()[0],
-      teamSites: createMockSites(),
-      selectedSite: createMockSites()[0],
+      site: createMockSites()[0],
     };
     fixture.detectChanges();
   });
@@ -55,29 +54,29 @@ describe('Visits Component', () => {
 
   describe('column options', () => {
     it('should display the firstName and lastName of a volunteer in the first table column', () => {
-      expect(component.columnOptions[0].cell(visitWithVolunteer))
-        .toEqual(visitWithVolunteer.volunteer.name);
+      expect(component.columnOptions[0].cell(visitWithData))
+        .toEqual(visitWithData.volunteer.name);
     });
     it('should display the site name in the second table column', () => {
 
-      expect(component.columnOptions[1].cell(visitWithVolunteer))
+      expect(component.columnOptions[1].cell(visitWithData))
         .toEqual('Jefferson SPCA Animal Shelter');
     });
     it('should display formatted date in the second table column', () => {
-      expect(component.columnOptions[2].cell(visitWithVolunteer))
-        .toEqual(formatDate(visitWithVolunteer.startedAt, visitWithVolunteer.timezone));
+      expect(component.columnOptions[2].cell(visitWithData))
+        .toEqual(formatDate(visitWithData.startedAt, visitWithData.timezone));
     });
     it('should display formatted time for start date in the third table column', () => {
-      expect(component.columnOptions[3].cell(visitWithVolunteer))
-        .toEqual(formatTime(visitWithVolunteer.startedAt, visitWithVolunteer.timezone));
+      expect(component.columnOptions[3].cell(visitWithData))
+        .toEqual(formatTime(visitWithData.startedAt, visitWithData.timezone));
     });
     it('should display formatted time for input of type time for endedAt in the fourth table column', () => {
-      expect(component.columnOptions[4].cell(visitWithVolunteer))
-        .toEqual(formatTimeInputValue(visitWithVolunteer.endedAt, visitWithVolunteer.timezone));
+      expect(component.columnOptions[4].cell(visitWithData))
+        .toEqual(formatTimeInputValue(visitWithData.endedAt, visitWithData.timezone));
     });
     it('should display duration of visit fifth table column', () => {
-      expect(component.columnOptions[5].cell(visitWithVolunteer))
-        .toEqual(formatDuration(visitWithVolunteer.startedAt, visitWithVolunteer.endedAt, visitWithVolunteer.timezone));
+      expect(component.columnOptions[5].cell(visitWithData))
+        .toEqual(formatDuration(visitWithData.startedAt, visitWithData.endedAt, visitWithData.timezone));
     });
   });
 });

@@ -1,12 +1,5 @@
-import { createMockMembers } from '../../../mocks/objects/member.mock';
 import { initialSettingsReducerState } from '../reducers/settings.reducer';
-import {
-  getSettingsReducerState,
-  getSettingsSidenavOptions,
-  getSelectedSettingsOption,
-} from './settings.selectors';
-import arrayContaining = jasmine.arrayContaining;
-import objectContaining = jasmine.objectContaining;
+import { getSelectedSettingsOption, getSettingsReducerState } from './settings.selectors';
 
 describe('settings.selectors', () => {
   describe('getSettingsReducerState', () => {
@@ -24,27 +17,6 @@ describe('settings.selectors', () => {
       const state = initialSettingsReducerState;
       expect(getSelectedSettingsOption.projector(state))
         .toEqual(state.selectedOption);
-    });
-  });
-
-  describe('getSettingsSidenavOptions', () => {
-    it('it should select the correct sidenav options for a non-admin member', () => {
-      const sidenavOptions = getSettingsSidenavOptions.projector(createMockMembers()[1]);
-      expect(sidenavOptions).toEqual(arrayContaining([
-        objectContaining({ label: 'User' }),
-      ]));
-      expect(sidenavOptions.length).toBe(1);
-    });
-
-    it('it should select the correct sidenav options for an admin member', () => {
-      expect(getSettingsSidenavOptions.projector(createMockMembers()[0]))
-        .toEqual(arrayContaining([
-          objectContaining({ label: 'User' }),
-          objectContaining({ label: 'Team' }),
-          objectContaining({ label: 'Volunteers' }),
-          objectContaining({ label: 'Reports' }),
-          objectContaining({ label: 'Roles' }),
-        ]));
     });
   });
 });

@@ -14,7 +14,7 @@ describe('layoutReducer', () => {
     };
   });
 
-  describe('SET_HEADER_OPTIONS', () => {
+  describe('SetHeaderOptions', () => {
 
     it('sets the header options', () => {
       const state = layoutReducer(
@@ -25,7 +25,7 @@ describe('layoutReducer', () => {
     });
   });
 
-  describe('SET_SIDENAV_OPTIONS', () => {
+  describe('SetSidenavOptions', () => {
 
     it('sets the sidenav options', () => {
       const state = layoutReducer(

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
+
 import { AppState } from '../../../core/reducers';
 import { Team } from '../../../shared/models';
 import { CreateTeam } from '../../actions/teams-page.actions';

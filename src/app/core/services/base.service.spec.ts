@@ -42,14 +42,14 @@ describe('BaseService', () => {
 
   describe('getAll', () => {
     it('should get all data from a collection and include IDs from the snapshots', () => {
-      service.getAll(true).subscribe((data) => {
+      service.getAll().subscribe((data) => {
         expect(snapshotChangesSpy).toHaveBeenCalled();
         expect(data).toEqual(createMockVolunteers());
       });
     });
 
     it('should get all data without IDs from a collection', () => {
-      service.getAll(false).subscribe((data) => {
+      service.getAll().subscribe((data) => {
         expect(valueChangesSpy).toHaveBeenCalled();
         expect(data).toEqual(createMockVolunteers());
       });
@@ -61,10 +61,10 @@ describe('BaseService', () => {
     it('should get data from a collection by a key and value pair and include IDs from the snapshots', () => {
       const key = 'firstName';
       const value = 'Ted';
-      service.getByKey('firstName', 'Ted', true).subscribe((data) => {
+      service.getByKey('firstName', 'Ted').subscribe((data) => {
         expect(snapshotChangesSpy).toHaveBeenCalled();
         expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
-        expect(data).toEqual(createMockVolunteers().filter(item => item.firstName === 'Ted'));
+        expect(data).toEqual(createMockVolunteers().filter(item => item.name === 'Ted Mader'));
       });
     });
 
@@ -72,10 +72,10 @@ describe('BaseService', () => {
 
       const key = 'firstName';
       const value = 'Ted';
-      service.getByKey('firstName', 'Ted', false).subscribe((data) => {
+      service.getByKey('firstName', 'Ted').subscribe((data) => {
         expect(valueChangesSpy).toHaveBeenCalled();
         expect(whereSpy).toHaveBeenCalledWith(key, '==', value);
-        expect(data).toEqual(createMockVolunteers().filter(item => item.firstName === 'Ted'));
+        expect(data).toEqual(createMockVolunteers().filter(item => item.name === 'Ted Mader'));
       });
     });
   });
@@ -139,7 +139,7 @@ describe('BaseService', () => {
       if (queryFn) {
         queryFn({
           where: whereSpy = createSpy('where').and.callFake(function () {
-            items = items.filter(item => item.firstName === 'Ted');
+            items = items.filter(item => item.name === 'Ted Mader');
             return this;
           }),
           orderBy: orderBySpy = createSpy('orderBy').and.callFake(function () {

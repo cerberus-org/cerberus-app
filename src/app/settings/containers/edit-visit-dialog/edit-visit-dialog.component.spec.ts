@@ -20,8 +20,6 @@ class MatDialogRefMock {
   close() {}
 }
 
-class MatDialogDataMock {}
-
 describe('EditVisitDialogComponent', () => {
   let component: EditVisitDialogComponent;
   let fixture: ComponentFixture<EditVisitDialogComponent>;
@@ -41,7 +39,14 @@ describe('EditVisitDialogComponent', () => {
       declarations: [EditVisitDialogComponent],
       providers: [
         { provide: MatDialogRef, useClass: MatDialogRefMock },
-        { provide : MAT_DIALOG_DATA, useClass: MatDialogDataMock },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {
+            ...createMockVisits()[0],
+            volunteer: createMockVolunteers()[0],
+            site: createMockSites()[0],
+          },
+        },
       ],
     })
       .compileComponents();
@@ -51,12 +56,6 @@ describe('EditVisitDialogComponent', () => {
     fixture = TestBed.createComponent(EditVisitDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.data = {
-      ...createMockVisits()[0],
-      volunteer: createMockVolunteers()[0],
-      teamSites: createMockSites(),
-      selectedSite: createMockSites()[0],
-    };
   });
 
   it('should create', () => {
