@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ServicesAgreementComponent implements OnInit {
   @Input() showTitle: boolean;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {}
 }

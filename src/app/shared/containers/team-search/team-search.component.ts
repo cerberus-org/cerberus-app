@@ -3,8 +3,8 @@ import { MatAutocomplete } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AppState } from '../../../core/reducers';
-import { selectModelOrganizations } from '../../../core/selectors/model.selectors';
-import { Organization } from '../../models';
+import { getAllTeams } from '../../../core/selectors/teams.selectors';
+import { Team } from '../../models';
 
 @Component({
   selector: 'app-team-search',
@@ -13,21 +13,21 @@ import { Organization } from '../../models';
 })
 export class TeamSearchComponent implements OnInit, OnDestroy {
   private teamSubscription: Subscription;
-  filteredOrganizations: Organization[] = [];
-  organizations: Organization[];
+  filteredTeams: Team[] = [];
+  teams: Team[];
 
   @ViewChild(MatAutocomplete) autocomplete: MatAutocomplete;
-  @Output() selectTeam = new EventEmitter<Organization>();
+  @Output() selectTeam = new EventEmitter<Team>();
   @Output() iconButtonClick = new EventEmitter();
   @Input() showTitle;
   @Input() showInputIconButton;
 
-  constructor(public store$: Store<AppState>) { }
+  constructor(public store$: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.teamSubscription = this.store$.pipe(select(selectModelOrganizations))
-      .subscribe((organizations) => {
-        this.organizations = organizations;
+    this.teamSubscription = this.store$.pipe(select(getAllTeams))
+      .subscribe((teams) => {
+        this.teams = teams;
       });
   }
 
@@ -42,31 +42,31 @@ export class TeamSearchComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Watch for changes in the organizationName input. Set filteredOrganizations on change and emit input.
+   * Watch for changes in the teamName input. Set filteredTeams on change and emit input.
    *
-   * @param {Organization[]} organizations
+   * @param {Team[]} teams
    * @param {string} input
    */
-  onOrganizationInputNameChanges(organizations: Organization[], input: string): void {
-    this.filteredOrganizations = this.filterOrganizationsByName(organizations, input);
-    const matchingOrganization = this.filteredOrganizations.find(organization => organization.name === input);
-    this.selectTeam.emit(!!matchingOrganization ? matchingOrganization : null);
+  onTeamInputNameChanges(teams: Team[], input: string): void {
+    this.filteredTeams = this.filterTeamsByName(teams, input);
+    const matchingTeam = this.filteredTeams.find(team => team.name === input);
+    this.selectTeam.emit(!!matchingTeam ? matchingTeam : null);
   }
 
   get disableIconButton(): boolean {
-    return this.filteredOrganizations.length !== 1;
+    return this.filteredTeams.length !== 1;
   }
 
   /**
-   * Return the organizations that are equal to name or are a subset of name.
+   * Return the teams that are equal to name or are a subset of name.
    *
-   * @param {Organization[]} organizations
+   * @param {Team[]} teams
    * @param {string} name
-   * @returns {Organization[]}
+   * @returns {Team[]}
    */
-  filterOrganizationsByName(organizations: Organization[], name: string): Organization[] {
+  filterTeamsByName(teams: Team[], name: string): Team[] {
     const nameLowerCase = name.toLowerCase();
-    return organizations
-      .filter(organization => organization.name.toLowerCase().includes(nameLowerCase));
+    return teams
+      .filter(team => team.name.toLowerCase().includes(nameLowerCase));
   }
 }

@@ -7,7 +7,7 @@ import { MatSnackBarRef } from '@angular/material/snack-bar/typings/snack-bar-re
 })
 export class SnackBarService {
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar) {}
 
   open(message: string, action: string = '', duration: number = 5000): MatSnackBarRef<SimpleSnackBar> {
     return this.snackBar.open(message, action, { duration });
@@ -37,8 +37,8 @@ export class SnackBarService {
     return this.open('Visits were successfully updated');
   }
 
-  updateOrganizationSuccess(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Organization information successfully updated.');
+  updateTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Team information successfully updated.');
   }
 
   checkInSuccess(): MatSnackBarRef<SimpleSnackBar> {
@@ -50,27 +50,11 @@ export class SnackBarService {
   }
 
   joinTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Successfully requested to join an organization.');
+    return this.open('Successfully requested to join an team.');
   }
 
   createTeamSuccess(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('Your team was successfully created.');
-  }
-
-  accountNotVerified(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Your account has not been verified yet.');
-  }
-
-  resetPassword(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('If your email is associated with an organization, you will receive an email.');
-  }
-
-  signInError(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('Unsuccessful login.');
-  }
-
-  updateAvailable(): MatSnackBarRef<SimpleSnackBar> {
-    return this.open('A new version of Cerberus is available.', 'Reload', 10000);
   }
 
   createSiteSuccess(): MatSnackBarRef<SimpleSnackBar> {
@@ -81,7 +65,31 @@ export class SnackBarService {
     return this.open('Successfully updated a site.');
   }
 
+  deleteSiteSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Site was successfully deleted.');
+  }
+
   updateVisitSuccess():MatSnackBarRef<SimpleSnackBar> {
     return this.open('Successfully updated a visit.');
+  }
+
+  deleteVolunteerSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Volunteer was successfully deleted.');
+  }
+
+  accountNotVerified(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Your account has not been verified yet.');
+  }
+
+  resetPassword(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('If your email is associated with an team, you will receive an email.');
+  }
+
+  signInError(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Unsuccessful login.');
+  }
+
+  updateAvailable(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('A new version of Cerberus is available.', 'Reload', 10000);
   }
 }

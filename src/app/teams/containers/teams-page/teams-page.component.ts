@@ -3,11 +3,14 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { map } from 'rxjs/operators';
+
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
+import { LoadMembersForUser } from '../../../core/actions/members.actions';
+import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { AppState } from '../../../core/reducers';
-import { Organization } from '../../../shared/models';
-import { LoadTeams, OpenCreateTeamDialog, OpenFindTeamDialog, SelectTeam } from '../../actions/teams.actions';
-import * as fromTeams from '../../reducers';
+import { getTeamsForUser } from '../../../core/selectors';
+import { Team } from '../../../shared/models';
+import { OpenCreateTeamDialog, OpenJoinTeamDialog } from '../../actions/teams-page.actions';
 
 @Component({
   selector: 'app-teams-page',
@@ -18,35 +21,39 @@ import * as fromTeams from '../../reducers';
 })
 export class TeamsPageComponent implements OnDestroy {
   sidenavSubscription: Subscription;
-  teams$: Observable<Organization[]>;
+  teams$: Observable<Team[]>;
 
   constructor(private store$: Store<AppState>) {
     store$.dispatch(new SetHeaderOptions({
-      title: 'Teams',
-      previousUrl: null,
-      showLogOut: true,
+      headerOptions: {
+        title: 'Teams',
+        previousUrl: null,
+        showLogOut: true,
+      },
     }));
+    store$.dispatch(new LoadMembersForUser());
     store$.dispatch(new LoadTeams());
-    this.teams$ = store$.pipe(select(fromTeams.getAllTeams));
-    this.sidenavSubscription = store$.pipe(
-      select(fromTeams.getAllTeams),
-      map(teams => new SetSidenavOptions([
-        {
-          label: 'Create Team',
-          icon: 'group_work',
-          action: new OpenCreateTeamDialog(),
-        },
-        {
-          label: 'Join Team',
-          icon: 'search',
-          action: new OpenFindTeamDialog(),
-        },
-        ...teams.map(team => ({
-          label: team.name,
-          icon: null,
-          action: new SelectTeam({ team }),
-        })),
-      ])),
+    this.teams$ = store$.pipe(select(getTeamsForUser));
+    this.sidenavSubscription = this.teams$.pipe(
+      map(teams => new SetSidenavOptions({
+        sidenavOptions: [
+          {
+            label: 'Create Team',
+            icon: 'group_work',
+            action: new OpenCreateTeamDialog(),
+          },
+          {
+            label: 'Find Team',
+            icon: 'search',
+            action: new OpenJoinTeamDialog(),
+          },
+          ...teams.map(team => ({
+            label: team.name,
+            icon: null,
+            action: new SelectTeam({ teamId: team.id }),
+          })),
+        ],
+      })),
     )
       .subscribe(store$);
   }

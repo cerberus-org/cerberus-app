@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { combineReducers, StoreModule } from '@ngrx/store';
 import { MockComponent } from 'ng2-mock-component';
-import { MaterialModule } from '../../../material';
-import * as fromTeams from '../../reducers';
 
+import { mockStoreModules } from '../../../../mocks/store.mock';
+import { MaterialModule } from '../../../material';
 import { TeamsPageComponent } from './teams-page.component';
 
 describe('TeamsPageComponent', () => {
@@ -14,9 +13,7 @@ describe('TeamsPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
-        StoreModule.forRoot({
-          teams: combineReducers(fromTeams.reducers),
-        }),
+        ...mockStoreModules,
       ],
       declarations: [
         TeamsPageComponent,

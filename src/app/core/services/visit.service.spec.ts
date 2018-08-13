@@ -37,17 +37,17 @@ describe('VisitService', () => {
     expect(visitService).toBeTruthy();
   }));
 
-  it('should get visits by organizationId and date range and include IDs from the snapshots', () => {
+  it('should get visits by teamId and date range and include IDs from the snapshots', () => {
     const startedAt = new Date('2017-06-03');
     const endedAt = new Date('2017-07-03');
-    service.getByOrganizationIdAndDateRange(testVisit.organizationId, startedAt, endedAt, true)
+    service.getByTeamIdAndDateRange(testVisit.teamId, startedAt, endedAt, true)
       .subscribe((visits) => {
         const testVisits = createMockVisits();
         expect(snapshotChangesSpy).toHaveBeenCalled();
         expect(whereSpy).toHaveBeenCalledWith(
-          'organizationId',
+          'teamId',
           '==',
-          testVisit.organizationId,
+          testVisit.teamId,
         );
         expect(orderBySpy).toHaveBeenCalledWith('startedAt');
         expect(startAtSpy).toHaveBeenCalledWith(startedAt);
@@ -81,7 +81,7 @@ describe('VisitService', () => {
       if (queryFn) {
         queryFn({
           where: whereSpy = createSpy('where').and.callFake(function () {
-            items = items.filter(item => item.organizationId === 'Ted');
+            items = items.filter(item => item.teamId === 'Ted');
             return this;
           }),
           orderBy: orderBySpy = createSpy('orderBy').and.callFake(function () {

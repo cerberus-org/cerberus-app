@@ -3,7 +3,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Volunteer } from '../../../shared/models';
-import * as SettingsActions from '../../actions/settings.actions';
+import { DeleteVolunteer } from '../../actions/settings.actions';
 import { VolunteerSettingsComponent } from './volunteer-settings.component';
 
 describe('VolunteerSettingsComponent', () => {
@@ -38,25 +38,20 @@ describe('VolunteerSettingsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle deleteVolunteer events by dispatching SettingsActions.DeleteVolunteer', () => {
+  it('should handle deleteVolunteer events by dispatching DeleteVolunteer', () => {
     spyOn(component.store$, 'dispatch');
     component.onDeleteVolunteer(volunteer);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new SettingsActions.DeleteVolunteer(volunteer));
+      .toHaveBeenCalledWith(new DeleteVolunteer({ volunteer }));
   });
 
-  it('should display the firstName of a volunteer in the first table column', () => {
+  it('should display the name of a volunteer in the first table column', () => {
     expect(component.columnOptions[0].cell(volunteer))
-      .toEqual(volunteer.firstName);
+      .toEqual(volunteer.name);
   });
 
-  it('should display the lastName of a volunteer in the second table column', () => {
+  it('should display the petName of a volunteer in the second table column', () => {
     expect(component.columnOptions[1].cell(volunteer))
-      .toEqual(volunteer.lastName);
-  });
-
-  it('should display the petName of a volunteer in the third table column', () => {
-    expect(component.columnOptions[2].cell(volunteer))
       .toEqual(volunteer.petName);
   });
 });

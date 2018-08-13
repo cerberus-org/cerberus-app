@@ -1,4 +1,4 @@
-import * as SettingsActions from '../actions/settings.actions';
+import { SelectSettingsOption } from '../actions/settings.actions';
 import * as fromSettings from './settings.reducer';
 
 describe('settingsReducer', () => {
@@ -6,9 +6,9 @@ describe('settingsReducer', () => {
     it('sets the sidenav selection', () => {
       const state = fromSettings.settingsReducer(
         fromSettings.initialSettingsReducerState,
-        new SettingsActions.LoadPage('organization'),
+        new SelectSettingsOption({ selectedOption: 'TEAM' }),
       );
-      expect(state.sidenavSelection).toEqual('organization');
+      expect(state.selectedOption).toEqual('TEAM');
     });
   });
 });

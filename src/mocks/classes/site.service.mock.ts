@@ -29,7 +29,7 @@ export class MockSiteService extends SiteService {
     return of(Promise.resolve());
   }
 
-  delete(site: any): Observable<any> {
+  remove(site: any): Observable<any> {
     return EMPTY;
   }
 }

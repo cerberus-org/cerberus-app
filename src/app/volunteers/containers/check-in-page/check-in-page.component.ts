@@ -4,17 +4,17 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import * as LayoutActions from '../../../core/actions/layout.actions';
-import * as ModelActions from '../../../core/actions/model.actions';
+import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
+import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
+import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
+import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
 import { AppState } from '../../../core/reducers';
+import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
+import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
+import { getVolunteersForSelectedTeam } from '../../../core/selectors/volunteers.selectors';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import { Visit, Volunteer } from '../../../shared/models';
-import * as CheckInActions from '../../actions/check-in.actions';
-import {
-  CheckInContainerState,
-  getCheckInHeaderOptions,
-  selectCheckInContainerState,
-} from '../../selectors/check-in.selectors';
+import { CheckIn, CheckOut, SubmitNewVolunteer } from '../../actions/check-in.actions';
 
 @Component({
   selector: 'app-check-in-page',
@@ -26,27 +26,35 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   private routeParamsSubscription: Subscription;
 
   @ViewChild('stepper') stepper: MatVerticalStepper;
-  state$: Observable<CheckInContainerState>;
-  organizationId: string;
+  visits$: Observable<Visit[]>;
+  volunteers$: Observable<Volunteer[]>;
+  teamId: string;
   siteId: string;
 
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private store$: Store<AppState>) {
-    store$.dispatch(new ModelActions.LoadOrganizations());
-    this.routeParamsSubscription = route.params
-      .pipe(switchMap(({ teamId }) => [
-        new ModelActions.SelectTeam({ teamId }),
-        new ModelActions.LoadVisits(teamId),
-        new ModelActions.LoadVolunteers(teamId),
-      ]))
+    store$.dispatch(new LoadTeams());
+    this.routeParamsSubscription = route.params.pipe(
+      switchMap(({ teamId }) => [
+        new SelectTeam({ teamId }),
+        new LoadVisitsForTeam({ teamId }),
+        new LoadVolunteersForTeam({ teamId }),
+      ]),
+    )
       .subscribe(store$);
-    this.headerSubscription = store$
-      .pipe(
-        select(getCheckInHeaderOptions),
-        map(headerOptions => new LayoutActions.SetHeaderOptions(headerOptions)),
-      )
+    this.headerSubscription = store$.pipe(
+      select(getSelectedTeam),
+      map(team => new SetHeaderOptions({
+        headerOptions: {
+          title: !!team ? team.name : 'Loading...',
+          previousUrl: 'dashboard',
+          showLogOut: false,
+        },
+      })),
+    )
       .subscribe(store$);
-    store$.dispatch(new LayoutActions.SetSidenavOptions(null));
-    this.state$ = store$.pipe(select(selectCheckInContainerState));
+    store$.dispatch(new SetSidenavOptions({ sidenavOptions: null }));
+    this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
+    this.volunteers$ = store$.pipe(select(getVolunteersForSelectedTeam));
   }
 
   get checkInOutFormTitle() {
@@ -56,9 +64,7 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   }
 
   get checkInOutStepperTitle() {
-    return this.isCheckIn(window.location.href)
-      ? 'Check in'
-      : 'Check out';
+    return this.isCheckIn(window.location.href) ? 'Check in' : 'Check out';
   }
 
   ngOnInit(): void {
@@ -75,15 +81,15 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   }
 
   onCheckIn(visit: Visit): void {
-    this.store$.dispatch(new CheckInActions.CheckIn(visit));
+    this.store$.dispatch(new CheckIn({ visit }));
   }
 
   onCheckOut(visit: Visit): void {
-    this.store$.dispatch(new CheckInActions.CheckOut(visit));
+    this.store$.dispatch(new CheckOut({ visit }));
   }
 
   onNewVolunteer(volunteer: Volunteer): void {
-    this.store$.dispatch(new CheckInActions.SubmitNewVolunteer(volunteer));
+    this.store$.dispatch(new SubmitNewVolunteer({ volunteer }));
   }
 
   onIsExistingVolunteer(isExisting: boolean): void {

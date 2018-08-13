@@ -4,7 +4,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Site } from '../../../shared/models';
-import * as SettingsActions from '../../actions/settings.actions';
+import { DeleteSite } from '../../actions/settings.actions';
 import { SiteSettingsComponent } from './site-settings.component';
 
 describe('SiteSettingsComponent', () => {
@@ -39,23 +39,32 @@ describe('SiteSettingsComponent', () => {
   });
 
   it(
-    'should handle onDeleteSite events by dispatching SettingsActions.DeleteSite',
+    'should handle onDeleteSite events by dispatching DeleteSite',
     () => {
+      const site = sites[0];
       spyOn(component.store$, 'dispatch');
-      component.onDeleteSite(sites[0]);
+      component.onDeleteSite(site);
       expect(component.store$.dispatch).toHaveBeenCalledWith(
-        new SettingsActions.DeleteSite(sites[0]),
+        new DeleteSite({ site }),
       );
     },
   );
 
-  it('should display the label of a site in the first table column', () => {
-    expect(component.columnOptions[0].cell(sites[0]))
-      .toEqual(sites[0].label);
+  it('should display site names in the first table column', () => {
+    const site = sites[0];
+    expect(component.columnOptions[0].cell(site))
+      .toEqual(site.name);
   });
 
-  it('should display the description of a site in the second table column', () => {
-    expect(component.columnOptions[1].cell(sites[0]))
-      .toEqual(sites[0].description);
+  it('should display site addresses in the second table column', () => {
+    const site = sites[0];
+    expect(component.columnOptions[1].cell(site))
+      .toEqual(site.address);
+  });
+
+  it('should display site descriptions in the third table column', () => {
+    const site = sites[0];
+    expect(component.columnOptions[2].cell(site))
+      .toEqual(site.description);
   });
 });

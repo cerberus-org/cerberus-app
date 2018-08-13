@@ -22,8 +22,7 @@ export class NewVolunteerFormComponent {
 
   submit(): void {
     const volunteer = new Volunteer(
-      this.formGroup.value.firstName,
-      this.formGroup.value.lastName,
+      `${this.formGroup.value.firstName} ${this.formGroup.value.lastName}`,
       this.formGroup.value.petName,
     );
     this.ngForm.resetForm();

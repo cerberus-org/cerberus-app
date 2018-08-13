@@ -13,7 +13,7 @@ describe('SettingsPageComponent', () => {
       declarations: [
         SettingsPageComponent,
         MockComponent({ selector: 'app-user-settings' }),
-        MockComponent({ selector: 'app-organization-settings' }),
+        MockComponent({ selector: 'app-team-settings' }),
         MockComponent({ selector: 'app-volunteer-settings' }),
         MockComponent({ selector: 'app-roles' }),
         MockComponent({ selector: 'app-visits' }),

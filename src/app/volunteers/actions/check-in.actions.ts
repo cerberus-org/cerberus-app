@@ -1,36 +1,26 @@
 import { Action } from '@ngrx/store';
 import { Visit, Volunteer } from '../../shared/models';
 
-export const CHECK_IN = '[Check-In] Check in';
-export const CHECK_OUT = '[Check-In] Check out';
-
-export const SUBMIT_NEW_VOLUNTEER = '[Check-In] Submit new volunteer';
-export const SUBMIT_NEW_VOLUNTEER_SUCCESS = '[Check-In] Submit new volunteer success';
-
-export class CheckIn implements Action {
-  readonly type = CHECK_IN;
-
-  constructor(public payload: Visit) {}
-}
-
-export class CheckOut implements Action {
-  readonly type = CHECK_OUT;
-
-  constructor(public payload: Visit) {}
+export enum CheckInActionTypes {
+  SubmitNewVolunteer = '[checkIn] submit new volunteer',
+  CheckIn = '[checkIn] check in',
+  CheckOut = '[checkIn] check out',
 }
 
 export class SubmitNewVolunteer implements Action {
-  readonly type = SUBMIT_NEW_VOLUNTEER;
+  readonly type = CheckInActionTypes.SubmitNewVolunteer;
 
-  constructor(public payload: Volunteer) {}
+  constructor(public payload: { volunteer: Volunteer}) {}
 }
 
-export class SubmitNewVolunteerSuccess implements Action {
-  readonly type = SUBMIT_NEW_VOLUNTEER_SUCCESS;
+export class CheckIn implements Action {
+  readonly type = CheckInActionTypes.CheckIn;
+
+  constructor(public payload: { visit: Visit }) {}
 }
 
-export type All
-  = CheckIn
-  | CheckOut
-  | SubmitNewVolunteer
-  | SubmitNewVolunteerSuccess;
+export class CheckOut implements Action {
+  readonly type = CheckInActionTypes.CheckOut;
+
+  constructor(public payload: { visit: Visit }) {}
+}

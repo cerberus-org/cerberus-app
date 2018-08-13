@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
+
 import { AppState } from '../../../core/reducers';
-import { Organization } from '../../../shared/models';
-import { JoinTeam } from '../../actions/teams.actions';
+import { Team } from '../../../shared/models';
+import { JoinTeam } from '../../actions/teams-page.actions';
 
 @Component({
   selector: 'app-join-team-dialog',
@@ -26,14 +27,14 @@ import { JoinTeam } from '../../actions/teams.actions';
 export class JoinTeamDialogComponent {
   title = 'Find your team';
   subtitle = 'We\'ll let your team know that you are requesting to join.';
-  validTeam: Organization;
+  validTeam: Team;
 
   constructor(
     private dialogRef: MatDialogRef<JoinTeamDialogComponent>,
     private store$: Store<AppState>,
-  ) { }
+  ) {}
 
-  onSelectTeam(team: Organization) {
+  onSelectTeam(team: Team) {
     this.validTeam = team;
   }
 

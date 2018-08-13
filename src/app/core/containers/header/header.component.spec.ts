@@ -4,9 +4,9 @@ import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { createMockHeaderOptions } from '../../../../mocks/objects/header-options.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as AuthActions from '../../../auth/actions/auth.actions';
-import * as LayoutActions from '../../actions/layout.actions';
-import * as RouterActions from '../../actions/router.actions';
+import { SignOut } from '../../../auth/actions/auth.actions';
+import { ToggleSidenavOpened } from '../../actions/layout.actions';
+import { Back } from '../../actions/router.actions';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -48,7 +48,7 @@ describe('HeaderComponent', () => {
     });
   }));
 
-  it('should handle clicks to the toggle sidenav button by dispatching LayoutActions.ToggleSidenavOpened', async(() => {
+  it('should handle clicks to the toggle sidenav button by dispatching ToggleSidenavOpened', async(() => {
     const dispatch = spyOn(TestBed.get(Store), 'dispatch');
     component.headerState$.subscribe(() => {
       fixture.detectChanges();
@@ -56,12 +56,12 @@ describe('HeaderComponent', () => {
         fixture.detectChanges();
         const toggleSidenavButton = fixture.debugElement.query(By.css('#toggle-sidenav-button'));
         toggleSidenavButton.triggerEventHandler('click', {});
-        expect(dispatch).toHaveBeenCalledWith(new LayoutActions.ToggleSidenavOpened());
+        expect(dispatch).toHaveBeenCalledWith(new ToggleSidenavOpened());
       });
     });
   }));
 
-  it('should handle clicks to the back button by dispatching RouterActions.Back', async(() => {
+  it('should handle clicks to the back button by dispatching Back', async(() => {
     const dispatch = spyOn(TestBed.get(Store), 'dispatch');
     component.headerState$.subscribe(() => {
       fixture.detectChanges();
@@ -69,12 +69,12 @@ describe('HeaderComponent', () => {
         fixture.detectChanges();
         const toggleSidenavButton = fixture.debugElement.query(By.css('#back-button'));
         toggleSidenavButton.triggerEventHandler('click', {});
-        expect(dispatch).toHaveBeenCalledWith(new RouterActions.Back());
+        expect(dispatch).toHaveBeenCalledWith(new Back());
       });
     });
   }));
 
-  it('should handle clicks to the log out button by dispatching AuthActions.SignOut', async(() => {
+  it('should handle clicks to the log out button by dispatching SignOut', async(() => {
     const dispatch = spyOn(TestBed.get(Store), 'dispatch');
     component.headerState$.subscribe(() => {
       fixture.detectChanges();
@@ -82,7 +82,7 @@ describe('HeaderComponent', () => {
         fixture.detectChanges();
         const toggleSidenavButton = fixture.debugElement.query(By.css('#log-out-button'));
         toggleSidenavButton.triggerEventHandler('click', {});
-        expect(dispatch).toHaveBeenCalledWith(new AuthActions.SignOut());
+        expect(dispatch).toHaveBeenCalledWith(new SignOut());
       });
     });
   }));

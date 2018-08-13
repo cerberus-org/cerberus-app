@@ -3,7 +3,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { createMockCredentials } from '../../../../mocks/objects/credentials.mock';
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as SettingsActions from '../../actions/settings.actions';
+import { UpdateUser } from '../../actions/settings.actions';
 import { UserSettingsComponent } from './user-settings.component';
 
 describe('UserSettingsComponent', () => {
@@ -42,7 +42,7 @@ describe('UserSettingsComponent', () => {
     expect(component.edits).toEqual(edits);
   }));
 
-  it('should handle submitUser events by dispatching SettingsActions.SetMemberAndUserInfo', async(() => {
+  it('should handle submitUser events by dispatching UpdateUser', async(() => {
     spyOn(component.store$, 'dispatch');
     const edits = {
       member: createMockMembers()[0],
@@ -50,6 +50,6 @@ describe('UserSettingsComponent', () => {
     };
     component.onSubmit(edits);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new SettingsActions.UpdateUser(edits));
+      .toHaveBeenCalledWith(new UpdateUser({ edits }));
   }));
 });

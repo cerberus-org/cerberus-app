@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule, MatCheckboxModule, MatTabsModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServicesAgreementComponent } from './services-agreement.component';
 
 describe('ServicesAgreementComponent', () => {
@@ -13,7 +13,7 @@ describe('ServicesAgreementComponent', () => {
         MatCardModule,
         MatCheckboxModule,
         MatTabsModule,
-        BrowserAnimationsModule,
+        NoopAnimationsModule,
       ],
       declarations: [ServicesAgreementComponent],
     })

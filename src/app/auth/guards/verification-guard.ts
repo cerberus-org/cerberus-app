@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as RouterActions from '../../core/actions/router.actions';
+import { Go } from '../../core/actions/router.actions';
 import { AppState } from '../../core/reducers';
 import { AuthService } from '../services/auth.service';
 
@@ -29,7 +29,7 @@ export class VerificationGuard implements CanActivate {
       return true;
     }
     this.store$.dispatch(
-      new RouterActions.Go({ path: ['teams'] }),
+      new Go({ path: ['teams'] }),
     );
     return false;
   }

@@ -8,7 +8,6 @@ import {
   MatListModule,
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { mockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { Volunteer } from '../../../shared/models';
 import { NewVolunteerFormComponent } from './new-volunteer-form.component';
 
@@ -50,14 +49,14 @@ describe('NewVolunteerFormComponent', () => {
 
   it('should emit a new volunteer on submit', () => {
     const emitSpy = spyOn(component.newVolunteer, 'emit');
-    const firstName = mockVolunteers[0].firstName;
-    const lastName = mockVolunteers[0].lastName;
-    const petName = mockVolunteers[0].petName;
+    const firstName = 'Ted';
+    const lastName = 'Mader';
+    const petName = 'Mimi';
     component.formGroup.controls['firstName'].setValue(firstName);
     component.formGroup.controls['lastName'].setValue(lastName);
     component.formGroup.controls['petName'].setValue(petName);
     component.submit();
-    expect(emitSpy).toHaveBeenCalledWith(new Volunteer(firstName, lastName, petName));
+    expect(emitSpy).toHaveBeenCalledWith(new Volunteer(`${firstName} ${lastName}`, petName));
   });
 
   ['firstName', 'lastName', 'petName'].forEach((form) => {

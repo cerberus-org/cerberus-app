@@ -1,6 +1,6 @@
 export class Visit {
   id: string;
-  organizationId: string;
+  teamId: string;
   siteId: string;
   volunteerId: string;
   startedAt: Date;

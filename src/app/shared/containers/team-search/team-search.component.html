@@ -1,15 +1,15 @@
 <div class="container-center loose">
-  <h1 *ngIf="showTitle">Please enter an organization name.</h1>
+  <h1 *ngIf="showTitle">Please enter an team name.</h1>
   <div class="container-center">
     <mat-form-field class="input-row">
-      <div class="organization-name-input">
+      <div class="team-name-input">
         <input
           matInput
           [matAutocomplete]="autocomplete"
-          (input)="onOrganizationInputNameChanges(organizations, organizationName.value)"
+          (input)="onTeamInputNameChanges(teams, teamName.value)"
           class="capitalize"
-          placeholder="Organization name"
-          #organizationName
+          placeholder="Team name"
+          #teamName
         >
         <button *ngIf="showInputIconButton" mat-icon-button color="accent" [disabled]="disableIconButton"
                 (click)="onIconButtonClick()">
@@ -19,10 +19,10 @@
     </mat-form-field>
     <mat-autocomplete>
       <mat-option
-        (onSelectionChange)="onOrganizationInputNameChanges(organizations, organization.name)"
-        (click)="onOrganizationInputNameChanges(organizations, organization.name)"
-        *ngFor="let organization of filteredOrganizations"
-        [value]="organization.name">{{organization.name}}
+        (onSelectionChange)="onTeamInputNameChanges(teams, team.name)"
+        (click)="onTeamInputNameChanges(teams, team.name)"
+        *ngFor="let team of filteredTeams"
+        [value]="team.name">{{team.name}}
       </mat-option>
     </mat-autocomplete>
   </div>

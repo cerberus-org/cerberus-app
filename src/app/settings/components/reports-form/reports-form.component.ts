@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggle } from '@angular/material';
 import { Subscription } from 'rxjs';
-import { Report } from '../../../shared/models';
 
 @Component({
   selector: 'app-reports-form',
@@ -74,7 +73,11 @@ export class ReportsFormComponent implements OnInit {
     return this.formGroup.valueChanges.subscribe(() => {
       if (this.formGroup.valid) {
         const value = this.formGroup.value;
-        this.validReport.emit(new Report(value.start, value.end, value.selectedReport));
+        this.validReport.emit({
+          startedAt: value.start,
+          endedAt: value.end,
+          title: value.selectedReport,
+        });
       } else {
         this.validReport.emit(null);
       }

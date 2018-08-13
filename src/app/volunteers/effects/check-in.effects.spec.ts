@@ -7,9 +7,9 @@ import { mockVisits } from '../../../mocks/objects/visit.mock';
 import { mockVolunteers } from '../../../mocks/objects/volunteer.mock';
 import { mockProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
-import * as RouterActions from '../../core/actions/router.actions';
+import { Back } from '../../core/actions/router.actions';
 import { SnackBarService } from '../../core/services/snack-bar.service';
-import * as CheckInActions from '../actions/check-in.actions';
+import { CheckIn, CheckOut, SubmitNewVolunteer } from '../actions/check-in.actions';
 import { CheckInEffects } from './check-in.effects';
 
 xdescribe('CheckInEffects', () => {
@@ -34,16 +34,9 @@ xdescribe('CheckInEffects', () => {
   describe('submitNewVolunteer$', () => {
     beforeEach(() => {
       actions = hot('a', {
-        a: new CheckInActions.SubmitNewVolunteer(mockVolunteers[0]),
+        a: new SubmitNewVolunteer({ volunteer: mockVolunteers[0] }),
       });
     });
-
-    it('should dispatch CheckInActions.SubmitNewVolunteerSuccess', async(() => {
-      const expected = cold('b', {
-        b: new CheckInActions.SubmitNewVolunteerSuccess(),
-      });
-      expect(effects.submitNewVolunteer$).toBeObservable(expected);
-    }));
 
     it('should open the createVolunteerSuccess snackbar', async(() => {
       const signUpSuccessSpy = spyOn(TestBed.get(SnackBarService), 'createVolunteerSuccess');
@@ -56,13 +49,13 @@ xdescribe('CheckInEffects', () => {
   describe('checkIn$', () => {
     beforeEach(() => {
       actions = hot('a', {
-        a: new CheckInActions.CheckIn(mockVisits[0]),
+        a: new CheckIn({ visit: mockVisits[0] }),
       });
     });
 
-    it('should dispatch RouterActions.Back', async(() => {
+    it('should dispatch Back', async(() => {
       const expected = cold('b', {
-        b: new RouterActions.Back(),
+        b: new Back(),
       });
       expect(effects.checkIn$).toBeObservable(expected);
     }));
@@ -78,13 +71,13 @@ xdescribe('CheckInEffects', () => {
   describe('checkOut$', () => {
     beforeEach(() => {
       actions = hot('a', {
-        a: new CheckInActions.CheckOut(mockVisits[0]),
+        a: new CheckOut({ visit: mockVisits[0] }),
       });
     });
 
-    it('should dispatch RouterActions.Back', async(() => {
+    it('should dispatch Back', async(() => {
       const expected = cold('b', {
-        b: new RouterActions.Back(),
+        b: new Back(),
       });
       expect(effects.checkOut$).toBeObservable(expected);
     }));

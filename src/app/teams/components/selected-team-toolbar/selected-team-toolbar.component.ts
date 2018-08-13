@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Organization } from '../../../shared/models';
+import { Team } from '../../../shared/models';
 
 @Component({
   selector: 'app-selected-team-toolbar',
@@ -19,9 +19,9 @@ import { Organization } from '../../../shared/models';
   styleUrls: ['./selected-team-toolbar.component.scss'],
 })
 export class SelectedTeamToolbarComponent {
-  @Input() team: Organization;
-  @Output() clickActivate = new EventEmitter<Organization>();
-  @Output() clickSettings = new EventEmitter<Organization>();
+  @Input() team: Team;
+  @Output() clickActivate = new EventEmitter<Team>();
+  @Output() clickSettings = new EventEmitter<Team>();
 
   get title(): string {
     return this.team ? this.team.name : 'Please select a team.';

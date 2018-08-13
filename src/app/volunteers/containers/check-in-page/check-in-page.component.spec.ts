@@ -16,11 +16,11 @@ describe('CheckInPageComponent', () => {
         CheckInPageComponent,
         MockComponent({
           selector: 'app-check-in-form',
-          inputs: ['organizationId', 'siteId', 'visits', 'volunteers'],
+          inputs: ['teamId', 'siteId', 'visits', 'volunteers'],
         }),
         MockComponent({
           selector: 'app-new-volunteer-form',
-          inputs: ['organizationId', 'changeTab'],
+          inputs: ['teamId', 'changeTab'],
         }),
       ],
       imports: [

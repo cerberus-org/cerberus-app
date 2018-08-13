@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { MaterialModule } from '../material';
 import { SharedModule } from '../shared/shared.module';
@@ -10,9 +9,8 @@ import { CheckInFormComponent } from './components/check-in-form/check-in-form.c
 import { NewVolunteerFormComponent } from './components/new-volunteer-form/new-volunteer-form.component';
 import { SignatureFieldComponent } from './components/signature-field/signature-field.component';
 import { CheckInPageComponent } from './containers/check-in-page/check-in-page.component';
-import { OrganizationDashboardPageComponent } from './containers/organization-dashboard-page/organization-dashboard-page.component';
+import { TeamDashboardPageComponent } from './containers/team-dashboard-page/team-dashboard-page.component';
 import { volunteersEffects } from './effects';
-import { volunteersReducers } from './reducers';
 import { VolunteersRoutingModule } from './volunteers-routing.module';
 
 @NgModule({
@@ -23,14 +21,6 @@ import { VolunteersRoutingModule } from './volunteers-routing.module';
     MaterialModule,
     SharedModule,
     VolunteersRoutingModule,
-
-    /**
-     * StoreModule.forFeature is used for composing state
-     * from feature modules. These modules can be loaded
-     * eagerly or lazily and will be dynamically added to
-     * the existing state.
-     */
-    StoreModule.forFeature('volunteers', volunteersReducers),
 
     /**
      * Effects.forFeature is used to register effects
@@ -46,9 +36,8 @@ import { VolunteersRoutingModule } from './volunteers-routing.module';
     CheckInPageComponent,
     CheckInFormComponent,
     NewVolunteerFormComponent,
-    OrganizationDashboardPageComponent,
+    TeamDashboardPageComponent,
     SignatureFieldComponent,
   ],
 })
-export class VolunteersModule {
-}
+export class VolunteersModule {}

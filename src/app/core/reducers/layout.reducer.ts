@@ -1,5 +1,5 @@
 import { HeaderOptions, SidenavOptions } from '../../shared/models';
-import * as LayoutActions from '../actions/layout.actions';
+import { LayoutActionsUnion, LayoutActionTypes } from '../actions/layout.actions';
 
 export interface LayoutReducerState {
   headerOptions: HeaderOptions;
@@ -13,36 +13,25 @@ export const initialLayoutReducerState: LayoutReducerState = {
   sidenavOpened: false,
 };
 
-export type Action = LayoutActions.All;
-
-export function layoutReducer(state = initialLayoutReducerState, action: Action): LayoutReducerState {
+export function layoutReducer(state = initialLayoutReducerState, action: LayoutActionsUnion): LayoutReducerState {
   switch (action.type) {
-    case LayoutActions.SET_HEADER_OPTIONS: {
-      return {
-        ...state,
-        headerOptions: action.payload,
-      };
+    case LayoutActionTypes.SetHeaderOptions: {
+      const { headerOptions } = action.payload;
+      return { ...state, headerOptions };
     }
 
-    case LayoutActions.SET_SIDENAV_OPTIONS: {
-      return {
-        ...state,
-        sidenavOptions: action.payload,
-      };
+    case LayoutActionTypes.SetSidenavOptions: {
+      const { sidenavOptions } = action.payload;
+      return { ...state, sidenavOptions };
     }
 
-    case LayoutActions.SET_SIDENAV_OPENED: {
-      return {
-        ...state,
-        sidenavOpened: action.payload,
-      };
+    case LayoutActionTypes.SetSidenavOpened: {
+      const { sidenavOpened } = action.payload;
+      return { ...state, sidenavOpened };
     }
 
-    case LayoutActions.TOGGLE_SIDENAV_OPENED: {
-      return {
-        ...state,
-        sidenavOpened: !state.sidenavOpened,
-      };
+    case LayoutActionTypes.ToggleSidenavOpened: {
+      return { ...state, sidenavOpened: !state.sidenavOpened };
     }
 
     default: {

@@ -1,13 +1,13 @@
 export class Site {
   id: string;
-  organizationId: string;
+  teamId: string;
   description: string;
-  label: string;
+  name: string;
   address: string;
 
-  constructor(organizationId: string, label: string, address: string, description: string) {
-    this.organizationId = organizationId;
-    this.label = label;
+  constructor(teamId: string, name: string, address: string, description: string) {
+    this.teamId = teamId;
+    this.name = name;
     this.address = address;
     this.description = description;
   }

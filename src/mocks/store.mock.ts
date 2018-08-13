@@ -1,47 +1,31 @@
 import { StoreModule } from '@ngrx/store';
 import { authReducers } from '../app/auth/reducers';
-import { initialSessionReducerState } from '../app/auth/reducers/session.reducer';
+import { initialAuthReducerState } from '../app/auth/reducers/auth.reducer';
 import { appReducers } from '../app/core/reducers';
-import { initialModelReducerState } from '../app/core/reducers/model.reducer';
+import { initialLayoutReducerState } from '../app/core/reducers/layout.reducer';
 import { settingsReducers } from '../app/settings/reducers';
-import * as fromTeams from '../app/teams/reducers';
 import { createMockHeaderOptions } from './objects/header-options.mock';
-import { createMockMembers } from './objects/member.mock';
-import { createMockOrganizations } from './objects/organization.mock';
 import { createMockSidenavOptions } from './objects/sidenav-options.mock';
-import { createMockSites } from './objects/site.mock';
 import { createMockUserInfo } from './objects/user.mock';
-import { createMockVisits } from './objects/visit.mock';
-import { createMockVolunteers } from './objects/volunteer.mock';
 
 export const mockStoreModules = [
   StoreModule.forRoot(appReducers, {
     initialState: {
       layout: {
+        ...initialLayoutReducerState,
         headerOptions: createMockHeaderOptions()[0],
         sidenavOptions: createMockSidenavOptions(),
         sidenavOpened: true,
       },
-      model: {
-        ...initialModelReducerState,
-        members: createMockMembers(),
-        sites: createMockSites(),
-        visits: createMockVisits(),
-        volunteers: createMockVolunteers(),
-        teams: createMockOrganizations(),
-        selectedTeamId: createMockOrganizations()[0].id,
-      },
     },
   }),
-  StoreModule.forFeature('auth', authReducers, {
+  StoreModule.forFeature('authModule', authReducers, {
     initialState: {
-      session: {
-        ...initialSessionReducerState,
-        organization: createMockOrganizations()[0],
-        member: createMockMembers()[0],
+      auth: {
+        ...initialAuthReducerState,
         userInfo: createMockUserInfo()[0],
       },
     },
   }),
-  StoreModule.forFeature('settings', settingsReducers),
+  StoreModule.forFeature('settingsModule', settingsReducers),
 ];

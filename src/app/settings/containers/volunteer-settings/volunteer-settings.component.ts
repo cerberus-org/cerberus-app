@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
-import { selectModelVolunteers } from '../../../core/selectors/model.selectors';
+import { getVolunteersForSelectedTeam } from '../../../core/selectors/volunteers.selectors';
 import { ColumnOptions, Volunteer } from '../../../shared/models';
-import * as SettingsActions from '../../actions/settings.actions';
+import { DeleteVolunteer } from '../../actions/settings.actions';
 
 @Component({
   selector: 'app-volunteer-settings',
@@ -14,14 +14,9 @@ import * as SettingsActions from '../../actions/settings.actions';
 export class VolunteerSettingsComponent implements OnInit {
   columnOptions: ColumnOptions[] = [
     {
-      columnDef: 'firstName',
-      header: 'First Name',
-      cell: (row: Volunteer) => row.firstName,
-    },
-    {
-      columnDef: 'lastName',
-      header: 'Last Name',
-      cell: (row: Volunteer) => row.lastName,
+      columnDef: 'name',
+      header: 'Name',
+      cell: (row: Volunteer) => row.name,
     },
     {
       columnDef: 'petName',
@@ -34,14 +29,15 @@ export class VolunteerSettingsComponent implements OnInit {
   constructor(public store$: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.volunteers$ = this.store$.pipe(select(selectModelVolunteers));
+    this.volunteers$ = this.store$.pipe(select(getVolunteersForSelectedTeam));
   }
 
   /**
-   * Handles deleteVolunteer events by dispatching a DeleteVolunteer action.
-   * @param volunteer - the volunteer to be deleted
+   * Handles deleteVolunteer events by dispatching DeleteVolunteer.
+   *
+   * @param {Volunteer} volunteer
    */
   onDeleteVolunteer(volunteer: Volunteer) {
-    this.store$.dispatch(new SettingsActions.DeleteVolunteer(volunteer));
+    this.store$.dispatch(new DeleteVolunteer({ volunteer }));
   }
 }

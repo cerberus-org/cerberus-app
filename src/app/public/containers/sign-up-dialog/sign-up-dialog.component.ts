@@ -31,7 +31,7 @@ export class SignUpDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<SignUpDialogComponent>,
     private store$: Store<AppState>,
-  ) { }
+  ) {}
 
   onValidCredentials(credentials: Credentials) {
     this.validCredentials = credentials;

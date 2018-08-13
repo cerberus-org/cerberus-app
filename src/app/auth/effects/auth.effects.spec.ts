@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 import { createMockCredentials } from '../../../mocks/objects/credentials.mock';
 import { mockProviders } from '../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
-import * as RouterActions from '../../core/actions/router.actions';
+import { Go } from '../../core/actions/router.actions';
 import { SnackBarService } from '../../core/services/snack-bar.service';
-import * as AuthActions from '../actions/auth.actions';
+import { ResetPassword, SignIn, SignOut, VerifyPassword } from '../actions/auth.actions';
 import { AuthEffects } from './auth.effects';
 
 describe('AuthEffects', () => {
@@ -32,19 +32,19 @@ describe('AuthEffects', () => {
 
   describe('signIn$', () => {
 
-    it('should dispatch RouterActions.Go', () => {
+    it('should dispatch Go', () => {
       actions = hot('a', {
-        a: new AuthActions.SignIn(createMockCredentials()[0]),
+        a: new SignIn({ credentials: createMockCredentials()[0] }),
       });
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['teams'] }),
+        b: new Go({ path: ['teams'] }),
       });
       expect(effects.signIn$).toBeObservable(expected);
     });
 
     it('should open the signInSuccess snackbar', () => {
       actions = hot('a', {
-        a: new AuthActions.SignIn(createMockCredentials()[0]),
+        a: new SignIn({ credentials: createMockCredentials()[0] }),
       });
       const loginSuccessSpy = spyOn(TestBed.get(SnackBarService), 'signInSuccess');
       effects.signIn$.subscribe(() => {
@@ -56,13 +56,13 @@ describe('AuthEffects', () => {
   describe('verifyPassword$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.VerifyPassword(''),
+        a: new VerifyPassword({ password: 'testtest' }),
       });
     }));
 
-    it('should dispatch RouterActions.Go', () => {
+    it('should dispatch Go', () => {
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: ['organization/settings'] }),
+        b: new Go({ path: ['team/settings'] }),
       });
       expect(effects.verifyPassword$).toBeObservable(expected);
     });
@@ -71,13 +71,13 @@ describe('AuthEffects', () => {
   describe('signOut$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.SignOut(),
+        a: new SignOut(),
       });
     }));
 
-    it('should dispatch RouterActions.Go', () => {
+    it('should dispatch Go', () => {
       const expected = cold('b', {
-        b: new RouterActions.Go({ path: [''] }),
+        b: new Go({ path: [''] }),
       });
       expect(effects.signOut$).toBeObservable(expected);
     });
@@ -93,7 +93,7 @@ describe('AuthEffects', () => {
   describe('resetPassword$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
-        a: new AuthActions.ResetPassword(createMockCredentials()[0].email),
+        a: new ResetPassword({ email: createMockCredentials()[0].email }),
       });
     }));
 

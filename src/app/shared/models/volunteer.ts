@@ -1,13 +1,11 @@
 export class Volunteer {
   id: string;
-  organizationId: string;
-  firstName: string;
-  lastName: string;
+  teamId: string;
+  name: string;
   petName: string;
 
-  constructor(firstName: string, lastName: string, petName: string) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+  constructor(name: string, petName: string) {
+    this.name = name;
     this.petName = petName;
   }
 }

@@ -13,7 +13,7 @@ export class DataCellComponent implements OnChanges {
   selected: string;
   selectOptions: string[];
 
-  constructor() { }
+  constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
     const columnChanges = changes['column'];

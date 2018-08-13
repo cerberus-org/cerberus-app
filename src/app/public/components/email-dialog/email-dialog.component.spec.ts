@@ -38,5 +38,5 @@ describe('ForgotPwdDialogComponent', () => {
 });
 
 class MatDialogRefMock {
-  close() { }
+  close() {}
 }

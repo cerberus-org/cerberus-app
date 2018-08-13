@@ -31,5 +31,4 @@ import { PublicRoutingModule } from './public-routing.module';
     SignUpDialogComponent,
   ],
 })
-export class PublicModule {
-}
+export class PublicModule {}

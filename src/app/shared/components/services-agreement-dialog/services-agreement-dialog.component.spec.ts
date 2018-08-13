@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatDialogRef, MatTabsModule } from '@angular/material';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { ServicesAgreementDialogComponent } from './services-agreement-dialog.component';
 
 class MatDialogRefMock {
-  close() { }
+  close() {}
 }
 
 describe('ServicesAgreementDialogComponent', () => {
@@ -18,7 +18,6 @@ describe('ServicesAgreementDialogComponent', () => {
         MatTabsModule,
         MatDialogModule,
         NoopAnimationsModule,
-        BrowserAnimationsModule,
       ],
       declarations: [
         ServicesAgreementDialogComponent,

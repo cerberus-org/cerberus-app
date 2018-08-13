@@ -2,27 +2,33 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import * as LayoutActions from '../../../core/actions/layout.actions';
-import * as ModelActions from '../../../core/actions/model.actions';
-import * as SettingsActions from '../../actions/settings.actions';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
+import { LoadMembersForTeam } from '../../../core/actions/members.actions';
+import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
+import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
+import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
+import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
+import { getMemberForUserAndSelectedTeam } from '../../../core/selectors/members.selectors';
+import { isAdmin } from '../../../shared/helpers';
+import { SelectSettingsOption } from '../../actions/settings.actions';
 import { SettingsState } from '../../reducers';
-import { selectSettingsSidenavOptions, selectSettingsSidenavSelection } from '../../selectors/settings.selectors';
+import { getSelectedSettingsOption } from '../../selectors/settings.selectors';
 
 @Component({
   selector: 'app-settings-page',
   template: `
-    <div [ngSwitch]="(sidenavSelection$ | async)">
+    <div [ngSwitch]="(selectedOption$ | async)">
       <app-user-settings
-        *ngSwitchCase="'USER_SETTINGS'"
+        *ngSwitchCase="'USER'"
       >
       </app-user-settings>
-      <app-organization-settings
-        *ngSwitchCase="'ORGANIZATION_SETTINGS'"
+      <app-team-settings
+        *ngSwitchCase="'TEAM'"
       >
-      </app-organization-settings>
+      </app-team-settings>
       <app-volunteer-settings
-        *ngSwitchCase="'VOLUNTEER_SETTINGS'"
+        *ngSwitchCase="'VOLUNTEERS'"
       >
       </app-volunteer-settings>
       <app-roles
@@ -48,33 +54,37 @@ import { selectSettingsSidenavOptions, selectSettingsSidenavSelection } from '..
 export class SettingsPageComponent implements OnDestroy {
   private routeParamsSubscription: Subscription;
   private sidenavSubscription: Subscription;
-  sidenavSelection$: Observable<string>;
+  selectedOption$: Observable<string>;
 
   constructor(private route: ActivatedRoute, private store$: Store<SettingsState>) {
-    store$.dispatch(new LayoutActions.SetHeaderOptions({
-      title: 'Settings',
-      previousUrl: 'teams',
-      showLogOut: true,
+    store$.dispatch(new SetHeaderOptions({
+      headerOptions: {
+        title: 'Settings',
+        previousUrl: 'teams',
+        showLogOut: true,
+      },
     }));
-    store$.dispatch(new SettingsActions.LoadPage('USER_SETTINGS'));
-    store$.dispatch(new ModelActions.LoadOrganizations());
-    this.routeParamsSubscription = route.params
-      .pipe(
-        switchMap(({ teamId }) => [
-          new ModelActions.SelectTeam({ teamId }),
-          new ModelActions.LoadMembers(teamId),
-          new ModelActions.LoadSites(teamId),
-          new ModelActions.LoadVisits(teamId),
-          new ModelActions.LoadVolunteers(teamId),
-        ]))
+    store$.dispatch(new SelectSettingsOption({ selectedOption: 'USER' }));
+    store$.dispatch(new LoadTeams());
+    this.routeParamsSubscription = route.params.pipe(
+      switchMap(({ teamId }) => [
+        new SelectTeam({ teamId }),
+        new LoadMembersForTeam({ teamId }),
+        new LoadSitesForTeam({ teamId }),
+        new LoadVisitsForTeam({ teamId }),
+        new LoadVolunteersForTeam({ teamId }),
+      ]),
+    )
       .subscribe(store$);
-    this.sidenavSubscription = store$
-      .pipe(
-        select(selectSettingsSidenavOptions),
-        map(sidenavOptions => new LayoutActions.SetSidenavOptions(sidenavOptions)),
-      )
+    this.sidenavSubscription = store$.pipe(
+      select(getMemberForUserAndSelectedTeam),
+      filter(member => !!member),
+      map(member => new SetSidenavOptions({
+        sidenavOptions: isAdmin(member) ? adminSidenavOptions : memberSidenavOptions,
+      })),
+    )
       .subscribe(store$);
-    this.sidenavSelection$ = store$.pipe(select(selectSettingsSidenavSelection));
+    this.selectedOption$ = store$.pipe(select(getSelectedSettingsOption));
   }
 
   ngOnDestroy() {
@@ -82,3 +92,45 @@ export class SettingsPageComponent implements OnDestroy {
     this.sidenavSubscription.unsubscribe();
   }
 }
+
+const memberSidenavOptions = [
+  {
+    label: 'User',
+    icon: 'face',
+    action: new SelectSettingsOption({ selectedOption: 'USER' }),
+  },
+];
+
+const adminSidenavOptions = [
+  ...memberSidenavOptions,
+  {
+    label: 'Team',
+    icon: 'domain',
+    action: new SelectSettingsOption({ selectedOption: 'TEAM' }),
+  },
+  {
+    label: 'Sites',
+    icon: 'dashboard',
+    action: new SelectSettingsOption({ selectedOption: 'SITES' }),
+  },
+  {
+    label: 'Visits',
+    icon: 'done_all',
+    action: new SelectSettingsOption({ selectedOption: 'VISITS' }),
+  },
+  {
+    label: 'Volunteers',
+    icon: 'insert_emoticon',
+    action: new SelectSettingsOption({ selectedOption: 'VOLUNTEERS' }),
+  },
+  {
+    label: 'Reports',
+    icon: 'assessment',
+    action: new SelectSettingsOption({ selectedOption: 'REPORTS' }),
+  },
+  {
+    label: 'Roles',
+    icon: 'lock_outline',
+    action: new SelectSettingsOption({ selectedOption: 'ROLES' }),
+  },
+];

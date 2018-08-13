@@ -29,7 +29,7 @@ export class MockUserService extends MemberService {
     return of(Promise.resolve());
   }
 
-  delete(user: any): Observable<any> {
+  remove(user: any): Observable<any> {
     return EMPTY;
   }
 }

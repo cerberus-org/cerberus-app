@@ -27,7 +27,7 @@ export class SiteService extends BaseService<Site> {
   private capitalizeSite(site: Site): Site {
     return {
       ...site,
-      label: upperAllFirst(site.label),
+      name: upperAllFirst(site.name),
       address: upperAllFirst(site.address),
       description: upperAllFirst(site.description),
     };

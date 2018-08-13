@@ -4,8 +4,8 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { MatAutocompleteSelectedEvent, MatRadioChange } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { findActiveVisit, getFullName, getUniqueFullNames, searchVolunteersByName } from '../../../shared/helpers';
 import { Visit, Volunteer } from '../../../shared/models';
+import { findActiveVisit, getUniqueFullNames, searchVolunteersByName } from '../../helpers/check-in.helpers';
 
 @Component({
   selector: 'app-check-in-form',
@@ -40,7 +40,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
 
   fadeInState: string;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
@@ -117,7 +117,7 @@ export class CheckInFormComponent implements OnInit, OnDestroy {
    */
   onNameSelected(event: MatAutocompleteSelectedEvent): void {
     this.matches = this.volunteers
-      .filter(volunteer => getFullName(volunteer).toLowerCase() === event.option.value.toLowerCase());
+      .filter(volunteer => volunteer.name.toLowerCase() === event.option.value.toLowerCase());
     if (this.matches.length === 1) {
       this.selectVolunteer(this.matches[0]);
     }

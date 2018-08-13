@@ -1,48 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
-import { selectModelSites } from '../../../core/selectors/model.selectors';
+import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { ColumnOptions, Site } from '../../../shared/models';
-import * as SettingsActions from '../../actions/settings.actions';
-import { SiteDialogComponent } from '../../components/site-dialog/site-dialog.component';
+import { CreateSite, DeleteSite, UpdateSite } from '../../actions/settings.actions';
+import { SiteDialogComponent } from '../site-dialog/site-dialog.component';
 
 @Component({
   selector: 'app-site-settings',
   templateUrl: './site-settings.component.html',
   styleUrls: ['./site-settings.component.scss'],
 })
-export class SiteSettingsComponent implements OnInit {
+export class SiteSettingsComponent {
   columnOptions: ColumnOptions[] = [
-    new ColumnOptions(
-      'label',
-      'Label',
-      (row: Site) => row.label,
-    ),
-    new ColumnOptions(
-      'description',
-      'Description',
-      (row: Site) => row.description,
-    ),
+    {
+      columnDef: 'name',
+      header: 'Name',
+      cell: (row: Site) => row.name,
+    },
+    {
+      columnDef: 'address',
+      header: 'Address',
+      cell: (row: Site) => row.address,
+    },
+    {
+      columnDef: 'description',
+      header: 'Description',
+      cell: (row: Site) => row.description,
+    },
   ];
   public sites$: Observable<Site[]>;
 
-  constructor(public store$: Store<AppState>, public dialog: MatDialog) {}
-
-  ngOnInit(): void {
-    this.sites$ = this.store$.pipe(select(selectModelSites));
+  constructor(public store$: Store<AppState>, public dialog: MatDialog) {
+    this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
   }
 
   onDeleteSite(site: Site): void {
-    this.store$.dispatch(new SettingsActions.DeleteSite(site));
+    this.store$.dispatch(new DeleteSite({ site }));
   }
 
   onEditSite(site: Site): void {
-    this.openDialogForEdit(site);
-  }
-
-  onUpdateSite(site: Site): void {
+    this.openEditSiteDialog(site);
   }
 
   /**
@@ -50,13 +50,13 @@ export class SiteSettingsComponent implements OnInit {
    *
    * @param site
    */
-  openDialogForEdit(site) {
+  openEditSiteDialog(site) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = site;
     const dialog = this.dialog.open(SiteDialogComponent, dialogConfig);
-    dialog.afterClosed().subscribe((siteOnClose: Site) => {
-      if (siteOnClose) {
-        this.store$.dispatch(Object.assign({}, new SettingsActions.UpdateSite(siteOnClose)));
+    dialog.afterClosed().subscribe((site: Site) => {
+      if (site) {
+        this.store$.dispatch(Object.assign({}, new UpdateSite({ site })));
       }
     });
   }
@@ -66,11 +66,11 @@ export class SiteSettingsComponent implements OnInit {
    *
    * @param {Site} site
    */
-  openDialogForCreation(site?: Site) {
+  openCreateSiteDialog(site?: Site) {
     const dialog = this.dialog.open(SiteDialogComponent);
     dialog.afterClosed().subscribe((site: Site) => {
-      if (site && site.label) {
-        this.store$.dispatch(Object.assign({}, new SettingsActions.CreateSite(site)));
+      if (site && site.name) {
+        this.store$.dispatch(Object.assign({}, new CreateSite({ site })));
       }
     });
   }

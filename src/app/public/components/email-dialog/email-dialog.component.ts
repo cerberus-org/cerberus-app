@@ -10,7 +10,7 @@ export class EmailDialogComponent implements OnInit {
 
   email: string;
 
-  constructor(public dialogRef: MatDialogRef<EmailDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<EmailDialogComponent>) {}
 
   ngOnInit(): void {}
 

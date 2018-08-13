@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
-import * as AuthActions from '../../../auth/actions/auth.actions';
-import * as LayoutActions from '../../../core/actions/layout.actions';
+import { ResetPassword, SignIn } from '../../../auth/actions/auth.actions';
+import { SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { AppState } from '../../../core/reducers';
 import { EmailDialogComponent } from '../../components/email-dialog/email-dialog.component';
 
@@ -31,13 +31,15 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
     this.hidePwd = true;
-    this.store$.dispatch(new LayoutActions.SetSidenavOptions(null));
+    this.store$.dispatch(new SetSidenavOptions({ sidenavOptions: null }));
   }
 
   onLogin() {
-    this.store$.dispatch(new AuthActions.SignIn({
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password,
+    this.store$.dispatch(new SignIn({
+      credentials: {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password,
+      },
     }));
   }
 
@@ -49,7 +51,7 @@ export class LoginComponent implements OnInit {
     const dialog = this.dialog.open(EmailDialogComponent);
     dialog.afterClosed().subscribe((email) => {
       if (email) {
-        this.store$.dispatch(new AuthActions.ResetPassword(email));
+        this.store$.dispatch(new ResetPassword({ email }));
       }
     });
   }

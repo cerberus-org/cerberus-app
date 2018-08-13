@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import * as _ from 'lodash';
+import { titleCase } from '../../shared/helpers';
 import { Volunteer } from '../../shared/models';
 import { BaseService } from './base.service';
 import { ErrorService } from './error.service';
@@ -22,7 +22,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @returns {Volunteer} - the volunteer with capitalized properties
    */
   mapObjectToDoc(volunteer: Volunteer): Volunteer {
-    return this.capitalize(volunteer);
+    return this.capitalizeVolunteer(volunteer);
   }
 
   /**
@@ -32,7 +32,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @returns {Volunteer} - the volunteer with capitalized properties
    */
   mapDocToObject(volunteer: Volunteer): Volunteer {
-    return this.capitalize(volunteer);
+    return this.capitalizeVolunteer(volunteer);
   }
 
   /**
@@ -41,12 +41,11 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @param {Volunteer} volunteer - the volunteer to capitalize properties for
    * @returns {Volunteer} - the volunteer with capitalized properties
    */
-  private capitalize(volunteer: Volunteer): Volunteer {
+  private capitalizeVolunteer(volunteer: Volunteer): Volunteer {
     return {
       ...volunteer,
-      firstName: _.capitalize(volunteer.firstName),
-      lastName: _.capitalize(volunteer.lastName),
-      petName: _.capitalize(volunteer.petName),
+      name: titleCase(volunteer.name),
+      petName: titleCase(volunteer.petName),
     };
   }
 }

@@ -3,12 +3,12 @@ import { MatDialog } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { delay } from 'rxjs/operators';
-import * as AuthActions from '../../../auth/actions/auth.actions';
+import { SignOut, VerifyPassword } from '../../../auth/actions/auth.actions';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';
-import * as LayoutActions from '../../actions/layout.actions';
-import * as RouterActions from '../../actions/router.actions';
+import { ToggleSidenavOpened } from '../../actions/layout.actions';
+import { Back } from '../../actions/router.actions';
 import { LayoutReducerState } from '../../reducers/layout.reducer';
-import { HeaderState, selectHeaderState } from '../../selectors/layout.selectors';
+import { getHeaderState, HeaderState } from '../../selectors/layout.selectors';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,16 +58,16 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.headerState$ = this.store$.pipe(
       delay(0),
-      select(selectHeaderState),
+      select(getHeaderState),
     );
   }
 
   onToggleSidenav(): void {
-    this.store$.dispatch(new LayoutActions.ToggleSidenavOpened());
+    this.store$.dispatch(new ToggleSidenavOpened());
   }
 
   onBack(): void {
-    this.store$.dispatch(new RouterActions.Back());
+    this.store$.dispatch(new Back());
   }
 
   onSettings(): void {
@@ -75,19 +75,19 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogOut(): void {
-    this.store$.dispatch(new AuthActions.SignOut());
+    this.store$.dispatch(new SignOut());
   }
 
   /**
    * Open the dialog and subscribe to the observable that is returned on close
-   * to extract the password. Once password is obtained dispatch the verify effect.
+   * to extract the password. Once password is obtained dispatch VerifyPassword.
    */
   openAndSubscribeToPasswordDialog() {
     const subscription = this.dialog.open(PasswordDialogComponent)
       .afterClosed()
       .subscribe((password) => {
         if (password) {
-          this.store$.dispatch(new AuthActions.VerifyPassword(password));
+          this.store$.dispatch(new VerifyPassword({ password }));
           subscription.unsubscribe();
         }
       });

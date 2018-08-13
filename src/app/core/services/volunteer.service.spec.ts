@@ -21,8 +21,7 @@ describe('VolunteerService', () => {
     const testbed = getTestBed();
     service = testbed.get(VolunteerService);
     volunteer = createMockVolunteers()[0];
-    volunteer.firstName = 'tED';
-    volunteer.lastName = 'mAdEr';
+    volunteer.name = 'tED mAdEr';
     volunteer.petName = 'miMI';
   }));
 

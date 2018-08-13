@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
-import * as RouterActions from '../../core/actions/router.actions';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { Back } from '../../core/actions/router.actions';
 import { AppState } from '../../core/reducers';
-import { getSelectedTeam } from '../../core/selectors/model.selectors';
+import { getSelectedTeamId } from '../../core/selectors/teams.selectors';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { VisitService } from '../../core/services/visit.service';
 import { VolunteerService } from '../../core/services/volunteer.service';
-import * as CheckInActions from '../actions/check-in.actions';
+import { Volunteer } from '../../shared/models';
+import { CheckIn, CheckInActionTypes, CheckOut, SubmitNewVolunteer } from '../actions/check-in.actions';
 
 @Injectable()
 export class CheckInEffects {
@@ -18,62 +19,53 @@ export class CheckInEffects {
    * Listen for the SubmitNewVolunteer action, create the newVolunteer, emit the snackbar,
    * then dispatch the SubmitNewVolunteerSuccess action with the created newVolunteer.
    */
-  @Effect()
-  submitNewVolunteer$: Observable<Action> = this.actions
-    .ofType(CheckInActions.SUBMIT_NEW_VOLUNTEER)
-    .pipe(
-      map((action: CheckInActions.SubmitNewVolunteer) => action.payload),
-      withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
-      switchMap(([volunteer, organization]) => this.volunteerService.add({
-        ...volunteer,
-        organizationId: organization.id,
-      })
-        .pipe(
-          map(() => {
-            this.snackBarService.createVolunteerSuccess();
-            return new CheckInActions.SubmitNewVolunteerSuccess();
-          }))),
-    );
+  @Effect({ dispatch: false })
+  submitNewVolunteer$: Observable<Action | Volunteer> = this.actions.pipe(
+    ofType<SubmitNewVolunteer>(CheckInActionTypes.SubmitNewVolunteer),
+    map(action => action.payload.volunteer),
+    withLatestFrom(this.store$.pipe(select(getSelectedTeamId))),
+    switchMap(([volunteer, teamId]) => this.volunteerService.add({ ...volunteer, teamId }).pipe(
+      tap(() => {
+        this.snackBarService.createVolunteerSuccess();
+      }))),
+  );
 
   /**
    * Listen for the CheckIn action, create the visit,
    * then emit the success snack bar and navigate back to the dashboard.
    */
   @Effect()
-  checkIn$: Observable<Action> = this.actions
-    .ofType(CheckInActions.CHECK_IN)
-    .pipe(
-      map((action: CheckInActions.CheckIn) => action.payload),
-      withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
-      switchMap(([visit, organization]) => this.visitService.add({
-        ...visit,
-        siteId: null, // TODO: Implement site association
-        organizationId: organization.id,
-      })
-        .pipe(
-          map(() => {
-            this.snackBarService.checkInSuccess();
-            return new RouterActions.Back();
-          }))),
-    );
+  checkIn$: Observable<Action> = this.actions.pipe(
+    ofType<CheckIn>(CheckInActionTypes.CheckIn),
+    map(action => action.payload.visit),
+    withLatestFrom(this.store$.pipe(select(getSelectedTeamId))),
+    switchMap(([visit, teamId]) => this.visitService.add({
+      ...visit,
+      teamId,
+      siteId: null, // TODO: Implement site association
+    })
+      .pipe(
+        map(() => {
+          this.snackBarService.checkInSuccess();
+          return new Back();
+        }))),
+  );
 
   /**
    * Listen for the CheckOut action, update the visit,
    * then emit the snackbar and navigate back to the dashboard.
    */
   @Effect()
-  checkOut$: Observable<Action> = this.actions
-    .ofType(CheckInActions.CHECK_OUT)
-    .pipe(
-      map((action: CheckInActions.CheckOut) => action.payload),
-      switchMap(visit => this.visitService.update(visit)
-        .pipe(
-          map(() => {
-            this.snackBarService.checkOutSuccess();
-            return new RouterActions.Back();
-          }),
-        )),
-    );
+  checkOut$: Observable<Action> = this.actions.pipe(
+    ofType<CheckOut>(CheckInActionTypes.CheckOut),
+    map(action => action.payload.visit),
+    switchMap(visit => this.visitService.update(visit).pipe(
+      map(() => {
+        this.snackBarService.checkOutSuccess();
+        return new Back();
+      }),
+    )),
+  );
 
   constructor(
     private store$: Store<AppState>,

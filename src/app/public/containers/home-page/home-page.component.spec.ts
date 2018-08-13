@@ -2,10 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
-import { mockOrganizations } from '../../../../mocks/objects/organization.mock';
+import { mockTeams } from '../../../../mocks/objects/team.mock';
 import { mockProviders } from '../../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as RouterActions from '../../../core/actions/router.actions';
+import { Go } from '../../../core/actions/router.actions';
 import { MaterialModule } from '../../../material';
 import { HomePageComponent } from './home-page.component';
 
@@ -41,15 +41,17 @@ describe('HomePageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle validInput events by setting findOrganizationValue', () => {
-    component.onValidOrganization(mockOrganizations[0]);
-    expect(component.organization).toEqual(mockOrganizations[0]);
-  });
+  it('should handle validInput events by setting findTeamValue', async(() => {
+    const team = mockTeams[0];
+    component.onValidTeam(team);
+    expect(component.team).toEqual(team);
+  }));
 
-  it('should handle onLiveData events by dispatching RouterActions.Go', () => {
+  it('should handle onLiveData events by dispatching RouterActions.Go', async(() => {
     spyOn(component.store$, 'dispatch');
-    component.onInputIconButtonClick(mockOrganizations[0]);
+    const team = mockTeams[0];
+    component.onInputIconButtonClick(team);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new RouterActions.Go({ path: ['view-activity/' + mockOrganizations[0].name] }));
-  });
+      .toHaveBeenCalledWith(new Go({ path: ['view-activity', team.name] }));
+  }));
 });

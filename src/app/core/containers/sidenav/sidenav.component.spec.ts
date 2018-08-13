@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { createMockSidenavOptions } from '../../../../mocks/objects/sidenav-options.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import * as LayoutActions from '../../actions/layout.actions';
+import { SetSidenavOpened } from '../../actions/layout.actions';
 import { SidenavComponent } from './sidenav.component';
 
 class MockMediaMatcher {
@@ -80,7 +80,7 @@ describe('SidenavComponent', () => {
     component.setForScreen(true);
     expect(component.mode).toEqual('over');
     expect(component.sidenav.disableClose).toBeFalsy();
-    expect(dispatch).toHaveBeenCalledWith(new LayoutActions.SetSidenavOpened(false));
+    expect(dispatch).toHaveBeenCalledWith(new SetSidenavOpened({ sidenavOpened: false }));
   });
 
   it('should set the sidenav for large screens', () => {
@@ -88,6 +88,6 @@ describe('SidenavComponent', () => {
     component.setForScreen(false);
     expect(component.mode).toEqual('side');
     expect(component.sidenav.disableClose).toBeTruthy();
-    expect(dispatch).toHaveBeenCalledWith(new LayoutActions.SetSidenavOpened(true));
+    expect(dispatch).toHaveBeenCalledWith(new SetSidenavOpened({ sidenavOpened: true }));
   });
 });

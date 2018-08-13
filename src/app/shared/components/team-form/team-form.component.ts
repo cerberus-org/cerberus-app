@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { isURL } from 'validator';
-import { Organization } from '../../models';
+import { Team } from '../../models';
 
 @Component({
   selector: 'app-team-form',
@@ -42,7 +42,7 @@ import { Organization } from '../../models';
 })
 export class TeamFormComponent implements OnInit, OnDestroy {
   @Output() validTeam = new EventEmitter();
-  @Input() initialTeam: Organization;
+  @Input() initialTeam: Team;
   formGroup: FormGroup;
   formSubscription: Subscription;
 
@@ -92,7 +92,7 @@ export class TeamFormComponent implements OnInit, OnDestroy {
     const { value } = this.formGroup;
     this.validTeam.emit(
       this.formGroup.valid
-        ? new Organization(value.name, value.description, value.website)
+        ? new Team(value.name, value.description, value.website)
         : null,
     );
   }

@@ -39,8 +39,8 @@
       <app-check-in-form
         [title]="checkInOutFormTitle"
         [siteId]="siteId"
-        [visits]="(state$ | async)?.visits"
-        [volunteers]="(state$ | async)?.volunteers"
+        [visits]="(visits$ | async)"
+        [volunteers]="(volunteers$ | async)"
         (checkIn)="onCheckIn($event)"
         (checkOut)="onCheckOut($event)">
       </app-check-in-form>
