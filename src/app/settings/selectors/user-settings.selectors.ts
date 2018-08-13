@@ -1,6 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { UserInfo } from 'firebase';
-import { getUserInfo } from '../../auth/selectors/auth.selectors';
+import { getUserInfoEmail } from '../../auth/selectors/auth.selectors';
 import { getMemberForUserAndSelectedTeam } from '../../core/selectors/members.selectors';
 import { Member } from '../../shared/models';
 
@@ -11,6 +10,6 @@ export interface UserSettingsContainerState {
 
 export const getUserSettingsContainerState = createSelector(
   getMemberForUserAndSelectedTeam,
-  getUserInfo,
-  (member: Member, userInfo: UserInfo): UserSettingsContainerState => ({ member, email: userInfo.email }),
+  getUserInfoEmail,
+  (member, email): UserSettingsContainerState => ({ member, email }),
 );
