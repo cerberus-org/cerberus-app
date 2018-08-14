@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { getUserInfo } from '../../auth/selectors/auth.selectors';
+import { getUserInfoUid } from '../../auth/selectors/auth.selectors';
 import { AppState } from '../../core/reducers';
 import { MemberService } from '../../core/services/member.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
@@ -36,12 +36,12 @@ export class TeamsPageEffects {
   createTeam$: Observable<any> = this.actions.pipe(
     ofType<CreateTeam>(TeamsPageActionTypes.CreateTeam),
     map(action => action.payload.team),
-    withLatestFrom(this.store$.pipe(select(getUserInfo))),
-    mergeMap(([team, userInfo]) =>
+    withLatestFrom(this.store$.pipe(select(getUserInfoUid))),
+    mergeMap(([team, uid]) =>
       this.teamService.add(team).pipe(
         switchMap(createdTeam =>
           this.memberService.add({
-            userUid: userInfo.uid,
+            userUid: uid,
             teamId: createdTeam.id,
             role: 'Owner',
           } as Member)),
@@ -56,10 +56,10 @@ export class TeamsPageEffects {
   joinTeam$: Observable<any> = this.actions.pipe(
     ofType<JoinTeam>(TeamsPageActionTypes.JoinTeam),
     map(action => action.payload.team),
-    withLatestFrom(this.store$.pipe(select(getUserInfo))),
-    mergeMap(([team, userInfo]) =>
+    withLatestFrom(this.store$.pipe(select(getUserInfoUid))),
+    mergeMap(([team, uid]) =>
       this.memberService.add({
-        userUid: userInfo.uid,
+        userUid: uid,
         teamId: team.id,
         role: 'Locked',
       } as Member),

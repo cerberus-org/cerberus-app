@@ -11,7 +11,7 @@ import { SnackBarService } from '../../core/services/snack-bar.service';
 import { Credentials } from '../../shared/models/credentials';
 import { AuthActionTypes, ResetPassword, SignIn, SignOut, SignUp, VerifyPassword } from '../actions/auth.actions';
 import { AuthReducerState } from '../reducers/auth.reducer';
-import { getUserInfo } from '../selectors/auth.selectors';
+import { getUserInfoEmail } from '../selectors/auth.selectors';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
@@ -60,8 +60,8 @@ export class AuthEffects {
   verifyPassword$: Observable<Action> = this.actions.pipe(
     ofType<VerifyPassword>(AuthActionTypes.VerifyPassword),
     map(action => action.payload.password),
-    withLatestFrom(this.store$.pipe(select(getUserInfo))),
-    switchMap(([password, { email }]) => this.authService.signIn({ password, email }).pipe(
+    withLatestFrom(this.store$.pipe(select(getUserInfoEmail))),
+    switchMap(([password, email]) => this.authService.signIn({ password, email }).pipe(
       map(() => {
         this.authService.setPwdVerification(true);
         return new Go({ path: ['team/settings'] });

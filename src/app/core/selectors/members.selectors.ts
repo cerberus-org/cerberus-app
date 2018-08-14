@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { getUserInfo } from '../../auth/selectors/auth.selectors';
+import { getUserInfoUid } from '../../auth/selectors/auth.selectors';
 import { MEMBER_ROLE_OWNER } from '../../shared/helpers';
 import { Member } from '../../shared/models';
 import { membersAdapter, MembersReducerState } from '../reducers/members.reducer';
@@ -31,8 +31,8 @@ export const getMembersForSelectedTeam = createSelector(
 
 export const getMembersForUser = createSelector(
   getAllMembers,
-  getUserInfo,
-  (members, userInfo) => members.filter(member => member.userUid === userInfo.uid),
+  getUserInfoUid,
+  (members, uid) => members.filter(member => member.userUid === uid),
 );
 
 export const getMemberForUserAndSelectedTeam = createSelector(
