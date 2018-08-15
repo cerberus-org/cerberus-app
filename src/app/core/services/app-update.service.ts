@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription } from 'rxjs';
 import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
@@ -25,7 +25,6 @@ export class AppUpdateService implements OnDestroy {
       this.snackbarService.updateAvailable()
         .onAction()
         .subscribe(() => {
-          console.log('test');
           this.reload();
         });
     });

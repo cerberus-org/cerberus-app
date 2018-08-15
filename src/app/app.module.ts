@@ -22,7 +22,7 @@ import { appReducers } from './core/reducers';
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    ServiceWorkerModule.register('/ngsw-worker.js'),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     CommonModule,
     BrowserAnimationsModule,
     AuthModule,
