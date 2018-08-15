@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { SignOut, VerifyPassword } from '../../../auth/actions/auth.actions';
 import { PasswordDialogComponent } from '../../../shared/components/password-dialog/password-dialog.component';

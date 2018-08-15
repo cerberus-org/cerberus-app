@@ -90,6 +90,9 @@
             "browserTarget": "cerberus-app:build"
           },
           "configurations": {
+            "develop": {
+              "browserTarget": "cerberus-app:build:develop"
+            },
             "staging": {
               "browserTarget": "cerberus-app:build:staging"
             },
