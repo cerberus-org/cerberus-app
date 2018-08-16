@@ -34,13 +34,13 @@ export class DailyHoursChartComponent implements OnChanges {
   };
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['visits']) {
+    if (changes['visits'] || changes['sites']) {
       this.data = [];
       const mapOfSites = this.sites ? new Map(
         this.sites.map<[string, string]>((site: Site) => [site.id, site.name]),
       ) : new Map();
       this.labels = this.setupLineChartLabels();
-      this.getDataSetsBySite(changes['visits'].currentValue).forEach((dataSet: Visit[]) => {
+      this.getDataSetsBySite(this.visits).forEach((dataSet: Visit[]) => {
         this.data.push(this.setupLineChartDataForDataSet(dataSet, this.labels, mapOfSites));
       });
     }
@@ -72,8 +72,8 @@ export class DailyHoursChartComponent implements OnChanges {
     return [];
   }
 
-  isVisitsEmpty(visits: Visit[]): boolean {
-    return visits && visits.length > 0 ? false : true;
+  displayChart(visits: Visit[], sites: Site[]): boolean {
+    return !!((visits && sites) && (visits.length && sites.length));
   }
 
   /**

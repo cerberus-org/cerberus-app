@@ -1,4 +1,4 @@
-<div class="grid" style="display: block" *ngIf="!isVisitsEmpty(visits)">
+<div class="grid" *ngIf="displayChart(visits, sites)">
   <canvas
     class="graph"
     baseChart
