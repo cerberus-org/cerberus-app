@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/internal/Observable';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Observable, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { Go } from '../../../core/actions/router.actions';
