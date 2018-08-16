@@ -9,15 +9,16 @@ import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
 import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { AppState } from '../../../core/reducers';
+import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
 import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
-import { Visit } from '../../../shared/models';
+import { Site, Visit } from '../../../shared/models';
 
 @Component({
   selector: 'app-team-dashboard-page',
   template: `
     <div class="grid">
-      <app-data-display [visits$]="visits$"></app-data-display>
+      <app-data-display [visits$]="visits$" [sites$]="sites$"></app-data-display>
     </div>
   `,
   styleUrls: ['./team-dashboard-page.component.scss'],
@@ -26,6 +27,7 @@ export class TeamDashboardPageComponent implements OnDestroy {
   private routeParamsSubscription: Subscription;
   private headerSubscription: Subscription;
   visits$: Observable<Visit[]>;
+  sites$: Observable<Site[]>;
 
   constructor(private route: ActivatedRoute, private store$: Store<AppState>) {
     store$.dispatch(new LoadTeams());
@@ -68,6 +70,7 @@ export class TeamDashboardPageComponent implements OnDestroy {
       )
       .subscribe(store$);
     this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
+    this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
   }
 
   ngOnDestroy(): void {
