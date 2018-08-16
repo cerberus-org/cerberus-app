@@ -29,7 +29,7 @@ export class ProfileService extends BaseService<Profile> {
    * @param {Profile} profile - the profile to capitalize properties for
    * @returns {Profile} - a new profile with capitalized properties
    */
-  mapObjectToDoc(profile: Profile): Profile {
+  mapObjectToDocument(profile: Profile): Profile {
     return this.capitalizeProfile(profile);
   }
 
@@ -39,7 +39,7 @@ export class ProfileService extends BaseService<Profile> {
    * @param {Profile} profile - the profile to capitalize properties for
    * @returns {Profile} - a new profile with capitalized properties
    */
-  mapDocToObject(profile: Profile): Profile {
+  mapDocumentToObject(profile: Profile): Profile {
     return this.capitalizeProfile(profile);
   }
 }

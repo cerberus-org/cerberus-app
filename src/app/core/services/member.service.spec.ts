@@ -30,12 +30,12 @@ describe('MemberService', () => {
   }));
 
   it('should convert data coming from the database', () => {
-    const converted = service.mapDocToObject(member);
+    const converted = service.mapDocumentToObject(member);
     expect(converted).toEqual(createMockMembers()[0]);
   });
 
   it('should convert data going to the database', () => {
-    const converted = service.mapObjectToDoc(member);
+    const converted = service.mapObjectToDocument(member);
     const userClone = createMockMembers()[0];
     expect(converted).toEqual(userClone);
   });

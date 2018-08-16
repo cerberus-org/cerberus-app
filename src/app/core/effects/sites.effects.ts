@@ -17,13 +17,13 @@ export class SitesEffects {
   @Effect()
   loadSites$: Observable<Action> = this.actions.pipe(
     ofType<LoadSites>(SitesActionTypes.LoadSites),
-    switchMap(() => this.siteService.getAllStateChanges()),
+    switchMap(() => this.siteService.getAllChanges()),
   );
 
   @Effect()
   loadSitesForTeam$: Observable<Action> = this.actions.pipe(
     ofType<LoadSitesForTeam>(SitesActionTypes.LoadSitesForTeam),
     map(action => action.payload.teamId),
-    switchMap(teamId => this.siteService.getStateChangesByKey('teamId', teamId)),
+    switchMap(teamId => this.siteService.getChangesByKey('teamId', teamId)),
   );
 }

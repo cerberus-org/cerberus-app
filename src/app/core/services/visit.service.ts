@@ -28,7 +28,7 @@ export class VisitService extends BaseService<Visit> {
    * @param visit
    * @returns {any}
    */
-  mapObjectToDoc(visit: Visit): Visit {
+  mapObjectToDocument(visit: Visit): Visit {
     return {
       ...visit,
       startedAt: new Date(visit.startedAt),
@@ -41,7 +41,7 @@ export class VisitService extends BaseService<Visit> {
    * Override to convert startedAt and endedAt (asserts types as Timestamp) into Dates and to destringify signature.
    * @param visit
    */
-  mapDocToObject(visit: Visit): Visit {
+  mapDocumentToObject(visit: Visit): Visit {
     return {
       ...visit,
       // Double assertion to treat as Timestamp, since Firebase no longer returns a string

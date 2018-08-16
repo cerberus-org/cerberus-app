@@ -15,7 +15,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @param {Volunteer} volunteer - the volunteer to be sent
    * @returns {Volunteer} - the volunteer with capitalized properties
    */
-  mapObjectToDoc(volunteer: Volunteer): Volunteer {
+  mapObjectToDocument(volunteer: Volunteer): Volunteer {
     return this.capitalizeVolunteer(volunteer);
   }
 
@@ -25,7 +25,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @param {Volunteer} volunteer - the volunteer received
    * @returns {Volunteer} - the volunteer with capitalized properties
    */
-  mapDocToObject(volunteer: Volunteer): Volunteer {
+  mapDocumentToObject(volunteer: Volunteer): Volunteer {
     return this.capitalizeVolunteer(volunteer);
   }
 

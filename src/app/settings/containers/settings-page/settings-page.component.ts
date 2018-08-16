@@ -5,11 +5,15 @@ import { Observable, Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { LoadMembersForTeam } from '../../../core/actions/members.actions';
+import { LoadProfilesByIds } from '../../../core/actions/profiles.actions';
 import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
 import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
-import { getMemberForUserAndSelectedTeam } from '../../../core/selectors/members.selectors';
+import {
+  getMemberForUserAndSelectedTeam,
+  getProfileIdsForSelectedTeam,
+} from '../../../core/selectors/members.selectors';
 import { isAdmin } from '../../../shared/helpers';
 import { SelectSettingsOption } from '../../actions/settings.actions';
 import { SettingsState } from '../../reducers';
@@ -53,6 +57,7 @@ import { getSelectedSettingsOption } from '../../selectors/settings.selectors';
 })
 export class SettingsPageComponent implements OnDestroy {
   private routeParamsSubscription: Subscription;
+  private membersSubscription: Subscription;
   private sidenavSubscription: Subscription;
   selectedOption$: Observable<string>;
 
@@ -74,6 +79,11 @@ export class SettingsPageComponent implements OnDestroy {
         new LoadVisitsForTeam({ teamId }),
         new LoadVolunteersForTeam({ teamId }),
       ]),
+    )
+      .subscribe(store$);
+    this.membersSubscription = store$.pipe(
+      select(getProfileIdsForSelectedTeam),
+      map(ids => new LoadProfilesByIds({ ids })),
     )
       .subscribe(store$);
     this.sidenavSubscription = store$.pipe(

@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, QueryFn } from 'angularfire2/firestore';
-import { from, Observable } from 'rxjs';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument,
+  DocumentChangeAction,
+  QueryFn,
+} from 'angularfire2/firestore';
+import { Action as FirestoreAction, DocumentSnapshot } from 'angularfire2/firestore/interfaces';
+import { from, merge, Observable } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ErrorService } from './error.service';
 import WhereFilterOp = firebase.firestore.WhereFilterOp;
@@ -15,12 +22,20 @@ export abstract class BaseService<T extends { id: string }> {
     protected errorService: ErrorService,
   ) {}
 
-  getAllStateChanges(): Observable<Action> {
-    return this.getStateChanges(this.collection());
+  getAllChanges(): Observable<Action> {
+    return this.getCollectionChanges(this.collection());
   }
 
-  getStateChangesByKey(key: string, value: string, opStr: WhereFilterOp = '=='): Observable<Action> {
-    return this.getStateChanges(this.collection(ref => ref.where(key, opStr, value)));
+  getChangesByKey(key: string, value: string, opStr: WhereFilterOp = '=='): Observable<Action> {
+    return this.getCollectionChanges(this.collection(ref => ref.where(key, opStr, value)));
+  }
+
+  getChangesById(id: string): Observable<Action> {
+    return this.getDocumentChanges(this.collection().doc<T>(id));
+  }
+
+  getChangesByIds(ids: string[]): Observable<Action> {
+    return merge(...ids.map(id => this.getChangesById(id)));
   }
 
   /**
@@ -52,7 +67,7 @@ export abstract class BaseService<T extends { id: string }> {
   getById(id: string): Observable<T> {
     return from(
       this.collection().doc(id).ref.get()
-        .then(snapshot => this.mapDocToObject({ ...snapshot.data(), id })),
+        .then(snapshot => this.mapDocumentToObject({ ...snapshot.data(), id })),
     )
       .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
   }
@@ -67,13 +82,13 @@ export abstract class BaseService<T extends { id: string }> {
   add(item: T, id?: string): Observable<T> {
     return from(
       id
-        ? this.collection().doc(id).set(this.mapObjectToDoc(item))
-          .then(() => this.mapDocToObject(Object.assign({}, item, { id })))
-        : this.collection().add(Object.assign({}, this.mapObjectToDoc(item)))
+        ? this.collection().doc(id).set(this.mapObjectToDocument(item))
+          .then(() => this.mapDocumentToObject(Object.assign({}, item, { id })))
+        : this.collection().add(Object.assign({}, this.mapObjectToDocument(item)))
           .then(
             ref => ref.get()
               .then(
-                snapshot => this.mapDocToObject({ id: snapshot.id, ...snapshot.data() }),
+                snapshot => this.mapDocumentToObject({ id: snapshot.id, ...snapshot.data() }),
               ),
           ),
     )
@@ -88,7 +103,7 @@ export abstract class BaseService<T extends { id: string }> {
    */
   update(item: T): Observable<any> {
     return from(
-      this.collection().doc(item.id).update(this.mapObjectToDoc(item)),
+      this.collection().doc(item.id).update(this.mapObjectToDocument(item)),
     )
       .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
   }
@@ -116,20 +131,38 @@ export abstract class BaseService<T extends { id: string }> {
     return this.afs.collection<T>(this.collectionName, queryFn);
   }
 
-  protected mapChangeToObject(action: DocumentChangeAction<T>): T {
-    return this.mapDocToObject({ id: action.payload.doc.id, ...action.payload.doc.data() as Object });
+  protected mapCollectionChangeToObject(action: DocumentChangeAction<T>): T {
+    return this.mapDocumentToObject({
+      id: action.payload.doc.id,
+      ...action.payload.doc.data() as Object,
+    });
   }
 
-  protected mapStateChangeToAction = map((action: DocumentChangeAction<T>) => ({
+  protected mapCollectionChangeToAction = map((action: DocumentChangeAction<T>) => ({
     type: `[${this.collectionName}] ${action.type}`,
-    payload: this.mapChangeToObject(action),
+    payload: this.mapCollectionChangeToObject(action),
   }));
 
-  protected getStateChanges(collection: AngularFirestoreCollection<T>): Observable<Action> {
+  protected getCollectionChanges(collection: AngularFirestoreCollection<T>): Observable<Action> {
     return collection.stateChanges().pipe(
       mergeMap(actions => actions),
-      this.mapStateChangeToAction,
+      this.mapCollectionChangeToAction,
     );
+  }
+
+  protected mapDocumentChangeToAction = map((action: FirestoreAction<DocumentSnapshot<T>>) => {
+    console.log(action.payload);
+    return ({
+      type: `[${this.collectionName}] added`,
+      payload: {
+        id: action.payload.id,
+        ...action.payload.data() as Object,
+      },
+    });
+  });
+
+  protected getDocumentChanges(doc: AngularFirestoreDocument<T>): Observable<Action> {
+    return doc.snapshotChanges().pipe(this.mapDocumentChangeToAction);
   }
 
   /**
@@ -141,7 +174,7 @@ export abstract class BaseService<T extends { id: string }> {
   protected getSnapshotChanges(collection: AngularFirestoreCollection<T>): Observable<T[]> {
     return collection.snapshotChanges().pipe(
       map((actions: DocumentChangeAction<T>[]) =>
-        actions.map(action => this.mapChangeToObject(action))),
+        actions.map(action => this.mapCollectionChangeToObject(action))),
     )
       .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
   }
@@ -152,7 +185,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @param data
    * @returns {any}
    */
-  protected mapDocToObject(data): T {
+  protected mapDocumentToObject(data): T {
     return data;
   }
 
@@ -162,7 +195,7 @@ export abstract class BaseService<T extends { id: string }> {
    * @param data
    * @return {any}
    */
-  protected mapObjectToDoc(data): T {
+  protected mapObjectToDocument(data): T {
     return data;
   }
 }

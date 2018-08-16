@@ -17,6 +17,6 @@ export class TeamsEffects {
   @Effect()
   loadTeams$: Observable<Action> = this.actions.pipe(
     ofType<LoadTeams>(TeamsActionTypes.LoadTeams),
-    switchMap(() => this.teamService.getAllStateChanges()),
+    switchMap(() => this.teamService.getAllChanges()),
   );
 }

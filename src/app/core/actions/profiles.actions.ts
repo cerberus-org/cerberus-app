@@ -3,7 +3,7 @@ import { Profile } from '../../shared/models';
 
 export enum ProfilesActionTypes {
   LoadProfiles = '[profiles] load profiles',
-  LoadProfilesForTeam = '[profiles] load profiles for team',
+  LoadProfilesByIds = '[profiles] load profiles by ids',
   ProfileAdded = '[profiles] added',
   ProfileModified = '[profiles] modified',
   ProfileRemoved = '[profiles] removed',
@@ -13,10 +13,10 @@ export class LoadProfiles implements Action {
   readonly type = ProfilesActionTypes.LoadProfiles;
 }
 
-export class LoadProfilesForTeam implements Action {
-  readonly type = ProfilesActionTypes.LoadProfilesForTeam;
+export class LoadProfilesByIds implements Action {
+  readonly type = ProfilesActionTypes.LoadProfilesByIds;
 
-  constructor(public payload: { teamId: string }) {}
+  constructor(public payload: { ids: string[] }) {}
 }
 
 // AngularFire2 StateChanges
@@ -45,7 +45,7 @@ export class ProfileRemoved implements Action {
  */
 export type ProfilesActionsUnion =
   | LoadProfiles
-  | LoadProfilesForTeam
+  | LoadProfilesByIds
   | ProfileAdded
   | ProfileModified
   | ProfileRemoved;

@@ -17,13 +17,13 @@ export class VolunteersEffects {
   @Effect()
   loadVolunteers$: Observable<Action> = this.actions.pipe(
     ofType<LoadVolunteers>(VolunteersActionTypes.LoadVolunteers),
-    switchMap(() => this.volunteerService.getAllStateChanges()),
+    switchMap(() => this.volunteerService.getAllChanges()),
   );
 
   @Effect()
   loadVolunteersForTeam$: Observable<Action> = this.actions.pipe(
     ofType<LoadVolunteersForTeam>(VolunteersActionTypes.LoadVolunteersForTeam),
     map(action => action.payload.teamId),
-    switchMap(teamId => this.volunteerService.getStateChangesByKey('teamId', teamId)),
+    switchMap(teamId => this.volunteerService.getChangesByKey('teamId', teamId)),
   );
 }

@@ -30,12 +30,12 @@ describe('TeamService', () => {
   }));
 
   it('should convert data coming from the database', () => {
-    const converted = service.mapDocToObject(team);
+    const converted = service.mapDocumentToObject(team);
     expect(converted).toEqual(createMockTeams()[0]);
   });
 
   it('should convert data going to the database', () => {
-    const converted = service.mapObjectToDoc(team);
+    const converted = service.mapObjectToDocument(team);
     expect(converted).toEqual(createMockTeams()[0]);
   });
 });

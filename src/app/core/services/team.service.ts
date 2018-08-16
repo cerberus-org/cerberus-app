@@ -28,7 +28,7 @@ export class TeamService extends BaseService<Team> {
    * @param {Team} team - the team to capitalize properties for
    * @returns {Team} - a new team with capitalized properties
    */
-  mapObjectToDoc(team: Team): Team {
+  mapObjectToDocument(team: Team): Team {
     return this.capitalizeTeam(team);
   }
 
@@ -38,7 +38,7 @@ export class TeamService extends BaseService<Team> {
    * @param {Team} team - the team to capitalize properties for
    * @returns {Team} - a new team with capitalized properties
    */
-  mapDocToObject(team: Team): Team {
+  mapDocumentToObject(team: Team): Team {
     return this.capitalizeTeam(team);
   }
 }

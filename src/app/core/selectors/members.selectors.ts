@@ -29,6 +29,11 @@ export const getMembersForSelectedTeam = createSelector(
   (members, teamId) => members.filter(member => member.teamId === teamId),
 );
 
+export const getProfileIdsForSelectedTeam = createSelector(
+  getMembersForSelectedTeam,
+  members => members.map(member => member.userUid),
+);
+
 export const getMembersForUser = createSelector(
   getAllMembers,
   getUserInfoUid,
