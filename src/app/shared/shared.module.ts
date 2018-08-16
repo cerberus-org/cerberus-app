@@ -10,6 +10,7 @@ import { DataDisplayComponent } from './components/data-display/data-display.com
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
+import { ProfileFormComponent } from './components/profile-form/profile-form.component';
 import { ServicesAgreementDialogComponent } from './components/services-agreement-dialog/services-agreement-dialog.component';
 import { ServicesAgreementComponent } from './components/services-agreement/services-agreement.component';
 import { TeamFormComponent } from './components/team-form/team-form.component';
@@ -22,6 +23,7 @@ export const COMPONENTS = [
   DataDisplayComponent,
   DataTableComponent,
   LoaderComponent,
+  ProfileFormComponent,
   TeamFormComponent,
   TeamSearchComponent,
   PasswordDialogComponent,

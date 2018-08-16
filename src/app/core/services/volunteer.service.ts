@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { titleCase } from '../../shared/helpers';
 import { Volunteer } from '../../shared/models';
 import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VolunteerService extends BaseService<Volunteer> {
   collectionName = 'volunteers';
-
-  constructor(protected db: AngularFirestore, protected errorService: ErrorService) {
-    super(db, errorService);
-  }
 
   /**
    * Capitalize the firstName, lastName, and petName of the newVolunteer going to the database.

@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { UserInfo } from 'firebase';
+import { Profile } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
 
 export enum AuthActionTypes {
@@ -14,7 +15,7 @@ export enum AuthActionTypes {
 export class SignUp implements Action {
   readonly type = AuthActionTypes.SignUp;
 
-  constructor(public payload: { credentials: Credentials }) {}
+  constructor(public payload: { credentials: Credentials, profile: Profile }) {}
 }
 
 export class SignIn implements Action {

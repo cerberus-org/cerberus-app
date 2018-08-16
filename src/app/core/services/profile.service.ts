@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { titleCase } from '../../shared/helpers';
 import { Profile } from '../../shared/models';
 import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService extends BaseService<Profile> {
   collectionName = 'profiles';
-
-  constructor(protected db: AngularFirestore, protected errorService: ErrorService) {
-    super(db, errorService);
-  }
 
   /**
    * Handles capitalization logic for members.

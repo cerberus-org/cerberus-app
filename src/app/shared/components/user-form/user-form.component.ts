@@ -39,33 +39,10 @@ export class UserFormComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   formSubscription: Subscription;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.formGroup = this.createForm();
-    this.formSubscription = this.subscribeToForm();
-  }
-
-  /**
-   * Subscribes to the form group and emit a new Member object if Member is valid.
-   */
-  subscribeToForm(): Subscription {
-    return this.formGroup.valueChanges.subscribe(() => this.onValueChanges());
-  }
-
-  onValueChanges(): void {
-    const { valid, value } = this.formGroup;
-    if (valid) {
-      this.validCredentials.emit({ email: value.email, password: value.password });
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.formSubscription.unsubscribe();
-  }
-
-  createForm(): FormGroup {
-    return this.fb.group(
+    this.formGroup = this.formBuilder.group(
       {
         email: [
           this.initialEmail || '',
@@ -87,6 +64,16 @@ export class UserFormComponent implements OnInit, OnDestroy {
       },
       { validator: this.matchingPasswords('password', 'confirmPassword') },
     );
+    this.formSubscription = this.formGroup.valueChanges.subscribe(() => {
+      const { valid, value } = this.formGroup;
+      if (valid) {
+        this.validCredentials.emit({ email: value.email, password: value.password });
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.formSubscription.unsubscribe();
   }
 
   /**

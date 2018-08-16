@@ -1,23 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
 import { Visit } from '../../shared/models';
 import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VisitService extends BaseService<Visit> {
   protected collectionName = 'visits';
-
-  constructor(
-    protected db: AngularFirestore,
-    protected errorService: ErrorService,
-  ) {
-    super(db, errorService);
-  }
 
   getByTeamIdAndDateRange(
     teamId: string,

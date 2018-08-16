@@ -1,22 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { upperAllFirst } from '../../shared/helpers';
 import { Site } from '../../shared/models';
 import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SiteService extends BaseService<Site> {
   collectionName = 'sites';
-
-  constructor(
-    protected db: AngularFirestore,
-    protected errorService: ErrorService,
-  ) {
-    super(db, errorService);
-  }
 
   /**
    * Handles capitalization logic for sites.

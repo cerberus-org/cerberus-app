@@ -10,7 +10,10 @@ import WhereFilterOp = firebase.firestore.WhereFilterOp;
 export abstract class BaseService<T extends { id: string }> {
   protected abstract collectionName: string;
 
-  protected constructor(protected afs: AngularFirestore, protected errorService: ErrorService) {}
+  protected constructor(
+    protected afs: AngularFirestore,
+    protected errorService: ErrorService,
+  ) {}
 
   getAllStateChanges(): Observable<Action> {
     return this.getStateChanges(this.collection());
