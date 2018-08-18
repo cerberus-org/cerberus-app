@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { AppState } from '../../../core/reducers';
 import { ErrorService } from '../../../core/services/error.service';
+import { SiteService } from '../../../core/services/site.service';
 import { TeamService } from '../../../core/services/team.service';
 import { VisitService } from '../../../core/services/visit.service';
-import { Team, Visit } from '../../../shared/models';
+import { Site, Team, Visit } from '../../../shared/models';
 
 @Component({
   selector: 'app-view-activity-page',
@@ -16,6 +17,7 @@ import { Team, Visit } from '../../../shared/models';
 export class ViewActivityPageComponent implements OnInit, OnDestroy {
   team: Team;
   visits$: Observable<Visit[]>;
+  sites$: Observable<Site[]>;
   showNotFound: boolean;
   subscription: Subscription;
 
@@ -23,6 +25,7 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
     public store$: Store<AppState>,
     private teamService: TeamService,
     private visitService: VisitService,
+    private siteService: SiteService,
     private errorService: ErrorService,
   ) {}
 
@@ -34,6 +37,7 @@ export class ViewActivityPageComponent implements OnInit, OnDestroy {
           if (team) {
             this.team = team;
             this.visits$ = this.visitService.getByKey('teamId', team.id);
+            this.sites$ = this.siteService.getByKey('teamId', team.id);
           }
           this.store$.dispatch(new SetHeaderOptions({
             headerOptions: {

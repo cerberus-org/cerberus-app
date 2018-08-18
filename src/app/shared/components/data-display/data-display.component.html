@@ -2,7 +2,7 @@
 <ng-template #loaded>
   <mat-tab-group id="data-display-tab-group" #tabGroup>
     <mat-tab label="Daily Hours">
-      <app-daily-hours-chart [visits]="visits$ | async"></app-daily-hours-chart>
+      <app-daily-hours-chart [visits]="visits$ | async" [sites]="sites$ | async"></app-daily-hours-chart>
     </mat-tab>
     <mat-tab label="Visit History">
       <app-data-table

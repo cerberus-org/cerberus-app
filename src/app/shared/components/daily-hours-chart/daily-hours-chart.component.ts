@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import * as moment from 'moment';
-import { Visit } from '../../models';
+import { BaseChartDirective } from 'ng2-charts';
+import { Site, Visit } from '../../models';
 
 @Component({
   selector: 'app-daily-hours-chart',
@@ -9,6 +10,7 @@ import { Visit } from '../../models';
 })
 export class DailyHoursChartComponent implements OnChanges {
   @Input() visits: Visit[];
+  @Input() sites: Site[];
   data: LineChartData[];
   labels: string[];
   type = 'line';
@@ -32,15 +34,56 @@ export class DailyHoursChartComponent implements OnChanges {
     },
   };
 
+  constructor() {
+    this.data = [];
+  }
+
+  /**
+   * Create map of sites, set labels and data set when data bound properties change.
+   *
+   * @param {SimpleChanges} changes
+   */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['visits']) {
-      this.labels = this.setupLineChartLabels();
-      this.data = this.setupLineChartData(changes['visits'].currentValue, this.labels);
+    this.data.length = 0;
+    const mapOfSites = this.sites ? new Map(
+        this.sites.map<[string, string]>((site: Site) => [site.id, site.name]),
+      ) : new Map();
+    this.labels = this.setupLineChartLabels();
+    this.getDataSetsBySite(this.visits).forEach((dataSet: Visit[]) => {
+      this.data.push(this.setupLineChartDataForDataSet(dataSet, this.labels, mapOfSites));
+    });
+    this.data = !this.data.length ? [{ data: [], label: '' }] : this.data;
+  }
+
+  /**
+   * Return an array of Visit arrays separated by site.
+   * i.e. [ [ {visit: 1, site: a}, {visit: 2, site: a}], [{visit: 3, site: b}], [{visit: 4, site: c}] ]
+   * Time Complexity: O(n)
+   *
+   * @param {Visit[]} visits
+   * @returns {Visit[][]}
+   */
+  getDataSetsBySite(visits: Visit[]): Visit[][] {
+    const mapOfVisits = new Map<string, Visit[]>();
+    if (visits && visits.length) {
+      visits.forEach((visit: Visit) => {
+        visit.siteId = visit.siteId ? visit.siteId : 'noSite';
+        if (mapOfVisits.get(visit.siteId)) {
+          const visits = mapOfVisits.get(visit.siteId);
+          visits.push(visit);
+          mapOfVisits.set(visit.siteId, visits);
+        } else {
+          mapOfVisits.set(visit.siteId, [visit]);
+        }
+      });
+      return Array.from(mapOfVisits.values());
     }
+    return [];
   }
 
   /**
    * Constructs list of dates that will be used based on latest date, count, unit, and format.
+   *
    * @param latest - the latest date that will be used as the rightmost name
    * @param count - the number of previous dates to use as labels
    * @param format - how each date should be displayed (refer to Moment.js formats)
@@ -62,20 +105,23 @@ export class DailyHoursChartComponent implements OnChanges {
   }
 
   /**
-   * Calculates the total hours for each day used in labels
-   * and returns the data used for the lineChart.
-   * @param visits - the visits that will be used
-   * @param labels - the labels that durations will be totaled for
-   * @param format - how each date should be displayed (refer to Moment.js formats)
-   * @returns {[{data: number[], name: string}]} - the line chart data
+   * Calculates the total hours for reach day used in labels
+   * and returns teh data used for the lineChart.
+   *
+   * @param {Visit[]} visits
+   * @param {string[]} labels
+   * @param {Map<string, string>} mapOfSites
+   * @param {string} format
+   * @returns {LineChartData}
    */
-  setupLineChartData(
+  setupLineChartDataForDataSet(
     visits: Visit[],
     labels: string[],
+    mapOfSites: Map<string, string>,
     format: string = 'ddd MMM D',
-  ): LineChartData[] {
-    return visits
-      ? [{
+  ): LineChartData {
+    return visits && visits.length
+      ? {
         data: visits.reduce(
           (data, visit) => {
             const date: string = moment(visit.startedAt).format(format);
@@ -88,9 +134,9 @@ export class DailyHoursChartComponent implements OnChanges {
           Array(labels.length).fill(0),
         )
           .map(value => value.toFixed(3)),
-        label: 'Hours',
-      }]
-      : [{ data: [], label: '' }];
+        label: visits[0].siteId === 'noSite' ? '(No site listed)' + ' Hours' : mapOfSites.get(visits[0].siteId) + ' Hours',
+      }
+      : { data: [], label: '' };
   }
 
   /**

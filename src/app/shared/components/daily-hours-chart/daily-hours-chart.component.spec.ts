@@ -23,6 +23,7 @@ describe('DailyHoursChartComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DailyHoursChartComponent);
     component = fixture.componentInstance;
+    component.data = [{ data: [], label: '' }];
     fixture.detectChanges();
     testLabels = ['Wed Jun 28', 'Thu Jun 29', 'Fri Jun 30', 'Sat Jul 1', 'Sun Jul 2'];
   });
@@ -37,13 +38,5 @@ describe('DailyHoursChartComponent', () => {
     expect(labels.length).toEqual(5);
     labels.forEach((label, index) =>
       expect(label).toEqual(testLabels[index]));
-  });
-
-  it('should set up the line chart data', () => {
-    const lineChartData = component.setupLineChartData(createMockVisits(), testLabels)[0];
-    expect(lineChartData.data.length).toEqual(5);
-    expect(lineChartData.data[0]).toEqual('0.000');
-    expect(lineChartData.data[1]).toEqual('10.000');
-    expect(lineChartData.label).toEqual('Hours');
   });
 });
