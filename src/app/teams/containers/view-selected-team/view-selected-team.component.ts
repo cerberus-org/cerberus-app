@@ -18,6 +18,7 @@ import { Site, Team, Visit } from '../../../shared/models';
     <div class="container">
       <app-selected-team-toolbar
         [team]="(selectedTeam$ | async)"
+        [sites]="(sites$ | async)"
         (clickActivate)="onClickActivate($event)"
         (clickSettings)="onClickSettings($event)"
       >

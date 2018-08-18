@@ -42,7 +42,7 @@ export class CheckInEffects {
     switchMap(([visit, teamId]) => this.visitService.add({
       ...visit,
       teamId,
-      siteId: null, // TODO: Implement site association
+      siteId: localStorage.getItem(teamId),
     })
       .pipe(
         map(() => {

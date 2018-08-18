@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Team } from '../../../shared/models';
+import { Site, Team } from '../../../shared/models';
 
 @Component({
   selector: 'app-selected-team-toolbar',
@@ -9,9 +9,12 @@ import { Team } from '../../../shared/models';
       <span class="spacer"></span>
       <div *ngIf="team">
         <mat-form-field class="container--actions">
-          <mat-select>
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-              {{food.viewValue}}
+          <mat-select
+            (selectionChange)="onSelectionChange($event.value)"
+            placeholder={{placeholder}}
+            [value]="selectedSiteName">
+            <mat-option *ngFor="let site of sites" [value]="site.name">
+              {{site.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -27,16 +30,25 @@ import { Team } from '../../../shared/models';
 })
 export class SelectedTeamToolbarComponent {
   @Input() team: Team;
+  @Input() sites: Site[];
   @Output() clickActivate = new EventEmitter<Team>();
   @Output() clickSettings = new EventEmitter<Team>();
 
-  foods: any[] = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
-  ];
-
   get title(): string {
     return this.team ? this.team.name : 'Please select a team.';
+  }
+
+  get placeholder(): string {
+    return localStorage.getItem(this.team.id) !== null ? '' : 'Select site';
+  }
+
+  get selectedSiteName(): string {
+    const siteId = localStorage.getItem(this.team.id);
+    const site = this.sites.find((site: Site) => site.id === siteId);
+    return site && site.name ? site.name : null;
+  }
+
+  onSelectionChange(siteName: string): void {
+    localStorage.setItem(this.team.id, this.sites.find((site: Site) => site.name === siteName).id);
   }
 }
