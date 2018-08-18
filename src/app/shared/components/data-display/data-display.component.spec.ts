@@ -17,7 +17,7 @@ describe('DataDisplayComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         DataDisplayComponent,
-        MockComponent({ selector: 'app-daily-hours-chart', inputs: ['visits'] }),
+        MockComponent({ selector: 'app-daily-hours-chart', inputs: ['visits', 'sites'] }),
         MockComponent({
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],

@@ -17,7 +17,7 @@ describe('ViewSelectedTeamComponent', () => {
       declarations: [
         ViewSelectedTeamComponent,
         MockComponent({ selector: 'app-selected-team-toolbar', inputs: ['team'] }),
-        MockComponent({ selector: 'app-data-display', inputs: ['visits$'] }),
+        MockComponent({ selector: 'app-data-display', inputs: ['visits$', 'sites$'] }),
       ],
       providers: mockProviders,
     })
