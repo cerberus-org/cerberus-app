@@ -33,17 +33,24 @@ export class DailyHoursChartComponent implements OnChanges {
     },
   };
 
+  /**
+   * Create map of sites, set labels and data set when data bound properties change.
+   *
+   * Note: If data is initialized to [{ data: [], label: '' }], once visits and sites are received only the first site is
+   * displayed. Therefore, do not show chart if data is null.
+   *
+   * @param {SimpleChanges} changes
+   */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['visits'] || changes['sites']) {
-      this.data = [];
-      const mapOfSites = this.sites ? new Map(
+    this.data = [];
+    const mapOfSites = this.sites ? new Map(
         this.sites.map<[string, string]>((site: Site) => [site.id, site.name]),
       ) : new Map();
-      this.labels = this.setupLineChartLabels();
-      this.getDataSetsBySite(this.visits).forEach((dataSet: Visit[]) => {
-        this.data.push(this.setupLineChartDataForDataSet(dataSet, this.labels, mapOfSites));
-      });
-    }
+    this.labels = this.setupLineChartLabels();
+    this.getDataSetsBySite(this.visits).forEach((dataSet: Visit[]) => {
+      this.data.push(this.setupLineChartDataForDataSet(dataSet, this.labels, mapOfSites));
+    });
+    this.data = !this.data.length ? null : this.data;
   }
 
   /**
@@ -56,7 +63,7 @@ export class DailyHoursChartComponent implements OnChanges {
    */
   getDataSetsBySite(visits: Visit[]): Visit[][] {
     const mapOfVisits = new Map<string, Visit[]>();
-    if (visits) {
+    if (visits && visits.length) {
       visits.forEach((visit: Visit) => {
         visit.siteId = visit.siteId !== null ? visit.siteId : 'noSite';
         if (mapOfVisits.get(visit.siteId)) {
@@ -72,8 +79,8 @@ export class DailyHoursChartComponent implements OnChanges {
     return [];
   }
 
-  displayChart(visits: Visit[], sites: Site[]): boolean {
-    return !!((visits && sites) && (visits.length && sites.length));
+  displayChart(visits: Visit[], sites: Site[], data: LineChartData[]): boolean {
+    return visits && sites && data ? true : false;
   }
 
   /**
@@ -115,7 +122,7 @@ export class DailyHoursChartComponent implements OnChanges {
     mapOfSites: Map<string, string>,
     format: string = 'ddd MMM D',
   ): LineChartData {
-    return visits
+    return visits && visits.length
       ? {
         data: visits.reduce(
           (data, visit) => {
