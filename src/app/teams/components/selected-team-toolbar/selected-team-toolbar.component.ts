@@ -11,8 +11,8 @@ import { Site, Team } from '../../../shared/models';
         <mat-form-field class="container--actions">
           <mat-select
             (selectionChange)="onSelectionChange($event.value)"
-            placeholder="Select a Site"
-            [value]="getSiteName(site)">
+            placeholder={{placeholder}}
+            [value]="siteNameForSelectedTeam">
             <mat-option *ngFor="let site of sites" [value]="site.name">
               {{site.name}}
             </mat-option>
@@ -33,17 +33,25 @@ export class SelectedTeamToolbarComponent {
   @Input() sites: Site[];
   @Output() clickActivate = new EventEmitter<[Team & Site]>();
   @Output() clickSettings = new EventEmitter<Team>();
-  site: Site;
+  teamToSelectedSite = new Map<string, Site>();
 
   get title(): string {
     return this.team ? this.team.name : 'Please select a team.';
   }
 
-  getSiteName (site: Site): string {
-    return site && site.name ? site.name : '';
+  get placeholder(): string {
+    return this.site ? '' : 'Select a Site';
+  }
+
+  get siteNameForSelectedTeam (): string {
+    return this.site && this.site.name ? this.site.name : '';
+  }
+
+  get site(): Site {
+    return this.teamToSelectedSite.get(this.team.id) ? this.teamToSelectedSite.get(this.team.id) : null;
   }
 
   onSelectionChange(siteName: string): void {
-    this.site = this.sites.find((site: Site) => site.name === siteName);
+    this.teamToSelectedSite.set(this.team.id, this.sites.find((site: Site) => site.name === siteName));
   }
 }
