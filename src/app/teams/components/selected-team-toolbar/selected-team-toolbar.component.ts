@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Site, Team } from '../../../shared/models';
 
 @Component({
@@ -11,14 +11,14 @@ import { Site, Team } from '../../../shared/models';
         <mat-form-field class="container--actions">
           <mat-select
             (selectionChange)="onSelectionChange($event.value)"
-            placeholder={{placeholder}}
-            [value]="selectedSiteName">
+            placeholder="Select a Site"
+            [value]="getSiteName(site)">
             <mat-option *ngFor="let site of sites" [value]="site.name">
               {{site.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-button class="container--actions" color="primary" (click)="clickActivate.emit(team)">Go to Check-in</button>
+        <button mat-button class="container--actions" color="primary" (click)="clickActivate.emit({ team: team, site: site })">Go to Check-in</button>
         <button mat-icon-button class="container--actions" color="accent" (click)="clickSettings.emit(team)">
           <i class="material-icons">settings</i>
         </button>
@@ -31,24 +31,19 @@ import { Site, Team } from '../../../shared/models';
 export class SelectedTeamToolbarComponent {
   @Input() team: Team;
   @Input() sites: Site[];
-  @Output() clickActivate = new EventEmitter<Team>();
+  @Output() clickActivate = new EventEmitter<[Team & Site]>();
   @Output() clickSettings = new EventEmitter<Team>();
+  site: Site;
 
   get title(): string {
     return this.team ? this.team.name : 'Please select a team.';
   }
 
-  get placeholder(): string {
-    return localStorage.getItem(this.team.id) !== null ? '' : 'Select site';
-  }
-
-  get selectedSiteName(): string {
-    const siteId = localStorage.getItem(this.team.id);
-    const site = this.sites.find((site: Site) => site.id === siteId);
-    return site && site.name ? site.name : null;
+  getSiteName (site: Site): string {
+    return site && site.name ? site.name : '';
   }
 
   onSelectionChange(siteName: string): void {
-    localStorage.setItem(this.team.id, this.sites.find((site: Site) => site.name === siteName).id);
+    this.site = this.sites.find((site: Site) => site.name === siteName);
   }
 }

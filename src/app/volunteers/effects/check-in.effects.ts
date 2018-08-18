@@ -42,7 +42,7 @@ export class CheckInEffects {
     switchMap(([visit, teamId]) => this.visitService.add({
       ...visit,
       teamId,
-      siteId: localStorage.getItem(teamId),
+      siteId: window.location.href.split('/')[5] ? window.location.href.split('/')[5] : null,
     })
       .pipe(
         map(() => {

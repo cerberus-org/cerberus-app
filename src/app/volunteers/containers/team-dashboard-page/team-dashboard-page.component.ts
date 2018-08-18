@@ -32,7 +32,7 @@ export class TeamDashboardPageComponent implements OnDestroy {
   constructor(private route: ActivatedRoute, private store$: Store<AppState>) {
     store$.dispatch(new LoadTeams());
     this.routeParamsSubscription = route.params
-      .pipe(switchMap(({ teamId }) => [
+      .pipe(switchMap(({ teamId, siteId }) => [
         new SetSidenavOptions({
           sidenavOptions: [
             {
@@ -40,14 +40,14 @@ export class TeamDashboardPageComponent implements OnDestroy {
               icon: 'done',
               action: new Go({
                 // Workaround using teamId in path; using relativeTo extra causes error
-                path: ['teams', teamId, 'volunteers', 'check-in'],
+                path: ['teams', teamId, siteId, 'volunteers', 'check-in'],
               }),
             },
             {
               label: 'Check out',
               icon: 'done_all',
               action: new Go({
-                path: ['teams', teamId, 'volunteers', 'check-out'],
+                path: ['teams', teamId, siteId, 'volunteers', 'check-out'],
               }),
             },
           ],

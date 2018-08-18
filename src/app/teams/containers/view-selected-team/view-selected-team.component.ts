@@ -53,8 +53,8 @@ export class ViewSelectedTeamComponent implements OnDestroy {
     this.selectedTeamSubscription.unsubscribe();
   }
 
-  onClickActivate(team: Team): void {
-    this.store$.dispatch(new Go({ path: ['teams', team.id, 'volunteers'] }));
+  onClickActivate(teamAndSite: any): void {
+    this.store$.dispatch(new Go({ path: ['teams', teamAndSite.team.id, teamAndSite.site.id, 'volunteers'] }));
   }
 
   onClickSettings(team: Team): void {

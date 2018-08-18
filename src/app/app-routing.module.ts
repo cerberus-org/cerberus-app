@@ -11,7 +11,7 @@ export const routes: Routes = [
     loadChildren: './teams/teams.module#TeamsModule',
   },
   {
-    path: 'teams/:teamId/volunteers',
+    path: 'teams/:teamId/:siteId/volunteers',
     loadChildren: './volunteers/volunteers.module#VolunteersModule',
   },
   {
