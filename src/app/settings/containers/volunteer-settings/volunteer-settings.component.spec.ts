@@ -17,7 +17,7 @@ describe('VolunteerSettingsComponent', () => {
         VolunteerSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
+          inputs: ['columnOptions', 'data$', 'showRemove', 'getRowColor'],
         }),
       ],
       imports: [

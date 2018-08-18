@@ -1,6 +1,7 @@
 <app-data-table
   [data$]="volunteers$"
   [columnOptions]="columnOptions"
-  [showDelete]="true"
-  (deleteItem)="onDeleteVolunteer($event)">
+  [showRemove]="true"
+  (removeRow)="onDeleteVolunteer($event)"
+>
 </app-data-table>

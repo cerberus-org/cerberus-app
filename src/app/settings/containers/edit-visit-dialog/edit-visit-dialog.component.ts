@@ -12,39 +12,38 @@ import { VisitWithData } from '../../models/visit-with-data';
 @Component({
   selector: 'app-visit-dialog',
   template: `
-    <mat-dialog-content class="container">
-      <h2 md-dialog-title>Edit Visit</h2>
-      <!--endedAt-->
-      <mat-form-field class="example-full-width" autocomplete="off">
-        <mat-label>Checkout time</mat-label>
-        <input
-          matInput
-          type="time"
-          [value]="endedAt"
-          [ngStyle]="{'color': color, 'font-weight': bold}"
-          (click)="onTimeChange($event)"
-        >
-      </mat-form-field>
-      <!--site-->
-      <mat-form-field class="example-full-width" autocomplete="off">
-        <mat-select
-          placeholder="Site"
-          [value]="visitWithData.site || selectedSite"
-          (selectionChange)="onSelectionChange($event.value)">
-          <mat-option *ngFor="let site of (sites$ | async)" [value]="site">
-            {{site.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <h2 mat-dialog-title>Edit Visit</h2>
+    <mat-dialog-content>
+      <div class="input-container">
+        <mat-form-field class="example-full-width" autocomplete="off">
+          <mat-label>Checkout time</mat-label>
+          <input
+            matInput
+            type="time"
+            [value]="endedAt"
+            [ngStyle]="{'color': color, 'font-weight': bold}"
+            (click)="onTimeChange($event)"
+          >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" autocomplete="off">
+          <mat-select
+            placeholder="Site"
+            [value]="visitWithData.site || selectedSite"
+            (selectionChange)="onSelectionChange($event.value)"
+          >
+            <mat-option *ngFor="let site of (sites$ | async)" [value]="site">
+              {{site.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </mat-dialog-content>
-    <div mat-dialog-actions>
-      <button mat-button (click)="dialogRef.close()">
-        Cancel
-      </button>
-      <button mat-button (click)="submit()" color="primary" [disabled]="color === '#f44336'">
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button mat-dialog-close color="primary" [disabled]="color === '#f44336'" (click)="submit()">
         Submit
       </button>
-    </div>
+    </mat-dialog-actions>
   `,
   styleUrls: ['./edit-visit-dialog.component.scss'],
 })
@@ -106,10 +105,6 @@ export class EditVisitDialogComponent {
     return new Date(visit.startedAt) < new Date(visit.endedAt);
   }
 
-  close(): void {
-    this.dialogRef.close();
-  }
-
   /**
    * Close dialog and pass back data.
    */
@@ -123,6 +118,5 @@ export class EditVisitDialogComponent {
         ...(!!this.selectedSite && { siteId: this.selectedSite.id }),
       },
     }));
-    this.close();
   }
 }

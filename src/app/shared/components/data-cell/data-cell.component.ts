@@ -1,36 +1,21 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ColumnOptions } from '../../models';
 
 @Component({
   selector: 'app-data-cell',
-  templateUrl: './data-cell.component.html',
+  template: `
+    <div>{{cellValue}}</div>
+  `,
   styleUrls: ['./data-cell.component.scss'],
 })
-export class DataCellComponent implements OnChanges {
+export class DataCellComponent {
   @Input() column: ColumnOptions;
   @Input() row: any;
   @Output() selectOption = new EventEmitter<string>();
   selected: string;
   selectOptions: string[];
 
-  constructor() {}
-
-  ngOnChanges(changes: SimpleChanges) {
-    const columnChanges = changes['column'];
-    if (columnChanges && columnChanges.currentValue.selectOptions) {
-      this.selectOptions = columnChanges.currentValue.selectOptions(this.row);
-      this.selected = columnChanges.currentValue.cell(this.row);
-    }
-  }
-
-  onSelectionChange(value: string): void {
-    this.selectOption.emit(value);
-  }
-
-  get inputType(): string {
-    if (this.selectOptions && this.selectOptions.length) {
-      return 'SELECT';
-    }
-    return 'TEXT_ONLY';
+  get cellValue() {
+    return this.column.cell(this.row);
   }
 }

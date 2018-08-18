@@ -19,11 +19,11 @@ import { Credentials } from '../../../shared/models/credentials';
       </div>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-button mat-dialog-close color="primary">
-        Cancel
-      </button>
       <button mat-button mat-dialog-close color="primary" [disabled]="!validCredentials" (click)="submit()">
         Confirm
+      </button>
+      <button mat-button mat-dialog-close color="primary">
+        Cancel
       </button>
     </mat-dialog-actions>
   `,

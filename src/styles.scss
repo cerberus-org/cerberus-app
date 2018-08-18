@@ -192,6 +192,7 @@ input.capitalize {
 /deep/ {
   mat-dialog-content.mat-dialog-content {
     max-height: 80vh;
+    min-width: 300px;
     max-width: 400px;
   }
 

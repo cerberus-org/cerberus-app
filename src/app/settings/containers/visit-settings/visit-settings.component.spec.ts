@@ -23,7 +23,7 @@ describe('VisitSettingsComponent', () => {
         VisitSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showDelete', 'showEdit'],
+          inputs: ['columnOptions', 'data$', 'showRemove', 'showEdit'],
         }),
       ],
       imports: [

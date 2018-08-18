@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
-import { ColumnOptions, Member } from '../../../shared/models';
-import { UpdateRole } from '../../actions/settings.actions';
-import { getMembersWithRoleOptions, RoleTableRow } from '../../selectors/roles.selectors';
+import { ColumnOptions } from '../../../shared/models';
+import { getMembersWithRoleOptions, RolesTableRow } from '../../selectors/roles.selectors';
+import { EditRoleDialogComponent } from '../edit-role-dialog/edit-role-dialog.component';
 
 @Component({
   selector: 'app-roles',
@@ -12,35 +13,35 @@ import { getMembersWithRoleOptions, RoleTableRow } from '../../selectors/roles.s
     <app-data-table
       [data$]="members$"
       [columnOptions]="columnOptions"
-      (updateItem)="onUpdateRole($event)"
-    >
-    </app-data-table>
+      [showEdit]="true"
+      [showRemove]="true"
+      (editRow)="onEditRow($event)"
+    ></app-data-table>
   `,
   styleUrls: ['./roles.component.scss'],
 })
-export class RolesComponent implements OnInit {
+export class RolesComponent {
+  members$: Observable<RolesTableRow[]>;
   columnOptions: ColumnOptions[] = [
     {
       columnDef: 'name',
       header: 'Name',
-      cell: (row: RoleTableRow) => row.user.name,
+      cell: (row: RolesTableRow) => row.user.name,
     },
     {
       columnDef: 'role',
       header: 'Role Name',
-      cell: (row: RoleTableRow) => row.member.role,
-      selectOptions: (row: RoleTableRow) => row.roleOptions,
+      cell: (row: RolesTableRow) => row.member.role,
     },
   ];
-  members$: Observable<RoleTableRow[]>;
 
-  constructor(public store$: Store<AppState>) {}
-
-  ngOnInit(): void {
-    this.members$ = this.store$.pipe(select(getMembersWithRoleOptions));
+  constructor(private dialog: MatDialog, public store$: Store<AppState>) {
+    this.members$ = store$.pipe(select(getMembersWithRoleOptions));
   }
 
-  onUpdateRole(member: Member) {
-    this.store$.dispatch(new UpdateRole({ member }));
+  onEditRow(row: RolesTableRow) {
+    const config = new MatDialogConfig<RolesTableRow>();
+    config.data = row;
+    this.dialog.open(EditRoleDialogComponent, config);
   }
 }

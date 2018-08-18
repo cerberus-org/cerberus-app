@@ -10,7 +10,28 @@ import { SiteDialogComponent } from '../site-dialog/site-dialog.component';
 
 @Component({
   selector: 'app-site-settings',
-  templateUrl: './site-settings.component.html',
+  template: `
+    <mat-toolbar class="data-table-header">
+      <button
+        mat-button
+        class="data-table-header__button"
+        color="accent"
+        [disabled]="false"
+        (click)="openCreateSiteDialog()"
+      >
+        Create Site
+      </button>
+    </mat-toolbar>
+    <app-data-table
+      [data$]="sites$"
+      [columnOptions]="columnOptions"
+      [showRemove]="true"
+      [showEdit]="true"
+      (editRow)="onEditRow($event)"
+      (removeRow)="onRemoveRow($event)"
+    >
+    </app-data-table>
+  `,
   styleUrls: ['./site-settings.component.scss'],
 })
 export class SiteSettingsComponent {
@@ -37,11 +58,11 @@ export class SiteSettingsComponent {
     this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
   }
 
-  onDeleteSite(site: Site): void {
+  onRemoveRow(site: Site): void {
     this.store$.dispatch(new DeleteSite({ site }));
   }
 
-  onEditSite(site: Site): void {
+  onEditRow(site: Site): void {
     this.openEditSiteDialog(site);
   }
 

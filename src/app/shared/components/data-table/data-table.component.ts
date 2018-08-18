@@ -74,11 +74,11 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() invalidItemsEdited: any[];
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
-  @Input() showDelete: boolean;
+  @Input() showRemove: boolean;
   @Input() showEdit: boolean;
-  @Output() updateItem = new EventEmitter<any>();
-  @Output() deleteItem = new EventEmitter<any>();
-  @Output() editItem = new EventEmitter<any>();
+  @Output() updateRow = new EventEmitter<any>();
+  @Output() removeRow = new EventEmitter<any>();
+  @Output() editRow = new EventEmitter<any>();
   displayedColumns: string[];
   initialPageSize: number;
   dataSource: DataTableSource;
@@ -104,7 +104,7 @@ export class DataTableComponent implements OnInit, OnChanges {
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
-    if (this.showEdit || this.showDelete) {
+    if (this.showEdit || this.showRemove) {
       this.displayedColumns.push('actions');
     }
   }
@@ -127,8 +127,8 @@ export class DataTableComponent implements OnInit, OnChanges {
    * Handles remove button click events by emitting a remove item event.
    * @param item - the item to be deleted
    */
-  onClickDelete(item: any): void {
-    this.deleteItem.emit(item);
+  onClickRemove(item: any): void {
+    this.removeRow.emit(item);
   }
 
   /**
@@ -136,7 +136,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param item
    */
   onClickEdit(item: any): void {
-    this.editItem.emit(item);
+    this.editRow.emit(item);
   }
 
   /**
@@ -148,6 +148,10 @@ export class DataTableComponent implements OnInit, OnChanges {
   onSelectOption(value, item, key): void {
     const itemCopy = Object.assign({}, item);
     itemCopy[key] = value;
-    this.updateItem.emit(itemCopy);
+    this.updateRow.emit(itemCopy);
+  }
+
+  get showActions(): boolean {
+    return this.showEdit || this.showRemove;
   }
 }

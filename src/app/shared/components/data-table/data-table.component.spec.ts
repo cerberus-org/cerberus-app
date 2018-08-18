@@ -54,21 +54,21 @@ describe('DataTableComponent', () => {
     expect(pageData.length).toEqual(2);
   });
 
-  it('should handle clickDelete events by emitting a deleteItem event', () => {
-    spyOn(component.deleteItem, 'emit');
+  it('should handle clickDelete events by emitting a removeRow event', () => {
+    spyOn(component.removeRow, 'emit');
     const item = visits[0];
-    component.onClickDelete(item);
-    expect(component.deleteItem.emit).toHaveBeenCalledWith(item);
+    component.onClickRemove(item);
+    expect(component.removeRow.emit).toHaveBeenCalledWith(item);
   });
 
-  it('should handle selectOption events by emitting an updateItem event', () => {
-    spyOn(component.updateItem, 'emit');
+  it('should handle selectOption events by emitting an updateRow event', () => {
+    spyOn(component.updateRow, 'emit');
     const value = 'Admin';
     const item = visits[0];
     const key = 'role';
     const expected = { ...item, role: value };
     component.onSelectOption(value, item, key);
-    expect(component.updateItem.emit).toHaveBeenCalledWith(expected);
+    expect(component.updateRow.emit).toHaveBeenCalledWith(expected);
   });
 
   it('should sets background-color to an empty string on default', () => {

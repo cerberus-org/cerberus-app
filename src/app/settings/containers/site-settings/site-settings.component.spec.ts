@@ -16,7 +16,7 @@ describe('SiteSettingsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SiteSettingsComponent,
-        MockComponent({ selector: 'app-data-table', inputs: ['data$', 'columnOptions', 'showDelete', 'showEdit', 'deleteItem', 'updateItem'] }),
+        MockComponent({ selector: 'app-data-table', inputs: ['data$', 'columnOptions', 'showRemove', 'showEdit', 'deleteRow', 'updateRow'] }),
       ],
       imports: [
         ...mockStoreModules,
@@ -39,11 +39,11 @@ describe('SiteSettingsComponent', () => {
   });
 
   it(
-    'should handle onDeleteSite events by dispatching DeleteSite',
+    'should handle onRemoveRow events by dispatching DeleteSite',
     () => {
       const site = sites[0];
       spyOn(component.store$, 'dispatch');
-      component.onDeleteSite(site);
+      component.onRemoveRow(site);
       expect(component.store$.dispatch).toHaveBeenCalledWith(
         new DeleteSite({ site }),
       );

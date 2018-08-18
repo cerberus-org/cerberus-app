@@ -1,36 +1,35 @@
 <div class="container">
   <mat-table #table [dataSource]="dataSource">
+    <!--Column headers-->
     <ng-container *ngFor="let column of columnOptions" [cdkColumnDef]="column.columnDef">
       <mat-header-cell *cdkHeaderCellDef>{{column.header}}</mat-header-cell>
       <mat-cell *cdkCellDef="let row">
-        <app-data-cell
-          [column]="column"
-          [row]="row"
-          (selectOption)="onSelectOption($event, row, column.columnDef)">
-        </app-data-cell>
+        <app-data-cell [column]="column" [row]="row"></app-data-cell>
       </mat-cell>
     </ng-container>
-    <!--action options-->
-    <ng-container *ngIf="showDelete || showEdit" cdkColumnDef="actions" class="cdk-column-actions">
+    <!--Actions-->
+    <ng-container *ngIf="showActions" cdkColumnDef="actions" class="cdk-column-actions">
       <mat-header-cell *cdkHeaderCellDef>Actions</mat-header-cell>
       <mat-cell *cdkCellDef="let row">
-        <button *ngIf="showDelete" mat-icon-button color="warn" (click)="onClickDelete(row)">
-          <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>
-        </button>
-        <button *ngIf="showEdit" mat-icon-button (click)="onClickEdit(row)">
+        <button *ngIf="showEdit" mat-icon-button color="accent" (click)="onClickEdit(row)">
           <mat-icon aria-label="Edit this entry">mode_edit</mat-icon>
+        </button>
+        <button *ngIf="showRemove" mat-icon-button color="accent" (click)="onClickRemove(row)">
+          <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
-    <!--Columns and rows-->
+    <!--Data rows-->
     <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *cdkRowDef="let row; columns: displayedColumns;" [ngStyle]="{'background-color' : getRowColor(row)}"></mat-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;" [ngStyle]="{'background-color' : getRowColor(row)}">
+    </mat-row>
   </mat-table>
   <mat-paginator
     #paginator
     [length]="dataLength"
     [pageIndex]="0"
     [pageSize]="initialPageSize"
-    [pageSizeOptions]="[initialPageSize, 25, 50, 100]">
+    [pageSizeOptions]="[initialPageSize, 25, 50, 100]"
+  >
   </mat-paginator>
 </div>

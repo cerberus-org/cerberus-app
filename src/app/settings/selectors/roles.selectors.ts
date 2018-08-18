@@ -9,7 +9,7 @@ import { getUserEntities } from '../../core/selectors/users.selectors';
 import { getRoleOptions } from '../../shared/helpers';
 import { Member, User } from '../../shared/models';
 
-export interface RoleTableRow {
+export interface RolesTableRow {
   member: Member;
   user: User;
   roleOptions: string[];
@@ -25,7 +25,7 @@ export const getMembersWithRoleOptions = createSelector(
     modelMembers: Member[],
     userEntities: Dictionary<User>,
     ownerCount: number,
-  ): RoleTableRow[] =>
+  ): RolesTableRow[] =>
     modelMembers && modelMembers.map(member => ({
       member,
       user: userEntities[member.userUid],

@@ -8,7 +8,29 @@ import { Member, Site } from '../../../shared/models';
 
 @Component({
   selector: 'app-site-dialog',
-  templateUrl: './site-dialog.component.html',
+  template: `
+    <h2 mat-dialog-title>Edit Site</h2>
+    <mat-dialog-content>
+      <div class="input-container">
+        <mat-form-field class="example-full-width" autocomplete="off">
+          <mat-label>Name</mat-label>
+          <input matInput autocomplete="off" placeholder="Site name" [(ngModel)]="name">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" autocomplete="off">
+          <mat-label>Description</mat-label>
+          <input matInput autocomplete="off" placeholder="Site description" [(ngModel)]="description">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" autocomplete="off">
+          <mat-label>Address</mat-label>
+          <input matInput autocomplete="off" placeholder="Address" [(ngModel)]="address">
+        </mat-form-field>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button color="primary" (click)="submit()">Submit</button>
+      <button mat-button mat-dialog-close color="primary">Cancel</button>
+    </mat-dialog-actions>
+  `,
   styleUrls: ['./site-dialog.component.scss'],
 })
 export class SiteDialogComponent implements OnInit {
@@ -19,7 +41,11 @@ export class SiteDialogComponent implements OnInit {
   public member: Member;
   public memberSubscription: Subscription;
 
-  constructor(public dialogRef: MatDialogRef<SiteDialogComponent>, public store$: Store<AppState>, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(
+    public dialogRef: MatDialogRef<SiteDialogComponent>,
+    public store$: Store<AppState>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
     // If a site was passed in, set default fields
     this.name = this.data ? this.data.name : '';
     this.description = this.data ? this.data.description : '';
@@ -27,8 +53,7 @@ export class SiteDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.memberSubscription = this.store$.pipe(select(getMemberForUserAndSelectedTeam)).
-    subscribe((member: Member) => {
+    this.memberSubscription = this.store$.pipe(select(getMemberForUserAndSelectedTeam)).subscribe((member: Member) => {
       this.member = member;
     });
   }
@@ -42,11 +67,11 @@ export class SiteDialogComponent implements OnInit {
   /**
    * Close dialog and pass back data.
    */
-  close() {
+  submit() {
     // If there was  data passed in this dialog was opened for edit
     if (this.data) {
       this.dialogRef.close(Object.assign({}, new Site(this.member.teamId, this.name, this.address, this.description), { id: this.data.id }));
-    // Otherwise dialog was opened for creation
+      // Otherwise dialog was opened for creation
     } else {
       this.dialogRef.close(new Site(this.member.teamId, this.name, this.address, this.description));
     }
