@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import * as moment from 'moment';
+import { BaseChartDirective } from 'ng2-charts';
 import { Site, Visit } from '../../models';
 
 @Component({
@@ -33,16 +34,17 @@ export class DailyHoursChartComponent implements OnChanges {
     },
   };
 
+  constructor() {
+    this.data = [];
+  }
+
   /**
    * Create map of sites, set labels and data set when data bound properties change.
-   *
-   * Note: If data is initialized to [{ data: [], label: '' }], once visits and sites are received only the first site is
-   * displayed. Therefore, do not show chart if data is null.
    *
    * @param {SimpleChanges} changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    this.data = [];
+    this.data.length = 0;
     const mapOfSites = this.sites ? new Map(
         this.sites.map<[string, string]>((site: Site) => [site.id, site.name]),
       ) : new Map();
@@ -50,7 +52,7 @@ export class DailyHoursChartComponent implements OnChanges {
     this.getDataSetsBySite(this.visits).forEach((dataSet: Visit[]) => {
       this.data.push(this.setupLineChartDataForDataSet(dataSet, this.labels, mapOfSites));
     });
-    this.data = !this.data.length ? null : this.data;
+    this.data = !this.data.length ? [{ data: [], label: '' }] : this.data;
   }
 
   /**
@@ -65,7 +67,7 @@ export class DailyHoursChartComponent implements OnChanges {
     const mapOfVisits = new Map<string, Visit[]>();
     if (visits && visits.length) {
       visits.forEach((visit: Visit) => {
-        visit.siteId = visit.siteId !== null ? visit.siteId : 'noSite';
+        visit.siteId = visit.siteId ? visit.siteId : 'noSite';
         if (mapOfVisits.get(visit.siteId)) {
           const visits = mapOfVisits.get(visit.siteId);
           visits.push(visit);
@@ -77,10 +79,6 @@ export class DailyHoursChartComponent implements OnChanges {
       return Array.from(mapOfVisits.values());
     }
     return [];
-  }
-
-  displayChart(visits: Visit[], sites: Site[], data: LineChartData[]): boolean {
-    return visits && sites && data ? true : false;
   }
 
   /**
