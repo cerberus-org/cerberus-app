@@ -20,7 +20,7 @@ export const getSelectedMemberId = createSelector(
 export const getSelectedMember = createSelector(
   getMemberEntities,
   getSelectedMemberId,
-  (members, id) => members[id],
+  (memberEntities, id) => memberEntities[id],
 );
 
 export const getMembersForSelectedTeam = createSelector(
@@ -29,7 +29,7 @@ export const getMembersForSelectedTeam = createSelector(
   (members, teamId) => members.filter(member => member.teamId === teamId),
 );
 
-export const getProfileIdsForSelectedTeam = createSelector(
+export const getUserIdsForSelectedTeam = createSelector(
   getMembersForSelectedTeam,
   members => members.map(member => member.userUid),
 );

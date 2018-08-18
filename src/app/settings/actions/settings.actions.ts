@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { UserFormChanges } from '../../shared/components/user-form/user-form.component';
 import { Member, Site, Team, Visit, Volunteer } from '../../shared/models';
 
 export enum SettingsActionTypes {
@@ -9,7 +8,6 @@ export enum SettingsActionTypes {
   DeleteSite = '[settings] delete site',
   UpdateRole = '[settings] update role',
   UpdateTeam = '[settings] update team',
-  UpdateUser = '[settings] update user',
   UpdateVisit = '[settings] update visit',
   DeleteVolunteer = '[settings] delete volunteer',
   GenerateReport = '[settings] generate report',
@@ -51,12 +49,6 @@ export class UpdateTeam implements Action {
   constructor(public payload: { team: Team }) {}
 }
 
-export class UpdateUser implements Action {
-  readonly type = SettingsActionTypes.UpdateUser;
-
-  constructor(public payload: { edits: UserFormChanges }) {}
-}
-
 export class DeleteVolunteer implements Action {
   readonly type = SettingsActionTypes.DeleteVolunteer;
 
@@ -82,7 +74,6 @@ export type SettingsActionsUnion =
   | DeleteSite
   | UpdateSite
   | UpdateTeam
-  | UpdateUser
   | UpdateVisit
   | DeleteVolunteer
   | GenerateReport;

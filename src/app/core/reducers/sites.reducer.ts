@@ -18,7 +18,7 @@ export const initialState: SitesReducerState = sitesAdapter.getInitialState({
 export function sitesReducer(state = initialState, action: SitesActionsUnion): SitesReducerState {
   switch (action.type) {
     case SitesActionTypes.SiteAdded: {
-      return sitesAdapter.addOne(action.payload, state);
+      return sitesAdapter.upsertOne(action.payload, state);
     }
 
     case SitesActionTypes.SiteModified: {

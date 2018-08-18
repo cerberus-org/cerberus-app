@@ -14,7 +14,7 @@ export const initialState: VolunteersReducerState = volunteersAdapter.getInitial
 export function volunteersReducer(state = initialState, action: VolunteersActionsUnion): VolunteersReducerState {
   switch (action.type) {
     case VolunteersActionTypes.VolunteerAdded: {
-      return volunteersAdapter.addOne(action.payload, state);
+      return volunteersAdapter.upsertOne(action.payload, state);
     }
 
     case VolunteersActionTypes.VolunteerModified: {

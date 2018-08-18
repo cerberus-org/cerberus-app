@@ -5,14 +5,14 @@ import { Observable, Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { LoadMembersForTeam } from '../../../core/actions/members.actions';
-import { LoadProfilesByIds } from '../../../core/actions/profiles.actions';
+import { LoadUsersByIds } from '../../../core/actions/users.actions';
 import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
 import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
 import {
   getMemberForUserAndSelectedTeam,
-  getProfileIdsForSelectedTeam,
+  getUserIdsForSelectedTeam,
 } from '../../../core/selectors/members.selectors';
 import { isAdmin } from '../../../shared/helpers';
 import { SelectSettingsOption } from '../../actions/settings.actions';
@@ -23,10 +23,6 @@ import { getSelectedSettingsOption } from '../../selectors/settings.selectors';
   selector: 'app-settings-page',
   template: `
     <div [ngSwitch]="(selectedOption$ | async)">
-      <app-user-settings
-        *ngSwitchCase="'USER'"
-      >
-      </app-user-settings>
       <app-team-settings
         *ngSwitchCase="'TEAM'"
       >
@@ -82,8 +78,8 @@ export class SettingsPageComponent implements OnDestroy {
     )
       .subscribe(store$);
     this.membersSubscription = store$.pipe(
-      select(getProfileIdsForSelectedTeam),
-      map(ids => new LoadProfilesByIds({ ids })),
+      select(getUserIdsForSelectedTeam),
+      map(ids => new LoadUsersByIds({ ids })),
     )
       .subscribe(store$);
     this.sidenavSubscription = store$.pipe(
@@ -105,19 +101,14 @@ export class SettingsPageComponent implements OnDestroy {
 
 const memberSidenavOptions = [
   {
-    label: 'User',
-    icon: 'face',
-    action: new SelectSettingsOption({ selectedOption: 'USER' }),
+    label: 'Team',
+    icon: 'domain',
+    action: new SelectSettingsOption({ selectedOption: 'TEAM' }),
   },
 ];
 
 const adminSidenavOptions = [
   ...memberSidenavOptions,
-  {
-    label: 'Team',
-    icon: 'domain',
-    action: new SelectSettingsOption({ selectedOption: 'TEAM' }),
-  },
   {
     label: 'Sites',
     icon: 'dashboard',

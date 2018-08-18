@@ -3,8 +3,9 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { getVolunteersForSelectedTeam } from '../../../core/selectors/volunteers.selectors';
-import { Report, Volunteer } from '../../../shared/models';
+import { Volunteer } from '../../../shared/models';
 import { GenerateReport } from '../../actions/settings.actions';
+import { Report } from '../../models/report';
 
 @Component({
   selector: 'app-reports',

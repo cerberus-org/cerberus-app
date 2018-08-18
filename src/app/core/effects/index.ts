@@ -1,5 +1,5 @@
 import { MembersEffects } from './members.effects';
-import { ProfilesEffects } from './profiles.effects';
+import { UsersEffects } from './users.effects';
 import { RouterEffects } from './router.effects';
 import { SitesEffects } from './sites.effects';
 import { TeamsEffects } from './teams.effects';
@@ -10,7 +10,7 @@ export const appEffects: any[] = [
   RouterEffects,
   TeamsEffects,
   MembersEffects,
-  ProfilesEffects,
+  UsersEffects,
   SitesEffects,
   VisitsEffects,
   VolunteersEffects,

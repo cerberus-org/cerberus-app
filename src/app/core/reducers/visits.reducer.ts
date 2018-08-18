@@ -24,7 +24,7 @@ export const initialState: VisitsReducerState = visitsAdapter.getInitialState();
 export function visitsReducer(state = initialState, action: VisitsActionsUnion): VisitsReducerState {
   switch (action.type) {
     case VisitsActionTypes.VisitAdded: {
-      return visitsAdapter.addOne(action.payload, state);
+      return visitsAdapter.upsertOne(action.payload, state);
     }
 
     case VisitsActionTypes.VisitModified: {

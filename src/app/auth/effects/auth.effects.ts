@@ -4,7 +4,7 @@ import { Action, select, Store } from '@ngrx/store';
 import { defer, Observable, of } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Go } from '../../core/actions/router.actions';
-import { ProfileService } from '../../core/services/profile.service';
+import { UserService } from '../../core/services/user.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { Credentials } from '../../shared/models/credentials';
 import { AuthActionTypes, ResetPassword, SignIn, SignOut, SignUp, VerifyPassword } from '../actions/auth.actions';
@@ -19,7 +19,7 @@ export class AuthEffects {
     private store$: Store<AuthReducerState>,
     private actions: Actions,
     private authService: AuthService,
-    private profileService: ProfileService,
+    private userService: UserService,
     private snackBarService: SnackBarService,
   ) {}
 
@@ -32,15 +32,15 @@ export class AuthEffects {
 
   /**
    * Listens for the SignUp action, creates the user in Firebase Authentication, uses the created user's UID to create
-   * a profile, then displays a success snackbar and signs the user in.
+   * a user, then displays a success snackbar and signs the user in.
    * @type {Observable<any>}
    */
   @Effect()
   signUp$: Observable<Action> = this.actions.pipe(
     ofType<SignUp>(AuthActionTypes.SignUp),
     map(action => action.payload),
-    switchMap(({ credentials, profile }) => this.authService.createUser(credentials).pipe(
-      switchMap(userInfo => this.profileService.add(profile, userInfo.uid).pipe(
+    switchMap(({ credentials, user }) => this.authService.createUser(credentials).pipe(
+      switchMap(userInfo => this.userService.add(user, userInfo.uid).pipe(
         map(() => {
           this.snackBarService.createUserSuccess();
           return new SignIn({ credentials });

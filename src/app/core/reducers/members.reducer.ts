@@ -15,7 +15,7 @@ export const initialMembersReducerState: MembersReducerState = membersAdapter.ge
 export function membersReducer(state = initialMembersReducerState, action: MembersActionsUnion): MembersReducerState {
   switch (action.type) {
     case MembersActionTypes.MemberAdded: {
-      return membersAdapter.addOne(action.payload, state);
+      return membersAdapter.upsertOne(action.payload, state);
     }
 
     case MembersActionTypes.MemberModified: {

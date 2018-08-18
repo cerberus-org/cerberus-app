@@ -13,7 +13,6 @@ import { SettingsPageComponent } from './containers/settings-page/settings-page.
 import { SiteDialogComponent } from './containers/site-dialog/site-dialog.component';
 import { SiteSettingsComponent } from './containers/site-settings/site-settings.component';
 import { TeamSettingsComponent } from './containers/team-settings/team-settings.component';
-import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
 import { VisitSettingsComponent } from './containers/visit-settings/visit-settings.component';
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
 import { settingsEffects } from './effects';
@@ -39,7 +38,6 @@ import { SettingsRoutingModule } from './settings-routing.module';
     ReportsComponent,
     ReportsFormComponent,
     SettingsPageComponent,
-    UserSettingsComponent,
     VolunteerSettingsComponent,
     VisitSettingsComponent,
     EditVisitDialogComponent,

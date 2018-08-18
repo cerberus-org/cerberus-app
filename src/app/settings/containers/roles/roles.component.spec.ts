@@ -3,14 +3,14 @@ import { MockComponent } from 'ng2-mock-component';
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { getMemberRoles } from '../../../shared/helpers';
-import { MemberWithRoleOptions } from '../../selectors/roles.selectors';
+import { RoleTableRow } from '../../selectors/roles.selectors';
 import { RolesComponent } from './roles.component';
 import arrayContaining = jasmine.arrayContaining;
 
 describe('RolesComponent', () => {
   let component: RolesComponent;
   let fixture: ComponentFixture<RolesComponent>;
-  let memberWithRoleOptions: MemberWithRoleOptions;
+  let memberWithRoleOptions: RoleTableRow;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

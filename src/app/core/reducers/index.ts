@@ -2,7 +2,7 @@ import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { ActionReducerMap } from '@ngrx/store';
 import { layoutReducer, LayoutReducerState } from './layout.reducer';
 import { membersReducer, MembersReducerState } from './members.reducer';
-import { profilesReducer, ProfilesReducerState } from './profiles.reducer';
+import { usersReducer, UsersReducerState } from './users.reducer';
 import { sitesReducer, SitesReducerState } from './sites.reducer';
 import { teamsReducer, TeamsReducerState } from './teams.reducer';
 import { visitsReducer, VisitsReducerState } from './visits.reducer';
@@ -12,7 +12,7 @@ export interface AppState {
   layout: LayoutReducerState;
   router: RouterReducerState;
   members: MembersReducerState;
-  profiles: ProfilesReducerState;
+  users: UsersReducerState;
   sites: SitesReducerState;
   teams: TeamsReducerState;
   visits: VisitsReducerState;
@@ -23,7 +23,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   layout: layoutReducer,
   router: routerReducer,
   members: membersReducer,
-  profiles: profilesReducer,
+  users: usersReducer,
   sites: sitesReducer,
   teams: teamsReducer,
   visits: visitsReducer,
