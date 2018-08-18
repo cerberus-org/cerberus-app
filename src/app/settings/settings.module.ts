@@ -19,6 +19,7 @@ import { settingsEffects } from './effects';
 import { settingsReducers } from './reducers';
 import { CsvService } from './services/csv.service';
 import { SettingsRoutingModule } from './settings-routing.module';
+import { EditRoleDialogComponent } from './containers/edit-role-dialog/edit-role-dialog.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { SettingsRoutingModule } from './settings-routing.module';
     VisitSettingsComponent,
     EditVisitDialogComponent,
     SiteDialogComponent,
+    EditRoleDialogComponent,
   ],
   exports: [
     SettingsPageComponent,

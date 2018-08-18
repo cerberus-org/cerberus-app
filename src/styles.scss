@@ -38,7 +38,7 @@ input.capitalize {
 }
 
 .icon-image {
-  font-size: 10rem;
+  font-size: 8rem;
   text-align: center;
   color: mediumaquamarine;
 }
@@ -133,10 +133,6 @@ input.capitalize {
   }
 }
 
-.dialog {
-  max-width: 490px;
-}
-
 .subtitle {
   margin-top: -4px;
   margin-bottom: 16px;
@@ -194,6 +190,14 @@ input.capitalize {
 }
 
 /deep/ {
+  mat-dialog-content.mat-dialog-content {
+    max-height: 80vh;
+    max-width: 400px;
+  }
+
+  mat-dialog-actions.mat-dialog-actions {
+    flex-direction: row-reverse;
+  }
 
   .mat-tab-group {
     height: 100%;

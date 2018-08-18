@@ -9,19 +9,23 @@ import { Credentials } from '../../../shared/models/credentials';
 @Component({
   selector: 'app-join-team-dialog',
   template: `
-    <div class="dialog">
+    <mat-dialog-content>
       <div class="grid grid--center">
         <i class="material-icons icon-image">person_add</i>
-        <h1 *ngIf="title">{{title}}</h1>
-        <p *ngIf="subtitle" class="subtitle">{{subtitle}}</p>
+        <h2>{{title}}</h2>
+        <p class="subtitle">{{subtitle}}</p>
         <app-user-form (validUser)="onValidUser($event)"></app-user-form>
         <app-credentials-form (validCredentials)="onValidCredentials($event)"></app-credentials-form>
-        <div class="actions-container">
-          <button mat-button color="primary" (click)="close()">Cancel</button>
-          <button mat-button color="primary" (click)="submit()" [disabled]="!validCredentials">Confirm</button>
-        </div>
       </div>
-    </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close color="primary">
+        Cancel
+      </button>
+      <button mat-button mat-dialog-close color="primary" [disabled]="!validCredentials" (click)="submit()">
+        Confirm
+      </button>
+    </mat-dialog-actions>
   `,
   styleUrls: ['./sign-up-dialog.component.scss'],
 })
@@ -46,10 +50,5 @@ export class SignUpDialogComponent {
 
   submit() {
     this.store$.dispatch(new SignUp({ credentials: this.validCredentials, user: this.validUser }));
-    this.close();
-  }
-
-  close() {
-    this.dialogRef.close();
   }
 }
