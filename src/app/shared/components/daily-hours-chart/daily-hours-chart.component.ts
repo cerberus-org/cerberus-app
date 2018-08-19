@@ -44,15 +44,17 @@ export class DailyHoursChartComponent implements OnChanges {
    * @param {SimpleChanges} changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    this.data.length = 0;
-    const mapOfSites = this.sites ? new Map(
+    if (changes['visits'] || changes['sites']) {
+      this.data.length = 0;
+      const mapOfSites = this.sites ? new Map(
         this.sites.map<[string, string]>((site: Site) => [site.id, site.name]),
       ) : new Map();
-    this.labels = this.setupLineChartLabels();
-    this.getDataSetsBySite(this.visits).forEach((dataSet: Visit[]) => {
-      this.data.push(this.setupLineChartDataForDataSet(dataSet, this.labels, mapOfSites));
-    });
-    this.data = !this.data.length ? [{ data: [], label: '' }] : this.data;
+      this.labels = this.setupLineChartLabels();
+      this.getDataSetsBySite(this.visits).forEach((dataSet: Visit[]) => {
+        this.data.push(this.setupLineChartDataForDataSet(dataSet, this.labels, mapOfSites));
+      });
+      this.data = !this.data.length ? [{ data: [], label: '' }] : this.data;
+    }
   }
 
   /**
@@ -67,13 +69,12 @@ export class DailyHoursChartComponent implements OnChanges {
     const mapOfVisits = new Map<string, Visit[]>();
     if (visits && visits.length) {
       visits.forEach((visit: Visit) => {
-        visit.siteId = visit.siteId ? visit.siteId : 'noSite';
-        if (mapOfVisits.get(visit.siteId)) {
-          const visits = mapOfVisits.get(visit.siteId);
-          visits.push(visit);
-          mapOfVisits.set(visit.siteId, visits);
+        if (!visit.siteId) {
+          !mapOfVisits.get('noSite') ?
+            mapOfVisits.set('noSite', [visit]) : mapOfVisits['noSite'] = mapOfVisits.get('noSite').push(visit);
         } else {
-          mapOfVisits.set(visit.siteId, [visit]);
+          !mapOfVisits.get(visit.siteId) ?
+            mapOfVisits.set(visit.siteId, [visit]) : mapOfVisits[visit.siteId] = mapOfVisits.get(visit.siteId).push(visit);
         }
       });
       return Array.from(mapOfVisits.values());
@@ -134,7 +135,7 @@ export class DailyHoursChartComponent implements OnChanges {
           Array(labels.length).fill(0),
         )
           .map(value => value.toFixed(3)),
-        label: visits[0].siteId === 'noSite' ? '(No site listed)' + ' Hours' : mapOfSites.get(visits[0].siteId) + ' Hours',
+        label: !visits[0].siteId ? '(No site listed)' + ' Hours' : mapOfSites.get(visits[0].siteId) + ' Hours',
       }
       : { data: [], label: '' };
   }
