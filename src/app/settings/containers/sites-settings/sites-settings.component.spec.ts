@@ -4,18 +4,18 @@ import { MockComponent } from 'ng2-mock-component';
 import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Site } from '../../../shared/models';
-import { DeleteSite } from '../../actions/settings.actions';
-import { SiteSettingsComponent } from './site-settings.component';
+import { RemoveSite } from '../../actions/settings.actions';
+import { SitesSettingsComponent } from './sites-settings.component';
 
-describe('SiteSettingsComponent', () => {
-  let component: SiteSettingsComponent;
-  let fixture: ComponentFixture<SiteSettingsComponent>;
+describe('SitesSettingsComponent', () => {
+  let component: SitesSettingsComponent;
+  let fixture: ComponentFixture<SitesSettingsComponent>;
   let sites: Site[];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SiteSettingsComponent,
+        SitesSettingsComponent,
         MockComponent({ selector: 'app-data-table', inputs: ['data$', 'columnOptions', 'showRemove', 'showEdit', 'deleteRow', 'updateRow'] }),
       ],
       imports: [
@@ -28,7 +28,7 @@ describe('SiteSettingsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SiteSettingsComponent);
+    fixture = TestBed.createComponent(SitesSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     sites = createMockSites();
@@ -39,13 +39,13 @@ describe('SiteSettingsComponent', () => {
   });
 
   it(
-    'should handle onRemoveRow events by dispatching DeleteSite',
+    'should handle onRemoveRow events by dispatching RemoveSite',
     () => {
       const site = sites[0];
       spyOn(component.store$, 'dispatch');
       component.onRemoveRow(site);
       expect(component.store$.dispatch).toHaveBeenCalledWith(
-        new DeleteSite({ site }),
+        new RemoveSite({ site }),
       );
     },
   );

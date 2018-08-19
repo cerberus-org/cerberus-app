@@ -3,19 +3,19 @@ import { MockComponent } from 'ng2-mock-component';
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { getMemberRoles } from '../../../shared/helpers';
-import { RolesTableRow } from '../../selectors/roles.selectors';
-import { RolesComponent } from './roles.component';
+import { RolesTableRow } from '../../selectors/members-settings.selectors';
+import { MembersSettingsComponent } from './members-settings.component';
 import arrayContaining = jasmine.arrayContaining;
 
-describe('RolesComponent', () => {
-  let component: RolesComponent;
-  let fixture: ComponentFixture<RolesComponent>;
+describe('MembersSettingsComponent', () => {
+  let component: MembersSettingsComponent;
+  let fixture: ComponentFixture<MembersSettingsComponent>;
   let memberWithRoleOptions: RolesTableRow;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        RolesComponent,
+        MembersSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showRemove', 'rowColor', 'isEditable'],
@@ -29,7 +29,7 @@ describe('RolesComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RolesComponent);
+    fixture = TestBed.createComponent(MembersSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     memberWithRoleOptions = {

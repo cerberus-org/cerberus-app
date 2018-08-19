@@ -68,7 +68,7 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
 })
 export class DataTableComponent implements OnInit, OnChanges {
   @Input() rowColor: (any) => string = () => '';
-  @Input() disableActions: (any) => boolean = () => false;
+  @Input() disableEdit: (any) => boolean = () => false;
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showRemove: boolean;

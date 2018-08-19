@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { ColumnOptions, Site } from '../../../shared/models';
-import { CreateSite, DeleteSite, UpdateSite } from '../../actions/settings.actions';
+import { CreateSite, RemoveSite, UpdateSite } from '../../actions/settings.actions';
 import { SiteDialogComponent } from '../site-dialog/site-dialog.component';
 
 @Component({
-  selector: 'app-site-settings',
+  selector: 'app-sites-settings',
   template: `
     <mat-toolbar class="data-table-header">
       <button
@@ -32,9 +32,9 @@ import { SiteDialogComponent } from '../site-dialog/site-dialog.component';
     >
     </app-data-table>
   `,
-  styleUrls: ['./site-settings.component.scss'],
+  styleUrls: ['./sites-settings.component.scss'],
 })
-export class SiteSettingsComponent {
+export class SitesSettingsComponent {
   columnOptions: ColumnOptions[] = [
     {
       columnDef: 'name',
@@ -59,7 +59,7 @@ export class SiteSettingsComponent {
   }
 
   onRemoveRow(site: Site): void {
-    this.store$.dispatch(new DeleteSite({ site }));
+    this.store$.dispatch(new RemoveSite({ site }));
   }
 
   onEditRow(site: Site): void {

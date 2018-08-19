@@ -6,18 +6,18 @@ import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/reducers';
 import { formatDate, formatDuration, formatTime } from '../../../shared/helpers';
 import { ColumnOptions, Site } from '../../../shared/models';
-import { VisitWithData } from '../../models/visit-with-data';
-import { selectVisitsWithData } from '../../selectors/visits.selectors';
+import { VisitsTableRow } from '../../models/visits-table-row';
+import { getVisitsTableRows } from '../../selectors/visits-settings.selectors';
 import { EditVisitDialogComponent } from '../edit-visit-dialog/edit-visit-dialog.component';
 
 @Component({
-  selector: 'app-visits',
-  templateUrl: './visit-settings.component.html',
-  styleUrls: ['./visit-settings.component.scss'],
+  selector: 'app-visits-settings',
+  templateUrl: './visits-settings.component.html',
+  styleUrls: ['./visits-settings.component.scss'],
 })
-export class VisitSettingsComponent implements OnInit {
+export class VisitsSettingsComponent implements OnInit {
 
-  state$: Observable<VisitWithData[]>;
+  state$: Observable<VisitsTableRow[]>;
   columnOptions: ColumnOptions[];
 
   constructor(public store$: Store<AppState>, public dialog: MatDialog) {
@@ -28,35 +28,35 @@ export class VisitSettingsComponent implements OnInit {
       {
         columnDef: 'name',
         header: 'Name',
-        cell: (row: VisitWithData) => row.volunteer ? row.volunteer.name : '--',
+        cell: (row: VisitsTableRow) => row.volunteer ? row.volunteer.name : '--',
       },
       {
         columnDef: 'site',
         header: 'Site',
-        cell: (row: VisitWithData) => row.site ? row.site.name : '--',
+        cell: (row: VisitsTableRow) => row.site ? row.site.name : '--',
       },
       {
         columnDef: 'date',
         header: 'Date',
-        cell: (row: VisitWithData) => formatDate(row.startedAt, row.timezone),
+        cell: (row: VisitsTableRow) => formatDate(row.startedAt, row.timezone),
       },
       {
         columnDef: 'startedAt',
         header: 'Start',
-        cell: (row: VisitWithData) => formatTime(row.startedAt, row.timezone),
+        cell: (row: VisitsTableRow) => formatTime(row.startedAt, row.timezone),
       },
       {
         columnDef: 'endedAt',
         header: 'End',
-        cell: (row: VisitWithData) => formatTime(row.endedAt, row.timezone),
+        cell: (row: VisitsTableRow) => formatTime(row.endedAt, row.timezone),
       },
       {
         columnDef: 'duration',
         header: 'Duration',
-        cell: (row: VisitWithData) => formatDuration(row.startedAt, row.endedAt, row.timezone),
+        cell: (row: VisitsTableRow) => formatDuration(row.startedAt, row.endedAt, row.timezone),
       },
     ];
-    this.state$ = this.store$.pipe(select(selectVisitsWithData));
+    this.state$ = this.store$.pipe(select(getVisitsTableRows));
   }
 
   get visitsWithVolunteers$() {
@@ -67,9 +67,9 @@ export class VisitSettingsComponent implements OnInit {
    * When the pencil is selected open a dialog with prepopulated data on visit.
    * Subscribe to dialog and get data on close.
    *
-   * @param {VisitWithData} visit
+   * @param {VisitsTableRow} visit
    */
-  onEditVisit(visit: VisitWithData): void {
+  onEditVisit(visit: VisitsTableRow): void {
     this.dialog.open(EditVisitDialogComponent, { data: visit });
   }
 }

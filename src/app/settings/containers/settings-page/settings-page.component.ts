@@ -23,30 +23,12 @@ import { getSelectedSettingsOption } from '../../selectors/settings.selectors';
   selector: 'app-settings-page',
   template: `
     <div [ngSwitch]="(selectedOption$ | async)">
-      <app-team-settings
-        *ngSwitchCase="'TEAM'"
-      >
-      </app-team-settings>
-      <app-volunteer-settings
-        *ngSwitchCase="'VOLUNTEERS'"
-      >
-      </app-volunteer-settings>
-      <app-roles
-        *ngSwitchCase="'ROLES'"
-      >
-      </app-roles>
-      <app-reports
-        *ngSwitchCase="'REPORTS'"
-      >
-      </app-reports>
-      <app-visits
-        *ngSwitchCase="'VISITS'"
-      >
-      </app-visits>
-      <app-site-settings
-        *ngSwitchCase="'SITES'"
-      >
-      </app-site-settings>
+      <app-roles *ngSwitchCase="'MEMBERS'"></app-roles>
+      <app-sites-settings *ngSwitchCase="'SITES'"></app-sites-settings>
+      <app-visits-settings *ngSwitchCase="'VISITS'"></app-visits-settings>
+      <app-volunteers-settings *ngSwitchCase="'VOLUNTEERS'"></app-volunteers-settings>
+      <app-reports *ngSwitchCase="'REPORTS'"></app-reports>
+      <app-team-settings *ngSwitchCase="'TEAM'"></app-team-settings>
     </div>
   `,
   styleUrls: ['./settings-page.component.scss'],
@@ -101,9 +83,9 @@ export class SettingsPageComponent implements OnDestroy {
 
 const memberSidenavOptions = [
   {
-    label: 'Team',
-    icon: 'domain',
-    action: new SelectSettingsOption({ selectedOption: 'TEAM' }),
+    label: 'Members',
+    icon: 'group',
+    action: new SelectSettingsOption({ selectedOption: 'MEMBERS' }),
   },
 ];
 
@@ -130,8 +112,8 @@ const adminSidenavOptions = [
     action: new SelectSettingsOption({ selectedOption: 'REPORTS' }),
   },
   {
-    label: 'Roles',
-    icon: 'lock_outline',
-    action: new SelectSettingsOption({ selectedOption: 'ROLES' }),
+    label: 'Team',
+    icon: 'domain',
+    action: new SelectSettingsOption({ selectedOption: 'TEAM' }),
   },
 ];

@@ -15,7 +15,7 @@
           *ngIf="showEdit"
           mat-icon-button
           color="accent"
-          [disabled]="disableActions(row)"
+          [disabled]="disableEdit(row)"
           (click)="onClickEdit(row)"
         >
           <mat-icon aria-label="Edit this entry">mode_edit</mat-icon>
@@ -24,7 +24,7 @@
           *ngIf="showRemove"
           mat-icon-button
           color="accent"
-          [disabled]="disableActions(row)"
+          [disabled]="disableEdit(row)"
           (click)="onClickRemove(row)"
         >
           <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>

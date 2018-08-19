@@ -3,18 +3,18 @@ import { MockComponent } from 'ng2-mock-component';
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Volunteer } from '../../../shared/models';
-import { DeleteVolunteer } from '../../actions/settings.actions';
-import { VolunteerSettingsComponent } from './volunteer-settings.component';
+import { RemoveVolunteer } from '../../actions/settings.actions';
+import { VolunteersSettingsComponent } from './volunteers-settings.component';
 
-describe('VolunteerSettingsComponent', () => {
-  let component: VolunteerSettingsComponent;
-  let fixture: ComponentFixture<VolunteerSettingsComponent>;
+describe('VolunteersSettingsComponent', () => {
+  let component: VolunteersSettingsComponent;
+  let fixture: ComponentFixture<VolunteersSettingsComponent>;
   let volunteer: Volunteer;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        VolunteerSettingsComponent,
+        VolunteersSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showRemove', 'rowColor'],
@@ -28,7 +28,7 @@ describe('VolunteerSettingsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VolunteerSettingsComponent);
+    fixture = TestBed.createComponent(VolunteersSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     volunteer = createMockVolunteers()[0];
@@ -38,11 +38,11 @@ describe('VolunteerSettingsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle deleteVolunteer events by dispatching DeleteVolunteer', () => {
+  it('should handle deleteVolunteer events by dispatching RemoveVolunteer', () => {
     spyOn(component.store$, 'dispatch');
     component.onDeleteVolunteer(volunteer);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new DeleteVolunteer({ volunteer }));
+      .toHaveBeenCalledWith(new RemoveVolunteer({ volunteer }));
   });
 
   it('should display the name of a volunteer in the first table column', () => {

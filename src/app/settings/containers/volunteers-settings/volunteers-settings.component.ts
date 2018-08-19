@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { getVolunteersForSelectedTeam } from '../../../core/selectors/volunteers.selectors';
 import { ColumnOptions, Volunteer } from '../../../shared/models';
-import { DeleteVolunteer } from '../../actions/settings.actions';
+import { RemoveVolunteer } from '../../actions/settings.actions';
 
 @Component({
-  selector: 'app-volunteer-settings',
-  templateUrl: './volunteer-settings.component.html',
-  styleUrls: ['./volunteer-settings.component.scss'],
+  selector: 'app-volunteers-settings',
+  templateUrl: './volunteers-settings.component.html',
+  styleUrls: ['./volunteers-settings.component.scss'],
 })
-export class VolunteerSettingsComponent implements OnInit {
+export class VolunteersSettingsComponent implements OnInit {
   columnOptions: ColumnOptions[] = [
     {
       columnDef: 'name',
@@ -33,11 +33,11 @@ export class VolunteerSettingsComponent implements OnInit {
   }
 
   /**
-   * Handles deleteVolunteer events by dispatching DeleteVolunteer.
+   * Handles deleteVolunteer events by dispatching RemoveVolunteer.
    *
    * @param {Volunteer} volunteer
    */
   onDeleteVolunteer(volunteer: Volunteer) {
-    this.store$.dispatch(new DeleteVolunteer({ volunteer }));
+    this.store$.dispatch(new RemoveVolunteer({ volunteer }));
   }
 }

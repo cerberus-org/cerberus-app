@@ -2,15 +2,46 @@ import { Action } from '@ngrx/store';
 import { Member, Site, Team, Visit, Volunteer } from '../../shared/models';
 
 export enum SettingsActionTypes {
-  SelectSettingsOption = '[settings] select settings option',
   CreateSite = '[settings] create site',
-  UpdateSite = '[settings] update site',
-  DeleteSite = '[settings] delete site',
+  GenerateReport = '[settings] generate report',
+  RemoveMember = '[settings] remove member',
+  RemoveSite = '[settings] remove site',
+  RemoveVolunteer = '[settings] remove volunteer',
+  SelectSettingsOption = '[settings] select settings option',
   UpdateRole = '[settings] update role',
+  UpdateSite = '[settings] update site',
   UpdateTeam = '[settings] update team',
   UpdateVisit = '[settings] update visit',
-  DeleteVolunteer = '[settings] delete volunteer',
-  GenerateReport = '[settings] generate report',
+}
+
+export class CreateSite implements Action {
+  readonly type = SettingsActionTypes.CreateSite;
+
+  constructor(public payload: { site: Site }) {}
+}
+
+export class GenerateReport implements Action {
+  readonly type = SettingsActionTypes.GenerateReport;
+
+  constructor(public payload: { startedAt: Date, endedAt: Date }) {}
+}
+
+export class RemoveMember implements Action {
+  readonly type = SettingsActionTypes.RemoveMember;
+
+  constructor(public payload: { member: Member }) {}
+}
+
+export class RemoveSite implements Action {
+  readonly type = SettingsActionTypes.RemoveSite;
+
+  constructor(public payload: { site: Site }) {}
+}
+
+export class RemoveVolunteer implements Action {
+  readonly type = SettingsActionTypes.RemoveVolunteer;
+
+  constructor(public payload: { volunteer: Volunteer }) {}
 }
 
 export class SelectSettingsOption implements Action {
@@ -25,20 +56,8 @@ export class UpdateRole implements Action {
   constructor(public payload: { member: Member }) {}
 }
 
-export class CreateSite implements Action {
-  readonly type = SettingsActionTypes.CreateSite;
-
-  constructor(public payload: { site: Site }) {}
-}
-
 export class UpdateSite implements Action {
   readonly type = SettingsActionTypes.UpdateSite;
-
-  constructor(public payload: { site: Site }) {}
-}
-
-export class DeleteSite implements Action {
-  readonly type = SettingsActionTypes.DeleteSite;
 
   constructor(public payload: { site: Site }) {}
 }
@@ -49,31 +68,20 @@ export class UpdateTeam implements Action {
   constructor(public payload: { team: Team }) {}
 }
 
-export class DeleteVolunteer implements Action {
-  readonly type = SettingsActionTypes.DeleteVolunteer;
-
-  constructor(public payload: { volunteer: Volunteer }) {}
-}
-
 export class UpdateVisit implements Action {
   readonly type = SettingsActionTypes.UpdateVisit;
 
   constructor(public payload: { visit: Visit }) {}
 }
 
-export class GenerateReport implements Action {
-  readonly type = SettingsActionTypes.GenerateReport;
-
-  constructor(public payload: { startedAt: Date, endedAt: Date }) {}
-}
-
 export type SettingsActionsUnion =
+  | CreateSite
+  | GenerateReport
+  | RemoveMember
+  | RemoveSite
+  | RemoveVolunteer
   | SelectSettingsOption
   | UpdateRole
-  | CreateSite
-  | DeleteSite
   | UpdateSite
   | UpdateTeam
-  | UpdateVisit
-  | DeleteVolunteer
-  | GenerateReport;
+  | UpdateVisit;

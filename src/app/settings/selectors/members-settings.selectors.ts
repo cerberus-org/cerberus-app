@@ -15,7 +15,7 @@ export interface RolesTableRow {
   roleOptions: string[];
 }
 
-export const getMembersWithRoleOptions = createSelector(
+export const getRolesTableRows = createSelector(
   getMemberForUserAndSelectedTeam,
   getMembersForSelectedTeam,
   getUserEntities,
