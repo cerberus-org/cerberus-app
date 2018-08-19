@@ -5,7 +5,7 @@ export enum VisitsActionTypes {
   LoadVisits = '[visits] load visits',
   LoadVisitsForTeam = '[visits] load visits for team',
   VisitAdded = '[visits] added',
-  VisitUpdated = '[visits] updated',
+  VisitModified = '[visits] modified',
   VisitRemoved = '[visits] removed',
 }
 
@@ -27,8 +27,8 @@ export class VisitAdded implements Action {
   constructor(public payload: Visit) {}
 }
 
-export class VisitUpdated implements Action {
-  readonly type = VisitsActionTypes.VisitUpdated;
+export class VisitModified implements Action {
+  readonly type = VisitsActionTypes.VisitModified;
 
   constructor(public payload: Visit) {}
 }
@@ -47,5 +47,5 @@ export type VisitsActionsUnion =
   | LoadVisits
   | LoadVisitsForTeam
   | VisitAdded
-  | VisitUpdated
+  | VisitModified
   | VisitRemoved;

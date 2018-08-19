@@ -16,6 +16,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         <i class="material-icons">add</i>
       </button>
     </mat-toolbar>
+    <mat-divider></mat-divider>
   `,
   styleUrls: ['./settings-toolbar.component.scss'],
 })

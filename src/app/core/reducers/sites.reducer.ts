@@ -21,7 +21,7 @@ export function sitesReducer(state = initialState, action: SitesActionsUnion): S
       return sitesAdapter.addOne(action.payload, state);
     }
 
-    case SitesActionTypes.SiteUpdated: {
+    case SitesActionTypes.SiteModified: {
       return sitesAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
     }
 

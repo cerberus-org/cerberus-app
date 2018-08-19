@@ -27,7 +27,7 @@ export function visitsReducer(state = initialState, action: VisitsActionsUnion):
       return visitsAdapter.addOne(action.payload, state);
     }
 
-    case VisitsActionTypes.VisitUpdated: {
+    case VisitsActionTypes.VisitModified: {
       return visitsAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
     }
 

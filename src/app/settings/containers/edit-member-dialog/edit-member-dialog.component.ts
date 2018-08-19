@@ -36,7 +36,9 @@ export class EditMemberDialogComponent {
   constructor(
     private store$: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public dialogData: MemberTableRow,
-  ) {}
+  ) {
+    this.selectedRole = dialogData.member.role;
+  }
 
   submit(): void {
     this.store$.dispatch(new UpdateRole({ member: { ...this.dialogData.member, role: this.selectedRole } }));

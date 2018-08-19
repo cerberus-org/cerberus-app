@@ -39,7 +39,7 @@ export function teamsReducer(state = initialState, action: TeamsActionsUnion): T
       return teamsAdapter.addOne(action.payload, state);
     }
 
-    case TeamsActionTypes.TeamUpdated: {
+    case TeamsActionTypes.TeamModified: {
       return teamsAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
     }
 

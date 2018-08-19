@@ -18,7 +18,7 @@ export function membersReducer(state = initialMembersReducerState, action: Membe
       return membersAdapter.addOne(action.payload, state);
     }
 
-    case MembersActionTypes.MemberUpdated: {
+    case MembersActionTypes.MemberModified: {
       return membersAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
     }
 

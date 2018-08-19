@@ -10,7 +10,7 @@ import { isAdmin } from '../../../shared/helpers';
 import { ColumnOptions, Member } from '../../../shared/models';
 import { RemoveMember } from '../../actions/settings.actions';
 import { MemberTableRow } from '../../models/member-table-row';
-import { getMemberTableRows } from '../../selectors/member-settings.selectors';
+import { getMemberTableRows } from '../../selectors/settings.selectors';
 import { EditMemberDialogComponent } from '../edit-member-dialog/edit-member-dialog.component';
 
 @Component({

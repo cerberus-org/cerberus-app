@@ -133,11 +133,11 @@ input.capitalize {
 }
 
 /*
- * Used for pages with a 64px height header and table, e.g., settings pages.
+ * Used for pages with a 64px height header, 1px height divider, and table, e.g., settings pages.
  */
 .table-container {
   display: grid;
-  grid-template-rows: 64px auto;
+  grid-template-rows: 65px auto;
   height: 100%;
 }
 

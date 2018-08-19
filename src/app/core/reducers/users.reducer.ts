@@ -17,7 +17,7 @@ export function usersReducer(state = initialState, action: UsersActionsUnion): U
       return usersAdapter.addOne(action.payload, state);
     }
 
-    case UsersActionTypes.UserUpdated: {
+    case UsersActionTypes.UserModified: {
       return usersAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
     }
 

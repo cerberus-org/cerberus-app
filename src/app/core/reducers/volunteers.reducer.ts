@@ -17,7 +17,7 @@ export function volunteersReducer(state = initialState, action: VolunteersAction
       return volunteersAdapter.addOne(action.payload, state);
     }
 
-    case VolunteersActionTypes.VolunteerUpdated: {
+    case VolunteersActionTypes.VolunteerModified: {
       return volunteersAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
     }
 

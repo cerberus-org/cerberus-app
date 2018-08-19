@@ -7,7 +7,7 @@ export enum MembersActionTypes {
   LoadMembersForUser = '[members] load members for user',
   SelectMember = '[members] select member',
   MemberAdded = '[members] added',
-  MemberUpdated = '[members] updated',
+  MemberModified = '[members] modified',
   MemberRemoved = '[members] removed',
 }
 
@@ -39,8 +39,8 @@ export class MemberAdded implements Action {
   constructor(public payload: Member) {}
 }
 
-export class MemberUpdated implements Action {
-  readonly type = MembersActionTypes.MemberUpdated;
+export class MemberModified implements Action {
+  readonly type = MembersActionTypes.MemberModified;
 
   constructor(public payload: Member) {}
 }
@@ -57,5 +57,5 @@ export type MembersActionsUnion =
   | LoadMembersForUser
   | SelectMember
   | MemberAdded
-  | MemberUpdated
+  | MemberModified
   | MemberRemoved;

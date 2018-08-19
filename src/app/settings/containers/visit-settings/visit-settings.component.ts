@@ -6,7 +6,7 @@ import { AppState } from '../../../core/reducers';
 import { formatDate, formatDuration, formatTime } from '../../../shared/helpers';
 import { ColumnOptions, Site } from '../../../shared/models';
 import { VisitTableRow } from '../../models/visit-table-row';
-import { getVisitTableRows } from '../../selectors/visit-settings.selectors';
+import { getVisitTableRows } from '../../selectors/settings.selectors';
 import { EditVisitDialogComponent } from '../edit-visit-dialog/edit-visit-dialog.component';
 
 @Component({

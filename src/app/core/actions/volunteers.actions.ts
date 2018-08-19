@@ -5,7 +5,7 @@ export enum VolunteersActionTypes {
   LoadVolunteers = '[volunteers] load volunteers',
   LoadVolunteersForTeam = '[volunteers] load volunteers for team',
   VolunteerAdded = '[volunteers] added',
-  VolunteerUpdated = '[volunteers] updated',
+  VolunteerModified = '[volunteers] modified',
   VolunteerRemoved = '[volunteers] removed',
 }
 
@@ -27,8 +27,8 @@ export class VolunteerAdded implements Action {
   constructor(public payload: Volunteer) {}
 }
 
-export class VolunteerUpdated implements Action {
-  readonly type = VolunteersActionTypes.VolunteerUpdated;
+export class VolunteerModified implements Action {
+  readonly type = VolunteersActionTypes.VolunteerModified;
 
   constructor(public payload: Volunteer) {}
 }
@@ -47,5 +47,5 @@ export type VolunteersActionsUnion =
   | LoadVolunteers
   | LoadVolunteersForTeam
   | VolunteerAdded
-  | VolunteerUpdated
+  | VolunteerModified
   | VolunteerRemoved;

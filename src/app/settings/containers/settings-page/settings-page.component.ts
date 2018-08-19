@@ -1,8 +1,8 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { LoadMembersForTeam } from '../../../core/actions/members.actions';
 import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
@@ -22,22 +22,26 @@ import { getSelectedSettingsOption } from '../../selectors/settings.selectors';
 @Component({
   selector: 'app-settings-page',
   template: `
-    <div class="container" [ngSwitch]="(selectedOption$ | async)">
-      <app-member-settings *ngSwitchCase="'MEMBERS'"></app-member-settings>
-      <app-site-settings *ngSwitchCase="'SITES'"></app-site-settings>
-      <app-visits-settings *ngSwitchCase="'VISITS'"></app-visits-settings>
-      <app-volunteers-settings *ngSwitchCase="'VOLUNTEERS'"></app-volunteers-settings>
-      <app-reports *ngSwitchCase="'REPORTS'"></app-reports>
-      <app-team-settings *ngSwitchCase="'TEAM'"></app-team-settings>
-    </div>
+    <app-loader *ngIf="loading; else loaded"></app-loader>
+    <ng-template #loaded>
+      <div class="container" [ngSwitch]="(selectedOption$ | async)">
+        <app-member-settings *ngSwitchCase="'MEMBERS'"></app-member-settings>
+        <app-site-settings *ngSwitchCase="'SITES'"></app-site-settings>
+        <app-visits-settings *ngSwitchCase="'VISITS'"></app-visits-settings>
+        <app-volunteers-settings *ngSwitchCase="'VOLUNTEERS'"></app-volunteers-settings>
+        <app-reports *ngSwitchCase="'REPORTS'"></app-reports>
+        <app-team-settings *ngSwitchCase="'TEAM'"></app-team-settings>
+      </div>
+    </ng-template>
   `,
   styleUrls: ['./settings-page.component.scss'],
 })
-export class SettingsPageComponent implements OnDestroy {
+export class SettingsPageComponent implements OnInit, OnDestroy {
   private routeParamsSubscription: Subscription;
   private membersSubscription: Subscription;
   private sidenavSubscription: Subscription;
   selectedOption$: Observable<string>;
+  loading: boolean = true;
 
   constructor(private route: ActivatedRoute, private store$: Store<SettingsState>) {
     store$.dispatch(new SetHeaderOptions({
@@ -61,6 +65,7 @@ export class SettingsPageComponent implements OnDestroy {
       .subscribe(store$);
     this.membersSubscription = store$.pipe(
       select(getUserIdsForSelectedTeam),
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)), // Only load when IDs changed
       filter(ids => ids && ids.length > 0),
       map(ids => new LoadUsersByIds({ ids })),
     )
@@ -74,6 +79,16 @@ export class SettingsPageComponent implements OnDestroy {
     )
       .subscribe(store$);
     this.selectedOption$ = store$.pipe(select(getSelectedSettingsOption));
+  }
+
+  ngOnInit() {
+    // Show loader for 500ms on page load
+    setTimeout(
+      () => {
+        this.loading = false;
+      },
+      500,
+    );
   }
 
   ngOnDestroy() {
