@@ -54,8 +54,8 @@ export class ViewSelectedTeamComponent implements OnDestroy {
   }
 
   onClickActivate(teamAndSite: any): void {
-    const siteId = teamAndSite.site && teamAndSite.site.id ? teamAndSite.site.id : '';
-    this.store$.dispatch(new Go({ path: ['teams', teamAndSite.team.id, siteId, 'volunteers'] }));
+    teamAndSite.site ? this.store$.dispatch(new Go({ path: ['teams', teamAndSite.team.id, 'sites', teamAndSite.site.id, 'volunteers'] }))
+      : this.store$.dispatch(new Go({ path: ['teams', teamAndSite.team.id, 'volunteers'] }));
   }
 
   onClickSettings(team: Team): void {

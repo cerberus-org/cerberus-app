@@ -40,14 +40,14 @@ export class TeamDashboardPageComponent implements OnDestroy {
               icon: 'done',
               action: new Go({
                 // Workaround using teamId in path; using relativeTo extra causes error
-                path: ['teams', teamId, siteId, 'volunteers', 'check-in'],
+                path: this.getPath(teamId, siteId, 'check-in'),
               }),
             },
             {
               label: 'Check out',
               icon: 'done_all',
               action: new Go({
-                path: ['teams', teamId, siteId, 'volunteers', 'check-out'],
+                path: this.getPath(teamId, siteId, 'check-out'),
               }),
             },
           ],
@@ -71,6 +71,10 @@ export class TeamDashboardPageComponent implements OnDestroy {
       .subscribe(store$);
     this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
     this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
+  }
+
+  getPath(teamId: string, siteId: string, checkInOrOut: string): string[] {
+    return siteId ? ['teams', teamId, 'sites', siteId, 'volunteers', checkInOrOut] : ['teams', teamId, 'volunteers', checkInOrOut];
   }
 
   ngOnDestroy(): void {
