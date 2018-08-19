@@ -1,28 +1,29 @@
 import * as _ from 'lodash';
 import { Member } from '../../app/shared/models';
+import { Roles } from '../../app/shared/models/roles';
 
 export const mockMembers: Member[] = [
   {
     id: '1',
-    userUid: 'Fc59YPNibdPXlIjdRuBRIrizClI2',
+    userId: 'Fc59YPNibdPXlIjdRuBRIrizClI2',
     teamId: 'Y9oY2YPuxeWxB7x69Ayr',
     firstName: 'Ted',
     lastName: 'Mader',
-    role: 'Owner',
+    role: Roles.Owner,
   }, {
     id: '2',
-    userUid: '5961327dfba1ca1b64b8945b',
+    userId: '5961327dfba1ca1b64b8945b',
     teamId: '59a7055733bfe28af47cff40',
     firstName: 'Hillary',
     lastName: 'Lynn',
-    role: 'Member',
+    role: Roles.Member,
   }, {
     id: '3',
-    userUid: '5961327dfba1ca1b64b8945c',
+    userId: '5961327dfba1ca1b64b8945c',
     teamId: '59a7055733bfe28af47cff40',
     firstName: 'Locked',
     lastName: 'User',
-    role: 'Locked',
+    role: Roles.Locked,
   },
 ];
 

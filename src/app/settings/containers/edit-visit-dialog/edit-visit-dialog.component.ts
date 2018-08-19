@@ -7,14 +7,14 @@ import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors
 import { formatTimeInputValue, updateDateWithTimeInput } from '../../../shared/helpers';
 import { Site, Visit } from '../../../shared/models';
 import { UpdateVisit } from '../../actions/settings.actions';
-import { VisitsTableRow } from '../../models/visits-table-row';
+import { VisitTableRow } from '../../models/visit-table-row';
 
 @Component({
   selector: 'app-visit-dialog',
   template: `
     <h2 mat-dialog-title>Edit Visit</h2>
     <mat-dialog-content>
-      <div class="input-container">
+      <div class="form-container">
         <mat-form-field class="example-full-width" autocomplete="off">
           <mat-label>Checkout time</mat-label>
           <input
@@ -57,7 +57,7 @@ export class EditVisitDialogComponent {
   constructor(
     private store$: Store<AppState>,
     public dialogRef: MatDialogRef<EditVisitDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public visitWithData: VisitsTableRow,
+    @Inject(MAT_DIALOG_DATA) public visitWithData: VisitTableRow,
   ) {
     // If data was passed in, set default fields
     this.endedAt = this.visitWithData && this.visitWithData.endedAt
@@ -88,9 +88,9 @@ export class EditVisitDialogComponent {
    *
    * @param time
    * @param visit
-   * @returns {VisitsTableRow}
+   * @returns {VisitTableRow}
    */
-  updateVisitEndedAtWithTime(time: string, visit: VisitsTableRow): VisitsTableRow {
+  updateVisitEndedAtWithTime(time: string, visit: VisitTableRow): VisitTableRow {
     const visitCopy = Object.assign({}, visit);
     // Use same day as startedAt
     visitCopy.endedAt = updateDateWithTimeInput(time, new Date(visitCopy.startedAt), visit.timezone);
@@ -103,7 +103,7 @@ export class EditVisitDialogComponent {
    * @param visit
    * @returns {boolean}
    */
-  isVisitValid(visit: VisitsTableRow): boolean {
+  isVisitValid(visit: VisitTableRow): boolean {
     return new Date(visit.startedAt) < new Date(visit.endedAt);
   }
 

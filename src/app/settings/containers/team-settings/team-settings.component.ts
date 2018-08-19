@@ -9,16 +9,18 @@ import { UpdateTeam } from '../../actions/settings.actions';
 @Component({
   selector: 'app-team-settings',
   template: `
-    <div class="wrapper">
+    <app-settings-header title="Team"></app-settings-header>
+    <div class="center-wrapper">
       <div>
-        <h2>Update your team info here.</h2>
+        <p>Update your team info here.</p>
         <mat-divider></mat-divider>
       </div>
       <div class="margin">
         <app-team-form
           [title]="teamFormTitle"
           [initialTeam]="(sessionTeam$ | async)"
-          (validTeam)="onValidTeam($event)">
+          (validTeam)="onValidTeam($event)"
+        >
         </app-team-form>
       </div>
       <div class="actions-container">
@@ -26,7 +28,8 @@ import { UpdateTeam } from '../../actions/settings.actions';
           mat-raised-button
           color="primary"
           (click)="onSubmitTeam(teamEdits)"
-          [disabled]="!teamEdits">
+          [disabled]="!teamEdits"
+        >
           Submit
         </button>
       </div>

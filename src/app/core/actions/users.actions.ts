@@ -5,8 +5,9 @@ export enum UsersActionTypes {
   LoadUsers = '[users] load users',
   LoadUsersByIds = '[users] load users by ids',
   UserAdded = '[users] added',
-  UserModified = '[users] modified',
+  UserUpdated = '[users] updated',
   UserRemoved = '[users] removed',
+  UserChanged = '[users] changed',
 }
 
 export class LoadUsers implements Action {
@@ -27,14 +28,20 @@ export class UserAdded implements Action {
   constructor(public payload: User) {}
 }
 
-export class UserModified implements Action {
-  readonly type = UsersActionTypes.UserModified;
+export class UserUpdated implements Action {
+  readonly type = UsersActionTypes.UserUpdated;
 
   constructor(public payload: User) {}
 }
 
 export class UserRemoved implements Action {
   readonly type = UsersActionTypes.UserRemoved;
+
+  constructor(public payload: User) {}
+}
+
+export class UserChanged implements Action {
+  readonly type = UsersActionTypes.UserChanged;
 
   constructor(public payload: User) {}
 }
@@ -47,5 +54,6 @@ export type UsersActionsUnion =
   | LoadUsers
   | LoadUsersByIds
   | UserAdded
-  | UserModified
-  | UserRemoved;
+  | UserUpdated
+  | UserRemoved
+  | UserChanged;

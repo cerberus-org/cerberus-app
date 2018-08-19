@@ -43,6 +43,12 @@ input.capitalize {
   color: mediumaquamarine;
 }
 
+.center-wrapper {
+  max-width: 720px;
+  padding: 0 20px;
+  margin: 0 auto 40px;
+}
+
 .header-spacing {
   padding-top: 4rem;
 }
@@ -61,12 +67,6 @@ input.capitalize {
   &.button--margin {
     margin: 1rem;
   }
-}
-
-.wrapper {
-  max-width: 940px;
-  padding: 0 20px;
-  margin: 0 auto 40px;
 }
 
 .grid {
@@ -114,7 +114,6 @@ input.capitalize {
   flex: 1 1 auto;
 }
 
-
 .actions-container {
   display: grid;
   grid-auto-flow: column;
@@ -123,14 +122,23 @@ input.capitalize {
   margin-top: 1rem;
 }
 
-.input-container {
+.form-container {
   display: grid;
   max-width: 300px;
   margin: auto;
 
-  .input-container__row {
+  .form-container {
     justify-self: stretch;
   }
+}
+
+/*
+ * Used for pages with a 64px height header and table, e.g., settings pages.
+ */
+.table-container {
+  display: grid;
+  grid-template-rows: 64px auto;
+  height: 100%;
 }
 
 .subtitle {
@@ -217,9 +225,7 @@ input.capitalize {
 .data-table-header {
   display: flex;
   background-color: whitesmoke;
-  border-bottom-style: solid;
-  border-bottom-width: .5px;
-  border-bottom-color: rgba(0,0,0,.12);
+  border-bottom: .5px solid rgba(0, 0, 0, .12);
 }
 
 .data-table-header__button {

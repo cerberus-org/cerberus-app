@@ -5,17 +5,17 @@ import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Site } from '../../../shared/models';
 import { RemoveSite } from '../../actions/settings.actions';
-import { SitesSettingsComponent } from './sites-settings.component';
+import { SiteSettingsComponent } from './site-settings.component';
 
-describe('SitesSettingsComponent', () => {
-  let component: SitesSettingsComponent;
-  let fixture: ComponentFixture<SitesSettingsComponent>;
+describe('SiteSettingsComponent', () => {
+  let component: SiteSettingsComponent;
+  let fixture: ComponentFixture<SiteSettingsComponent>;
   let sites: Site[];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SitesSettingsComponent,
+        SiteSettingsComponent,
         MockComponent({ selector: 'app-data-table', inputs: ['data$', 'columnOptions', 'showRemove', 'showEdit', 'deleteRow', 'updateRow'] }),
       ],
       imports: [
@@ -28,7 +28,7 @@ describe('SitesSettingsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SitesSettingsComponent);
+    fixture = TestBed.createComponent(SiteSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     sites = createMockSites();

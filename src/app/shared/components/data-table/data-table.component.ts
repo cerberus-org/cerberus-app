@@ -67,15 +67,17 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
   styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit, OnChanges {
-  @Input() rowColor: (any) => string = () => '';
-  @Input() disableEdit: (any) => boolean = () => false;
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
-  @Input() showRemove: boolean;
   @Input() showEdit: boolean;
-  @Output() updateRow = new EventEmitter<any>();
+  @Input() showRemove: boolean;
+  @Input() disableEdit: (any) => boolean = () => false;
+  @Input() disableRemove: (any) => boolean = () => false;
+  @Input() rowColor: (any) => string = () => '';
+
   @Output() removeRow = new EventEmitter<any>();
   @Output() editRow = new EventEmitter<any>();
+
   displayedColumns: string[];
   initialPageSize: number;
   dataSource: DataTableSource;
@@ -97,11 +99,11 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   ngOnInit(): void {
     // Determine initial page size using inner height of window at component init
-    const surroundingElementsPx = 224;
+    const surroundingElementsPx = 288;
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
-    if (this.showEdit || this.showRemove) {
+    if (this.showActions) {
       this.displayedColumns.push('actions');
     }
   }
@@ -134,18 +136,6 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   onClickEdit(item: any): void {
     this.editRow.emit(item);
-  }
-
-  /**
-   * Handles select option events by emitting the item modified with the selected option.
-   * @param value - the value to apply
-   * @param item - the table item to modify
-   * @param key - the property to modify
-   */
-  onSelectOption(value, item, key): void {
-    const itemCopy = Object.assign({}, item);
-    itemCopy[key] = value;
-    this.updateRow.emit(itemCopy);
   }
 
   get showActions(): boolean {

@@ -1,5 +1,5 @@
 export class User {
-  id: string; // The corresponding userUid should be used
+  id: string; // The corresponding userId should be used
   name: string;
 
   constructor(name: string) {

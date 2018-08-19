@@ -1,12 +1,12 @@
 import { createMockMembers } from '../../../mocks/objects/member.mock';
 import { MEMBER_ROLE_ADMIN, MEMBER_ROLE_LOCKED, MEMBER_ROLE_MEMBER, MEMBER_ROLE_OWNER } from '../../shared/helpers';
 import { Member } from '../../shared/models';
-import { getRolesTableRows } from './members-settings.selectors';
+import { getMemberTableRows } from './member-settings.selectors';
 import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;
 
 describe('roles.selectors', () => {
-  describe('getRolesTableRows', () => {
+  describe('getMemberTableRows', () => {
     let members: Member[];
 
     beforeEach(() => {
@@ -14,7 +14,7 @@ describe('roles.selectors', () => {
     });
 
     it('it should select members with role options based on session member', () => {
-      expect(getRolesTableRows.projector(members[0], members, 2))
+      expect(getMemberTableRows.projector(members[0], members, 2))
         .toEqual(arrayContaining([
           objectContaining({
             member: members[0],
@@ -47,7 +47,7 @@ describe('roles.selectors', () => {
 
     it('it should select members without role options if session member is not an admin', () => {
       const members = createMockMembers();
-      expect(getRolesTableRows.projector(members[1], members, 2))
+      expect(getMemberTableRows.projector(members[1], members, 2))
         .toEqual(arrayContaining([
           objectContaining({
             ...members[0],
@@ -66,7 +66,7 @@ describe('roles.selectors', () => {
 
     it('it should not allow the last owner to change their role', () => {
       const members = createMockMembers();
-      expect(getRolesTableRows.projector(members[0], members, 1))
+      expect(getMemberTableRows.projector(members[0], members, 1))
         .toEqual(arrayContaining([
           objectContaining({
             member: members[0],

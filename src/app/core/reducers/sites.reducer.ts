@@ -18,10 +18,10 @@ export const initialState: SitesReducerState = sitesAdapter.getInitialState({
 export function sitesReducer(state = initialState, action: SitesActionsUnion): SitesReducerState {
   switch (action.type) {
     case SitesActionTypes.SiteAdded: {
-      return sitesAdapter.upsertOne(action.payload, state);
+      return sitesAdapter.addOne(action.payload, state);
     }
 
-    case SitesActionTypes.SiteModified: {
+    case SitesActionTypes.SiteUpdated: {
       return sitesAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
     }
 

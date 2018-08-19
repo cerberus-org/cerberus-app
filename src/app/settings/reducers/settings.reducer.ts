@@ -5,7 +5,7 @@ export interface SettingsReducerState {
 }
 
 export const initialSettingsReducerState: SettingsReducerState = {
-  selectedOption: 'TEAM',
+  selectedOption: 'MEMBERS',
 };
 
 export function settingsReducer(

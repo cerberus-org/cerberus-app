@@ -18,7 +18,7 @@ describe('SettingsPageComponent', () => {
         MockComponent({ selector: 'app-roles' }),
         MockComponent({ selector: 'app-visits-settings' }),
         MockComponent({ selector: 'app-reports' }),
-        MockComponent({ selector: 'app-sites-settings' }),
+        MockComponent({ selector: 'app-site-settings' }),
       ],
       imports: [
         RouterTestingModule,

@@ -14,15 +14,19 @@ export const initialState: UsersReducerState = usersAdapter.getInitialState();
 export function usersReducer(state = initialState, action: UsersActionsUnion): UsersReducerState {
   switch (action.type) {
     case UsersActionTypes.UserAdded: {
-      return usersAdapter.upsertOne(action.payload, state);
+      return usersAdapter.addOne(action.payload, state);
     }
 
-    case UsersActionTypes.UserModified: {
+    case UsersActionTypes.UserUpdated: {
       return usersAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
     }
 
     case UsersActionTypes.UserRemoved: {
       return usersAdapter.removeOne(action.payload.id, state);
+    }
+
+    case UsersActionTypes.UserChanged: {
+      return usersAdapter.upsertOne(action.payload, state);
     }
 
     default: {

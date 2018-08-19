@@ -8,18 +8,19 @@ import { SharedModule } from '../shared/shared.module';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
 import { EditMemberDialogComponent } from './containers/edit-member-dialog/edit-member-dialog.component';
 import { EditVisitDialogComponent } from './containers/edit-visit-dialog/edit-visit-dialog.component';
-import { MembersSettingsComponent } from './containers/members-settings/members-settings.component';
+import { MemberSettingsComponent } from './containers/member-settings/member-settings.component';
 import { ReportsComponent } from './containers/reports/reports.component';
 import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
 import { SiteDialogComponent } from './containers/site-dialog/site-dialog.component';
-import { SitesSettingsComponent } from './containers/sites-settings/sites-settings.component';
+import { SiteSettingsComponent } from './containers/site-settings/site-settings.component';
 import { TeamSettingsComponent } from './containers/team-settings/team-settings.component';
-import { VisitsSettingsComponent } from './containers/visits-settings/visits-settings.component';
-import { VolunteersSettingsComponent } from './containers/volunteers-settings/volunteers-settings.component';
+import { VisitSettingsComponent } from './containers/visit-settings/visit-settings.component';
+import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
 import { settingsEffects } from './effects';
 import { settingsReducers } from './reducers';
 import { CsvService } from './services/csv.service';
 import { SettingsRoutingModule } from './settings-routing.module';
+import { SettingsHeaderComponent } from './components/settings-header/settings-header.component';
 
 @NgModule({
   imports: [
@@ -35,15 +36,16 @@ import { SettingsRoutingModule } from './settings-routing.module';
   declarations: [
     EditMemberDialogComponent,
     EditVisitDialogComponent,
-    MembersSettingsComponent,
+    MemberSettingsComponent,
     ReportsComponent,
     ReportsFormComponent,
     SettingsPageComponent,
     SiteDialogComponent,
-    SitesSettingsComponent,
+    SiteSettingsComponent,
     TeamSettingsComponent,
-    VisitsSettingsComponent,
-    VolunteersSettingsComponent,
+    VisitSettingsComponent,
+    VolunteerSettingsComponent,
+    SettingsHeaderComponent,
   ],
   exports: [
     SettingsPageComponent,

@@ -36,10 +36,10 @@ export const initialState: TeamsReducerState = teamsAdapter.getInitialState({
 export function teamsReducer(state = initialState, action: TeamsActionsUnion): TeamsReducerState {
   switch (action.type) {
     case TeamsActionTypes.TeamAdded: {
-      return teamsAdapter.upsertOne(action.payload, state);
+      return teamsAdapter.addOne(action.payload, state);
     }
 
-    case TeamsActionTypes.TeamModified: {
+    case TeamsActionTypes.TeamUpdated: {
       return teamsAdapter.updateOne({ id: action.payload.id, changes: action.payload }, state);
     }
 

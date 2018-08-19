@@ -41,7 +41,7 @@ export class TeamsPageEffects {
       this.teamService.add(team).pipe(
         switchMap(createdTeam =>
           this.memberService.add({
-            userUid: uid,
+            userId: uid,
             teamId: createdTeam.id,
             role: 'Owner',
           } as Member)),
@@ -59,7 +59,7 @@ export class TeamsPageEffects {
     withLatestFrom(this.store$.pipe(select(getUserInfoUid))),
     mergeMap(([team, uid]) =>
       this.memberService.add({
-        userUid: uid,
+        userId: uid,
         teamId: team.id,
         role: 'Locked',
       } as Member),

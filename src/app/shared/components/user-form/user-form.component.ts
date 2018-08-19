@@ -6,8 +6,8 @@ import { User } from '../../models';
 @Component({
   selector: 'app-user-form',
   template: `
-    <form class="input-container" [formGroup]="formGroup" autocomplete="off">
-      <mat-form-field class="input-container__row">
+    <form class="form-container" [formGroup]="formGroup" autocomplete="off">
+      <mat-form-field class="form-container">
         <input
           matInput
           placeholder="Full Name"

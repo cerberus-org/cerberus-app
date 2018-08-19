@@ -102,8 +102,10 @@ export abstract class BaseService<T extends { id: string }> {
    * @returns {Observable<any>} - an empty Observable that emits when completed.
    */
   update(item: T): Observable<any> {
+    const itemClone = Object.assign({}, item);
+    delete itemClone.id; // Remove id property from update object
     return from(
-      this.collection().doc(item.id).update(this.mapObjectToDocument(item)),
+      this.collection().doc(item.id).update(this.mapObjectToDocument(itemClone)),
     )
       .pipe(catchError(error => this.errorService.handleFirebaseError(error)));
   }
@@ -153,7 +155,7 @@ export abstract class BaseService<T extends { id: string }> {
   protected mapDocumentChangeToAction = map((action: FirestoreAction<DocumentSnapshot<T>>) => {
     console.log(action.payload);
     return ({
-      type: `[${this.collectionName}] added`,
+      type: `[${this.collectionName}] changed`,
       payload: {
         id: action.payload.id,
         ...action.payload.data() as Object,

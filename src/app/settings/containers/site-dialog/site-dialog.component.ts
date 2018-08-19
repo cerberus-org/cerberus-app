@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AppState } from '../../../core/reducers';
-import { getMemberForUserAndSelectedTeam } from '../../../core/selectors/members.selectors';
+import { getMemberForCurrentUserAndSelectedTeam } from '../../../core/selectors/members.selectors';
 import { Member, Site } from '../../../shared/models';
 
 @Component({
@@ -11,7 +11,7 @@ import { Member, Site } from '../../../shared/models';
   template: `
     <h2 mat-dialog-title>Edit Site</h2>
     <mat-dialog-content>
-      <div class="input-container">
+      <div class="form-container">
         <mat-form-field class="example-full-width" autocomplete="off">
           <mat-label>Name</mat-label>
           <input matInput autocomplete="off" placeholder="Site name" [(ngModel)]="name">
@@ -53,7 +53,7 @@ export class SiteDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.memberSubscription = this.store$.pipe(select(getMemberForUserAndSelectedTeam)).subscribe((member: Member) => {
+    this.memberSubscription = this.store$.pipe(select(getMemberForCurrentUserAndSelectedTeam)).subscribe((member: Member) => {
       this.member = member;
     });
   }

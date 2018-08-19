@@ -33,6 +33,6 @@ export class MembersEffects {
   loadMembersForUser$: Observable<Action> = this.actions.pipe(
     ofType<LoadMembersForUser>(MembersActionTypes.LoadMembersForUser),
     switchMap(() =>
-      this.memberService.getChangesByKey('userUid', this.authService.currentUserInfo.uid)),
+      this.memberService.getChangesByKey('userId', this.authService.currentUserInfo.uid)),
   );
 }

@@ -6,15 +6,15 @@ import { Credentials } from '../../models/credentials';
 @Component({
   selector: 'app-credentials-form',
   template: `
-    <form class="input-container" [formGroup]="formGroup" autocomplete="off">
-      <mat-form-field class="input-container__row">
+    <form class="form-container" [formGroup]="formGroup" autocomplete="off">
+      <mat-form-field class="form-container">
         <input type="email" matInput placeholder="Email" formControlName="email">
       </mat-form-field>
       <h4 *ngIf="edit">Optionally change your password here:</h4>
-      <mat-form-field class="input-container__row">
+      <mat-form-field class="form-container">
         <input matInput type="password" formControlName="password" placeholder="Password">
       </mat-form-field>
-      <mat-form-field class="input-container__row">
+      <mat-form-field class="form-container">
         <input
           matInput type="password"
           formControlName="confirmPassword"

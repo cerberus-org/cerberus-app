@@ -7,8 +7,8 @@ import { Team } from '../../models';
 @Component({
   selector: 'app-team-form',
   template: `
-    <form class="input-container" [formGroup]="formGroup">
-      <mat-form-field class="input-container__row">
+    <form class="form-container" [formGroup]="formGroup">
+      <mat-form-field class="form-container">
         <input
           matInput
           class="capitalize"
@@ -17,7 +17,7 @@ import { Team } from '../../models';
           placeholder="Team name"
         >
       </mat-form-field>
-      <mat-form-field class="input-container__row">
+      <mat-form-field class="form-container">
         <input
           matInput
           formControlName="website"
@@ -25,7 +25,7 @@ import { Team } from '../../models';
           placeholder="Website"
         >
       </mat-form-field>
-      <mat-form-field class="input-container__row">
+      <mat-form-field class="form-container">
         <textarea
           matInput
           formControlName="description"

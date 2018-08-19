@@ -9,32 +9,23 @@ import { CreateSite, RemoveSite, UpdateSite } from '../../actions/settings.actio
 import { SiteDialogComponent } from '../site-dialog/site-dialog.component';
 
 @Component({
-  selector: 'app-sites-settings',
+  selector: 'app-site-settings',
   template: `
-    <mat-toolbar class="data-table-header">
-      <button
-        mat-button
-        class="data-table-header__button"
-        color="accent"
-        [disabled]="false"
-        (click)="openCreateSiteDialog()"
-      >
-        Create Site
-      </button>
-    </mat-toolbar>
-    <app-data-table
-      [data$]="sites$"
-      [columnOptions]="columnOptions"
-      [showRemove]="true"
-      [showEdit]="true"
-      (editRow)="onEditRow($event)"
-      (removeRow)="onRemoveRow($event)"
-    >
-    </app-data-table>
+    <div class="table-container">
+      <app-settings-header title="Sites" [showAdd]="true" (clickAdd)="onClickAdd()"></app-settings-header>
+      <app-data-table
+        [data$]="sites$"
+        [columnOptions]="columnOptions"
+        [showRemove]="true"
+        [showEdit]="true"
+        (editRow)="onEditRow($event)"
+        (removeRow)="onRemoveRow($event)"
+      ></app-data-table>
+    </div>
   `,
-  styleUrls: ['./sites-settings.component.scss'],
+  styleUrls: ['./site-settings.component.scss'],
 })
-export class SitesSettingsComponent {
+export class SiteSettingsComponent {
   columnOptions: ColumnOptions[] = [
     {
       columnDef: 'name',
@@ -87,7 +78,7 @@ export class SitesSettingsComponent {
    *
    * @param {Site} site
    */
-  openCreateSiteDialog(site?: Site) {
+  onClickAdd(site?: Site) {
     const dialog = this.dialog.open(SiteDialogComponent);
     dialog.afterClosed().subscribe((site: Site) => {
       if (site && site.name) {

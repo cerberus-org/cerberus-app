@@ -5,7 +5,7 @@ export enum SitesActionTypes {
   LoadSites = '[sites] load sites',
   LoadSitesForTeam = '[sites] load sites for team',
   SiteAdded = '[sites] added',
-  SiteModified = '[sites] modified',
+  SiteUpdated = '[sites] updated',
   SiteRemoved = '[sites] removed',
   SelectSite = '[sites] select site',
 }
@@ -28,8 +28,8 @@ export class SiteAdded implements Action {
   constructor(public payload: Site) {}
 }
 
-export class SiteModified implements Action {
-  readonly type = SitesActionTypes.SiteModified;
+export class SiteUpdated implements Action {
+  readonly type = SitesActionTypes.SiteUpdated;
 
   constructor(public payload: Site) {}
 }
@@ -54,6 +54,6 @@ export type SitesActionsUnion =
   | LoadSites
   | LoadSitesForTeam
   | SiteAdded
-  | SiteModified
+  | SiteUpdated
   | SiteRemoved
   | SelectSite;

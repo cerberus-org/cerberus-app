@@ -5,7 +5,7 @@ export enum TeamsActionTypes {
   LoadTeams = '[teams] load teams',
   SelectTeam = '[teams] select team',
   TeamAdded = '[teams] added',
-  TeamModified = '[teams] modified',
+  TeamUpdated = '[teams] updated',
   TeamRemoved = '[teams] removed',
 }
 
@@ -34,8 +34,8 @@ export class TeamAdded implements Action {
   constructor(public payload: Team) {}
 }
 
-export class TeamModified implements Action {
-  readonly type = TeamsActionTypes.TeamModified;
+export class TeamUpdated implements Action {
+  readonly type = TeamsActionTypes.TeamUpdated;
 
   constructor(public payload: Team) {}
 }
@@ -54,5 +54,5 @@ export type TeamsActionsUnion =
   | LoadTeams
   | SelectTeam
   | TeamAdded
-  | TeamModified
+  | TeamUpdated
   | TeamRemoved;

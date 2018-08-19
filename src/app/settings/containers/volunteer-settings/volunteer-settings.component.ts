@@ -8,10 +8,20 @@ import { RemoveVolunteer } from '../../actions/settings.actions';
 
 @Component({
   selector: 'app-volunteers-settings',
-  templateUrl: './volunteers-settings.component.html',
-  styleUrls: ['./volunteers-settings.component.scss'],
+  template: `
+    <div class="table-container">
+      <app-settings-header title="Volunteer"></app-settings-header>
+      <app-data-table
+        [data$]="volunteers$"
+        [columnOptions]="columnOptions"
+        [showRemove]="true"
+        (removeRow)="onDeleteVolunteer($event)"
+      ></app-data-table>
+    </div>
+  `,
+  styleUrls: ['./volunteer-settings.component.scss'],
 })
-export class VolunteersSettingsComponent implements OnInit {
+export class VolunteerSettingsComponent implements OnInit {
   columnOptions: ColumnOptions[] = [
     {
       columnDef: 'name',

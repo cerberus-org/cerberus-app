@@ -1,22 +1,17 @@
 import { Dictionary } from '@ngrx/entity';
 import { createSelector } from '@ngrx/store';
 import {
-  getMemberForUserAndSelectedTeam,
+  getMemberForCurrentUserAndSelectedTeam,
   getMembersForSelectedTeam,
   getOwnerCount,
 } from '../../core/selectors/members.selectors';
 import { getUserEntities } from '../../core/selectors/users.selectors';
 import { getRoleOptions } from '../../shared/helpers';
 import { Member, User } from '../../shared/models';
+import { MemberTableRow } from '../models/member-table-row';
 
-export interface RolesTableRow {
-  member: Member;
-  user: User;
-  roleOptions: string[];
-}
-
-export const getRolesTableRows = createSelector(
-  getMemberForUserAndSelectedTeam,
+export const getMemberTableRows = createSelector(
+  getMemberForCurrentUserAndSelectedTeam,
   getMembersForSelectedTeam,
   getUserEntities,
   getOwnerCount,
@@ -25,10 +20,10 @@ export const getRolesTableRows = createSelector(
     modelMembers: Member[],
     userEntities: Dictionary<User>,
     ownerCount: number,
-  ): RolesTableRow[] =>
+  ): MemberTableRow[] =>
     modelMembers && modelMembers.map(member => ({
       member,
-      user: userEntities[member.userUid],
+      user: userEntities[member.userId],
       roleOptions: getRoleOptions(sessionMember, member, ownerCount === 1),
     })),
 );

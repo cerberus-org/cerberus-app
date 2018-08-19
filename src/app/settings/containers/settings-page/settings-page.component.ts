@@ -5,13 +5,13 @@ import { Observable, Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { LoadMembersForTeam } from '../../../core/actions/members.actions';
-import { LoadUsersByIds } from '../../../core/actions/users.actions';
 import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
 import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
+import { LoadUsersByIds } from '../../../core/actions/users.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
 import {
-  getMemberForUserAndSelectedTeam,
+  getMemberForCurrentUserAndSelectedTeam,
   getUserIdsForSelectedTeam,
 } from '../../../core/selectors/members.selectors';
 import { isAdmin } from '../../../shared/helpers';
@@ -22,9 +22,9 @@ import { getSelectedSettingsOption } from '../../selectors/settings.selectors';
 @Component({
   selector: 'app-settings-page',
   template: `
-    <div [ngSwitch]="(selectedOption$ | async)">
-      <app-roles *ngSwitchCase="'MEMBERS'"></app-roles>
-      <app-sites-settings *ngSwitchCase="'SITES'"></app-sites-settings>
+    <div class="container" [ngSwitch]="(selectedOption$ | async)">
+      <app-member-settings *ngSwitchCase="'MEMBERS'"></app-member-settings>
+      <app-site-settings *ngSwitchCase="'SITES'"></app-site-settings>
       <app-visits-settings *ngSwitchCase="'VISITS'"></app-visits-settings>
       <app-volunteers-settings *ngSwitchCase="'VOLUNTEERS'"></app-volunteers-settings>
       <app-reports *ngSwitchCase="'REPORTS'"></app-reports>
@@ -47,7 +47,7 @@ export class SettingsPageComponent implements OnDestroy {
         showLogOut: true,
       },
     }));
-    store$.dispatch(new SelectSettingsOption({ selectedOption: 'USER' }));
+    store$.dispatch(new SelectSettingsOption({ selectedOption: 'MEMBERS' }));
     store$.dispatch(new LoadTeams());
     this.routeParamsSubscription = route.params.pipe(
       switchMap(({ teamId }) => [
@@ -65,7 +65,7 @@ export class SettingsPageComponent implements OnDestroy {
     )
       .subscribe(store$);
     this.sidenavSubscription = store$.pipe(
-      select(getMemberForUserAndSelectedTeam),
+      select(getMemberForCurrentUserAndSelectedTeam),
       filter(member => !!member),
       map(member => new SetSidenavOptions({
         sidenavOptions: isAdmin(member) ? adminSidenavOptions : memberSidenavOptions,

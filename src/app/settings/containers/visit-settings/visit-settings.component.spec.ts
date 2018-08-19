@@ -7,20 +7,20 @@ import { createMockVisits } from '../../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { formatDate, formatDuration, formatTime } from '../../../shared/helpers';
-import { VisitsTableRow } from '../../models/visits-table-row';
+import { VisitTableRow } from '../../models/visit-table-row';
 import { SiteDialogComponent } from '../site-dialog/site-dialog.component';
-import { VisitsSettingsComponent } from './visits-settings.component';
+import { VisitSettingsComponent } from './visit-settings.component';
 
-describe('VisitsSettingsComponent', () => {
-  let component: VisitsSettingsComponent;
-  let fixture: ComponentFixture<VisitsSettingsComponent>;
-  let visitWithData: VisitsTableRow;
+describe('VisitSettingsComponent', () => {
+  let component: VisitSettingsComponent;
+  let fixture: ComponentFixture<VisitSettingsComponent>;
+  let visitWithData: VisitTableRow;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         SiteDialogComponent,
-        VisitsSettingsComponent,
+        VisitSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showRemove', 'showEdit'],
@@ -38,7 +38,7 @@ describe('VisitsSettingsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VisitsSettingsComponent);
+    fixture = TestBed.createComponent(VisitSettingsComponent);
     component = fixture.componentInstance;
     visitWithData = {
       ...createMockVisits()[0],

@@ -4,17 +4,17 @@ import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Volunteer } from '../../../shared/models';
 import { RemoveVolunteer } from '../../actions/settings.actions';
-import { VolunteersSettingsComponent } from './volunteers-settings.component';
+import { VolunteerSettingsComponent } from './volunteer-settings.component';
 
-describe('VolunteersSettingsComponent', () => {
-  let component: VolunteersSettingsComponent;
-  let fixture: ComponentFixture<VolunteersSettingsComponent>;
+describe('VolunteerSettingsComponent', () => {
+  let component: VolunteerSettingsComponent;
+  let fixture: ComponentFixture<VolunteerSettingsComponent>;
   let volunteer: Volunteer;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        VolunteersSettingsComponent,
+        VolunteerSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showRemove', 'rowColor'],
@@ -28,7 +28,7 @@ describe('VolunteersSettingsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VolunteersSettingsComponent);
+    fixture = TestBed.createComponent(VolunteerSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     volunteer = createMockVolunteers()[0];

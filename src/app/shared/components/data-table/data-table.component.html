@@ -24,7 +24,7 @@
           *ngIf="showRemove"
           mat-icon-button
           color="accent"
-          [disabled]="disableEdit(row)"
+          [disabled]="disableRemove(row)"
           (click)="onClickRemove(row)"
         >
           <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>
