@@ -1,7 +1,7 @@
 import { Member } from '../models';
 import { Roles, ROLES_LIST } from '../models/roles';
 
-export const isAdmin = (member: Member) => member.role === Roles.Admin || member.role === Roles.Owner;
+export const isAdmin = (member: Member) => member && (member.role === Roles.Admin || member.role === Roles.Owner);
 
 export const getMemberRoles = () => ROLES_LIST.slice();
 

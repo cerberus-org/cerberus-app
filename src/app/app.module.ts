@@ -12,11 +12,18 @@ import 'hammerjs';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthActionTypes } from './auth/actions/auth.actions';
 import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './core/containers/app/app.component';
 import { CoreModule } from './core/core.module';
 import { appEffects } from './core/effects';
 import { appReducers } from './core/reducers';
+
+function logout(reducer) {
+  return function (state, action) {
+    return reducer(action.type === AuthActionTypes.SignOut ? undefined : state, action);
+  };
+}
 
 @NgModule({
   imports: [
@@ -36,7 +43,7 @@ import { appReducers } from './core/reducers';
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
-    StoreModule.forRoot(appReducers),
+    StoreModule.forRoot(appReducers, { metaReducers: [logout] }),
 
     /**
      * @ngrx/router-store keeps router state up-to-date in the store.

@@ -61,6 +61,7 @@ export class SettingsPageComponent implements OnDestroy {
       .subscribe(store$);
     this.membersSubscription = store$.pipe(
       select(getUserIdsForSelectedTeam),
+      filter(ids => ids && ids.length > 0),
       map(ids => new LoadUsersByIds({ ids })),
     )
       .subscribe(store$);

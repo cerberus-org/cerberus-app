@@ -16,6 +16,10 @@ export function authReducer(state = initialAuthReducerState, action: AuthActions
       return { ...state, userInfo };
     }
 
+    case AuthActionTypes.ClearUserInfo: {
+      return initialAuthReducerState;
+    }
+
     default: {
       return state;
     }

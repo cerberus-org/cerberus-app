@@ -9,7 +9,7 @@ import { ErrorService } from '../../core/services/error.service';
 import { MemberService } from '../../core/services/member.service';
 import { Member } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
-import { SetUserInfo } from '../actions/auth.actions';
+import { ClearUserInfo, SetUserInfo } from '../actions/auth.actions';
 
 @Injectable()
 export class AuthService {
@@ -103,8 +103,8 @@ export class AuthService {
    * If the page is reloaded or the state of the user changes, dispatch SetUserInfo.
    */
   observeStateChanges(): void {
-    this.afAuth.auth.onAuthStateChanged((user) => {
-      this.store$.dispatch(new SetUserInfo({ userInfo: user ? user as UserInfo : undefined }));
+    this.afAuth.auth.onAuthStateChanged((userInfo) => {
+      this.store$.dispatch(userInfo ? new SetUserInfo({ userInfo }) : new ClearUserInfo());
     });
   }
 }

@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { Go } from '../../../core/actions/router.actions';
 import { AppState } from '../../../core/reducers';
 import { getMemberForCurrentUserAndSelectedTeam } from '../../../core/selectors/members.selectors';
 import { isAdmin } from '../../../shared/helpers';
@@ -61,6 +62,9 @@ export class MemberSettingsComponent implements OnDestroy {
   }
 
   onRemoveRow(row: MemberTableRow): void {
+    if (row.member === this.currentMember) {
+      this.store$.dispatch(new Go({ path: ['teams'] }));
+    }
     this.store$.dispatch(new RemoveMember({ member: row.member }));
   }
 
@@ -81,6 +85,9 @@ export class MemberSettingsComponent implements OnDestroy {
    * @returns {boolean}
    */
   shouldDisableRemove = (row: MemberTableRow): boolean => {
-    return row.member.id === this.currentMember.id && !isAdmin(row.member) ? false : this.shouldDisableEdit(row);
+    // If current user is an admin, use edit logic anyway since last owner case is covered
+    return this.currentMember && this.currentMember.id === row.member.id && !isAdmin(this.currentMember)
+      ? false
+      : this.shouldDisableEdit(row);
   }
 }

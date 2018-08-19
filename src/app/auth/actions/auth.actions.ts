@@ -10,6 +10,7 @@ export enum AuthActionTypes {
   VerifyPassword = '[auth] verify password',
   ResetPassword = '[auth] reset password',
   SetUserInfo = '[auth] set user info',
+  ClearUserInfo = '[auth] clear user info',
 }
 
 export class SignUp implements Action {
@@ -46,10 +47,17 @@ export class SetUserInfo implements Action {
   constructor(public payload: { userInfo: UserInfo }) {}
 }
 
+export class ClearUserInfo implements Action {
+  readonly type = AuthActionTypes.ClearUserInfo;
+
+  constructor() {}
+}
+
 export type AuthActionsUnion
   = SignUp
   | SignIn
   | SignOut
   | VerifyPassword
   | ResetPassword
-  | SetUserInfo;
+  | SetUserInfo
+  | ClearUserInfo;
