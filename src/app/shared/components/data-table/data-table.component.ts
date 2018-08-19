@@ -67,11 +67,8 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
   styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit, OnChanges {
-  @Input() getRowColor: (any) => string = () => '';
-  @Input() getCellFontWeight: (any) => string = () => '';
-  @Input() getCellFontColor: (any) => string = () => '';
-  @Input() validItemsEdited: any[];
-  @Input() invalidItemsEdited: any[];
+  @Input() rowColor: (any) => string = () => '';
+  @Input() disableActions: (any) => boolean = () => false;
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
   @Input() showRemove: boolean;

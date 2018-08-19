@@ -13,6 +13,7 @@ import { EditRoleDialogComponent } from '../edit-role-dialog/edit-role-dialog.co
     <app-data-table
       [data$]="members$"
       [columnOptions]="columnOptions"
+      [disableActions]="shouldDisableActions"
       [showEdit]="true"
       [showRemove]="true"
       (editRow)="onEditRow($event)"
@@ -39,9 +40,17 @@ export class RolesComponent {
     this.members$ = store$.pipe(select(getMembersWithRoleOptions));
   }
 
-  onEditRow(row: RolesTableRow) {
+  onDeleteRow(row: RolesTableRow): void {
+    this.store$.dispatch(new DeleteMember({ member: this.dialogData.member }));
+  }
+
+  onEditRow(row: RolesTableRow): void {
     const config = new MatDialogConfig<RolesTableRow>();
     config.data = row;
     this.dialog.open(EditRoleDialogComponent, config);
+  }
+
+  shouldDisableActions(row: RolesTableRow): boolean {
+    return !row.roleOptions || row.roleOptions.length < 2;
   }
 }

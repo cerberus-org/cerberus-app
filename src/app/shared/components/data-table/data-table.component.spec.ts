@@ -72,10 +72,10 @@ describe('DataTableComponent', () => {
   });
 
   it('should sets background-color to an empty string on default', () => {
-    expect(component.getRowColor(visits[0])).toEqual('');
+    expect(component.rowColor(visits[0])).toEqual('');
   });
 
   it('should sets background-color to an empty string on default', () => {
-    expect(component.getRowColor(visits[0])).toEqual('');
+    expect(component.rowColor(visits[0])).toEqual('');
   });
 });

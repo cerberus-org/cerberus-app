@@ -18,7 +18,7 @@ describe('RolesComponent', () => {
         RolesComponent,
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showRemove', 'getRowColor', 'isEditable'],
+          inputs: ['columnOptions', 'data$', 'showRemove', 'rowColor', 'isEditable'],
         }),
       ],
       imports: [

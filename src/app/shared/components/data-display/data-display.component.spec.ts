@@ -20,7 +20,7 @@ describe('DataDisplayComponent', () => {
         MockComponent({ selector: 'app-daily-hours-chart', inputs: ['visits', 'sites'] }),
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showRemove', 'getRowColor'],
+          inputs: ['columnOptions', 'data$', 'showRemove', 'rowColor'],
         }),
         MockComponent({ selector: 'app-loader' }),
       ],

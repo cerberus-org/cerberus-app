@@ -11,17 +11,29 @@
     <ng-container *ngIf="showActions" cdkColumnDef="actions" class="cdk-column-actions">
       <mat-header-cell *cdkHeaderCellDef>Actions</mat-header-cell>
       <mat-cell *cdkCellDef="let row">
-        <button *ngIf="showEdit" mat-icon-button color="accent" (click)="onClickEdit(row)">
+        <button
+          *ngIf="showEdit"
+          mat-icon-button
+          color="accent"
+          [disabled]="disableActions(row)"
+          (click)="onClickEdit(row)"
+        >
           <mat-icon aria-label="Edit this entry">mode_edit</mat-icon>
         </button>
-        <button *ngIf="showRemove" mat-icon-button color="accent" (click)="onClickRemove(row)">
+        <button
+          *ngIf="showRemove"
+          mat-icon-button
+          color="accent"
+          [disabled]="disableActions(row)"
+          (click)="onClickRemove(row)"
+        >
           <mat-icon aria-label="Delete this entry">delete_forever</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
     <!--Data rows-->
     <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *cdkRowDef="let row; columns: displayedColumns;" [ngStyle]="{'background-color' : getRowColor(row)}">
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;" [ngStyle]="{'background-color' : rowColor(row)}">
     </mat-row>
   </mat-table>
   <mat-paginator
