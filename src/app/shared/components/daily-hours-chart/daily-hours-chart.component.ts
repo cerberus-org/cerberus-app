@@ -65,10 +65,14 @@ export class DailyHoursChartComponent implements OnChanges {
    */
   getDataSetsBySite(visits: Visit[]): Visit[][] {
     const mapOfVisits = new Map<string, Visit[]>();
+    mapOfVisits.set('noSite', []);
     if (visits && visits.length) {
       visits.forEach((visit: Visit) => {
-        visit.siteId = visit.siteId ? visit.siteId : 'noSite';
-        if (mapOfVisits.get(visit.siteId)) {
+        if (!visit.siteId) {
+          const visits = mapOfVisits.get('noSite');
+          visits.push(visit);
+          mapOfVisits.set('noSite', visits);
+        } else if (mapOfVisits.get(visit.siteId)) {
           const visits = mapOfVisits.get(visit.siteId);
           visits.push(visit);
           mapOfVisits.set(visit.siteId, visits);
@@ -134,7 +138,7 @@ export class DailyHoursChartComponent implements OnChanges {
           Array(labels.length).fill(0),
         )
           .map(value => value.toFixed(3)),
-        label: visits[0].siteId === 'noSite' ? '(No site listed)' + ' Hours' : mapOfSites.get(visits[0].siteId) + ' Hours',
+        label: !visits[0].siteId ? '(No site listed)' + ' Hours' : mapOfSites.get(visits[0].siteId) + ' Hours',
       }
       : { data: [], label: '' };
   }
