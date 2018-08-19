@@ -52,7 +52,3 @@ export const getUniqueFullNames = (volunteers: Volunteer[]): string[] => {
     new Set(volunteers.map(volunteer => volunteer.name)),
   );
 };
-
-export const getSelectedSiteId = (): string => {
-  return window.location.href.split('/')[5] === 'sites' ? window.location.href.split('/')[6] : null;
-};

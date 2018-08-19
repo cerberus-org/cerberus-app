@@ -7,6 +7,7 @@ export enum SitesActionTypes {
   SiteAdded = '[sites] added',
   SiteModified = '[sites] modified',
   SiteRemoved = '[sites] removed',
+  SelectSite = '[sites] select site',
 }
 
 export class LoadSites implements Action {
@@ -39,6 +40,12 @@ export class SiteRemoved implements Action {
   constructor(public payload: Site) {}
 }
 
+export class SelectSite implements Action {
+  readonly type = SitesActionTypes.SelectSite;
+
+  constructor(public payload: { siteId: string }) {}
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -48,4 +55,5 @@ export type SitesActionsUnion =
   | LoadSitesForTeam
   | SiteAdded
   | SiteModified
-  | SiteRemoved;
+  | SiteRemoved
+  | SelectSite;

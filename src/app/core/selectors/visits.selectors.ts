@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { getSelectedSiteId } from '../../volunteers/helpers/check-in.helpers';
 import { visitsAdapter, VisitsReducerState } from '../reducers/visits.reducer';
-import { getSelectedTeamId } from './teams.selectors';
+import { getSelectedSiteId } from './sites.selectors';
+import { getSelectedTeamId, getTeamsReducerState } from './teams.selectors';
 
 export const getVisitsReducerState = createFeatureSelector<VisitsReducerState>('visits');
 
@@ -17,5 +17,6 @@ export const getVisitsForSelectedTeam = createSelector(
 
 export const getVisitsForSelectedTeamAndSite = createSelector(
   getVisitsForSelectedTeam,
-  (visits) => visits.filter(visit => visit.siteId === getSelectedSiteId()),
+  getSelectedSiteId,
+  (visits, siteId) => visits.filter(visit => visit.siteId === siteId),
 );
