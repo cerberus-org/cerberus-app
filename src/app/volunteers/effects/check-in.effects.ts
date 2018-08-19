@@ -11,6 +11,7 @@ import { VisitService } from '../../core/services/visit.service';
 import { VolunteerService } from '../../core/services/volunteer.service';
 import { Volunteer } from '../../shared/models';
 import { CheckIn, CheckInActionTypes, CheckOut, SubmitNewVolunteer } from '../actions/check-in.actions';
+import { getSelectedSiteId } from '../helpers/check-in.helpers';
 
 @Injectable()
 export class CheckInEffects {
@@ -42,7 +43,7 @@ export class CheckInEffects {
     switchMap(([visit, teamId]) => this.visitService.add({
       ...visit,
       teamId,
-      siteId: window.location.href.split('/')[5] === 'sites' ? window.location.href.split('/')[6] : null,
+      siteId: getSelectedSiteId(),
     })
       .pipe(
         map(() => {

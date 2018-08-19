@@ -11,8 +11,9 @@ import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { AppState } from '../../../core/reducers';
 import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
-import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
+import { getVisitsForSelectedTeam, getVisitsForSelectedTeamAndSite } from '../../../core/selectors/visits.selectors';
 import { Site, Visit } from '../../../shared/models';
+import { getSelectedSiteId } from '../../helpers/check-in.helpers';
 
 @Component({
   selector: 'app-team-dashboard-page',
@@ -69,7 +70,7 @@ export class TeamDashboardPageComponent implements OnDestroy {
         })),
       )
       .subscribe(store$);
-    this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
+    this.visits$ = store$.pipe(select(getVisitsForSelectedTeamAndSite));
     this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
   }
 
