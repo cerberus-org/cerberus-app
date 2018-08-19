@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { select, Store } from '@ngrx/store';
+import { Action, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { getUserInfoUid } from '../../auth/selectors/auth.selectors';
+import { SelectTeam } from '../../core/actions/teams.actions';
 import { AppState } from '../../core/reducers';
 import { MemberService } from '../../core/services/member.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { TeamService } from '../../core/services/team.service';
 import { Member } from '../../shared/models';
 import {
+  CancelRequest,
   CreateTeam,
   JoinTeam,
   OpenCreateTeamDialog,
@@ -27,10 +29,22 @@ export class TeamsPageEffects {
     private actions: Actions,
     private memberService: MemberService,
     private teamService: TeamService,
-    private snackbarService: SnackBarService,
+    private snackBarService: SnackBarService,
     private store$: Store<AppState>,
     private dialog: MatDialog,
   ) {}
+
+  @Effect()
+  cancelRequest$: Observable<Action> = this.actions.pipe(
+    ofType<CancelRequest>(TeamsPageActionTypes.CancelRequest),
+    map(action => action.payload.member),
+    switchMap(member => this.memberService.remove(member).pipe(
+      map(() => {
+        this.snackBarService.cancelRequestSuccess();
+        return new SelectTeam({ teamId: undefined });
+      }),
+    )),
+  );
 
   @Effect({ dispatch: false })
   createTeam$: Observable<any> = this.actions.pipe(
@@ -48,7 +62,7 @@ export class TeamsPageEffects {
       ),
     ),
     tap(() => {
-      this.snackbarService.createTeamSuccess();
+      this.snackBarService.createTeamSuccess();
     }),
   );
 
@@ -65,7 +79,7 @@ export class TeamsPageEffects {
       } as Member),
     ),
     tap(() => {
-      this.snackbarService.joinTeamSuccess();
+      this.snackBarService.joinTeamSuccess();
     }),
   );
 

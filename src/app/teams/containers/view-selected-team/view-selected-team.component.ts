@@ -7,20 +7,25 @@ import { Go } from '../../../core/actions/router.actions';
 import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { AppState } from '../../../core/reducers';
+import { getMemberForCurrentUserAndSelectedTeam } from '../../../core/selectors/members.selectors';
 import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
 import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
-import { Site, Team, Visit } from '../../../shared/models';
+import { RemoveMember } from '../../../settings/actions/settings.actions';
+import { Member, Site, Team, Visit } from '../../../shared/models';
+import { CancelRequest } from '../../actions/teams-page.actions';
 
 @Component({
   selector: 'app-view-selected-team',
   template: `
-    <div class="container">
+    <div class="table-container">
       <app-selected-team-toolbar
+        [member]="(currentMember$ | async)"
         [team]="(selectedTeam$ | async)"
         [sites]="(sites$ | async)"
         (clickActivate)="onClickActivate($event)"
         (clickSettings)="onClickSettings($event)"
+        (clickCancelRequest)="onClickCancelRequest($event)"
       >
       </app-selected-team-toolbar>
       <app-data-display [visits$]="visits$" [sites$]="sites$"></app-data-display>
@@ -32,6 +37,7 @@ export class ViewSelectedTeamComponent implements OnDestroy {
   selectedTeam$: Observable<Team>;
   visits$: Observable<Visit[]>;
   sites$: Observable<Site[]>;
+  currentMember$: Observable<Member>;
   selectedTeamSubscription: Subscription;
 
   constructor(private store$: Store<AppState>) {
@@ -45,6 +51,7 @@ export class ViewSelectedTeamComponent implements OnDestroy {
       ]),
     )
       .subscribe(store$);
+    this.currentMember$ = store$.pipe(select(getMemberForCurrentUserAndSelectedTeam));
     this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
     this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
   }
@@ -60,5 +67,9 @@ export class ViewSelectedTeamComponent implements OnDestroy {
 
   onClickSettings(team: Team): void {
     this.store$.dispatch(new Go({ path: ['teams', team.id, 'settings'] }));
+  }
+
+  onClickCancelRequest(member: Member): void {
+    this.store$.dispatch(new CancelRequest({ member }));
   }
 }

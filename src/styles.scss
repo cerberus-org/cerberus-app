@@ -119,7 +119,7 @@ input.capitalize {
   grid-auto-flow: column;
   justify-content: end;
   grid-column-gap: 0.5rem;
-  margin-top: 1rem;
+  align-items: center;
 }
 
 .form-container {
@@ -144,6 +144,11 @@ input.capitalize {
 .subtitle {
   margin-top: -4px;
   margin-bottom: 16px;
+  font-size: 14px;
+  color: rgba(0,0,0,.54)
+}
+
+.gray-text {
   font-size: 14px;
   color: rgba(0,0,0,.54)
 }

@@ -11,6 +11,10 @@ export class SnackBarService {
     return this.snackBar.open(message, action, { duration });
   }
 
+  cancelRequestSuccess(): MatSnackBarRef<SimpleSnackBar> {
+    return this.open('Your request to join was cancelled.');
+  }
+
   checkInSuccess(): MatSnackBarRef<SimpleSnackBar> {
     return this.open('Volunteer successfully checked in.');
   }
