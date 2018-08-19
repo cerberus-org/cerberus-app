@@ -43,7 +43,7 @@ export class CheckInEffects {
     switchMap(([visit, teamId, siteId]) => this.visitService.add({
       ...visit,
       teamId,
-      siteId,
+      siteId: siteId || null,
     })
       .pipe(
         map(() => {
