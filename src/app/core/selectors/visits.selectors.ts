@@ -18,5 +18,5 @@ export const getVisitsForSelectedTeam = createSelector(
 export const getVisitsForSelectedTeamAndSite = createSelector(
   getVisitsForSelectedTeam,
   getSelectedSiteId,
-  (visits, siteId) => visits.filter(visit => visit.siteId === siteId),
+  (visits, siteId) => visits.filter(visit => siteId ? visit.siteId === siteId : !visit.siteId),
 );
