@@ -18,6 +18,7 @@ import { Site, Team, Visit } from '../../../shared/models';
     <div class="container">
       <app-selected-team-toolbar
         [team]="(selectedTeam$ | async)"
+        [sites]="(sites$ | async)"
         (clickActivate)="onClickActivate($event)"
         (clickSettings)="onClickSettings($event)"
       >
@@ -52,8 +53,9 @@ export class ViewSelectedTeamComponent implements OnDestroy {
     this.selectedTeamSubscription.unsubscribe();
   }
 
-  onClickActivate(team: Team): void {
-    this.store$.dispatch(new Go({ path: ['teams', team.id, 'volunteers'] }));
+  onClickActivate(teamAndSite: any): void {
+    teamAndSite.site ? this.store$.dispatch(new Go({ path: ['teams', teamAndSite.team.id, 'sites', teamAndSite.site.id, 'volunteers'] }))
+      : this.store$.dispatch(new Go({ path: ['teams', teamAndSite.team.id, 'volunteers'] }));
   }
 
   onClickSettings(team: Team): void {

@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadChildren: './volunteers/volunteers.module#VolunteersModule',
   },
   {
+    path: 'teams/:teamId/sites/:siteId/volunteers',
+    loadChildren: './volunteers/volunteers.module#VolunteersModule',
+  },
+  {
     path: 'teams/:teamId/settings',
     loadChildren: './settings/settings.module#SettingsModule',
   },

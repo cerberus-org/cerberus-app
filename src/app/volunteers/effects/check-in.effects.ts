@@ -42,7 +42,7 @@ export class CheckInEffects {
     switchMap(([visit, teamId]) => this.visitService.add({
       ...visit,
       teamId,
-      siteId: null, // TODO: Implement site association
+      siteId: window.location.href.split('/')[5] === 'sites' ? window.location.href.split('/')[6] : null,
     })
       .pipe(
         map(() => {
