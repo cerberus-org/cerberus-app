@@ -5,13 +5,13 @@ import { Observable, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
 import { Go } from '../../../core/actions/router.actions';
-import { LoadSitesForTeam } from '../../../core/actions/sites.actions';
+import { LoadSitesForTeam, SelectSite } from '../../../core/actions/sites.actions';
 import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { AppState } from '../../../core/reducers';
 import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
-import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
+import { getVisitsForSelectedTeamAndSite } from '../../../core/selectors/visits.selectors';
 import { Site, Visit } from '../../../shared/models';
 
 @Component({
@@ -53,6 +53,7 @@ export class TeamDashboardPageComponent implements OnDestroy {
           ],
         }),
         new SelectTeam({ teamId }),
+        new SelectSite({ siteId }),
         new LoadSitesForTeam({ teamId }),
         new LoadVisitsForTeam({ teamId }),
       ]))
@@ -69,7 +70,7 @@ export class TeamDashboardPageComponent implements OnDestroy {
         })),
       )
       .subscribe(store$);
-    this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
+    this.visits$ = store$.pipe(select(getVisitsForSelectedTeamAndSite));
     this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
   }
 

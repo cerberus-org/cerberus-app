@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Back } from '../../core/actions/router.actions';
 import { AppState } from '../../core/reducers';
+import { getSelectedSiteId } from '../../core/selectors/sites.selectors';
 import { getSelectedTeamId } from '../../core/selectors/teams.selectors';
 import { SnackBarService } from '../../core/services/snack-bar.service';
 import { VisitService } from '../../core/services/visit.service';
@@ -38,11 +39,11 @@ export class CheckInEffects {
   checkIn$: Observable<Action> = this.actions.pipe(
     ofType<CheckIn>(CheckInActionTypes.CheckIn),
     map(action => action.payload.visit),
-    withLatestFrom(this.store$.pipe(select(getSelectedTeamId))),
-    switchMap(([visit, teamId]) => this.visitService.add({
+    withLatestFrom(this.store$.pipe(select(getSelectedTeamId)), this.store$.pipe(select(getSelectedSiteId))),
+    switchMap(([visit, teamId, siteId]) => this.visitService.add({
       ...visit,
       teamId,
-      siteId: window.location.href.split('/')[5] === 'sites' ? window.location.href.split('/')[6] : null,
+      siteId,
     })
       .pipe(
         map(() => {

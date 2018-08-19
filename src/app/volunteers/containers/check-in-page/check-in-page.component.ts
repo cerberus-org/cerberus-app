@@ -5,12 +5,13 @@ import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { SetHeaderOptions, SetSidenavOptions } from '../../../core/actions/layout.actions';
+import { SelectSite } from '../../../core/actions/sites.actions';
 import { LoadTeams, SelectTeam } from '../../../core/actions/teams.actions';
 import { LoadVisitsForTeam } from '../../../core/actions/visits.actions';
 import { LoadVolunteersForTeam } from '../../../core/actions/volunteers.actions';
 import { AppState } from '../../../core/reducers';
 import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
-import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
+import { getVisitsForSelectedTeamAndSite } from '../../../core/selectors/visits.selectors';
 import { getVolunteersForSelectedTeam } from '../../../core/selectors/volunteers.selectors';
 import { ServicesAgreementDialogComponent } from '../../../shared/components/services-agreement-dialog/services-agreement-dialog.component';
 import { Visit, Volunteer } from '../../../shared/models';
@@ -34,8 +35,9 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private store$: Store<AppState>) {
     store$.dispatch(new LoadTeams());
     this.routeParamsSubscription = route.params.pipe(
-      switchMap(({ teamId }) => [
+      switchMap(({ teamId, siteId }) => [
         new SelectTeam({ teamId }),
+        new SelectSite({ siteId }),
         new LoadVisitsForTeam({ teamId }),
         new LoadVolunteersForTeam({ teamId }),
       ]),
@@ -53,7 +55,7 @@ export class CheckInPageComponent implements OnInit, OnDestroy {
     )
       .subscribe(store$);
     store$.dispatch(new SetSidenavOptions({ sidenavOptions: null }));
-    this.visits$ = store$.pipe(select(getVisitsForSelectedTeam));
+    this.visits$ = store$.pipe(select(getVisitsForSelectedTeamAndSite));
     this.volunteers$ = store$.pipe(select(getVolunteersForSelectedTeam));
   }
 

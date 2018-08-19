@@ -14,3 +14,8 @@ export const getSitesForSelectedTeam = createSelector(
   getSelectedTeamId,
   (sites, teamId) => sites.filter(site => site.teamId === teamId),
 );
+
+export const getSelectedSiteId = createSelector(
+  getSitesReducerState,
+  state => state.selectedSiteId,
+);

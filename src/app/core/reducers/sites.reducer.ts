@@ -3,13 +3,17 @@ import { Site } from '../../shared/models';
 import { SitesActionsUnion, SitesActionTypes } from '../actions/sites.actions';
 import { sortByName } from '../helpers/entity.helpers';
 
-export interface SitesReducerState extends EntityState<Site> {}
+export interface SitesReducerState extends EntityState<Site> {
+  selectedSiteId: string;
+}
 
 export const sitesAdapter: EntityAdapter<Site> = createEntityAdapter<Site>({
   sortComparer: sortByName,
 });
 
-export const initialState: SitesReducerState = sitesAdapter.getInitialState();
+export const initialState: SitesReducerState = sitesAdapter.getInitialState({
+  selectedSiteId: null,
+});
 
 export function sitesReducer(state = initialState, action: SitesActionsUnion): SitesReducerState {
   switch (action.type) {
@@ -23,6 +27,10 @@ export function sitesReducer(state = initialState, action: SitesActionsUnion): S
 
     case SitesActionTypes.SiteRemoved: {
       return sitesAdapter.removeOne(action.payload.id, state);
+    }
+
+    case SitesActionTypes.SelectSite: {
+      return { ...state, selectedSiteId: action.payload.siteId };
     }
 
     default: {
