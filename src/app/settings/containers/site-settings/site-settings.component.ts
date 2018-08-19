@@ -12,7 +12,7 @@ import { SiteDialogComponent } from '../site-dialog/site-dialog.component';
   selector: 'app-site-settings',
   template: `
     <div class="table-container">
-      <app-settings-header title="Sites" [showAdd]="true" (clickAdd)="onClickAdd()"></app-settings-header>
+      <app-settings-toolbar title="Sites" [showAdd]="true" (clickAdd)="onClickAdd()"></app-settings-toolbar>
       <app-data-table
         [data$]="sites$"
         [columnOptions]="columnOptions"

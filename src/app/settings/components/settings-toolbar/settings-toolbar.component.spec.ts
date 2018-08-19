@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SettingsHeaderComponent } from './settings-header.component';
+import { SettingsToolbarComponent } from './settings-toolbar.component';
 
-describe('SettingsHeaderComponent', () => {
-  let component: SettingsHeaderComponent;
-  let fixture: ComponentFixture<SettingsHeaderComponent>;
+describe('SettingsToolbarComponent', () => {
+  let component: SettingsToolbarComponent;
+  let fixture: ComponentFixture<SettingsToolbarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SettingsHeaderComponent ]
+      declarations: [ SettingsToolbarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SettingsHeaderComponent);
+    fixture = TestBed.createComponent(SettingsToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

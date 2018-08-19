@@ -17,7 +17,7 @@ import { EditMemberDialogComponent } from '../edit-member-dialog/edit-member-dia
   selector: 'app-member-settings',
   template: `
     <div class="table-container">
-      <app-settings-header title="Members"></app-settings-header>
+      <app-settings-toolbar title="Members"></app-settings-toolbar>
       <app-data-table
         [data$]="members$"
         [columnOptions]="columnOptions"

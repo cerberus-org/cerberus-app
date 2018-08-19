@@ -9,7 +9,7 @@ import { UpdateTeam } from '../../actions/settings.actions';
 @Component({
   selector: 'app-team-settings',
   template: `
-    <app-settings-header title="Team"></app-settings-header>
+    <app-settings-toolbar title="Team"></app-settings-toolbar>
     <div class="center-wrapper">
       <div>
         <p>Update your team info here.</p>

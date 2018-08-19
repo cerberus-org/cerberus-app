@@ -1,15 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-settings-header',
+  selector: 'app-settings-toolbar',
   template: `
-    <mat-toolbar class="data-table-header">
+    <mat-toolbar>
       <span>{{title}}</span>
       <span class="spacer"></span>
       <button
         *ngIf="showAdd"
         mat-icon-button
-        class="data-table-header__button"
         color="accent"
         [disabled]="false"
         (click)="clickAdd.emit()"
@@ -18,9 +17,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
       </button>
     </mat-toolbar>
   `,
-  styleUrls: ['./settings-header.component.scss'],
+  styleUrls: ['./settings-toolbar.component.scss'],
 })
-export class SettingsHeaderComponent {
+export class SettingsToolbarComponent {
   @Input() title: string;
   @Input() showAdd: boolean;
   @Output() clickAdd = new EventEmitter();

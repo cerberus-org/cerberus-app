@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from '../material';
 import { SharedModule } from '../shared/shared.module';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
+import { SettingsToolbarComponent } from './components/settings-toolbar/settings-toolbar.component';
 import { EditMemberDialogComponent } from './containers/edit-member-dialog/edit-member-dialog.component';
 import { EditVisitDialogComponent } from './containers/edit-visit-dialog/edit-visit-dialog.component';
 import { MemberSettingsComponent } from './containers/member-settings/member-settings.component';
@@ -20,7 +21,6 @@ import { settingsEffects } from './effects';
 import { settingsReducers } from './reducers';
 import { CsvService } from './services/csv.service';
 import { SettingsRoutingModule } from './settings-routing.module';
-import { SettingsHeaderComponent } from './components/settings-header/settings-header.component';
 
 @NgModule({
   imports: [
@@ -45,7 +45,7 @@ import { SettingsHeaderComponent } from './components/settings-header/settings-h
     TeamSettingsComponent,
     VisitSettingsComponent,
     VolunteerSettingsComponent,
-    SettingsHeaderComponent,
+    SettingsToolbarComponent,
   ],
   exports: [
     SettingsPageComponent,

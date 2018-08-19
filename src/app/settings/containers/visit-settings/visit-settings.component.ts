@@ -13,7 +13,7 @@ import { EditVisitDialogComponent } from '../edit-visit-dialog/edit-visit-dialog
   selector: 'app-visits-settings',
   template: `
     <div class="table-container">
-      <app-settings-header title="Visits"></app-settings-header>
+      <app-settings-toolbar title="Visits"></app-settings-toolbar>
       <app-data-table
         [data$]="visitTableRows$"
         [columnOptions]="columnOptions"
