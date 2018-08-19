@@ -10,7 +10,7 @@ import { UpdateTeam } from '../../actions/settings.actions';
   selector: 'app-team-settings',
   template: `
     <app-settings-toolbar title="Team"></app-settings-toolbar>
-    <div class="center-wrapper">
+    <div class="wrapper">
       <div>
         <p>Update your team info here.</p>
         <mat-divider></mat-divider>

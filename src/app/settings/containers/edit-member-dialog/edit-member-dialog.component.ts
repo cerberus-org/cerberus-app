@@ -14,7 +14,7 @@ import { MemberTableRow } from '../../models/member-table-row';
       <div class="form-container">
         <mat-form-field class="form-container">
           <mat-select
-            placeholder="Edit {{dialogData.user.name}}'s role"
+            placeholder="{{name}}'s role"
             [disabled]="isDisabled"
             [(value)]="selectedRole"
           >
@@ -46,5 +46,9 @@ export class EditMemberDialogComponent {
 
   get isDisabled(): boolean {
     return !this.dialogData.roleOptions || this.dialogData.roleOptions.length < 2;
+  }
+
+  get name(): string {
+    return this.dialogData.user.name;
   }
 }

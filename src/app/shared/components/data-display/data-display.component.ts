@@ -53,6 +53,6 @@ export class DataDisplayComponent implements OnInit {
    * @returns {string}
    */
   getVisitRowColor(visit: Visit): string {
-    return !visit.endedAt ? '#ccff99' : '';
+    return !visit.endedAt ? 'rgba(204, 255, 103, 0.27)' : '';
   }
 }

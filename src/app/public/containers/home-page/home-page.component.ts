@@ -19,7 +19,7 @@ import { SignUpDialogComponent } from '../sign-up-dialog/sign-up-dialog.componen
           </mat-tab>
           <mat-tab label="View Activity">
             <div class="grid grid--center">
-              <h2>Search for your team to view live activity data.</h2>
+              <h2 class="team-search-header">Search for your team to view live activity data.</h2>
               <app-team-search
                 [showTitle]="false"
                 [showInputIconButton]="true"

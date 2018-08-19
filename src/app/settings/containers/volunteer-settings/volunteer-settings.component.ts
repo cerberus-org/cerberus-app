@@ -10,7 +10,7 @@ import { RemoveVolunteer } from '../../actions/settings.actions';
   selector: 'app-volunteers-settings',
   template: `
     <div class="table-container">
-      <app-settings-toolbar title="Volunteer"></app-settings-toolbar>
+      <app-settings-toolbar title="Volunteers"></app-settings-toolbar>
       <app-data-table
         [data$]="volunteers$"
         [columnOptions]="columnOptions"
