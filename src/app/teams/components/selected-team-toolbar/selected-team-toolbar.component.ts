@@ -13,6 +13,7 @@ import { Site, Team } from '../../../shared/models';
             (selectionChange)="onSelectionChange($event.value)"
             placeholder={{placeholder}}
             [value]="siteNameForSelectedTeam">
+            <mat-option>None</mat-option>
             <mat-option *ngFor="let site of sites" [value]="site.name">
               {{site.name}}
             </mat-option>
