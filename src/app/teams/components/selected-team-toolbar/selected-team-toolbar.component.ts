@@ -17,6 +17,7 @@ import { Roles } from '../../../shared/models/roles';
               [value]="siteNameForSelectedTeam"
               (selectionChange)="onSelectionChange($event.value)"
             >
+              <mat-option>None</mat-option>
               <mat-option *ngFor="let site of sites" [value]="site.name">
                 {{site.name}}
               </mat-option>
