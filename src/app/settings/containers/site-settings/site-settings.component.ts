@@ -68,7 +68,7 @@ export class SiteSettingsComponent {
     const dialog = this.dialog.open(SiteDialogComponent, dialogConfig);
     dialog.afterClosed().subscribe((site: Site) => {
       if (site) {
-        this.store$.dispatch(Object.assign({}, new UpdateSite({ site })));
+        this.store$.dispatch(new UpdateSite({ site }));
       }
     });
   }
@@ -82,7 +82,7 @@ export class SiteSettingsComponent {
     const dialog = this.dialog.open(SiteDialogComponent);
     dialog.afterClosed().subscribe((site: Site) => {
       if (site && site.name) {
-        this.store$.dispatch(Object.assign({}, new CreateSite({ site })));
+        this.store$.dispatch(new CreateSite({ site }));
       }
     });
   }

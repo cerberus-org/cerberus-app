@@ -6,12 +6,14 @@ import { MemberService } from '../app/core/services/member.service';
 import { SiteService } from '../app/core/services/site.service';
 import { SnackBarService } from '../app/core/services/snack-bar.service';
 import { TeamService } from '../app/core/services/team.service';
+import { UserService } from '../app/core/services/user.service';
 import { VisitService } from '../app/core/services/visit.service';
 import { VolunteerService } from '../app/core/services/volunteer.service';
 import { CsvService } from '../app/settings/services/csv.service';
 import { MockAuthService } from './classes/auth.service.mock';
 import { MockCsvService } from './classes/csv.service.mock';
 import { MockErrorService } from './classes/error.service.mock';
+import { MockMemberService } from './classes/member.service.mock';
 import { MockSiteService } from './classes/site.service.mock';
 import { MockSnackBarService } from './classes/snack-bar.service.mock';
 import { MockTeamService } from './classes/team.service.mock';
@@ -30,7 +32,8 @@ export const mockProviders = [
   { provide: TeamService, useClass: MockTeamService },
   { provide: SiteService, useClass: MockSiteService },
   { provide: SnackBarService, useClass: MockSnackBarService },
-  { provide: MemberService, useClass: MockUserService },
+  { provide: MemberService, useClass: MockMemberService },
+  { provide: UserService, useClass: MockUserService },
   { provide: VisitService, useClass: MockVisitService },
   { provide: VolunteerService, useClass: MockVolunteerService },
   { provide: MatDialogRef, useClass: MatDialogRefMock },

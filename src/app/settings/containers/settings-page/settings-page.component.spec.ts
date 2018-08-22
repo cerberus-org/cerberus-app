@@ -10,19 +10,20 @@ describe('SettingsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        SettingsPageComponent,
-        MockComponent({ selector: 'app-user-settings' }),
-        MockComponent({ selector: 'app-team-settings' }),
-        MockComponent({ selector: 'app-volunteers-settings' }),
-        MockComponent({ selector: 'app-roles' }),
-        MockComponent({ selector: 'app-visits-settings' }),
-        MockComponent({ selector: 'app-reports' }),
-        MockComponent({ selector: 'app-site-settings' }),
-      ],
       imports: [
         RouterTestingModule,
         ...mockStoreModules,
+      ],
+      declarations: [
+        SettingsPageComponent,
+        MockComponent({ selector: 'app-loader' }),
+        MockComponent({ selector: 'app-member-settings' }),
+        MockComponent({ selector: 'app-reports' }),
+        MockComponent({ selector: 'app-roles' }),
+        MockComponent({ selector: 'app-site-settings' }),
+        MockComponent({ selector: 'app-team-settings' }),
+        MockComponent({ selector: 'app-visits-settings' }),
+        MockComponent({ selector: 'app-volunteers-settings' }),
       ],
     })
       .compileComponents();

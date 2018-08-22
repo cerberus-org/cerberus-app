@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
+
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Volunteer } from '../../../shared/models';
@@ -13,15 +14,16 @@ describe('VolunteerSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        ...mockStoreModules,
+      ],
       declarations: [
         VolunteerSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showRemove', 'rowColor'],
         }),
-      ],
-      imports: [
-        ...mockStoreModules,
+        MockComponent({ selector: 'app-settings-toolbar', inputs: ['title'] }),
       ],
     })
       .compileComponents();

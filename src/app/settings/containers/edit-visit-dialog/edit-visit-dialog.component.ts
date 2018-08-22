@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
@@ -28,7 +28,7 @@ import { VisitTableRow } from '../../models/visit-table-row';
         <mat-form-field class="example-full-width" autocomplete="off">
           <mat-select
             placeholder="Site"
-            [value]="visitWithData.site || selectedSite"
+            [value]="dialogData.site || selectedSite"
             (selectionChange)="onSelectionChange($event.value)"
           >
             <mat-option *ngFor="let site of (sites$ | async)" [value]="site">
@@ -56,12 +56,11 @@ export class EditVisitDialogComponent {
 
   constructor(
     private store$: Store<AppState>,
-    public dialogRef: MatDialogRef<EditVisitDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public visitWithData: VisitTableRow,
+    @Inject(MAT_DIALOG_DATA) public dialogData: VisitTableRow,
   ) {
     // If data was passed in, set default fields
-    this.endedAt = this.visitWithData && this.visitWithData.endedAt
-      ? formatTimeInputValue(this.visitWithData.endedAt, this.visitWithData.timezone)
+    this.endedAt = this.dialogData && this.dialogData.endedAt
+      ? formatTimeInputValue(this.dialogData.endedAt, this.dialogData.timezone)
       : '';
     this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
   }
@@ -73,9 +72,9 @@ export class EditVisitDialogComponent {
   onTimeChange(event): void {
     if (event && event.target && event.target.value) {
       this.bold = 'bold';
-      const updatedVisit = this.updateVisitEndedAtWithTime(event.target.value, this.visitWithData);
+      const updatedVisit = this.updateVisitEndedAtWithTime(event.target.value, this.dialogData);
       if (this.isVisitValid(updatedVisit)) {
-        this.visitWithData.endedAt = updatedVisit.endedAt;
+        this.dialogData.endedAt = updatedVisit.endedAt;
         this.color = '';
       } else {
         this.color = '#f44336';
@@ -111,7 +110,7 @@ export class EditVisitDialogComponent {
    * Close dialog and pass back data.
    */
   submit(): void {
-    const visitClone = Object.assign({}, this.visitWithData);
+    const visitClone = Object.assign({}, this.dialogData);
     delete visitClone.volunteer;
     delete visitClone.site;
     this.store$.dispatch(new UpdateVisit({

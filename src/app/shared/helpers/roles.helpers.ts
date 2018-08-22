@@ -18,7 +18,6 @@ export const areSameUser = (currentMember: Member, otherMember: Member): boolean
 /**
  * Gets available role select options for a given member, based on the current member's role.
  * Owners will be able to select the "Owner" role for other members.
- * Users will not be able to select the "Locked" option for themselves.
  *
  * @param currentMember - the current member who will select an option
  * @param targetMember - the member to get available roles for
@@ -30,13 +29,9 @@ export const getRoleOptions = (currentMember: Member, targetMember: Member, sing
     !isAdmin(currentMember)
     || !(isGreaterRole(currentMember.role, targetMember.role) || areSameUser(currentMember, targetMember))
     || (targetMember.role === Roles.Owner && singleOwner)) {
-    return null;
+    return [];
   }
   // Filter out greater roles than current user's role
-  const roles = getMemberRoles().filter(role => !isGreaterRole(role, currentMember.role));
-  // Remove the "Locked" option for the current validMember
-  if (areSameUser(currentMember, targetMember)) {
-    roles.shift();
-  }
-  return roles;
+  return [Roles.Member, Roles.Admin, Roles.Owner]
+    .filter(role => !isGreaterRole(role, currentMember.role));
 };

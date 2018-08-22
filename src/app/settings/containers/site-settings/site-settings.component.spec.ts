@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatToolbarModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
+
 import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Site } from '../../../shared/models';
@@ -14,14 +16,18 @@ describe('SiteSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        NoopAnimationsModule,
+        MatDialogModule,
+        ...mockStoreModules,
+      ],
       declarations: [
         SiteSettingsComponent,
-        MockComponent({ selector: 'app-data-table', inputs: ['data$', 'columnOptions', 'showRemove', 'showEdit', 'deleteRow', 'updateRow'] }),
-      ],
-      imports: [
-        ...mockStoreModules,
-        MatDialogModule,
-        MatToolbarModule,
+        MockComponent({
+          selector: 'app-data-table',
+          inputs: ['data$', 'columnOptions', 'showRemove', 'showEdit', 'deleteRow', 'updateRow'],
+        }),
+        MockComponent({ selector: 'app-settings-toolbar', inputs: ['title', 'showAdd'] }),
       ],
     })
       .compileComponents();

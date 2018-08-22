@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialModule } from '../../../material';
+import { MatDividerModule, MatSelectModule, MatToolbarModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SelectedTeamToolbarComponent } from './selected-team-toolbar.component';
 
@@ -10,7 +11,10 @@ describe('SelectedTeamToolbarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule,
+        NoopAnimationsModule,
+        MatDividerModule,
+        MatSelectModule,
+        MatToolbarModule,
       ],
       declarations: [
         SelectedTeamToolbarComponent,

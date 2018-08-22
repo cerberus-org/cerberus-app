@@ -31,11 +31,4 @@ describe('DataCellComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should handle onSelectionChange by emitting the selectOption event', () => {
-    spyOn(component.selectOption, 'emit');
-    const value = 'value';
-    component.onSelectionChange(value);
-    expect(component.selectOption.emit).toHaveBeenCalledWith(value);
-  });
 });

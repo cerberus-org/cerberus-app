@@ -61,16 +61,6 @@ describe('DataTableComponent', () => {
     expect(component.removeRow.emit).toHaveBeenCalledWith(item);
   });
 
-  it('should handle selectOption events by emitting an updateRow event', () => {
-    spyOn(component.updateRow, 'emit');
-    const value = 'Admin';
-    const item = visits[0];
-    const key = 'role';
-    const expected = { ...item, role: value };
-    component.onSelectOption(value, item, key);
-    expect(component.updateRow.emit).toHaveBeenCalledWith(expected);
-  });
-
   it('should sets background-color to an empty string on default', () => {
     expect(component.rowColor(visits[0])).toEqual('');
   });

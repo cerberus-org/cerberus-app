@@ -84,7 +84,7 @@ describe('DataDisplayComponent', () => {
   });
 
   it('should highlight active visits with the correct color', () => {
-    expect(component.getVisitRowColor(visits[3])).toEqual('#ccff99');
+    expect(component.getVisitRowColor(visits[3])).toEqual('rgba(204, 255, 103, 0.27)');
   });
 
   it('should not highlight completed visits', () => {

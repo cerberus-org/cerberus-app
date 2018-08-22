@@ -11,7 +11,6 @@ import { getMemberForCurrentUserAndSelectedTeam } from '../../../core/selectors/
 import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { getSelectedTeam } from '../../../core/selectors/teams.selectors';
 import { getVisitsForSelectedTeam } from '../../../core/selectors/visits.selectors';
-import { RemoveMember } from '../../../settings/actions/settings.actions';
 import { Member, Site, Team, Visit } from '../../../shared/models';
 import { CancelRequest } from '../../actions/teams-page.actions';
 

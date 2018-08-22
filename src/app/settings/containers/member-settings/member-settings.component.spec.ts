@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material';
 import { MockComponent } from 'ng2-mock-component';
+
 import { createMockMembers } from '../../../../mocks/objects/member.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { getMemberRoles } from '../../../shared/helpers';
-import { MemberTableRow } from '../../selectors/member-settings.selectors';
+import { MemberTableRow } from '../../models/member-table-row';
 import { MemberSettingsComponent } from './member-settings.component';
 
 describe('MemberSettingsComponent', () => {
@@ -13,15 +15,17 @@ describe('MemberSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MatDialogModule,
+        ...mockStoreModules,
+      ],
       declarations: [
         MemberSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showRemove', 'rowColor', 'isEditable'],
+          inputs: ['columnOptions', 'data$', 'showEdit', 'showRemove', 'disableEdit', 'disableRemove'],
         }),
-      ],
-      imports: [
-        ...mockStoreModules,
+        MockComponent({ selector: 'app-settings-toolbar', inputs: ['title'] }),
       ],
     })
       .compileComponents();

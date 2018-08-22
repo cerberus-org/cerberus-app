@@ -7,14 +7,14 @@ import { Credentials } from '../../models/credentials';
   selector: 'app-credentials-form',
   template: `
     <form class="form-container" [formGroup]="formGroup" autocomplete="off">
-      <mat-form-field class="form-container">
+      <mat-form-field class="form-container__field">
         <input type="email" matInput placeholder="Email" formControlName="email">
       </mat-form-field>
       <h4 *ngIf="edit">Optionally change your password here:</h4>
-      <mat-form-field class="form-container">
+      <mat-form-field class="form-container__field">
         <input matInput type="password" formControlName="password" placeholder="Password">
       </mat-form-field>
-      <mat-form-field class="form-container">
+      <mat-form-field class="form-container__field">
         <input
           matInput type="password"
           formControlName="confirmPassword"

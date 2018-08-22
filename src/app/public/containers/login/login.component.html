@@ -2,10 +2,10 @@
   <h2 class="login-header">Login to view your teams.</h2>
   <div class="grid grid--center grid--row-gap">
     <form class="form-container" autocomplete="off" nonvalidate [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <mat-form-field class="form-container">
+      <mat-form-field class="form-container__field">
         <input matInput type="email" placeholder='email' formControlName='email'>
       </mat-form-field>
-      <mat-form-field class="form-container">
+      <mat-form-field class="form-container__field">
         <input matInput type="password" placeholder='password' formControlName='password'>
       </mat-form-field>
       <div class="grid grid--center">

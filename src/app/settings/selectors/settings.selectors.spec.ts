@@ -3,7 +3,6 @@ import { Member } from '../../shared/models';
 import { Roles } from '../../shared/models/roles';
 import { initialSettingsReducerState } from '../reducers/settings.reducer';
 import { getMemberTableRows, getSelectedSettingsOption, getSettingsReducerState } from './settings.selectors';
-import arrayContaining = jasmine.arrayContaining;
 import objectContaining = jasmine.objectContaining;
 
 describe('settings.selectors', () => {
@@ -33,83 +32,79 @@ describe('settings.selectors', () => {
     });
 
     it('it should select members with role options based on session member', () => {
-      expect(getMemberTableRows.projector(members[0], members, 2))
-        .toEqual(arrayContaining([
+      expect(getMemberTableRows.projector(members[0], members, [], 2))
+        .toEqual([
           objectContaining({
             member: members[0],
-            roleOptions: arrayContaining([
+            roleOptions: [
               Roles.Member,
               Roles.Admin,
               Roles.Owner,
-            ]),
+            ],
           }),
           objectContaining({
             member: members[1],
-            roleOptions: arrayContaining([
-              Roles.Locked,
+            roleOptions: [
               Roles.Member,
               Roles.Admin,
               Roles.Owner,
-            ]),
+            ],
           }),
           objectContaining({
             member: members[2],
-            roleOptions: arrayContaining([
-              Roles.Locked,
+            roleOptions: [
               Roles.Member,
               Roles.Admin,
               Roles.Owner,
-            ]),
+            ],
           }),
-        ]));
+        ]);
     });
 
     it('it should select members without role options if session member is not an admin', () => {
       const members = createMockMembers();
-      expect(getMemberTableRows.projector(members[1], members, 2))
-        .toEqual(arrayContaining([
+      expect(getMemberTableRows.projector(members[1], members, [], 2))
+        .toEqual([
           objectContaining({
-            ...members[0],
-            roleOptions: null,
+            member: members[0],
+            roleOptions: [],
           }),
           objectContaining({
-            ...members[1],
-            roleOptions: null,
+            member: members[1],
+            roleOptions: [],
           }),
           objectContaining({
-            ...members[2],
-            roleOptions: null,
+            member: members[2],
+            roleOptions: [],
           }),
-        ]));
+        ]);
     });
 
     it('it should not allow the last owner to change their role', () => {
       const members = createMockMembers();
-      expect(getMemberTableRows.projector(members[0], members, 1))
-        .toEqual(arrayContaining([
+      expect(getMemberTableRows.projector(members[0], members, [], 1))
+        .toEqual([
           objectContaining({
             member: members[0],
-            roleOptions: null,
+            roleOptions: [],
           }),
           objectContaining({
             member: members[1],
-            roleOptions: arrayContaining([
-              Roles.Locked,
+            roleOptions: [
               Roles.Member,
               Roles.Admin,
               Roles.Owner,
-            ]),
+            ],
           }),
           objectContaining({
             member: members[2],
-            roleOptions: arrayContaining([
-              Roles.Locked,
+            roleOptions: [
               Roles.Member,
               Roles.Admin,
               Roles.Owner,
-            ]),
+            ],
           }),
-        ]));
+        ]);
     });
   });
 });

@@ -12,7 +12,7 @@ import { MemberTableRow } from '../../models/member-table-row';
     <h2 mat-dialog-title>Edit Member</h2>
     <mat-dialog-content class="edit-role-dialog">
       <div class="form-container">
-        <mat-form-field class="form-container">
+        <mat-form-field class="form-container__field">
           <mat-select
             placeholder="{{name}}'s role"
             [disabled]="isDisabled"

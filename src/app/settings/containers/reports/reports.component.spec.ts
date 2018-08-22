@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDividerModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
+
 import { mockReports } from '../../../../mocks/objects/report.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { GenerateReport } from '../../actions/settings.actions';
@@ -11,12 +14,15 @@ describe('ReportsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        NoopAnimationsModule,
+        MatDividerModule,
+        ...mockStoreModules,
+      ],
       declarations: [
         ReportsComponent,
         MockComponent({ selector: 'app-reports-form' }),
-      ],
-      imports: [
-        ...mockStoreModules,
+        MockComponent({ selector: 'app-settings-toolbar', inputs: ['title'] }),
       ],
     })
       .compileComponents();
@@ -37,18 +43,15 @@ describe('ReportsComponent', () => {
     expect(component.validReport).toEqual(mockReports[0]);
   });
 
-  it(
-    'should handle generateVisitHistoryReport events by dispatching GenerateReport',
-    () => {
-      component.validReport = mockReports[0];
-      spyOn(component.store$, 'dispatch');
-      component.onSubmitReport();
-      expect(component.store$.dispatch).toHaveBeenCalledWith(
-        new GenerateReport({
-          startedAt: mockReports[0].startedAt,
-          endedAt: mockReports[0].endedAt,
-        }),
-      );
-    },
-  );
+  it('should handle generateVisitHistoryReport events by dispatching GenerateReport', () => {
+    component.validReport = mockReports[0];
+    spyOn(component.store$, 'dispatch');
+    component.onSubmitReport();
+    expect(component.store$.dispatch).toHaveBeenCalledWith(
+      new GenerateReport({
+        startedAt: mockReports[0].startedAt,
+        endedAt: mockReports[0].endedAt,
+      }),
+    );
+  });
 });

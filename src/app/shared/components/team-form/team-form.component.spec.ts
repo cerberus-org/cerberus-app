@@ -13,9 +13,9 @@ describe('TeamFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MatInputModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
+        MatInputModule,
       ],
       declarations: [TeamFormComponent],
     })

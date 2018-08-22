@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDividerModule, MatToolbarModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SettingsToolbarComponent } from './settings-toolbar.component';
 
@@ -8,9 +10,16 @@ describe('SettingsToolbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SettingsToolbarComponent ]
+      imports: [
+        NoopAnimationsModule,
+        MatDividerModule,
+        MatToolbarModule,
+      ],
+      declarations: [
+        SettingsToolbarComponent,
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

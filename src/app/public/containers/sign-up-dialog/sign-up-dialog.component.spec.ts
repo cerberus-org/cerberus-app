@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material';
 import { MockComponent } from 'ng2-mock-component';
 import { mockProviders } from '../../../../mocks/providers.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
@@ -11,9 +12,13 @@ describe('SignUpDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: mockStoreModules,
+      imports: [
+        MatDialogModule,
+        ...mockStoreModules,
+      ],
       declarations: [
         SignUpDialogComponent,
+        MockComponent({ selector: 'app-credentials-form' }),
         MockComponent({ selector: 'app-user-form' }),
       ],
       providers: mockProviders,

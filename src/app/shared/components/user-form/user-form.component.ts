@@ -7,7 +7,7 @@ import { User } from '../../models';
   selector: 'app-user-form',
   template: `
     <form class="form-container" [formGroup]="formGroup" autocomplete="off">
-      <mat-form-field class="form-container">
+      <mat-form-field class="form-container__field">
         <input
           matInput
           placeholder="Full Name"

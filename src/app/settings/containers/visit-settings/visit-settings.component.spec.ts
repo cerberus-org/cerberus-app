@@ -25,6 +25,7 @@ describe('VisitSettingsComponent', () => {
           selector: 'app-data-table',
           inputs: ['columnOptions', 'data$', 'showRemove', 'showEdit'],
         }),
+        MockComponent({ selector: 'app-settings-toolbar', inputs: ['title'] }),
       ],
       imports: [
         FormsModule,

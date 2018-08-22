@@ -117,9 +117,11 @@ describe('BaseService', () => {
   describe('update', () => {
     it('should get update data in a collection', () => {
       const volunteer = createMockVolunteers()[0];
+      const expected = Object.assign({}, volunteer);
+      delete expected.id;
       service.update(volunteer);
       expect(docSpy).toHaveBeenCalledWith(volunteer.id);
-      expect(updateSpy).toHaveBeenCalledWith(volunteer);
+      expect(updateSpy).toHaveBeenCalledWith(expected);
     });
   });
 
