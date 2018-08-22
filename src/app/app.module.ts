@@ -19,7 +19,7 @@ import { CoreModule } from './core/core.module';
 import { appEffects } from './core/effects';
 import { appReducers } from './core/reducers';
 
-function logout(reducer) {
+export function logoutMetaReducer(reducer) {
   return function (state, action) {
     return reducer(action.type === AuthActionTypes.SignOut ? undefined : state, action);
   };
@@ -43,7 +43,7 @@ function logout(reducer) {
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
-    StoreModule.forRoot(appReducers, { metaReducers: [logout] }),
+    StoreModule.forRoot(appReducers, { metaReducers: [logoutMetaReducer] }),
 
     /**
      * @ngrx/router-store keeps router state up-to-date in the store.
