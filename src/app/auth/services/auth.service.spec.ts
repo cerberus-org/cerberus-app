@@ -1,8 +1,8 @@
 import { async, getTestBed, inject, TestBed } from '@angular/core/testing';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MockErrorService } from '../../../mocks/classes/error.service.mock';
+import { MockMemberService } from '../../../mocks/classes/member.service.mock';
 import { MockTeamService } from '../../../mocks/classes/team.service.mock';
-import { MockUserService } from '../../../mocks/classes/user.service.mock';
 import { mockMembers } from '../../../mocks/objects/member.mock';
 import { mockStoreModules } from '../../../mocks/store.mock';
 import { ErrorService } from '../../core/services/error.service';
@@ -21,7 +21,7 @@ describe('AuthService', () => {
         { provide: AngularFireAuth, useValue: null },
         { provide: ErrorService, useClass: MockErrorService },
         { provide: TeamService, useClass: MockTeamService },
-        { provide: MemberService, useClass: MockUserService },
+        { provide: MemberService, useClass: MockMemberService },
       ],
       imports: [
         ...mockStoreModules,

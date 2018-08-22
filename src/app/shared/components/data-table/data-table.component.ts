@@ -67,18 +67,17 @@ export class DataTableSource extends DataSource<any> implements OnDestroy {
   styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit, OnChanges {
-  @Input() getRowColor: (any) => string = () => '';
-  @Input() getCellFontWeight: (any) => string = () => '';
-  @Input() getCellFontColor: (any) => string = () => '';
-  @Input() validItemsEdited: any[];
-  @Input() invalidItemsEdited: any[];
   @Input() data$: Observable<any[]>;
   @Input() columnOptions: ColumnOptions[];
-  @Input() showDelete: boolean;
   @Input() showEdit: boolean;
-  @Output() updateItem = new EventEmitter<any>();
-  @Output() deleteItem = new EventEmitter<any>();
-  @Output() editItem = new EventEmitter<any>();
+  @Input() showRemove: boolean;
+  @Input() disableEdit: (any) => boolean = () => false;
+  @Input() disableRemove: (any) => boolean = () => false;
+  @Input() rowColor: (any) => string = () => '';
+
+  @Output() removeRow = new EventEmitter<any>();
+  @Output() editRow = new EventEmitter<any>();
+
   displayedColumns: string[];
   initialPageSize: number;
   dataSource: DataTableSource;
@@ -100,11 +99,11 @@ export class DataTableComponent implements OnInit, OnChanges {
    */
   ngOnInit(): void {
     // Determine initial page size using inner height of window at component init
-    const surroundingElementsPx = 224;
+    const surroundingElementsPx = 288;
     const cellPx = 49;
     this.initialPageSize = Math.floor((window.innerHeight - surroundingElementsPx) / cellPx);
     this.displayedColumns = this.columnOptions.map(column => column.columnDef);
-    if (this.showEdit || this.showDelete) {
+    if (this.showActions) {
       this.displayedColumns.push('actions');
     }
   }
@@ -127,8 +126,8 @@ export class DataTableComponent implements OnInit, OnChanges {
    * Handles remove button click events by emitting a remove item event.
    * @param item - the item to be deleted
    */
-  onClickDelete(item: any): void {
-    this.deleteItem.emit(item);
+  onClickRemove(item: any): void {
+    this.removeRow.emit(item);
   }
 
   /**
@@ -136,18 +135,10 @@ export class DataTableComponent implements OnInit, OnChanges {
    * @param item
    */
   onClickEdit(item: any): void {
-    this.editItem.emit(item);
+    this.editRow.emit(item);
   }
 
-  /**
-   * Handles select option events by emitting the item modified with the selected option.
-   * @param value - the value to apply
-   * @param item - the table item to modify
-   * @param key - the property to modify
-   */
-  onSelectOption(value, item, key): void {
-    const itemCopy = Object.assign({}, item);
-    itemCopy[key] = value;
-    this.updateItem.emit(itemCopy);
+  get showActions(): boolean {
+    return this.showEdit || this.showRemove;
   }
 }

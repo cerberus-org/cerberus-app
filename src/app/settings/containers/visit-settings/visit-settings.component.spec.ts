@@ -7,14 +7,14 @@ import { createMockVisits } from '../../../../mocks/objects/visit.mock';
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { formatDate, formatDuration, formatTime } from '../../../shared/helpers';
-import { VisitWithData } from '../../models/visit-with-data';
+import { VisitTableRow } from '../../models/visit-table-row';
 import { SiteDialogComponent } from '../site-dialog/site-dialog.component';
 import { VisitSettingsComponent } from './visit-settings.component';
 
 describe('VisitSettingsComponent', () => {
   let component: VisitSettingsComponent;
   let fixture: ComponentFixture<VisitSettingsComponent>;
-  let visitWithData: VisitWithData;
+  let visitWithData: VisitTableRow;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,8 +23,9 @@ describe('VisitSettingsComponent', () => {
         VisitSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showDelete', 'showEdit'],
+          inputs: ['columnOptions', 'data$', 'showRemove', 'showEdit'],
         }),
+        MockComponent({ selector: 'app-settings-toolbar', inputs: ['title'] }),
       ],
       imports: [
         FormsModule,

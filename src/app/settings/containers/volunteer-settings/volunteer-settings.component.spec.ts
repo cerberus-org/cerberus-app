@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
+
 import { createMockVolunteers } from '../../../../mocks/objects/volunteer.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Volunteer } from '../../../shared/models';
-import { DeleteVolunteer } from '../../actions/settings.actions';
+import { RemoveVolunteer } from '../../actions/settings.actions';
 import { VolunteerSettingsComponent } from './volunteer-settings.component';
 
 describe('VolunteerSettingsComponent', () => {
@@ -13,15 +14,16 @@ describe('VolunteerSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        ...mockStoreModules,
+      ],
       declarations: [
         VolunteerSettingsComponent,
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
+          inputs: ['columnOptions', 'data$', 'showRemove', 'rowColor'],
         }),
-      ],
-      imports: [
-        ...mockStoreModules,
+        MockComponent({ selector: 'app-settings-toolbar', inputs: ['title'] }),
       ],
     })
       .compileComponents();
@@ -38,11 +40,11 @@ describe('VolunteerSettingsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle deleteVolunteer events by dispatching DeleteVolunteer', () => {
+  it('should handle deleteVolunteer events by dispatching RemoveVolunteer', () => {
     spyOn(component.store$, 'dispatch');
     component.onDeleteVolunteer(volunteer);
     expect(component.store$.dispatch)
-      .toHaveBeenCalledWith(new DeleteVolunteer({ volunteer }));
+      .toHaveBeenCalledWith(new RemoveVolunteer({ volunteer }));
   });
 
   it('should display the name of a volunteer in the first table column', () => {

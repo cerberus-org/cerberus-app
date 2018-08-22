@@ -19,20 +19,20 @@ export class MembersEffects {
   @Effect()
   loadMembers$: Observable<Action> = this.actions.pipe(
     ofType<LoadMembers>(MembersActionTypes.LoadMembers),
-    switchMap(() => this.memberService.getAllStateChanges()),
+    switchMap(() => this.memberService.getAllChanges()),
   );
 
   @Effect()
   loadMembersForTeam$: Observable<Action> = this.actions.pipe(
     ofType<LoadMembersForTeam>(MembersActionTypes.LoadMembersForTeam),
     map(action => action.payload.teamId),
-    switchMap(teamId => this.memberService.getStateChangesByKey('teamId', teamId)),
+    switchMap(teamId => this.memberService.getChangesByKey('teamId', teamId)),
   );
 
   @Effect()
   loadMembersForUser$: Observable<Action> = this.actions.pipe(
     ofType<LoadMembersForUser>(MembersActionTypes.LoadMembersForUser),
     switchMap(() =>
-      this.memberService.getStateChangesByKey('userUid', this.authService.currentUserInfo.uid)),
+      this.memberService.getChangesByKey('userId', this.authService.currentUserInfo.uid)),
   );
 }

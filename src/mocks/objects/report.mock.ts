@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Report } from '../../app/shared/models';
+import { Report } from '../../app/settings/models/report';
 
 export const mockReports: Report[] = [
   {

@@ -1,21 +1,17 @@
-/**
- * The database consists of a Member object and a Firebase Member object.
- * Both objects are coupled in this object for simplicity.
- * The Member service removes all fields that are only meant to be in the
- * Firebase Member object on convert out.
- */
+import { Roles } from './roles';
+
 export class Member {
   id: string;
-  userUid: string;
+  userId: string;
   teamId: string;
   firstName?: string;
   lastName?: string;
-  role?: string;
+  role?: Roles;
 
   constructor(
     firstName: string = '',
     lastName: string = '',
-    role?: string,
+    role?: Roles,
   ) {
     this.firstName = firstName;
     this.lastName = lastName;

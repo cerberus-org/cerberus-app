@@ -16,9 +16,10 @@ import { VolunteerService } from '../../core/services/volunteer.service';
 import { Member, Site, Visit } from '../../shared/models';
 import {
   CreateSite,
-  DeleteSite,
-  DeleteVolunteer,
   GenerateReport,
+  RemoveMember,
+  RemoveSite,
+  RemoveVolunteer,
   SettingsActionTypes,
   UpdateRole,
   UpdateSite,
@@ -44,16 +45,105 @@ export class SettingsEffects {
     private siteService: SiteService,
   ) {}
 
+  @Effect({ dispatch: false })
+  createSite$: Observable<Action | Site> = this.actions.pipe(
+    ofType<CreateSite>(SettingsActionTypes.CreateSite),
+    map(action => action.payload.site),
+    switchMap((site: Site) => this.siteService.add(site).pipe(
+      tap(() => {
+        this.snackBarService.createSiteSuccess();
+      }),
+    )),
+  );
+
+  @Effect({ dispatch: false })
+  removeMember: Observable<Action> = this.actions.pipe(
+    ofType<RemoveMember>(SettingsActionTypes.RemoveMember),
+    map(action => action.payload.member),
+    switchMap(member => this.memberService.remove(member).pipe(
+      tap(() => {
+        this.snackBarService.removeMemberSuccess();
+      }),
+    )),
+  );
+
+  @Effect({ dispatch: false })
+  removeSite$: Observable<Action> = this.actions.pipe(
+    ofType<RemoveSite>(SettingsActionTypes.RemoveSite),
+    map(action => action.payload.site),
+    switchMap(site => this.siteService.remove(site).pipe(
+      tap(() => {
+        this.snackBarService.removeSiteSuccess();
+      }),
+    )),
+  );
+
   /**
    * Listen for the deleteVolunteer action then remove the volunteer in the payload.
    */
   @Effect({ dispatch: false })
-  deleteVolunteer$: Observable<Action> = this.actions.pipe(
-    ofType<DeleteVolunteer>(SettingsActionTypes.DeleteVolunteer),
+  removeVolunteer$: Observable<Action> = this.actions.pipe(
+    ofType<RemoveVolunteer>(SettingsActionTypes.RemoveVolunteer),
     map(action => action.payload.volunteer),
     switchMap(volunteer => this.volunteerService.remove(volunteer).pipe(
       tap(() => {
-        this.snackBarService.deleteVolunteerSuccess();
+        this.snackBarService.removeVolunteerSuccess();
+      }),
+    )),
+  );
+
+  /**
+   * Listen for the updateRole action, update a member's role,
+   * then display a success snack bar.
+   */
+  @Effect({ dispatch: false })
+  updateRole$: Observable<Action> = this.actions.pipe(
+    ofType<UpdateRole>(SettingsActionTypes.UpdateRole),
+    map(action => action.payload.member),
+    switchMap((member: Member) => this.memberService.update(member).pipe(
+      tap(() => {
+        this.snackBarService.updateUserSuccess();
+      }),
+    )),
+  );
+
+  @Effect({ dispatch: false })
+  updateSite$: Observable<Action> = this.actions.pipe(
+    ofType<UpdateSite>(SettingsActionTypes.UpdateSite),
+    map(action => action.payload.site),
+    switchMap(site => this.siteService.update(site).pipe(
+      tap(() => {
+        this.snackBarService.updateSiteSuccess();
+      }),
+    )),
+  );
+
+  /**
+   * Listens for SettingsActionTypes.SetTeam. Applies team changes against current team in
+   * session, then displays a success snack bar and dispatches SessionActions.SetTeam.
+   */
+  @Effect({ dispatch: false })
+  updateTeam$: Observable<Action> = this.actions.pipe(
+    ofType<UpdateTeam>(SettingsActionTypes.UpdateTeam),
+    map(action => action.payload.team),
+    withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
+    switchMap(([teamEdits, team]) => {
+      const editedTeam = { ...team, ...teamEdits };
+      return this.teamService.update(editedTeam).pipe(
+        tap(() => {
+          this.snackBarService.updateTeamSuccess();
+        }),
+      );
+    }),
+  );
+
+  @Effect({ dispatch: false })
+  updateVisit$: Observable<Action> = this.actions.pipe(
+    ofType<UpdateVisit>(SettingsActionTypes.UpdateVisit),
+    map(action => action.payload.visit),
+    switchMap(visit => this.visitService.update(visit).pipe(
+      tap(() => {
+        this.snackBarService.updateVisitSuccess();
       }),
     )),
   );
@@ -64,7 +154,7 @@ export class SettingsEffects {
    * @type {Observable<Visit[]>}
    */
   @Effect({ dispatch: false })
-  generateVisitHistoryReport$ = this.actions.pipe(
+  generateReport$ = this.actions.pipe(
     ofType<GenerateReport>(SettingsActionTypes.GenerateReport),
     map(action => action.payload),
     withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
@@ -88,83 +178,5 @@ export class SettingsEffects {
           );
         }),
       )),
-  );
-
-  /**
-   * Listens for SettingsActionTypes.SetTeam. Applies team changes against current team in
-   * session, then displays a success snack bar and dispatches SessionActions.SetTeam.
-   */
-  @Effect({ dispatch: false })
-  updateTeam$: Observable<Action> = this.actions.pipe(
-    ofType<UpdateTeam>(SettingsActionTypes.UpdateTeam),
-    map(action => action.payload.team),
-    withLatestFrom(this.store$.pipe(select(getSelectedTeam))),
-    switchMap(([teamEdits, team]) => {
-      const editedTeam = { ...team, ...teamEdits };
-      return this.teamService.update(editedTeam).pipe(
-        tap(() => {
-          this.snackBarService.updateTeamSuccess();
-        }),
-      );
-    }),
-  );
-
-  /**
-   * Listen for the updateRole action, update a member's role,
-   * then display a success snack bar.
-   */
-  @Effect({ dispatch: false })
-  updateRole$: Observable<Action> = this.actions.pipe(
-    ofType<UpdateRole>(SettingsActionTypes.UpdateRole),
-    map(action => action.payload.member),
-    switchMap((member: Member) => this.memberService.update(member).pipe(
-      tap(() => {
-        this.snackBarService.updateUserSuccess();
-      }),
-    )),
-  );
-
-  @Effect({ dispatch: false })
-  createSite$: Observable<Action | Site> = this.actions.pipe(
-    ofType<CreateSite>(SettingsActionTypes.CreateSite),
-    map(action => action.payload.site),
-    switchMap((site: Site) => this.siteService.add(site).pipe(
-      tap(() => {
-        this.snackBarService.createSiteSuccess();
-      }),
-    )),
-  );
-
-  @Effect({ dispatch: false })
-  deleteSite$: Observable<Action> = this.actions.pipe(
-    ofType<DeleteSite>(SettingsActionTypes.DeleteSite),
-    map(action => action.payload.site),
-    switchMap(site => this.siteService.remove(site).pipe(
-      tap(() => {
-        this.snackBarService.deleteSiteSuccess();
-      }),
-    )),
-  );
-
-  @Effect({ dispatch: false })
-  updateSite$: Observable<Action> = this.actions.pipe(
-    ofType<UpdateSite>(SettingsActionTypes.UpdateSite),
-    map(action => action.payload.site),
-    switchMap(site => this.siteService.update(site).pipe(
-      tap(() => {
-        this.snackBarService.updateSiteSuccess();
-      }),
-    )),
-  );
-
-  @Effect({ dispatch: false })
-  updateVisit$: Observable<Action> = this.actions.pipe(
-    ofType<UpdateVisit>(SettingsActionTypes.UpdateVisit),
-    map(action => action.payload.visit),
-    switchMap(visit => this.visitService.update(visit).pipe(
-      tap(() => {
-        this.snackBarService.updateVisitSuccess();
-      }),
-    )),
   );
 }

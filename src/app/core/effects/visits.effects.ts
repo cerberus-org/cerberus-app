@@ -17,13 +17,13 @@ export class VisitsEffects {
   @Effect()
   loadVisits$: Observable<Action> = this.actions.pipe(
     ofType<LoadVisits>(VisitsActionTypes.LoadVisits),
-    switchMap(() => this.visitService.getAllStateChanges()),
+    switchMap(() => this.visitService.getAllChanges()),
   );
 
   @Effect()
   loadVisitsForTeam$: Observable<Action> = this.actions.pipe(
     ofType<LoadVisitsForTeam>(VisitsActionTypes.LoadVisitsForTeam),
     map(action => action.payload.teamId),
-    switchMap(teamId => this.visitService.getStateChangesByKey('teamId', teamId)),
+    switchMap(teamId => this.visitService.getChangesByKey('teamId', teamId)),
   );
 }

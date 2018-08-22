@@ -1,17 +1,20 @@
-.container {
+.selected-team-toolbar {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   background-color: #f5f5f5;
   align-items: center;
-  height: 100%;
-}
-.container--header {
-  font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif;
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-.container--actions {
-  margin-left: 1rem;
-  margin-right: 1rem;
+  height: 64px;
+
+  .selected-team-toolbar__header {
+    font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .selected-team-toolbar__actions {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
 }

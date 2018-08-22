@@ -33,7 +33,7 @@ export class DataDisplayComponent implements OnInit {
       cell: (row: Visit) => formatDuration(row.startedAt, row.endedAt, row.timezone),
     },
   ];
-  loading = true;
+  loading: boolean = true;
 
   constructor() {}
 
@@ -53,6 +53,6 @@ export class DataDisplayComponent implements OnInit {
    * @returns {string}
    */
   getVisitRowColor(visit: Visit): string {
-    return !visit.endedAt ? '#ccff99' : '';
+    return !visit.endedAt ? 'rgba(204, 255, 103, 0.27)' : '';
   }
 }

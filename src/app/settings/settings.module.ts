@@ -6,14 +6,15 @@ import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from '../material';
 import { SharedModule } from '../shared/shared.module';
 import { ReportsFormComponent } from './components/reports-form/reports-form.component';
+import { SettingsToolbarComponent } from './components/settings-toolbar/settings-toolbar.component';
+import { EditMemberDialogComponent } from './containers/edit-member-dialog/edit-member-dialog.component';
 import { EditVisitDialogComponent } from './containers/edit-visit-dialog/edit-visit-dialog.component';
+import { MemberSettingsComponent } from './containers/member-settings/member-settings.component';
 import { ReportsComponent } from './containers/reports/reports.component';
-import { RolesComponent } from './containers/roles/roles.component';
 import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
 import { SiteDialogComponent } from './containers/site-dialog/site-dialog.component';
 import { SiteSettingsComponent } from './containers/site-settings/site-settings.component';
 import { TeamSettingsComponent } from './containers/team-settings/team-settings.component';
-import { UserSettingsComponent } from './containers/user-settings/user-settings.component';
 import { VisitSettingsComponent } from './containers/visit-settings/visit-settings.component';
 import { VolunteerSettingsComponent } from './containers/volunteer-settings/volunteer-settings.component';
 import { settingsEffects } from './effects';
@@ -33,17 +34,18 @@ import { SettingsRoutingModule } from './settings-routing.module';
     EffectsModule.forFeature(settingsEffects),
   ],
   declarations: [
-    SiteSettingsComponent,
-    TeamSettingsComponent,
-    RolesComponent,
+    EditMemberDialogComponent,
+    EditVisitDialogComponent,
+    MemberSettingsComponent,
     ReportsComponent,
     ReportsFormComponent,
     SettingsPageComponent,
-    UserSettingsComponent,
-    VolunteerSettingsComponent,
-    VisitSettingsComponent,
-    EditVisitDialogComponent,
     SiteDialogComponent,
+    SiteSettingsComponent,
+    TeamSettingsComponent,
+    VisitSettingsComponent,
+    VolunteerSettingsComponent,
+    SettingsToolbarComponent,
   ],
   exports: [
     SettingsPageComponent,
@@ -52,7 +54,9 @@ import { SettingsRoutingModule } from './settings-routing.module';
     CsvService,
   ],
   entryComponents: [
-    SiteDialogComponent, EditVisitDialogComponent,
+    EditMemberDialogComponent,
+    EditVisitDialogComponent,
+    SiteDialogComponent,
   ],
 })
 export class SettingsModule {}

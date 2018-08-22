@@ -2,7 +2,7 @@ import { UserInfo } from 'firebase';
 import { Observable, of } from 'rxjs';
 import { AuthService } from '../../app/auth/services/auth.service';
 import { Credentials } from '../../app/shared/models/credentials';
-import { createMockUserInfo } from '../objects/user.mock';
+import { createMockUserInfo } from '../objects/user-info.mock';
 
 const getUserInfoByCredentials = credentials =>
   createMockUserInfo().find(user => user.email === credentials.email);

@@ -1,17 +1,20 @@
-<h2>Login to view your teams.</h2>
-<div class="grid grid--center grid--row-gap">
-  <form class="input-container" autocomplete="off" nonvalidate [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <mat-form-field class="input-container__row">
-      <input matInput type="email" placeholder='email' formControlName='email'>
-    </mat-form-field>
-    <mat-form-field class="input-container__row">
-      <input matInput type="password" placeholder='password' formControlName='password'>
-    </mat-form-field>
-    <div class="grid grid--center">
-      <button mat-raised-button class="input-container__row" id="submit-btn" color="primary" [disabled]="loginForm.invalid">Submit</button>
-    </div>
-    <div class="grid grid--center">
-      <span class="forgot-pwd" (click)="onForgotPassword()">Forgot password?</span>
-    </div>
-  </form>
+<div>
+  <h2 class="login-header">Login to view your teams.</h2>
+  <div class="grid grid--center grid--row-gap">
+    <form class="form-container" autocomplete="off" nonvalidate [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <mat-form-field class="form-container__field">
+        <input matInput type="email" placeholder='email' formControlName='email'>
+      </mat-form-field>
+      <mat-form-field class="form-container__field">
+        <input matInput type="password" placeholder='password' formControlName='password'>
+      </mat-form-field>
+      <div class="grid grid--center">
+        <button mat-raised-button class="form-container" id="submit-btn" color="primary" [disabled]="loginForm.invalid">Submit</button>
+      </div>
+      <div class="grid grid--center">
+        <span class="forgot-pwd" (click)="onForgotPassword()">Forgot password?</span>
+      </div>
+    </form>
+  </div>
+
 </div>

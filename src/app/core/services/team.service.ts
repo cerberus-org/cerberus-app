@@ -1,23 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { upperAllFirst } from '../../shared/helpers';
 import { Team } from '../../shared/models';
 import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TeamService extends BaseService<Team> {
   collectionName = 'teams';
-
-  constructor(
-    protected db: AngularFirestore,
-    protected errorService: ErrorService,
-  ) {
-    super(db, errorService);
-  }
 
   /**
    * Handles capitalization logic for teams.
@@ -37,7 +28,7 @@ export class TeamService extends BaseService<Team> {
    * @param {Team} team - the team to capitalize properties for
    * @returns {Team} - a new team with capitalized properties
    */
-  mapObjectToDoc(team: Team): Team {
+  mapObjectToDocument(team: Team): Team {
     return this.capitalizeTeam(team);
   }
 
@@ -47,7 +38,7 @@ export class TeamService extends BaseService<Team> {
    * @param {Team} team - the team to capitalize properties for
    * @returns {Team} - a new team with capitalized properties
    */
-  mapDocToObject(team: Team): Team {
+  mapDocumentToObject(team: Team): Team {
     return this.capitalizeTeam(team);
   }
 }

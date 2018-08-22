@@ -1,75 +1,75 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/reducers';
 import { formatDate, formatDuration, formatTime } from '../../../shared/helpers';
 import { ColumnOptions, Site } from '../../../shared/models';
-import { VisitWithData } from '../../models/visit-with-data';
-import { selectVisitsWithData } from '../../selectors/visits.selectors';
+import { VisitTableRow } from '../../models/visit-table-row';
+import { getVisitTableRows } from '../../selectors/settings.selectors';
 import { EditVisitDialogComponent } from '../edit-visit-dialog/edit-visit-dialog.component';
 
 @Component({
-  selector: 'app-visits',
-  templateUrl: './visit-settings.component.html',
+  selector: 'app-visits-settings',
+  template: `
+    <div class="table-container">
+      <app-settings-toolbar title="Visits"></app-settings-toolbar>
+      <app-data-table
+        [data$]="visitTableRows$"
+        [columnOptions]="columnOptions"
+        [showEdit]="true"
+        (editRow)="onEditVisit($event)"
+      ></app-data-table>
+    </div>
+  `,
   styleUrls: ['./visit-settings.component.scss'],
 })
-export class VisitSettingsComponent implements OnInit {
-
-  state$: Observable<VisitWithData[]>;
-  columnOptions: ColumnOptions[];
+export class VisitSettingsComponent {
+  visitTableRows$: Observable<VisitTableRow[]>;
+  columnOptions: ColumnOptions[] = [
+    {
+      columnDef: 'name',
+      header: 'Name',
+      cell: (row: VisitTableRow) => row.volunteer ? row.volunteer.name : '--',
+    },
+    {
+      columnDef: 'site',
+      header: 'Site',
+      cell: (row: VisitTableRow) => row.site ? row.site.name : '--',
+    },
+    {
+      columnDef: 'date',
+      header: 'Date',
+      cell: (row: VisitTableRow) => formatDate(row.startedAt, row.timezone),
+    },
+    {
+      columnDef: 'startedAt',
+      header: 'Start',
+      cell: (row: VisitTableRow) => formatTime(row.startedAt, row.timezone),
+    },
+    {
+      columnDef: 'endedAt',
+      header: 'End',
+      cell: (row: VisitTableRow) => formatTime(row.endedAt, row.timezone),
+    },
+    {
+      columnDef: 'duration',
+      header: 'Duration',
+      cell: (row: VisitTableRow) => formatDuration(row.startedAt, row.endedAt, row.timezone),
+    },
+  ];
 
   constructor(public store$: Store<AppState>, public dialog: MatDialog) {
-  }
-
-  ngOnInit() {
-    this.columnOptions = [
-      {
-        columnDef: 'name',
-        header: 'Name',
-        cell: (row: VisitWithData) => row.volunteer ? row.volunteer.name : '--',
-      },
-      {
-        columnDef: 'site',
-        header: 'Site',
-        cell: (row: VisitWithData) => row.site ? row.site.name : '--',
-      },
-      {
-        columnDef: 'date',
-        header: 'Date',
-        cell: (row: VisitWithData) => formatDate(row.startedAt, row.timezone),
-      },
-      {
-        columnDef: 'startedAt',
-        header: 'Start',
-        cell: (row: VisitWithData) => formatTime(row.startedAt, row.timezone),
-      },
-      {
-        columnDef: 'endedAt',
-        header: 'End',
-        cell: (row: VisitWithData) => formatTime(row.endedAt, row.timezone),
-      },
-      {
-        columnDef: 'duration',
-        header: 'Duration',
-        cell: (row: VisitWithData) => formatDuration(row.startedAt, row.endedAt, row.timezone),
-      },
-    ];
-    this.state$ = this.store$.pipe(select(selectVisitsWithData));
-  }
-
-  get visitsWithVolunteers$() {
-    return this.state$.pipe(map(state => state));
+    this.visitTableRows$ = store$.pipe(select(getVisitTableRows));
   }
 
   /**
    * When the pencil is selected open a dialog with prepopulated data on visit.
    * Subscribe to dialog and get data on close.
    *
-   * @param {VisitWithData} visit
+   * @param {VisitTableRow} visit
    */
-  onEditVisit(visit: VisitWithData): void {
+  onEditVisit(visit: VisitTableRow): void {
     this.dialog.open(EditVisitDialogComponent, { data: visit });
   }
 }

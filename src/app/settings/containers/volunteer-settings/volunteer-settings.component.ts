@@ -4,11 +4,21 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { getVolunteersForSelectedTeam } from '../../../core/selectors/volunteers.selectors';
 import { ColumnOptions, Volunteer } from '../../../shared/models';
-import { DeleteVolunteer } from '../../actions/settings.actions';
+import { RemoveVolunteer } from '../../actions/settings.actions';
 
 @Component({
-  selector: 'app-volunteer-settings',
-  templateUrl: './volunteer-settings.component.html',
+  selector: 'app-volunteers-settings',
+  template: `
+    <div class="table-container">
+      <app-settings-toolbar title="Volunteers"></app-settings-toolbar>
+      <app-data-table
+        [data$]="volunteers$"
+        [columnOptions]="columnOptions"
+        [showRemove]="true"
+        (removeRow)="onDeleteVolunteer($event)"
+      ></app-data-table>
+    </div>
+  `,
   styleUrls: ['./volunteer-settings.component.scss'],
 })
 export class VolunteerSettingsComponent implements OnInit {
@@ -33,11 +43,11 @@ export class VolunteerSettingsComponent implements OnInit {
   }
 
   /**
-   * Handles deleteVolunteer events by dispatching DeleteVolunteer.
+   * Handles deleteVolunteer events by dispatching RemoveVolunteer.
    *
    * @param {Volunteer} volunteer
    */
   onDeleteVolunteer(volunteer: Volunteer) {
-    this.store$.dispatch(new DeleteVolunteer({ volunteer }));
+    this.store$.dispatch(new RemoveVolunteer({ volunteer }));
   }
 }

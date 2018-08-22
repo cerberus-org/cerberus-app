@@ -4,8 +4,8 @@ import { Action, select, Store } from '@ngrx/store';
 import { defer, Observable, of } from 'rxjs';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Go } from '../../core/actions/router.actions';
-import { MemberService } from '../../core/services/member.service';
 import { SnackBarService } from '../../core/services/snack-bar.service';
+import { UserService } from '../../core/services/user.service';
 import { Credentials } from '../../shared/models/credentials';
 import { AuthActionTypes, ResetPassword, SignIn, SignOut, SignUp, VerifyPassword } from '../actions/auth.actions';
 import { AuthReducerState } from '../reducers/auth.reducer';
@@ -15,20 +15,37 @@ import { AuthService } from '../services/auth.service';
 @Injectable()
 export class AuthEffects {
 
+  constructor(
+    private store$: Store<AuthReducerState>,
+    private actions: Actions,
+    private authService: AuthService,
+    private userService: UserService,
+    private snackBarService: SnackBarService,
+  ) {}
+
+  @Effect({ dispatch: false })
+  init$: Observable<any> = defer(() => of(null)).pipe(
+    tap(() => {
+      this.authService.observeStateChanges();
+    }),
+  );
+
   /**
-   * Listen for the SignIn action, log the afUser in, retrieve Member,
-   * display success snackbar and navigate to settings page on success.
+   * Listens for the SignUp action, creates the user in Firebase Authentication, uses the created user's UID to create
+   * a user, then displays a success snackbar and signs the user in.
    * @type {Observable<any>}
    */
   @Effect()
   signUp$: Observable<Action> = this.actions.pipe(
     ofType<SignUp>(AuthActionTypes.SignUp),
-    map(action => action.payload.credentials),
-    switchMap(credentials => this.authService.createUser(credentials).pipe(
-      map(() => {
-        this.snackBarService.createUserSuccess();
-        return new SignIn({ credentials });
-      }),
+    map(action => action.payload),
+    switchMap(({ credentials, user }) => this.authService.createUser(credentials).pipe(
+      switchMap(userInfo => this.userService.add(user, userInfo.uid).pipe(
+        map(() => {
+          this.snackBarService.createUserSuccess();
+          return new SignIn({ credentials });
+        }),
+      )),
     )),
   );
 
@@ -98,19 +115,4 @@ export class AuthEffects {
       }),
     )),
   );
-
-  @Effect({ dispatch: false })
-  init$: Observable<any> = defer(() => of(null)).pipe(
-    tap(() => {
-      this.authService.observeStateChanges();
-    }),
-  );
-
-  constructor(
-    private store$: Store<AuthReducerState>,
-    private actions: Actions,
-    private authService: AuthService,
-    private memberService: MemberService,
-    private snackBarService: SnackBarService,
-  ) {}
 }

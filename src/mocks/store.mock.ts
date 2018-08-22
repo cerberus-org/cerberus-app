@@ -6,7 +6,7 @@ import { initialLayoutReducerState } from '../app/core/reducers/layout.reducer';
 import { settingsReducers } from '../app/settings/reducers';
 import { createMockHeaderOptions } from './objects/header-options.mock';
 import { createMockSidenavOptions } from './objects/sidenav-options.mock';
-import { createMockUserInfo } from './objects/user.mock';
+import { createMockUserInfo } from './objects/user-info.mock';
 
 export const mockStoreModules = [
   StoreModule.forRoot(appReducers, {

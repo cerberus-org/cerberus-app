@@ -1,14 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { SiteDialogComponent } from './site-dialog.component';
 
@@ -25,18 +19,17 @@ describe('SiteDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ...mockStoreModules,
         FormsModule,
+        NoopAnimationsModule,
         MatDialogModule,
         MatFormFieldModule,
-        MatIconModule,
         MatInputModule,
-        NoopAnimationsModule,
+        ...mockStoreModules,
       ],
       declarations: [SiteDialogComponent],
       providers: [
         { provide: MatDialogRef, useClass: MatDialogRefMock },
-        { provide : MAT_DIALOG_DATA, useClass: MatDialogDataMock },
+        { provide: MAT_DIALOG_DATA, useClass: MatDialogDataMock },
       ],
     })
       .compileComponents();

@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { visitsAdapter, VisitsReducerState } from '../reducers/visits.reducer';
 import { getSelectedSiteId } from './sites.selectors';
-import { getSelectedTeamId, getTeamsReducerState } from './teams.selectors';
+import { getSelectedTeamId } from './teams.selectors';
 
 export const getVisitsReducerState = createFeatureSelector<VisitsReducerState>('visits');
 

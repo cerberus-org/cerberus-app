@@ -9,18 +9,18 @@ import { CreateTeam } from '../../actions/teams-page.actions';
 @Component({
   selector: 'app-create-team-dialog',
   template: `
-    <div class="dialog">
+    <mat-dialog-content>
       <div class="grid grid--center">
         <i class="material-icons icon-image">group_work</i>
         <h1 *ngIf="title">{{title}}</h1>
         <p *ngIf="subtitle" class="subtitle">{{subtitle}}</p>
         <app-team-form (validTeam)="onValidTeam($event)"></app-team-form>
-        <div class="actions-container">
-          <button mat-button color="primary" (click)="close()">Cancel</button>
-          <button mat-button color="primary" (click)="submit()" [disabled]="!validTeam">Confirm</button>
-        </div>
       </div>
-    </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close color="primary" [disabled]="!validTeam" (click)="submit()">Confirm</button>
+      <button mat-button mat-dialog-close color="primary">Cancel</button>
+    </mat-dialog-actions>
   `,
   styleUrls: ['./create-team-dialog.component.scss'],
 })
@@ -40,10 +40,5 @@ export class CreateTeamDialogComponent {
 
   submit() {
     this.store$.dispatch(new CreateTeam({ team: this.validTeam }));
-    this.close();
-  }
-
-  close() {
-    this.dialogRef.close();
   }
 }

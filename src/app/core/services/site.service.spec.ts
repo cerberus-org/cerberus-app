@@ -31,12 +31,12 @@ describe('SiteService', () => {
   }));
 
   it('should convert coming from the database', () => {
-    const converted = service.mapDocToObject(site);
+    const converted = service.mapDocumentToObject(site);
     expect(converted).toEqual(mockSites[0]);
   });
 
   it('should convert data going to the database', () => {
-    const converted = service.mapObjectToDoc(site);
+    const converted = service.mapObjectToDocument(site);
     expect(converted).toEqual(mockSites[0]);
   });
 });

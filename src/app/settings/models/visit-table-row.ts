@@ -1,6 +1,6 @@
 import { Site, Visit, Volunteer } from '../../shared/models';
 
-export interface VisitWithData extends Visit {
+export interface VisitTableRow extends Visit {
   volunteer: Volunteer;
   site: Site;
 }

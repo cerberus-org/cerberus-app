@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { titleCase } from '../../shared/helpers';
 import { Volunteer } from '../../shared/models';
 import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,17 +9,13 @@ import { ErrorService } from './error.service';
 export class VolunteerService extends BaseService<Volunteer> {
   collectionName = 'volunteers';
 
-  constructor(protected db: AngularFirestore, protected errorService: ErrorService) {
-    super(db, errorService);
-  }
-
   /**
    * Capitalize the firstName, lastName, and petName of the newVolunteer going to the database.
    *
    * @param {Volunteer} volunteer - the volunteer to be sent
    * @returns {Volunteer} - the volunteer with capitalized properties
    */
-  mapObjectToDoc(volunteer: Volunteer): Volunteer {
+  mapObjectToDocument(volunteer: Volunteer): Volunteer {
     return this.capitalizeVolunteer(volunteer);
   }
 
@@ -31,7 +25,7 @@ export class VolunteerService extends BaseService<Volunteer> {
    * @param {Volunteer} volunteer - the volunteer received
    * @returns {Volunteer} - the volunteer with capitalized properties
    */
-  mapDocToObject(volunteer: Volunteer): Volunteer {
+  mapDocumentToObject(volunteer: Volunteer): Volunteer {
     return this.capitalizeVolunteer(volunteer);
   }
 

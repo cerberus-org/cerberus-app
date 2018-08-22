@@ -1,10 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatToolbarModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
+
 import { createMockSites } from '../../../../mocks/objects/site.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
 import { Site } from '../../../shared/models';
-import { DeleteSite } from '../../actions/settings.actions';
+import { RemoveSite } from '../../actions/settings.actions';
 import { SiteSettingsComponent } from './site-settings.component';
 
 describe('SiteSettingsComponent', () => {
@@ -14,14 +16,18 @@ describe('SiteSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        NoopAnimationsModule,
+        MatDialogModule,
+        ...mockStoreModules,
+      ],
       declarations: [
         SiteSettingsComponent,
-        MockComponent({ selector: 'app-data-table', inputs: ['data$', 'columnOptions', 'showDelete', 'showEdit', 'deleteItem', 'updateItem'] }),
-      ],
-      imports: [
-        ...mockStoreModules,
-        MatDialogModule,
-        MatToolbarModule,
+        MockComponent({
+          selector: 'app-data-table',
+          inputs: ['data$', 'columnOptions', 'showRemove', 'showEdit', 'deleteRow', 'updateRow'],
+        }),
+        MockComponent({ selector: 'app-settings-toolbar', inputs: ['title', 'showAdd'] }),
       ],
     })
       .compileComponents();
@@ -39,13 +45,13 @@ describe('SiteSettingsComponent', () => {
   });
 
   it(
-    'should handle onDeleteSite events by dispatching DeleteSite',
+    'should handle onRemoveRow events by dispatching RemoveSite',
     () => {
       const site = sites[0];
       spyOn(component.store$, 'dispatch');
-      component.onDeleteSite(site);
+      component.onRemoveRow(site);
       expect(component.store$.dispatch).toHaveBeenCalledWith(
-        new DeleteSite({ site }),
+        new RemoveSite({ site }),
       );
     },
   );

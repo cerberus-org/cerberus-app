@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { User, UserInfo } from 'firebase';
+import { UserInfo } from 'firebase';
 import { from, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AppState } from '../../core/reducers';
@@ -9,7 +9,7 @@ import { ErrorService } from '../../core/services/error.service';
 import { MemberService } from '../../core/services/member.service';
 import { Member } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
-import { SetUserInfo } from '../actions/auth.actions';
+import { ClearUserInfo, SetUserInfo } from '../actions/auth.actions';
 
 @Injectable()
 export class AuthService {
@@ -54,7 +54,7 @@ export class AuthService {
    * @returns {Observable<Member>}
    */
   updateUser(credentials: Credentials): Observable<UserInfo> {
-    const currentUser: User = this.afAuth.auth.currentUser;
+    const currentUser = this.afAuth.auth.currentUser;
     const { password, email } = credentials;
     const updates = [];
     if (password) {
@@ -103,8 +103,8 @@ export class AuthService {
    * If the page is reloaded or the state of the user changes, dispatch SetUserInfo.
    */
   observeStateChanges(): void {
-    this.afAuth.auth.onAuthStateChanged((user: User) => {
-      this.store$.dispatch(new SetUserInfo({ userInfo: user ? user as UserInfo : undefined }));
+    this.afAuth.auth.onAuthStateChanged((userInfo) => {
+      this.store$.dispatch(userInfo ? new SetUserInfo({ userInfo }) : new ClearUserInfo());
     });
   }
 }

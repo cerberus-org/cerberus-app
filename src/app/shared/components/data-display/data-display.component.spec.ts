@@ -20,7 +20,7 @@ describe('DataDisplayComponent', () => {
         MockComponent({ selector: 'app-daily-hours-chart', inputs: ['visits', 'sites'] }),
         MockComponent({
           selector: 'app-data-table',
-          inputs: ['columnOptions', 'data$', 'showDelete', 'getRowColor'],
+          inputs: ['columnOptions', 'data$', 'showRemove', 'rowColor'],
         }),
         MockComponent({ selector: 'app-loader' }),
       ],
@@ -84,7 +84,7 @@ describe('DataDisplayComponent', () => {
   });
 
   it('should highlight active visits with the correct color', () => {
-    expect(component.getVisitRowColor(visits[3])).toEqual('#ccff99');
+    expect(component.getVisitRowColor(visits[3])).toEqual('rgba(204, 255, 103, 0.27)');
   });
 
   it('should not highlight completed visits', () => {

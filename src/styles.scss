@@ -38,9 +38,15 @@ input.capitalize {
 }
 
 .icon-image {
-  font-size: 10rem;
+  font-size: 8rem;
   text-align: center;
   color: mediumaquamarine;
+}
+
+.wrapper {
+  max-width: 720px;
+  padding: 0 20px;
+  margin: 0 auto 40px;
 }
 
 .header-spacing {
@@ -61,12 +67,6 @@ input.capitalize {
   &.button--margin {
     margin: 1rem;
   }
-}
-
-.wrapper {
-  max-width: 940px;
-  padding: 0 20px;
-  margin: 0 auto 40px;
 }
 
 .grid {
@@ -114,32 +114,41 @@ input.capitalize {
   flex: 1 1 auto;
 }
 
-
 .actions-container {
   display: grid;
   grid-auto-flow: column;
   justify-content: end;
   grid-column-gap: 0.5rem;
-  margin-top: 1rem;
+  align-items: center;
 }
 
-.input-container {
+.form-container {
   display: grid;
   max-width: 300px;
   margin: auto;
 
-  .input-container__row {
+  .form-container__field {
     justify-self: stretch;
   }
 }
 
-.dialog {
-  max-width: 490px;
+/*
+ * Used for pages with a 64px height header, 1px height divider, and table, e.g., settings pages.
+ */
+.table-container {
+  display: grid;
+  grid-template-rows: 65px auto;
+  height: 100%;
 }
 
 .subtitle {
   margin-top: -4px;
   margin-bottom: 16px;
+  font-size: 14px;
+  color: rgba(0,0,0,.54)
+}
+
+.gray-text {
   font-size: 14px;
   color: rgba(0,0,0,.54)
 }
@@ -194,6 +203,15 @@ input.capitalize {
 }
 
 /deep/ {
+  mat-dialog-content.mat-dialog-content {
+    max-height: 80vh;
+    min-width: 300px;
+    max-width: 400px;
+  }
+
+  mat-dialog-actions.mat-dialog-actions {
+    flex-direction: row-reverse;
+  }
 
   .mat-tab-group {
     height: 100%;
@@ -212,9 +230,7 @@ input.capitalize {
 .data-table-header {
   display: flex;
   background-color: whitesmoke;
-  border-bottom-style: solid;
-  border-bottom-width: .5px;
-  border-bottom-color: rgba(0,0,0,.12);
+  border-bottom: .5px solid rgba(0, 0, 0, .12);
 }
 
 .data-table-header__button {

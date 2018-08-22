@@ -1,27 +1,27 @@
-import { EMPTY, Observable, of } from 'rxjs';
-import { MemberService } from '../../app/core/services/member.service';
-import { Member } from '../../app/shared/models';
-import { createMockMembers } from '../objects/member.mock';
+import { EMPTY, Observable, of } from 'rxjs/index';
+import { UserService } from '../../app/core/services/user.service';
+import { User } from '../../app/shared/models';
+import { createMockUsers } from '../objects/user.mock';
 
-export class MockUserService extends MemberService {
+export class MockUserService extends UserService {
 
   constructor() {
     super(null, null);
   }
 
-  getAll(): Observable<Member[]> {
-    return of(createMockMembers());
+  getAll(): Observable<User[]> {
+    return of(createMockUsers());
   }
 
-  getByKey(key: string, value: string): Observable<Member[]> {
-    return of(createMockMembers().filter(user => user[key] === value));
+  getByKey(key: string, value: string): Observable<User[]> {
+    return of(createMockUsers().filter(user => user[key] === value));
   }
 
-  getById(id: string): Observable<Member> {
-    return of(createMockMembers().find(user => user.id === id));
+  getById(id: string): Observable<User> {
+    return of(createMockUsers().find(user => user.id === id));
   }
 
-  add(user: Member): Observable<Member> {
+  add(user: User): Observable<User> {
     return of(user);
   }
 

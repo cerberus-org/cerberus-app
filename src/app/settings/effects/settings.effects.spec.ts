@@ -50,7 +50,7 @@ xdescribe('SettingsEffects', () => {
     }));
   });
 
-  describe('generateVisitHistoryReport$', () => {
+  describe('generateReport$', () => {
     beforeEach(async(() => {
       actions = hot('a', {
         a: new GenerateReport({
@@ -62,7 +62,7 @@ xdescribe('SettingsEffects', () => {
 
     it('should emit download csv, on success', async(() => {
       const downloadCsvSpy = spyOn(TestBed.get(CsvService), 'downloadAsCsv');
-      effects.generateVisitHistoryReport$.subscribe(() => {
+      effects.generateReport$.subscribe(() => {
         expect(downloadCsvSpy).toHaveBeenCalled();
       });
     }));

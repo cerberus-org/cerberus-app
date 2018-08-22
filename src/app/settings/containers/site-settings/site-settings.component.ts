@@ -5,12 +5,24 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../../core/reducers';
 import { getSitesForSelectedTeam } from '../../../core/selectors/sites.selectors';
 import { ColumnOptions, Site } from '../../../shared/models';
-import { CreateSite, DeleteSite, UpdateSite } from '../../actions/settings.actions';
+import { CreateSite, RemoveSite, UpdateSite } from '../../actions/settings.actions';
 import { SiteDialogComponent } from '../site-dialog/site-dialog.component';
 
 @Component({
   selector: 'app-site-settings',
-  templateUrl: './site-settings.component.html',
+  template: `
+    <div class="table-container">
+      <app-settings-toolbar title="Sites" [showAdd]="true" (clickAdd)="onClickAdd()"></app-settings-toolbar>
+      <app-data-table
+        [data$]="sites$"
+        [columnOptions]="columnOptions"
+        [showRemove]="true"
+        [showEdit]="true"
+        (editRow)="onEditRow($event)"
+        (removeRow)="onRemoveRow($event)"
+      ></app-data-table>
+    </div>
+  `,
   styleUrls: ['./site-settings.component.scss'],
 })
 export class SiteSettingsComponent {
@@ -37,11 +49,11 @@ export class SiteSettingsComponent {
     this.sites$ = store$.pipe(select(getSitesForSelectedTeam));
   }
 
-  onDeleteSite(site: Site): void {
-    this.store$.dispatch(new DeleteSite({ site }));
+  onRemoveRow(site: Site): void {
+    this.store$.dispatch(new RemoveSite({ site }));
   }
 
-  onEditSite(site: Site): void {
+  onEditRow(site: Site): void {
     this.openEditSiteDialog(site);
   }
 
@@ -56,7 +68,7 @@ export class SiteSettingsComponent {
     const dialog = this.dialog.open(SiteDialogComponent, dialogConfig);
     dialog.afterClosed().subscribe((site: Site) => {
       if (site) {
-        this.store$.dispatch(Object.assign({}, new UpdateSite({ site })));
+        this.store$.dispatch(new UpdateSite({ site }));
       }
     });
   }
@@ -66,11 +78,11 @@ export class SiteSettingsComponent {
    *
    * @param {Site} site
    */
-  openCreateSiteDialog(site?: Site) {
+  onClickAdd(site?: Site) {
     const dialog = this.dialog.open(SiteDialogComponent);
     dialog.afterClosed().subscribe((site: Site) => {
       if (site && site.name) {
-        this.store$.dispatch(Object.assign({}, new CreateSite({ site })));
+        this.store$.dispatch(new CreateSite({ site }));
       }
     });
   }

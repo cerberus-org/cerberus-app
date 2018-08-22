@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { UserInfo } from 'firebase';
+import { User } from '../../shared/models';
 import { Credentials } from '../../shared/models/credentials';
 
 export enum AuthActionTypes {
@@ -9,12 +10,13 @@ export enum AuthActionTypes {
   VerifyPassword = '[auth] verify password',
   ResetPassword = '[auth] reset password',
   SetUserInfo = '[auth] set user info',
+  ClearUserInfo = '[auth] clear user info',
 }
 
 export class SignUp implements Action {
   readonly type = AuthActionTypes.SignUp;
 
-  constructor(public payload: { credentials: Credentials }) {}
+  constructor(public payload: { credentials: Credentials, user: User }) {}
 }
 
 export class SignIn implements Action {
@@ -45,10 +47,17 @@ export class SetUserInfo implements Action {
   constructor(public payload: { userInfo: UserInfo }) {}
 }
 
+export class ClearUserInfo implements Action {
+  readonly type = AuthActionTypes.ClearUserInfo;
+
+  constructor() {}
+}
+
 export type AuthActionsUnion
   = SignUp
   | SignIn
   | SignOut
   | VerifyPassword
   | ResetPassword
-  | SetUserInfo;
+  | SetUserInfo
+  | ClearUserInfo;

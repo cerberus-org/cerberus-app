@@ -1,23 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
 import { Visit } from '../../shared/models';
 import { BaseService } from './base.service';
-import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VisitService extends BaseService<Visit> {
   protected collectionName = 'visits';
-
-  constructor(
-    protected db: AngularFirestore,
-    protected errorService: ErrorService,
-  ) {
-    super(db, errorService);
-  }
 
   getByTeamIdAndDateRange(
     teamId: string,
@@ -37,7 +28,7 @@ export class VisitService extends BaseService<Visit> {
    * @param visit
    * @returns {any}
    */
-  mapObjectToDoc(visit: Visit): Visit {
+  mapObjectToDocument(visit: Visit): Visit {
     return {
       ...visit,
       startedAt: new Date(visit.startedAt),
@@ -50,7 +41,7 @@ export class VisitService extends BaseService<Visit> {
    * Override to convert startedAt and endedAt (asserts types as Timestamp) into Dates and to destringify signature.
    * @param visit
    */
-  mapDocToObject(visit: Visit): Visit {
+  mapDocumentToObject(visit: Visit): Visit {
     return {
       ...visit,
       // Double assertion to treat as Timestamp, since Firebase no longer returns a string

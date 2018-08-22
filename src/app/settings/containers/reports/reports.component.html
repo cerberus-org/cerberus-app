@@ -1,7 +1,14 @@
-<app-reports-form
-  (validReport)="onValidReport($event)">
-</app-reports-form>
-<div class="container-submit">
-  <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onSubmitReport()">Export Report
-  </button>
+<app-settings-toolbar title="Reports"></app-settings-toolbar>
+<div class="wrapper">
+  <div>
+    <p>Generate a report.</p>
+    <mat-divider></mat-divider>
+  </div>
+  <app-reports-form
+    (validReport)="onValidReport($event)">
+  </app-reports-form>
+  <div class="container-submit">
+    <button mat-raised-button color="primary" [disabled]="!validReport" (click)="onSubmitReport()">Export Report
+    </button>
+  </div>
 </div>

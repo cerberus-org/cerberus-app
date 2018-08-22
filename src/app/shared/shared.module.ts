@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { MaterialModule } from '../material';
+import { CredentialsFormComponent } from './components/credentials-form/credentials-form.component';
 import { DailyHoursChartComponent } from './components/daily-hours-chart/daily-hours-chart.component';
 import { DataCellComponent } from './components/data-cell/data-cell.component';
 import { DataDisplayComponent } from './components/data-display/data-display.component';
@@ -17,6 +18,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { TeamSearchComponent } from './containers/team-search/team-search.component';
 
 export const COMPONENTS = [
+  CredentialsFormComponent,
   DailyHoursChartComponent,
   DataCellComponent,
   DataDisplayComponent,

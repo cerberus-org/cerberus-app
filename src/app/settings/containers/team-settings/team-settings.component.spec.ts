@@ -1,8 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDividerModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
+
 import { createMockTeams } from '../../../../mocks/objects/team.mock';
 import { mockStoreModules } from '../../../../mocks/store.mock';
-import { MaterialModule } from '../../../material';
 import { UpdateTeam } from '../../actions/settings.actions';
 import { TeamSettingsComponent } from './team-settings.component';
 
@@ -13,11 +15,13 @@ describe('TeamSettingsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule,
+        NoopAnimationsModule,
+        MatDividerModule,
         ...mockStoreModules,
       ],
       declarations: [
         TeamSettingsComponent,
+        MockComponent({ selector: 'app-settings-toolbar', inputs: ['title'] }),
         MockComponent({ selector: 'app-team-form', inputs: ['initialTeam'] }),
       ],
     })
