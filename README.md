@@ -2,6 +2,8 @@
 [![codecov](https://codecov.io/gh/cerberus-org/cerberus-app/branch/master/graph/badge.svg)](https://codecov.io/gh/cerberus-org/cerberus-app)
 ![Dependencies](https://david-dm.org/cerberus-org/cerberus-app.svg)
 
+https://cerberus-develop.firebaseapp.com/
+
 # Cerberus
 
 Cerberus is a walk-up-and-use system for volunteers. Visit times are tracked without requiring account creation; name and signature only. Features include a signature pad, charts, volunteer directory, CSV generation, and user system for administrators.
